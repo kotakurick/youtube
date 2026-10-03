@@ -38,6 +38,7 @@ research/    分析結果のメモ（集計Markdownなど、小さいものだ�
 episodes/    1回＝1フォルダ（_template をコピーして使う）
 assets/      自作の使い回し素材（棒人間SVG、背景、アイコン）
 render/      描画・合成のコード（ツール決定後に構築）
+tts/         音声合成（engines.json で声を切り替え、yomi.tsv で読み間違いを直す）
 scripts/     共通スクリプト（paths.sh、new_episode.sh）
 .claude/agents/  サブエージェント（bench-analyst：ベンチマーク動画1本の分析）
 ```

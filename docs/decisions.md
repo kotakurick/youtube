@@ -19,7 +19,7 @@
 
 - [ ] チャンネル名、キャラクター、絵柄、配色
 - [ ] 描画ツール（Remotion / Manim / D3 など）
-- [ ] 音声（VOICEVOX / ElevenLabs / 人の声の外注）と声のキャラクター
+- [ ] 音声と声のキャラクター。2026-10-04：課金する前提で、質と料金のバランスで決める。候補は Fish Audio、ElevenLabs、Google Chirp 3: HD、AivisSpeech、VOICEVOX。同じ原稿で作り、競合の声と並べて名前を伏せて聞き比べる（`tts/README.md`）。キャラ系より、落ち着いたナレーター調が第一候補
 - [ ] 最初に作るテーマ（恋愛・結婚、お金・格差から選ぶことだけ決定）
 - [ ] 大きいファイルの保存先フォルダ（`YT_DATA_DIR`）
 - [ ] YouTube Data API のキーを発行するか

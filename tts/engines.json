@@ -1,0 +1,37 @@
+{
+  "_説明": "音声合成の候補と料金。voice が空の候補は飛ばす。料金は checked の日付時点の第三者まとめ・公式の数字。使う前に公式ページで確認する。",
+  "jpy_per_usd": 150,
+  "chars_per_video": 7000,
+  "videos_per_month": 10,
+  "pricing": {
+    "fish": {
+      "unit": "usd_per_million_bytes", "price": 15, "monthly_usd": 11, "free_chars_per_month": 0,
+      "checked": "2026-10-04",
+      "note": "API は UTF-8 のバイト数で課金（日本語は1文字約3バイト）。収益化する動画での利用は有料プラン（Plus 月11ドル）以上"
+    },
+    "elevenlabs": {
+      "unit": "usd_per_1k_chars", "price": 0.08, "monthly_usd": 0, "free_chars_per_month": 0,
+      "checked": "2026-10-04",
+      "note": "eleven_v3 の API 料金。プランのクレジット（Creator 月22ドル・121,000クレジット、v3 は1文字1クレジット）で払う形もある"
+    },
+    "google": {
+      "unit": "usd_per_million_chars", "price": 30, "monthly_usd": 0, "free_chars_per_month": 1000000,
+      "checked": "2026-10-04",
+      "note": "Chirp 3: HD。毎月100万文字まで無料"
+    },
+    "aivis": {"unit": "free", "price": 0, "monthly_usd": 0, "free_chars_per_month": 0, "checked": "2026-10-04",
+              "note": "パソコン内で動く。声のモデルごとにライセンスが違うので、使うモデルの利用条件を確認する"},
+    "voicevox": {"unit": "free", "price": 0, "monthly_usd": 0, "free_chars_per_month": 0, "checked": "2026-10-04",
+                 "note": "パソコン内で動く。動画にクレジット表記（VOICEVOX:キャラ名）が必要"}
+  },
+  "voices": [
+    {"name": "fish-1", "engine": "fish", "model": "s2.1-pro", "voice": "", "memo": "fish.audio の licensed から選んだ声の ID（reference_id）"},
+    {"name": "fish-2", "engine": "fish", "model": "s2.1-pro", "voice": "", "memo": "別の声（男女で1つずつ）"},
+    {"name": "eleven-1", "engine": "elevenlabs", "model": "eleven_v3", "voice": "", "memo": "Voice Library の日本語の声の voice_id"},
+    {"name": "eleven-2", "engine": "elevenlabs", "model": "eleven_v3", "voice": "", "memo": "別の声"},
+    {"name": "google-1", "engine": "google", "voice": "ja-JP-Chirp3-HD-Aoede", "memo": "女性。名前は voices 一覧で確認"},
+    {"name": "google-2", "engine": "google", "voice": "ja-JP-Chirp3-HD-Charon", "memo": "男性。名前は voices 一覧で確認"},
+    {"name": "aivis-1", "engine": "aivis", "voice": "", "memo": "AivisSpeech の話者 ID（http://127.0.0.1:10101/speakers で確認）"},
+    {"name": "voicevox-1", "engine": "voicevox", "voice": "", "memo": "VOICEVOX の話者 ID（http://127.0.0.1:50021/speakers で確認）"}
+  ]
+}

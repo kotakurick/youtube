@@ -13,6 +13,9 @@
     pitch_range_st  声の高さの幅（半音。10〜90%の幅）。小さいほど抑揚がない。numpy があるときだけ測る
     voice_credit    概要欄のクレジット（VOICEVOX:ずんだもん など）から分かる音声の種類
 
+自分たちの声の候補（tts/tts.py trial の出力、$YT_DATA_DIR/bench/_tts/）も、競合と同じ扱いで measure・listen に入る。
+チャンネル名は「候補-<名前>」になる。
+
 聞き比べ:
     $YT_DATA_DIR/bench/listening/clips/ にランダムな番号のクリップを作り、
     research/benchmark/compare/listening.csv に採点欄を作る。番号とチャンネルの対応（答え）は
@@ -69,7 +72,7 @@ def fetch(channel: str, max_n: int) -> None:
             print(f"  失敗: {d.name}", file=sys.stderr)
             continue
         run(["ffmpeg", "-nostdin", "-loglevel", "error", "-y", "-i", str(src),
-             "-ac", "1", "-ar", "16000", str(wav)])
+             "-ac", "1", "-ar", "44100", str(wav)])   # 候補の声と同じ音質で比べる
         src.unlink()
         print(f"  済: {d.name}")
 
@@ -137,8 +140,22 @@ def chars_in_window(d: Path) -> int | None:
     return total
 
 
+def all_voices() -> list[tuple[str, str, Path]]:
+    """(チャンネル名, 動画ID, voice.wav) の一覧。競合の動画と、自分たちの声の候補。"""
+    out = [(w.parent.parent.name, w.parent.name, w) for w in sorted(BENCH.glob("*/*/voice.wav"))
+           if not w.parent.parent.name.startswith("_")]
+    out += [(f"候補-{w.parent.parent.name}", w.parent.name, w) for w in sorted(BENCH.glob("_tts/*/*/voice.wav"))]
+    return out
+
+
 def voice_credit(d: Path) -> str:
-    info = json.loads((d / f"{d.name}.info.json").read_text(encoding="utf-8"))
+    meta = d / "meta.json"
+    if meta.exists():
+        return json.loads(meta.read_text(encoding="utf-8")).get("voice_credit", "")
+    info_path = d / f"{d.name}.info.json"
+    if not info_path.exists():
+        return ""
+    info = json.loads(info_path.read_text(encoding="utf-8"))
     text = info.get("description") or ""
     found = []
     for pat in VOICE_PATTERNS:
@@ -150,7 +167,7 @@ def voice_credit(d: Path) -> str:
 
 def measure() -> None:
     rows = []
-    for wav in sorted(BENCH.glob("*/*/voice.wav")):
+    for channel, vid, wav in all_voices():
         d = wav.parent
         with wave.open(str(wav)) as w:
             dur = w.getnframes() / w.getframerate()
@@ -160,13 +177,13 @@ def measure() -> None:
         ppm, pmean = pauses(wav, dur)
         chars = chars_in_window(d)
         rows.append({
-            "channel": d.parent.name, "id": d.name,
+            "channel": channel, "id": vid,
             "chars_per_min": round(chars / ((CLIP_END - CLIP_START) / 60)) if chars else None,
             "pauses_per_min": ppm, "pause_mean_sec": pmean,
             "lufs": lufs, "lra": lra, "pitch_range_st": pitch_range(wav),
             "voice_credit": voice_credit(d),
         })
-        print(f"  {d.parent.name}/{d.name}", file=sys.stderr)
+        print(f"  {channel}/{vid}", file=sys.stderr)
     if not rows:
         sys.exit("voice.wav がありません。先に fetch を実行してください。")
     out = DIR / "voice.tsv"
@@ -181,23 +198,27 @@ def listen(per_channel: int) -> None:
     root = BENCH / "listening"
     clips = root / "clips"
     clips.mkdir(parents=True, exist_ok=True)
+    def long_enough(wav: Path) -> bool:
+        with wave.open(str(wav)) as w:
+            return w.getnframes() / w.getframerate() >= LISTEN_FROM + LISTEN_SEC
+    voices = [v for v in all_voices() if long_enough(v[2])]
     picked = []
-    for ch in sorted({w.parent.parent.name for w in BENCH.glob("*/*/voice.wav")}):
-        picked += sorted(BENCH.glob(f"{ch}/*/voice.wav"))[:per_channel]
+    for ch in sorted({c for c, _, _ in voices}):
+        picked += [v for v in voices if v[0] == ch][:per_channel]
     random.shuffle(picked)
     key = []
-    for i, wav in enumerate(picked, 1):
+    for i, (channel, vid, wav) in enumerate(picked, 1):
         code = f"{i:03d}"
         run(["ffmpeg", "-nostdin", "-loglevel", "error", "-y", "-ss", str(LISTEN_FROM), "-t", str(LISTEN_SEC),
              "-i", str(wav), "-b:a", "96k", str(clips / f"{code}.mp3")])
-        key.append((code, wav.parent.parent.name, wav.parent.name))
+        key.append((code, channel, vid))
     with (root / "key.tsv").open("w", encoding="utf-8", newline="") as f:
         csv.writer(f, delimiter="\t").writerows([("code", "channel", "id"), *key])
     sheet = DIR / "listening.csv"
     with sheet.open("w", encoding="utf-8-sig", newline="") as f:
         w = csv.writer(f)
-        w.writerow(["code", "自然さ(1-5)", "聞き続けたいか(1-5)", "声の種類の推測", "メモ"])
-        w.writerows([(code, "", "", "", "") for code, _, _ in key])
+        w.writerow(["code", "自然さ(1-5)", "聞き続けたいか(1-5)", "不気味さ(1-5、5が不気味)", "読み間違い・不自然な箇所", "メモ"])
+        w.writerows([(code, "", "", "", "", "") for code, _, _ in key])
     print(f"クリップ {len(key)} 本: {clips}\n採点表: {sheet}")
 
 
