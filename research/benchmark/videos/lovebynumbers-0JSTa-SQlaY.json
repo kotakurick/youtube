@@ -1,0 +1,26 @@
+{
+  "id": "0JSTa-SQlaY",
+  "channel": "lovebynumbers",
+  "question": "ヤンキーがいつの時代もモテるのはなぜか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "セコイアと山火事の逆説を語る自然科学の寓話から始める",
+  "first_chart_sec": null,
+  "n_sources": 2,
+  "source_kinds": ["論文"],
+  "chart_types": ["図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "序章：セコイアと山火事"},
+    {"start_sec": 262, "label": "第1章：チープシグナル"},
+    {"start_sec": 535, "label": "第2章：境界の破壊と投資"},
+    {"start_sec": 754, "label": "第3章：社会の窒息"},
+    {"start_sec": 970, "label": "終章：傷つく覚悟"}
+  ],
+  "surprise_sec": 600,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 45, "chart": 15, "text_only": 10, "ai_or_photo": 0, "other": 30},
+  "policy_flags": ["断定しすぎ"],
+  "why": "挑発的な問いと寓話・比喩で引き込むが統計的根拠はなく理論の語りのみで説得力は中程度に留まる"
+}
