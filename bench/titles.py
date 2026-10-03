@@ -14,6 +14,7 @@ import argparse
 import csv
 import re
 import statistics
+import unicodedata
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
@@ -43,6 +44,7 @@ def load() -> dict[str, list[dict]]:
             r["v"] = float(r["views"])
         except ValueError:
             continue
+        r["title"] = unicodedata.normalize("NFKC", r["title"])  # 「せ」＋濁点のように分かれた文字をそろえる
         by.setdefault(r["channel"], []).append(r)
     return by
 

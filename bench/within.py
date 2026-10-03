@@ -14,6 +14,7 @@ import argparse
 import json
 import re
 import statistics
+import unicodedata
 from collections import Counter
 from datetime import date
 from pathlib import Path
@@ -48,6 +49,7 @@ def load(ch: str) -> list[dict]:
 
 
 def title_features(t: str) -> dict:
+    t = unicodedata.normalize("NFKC", t)  # 「せ」＋濁点のように分かれた文字をそろえる
     return {
         "タイトルの文字数": len(t),
         "数字がある": bool(re.search(r"[0-9０-９]", t)),
