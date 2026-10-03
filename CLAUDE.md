@@ -1,0 +1,50 @@
+# CLAUDE.md
+
+AIで制作する日本向けYouTubeチャンネル「データ×疑問」の制作リポジトリ。
+背景と決定事項の全文は `docs/PROJECT_BRIEF.md`、その後の決定は `docs/decisions.md`。
+
+## オーナーとのやり取り
+
+- オーナーはGitを覚えなくてよい前提。コミット・プッシュはClaudeが行い、何をしたかを日本語で短く伝える。
+- **未決定事項は勝手に決めない**（`docs/decisions.md` の「未決定」を参照）。決まったら同ファイルに日付付きで追記する。
+- ツールのインストール（yt-dlp、ffmpeg など）は事前にオーナーの許可を取る。
+
+## 必ず守ること（収益化ポリシー）
+
+- 毎回、問い・データ・結論・構図を変える。型（シリーズ、サムネイルの様式、構成の枠）は固定してよい。
+- 健康・お金は「現象の説明」に限る。助言しない（「〜すべき」「〜を買え」は禁止）。
+- 政治は中立。男女対立や外国人への偏見をあおる構成にしない。
+- 他人の動画・画像・文章を素材に使わない。ベンチマークの取得物は分析専用。
+- 実在の人物・出来事をリアルに見せるAI映像にはAI開示ラベルを付ける。迷ったら付ける。
+- 数値は必ず一次資料の最新版で確認し、`sources.csv` に出典を書く。人による照合（★工程）は省略しない。
+- 絵はコードで描く。画像生成AIはサムネイルだけ。
+
+## 秘密情報
+
+APIキー・認証情報はGitにもチャットにも入れない。オーナーが `~/.youtube_api_key` や環境変数に置き、スクリプトはそこから読む。
+
+## フォルダ構成
+
+```
+docs/        資料（PROJECT_BRIEF.md、decisions.md）
+themes/      テーマ候補（themes.csv：状態と優先度をここで管理）
+bench/       ベンチマーク取得・集計のスクリプト（取得物はGitの外）
+research/    分析結果のメモ（集計Markdownなど、小さいものだけ）
+episodes/    1回＝1フォルダ（_template をコピーして使う）
+assets/      自作の使い回し素材（棒人間SVG、背景、アイコン）
+render/      描画・合成のコード（ツール決定後に構築）
+scripts/     共通スクリプト（paths.sh、new_episode.sh）
+```
+
+## 大きいファイル
+
+動画・音声・画像・字幕の取得物は `$YT_DATA_DIR`（未設定なら `_local/`）に置き、Gitに入れない。Git LFSは使わない。
+完成動画は公開後に消してよい。音声は作り直すと料金がかかるので残す。
+
+## よく使うコマンド
+
+```bash
+bench/bench.sh @lovebynumbers                      # ベンチマーク取得（オーナーのPCで実行）
+python3 bench/analyze.py --out research/benchmark/summary.md
+scripts/new_episode.sh where-couples-meet          # 新しい回を作る → episodes/001-where-couples-meet/
+```
