@@ -21,6 +21,18 @@ yt-dlp は YouTube 側の変更ですぐ動かなくなるので、実行前に 
 （yt-dlp.exe、ffmpeg.exe、deno.exe は GitHub / gyan.dev から、Python は `uv python install 3.12 --default`）。
 yt-dlp は JavaScript 実行環境として deno を要求するので、deno も同じ場所に置く。更新は `yt-dlp -U`。
 
+## 対象チャンネル
+
+| チャンネル | ハンドル | 追加日 |
+|---|---|---|
+| 数字で測る恋愛 | @lovebynumbers | 2026-09-29 |
+| 考えすぎる葦 | @kangaesugiruashi | 2026-09-29 |
+| データで語る棒人間 | @DataStickFigure | 2026-09-29 |
+| 日本社会構造研究所 | 未確認 | 2026-10-03 |
+
+ハンドルが未確認のチャンネルは、動画1本から調べる。
+`yt-dlp --print "%(uploader_id)s" "https://www.youtube.com/watch?v=VE_d8J0Ykoc"`（日本社会構造研究所の「もしバブル崩壊しなかったら」）
+
 ## 手順
 
 ```bash
