@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<style>
+  body { margin:0; width:1920px; background:#e9e7e2; font-family:'IPAGothic', sans-serif; color:#1f2430; }
+  .row { display:flex; gap:24px; padding:24px; }
+  .card { flex:1; min-width:0; border-radius:18px; padding:22px 24px; box-sizing:border-box; height:950px; position:relative; }
+  .tag { font-size:22px; font-weight:bold; letter-spacing:1px; opacity:.8; }
+  h1 { font-size:44px; margin:6px 0 4px; }
+  .sub { font-size:22px; margin-bottom:14px; }
+  .label { font-size:18px; font-weight:bold; margin:14px 0 6px; opacity:.85; }
+  .sw { display:flex; gap:8px; }
+  .sw div { width:62px; height:40px; border-radius:6px; font-size:12px; display:flex; align-items:flex-end; padding:3px; box-sizing:border-box; }
+  .note { font-size:17px; line-height:1.55; margin-top:10px; }
+  .A { background:#f7f5f0; }
+  .B { background:#141a2a; color:#eef1f8; }
+  .C { background:#fbf7ef; }
+</style></head><body>
+<div class="row">
+
+<!-- ===================== A: 実験室 ===================== -->
+<div class="card A">
+  <div class="tag">案A　実験室</div>
+  <h1>もしも社会実験室</h1>
+  <div class="sub">条件を変えて、社会を動かしてみる。</div>
+
+  <div class="label">案内役：フラスコのキャラ（ふつう／驚き／考え中）</div>
+  <svg width="540" height="200" viewBox="0 0 540 200">
+    <defs><clipPath id="fa"><circle cx="0" cy="0" r="52"/></clipPath></defs>
+    <!-- normal -->
+    <g transform="translate(90,120)">
+      <rect x="-16" y="-98" width="32" height="50" rx="4" fill="#fff" stroke="#1f2430" stroke-width="5"/>
+      <rect x="-22" y="-104" width="44" height="12" rx="5" fill="#1f2430"/>
+      <circle r="55" fill="#fff" stroke="#1f2430" stroke-width="5"/>
+      <g clip-path="url(#fa)"><rect x="-60" y="2" width="120" height="60" fill="#1aa39a"/></g>
+      <circle cx="-18" cy="-14" r="6" fill="#1f2430"/><circle cx="18" cy="-14" r="6" fill="#1f2430"/>
+      <path d="M-10 4 Q0 12 10 4" stroke="#1f2430" stroke-width="4" fill="none" stroke-linecap="round"/>
+    </g>
+    <!-- surprised -->
+    <g transform="translate(270,120)">
+      <rect x="-16" y="-98" width="32" height="50" rx="4" fill="#fff" stroke="#1f2430" stroke-width="5"/>
+      <rect x="-22" y="-104" width="44" height="12" rx="5" fill="#1f2430"/>
+      <circle r="55" fill="#fff" stroke="#1f2430" stroke-width="5"/>
+      <g clip-path="url(#fa)"><rect x="-60" y="-8" width="120" height="70" fill="#f2b134"/></g>
+      <circle cx="-18" cy="-18" r="10" fill="#fff" stroke="#1f2430" stroke-width="4"/><circle cx="-18" cy="-18" r="4" fill="#1f2430"/>
+      <circle cx="18" cy="-18" r="10" fill="#fff" stroke="#1f2430" stroke-width="4"/><circle cx="18" cy="-18" r="4" fill="#1f2430"/>
+      <ellipse cx="0" cy="12" rx="7" ry="9" fill="#1f2430"/>
+      <circle cx="48" cy="-80" r="7" fill="none" stroke="#1aa39a" stroke-width="4"/><circle cx="64" cy="-98" r="5" fill="none" stroke="#1aa39a" stroke-width="4"/>
+    </g>
+    <!-- thinking -->
+    <g transform="translate(450,120)">
+      <rect x="-16" y="-98" width="32" height="50" rx="4" fill="#fff" stroke="#1f2430" stroke-width="5"/>
+      <rect x="-22" y="-104" width="44" height="12" rx="5" fill="#1f2430"/>
+      <circle r="55" fill="#fff" stroke="#1f2430" stroke-width="5"/>
+      <g clip-path="url(#fa)"><rect x="-60" y="14" width="120" height="50" fill="#1aa39a"/></g>
+      <path d="M-26 -14 h16 M10 -14 h16" stroke="#1f2430" stroke-width="5" stroke-linecap="round"/>
+      <path d="M-8 6 h16" stroke="#1f2430" stroke-width="4" stroke-linecap="round"/>
+      <text x="42" y="-62" font-size="40" font-weight="bold" fill="#1aa39a">?</text>
+    </g>
+  </svg>
+
+  <div class="label">人物の描き方：丸い頭＋角の丸い胴（男性＝インディゴ、女性＝コーラル）</div>
+  <svg width="540" height="170" viewBox="0 0 540 170">
+    <g transform="translate(70,20)" fill="#3b5bdb">
+      <circle cx="30" cy="22" r="20"/><rect x="8" y="48" width="44" height="62" rx="18"/>
+      <rect x="12" y="104" width="14" height="40" rx="7"/><rect x="34" y="104" width="14" height="40" rx="7"/>
+    </g>
+    <g transform="translate(170,20)" fill="#f0644f">
+      <circle cx="30" cy="22" r="20"/><path d="M14 48 h32 l14 62 h-60 z" />
+      <rect x="14" y="104" width="12" height="40" rx="6"/><rect x="34" y="104" width="12" height="40" rx="6"/>
+    </g>
+    <!-- bar chart sample -->
+    <g transform="translate(300,20)">
+      <rect x="0" y="70" width="40" height="74" rx="4" fill="#3b5bdb"/>
+      <rect x="56" y="30" width="40" height="114" rx="4" fill="#f0644f"/>
+      <rect x="112" y="96" width="40" height="48" rx="4" fill="#9aa3b2"/>
+      <line x1="-6" y1="146" x2="164" y2="146" stroke="#1f2430" stroke-width="3"/>
+      <text x="56" y="20" font-size="20" font-weight="bold" fill="#1f2430">28.3%</text>
+    </g>
+  </svg>
+
+  <div class="label">配色</div>
+  <div class="sw">
+    <div style="background:#f7f5f0;border:1px solid #ccc">背景</div>
+    <div style="background:#1f2430;color:#fff">線・文字</div>
+    <div style="background:#1aa39a;color:#fff">主色</div>
+    <div style="background:#f2b134">強調</div>
+    <div style="background:#3b5bdb;color:#fff">男性</div>
+    <div style="background:#f0644f;color:#fff">女性</div>
+  </div>
+  <div class="note">
+    ◎ 「もしも」シミュレーションを看板にした名前。何をするチャンネルか一目で分かる<br>
+    ◎ フラスコの中身の色と量で感情を表せる（作るのが簡単）<br>
+    △ 「実験室」「ラボ」は似た名前が多く、埋もれやすい<br>
+    △ 恋愛の挑発的な切り口とは、少し距離がある（知的で落ち着いた印象）
+  </div>
+</div>
+
+<!-- ===================== B: 本音 ===================== -->
+<div class="card B">
+  <div class="tag">案B　本音</div>
+  <h1>数字の本音</h1>
+  <div class="sub">キレイごとの裏を、数字で。</div>
+
+  <div class="label">案内役：メガネの猫（ふつう／驚き／ニヤリ）</div>
+  <svg width="540" height="200" viewBox="0 0 540 200">
+    <g id="catbase">
+    </g>
+    <!-- normal -->
+    <g transform="translate(90,115)">
+      <path d="M-50 -20 L-44 -78 L-12 -48 Z M50 -20 L44 -78 L12 -48 Z" fill="#eef1f8"/>
+      <ellipse cx="0" cy="0" rx="58" ry="52" fill="#eef1f8"/>
+      <circle cx="-22" cy="-6" r="16" fill="none" stroke="#ffd23f" stroke-width="5"/><circle cx="22" cy="-6" r="16" fill="none" stroke="#ffd23f" stroke-width="5"/>
+      <line x1="-6" y1="-8" x2="6" y2="-8" stroke="#ffd23f" stroke-width="5"/>
+      <path d="M-30 -4 h16 M14 -4 h16" stroke="#141a2a" stroke-width="5" stroke-linecap="round"/>
+      <path d="M-8 22 q4 6 8 0 q4 6 8 0" stroke="#141a2a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    </g>
+    <!-- surprised -->
+    <g transform="translate(270,115)">
+      <path d="M-50 -20 L-48 -84 L-12 -48 Z M50 -20 L48 -84 L12 -48 Z" fill="#eef1f8"/>
+      <ellipse cx="0" cy="0" rx="58" ry="52" fill="#eef1f8"/>
+      <circle cx="-22" cy="-6" r="16" fill="none" stroke="#ffd23f" stroke-width="5"/><circle cx="22" cy="-6" r="16" fill="none" stroke="#ffd23f" stroke-width="5"/>
+      <line x1="-6" y1="-8" x2="6" y2="-8" stroke="#ffd23f" stroke-width="5"/>
+      <circle cx="-22" cy="-6" r="7" fill="#141a2a"/><circle cx="22" cy="-6" r="7" fill="#141a2a"/>
+      <ellipse cx="0" cy="26" rx="6" ry="8" fill="#141a2a"/>
+      <text x="48" y="-50" font-size="44" font-weight="bold" fill="#ff5c8a">!</text>
+    </g>
+    <!-- smirk -->
+    <g transform="translate(450,115)">
+      <path d="M-50 -20 L-44 -78 L-12 -48 Z M50 -20 L44 -78 L12 -48 Z" fill="#eef1f8"/>
+      <ellipse cx="0" cy="0" rx="58" ry="52" fill="#eef1f8"/>
+      <circle cx="-22" cy="-6" r="16" fill="none" stroke="#ffd23f" stroke-width="5"/><circle cx="22" cy="-6" r="16" fill="none" stroke="#ffd23f" stroke-width="5"/>
+      <line x1="-6" y1="-8" x2="6" y2="-8" stroke="#ffd23f" stroke-width="5"/>
+      <path d="M-30 -2 q8 -8 16 0 M14 -2 q8 -8 16 0" stroke="#141a2a" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M-10 22 q12 8 22 -4" stroke="#141a2a" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M30 -30 l14 -10" stroke="#3ddcff" stroke-width="4" stroke-linecap="round"/>
+    </g>
+  </svg>
+
+  <div class="label">人物の描き方：光る縁取りのシルエット（男性＝シアン、女性＝ピンク）</div>
+  <svg width="540" height="170" viewBox="0 0 540 170">
+    <g transform="translate(70,20)" fill="#141a2a" stroke="#3ddcff" stroke-width="4">
+      <circle cx="30" cy="22" r="20"/><path d="M6 50 h48 l6 94 h-60 z"/>
+    </g>
+    <g transform="translate(170,20)" fill="#141a2a" stroke="#ff5c8a" stroke-width="4">
+      <circle cx="30" cy="22" r="20"/><path d="M16 50 h28 l18 94 h-64 z"/>
+    </g>
+    <g transform="translate(300,20)">
+      <rect x="0" y="70" width="40" height="74" rx="2" fill="#3ddcff"/>
+      <rect x="56" y="30" width="40" height="114" rx="2" fill="#ff5c8a"/>
+      <rect x="112" y="96" width="40" height="48" rx="2" fill="#5b6478"/>
+      <line x1="-6" y1="146" x2="164" y2="146" stroke="#eef1f8" stroke-width="3"/>
+      <text x="56" y="20" font-size="20" font-weight="bold" fill="#ffd23f">28.3%</text>
+    </g>
+  </svg>
+
+  <div class="label">配色</div>
+  <div class="sw">
+    <div style="background:#141a2a;border:1px solid #556">背景</div>
+    <div style="background:#eef1f8;color:#141a2a">線・文字</div>
+    <div style="background:#ffd23f;color:#141a2a">主色</div>
+    <div style="background:#3ddcff;color:#141a2a">男性</div>
+    <div style="background:#ff5c8a;color:#141a2a">女性</div>
+  </div>
+  <div class="note">
+    ◎ 恋愛・婚活の「本音」系の切り口（解禁した対立型）と相性が最も良い<br>
+    ◎ 冷静な猫のツッコミで、挑発的な結論のきつさを和らげられる<br>
+    △ 暗い背景に人物シルエットは、lovebynumbers・葦に近い印象になりやすい<br>
+    △ 「本音」「ウラ側」系の名前は、すでに多い可能性がある
+  </div>
+</div>
+
+<!-- ===================== C: 分岐点 ===================== -->
+<div class="card C">
+  <div class="tag">案C　分岐点</div>
+  <h1>人生の分岐点ラボ</h1>
+  <div class="sub">あなたの人生、どっちに分かれる？</div>
+
+  <div class="label">案内役：顔のある駒（ふつう／驚き／ドヤ顔）</div>
+  <svg width="540" height="200" viewBox="0 0 540 200">
+    <!-- normal -->
+    <g transform="translate(90,40)">
+      <path d="M-34 140 Q-34 120 -20 112 L-14 70 Q0 64 14 70 L20 112 Q34 120 34 140 Z" fill="#f4a261" stroke="#2b2d42" stroke-width="5" stroke-linejoin="round"/>
+      <ellipse cx="0" cy="68" rx="26" ry="8" fill="#f4a261" stroke="#2b2d42" stroke-width="5"/>
+      <circle cx="0" cy="34" r="30" fill="#f4a261" stroke="#2b2d42" stroke-width="5"/>
+      <circle cx="-10" cy="30" r="4.5" fill="#2b2d42"/><circle cx="10" cy="30" r="4.5" fill="#2b2d42"/>
+      <path d="M-7 43 Q0 49 7 43" stroke="#2b2d42" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <rect x="-40" y="138" width="80" height="12" rx="6" fill="#2b2d42"/>
+    </g>
+    <!-- surprised -->
+    <g transform="translate(270,40) rotate(-6)">
+      <path d="M-34 140 Q-34 120 -20 112 L-14 70 Q0 64 14 70 L20 112 Q34 120 34 140 Z" fill="#f4a261" stroke="#2b2d42" stroke-width="5" stroke-linejoin="round"/>
+      <ellipse cx="0" cy="68" rx="26" ry="8" fill="#f4a261" stroke="#2b2d42" stroke-width="5"/>
+      <circle cx="0" cy="34" r="30" fill="#f4a261" stroke="#2b2d42" stroke-width="5"/>
+      <circle cx="-11" cy="28" r="8" fill="#fff" stroke="#2b2d42" stroke-width="3.5"/><circle cx="-11" cy="28" r="3" fill="#2b2d42"/>
+      <circle cx="11" cy="28" r="8" fill="#fff" stroke="#2b2d42" stroke-width="3.5"/><circle cx="11" cy="28" r="3" fill="#2b2d42"/>
+      <ellipse cx="0" cy="46" rx="5" ry="6" fill="#2b2d42"/>
+      <path d="M34 4 q6 10 0 16 q-6 -6 0 -16" fill="#6cc3d5"/>
+      <rect x="-40" y="138" width="80" height="12" rx="6" fill="#2b2d42"/>
+    </g>
+    <!-- proud -->
+    <g transform="translate(450,40)">
+      <path d="M-34 140 Q-34 120 -20 112 L-14 70 Q0 64 14 70 L20 112 Q34 120 34 140 Z" fill="#f4a261" stroke="#2b2d42" stroke-width="5" stroke-linejoin="round"/>
+      <ellipse cx="0" cy="68" rx="26" ry="8" fill="#f4a261" stroke="#2b2d42" stroke-width="5"/>
+      <circle cx="0" cy="34" r="30" fill="#f4a261" stroke="#2b2d42" stroke-width="5"/>
+      <path d="M-16 30 q6 -6 12 0 M4 30 q6 -6 12 0" stroke="#2b2d42" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M-9 42 Q0 50 9 42" stroke="#2b2d42" stroke-width="3.5" fill="#2b2d42"/>
+      <path d="M38 6 l6 -12 l6 12 l12 2 l-9 8 l3 12 l-12 -6 l-12 6 l3 -12 l-9 -8 z" fill="#2a9d8f"/>
+      <rect x="-40" y="138" width="80" height="12" rx="6" fill="#2b2d42"/>
+    </g>
+  </svg>
+
+  <div class="label">人物の描き方：駒の群衆がそのままシミュレーションになる（男性＝緑、女性＝紫）</div>
+  <svg width="540" height="170" viewBox="0 0 540 170">
+    <defs>
+      <g id="pw"><circle cx="0" cy="-26" r="9"/><path d="M-6 -16 h12 l4 18 q6 3 6 8 h-32 q0 -5 6 -8 z"/></g>
+    </defs>
+    <!-- branching path -->
+    <path d="M20 90 H170 C220 90 230 40 280 40 H520 M170 90 C220 90 230 140 280 140 H520" stroke="#cfc6b4" stroke-width="10" fill="none" stroke-linecap="round"/>
+    <g fill="#2a9d8f"><use href="#pw" x="60" y="98"/><use href="#pw" x="110" y="98"/></g>
+    <g fill="#6c5ce7"><use href="#pw" x="85" y="98"/><use href="#pw" x="135" y="98"/></g>
+    <g fill="#2a9d8f"><use href="#pw" x="310" y="48"/><use href="#pw" x="350" y="48"/><use href="#pw" x="390" y="48"/></g>
+    <g fill="#6c5ce7"><use href="#pw" x="430" y="48"/></g>
+    <g fill="#6c5ce7"><use href="#pw" x="310" y="148"/><use href="#pw" x="350" y="148"/><use href="#pw" x="390" y="148"/></g>
+    <g fill="#2a9d8f"><use href="#pw" x="430" y="148"/></g>
+    <text x="460" y="30" font-size="18" font-weight="bold" fill="#2b2d42">結婚</text>
+    <text x="460" y="130" font-size="18" font-weight="bold" fill="#2b2d42">未婚</text>
+  </svg>
+
+  <div class="label">配色</div>
+  <div class="sw">
+    <div style="background:#fbf7ef;border:1px solid #ccc">背景</div>
+    <div style="background:#2b2d42;color:#fff">線・文字</div>
+    <div style="background:#f4a261">案内役</div>
+    <div style="background:#2a9d8f;color:#fff">男性</div>
+    <div style="background:#6c5ce7;color:#fff">女性</div>
+    <div style="background:#cfc6b4">道・背景</div>
+  </div>
+  <div class="note">
+    ◎ 案内役と、シミュレーションで動く群衆が同じ「駒」。キャラ＝チャンネルの絵そのものになる<br>
+    ◎ 結婚・上京・転職など「人生の分かれ道」で、優先度Aのテーマをほぼ全部まとめられる<br>
+    ◎ 赤青を使わないので、競合と見た目がかぶらない<br>
+    △ 男女を色だけで見分けるので、慣れるまで少し分かりにくい（頭の形で補える）
+  </div>
+</div>
+
+</div>
+</body></html>
