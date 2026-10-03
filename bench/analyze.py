@@ -38,6 +38,29 @@ def caption_chars(video_dir: Path) -> int | None:
     return sum(len(re.sub(r"\s", "", l)) for l in lines)
 
 
+FEW_CUTS = 18   # bench.sh はこれ未満のとき30秒ごとの均等サンプリングに切り替える
+
+
+def scene_cuts(vdir: Path) -> tuple[int | None, bool]:
+    """(場面転換の回数, 転換が少ない動画か) を返す。
+
+    scene_cuts.txt があればそれを使う。古い取得分は times.tsv しかないので、
+    秒数が30秒おきに並んでいれば「均等サンプリングに切り替えた＝転換が少ない動画」とみなす（回数は不明）。
+    """
+    f = vdir / "scene_cuts.txt"
+    if f.exists():
+        n = int(f.read_text().strip() or 0)
+        return n, n < FEW_CUTS
+    times = vdir / "times.tsv"
+    if not times.exists():
+        return None, False
+    secs = [float(l.split("\t")[2]) for l in times.read_text(encoding="utf-8").splitlines()[1:] if l]
+    gaps = {round(b - a) for a, b in zip(secs, secs[1:])}
+    if len(secs) >= 2 and gaps == {30}:
+        return None, True
+    return len(secs), len(secs) < FEW_CUTS
+
+
 def load_videos() -> list[dict]:
     today = date.today()
     rows = []
@@ -49,8 +72,7 @@ def load_videos() -> list[dict]:
         up_date = datetime.strptime(up, "%Y%m%d").date() if up else None
         age = max((today - up_date).days, 1) if up_date else None
         views = info.get("view_count")
-        times = vdir / "times.tsv"
-        cuts = len(times.read_text(encoding="utf-8").splitlines()) - 1 if times.exists() else 0
+        cuts, few_cuts = scene_cuts(vdir)
         chars = caption_chars(vdir)
         rows.append({
             "channel": vdir.parent.name,
@@ -63,6 +85,7 @@ def load_videos() -> list[dict]:
             "likes": info.get("like_count"),
             "comments": info.get("comment_count"),
             "cuts": cuts or None,
+            "few_cuts": few_cuts,
             "sec_per_cut": round(dur / cuts, 1) if cuts else None,
             "chars_per_min": round(chars / (dur / 60)) if chars and dur else None,
         })

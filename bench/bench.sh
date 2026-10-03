@@ -68,7 +68,9 @@ cap() {
     -vf "fps=1,select='gt(scene,0.3)',scale=480:-1,showinfo" -fps_mode vfr -strict unofficial \
     "$d/f_%04d.jpg" 2> "$d/ffmpeg.log"
   # 転換が少ない（タイル2枚未満）動画は、30秒ごとの均等サンプリングに切り替える（画面の様子を読めるようにするため）
-  if [ "$(ls "$d"/f_*.jpg 2>/dev/null | wc -l)" -lt 18 ]; then
+  # 本当の転換回数は scene_cuts.txt に残す（均等サンプリングに切り替えると times.tsv からは分からなくなるため）
+  ls "$d"/f_*.jpg 2>/dev/null | wc -l | tr -d ' ' > "$d/scene_cuts.txt"
+  if [ "$(cat "$d/scene_cuts.txt")" -lt 18 ]; then
     rm -f "$d"/f_*.jpg
     ffmpeg -nostdin -loglevel info -i "$v" \
       -vf "fps=1/30,scale=480:-1,showinfo" -fps_mode vfr -strict unofficial \
