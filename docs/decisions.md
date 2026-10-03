@@ -6,6 +6,7 @@
 
 - 2026-09-29：ジャンル、動画の仕様、ポリシー、制作体制など → `PROJECT_BRIEF.md`
 - 2026-10-03：パソコンのOSは Windows。スクリプトは Git Bash で動かす（bash 版を Windows 対応にし、PowerShell 版は作らない）。
+- 2026-10-03：Anthropic API は契約せず、AIの処理は Claude Code の定額プランの中で行う。ベンチマーク分析はサブエージェントで1本ずつ処理する（`research/benchmark/ANALYSIS_PLAN.md`）。
 - 2026-10-03：フォルダ構成を作成（`CLAUDE.md` 参照）。テーマ候補100本を `themes/themes.csv` に移し、以後はこちらで状態と優先度を管理する。
 
 ## 未決定（オーナーに確認する）

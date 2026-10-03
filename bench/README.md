@@ -25,6 +25,9 @@ bench/bench.sh @kangaesugiruashi
 bench/bench.sh @DataStickFigure
 python bench/analyze.py --out research/benchmark/summary.md
 bench/thumbs.sh @lovebynumbers   # サムネイルを3x3にまとめる（3チャンネル分）
+python bench/prep.py             # AIに読ませる材料を小さくまとめる（prep/）
+# → サブエージェント bench-analyst で1本ずつ分析（手順は ANALYSIS_PLAN.md）
+python bench/aggregate.py --out research/benchmark/aggregate.md
 ```
 
 - 途中で止まっても、もう一度実行すれば取得済みの動画は飛ばす。失敗した動画は `failed.tsv` に残る。

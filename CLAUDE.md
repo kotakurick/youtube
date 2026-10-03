@@ -21,6 +21,7 @@ AIで制作する日本向けYouTubeチャンネル「データ×疑問」の制
 
 ## 秘密情報
 
+Anthropic API は契約しない（2026-10-03 オーナー判断）。AIの処理は Claude Code の定額プランの中で行う。
 APIキー・認証情報はGitにもチャットにも入れない。オーナーが `~/.youtube_api_key` や環境変数に置き、スクリプトはそこから読む。
 
 ## フォルダ構成
@@ -34,6 +35,7 @@ episodes/    1回＝1フォルダ（_template をコピーして使う）
 assets/      自作の使い回し素材（棒人間SVG、背景、アイコン）
 render/      描画・合成のコード（ツール決定後に構築）
 scripts/     共通スクリプト（paths.sh、new_episode.sh）
+.claude/agents/  サブエージェント（bench-analyst：ベンチマーク動画1本の分析）
 ```
 
 ## 大きいファイル
