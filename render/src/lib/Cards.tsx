@@ -3,11 +3,12 @@
 //  - TodayCard：「今日の答え合わせ」。通説を1行で見せる（3秒前後）
 import React from "react";
 import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
-import { C, font, R, sp, Z } from "./theme";
+import { C, font, R, sp, useZ } from "./theme";
 
 export const ChannelTag: React.FC<{ start?: number; seconds?: number }> = ({ start = 6, seconds = 1.5 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
+  const Z = useZ();
   const end = start + Math.round(seconds * fps);
   const t = sp("enter", frame - start, fps) - interpolate(frame, [end, end + 10], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   if (t <= 0) return null;
@@ -24,12 +25,13 @@ export const TodayCard: React.FC<{ claim: string; start?: number }> = ({ claim, 
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = sp("enter", frame - start, fps);
+  const Z = useZ();
   return (
-    <div style={{ position: "absolute", left: Z.stage.x + 40, top: 330, opacity: t, transform: `translateY(${(1 - t) * 24}px)` }}>
+    <div style={{ position: "absolute", left: Z.stage.x + (Z.vertical ? 0 : 40), top: Z.vertical ? Z.stage.y : 330, maxWidth: Z.stage.w, opacity: t, transform: `translateY(${(1 - t) * 24}px)` }}>
       <div style={{ display: "inline-block", background: C.ink, borderRadius: `${R.md}px ${R.md}px 0 0`, padding: "10px 32px", ...font("label", C.white), fontWeight: 900 }}>
         今日の答え合わせ
       </div>
-      <div style={{ background: C.white, border: `4px solid ${C.ink}`, borderRadius: `0 ${R.lg}px ${R.lg}px ${R.lg}px`, padding: "48px 56px", ...font("question"), whiteSpace: "nowrap" }}>
+      <div style={{ background: C.white, border: `4px solid ${C.ink}`, borderRadius: `0 ${R.lg}px ${R.lg}px ${R.lg}px`, padding: "48px 56px", ...font("question"), whiteSpace: Z.vertical ? "normal" : "nowrap" }}>
         「{claim}」
       </div>
     </div>

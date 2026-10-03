@@ -1,7 +1,7 @@
 // 見た目の決まり（docs/brand.md）。数字はここだけに書き、部品はここから読む。
 import type React from "react";
 import { loadFont } from "@remotion/fonts";
-import { Easing, spring, SpringConfig, staticFile } from "remotion";
+import { Easing, spring, SpringConfig, staticFile, useVideoConfig } from "remotion";
 
 export const C = {
   bg: "#F5F2EA",      // paper：背景
@@ -23,8 +23,17 @@ export const W = 1920;
 export const H = 1080;
 export const FPS = 30;
 
+type Box = { x: number; y: number; w: number; h: number };
+export type Zones = {
+  W: number; H: number; vertical: boolean;
+  margin: { x: number; top: number; bottom: number };
+  header: Box; stage: Box; stageWithGosa: Box; noteY: number;
+  dock: { x: number; foot: number }; sub: { y: number; h: number; w: number };
+};
+
 /** 画面の区画（1920×1080）。下80px は再生バーが重なるので何も置かない。 */
-export const Z = {
+export const Z: Zones = {
+  W: 1920, H: 1080, vertical: false,
   margin: { x: 96, top: 56, bottom: 80 },
   header: { x: 96, y: 56, w: 1300, h: 120 },         // 問い（左寄せ、2行まで）
   stage: { x: 96, y: 200, w: 1728, h: 680 },          // 主役の絵（ゴサがいるときは右端 1520 まで）
@@ -32,7 +41,25 @@ export const Z = {
   noteY: 884,                                          // 出典（グラフの左下）
   dock: { x: 1690, foot: 880 },                        // ゴサの足元（右下に固定）
   sub: { y: 920, h: 80, w: 1440 },                     // 字幕
-} as const;
+};
+
+/** 縦型ショート（1080×1920）の区画。上200px と下420px、右140px はショートの画面の文字やボタンが重なる。 */
+export const ZS: Zones = {
+  W: 1080, H: 1920, vertical: true,
+  margin: { x: 64, top: 200, bottom: 420 },
+  header: { x: 64, y: 220, w: 880, h: 260 },
+  stage: { x: 64, y: 520, w: 880, h: 800 },
+  stageWithGosa: { x: 64, y: 520, w: 880, h: 640 },
+  noteY: 1330,
+  dock: { x: 800, foot: 1320 },
+  sub: { y: 1380, h: 110, w: 950 },
+};
+
+/** いまの動画の向きに合った区画（縦長なら ZS） */
+export const useZ = (): Zones => {
+  const { width, height } = useVideoConfig();
+  return height > width ? ZS : Z;
+};
 
 /** 文字の大きさ／太さ */
 export const T = {

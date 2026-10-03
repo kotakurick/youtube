@@ -4,7 +4,7 @@ import React from "react";
 import { AbsoluteFill, Easing, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { Gosa } from "./Gosa";
 import { Sfx } from "./Sfx";
-import { C, font, sp, Z } from "./theme";
+import { C, font, sp, useZ } from "./theme";
 
 export const CHAPTER_FRAMES = 84; // 2.8秒
 
@@ -27,7 +27,9 @@ export const ChapterCard: React.FC<{ no: number; title: string }> = ({ no, title
   );
 };
 
-export const ChapterDots: React.FC<{ current: number; total?: number }> = ({ current, total = 3 }) => (
+export const ChapterDots: React.FC<{ current: number; total?: number }> = ({ current, total = 3 }) => {
+  const Z = useZ();
+  return (
   <div style={{ position: "absolute", right: Z.margin.x, top: Z.margin.top, display: "flex", gap: 14 }}>
     {Array.from({ length: total }, (_, i) => (
       <div key={i} style={{ width: 18, height: 18, borderRadius: 9, boxSizing: "border-box",
@@ -35,3 +37,4 @@ export const ChapterDots: React.FC<{ current: number; total?: number }> = ({ cur
     ))}
   </div>
 );
+};

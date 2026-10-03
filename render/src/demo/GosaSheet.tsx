@@ -1,5 +1,5 @@
-// ゴサの表情一覧（確認用の静止画）。上：動かせる版（明るい地）／中：反転版（暗い地）／下：白い縁取りの SVG（暗い地）。
-// 暗い地では「反転版」と「縁取り版」のどちらを使うかを、この絵で見比べて決める。
+// ゴサの表情一覧（確認用の静止画）。上：動かせる版（明るい地）／中：動かせる版の反転（暗い地）／下：静止画の _dark.svg（暗い地）。
+// 暗い地は反転版に統一（2026-10-04 決定）。中と下が同じ絵になっていれば正しい。
 import React from "react";
 import { AbsoluteFill, Img, staticFile } from "remotion";
 import { Expression, Gosa } from "@lib/Gosa";
@@ -19,7 +19,7 @@ export const GosaSheet: React.FC = () => (
         <Img src={staticFile(`gosa/${e}_dark.svg`)} style={{ position: "absolute", left: X(i) - 83, top: 790, width: 166 }} />
       </React.Fragment>
     ))}
-    <div style={{ position: "absolute", left: 40, top: 380, fontFamily: FONT, fontSize: 28, fontWeight: 700, color: C.bg }}>A 反転版（白い体に墨の目）</div>
-    <div style={{ position: "absolute", left: 40, top: 740, fontFamily: FONT, fontSize: 28, fontWeight: 700, color: C.bg }}>B 白い縁取り（今の _dark.svg）</div>
+    <div style={{ position: "absolute", left: 40, top: 380, fontFamily: FONT, fontSize: 28, fontWeight: 700, color: C.bg }}>動画（Gosa dark）</div>
+    <div style={{ position: "absolute", left: 40, top: 740, fontFamily: FONT, fontSize: 28, fontWeight: 700, color: C.bg }}>静止画（svg/_dark.svg）</div>
   </AbsoluteFill>
 );

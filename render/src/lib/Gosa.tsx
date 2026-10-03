@@ -7,7 +7,7 @@
 import React from "react";
 import { Easing, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import rig from "../../../assets/characters/gosa/gosa.json";
-import { C, EASE, FONT, GOSA_SIZE, LINE, R, sp, Z } from "./theme";
+import { C, EASE, FONT, GOSA_SIZE, LINE, R, sp, useZ } from "./theme";
 import type { Pt } from "./layout";
 import { Sfx, SfxName } from "./Sfx";
 
@@ -137,10 +137,12 @@ export const Gosa: React.FC<{
   reachTo?: Pt;                           // 「point」のとき、右のひげの先をこの点まで伸ばす
   sfx?: boolean;                          // 表情の効果音（30秒に1回まで）
   bubble?: [number, number];              // 吹き出しのしっぽの先（足元から、体の直径を1とした位置）
-}> = ({ cues, size = "M", x = Z.dock.x, foot = Z.dock.foot, exit, flip: flipProp = false, dark = false, says = [], reachTo, sfx = true,
+}> = ({ cues, size = "M", x: xProp, foot: footProp, exit, flip: flipProp = false, dark = false, says = [], reachTo, sfx = true,
   bubble = [-0.55, -1.55] }) => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps, width: VW, height: VH } = useVideoConfig();
+  const Z = useZ();
+  const x = xProp ?? Z.dock.x, foot = footProp ?? Z.dock.foot;
   if (!cues.length || frame < cues[0][0]) return null;
   if (exit !== undefined && frame > exit + 12) return null;
 
@@ -218,7 +220,7 @@ export const Gosa: React.FC<{
   return (
     <>
     {sounds.map(([f, name]) => <Sfx key={f} name={name} at={f} volume={0.5} />)}
-    <svg width={1920} height={1080} style={{ position: "absolute", left: 0, top: 0, overflow: "visible", pointerEvents: "none" }}>
+    <svg width={VW} height={VH} style={{ position: "absolute", left: 0, top: 0, overflow: "visible", pointerEvents: "none" }}>
       <g transform={`translate(${x},${foot + dropY - hop})`}>
         <g transform={`scale(${k * scX},${k * scY}) translate(0,${-legY})`}>
           <g transform={`scale(${sx},1) rotate(${p.tilt})`}>{body}</g>

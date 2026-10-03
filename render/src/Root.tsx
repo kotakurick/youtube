@@ -1,5 +1,6 @@
 // 動画の一覧。部品の見本（demo）と、episodes/<回>/scenes/Episode.tsx を自動で登録する。
 // Episode.tsx は `export default` で EpisodeDef を出す。thumb があれば、サムネイルの静止画（<回>-thumb、<回>-thumb-ink）も登録する。
+// ショート（縦 1080×1920）は episodes/<回>/scenes/Short.tsx に書く（id は「<回>-short」のように回と別にする）。
 // 注意：Remotion は props を JSON にするので、場面（関数）は props で渡さず、回ごとに部品を作る。
 import React from "react";
 import { Composition, Still } from "remotion";
@@ -7,17 +8,23 @@ import { Episode, EpisodeDef, episodeFrames } from "@lib/Episode";
 import { FPS, H, W } from "@lib/theme";
 import { THUMB, Thumbnail } from "@lib/Thumbnail";
 import { demo } from "./demo/demo";
+import { parts } from "./demo/parts";
+import { demoShort } from "./demo/short";
 import { GosaSheet } from "./demo/GosaSheet";
 
 const found = require.context("../../episodes", true, /scenes\/Episode\.tsx$/);
-const episodes: EpisodeDef[] = [demo, ...found.keys().filter((k) => !k.startsWith("./_")).map((k) => found(k).default as EpisodeDef)];
-const comps = episodes.map((ep) => ({ ep, Comp: () => <Episode ep={ep} /> }));
+const foundShorts = require.context("../../episodes", true, /scenes\/Short\.tsx$/);
+const load = (ctx: ReturnType<typeof require.context>) => ctx.keys().filter((k) => !k.startsWith("./_")).map((k) => ctx(k).default as EpisodeDef);
+const episodes: EpisodeDef[] = [demo, parts, ...load(found)];
+const shorts: EpisodeDef[] = [demoShort, ...load(foundShorts)];
+const comps = [...episodes.map((ep) => ({ ep, w: W, h: H })), ...shorts.map((ep) => ({ ep, w: H, h: W }))]
+  .map(({ ep, w, h }) => ({ ep, w, h, Comp: () => <Episode ep={ep} /> }));
 
 export const Root: React.FC = () => (
   <>
-    {comps.map(({ ep, Comp }) => (
+    {comps.map(({ ep, w, h, Comp }) => (
       <Composition key={ep.id} id={ep.id} component={Comp}
-        durationInFrames={episodeFrames(ep)} fps={FPS} width={W} height={H} />
+        durationInFrames={episodeFrames(ep)} fps={FPS} width={w} height={h} />
     ))}
     <Still id="gosa-sheet" component={GosaSheet} width={W} height={H} />
     {episodes.filter((ep) => ep.thumb).flatMap((ep) => [

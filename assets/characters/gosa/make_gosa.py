@@ -5,7 +5,7 @@
 
 出力（このフォルダの下）:
     svg/<表情>.svg        表情ごとの立ち絵（明るい背景用）
-    svg/<表情>_dark.svg   同じ絵に白い縁取りを付けたもの（サムネイルの濃い帯の上用）
+    svg/<表情>_dark.svg   暗い背景用の反転版（白い体に墨の目。2026-10-04 決定）
     icon.svg              チャンネルのアイコン（円の中に顔。小さく表示してもひげが見えるよう太め）
     gosa.json             表情の設定。動画の部品（render/src/lib/Gosa.tsx）がこれを読み、表情の間をなめらかにつなぐ
 
@@ -160,14 +160,12 @@ def draw(cfg: dict) -> str:
     return parts + "".join(mark(m) for m in cfg.get("marks", []))
 
 
-def svg(inner: str, title: str, outline: bool = False) -> str:
-    if outline:
-        # 暗い背景用：絵の形をそのまま4px太らせた白を下に敷く（ひげのような細い線にも効く）
-        inner = ('<defs><filter id="halo" x="-10%" y="-10%" width="120%" height="120%">'
-                 '<feMorphology in="SourceAlpha" operator="dilate" radius="4" result="d"/>'
-                 f'<feFlood flood-color="{WHITE}"/><feComposite in2="d" operator="in" result="w"/>'
-                 '<feMerge><feMergeNode in="w"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>'
-                 f'<g filter="url(#halo)">{inner}</g>')
+def invert(inner: str) -> str:
+    """暗い背景用の反転版：墨と白を入れ替える（白い体に墨の目）。"""
+    return inner.replace(INK, "#TMP#").replace(WHITE, INK).replace("#TMP#", WHITE)
+
+
+def svg(inner: str, title: str) -> str:
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{VIEWBOX}" width="260" height="180">'
             f"<title>{title}</title>{inner}</svg>\n")
 
@@ -188,7 +186,7 @@ def main():
     for name, (label, cfg) in EXPRESSIONS.items():
         inner = draw(cfg)
         (out / f"{name}.svg").write_text(svg(inner, f"ゴサ：{label}"), encoding="utf-8")
-        (out / f"{name}_dark.svg").write_text(svg(inner, f"ゴサ：{label}（暗い背景用）", outline=True), encoding="utf-8")
+        (out / f"{name}_dark.svg").write_text(svg(invert(inner), f"ゴサ：{label}（暗い背景用・反転版）"), encoding="utf-8")
     (HERE / "icon.svg").write_text(icon(), encoding="utf-8")
     rig = dict(BODY_R=BODY_R, WHISKER_Y=WHISKER_Y, WHISKER_W=WHISKER_W, CAP=CAP, EAR_TIPS=EAR_TIPS,
                expressions={k: dict(label=v[0], **v[1]) for k, v in EXPRESSIONS.items()})

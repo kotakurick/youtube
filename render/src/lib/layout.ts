@@ -94,6 +94,26 @@ export const hundred = (
   return grid(n, { x: o.x, y: 0, cols, dx, dy }, size).map((p) => ({ x: p.x, y: o.bottom - p.y }));
 };
 
+/** いくつかの固まりに分けて並べる（群衆が分かれる場面）。counts の順に、左から固まりを置く。
+ *  pts は固まりの順につないだ位置、groups は各固まりの左右の端と上端（見出しや括弧を付ける位置）。 */
+export const blocks = (
+  counts: number[], o: { x: number; bottom: number; gap: number; cols?: number; dx?: number; dy?: number }, size = 1,
+) => {
+  const cols = o.cols ?? 5;
+  const dx = o.dx ?? (footW(size) + GAP * size) * 1.15, dy = o.dy ?? (footH(size) + GAP * size);
+  const pts: Pt[] = [];
+  const groups: { x1: number; x2: number; top: number }[] = [];
+  let x = o.x;
+  for (const n of counts) {
+    const c = Math.min(cols, Math.max(1, n));
+    pts.push(...hundred(n, { x, bottom: o.bottom, cols: c, dx, dy }, size));
+    const rows = Math.ceil(n / c);
+    groups.push({ x1: x - footW(size) / 2, x2: x + (c - 1) * dx + footW(size) / 2, top: o.bottom - (rows - 1) * dy - FOOT.top * size });
+    x += (c - 1) * dx + o.gap;
+  }
+  return { pts, groups };
+};
+
 /** 重なっている組を返す（見つからなければ空） */
 export const overlaps = (pts: Pt[], size = 1, gap = 2): [number, number][] => {
   const w = footW(size) + gap, h = footH(size) + gap;

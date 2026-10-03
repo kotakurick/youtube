@@ -18,6 +18,8 @@ npm install
 npm run studio                                   # ブラウザで確認（コマ送り・場面ごとの確認）
 npm run render -- demo out/demo.mp4              # 書き出し（demo は部品の見本）
 npm run render -- 001-where-couples-meet out/001.mp4
+npm run render -- parts out/parts.mp4            # 部品の見本帳
+npm run render -- demo-short out/short.mp4       # 縦型ショートの見本（1080×1920）
 npm run still -- demo-thumb out/thumb.png        # サムネイル（紙色の地）。-thumb-ink は墨の地（テスト用）
 npm run still -- gosa-sheet out/gosa.png         # ゴサの表情一覧（確認用）
 npm run master -- out/001.mp4                    # 音量を -14 LUFS にそろえる → out/001.master.mp4
@@ -50,12 +52,24 @@ render/
     Verdict.tsx     答え合わせ（証拠｜印｜ゴサ の3列、刻み→無音→スタンプ）
     Sfx.tsx         効果音
     Thumbnail.tsx   サムネイル（1280×720）
+    Camera.tsx      カメラ（寄り・引き・横移動、ゆっくり寄る drift）
+    Counter.tsx     人数カウンター
+    Quiz.tsx        予想タイム・クイズ（選択肢4つまで、3秒の輪、答えが光る）
+    NormalRange.tsx ふつうの幅（自分に当てはめる。幅は誤差棒、指が動いて「あなた」で止まる）
+    LookupTable.tsx 自分に当てはめる表（3×3まで、指が行→列→マスとたどる）
+    Slider.tsx      もしもの条件のつまみ
+    DayReplay.tsx   日ごとの再現（日めくり＋時計）
+    LineChart.tsx   推移の折れ線（端に直接ラベル、時代の札）
+    TileMap.tsx     日本地図（47都道府県のタイル、墨の5段階）
+    BothSides.tsx   もう一方の側（男女を左右対称に比べる）
+    EndScreen.tsx   終了画面（20秒、YouTube の要素を置く枠）
     Episode.tsx     1本＝場面の並び（場面ごとに長さと音声、BGM の層）
-  src/demo/       部品の見本（demo.tsx：標準構成を短く通す、数字は仮）とゴサの表情一覧
+  src/demo/       見本（demo.tsx：標準構成を短く通す／parts.tsx：部品の見本帳／short.tsx：縦型ショート／GosaSheet.tsx：ゴサの表情一覧）。数字はすべて仮
   src/Root.tsx    動画の一覧（episodes/<回>/scenes/Episode.tsx を自動で登録。thumb があればサムネイルも）
   scripts/        sync-assets.mjs（素材をそろえる）、make-sfx.mjs（効果音）、master.mjs（音量の仕上げ）
 ```
 
+縦型ショートは `episodes/<回>/scenes/Short.tsx` に書く（1080×1920 で自動登録。部品は縦長だと縦用の区画 `ZS` に自動で切り替わる）。
 各回の場面のコードは `episodes/<回>/scenes/Episode.tsx` に書く（雛形は `episodes/_template/scenes/Episode.example.tsx`）。
 部品は `@lib/...` で読み込める。
 

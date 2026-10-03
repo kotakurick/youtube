@@ -5,7 +5,7 @@ import React from "react";
 import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { Gosa } from "./Gosa";
 import { Sfx } from "./Sfx";
-import { C, font, LINE, R, sp, Z } from "./theme";
+import { C, font, LINE, R, sp, useZ } from "./theme";
 
 export type Mark = "〇" | "△" | "×";
 export const MARK_WORD: Record<Mark, string> = { "〇": "その通り", "△": "条件次第", "×": "ちがう" };
@@ -28,8 +28,15 @@ const MarkShape: React.FC<{ mark: Mark; t: number }> = ({ mark, t }) => {
 export const Verdict: React.FC<{ claim: string; mark: Mark; reason: string[]; start?: number }> = ({ claim, mark, reason, start = 0 }) => {
   if (reason.length > 3) throw new Error("Verdict: 証拠は3つまでにしてください。");
   const frame = useCurrentFrame() - start;
-  const { fps } = useVideoConfig();
+  const { fps, width: VW, height: VH } = useVideoConfig();
+  const Z = useZ();
   const { chips, roll, hit } = VERDICT_TIMING;
+  // 横長：証拠｜印｜ゴサ の3列。縦長（ショート）：証拠を上、印とゴサを下に並べる
+  const L = Z.vertical
+    ? { chips: { left: 32, top: 150, width: Z.stage.w - 64 }, mark: { x: 300, y: 1110, k: 0.7 }, word: { left: 100, top: 1210 },
+      gosa: { x: 720, foot: Z.stage.y + Z.stage.h - 30, size: "M" as const }, head: 40 }
+    : { chips: { left: 40, top: 140, width: 620 }, mark: { x: 950, y: 520, k: 1 }, word: { left: 750, top: 700 },
+      gosa: { x: 1450, foot: Z.stage.y + Z.stage.h - 40, size: "L" as const }, head: 48 };
   const card = sp("enter", frame, fps);
   const stamp = sp("pop", frame - hit, fps);
   const sure = mark !== "△";
@@ -39,11 +46,11 @@ export const Verdict: React.FC<{ claim: string; mark: Mark; reason: string[]; st
       <div style={{ position: "absolute", left: box.x, top: box.y, width: box.w, height: box.h, background: C.white,
         border: `${LINE.thin}px solid ${C.ink}`, borderRadius: R.lg, overflow: "hidden", boxSizing: "border-box",
         opacity: card, transform: `translateY(${(1 - card) * 24}px)` }}>
-        <div style={{ background: C.ink, padding: "22px 40px", ...font("label", C.white), fontWeight: 900, fontSize: 48 }}>
+        <div style={{ background: C.ink, padding: "22px 40px", ...font("label", C.white), fontWeight: 900, fontSize: L.head, lineHeight: 1.3 }}>
           答え合わせ「{claim}」
         </div>
         {/* 証拠のチップ */}
-        <div style={{ position: "absolute", left: 40, top: 140, width: 620, display: "flex", flexDirection: "column", gap: 22 }}>
+        <div style={{ position: "absolute", ...L.chips, display: "flex", flexDirection: "column", gap: 22 }}>
           {reason.map((r, i) => {
             const t = sp("enter", frame - (chips[i] ?? chips[2]), fps);
             return (
@@ -54,15 +61,15 @@ export const Verdict: React.FC<{ claim: string; mark: Mark; reason: string[]; st
         </div>
       </div>
       {/* 印と言葉（中央の列） */}
-      <svg width={1920} height={1080} style={{ position: "absolute", left: 0, top: 0 }}>
-        <g transform="translate(950,520)"><MarkShape mark={mark} t={stamp} /></g>
+      <svg width={VW} height={VH} style={{ position: "absolute", left: 0, top: 0 }}>
+        <g transform={`translate(${L.mark.x},${L.mark.y}) scale(${L.mark.k})`}><MarkShape mark={mark} t={stamp} /></g>
       </svg>
-      <div style={{ position: "absolute", left: 750, width: 400, top: 700, textAlign: "center", ...font("value"),
+      <div style={{ position: "absolute", ...L.word, width: 400, textAlign: "center", ...font("value"),
         opacity: interpolate(frame - hit, [6, 14], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) }}>
         {MARK_WORD[mark]}
       </div>
       {/* ゴサ（右の列、L）。ひげの長さが判定の確かさ */}
-      <Gosa size="L" x={1450} foot={Z.stage.y + Z.stage.h - 40} bubble={[0.32, -1.62]}
+      <Gosa size={L.gosa.size} x={L.gosa.x} foot={L.gosa.foot} bubble={[0.32, -1.62]}
         cues={[[8, "thinking"], [hit, sure ? "assertive" : "depends"]].map(([f, e]) => [(f as number) + start, e]) as [number, "thinking" | "assertive" | "depends"][]}
         says={[[start + 14, "答え合わせ。"], [start + hit + 6, sure ? "ひげ、短め。" : "ひげ、のびます。"]]} sfx={false} />
       {/* 音：刻み → 0.3秒の無音 → 打撃 → 印ごとの余韻 */}

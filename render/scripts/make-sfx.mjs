@@ -46,6 +46,9 @@ const SOUNDS = {
   "gosa-skeptical": () => { const o = buf(0.4); tone(o, 0, 0.12, 820, { d: 0.03, amp: 0.45 }); tone(o, 0.16, 0.22, (t) => 600 + 500 * t, { d: 0.05, amp: 0.4 }); return o; },
   "gosa-idea": () => { const o = buf(0.5); bell(o, 0, 1318); bell(o, 0.07, 1976, 0.25); return o; },
   "gosa-panic": () => { const o = buf(0.4); tone(o, 0, 0.4, (t) => 640 + 40 * Math.sin(TAU * 22 * t), { d: 0.2, amp: 0.35, shape: "tri" }); return o; },
+  // 考える間の時計の音（1秒ごと）と、日めくりの音
+  tick: () => { const o = buf(0.1); tone(o, 0, 0.08, 1500, { amp: 0.25, d: 0.012 }); hiss(o, 0, 0.02, { amp: 0.15, d: 0.004, tint: 0.9 }); return o; },
+  flip: () => { const o = buf(0.25); hiss(o, 0, 0.22, { amp: 0.3, d: 0.06, tint: 0.6 }); return o; },
   // 章の合図（短い2音。チャンネルの合図）
   signal: () => { const o = buf(0.5); bell(o, 0, 784, 0.35, 0.18); bell(o, 0.12, 1175, 0.35, 0.25); return o; },
   // 判定：1.5秒の刻み（だんだん速く）

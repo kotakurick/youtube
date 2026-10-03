@@ -5,7 +5,7 @@ import { Audio, Sequence, staticFile } from "remotion";
 
 export type SfxName =
   | "gosa-surprised" | "gosa-assertive" | "gosa-depends" | "gosa-skeptical" | "gosa-idea" | "gosa-panic"
-  | "signal" | "roll" | "hit" | "verdict-o" | "verdict-tri" | "verdict-x";
+  | "signal" | "tick" | "flip" | "roll" | "hit" | "verdict-o" | "verdict-tri" | "verdict-x";
 
 export const Sfx: React.FC<{ name: SfxName; at: number; volume?: number }> = ({ name, at, volume = 0.6 }) => (
   <Sequence from={at} layout="none" name={`sfx:${name}`}>
