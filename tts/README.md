@@ -17,9 +17,10 @@
 ### 手順
 
 1. **オーナーの準備**（使う候補だけでよい）
-   - Fish Audio：アカウントを作り、API キーを発行。「licensed」の声から日本語の声を男女1つずつ選び、ID を控える。
-   - ElevenLabs：アカウントを作り、API キーを発行。Voice Library から日本語の声を男女1つずつ選び、voice_id を控える。
-   - Google Cloud：プロジェクトを作って Text-to-Speech API を有効にし、API キーを発行（請求先の登録が必要。無料枠の範囲なら0円）。
+   - Fish Audio：API キーを発行し、**API クレジットをチャージする**（アプリのプランとは別会計。残高0だと 402 エラー）。https://fish.audio/app/developers
+   - ElevenLabs：API キーを発行し、**有料プランにする**（無料プランは Voice Library の声を API で使えない。収益化する動画での利用も有料プランから）。
+   - Google Cloud：プロジェクトで **Text-to-Speech API を有効にする**（キーだけでは 403 エラー）。請求先の登録が必要。無料枠の範囲なら0円。
+   - 声は Claude が API の一覧から選ぶ（2026-10-04 選定済み：Fish Audio は licensed のナレーション向け2つ、ElevenLabs は日本語ネイティブの解説・ナレーション向け2つ。`engines.json` の memo）。
    - AivisSpeech / VOICEVOX：インストールして起動しておく。
    - API キーは Windows のユーザー環境変数に入れる（チャットには貼らない）。
      ```powershell
@@ -27,7 +28,7 @@
      setx ELEVENLABS_API_KEY "..."
      setx GOOGLE_TTS_API_KEY "..."
      ```
-2. **Claude**：控えた声の ID を `engines.json` の `voice` に入れ、`python tts/tts.py trial` を実行する。
+2. **Claude**：`python tts/tts.py trial` を実行する。
    同じ原稿（`samples/sample01.txt`、数字と読み間違えやすい語を多めに入れた約50秒）で全候補の音声を作り、料金を `research/benchmark/compare/tts_trial.tsv` に出す。
    試すときは `yomi.tsv` の読み替えを使わず、素の読みの強さを見る。
 3. **Claude**：`python bench/voice.py measure` と `python bench/voice.py listen` で、競合の声と一緒に、名前を伏せたクリップを作る。
