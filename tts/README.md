@@ -32,6 +32,8 @@
    同じ原稿（`samples/sample01.txt`、数字と読み間違えやすい語を多めに入れた約50秒）で全候補の音声を作り、料金を `research/benchmark/compare/tts_trial.tsv` に出す。
    試すときは `yomi.tsv` の読み替えを使わず、素の読みの強さを見る。
 3. **Claude**：`python bench/voice.py measure` と `python bench/voice.py listen` で、競合の声と一緒に、名前を伏せたクリップを作る。
+   2026-10-04：AivisSpeech の2つ（まお・コハク、速さは1分395字に合わせた）で作成済み。クラウドの候補は、APIキーが入ったら `python tts/tts.py trial --only fish-1,fish-2,eleven-1,eleven-2,google-1,google-2` のあと `python bench/voice.py listen --add` で足す（採点済みの行は消えない）。
+   ローカルの声は `engines.json` の `speed`（速さの倍率）で、ルールの1分390〜400字に合わせる。
 4. **オーナー**：クリップを聞いて `listening.csv` を採点する（自然さ、聞き続けたいか、不気味さ、読み間違い）。
 5. **Claude**：採点と料金をまとめて、どの声にするかの案を出す。決めるのはオーナー。
 

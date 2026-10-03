@@ -101,6 +101,10 @@ def synth_local(base: str):
     def synth(text: str, v: dict) -> tuple[bytes, str]:
         q = urllib.parse.urlencode({"text": text, "speaker": v["voice"]})
         query = http(f"{base}/audio_query?{q}", b"", {})
+        if v.get("speed"):  # 話す速さの倍率（engines.json の speed）。ルールの1分390〜400字に合わせる
+            qd = json.loads(query)
+            qd["speedScale"] = float(v["speed"])
+            query = json.dumps(qd).encode()
         sp = urllib.parse.urlencode({"speaker": v["voice"]})
         return http(f"{base}/synthesis?{sp}", query, {"Content-Type": "application/json"}), "wav"
     return synth

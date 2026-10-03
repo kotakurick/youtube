@@ -4,6 +4,7 @@
     python bench/voice.py fetch <チャンネル> [--max 6]   # 各動画の30〜90秒目の音声だけを取る
     python bench/voice.py measure                       # 数字を測る → research/benchmark/compare/voice.tsv
     python bench/voice.py listen                        # 聞き比べ用の20秒クリップを、名前を伏せて作る
+    python bench/voice.py listen --add                  # 採点表を残したまま、後から作った声だけを足す
 
 測る数字（1分間の音声から）:
     chars_per_min   話す速さ（字幕の文字数）
@@ -194,32 +195,43 @@ def measure() -> None:
     print(f"保存しました: {out}（{len(rows)} 本）")
 
 
-def listen(per_channel: int) -> None:
+def listen(per_channel: int, add: bool = False) -> None:
+    """add=True のときは、key.tsv にまだない声（後から作った候補など）だけを、番号を続けて足す。
+    採点済みの行は消さない。"""
     root = BENCH / "listening"
     clips = root / "clips"
     clips.mkdir(parents=True, exist_ok=True)
+    key_path = root / "key.tsv"
+    sheet = DIR / "listening.csv"
+    header = ["code", "自然さ(1-5)", "聞き続けたいか(1-5)", "不気味さ(1-5、5が不気味)", "読み間違い・不自然な箇所", "メモ"]
     def long_enough(wav: Path) -> bool:
         with wave.open(str(wav)) as w:
             return w.getnframes() / w.getframerate() >= LISTEN_FROM + LISTEN_SEC
-    voices = [v for v in all_voices() if long_enough(v[2])]
+    old_key = list(csv.reader(key_path.open(encoding="utf-8"), delimiter="\t"))[1:] if add and key_path.exists() else []
+    done = {(c, v) for _, c, v in old_key}
+    voices = [v for v in all_voices() if long_enough(v[2]) and (v[0], v[1]) not in done]
+    have = {c for _, c, _ in old_key}
     picked = []
     for ch in sorted({c for c, _, _ in voices}):
+        if add and ch in have:
+            continue
         picked += [v for v in voices if v[0] == ch][:per_channel]
     random.shuffle(picked)
     key = []
-    for i, (channel, vid, wav) in enumerate(picked, 1):
+    for i, (channel, vid, wav) in enumerate(picked, len(old_key) + 1):
         code = f"{i:03d}"
         run(["ffmpeg", "-nostdin", "-loglevel", "error", "-y", "-ss", str(LISTEN_FROM), "-t", str(LISTEN_SEC),
              "-i", str(wav), "-b:a", "96k", str(clips / f"{code}.mp3")])
         key.append((code, channel, vid))
-    with (root / "key.tsv").open("w", encoding="utf-8", newline="") as f:
-        csv.writer(f, delimiter="\t").writerows([("code", "channel", "id"), *key])
-    sheet = DIR / "listening.csv"
+    with key_path.open("w", encoding="utf-8", newline="") as f:
+        csv.writer(f, delimiter="\t").writerows([("code", "channel", "id"), *[tuple(k) for k in old_key], *key])
+    old_rows = list(csv.reader(sheet.open(encoding="utf-8-sig")))[1:] if add and sheet.exists() else []
+    old_rows = [r + [""] * (len(header) - len(r)) for r in old_rows]
     with sheet.open("w", encoding="utf-8-sig", newline="") as f:
         w = csv.writer(f)
-        w.writerow(["code", "自然さ(1-5)", "聞き続けたいか(1-5)", "不気味さ(1-5、5が不気味)", "読み間違い・不自然な箇所", "メモ"])
-        w.writerows([(code, "", "", "", "", "") for code, _, _ in key])
-    print(f"クリップ {len(key)} 本: {clips}\n採点表: {sheet}")
+        w.writerow(header)
+        w.writerows(old_rows + [[code] + [""] * (len(header) - 1) for code, _, _ in key])
+    print(f"クリップ {len(key)} 本を{'追加' if add else '作成'}: {clips}\n採点表: {sheet}")
 
 
 def main():
@@ -231,13 +243,14 @@ def main():
     sub.add_parser("measure")
     l = sub.add_parser("listen")
     l.add_argument("--per-channel", type=int, default=2)
+    l.add_argument("--add", action="store_true", help="採点表を消さず、まだない声だけを足す")
     a = ap.parse_args()
     if a.cmd == "fetch":
         fetch(a.channel, a.max)
     elif a.cmd == "measure":
         measure()
     else:
-        listen(a.per_channel)
+        listen(a.per_channel, a.add)
 
 
 if __name__ == "__main__":
