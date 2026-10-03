@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<style>
+  body { margin:0; width:1920px; background:#e6e3dc; font-family:'IPAGothic', sans-serif; color:#1D2333; }
+  .wrap { display:flex; gap:22px; padding:22px; }
+  .main { flex:0 0 1180px; background:#F5F2EA; border-radius:18px; padding:22px 26px; box-sizing:border-box; }
+  .side { flex:1; display:flex; flex-direction:column; gap:22px; min-width:0; }
+  .alt { border-radius:18px; padding:18px 22px; box-sizing:border-box; flex:1; }
+  .tag { font-size:20px; font-weight:bold; opacity:.75; }
+  h1 { font-size:46px; margin:4px 0 2px; }
+  h2 { font-size:34px; margin:4px 0 2px; }
+  .sub { font-size:22px; margin-bottom:6px; }
+  .label { font-size:17px; font-weight:bold; margin:12px 0 4px; opacity:.85; }
+  .grid { display:flex; gap:20px; }
+  .sw { display:flex; gap:8px; }
+  .sw div { width:76px; height:38px; border-radius:6px; font-size:12px; display:flex; align-items:flex-end; padding:3px; box-sizing:border-box; }
+  .note { font-size:16px; line-height:1.55; }
+</style></head><body>
+<div class="wrap">
+
+<!-- ================= 推奨：縮図ニッポン ================= -->
+<div class="main">
+  <div class="tag">推奨　レビュー3人の合意を反映</div>
+  <h1>縮図ニッポン</h1>
+  <div class="sub">日本を1000人にして、確かめる。　<span style="font-size:17px;opacity:.7">（1人≒12万人。同じ1000人が、統計どおりに・条件を変えて動く）</span></div>
+
+  <div class="label">案内役：ゴサ（誤差棒つきのデータ点）。誤差棒の長さ＝確信の度合い</div>
+  <svg width="1130" height="215" viewBox="0 0 1130 215">
+    <defs>
+      <g id="gbody"><circle r="30" fill="#1D2333"/></g>
+    </defs>
+    <!-- 1 ふつう -->
+    <g transform="translate(80,95)">
+      <line x1="0" y1="-58" x2="0" y2="58" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <line x1="-14" y1="-58" x2="14" y2="-58" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <line x1="-14" y1="58" x2="14" y2="58" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <use href="#gbody"/>
+      <circle cx="-10" cy="-4" r="7" fill="#fff"/><circle cx="10" cy="-4" r="7" fill="#fff"/>
+      <circle cx="-9" cy="-3" r="3.4" fill="#1D2333"/><circle cx="11" cy="-3" r="3.4" fill="#1D2333"/>
+    </g>
+    <text x="80" y="208" font-size="15" text-anchor="middle">ふつう</text>
+    <!-- 2 驚き -->
+    <g transform="translate(260,95)">
+      <line x1="0" y1="-66" x2="0" y2="58" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <line x1="-14" y1="-66" x2="14" y2="-66" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <line x1="-14" y1="58" x2="14" y2="58" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <use href="#gbody"/>
+      <circle cx="-10" cy="-6" r="10" fill="#fff"/><circle cx="10" cy="-6" r="10" fill="#fff"/>
+      <circle cx="-10" cy="-6" r="3.4" fill="#1D2333"/><circle cx="10" cy="-6" r="3.4" fill="#1D2333"/>
+      <ellipse cx="0" cy="14" rx="4" ry="5" fill="#fff"/>
+      <text x="30" y="-46" font-size="40" font-weight="bold" fill="#D9541E">!</text>
+    </g>
+    <text x="260" y="208" font-size="15" text-anchor="middle">驚き</text>
+    <!-- 3 言い切り（誤差棒が短い） -->
+    <g transform="translate(440,95)">
+      <line x1="0" y1="-40" x2="0" y2="58" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <line x1="-14" y1="-40" x2="14" y2="-40" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <line x1="-14" y1="58" x2="14" y2="58" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <use href="#gbody"/>
+      <path d="M-17 -4 q7 -7 14 0 M3 -4 q7 -7 14 0" stroke="#fff" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+      <path d="M-7 12 q7 6 14 0" stroke="#fff" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    </g>
+    <text x="440" y="208" font-size="15" text-anchor="middle">言い切り（棒が短い）</text>
+    <!-- 4 条件次第（誤差棒が長く揺れる） -->
+    <g transform="translate(620,95)">
+      <path d="M0 -76 Q6 -50 0 -30 M0 30 Q-6 50 0 76" stroke="#1D2333" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <line x1="-14" y1="-80" x2="14" y2="-72" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <line x1="-14" y1="72" x2="14" y2="80" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <use href="#gbody"/>
+      <circle cx="-10" cy="-3" r="7" fill="#fff"/><circle cx="10" cy="-3" r="7" fill="#fff"/>
+      <circle cx="-12" cy="-3" r="3.4" fill="#1D2333"/><circle cx="12" cy="-3" r="3.4" fill="#1D2333"/>
+      <path d="M-7 13 q3.5 -3 7 0 q3.5 3 7 0" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </g>
+    <text x="620" y="208" font-size="15" text-anchor="middle">条件次第（棒が長い）</text>
+    <!-- 5 考え中（傾き） -->
+    <g transform="translate(800,95) rotate(-16)">
+      <line x1="0" y1="-58" x2="0" y2="58" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <line x1="-14" y1="-58" x2="14" y2="-58" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <line x1="-14" y1="58" x2="14" y2="58" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <use href="#gbody"/>
+      <path d="M-17 -3 h12 M5 -3 h12" stroke="#fff" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M-5 13 h10" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+    </g>
+    <text x="840" y="42" font-size="36" font-weight="bold" fill="#2F6FDE">?</text>
+    <text x="800" y="208" font-size="15" text-anchor="middle">考え中</text>
+    <!-- 6 指し示し（縦線を倒す） -->
+    <g transform="translate(990,105)">
+      <line x1="-50" y1="0" x2="62" y2="0" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <line x1="62" y1="-14" x2="62" y2="14" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <line x1="-50" y1="-14" x2="-50" y2="14" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <use href="#gbody"/>
+      <circle cx="-4" cy="-8" r="7" fill="#fff"/><circle cx="14" cy="-8" r="7" fill="#fff"/>
+      <circle cx="-1" cy="-8" r="3.4" fill="#1D2333"/><circle cx="17" cy="-8" r="3.4" fill="#1D2333"/>
+      <rect x="78" y="-22" width="48" height="44" rx="6" fill="#fff" stroke="#1D2333" stroke-width="3"/>
+      <text x="102" y="8" font-size="20" font-weight="bold" text-anchor="middle">38</text>
+    </g>
+    <text x="1010" y="208" font-size="15" text-anchor="middle">指し示し（棒を倒す）</text>
+  </svg>
+
+  <div class="grid">
+    <div>
+      <div class="label">群衆：丸い頭＋角丸の胴。男性＝青、女性＝オレンジ＋裾の広がり。追う1人は墨色の縁取り</div>
+      <svg width="560" height="210" viewBox="0 0 560 210">
+        <defs>
+          <g id="m"><circle cx="0" cy="-36" r="9"/><rect x="-10" y="-25" width="20" height="30" rx="8"/></g>
+          <g id="f"><circle cx="0" cy="-36" r="9"/><path d="M-9 -25 h18 q2 0 3 3 l3 24 q0 3 -3 3 h-24 q-3 0 -3 -3 l3 -24 q1 -3 3 -3 z"/></g>
+        </defs>
+        <!-- big pair with labels -->
+        <g transform="translate(60,110) scale(2)" fill="#2F6FDE"><use href="#m"/></g>
+        <g transform="translate(140,110) scale(2)" fill="#D9541E"><use href="#f"/></g>
+        <text x="60" y="140" font-size="16" text-anchor="middle" fill="#2F6FDE" font-weight="bold">男性</text>
+        <text x="140" y="140" font-size="16" text-anchor="middle" fill="#D9541E" font-weight="bold">女性</text>
+        <!-- crowd -->
+        <g transform="translate(210,40)">
+          <g fill="#2F6FDE"><use href="#m" x="20" y="60"/><use href="#m" x="80" y="60"/><use href="#m" x="140" y="60"/><use href="#m" x="50" y="130"/><use href="#m" x="170" y="130"/><use href="#m" x="290" y="130"/></g>
+          <g fill="#D9541E"><use href="#f" x="50" y="60"/><use href="#f" x="110" y="60"/><use href="#f" x="200" y="60"/><use href="#f" x="20" y="130"/><use href="#f" x="110" y="130"/><use href="#f" x="230" y="130"/></g>
+          <g fill="#9A958C"><use href="#m" x="260" y="60"/><use href="#f" x="320" y="60"/><use href="#m" x="80" y="130"/></g>
+          <g fill="#D9541E" stroke="#1D2333" stroke-width="3.5"><use href="#f" x="200" y="130"/></g>
+          <path d="M200 140 l-6 10 h12 z" fill="#1D2333"/>
+          <text x="216" y="166" font-size="14">この1人を追う</text>
+        </g>
+      </svg>
+    </div>
+    <div>
+      <div class="label">締めの判定コーナー（毎回）</div>
+      <svg width="520" height="210" viewBox="0 0 520 210">
+        <rect x="6" y="10" width="508" height="190" rx="14" fill="#fff" stroke="#1D2333" stroke-width="3"/>
+        <rect x="6" y="10" width="508" height="40" rx="14" fill="#1D2333"/><rect x="6" y="36" width="508" height="14" fill="#1D2333"/>
+        <text x="24" y="38" font-size="20" font-weight="bold" fill="#fff">判定　「婚活は条件を下げれば成功する」</text>
+        <g transform="translate(90,130)">
+          <circle r="48" fill="none" stroke="#9A958C" stroke-width="6" opacity=".35"/>
+          <path d="M0 -48 L44 30 H-44 Z" fill="none" stroke="#1D2333" stroke-width="9" stroke-linejoin="round"/>
+        </g>
+        <text x="190" y="110" font-size="30" font-weight="bold">△ 条件次第</text>
+        <text x="190" y="145" font-size="17">年齢差を広げると成立は1.6倍。</text>
+        <text x="190" y="170" font-size="17">ただし地方では逆の結果になる。</text>
+        <g transform="translate(470,160) scale(.55)">
+          <path d="M0 -76 Q6 -50 0 -30 M0 30 Q-6 50 0 76" stroke="#1D2333" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <circle r="30" fill="#1D2333"/><circle cx="-10" cy="-3" r="7" fill="#fff"/><circle cx="10" cy="-3" r="7" fill="#fff"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div>
+      <div class="label">サムネイルの決まった配置（左6割に文字2行、右4割に絵1つ、上に濃い帯、右下にゴサ）</div>
+      <svg width="560" height="315" viewBox="0 0 1280 720">
+        <rect width="1280" height="720" fill="#F5F2EA" stroke="#1D2333" stroke-width="10"/>
+        <rect width="1280" height="90" fill="#1D2333"/>
+        <text x="40" y="62" font-size="44" font-weight="bold" fill="#F5F2EA">縮図ニッポン</text>
+        <text x="50" y="330" font-size="118" font-weight="bold" fill="#1D2333">1000人で</text>
+        <text x="50" y="470" font-size="118" font-weight="bold" fill="#1D2333">婚活したら</text>
+        <rect x="50" y="520" width="600" height="110" rx="12" fill="#D9541E"/>
+        <text x="80" y="603" font-size="80" font-weight="bold" fill="#fff">残るのは？</text>
+        <g transform="translate(830,230)">
+          <g fill="#2F6FDE" transform="scale(2.4)"><use href="#m" x="0" y="40"/><use href="#m" x="40" y="40"/><use href="#m" x="80" y="40"/></g>
+          <g fill="#D9541E" transform="scale(2.4)"><use href="#f" x="20" y="100"/><use href="#f" x="60" y="100"/><use href="#f" x="100" y="100"/></g>
+        </g>
+        <text x="860" y="640" font-size="120" font-weight="bold" fill="#1D2333">38<tspan font-size="60">人</tspan></text>
+        <g transform="translate(1200,620) scale(.9)">
+          <line x1="0" y1="-58" x2="0" y2="58" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+          <circle r="30" fill="#1D2333"/>
+          <circle cx="-10" cy="-6" r="10" fill="#fff"/><circle cx="10" cy="-6" r="10" fill="#fff"/>
+          <circle cx="-10" cy="-6" r="3.4" fill="#1D2333"/><circle cx="10" cy="-6" r="3.4" fill="#1D2333"/>
+        </g>
+      </svg>
+    </div>
+    <div style="flex:1">
+      <div class="label">配色（青×オレンジは色覚のどの型でも見分けられる）</div>
+      <div class="sw">
+        <div style="background:#F5F2EA;border:1px solid #bbb">背景</div>
+        <div style="background:#1D2333;color:#fff">墨・ゴサ</div>
+        <div style="background:#2F6FDE;color:#fff">男性</div>
+        <div style="background:#D9541E;color:#fff">女性</div>
+        <div style="background:#9A958C;color:#fff">その他</div>
+      </div>
+      <div class="label">タイトルの型：毎回「人数」と「結果の数字」を入れる</div>
+      <div class="note">
+        ・1000人で婚活したら、最後に残るのは38人だった<br>
+        ・東京集中を1970年で止めたら、1000人の住む場所はこう変わる<br>
+        ・1000人の資産を30年動かすと、差はどこで開くか<br>
+      </div>
+      <div class="label">良い点・注意点</div>
+      <div class="note">
+        ◎ 統計の回も「もしも」の回も、同じ1000人で見せられる<br>
+        ◎ 競合の言葉（もしも・数字の・本音・ラボ）を使っていない<br>
+        ◎ ゴサの誤差棒で「言い切る／条件次第」の方針を形で見せられる<br>
+        △ 「世界がもし100人の村だったら」を連想させるので、「村」「100人」は使わない<br>
+        △ ゴサは見慣れない形なので、最初の数本で覚えてもらう工夫が要る
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 代わりの案 ================= -->
+<div class="side">
+  <div class="alt" style="background:#fffdf7;border:2px solid #d8d2c2">
+    <div class="tag">代わりの案1　対立型を前に出すなら</div>
+    <h2>世間の答え合わせ</h2>
+    <div class="sub" style="font-size:19px">よく聞くあの話、数字で採点します。</div>
+    <svg width="100%" viewBox="0 0 660 230">
+      <defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0 H0 V20" fill="none" stroke="#dfe6ee" stroke-width="1.5"/></pattern></defs>
+      <rect x="0" y="0" width="660" height="230" rx="10" fill="url(#grid)"/>
+      <!-- hanko -->
+      <g transform="translate(110,130)">
+        <rect x="-38" y="-80" width="76" height="110" rx="14" fill="#C8102E"/>
+        <ellipse cx="0" cy="-80" rx="38" ry="10" fill="#e04a5f"/>
+        <rect x="-44" y="26" width="88" height="22" rx="6" fill="#1D2333"/>
+        <circle cx="-12" cy="-30" r="6" fill="#fff"/><circle cx="12" cy="-30" r="6" fill="#fff"/>
+        <path d="M-9 -10 q9 7 18 0" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </g>
+      <text x="230" y="70" font-size="22" font-weight="bold" fill="#1D2333">「男は年収で選ばれる」</text>
+      <circle cx="300" cy="150" r="46" fill="none" stroke="#C8102E" stroke-width="9"/>
+      <path d="M380 110 L470 190 M470 110 L380 190" stroke="#C8102E" stroke-width="9" stroke-linecap="round"/>
+      <path d="M560 106 L604 186 H516 Z" fill="none" stroke="#C8102E" stroke-width="9" stroke-linejoin="round"/>
+    </svg>
+    <div class="note">
+      案内役：朱肉のハンコ（〇・△・×を押す）。方眼の答案用紙に赤ペンの世界。<br>
+      ◎ 対立型の切り口と「反対側のデータも出す」決まりが、判定の形にそのまま入る<br>
+      △ 「答え合わせ」は一般的な言葉で、検索で埋もれやすい<br>
+      △ お金・健康の話に×を押すと助言に見える。判定するのは「現象」だけにする
+    </div>
+  </div>
+
+  <div class="alt" style="background:#f3f6f4;border:2px solid #cdd8d0">
+    <div class="tag">代わりの案2　「もしも」に特化するなら</div>
+    <h2>もうひとつの日本</h2>
+    <div class="sub" style="font-size:19px">選ばなかったほうの日本を、計算する。</div>
+    <svg width="100%" viewBox="0 0 660 220">
+      <path d="M200 110 H330 C380 110 390 50 440 50 H640 M330 110 C380 110 390 170 440 170 H640" stroke="#b9c4bc" stroke-width="12" fill="none" stroke-linecap="round"/>
+      <text x="540" y="34" font-size="18" font-weight="bold" fill="#1D2333">実際の日本</text>
+      <text x="490" y="204" font-size="18" font-weight="bold" fill="#1D2333">もうひとつの日本</text>
+      <!-- hourglass -->
+      <g transform="translate(100,112)">
+        <rect x="-46" y="-86" width="92" height="12" rx="6" fill="#1D2333"/>
+        <rect x="-46" y="74" width="92" height="12" rx="6" fill="#1D2333"/>
+        <path d="M-36 -74 H36 Q36 -20 4 0 Q36 20 36 74 H-36 Q-36 20 -4 0 Q-36 -20 -36 -74 Z" fill="#fff" stroke="#1D2333" stroke-width="5"/>
+        <path d="M-24 50 Q0 30 24 50 L30 70 H-30 Z" fill="#E0A100"/>
+        <path d="M-26 -60 H26 Q20 -36 0 -24 Q-20 -36 -26 -60 Z" fill="#E0A100"/>
+        <circle cx="-9" cy="-46" r="4.5" fill="#1D2333"/><circle cx="9" cy="-46" r="4.5" fill="#1D2333"/>
+      </g>
+    </svg>
+    <div class="note">
+      案内役：砂時計（ひっくり返すと分岐点まで戻る）。紙の背景に分かれる線路。<br>
+      ◎ 「もしも」優先の方針に正面から合う<br>
+      △ 日本社会構造研究所の「もしも」と重なる<br>
+      △ 統計の回（夫婦の出会いの変化など）が看板に入りにくい
+    </div>
+  </div>
+</div>
+
+</div>
+</body></html>
