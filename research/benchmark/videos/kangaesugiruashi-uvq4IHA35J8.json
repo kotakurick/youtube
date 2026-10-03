@@ -1,0 +1,27 @@
+{
+  "id": "uvq4IHA35J8",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ情報商材は2,400年間滅びないのか",
+  "topic": "お金・格差",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "東京の男とアテネの青年の取引を対比して語る",
+  "first_chart_sec": 90,
+  "n_sources": 9,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["棒", "数字の強調", "図解", "表"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "東京の夜と銀貨"},
+    {"start_sec": 143, "label": "侮蔑語の系譜"},
+    {"start_sec": 356, "label": "レモンの市場"},
+    {"start_sec": 547, "label": "希望を買う脳"},
+    {"start_sec": 823, "label": "規制の彼岸"},
+    {"start_sec": 1110, "label": "値札を貼る商売"}
+  ],
+  "surprise_sec": 750,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 30, "chart": 25, "text_only": 30, "ai_or_photo": 0, "other": 15},
+  "policy_flags": [],
+  "why": "経済学・心理学・宗教社会学・規制論を横断する知的構成と物語調の導入が強みだが、19分の長尺で視聴維持には課題がありそう"
+}

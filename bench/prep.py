@@ -136,6 +136,11 @@ def prep_video(vdir: Path, channel: str) -> str:
     out = vdir / "prep"
     if (out / "meta.json").exists():
         return "skip"
+    # bench.sh のキャプチャがまだ終わっていない動画は後回し（failed.tsv に載った動画はタイルなしで進める）
+    failed = vdir.parent / "failed.tsv"
+    failed_ids = {l.split("\t")[0] for l in failed.read_text(encoding="utf-8").splitlines()} if failed.exists() else set()
+    if not (vdir / "times.tsv").exists() and vid not in failed_ids:
+        return "pending"
     if out.exists():
         shutil.rmtree(out)
     (out / "tiles").mkdir(parents=True)

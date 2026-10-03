@@ -1,0 +1,26 @@
+{
+  "id": "h89MHXbpCiM",
+  "channel": "kangaesugiruashi",
+  "question": "感情を吐き出せば楽になるのは本当か",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "大人もスマホ依存の若者と同じ依存症だと指摘",
+  "first_chart_sec": null,
+  "n_sources": 5,
+  "source_kinds": ["論文"],
+  "chart_types": ["図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "大人の処方箋"},
+    {"start_sec": 99, "label": "感情のマッチポンプ"},
+    {"start_sec": 370, "label": "刀鍛冶の焼き戻し"},
+    {"start_sec": 677, "label": "完のスタンプを欲する脳"},
+    {"start_sec": 968, "label": "理解という娯楽"}
+  ],
+  "surprise_sec": 470,
+  "ending_type": "登録の呼びかけ",
+  "visual_mix": {"stick_figure": 5, "chart": 5, "text_only": 20, "ai_or_photo": 0, "other": 70},
+  "policy_flags": [],
+  "why": "抽象的な心理学考察を物語調で展開する約18分の長尺構成で、深掘り好きな層には響くが離脱リスクも高い"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "GsZsEy1d90o",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ人はアンチコメントを書いてしまうのか",
+  "topic": "社会・ネット",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "荒れたコメント欄を見て他人事だと思う視聴者に疑問を投げる",
+  "first_chart_sec": 90,
+  "n_sources": 8,
+  "source_kinds": ["論文"],
+  "chart_types": ["図解", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 87, "label": "匿名でも人は攻撃する"},
+    {"start_sec": 238, "label": "サディストか月曜日か"},
+    {"start_sec": 405, "label": "怒りにいいねがつく構造"},
+    {"start_sec": 606, "label": "好きだから攻撃する"},
+    {"start_sec": 778, "label": "エピローグ"}
+  ],
+  "surprise_sec": 140,
+  "ending_type": "登録の呼びかけ",
+  "visual_mix": {"stick_figure": 15, "chart": 35, "text_only": 30, "ai_or_photo": 10, "other": 10},
+  "policy_flags": [],
+  "why": "身近なアンチ心理を複数の学術研究で裏付け、視聴者自身を当事者に巻き込む構成が共感と納得感を生んだ"
+}

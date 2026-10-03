@@ -1,0 +1,27 @@
+{
+  "id": "z0MwP9FRJjk",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ現代人は働きアリになりきれないのか",
+  "topic": "仕事・キャリア",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "通勤の人波をアリの行列に重ねて見せる導入",
+  "first_chart_sec": 810,
+  "n_sources": 11,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["数字の強調", "棒", "折れ線", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "空の上を這う行列"},
+    {"start_sec": 152, "label": "名を持たぬ手足"},
+    {"start_sec": 416, "label": "市場という建築家"},
+    {"start_sec": 773, "label": "半ばの橋"},
+    {"start_sec": 1048, "label": "世界に一つだけの細胞"},
+    {"start_sec": 1222, "label": "預けそびれた自我"}
+  ],
+  "surprise_sec": 890,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 15, "chart": 15, "text_only": 20, "ai_or_photo": 0, "other": 50},
+  "policy_flags": [],
+  "why": "超個体論という学術フレームを通勤風景に重ねる構成と哲学的な問いかけが共感と高評価率を支えたと考えられる"
+}

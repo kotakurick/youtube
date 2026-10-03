@@ -1,0 +1,27 @@
+{
+  "id": "YApCSi3BFbI",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ人は孤独より馴染みの苦痛を選ぶのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "歌舞伎町深夜の情景描写からトー横キッズを導入",
+  "first_chart_sec": 120,
+  "n_sources": 10,
+  "source_kinds": ["論文", "公的統計"],
+  "chart_types": ["棒", "円", "折れ線", "地図", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "歌舞伎町、午前1時"},
+    {"start_sec": 111, "label": "たどり着いた側"},
+    {"start_sec": 323, "label": "迎え入れる側"},
+    {"start_sec": 567, "label": "消えた少年たち"},
+    {"start_sec": 799, "label": "見ている側"},
+    {"start_sec": 976, "label": "epilogue"}
+  ],
+  "surprise_sec": 570,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 30, "chart": 25, "text_only": 30, "ai_or_photo": 5, "other": 10},
+  "policy_flags": ["ショック系"],
+  "why": "社会問題を脳科学・心理学の研究で裏付けながら解説し、最後に『同じ回路は視聴者の中にもある』と自分事化させる構成が共感と拡散を呼んだと考えられる。"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "d0g06xeZOYs",
+  "channel": "kangaesugiruashi",
+  "question": "神を信じない人はなぜ聖地を巡礼するのか？",
+  "topic": "幸福・心理",
+  "title_type": "問いかけ型",
+  "hook_type": "物語",
+  "hook_summary": "江ノ島踏切に集うアニメ聖地巡礼者の情景描写",
+  "first_chart_sec": null,
+  "n_sources": 9,
+  "source_kinds": ["公的統計", "民間調査", "論文"],
+  "chart_types": ["図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "神のいない聖地"},
+    {"start_sec": 121, "label": "八十八ヶ所の空白"},
+    {"start_sec": 370, "label": "神を殺した街で"},
+    {"start_sec": 559, "label": "脳というエルサレム"},
+    {"start_sec": 786, "label": "裏切り者を暴く作法"},
+    {"start_sec": 1070, "label": "銘々の神とアルゴリズム"}
+  ],
+  "surprise_sec": 130,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 10, "chart": 0, "text_only": 45, "ai_or_photo": 0, "other": 45},
+  "policy_flags": [],
+  "why": "進化心理学や宗教社会学を軸に身近な「聖地巡礼」現象を知的に解明し、共感と納得感を与えたことが伸びた一因と考えられる"
+}

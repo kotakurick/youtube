@@ -1,0 +1,27 @@
+{
+  "id": "eVXTZrCj5qA",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ数字に意味を感じ、恐れたり惹かれたりするのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "レーガンの改番や国道666号線の改称など実例を提示",
+  "first_chart_sec": 180,
+  "n_sources": 11,
+  "source_kinds": ["論文"],
+  "chart_types": ["数字の強調", "図解", "棒"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "国道491号線"},
+    {"start_sec": 137, "label": "桁という国境"},
+    {"start_sec": 477, "label": "死の音、福の音"},
+    {"start_sec": 785, "label": "迫害者の合言葉"},
+    {"start_sec": 1096, "label": "二千年の掌の中"},
+    {"start_sec": 1338, "label": "666の祈り"}
+  ],
+  "surprise_sec": 540,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 15, "chart": 40, "text_only": 30, "ai_or_photo": 0, "other": 15},
+  "policy_flags": [],
+  "why": "異分野の研究を一本の問いでつなぐ構成と「なぜ」型タイトルの知的好奇心が視聴を牽引したと考えられる"
+}

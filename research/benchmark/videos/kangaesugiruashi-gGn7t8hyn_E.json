@@ -1,0 +1,27 @@
+{
+  "id": "gGn7t8hyn_E",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ人は奪われるほど満たされてしまうのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "歌舞伎町で貢ぐ女性の満ち足りた表情を描き謎を提示",
+  "first_chart_sec": 150,
+  "n_sources": 5,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["棒", "数字の強調", "図解", "折れ線"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "満ち足りた被害者"},
+    {"start_sec": 169, "label": "私が選んだという物語"},
+    {"start_sec": 447, "label": "自由という終身刑"},
+    {"start_sec": 677, "label": "神殿跡地の商売"},
+    {"start_sec": 853, "label": "自己消去という商品"},
+    {"start_sec": 1015, "label": "正気の計算"}
+  ],
+  "surprise_sec": 880,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 55, "chart": 20, "text_only": 15, "ai_or_photo": 0, "other": 10},
+  "policy_flags": ["ショック系", "断定しすぎ"],
+  "why": "歌舞伎町の実例とフロムの理論、脳科学の知見を重ね、逆説的な問いで最後まで引き込む構成が奏功したと考えられる"
+}

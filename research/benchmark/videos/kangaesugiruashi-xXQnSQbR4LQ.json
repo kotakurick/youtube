@@ -1,0 +1,28 @@
+{
+  "id": "xXQnSQbR4LQ",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ引き離された子は、いない親と暮らし続けるのか",
+  "topic": "教育・子ども",
+  "title_type": "問いかけ型",
+  "hook_type": "物語",
+  "hook_summary": "夕食の風景描写から離婚で消える生活の変化を語る",
+  "first_chart_sec": 150,
+  "n_sources": 10,
+  "source_kinds": ["公的統計", "論文", "その他"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "食卓から椅子が消える"},
+    {"start_sec": 118, "label": "数字で見る子の人生"},
+    {"start_sec": 497, "label": "親が無意識に渡すもの"},
+    {"start_sec": 644, "label": "時間が体に染みる"},
+    {"start_sec": 900, "label": "紙の親子と心の親子"},
+    {"start_sec": 1149, "label": "いない親と暮らす大人"},
+    {"start_sec": 1324, "label": "椅子消えた後の暮らし"}
+  ],
+  "surprise_sec": 1020,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 15, "chart": 7, "text_only": 52, "ai_or_photo": 0, "other": 26},
+  "policy_flags": [],
+  "why": "物語仕立ての導入と多分野の統計を組み合わせ、離婚家庭以外の視聴者にも「自分の中のいない親」を想像させた点が共感を広げたと考えられる。"
+}

@@ -1,0 +1,28 @@
+{
+  "id": "9LNeBkw3RXo",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ寿命が消えると人類は衰退するのか",
+  "topic": "世代・人口",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "寿命が消えた世界を仮定し社会崩壊を想像させる",
+  "first_chart_sec": 150,
+  "n_sources": 20,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["棒", "散布図", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "祝祭の落葉"},
+    {"start_sec": 107, "label": "赤子が生き残る世界"},
+    {"start_sec": 342, "label": "消えたユースバルジ"},
+    {"start_sec": 598, "label": "種のための死という誤解"},
+    {"start_sec": 859, "label": "水かきの痕跡と散り際"},
+    {"start_sec": 1060, "label": "正義が閉じた小径"},
+    {"start_sec": 1191, "label": "いつか座る椅子の影"}
+  ],
+  "surprise_sec": 300,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 55, "chart": 15, "text_only": 15, "ai_or_photo": 0, "other": 15},
+  "policy_flags": ["断定しすぎ"],
+  "why": "死の克服という思考実験から進化生物学・人口統計・制度史を貫く逆説を提示し、知的好奇心を刺激する構成が伸びた要因と推測される"
+}

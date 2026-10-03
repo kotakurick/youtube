@@ -1,0 +1,27 @@
+{
+  "id": "PFdUa6xWRnY",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ若者言葉は流行った瞬間から廃れるのか",
+  "topic": "社会・ネット",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "若者言葉の寿命短縮を論文の数字で提示",
+  "first_chart_sec": 30,
+  "n_sources": 6,
+  "source_kinds": ["論文"],
+  "chart_types": ["棒", "折れ線", "図解", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "平安京と令和の指"},
+    {"start_sec": 157, "label": "合言葉の生理学"},
+    {"start_sec": 435, "label": "千年の感嘆語史"},
+    {"start_sec": 617, "label": "世界の恍惚と感染"},
+    {"start_sec": 874, "label": "種としての同型反射"},
+    {"start_sec": 1136, "label": "メロいが死語になる夜"}
+  ],
+  "surprise_sec": 90,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 30, "chart": 15, "text_only": 35, "ai_or_photo": 5, "other": 15},
+  "policy_flags": ["断定しすぎ"],
+  "why": "身近な流行語と感染症学・神経科学を結ぶ意外な類推が引きになった一方、抽象度の高い論の長さが伸びを中程度に抑えた可能性。"
+}

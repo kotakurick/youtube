@@ -1,0 +1,28 @@
+{
+  "id": "vUhZCw3aTKk",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ脳は恋人の過去にまで嫉妬してしまうのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "観覧車やレストランで元恋人に嫉妬する日常描写",
+  "first_chart_sec": 270,
+  "n_sources": 5,
+  "source_kinds": ["論文"],
+  "chart_types": ["散布図", "折れ線", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "観覧車の嫉妬の瞬間"},
+    {"start_sec": 151, "label": "嫉妬相手は元恋人でない"},
+    {"start_sec": 256, "label": "現在の脅威のはずが"},
+    {"start_sec": 380, "label": "絆に解除機能がない"},
+    {"start_sec": 570, "label": "身体に残るライバル"},
+    {"start_sec": 835, "label": "源氏物語からある感情"},
+    {"start_sec": 994, "label": "過去ごと愛した人"}
+  ],
+  "surprise_sec": 720,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 0, "chart": 25, "text_only": 45, "ai_or_photo": 5, "other": 25},
+  "policy_flags": [],
+  "why": "共感できる恋愛の日常描写と進化生物学・脳科学の意外な研究結果の組み合わせが知的好奇心を刺激した"
+}

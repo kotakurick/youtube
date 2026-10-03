@@ -1,0 +1,27 @@
+{
+  "id": "BaFdZmNIKdA",
+  "channel": "kangaesugiruashi",
+  "question": "大人が丸くなるのはなぜか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "55歳部長の平凡な一日を描き、丸くなる意味を問う",
+  "first_chart_sec": 170,
+  "n_sources": 8,
+  "source_kinds": ["論文", "その他"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "設計図の狂い"},
+    {"start_sec": 187, "label": "模範的な死骸"},
+    {"start_sec": 381, "label": "角を削る刃"},
+    {"start_sec": 630, "label": "最初の検品"},
+    {"start_sec": 876, "label": "血筋の断絶とネオテニー"},
+    {"start_sec": 1158, "label": "勲章の疼き"}
+  ],
+  "surprise_sec": 1110,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 50, "chart": 5, "text_only": 20, "ai_or_photo": 0, "other": 25},
+  "policy_flags": ["断定しすぎ"],
+  "why": "丸くなる=去勢という挑発的な比喩と学術的裏付けで、大人への違和感に共感を呼んだため"
+}

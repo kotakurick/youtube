@@ -1,0 +1,27 @@
+{
+  "id": "2gWoYo-6K50",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ絵は美で裁いてよく人は裁いてはいけないのか",
+  "topic": "体・見た目",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "美術館の鑑賞と駅での美の判定を対比し問いを提示",
+  "first_chart_sec": 715,
+  "n_sources": 6,
+  "source_kinds": ["論文", "その他"],
+  "chart_types": ["折れ線", "表", "図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "駅で美しいと呟くと罪"},
+    {"start_sec": 98, "label": "絵も顔も脳は同じ判定"},
+    {"start_sec": 369, "label": "絵は裁かれても傷つかぬ"},
+    {"start_sec": 633, "label": "額縁なき人への視線"},
+    {"start_sec": 910, "label": "自分はしていないと思う側"},
+    {"start_sec": 1087, "label": "人は評価のため存在せず"}
+  ],
+  "surprise_sec": 510,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 20, "chart": 5, "text_only": 40, "ai_or_photo": 0, "other": 35},
+  "policy_flags": ["断定しすぎ"],
+  "why": "絵画鑑賞と外見差別を同じ脳科学的現象として繋げる独自の視点が知的好奇心を刺激した"
+}

@@ -1,0 +1,28 @@
+{
+  "id": "JiH_998Jg0g",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ人は飼い慣らされた自然しか愛せないのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "自然を「ワクチン」に例え、熊被害238人という数字を提示",
+  "first_chart_sec": 65,
+  "n_sources": 7,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["棒", "数字の強調", "図解", "表"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "弱毒のワクチン"},
+    {"start_sec": 134, "label": "造園の効能"},
+    {"start_sec": 475, "label": "去勢された景観"},
+    {"start_sec": 797, "label": "恐怖モジュール"},
+    {"start_sec": 979, "label": "失敗作の山、崇高"},
+    {"start_sec": 1185, "label": "都合の良い伝統"},
+    {"start_sec": 1392, "label": "安全圏の慈愛"}
+  ],
+  "surprise_sec": 570,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 0, "chart": 20, "text_only": 10, "ai_or_photo": 5, "other": 65},
+  "policy_flags": ["断定しすぎ"],
+  "why": "ワクチン比喩と熊騒動という身近な導入から学術研究を積み重ね、300年史の壮大な結論へ接続する構成力が評価されたと推測"
+}

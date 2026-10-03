@@ -1,0 +1,27 @@
+{
+  "id": "LBjTKi-xeU4",
+  "channel": "kangaesugiruashi",
+  "question": "占いはなぜ当たると感じてしまうのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "視聴者自身の性格を言い当てる体験をさせる",
+  "first_chart_sec": 30,
+  "n_sources": 12,
+  "source_kinds": ["論文", "民間調査"],
+  "chart_types": ["棒", "折れ線", "数字の強調", "図解", "表"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 99, "label": "4.26点の性格診断"},
+    {"start_sec": 226, "label": "懐疑派も脳は揺らぐ"},
+    {"start_sec": 421, "label": "当てる技術の正体"},
+    {"start_sec": 581, "label": "占いを手放せない理由"},
+    {"start_sec": 795, "label": "エピローグ"}
+  ],
+  "surprise_sec": 380,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 24, "chart": 38, "text_only": 21, "ai_or_photo": 0, "other": 17},
+  "policy_flags": [],
+  "why": "身近な占いに12本の論文を絡めた丁寧な構成だが、派手さを抑えた説明的タイトルで爆発力には欠け、中規模再生に留まったと推測"
+}

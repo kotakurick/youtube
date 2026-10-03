@@ -1,0 +1,27 @@
+{
+  "id": "Q8oLJyOGIWo",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ嫌いな人ほどあとから強く惹かれるのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "電車で怖い男が泣く子をあやし印象が反転する場面",
+  "first_chart_sec": 140,
+  "n_sources": 15,
+  "source_kinds": ["論文"],
+  "chart_types": ["折れ線", "棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "introduction"},
+    {"start_sec": 119, "label": "獲得喪失効果"},
+    {"start_sec": 249, "label": "顔が変わる理由"},
+    {"start_sec": 451, "label": "嫌よも好きのうち"},
+    {"start_sec": 681, "label": "愛と憎しみの神経"},
+    {"start_sec": 881, "label": "epilogue"}
+  ],
+  "surprise_sec": 710,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 15, "chart": 35, "text_only": 20, "ai_or_photo": 10, "other": 20},
+  "policy_flags": [],
+  "why": "身近な恋愛トロープと15本の論文を結びつけ、謎解き構成と反転演出で最後まで見させる設計"
+}

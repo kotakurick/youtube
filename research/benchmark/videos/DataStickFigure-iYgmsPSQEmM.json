@@ -1,0 +1,28 @@
+{
+  "id": "iYgmsPSQEmM",
+  "channel": "DataStickFigure",
+  "question": "なぜ男性の自殺率は女性より高いのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "うつ病の男女差データを示し自殺率との矛盾を提起",
+  "first_chart_sec": 20,
+  "n_sources": 7,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["折れ線", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 54, "label": "自殺のジェンダーパラドックス"},
+    {"start_sec": 105, "label": "世界の傾向"},
+    {"start_sec": 164, "label": "経済的な要因"},
+    {"start_sec": 248, "label": "自殺の手段と未遂率"},
+    {"start_sec": 306, "label": "精神疾患の傾向"},
+    {"start_sec": 386, "label": "問題にどう対処するか"}
+  ],
+  "surprise_sec": 248,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 37, "chart": 26, "text_only": 7, "ai_or_photo": 0, "other": 30},
+  "policy_flags": ["助言"],
+  "why": "意外なジェンダーパラドックスを提示し、公的統計と研究で論理的に解明する構成が好奇心と信頼感を両立させ伸びた"
+}

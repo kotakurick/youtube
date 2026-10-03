@@ -1,0 +1,27 @@
+{
+  "id": "rwdUONHT4HU",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ冷笑する人は賢そうで損をするのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "視聴者を名指しし認知症リスク3.13倍を提示",
+  "first_chart_sec": 16,
+  "n_sources": 8,
+  "source_kinds": ["論文"],
+  "chart_types": ["数字の強調", "図解"],
+  "source_on_screen": "不明",
+  "sections": [
+    {"start_sec": 0, "label": "冷笑は自己免疫疾患"},
+    {"start_sec": 95, "label": "樽の中の犬ディオゲネス"},
+    {"start_sec": 352, "label": "希望砕けた直後の反応"},
+    {"start_sec": 649, "label": "過冷却の水と怨念"},
+    {"start_sec": 920, "label": "樽は誰が建てたのか"},
+    {"start_sec": 1126, "label": "信じた者ほど強く笑う"}
+  ],
+  "surprise_sec": 780,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 30, "chart": 0, "text_only": 30, "ai_or_photo": 0, "other": 40},
+  "policy_flags": ["断定しすぎ"],
+  "why": "強い冒頭フックと2400年の歴史を貫く構成は魅力的だが、20分の哲学的長尺と抽象的テーマがニッチ層止まりで伸びを抑えた仮説"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "ZhRXsEiuBns",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ面白い人はイケメンでなくてもモテるのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "居酒屋で一言で女性を笑わせる男の場面から導入",
+  "first_chart_sec": 480,
+  "n_sources": 7,
+  "source_kinds": ["論文"],
+  "chart_types": ["散布図", "図解", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "目減りする値打ち"},
+    {"start_sec": 124, "label": "自己申告の罠"},
+    {"start_sec": 418, "label": "針の穴を撃ち抜く言葉"},
+    {"start_sec": 690, "label": "付け焼き刃の有効期限"},
+    {"start_sec": 867, "label": "薪をくべる者"},
+    {"start_sec": 1028, "label": "気高き喜劇役者"}
+  ],
+  "surprise_sec": 930,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 45, "chart": 10, "text_only": 30, "ai_or_photo": 0, "other": 15},
+  "policy_flags": [],
+  "why": "シグナリング理論とハンディキャップ理論を恋愛の身近な謎に接続した構成が意外性と納得感を両立"
+}

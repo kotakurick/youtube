@@ -1,0 +1,27 @@
+{
+  "id": "HN_ZNE332c8",
+  "channel": "kangaesugiruashi",
+  "question": "なぜいじめっ子ほど出世するのか？",
+  "topic": "仕事・キャリア",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "教室のいじめっ子像を描写し、社会に出ても勝つ逆説を提示",
+  "first_chart_sec": 40,
+  "n_sources": 10,
+  "source_kinds": ["論文"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "導入:いじめっ子像"},
+    {"start_sec": 92, "label": "不都合な法則"},
+    {"start_sec": 234, "label": "声の大きさの錯覚"},
+    {"start_sec": 436, "label": "出世するいじめっ子"},
+    {"start_sec": 592, "label": "憎まれっ子の末路"},
+    {"start_sec": 781, "label": "エピローグ"}
+  ],
+  "surprise_sec": 650,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 25, "chart": 35, "text_only": 30, "ai_or_photo": 0, "other": 10},
+  "policy_flags": ["断定しすぎ"],
+  "why": "いじめっ子が出世するという反直感的な問いと多数の研究データで説得力を持たせ、最後に視聴者自身を問う構成が共感と議論を呼んだ"
+}

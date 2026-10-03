@@ -1,0 +1,27 @@
+{
+  "id": "Ffm8pgRKgMU",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ人間の赤ちゃんはこれほど無力に生まれるのか",
+  "topic": "その他",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "妊娠21ヶ月換算や脳27%の数字で謎を提示",
+  "first_chart_sec": 12,
+  "n_sources": 6,
+  "source_kinds": ["論文"],
+  "chart_types": ["円", "棒", "折れ線", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "導入:赤ちゃんの謎"},
+    {"start_sec": 47, "label": "産科のジレンマ説"},
+    {"start_sec": 167, "label": "仮説への反証"},
+    {"start_sec": 286, "label": "未熟仮説を覆す"},
+    {"start_sec": 368, "label": "弱さは武器だった"},
+    {"start_sec": 505, "label": "まとめ"}
+  ],
+  "surprise_sec": 290,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 15, "chart": 40, "text_only": 25, "ai_or_photo": 5, "other": 15},
+  "policy_flags": [],
+  "why": "科学的に興味深いが専門的で展開が長く、強い感情フックや身近さに欠けるため伸びが限定的だったと考えられる。"
+}

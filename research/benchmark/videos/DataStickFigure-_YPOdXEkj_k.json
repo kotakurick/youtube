@@ -1,0 +1,27 @@
+{
+  "id": "_YPOdXEkj_k",
+  "channel": "DataStickFigure",
+  "question": "1杯のビールはどれほど体に悪いのか",
+  "topic": "体・見た目",
+  "title_type": "問いかけ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "目の前のビール1杯を示し健康影響を問いかける",
+  "first_chart_sec": 25,
+  "n_sources": 6,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["折れ線", "棒", "散布図", "図解", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 79, "label": "飲酒量と死亡率"},
+    {"start_sec": 203, "label": "Jカーブの問題点"},
+    {"start_sec": 355, "label": "Jカーブの再検証"},
+    {"start_sec": 441, "label": "1杯のビール"},
+    {"start_sec": 536, "label": "社会への影響"}
+  ],
+  "surprise_sec": 45,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 35, "chart": 45, "text_only": 10, "ai_or_photo": 0, "other": 10},
+  "policy_flags": [],
+  "why": "Jカーブという俗説を科学的に覆す意外性と、身近な「1杯」への問いかけが好奇心を引いた"
+}

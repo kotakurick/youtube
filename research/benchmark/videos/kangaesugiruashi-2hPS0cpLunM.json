@@ -1,0 +1,27 @@
+{
+  "id": "2hPS0cpLunM",
+  "channel": "kangaesugiruashi",
+  "question": "なぜマッチングアプリは全員を不幸にするのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "いいねの格差をジニ係数0.58で南アフリカ超えと提示",
+  "first_chart_sec": 110,
+  "n_sources": 20,
+  "source_kinds": ["論文", "公的統計", "民間調査"],
+  "chart_types": ["数字の強調", "表", "図解", "散布図"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "導入"},
+    {"start_sec": 101, "label": "格差経済圏"},
+    {"start_sec": 212, "label": "選ぶほど断る脳"},
+    {"start_sec": 449, "label": "見えない男と王"},
+    {"start_sec": 663, "label": "孤独と四半期決算"},
+    {"start_sec": 981, "label": "まとめ"}
+  ],
+  "surprise_sec": 840,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 10, "chart": 25, "text_only": 55, "ai_or_photo": 0, "other": 10},
+  "policy_flags": ["対立あおり", "断定しすぎ"],
+  "why": "恋愛格差という身近なテーマを統計と進化心理学で解剖し、勝者も敗者も得しないという意外な結論で最後まで引きつけた。"
+}

@@ -1,0 +1,28 @@
+{
+  "id": "QyvHTHI8L0U",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ性欲だけが三大欲求に入っているのか",
+  "topic": "体・見た目",
+  "title_type": "なぜ型",
+  "hook_type": "問いかけ",
+  "hook_summary": "3欲求どれか断つなら?と問い、性欲の逮捕者数を提示",
+  "first_chart_sec": 780,
+  "n_sources": 14,
+  "source_kinds": ["論文", "公的統計", "その他"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "偽りの三つ組"},
+    {"start_sec": 89, "label": "白衣纏う煩悩"},
+    {"start_sec": 276, "label": "不眠の暗殺者"},
+    {"start_sec": 416, "label": "標的なきアイドリング"},
+    {"start_sec": 684, "label": "飢えの酌量、色の私刑"},
+    {"start_sec": 934, "label": "枯渇を騙る肉体"},
+    {"start_sec": 1216, "label": "雷に神と名付けた訳"}
+  ],
+  "surprise_sec": 970,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 5, "chart": 10, "text_only": 15, "ai_or_photo": 0, "other": 70},
+  "policy_flags": ["ショック系", "断定しすぎ"],
+  "why": "性欲の科学的な異質さと性犯罪統計を結びつけ、知的好奇心と社会的背徳感を同時に刺激した"
+}

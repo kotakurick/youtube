@@ -1,0 +1,29 @@
+{
+  "id": "xBKQBT6S7II",
+  "channel": "DataStickFigure",
+  "question": "世界を100人の村に縮めたら暮らしはどうなる?",
+  "topic": "世代・人口",
+  "title_type": "数字型",
+  "hook_type": "意外な数字",
+  "hook_summary": "世界人口を100人に換算し性別・LGBTQ+比率を棒人間で提示",
+  "first_chart_sec": 0,
+  "n_sources": 6,
+  "source_kinds": ["公的統計", "民間調査"],
+  "chart_types": ["図解", "数字の強調"],
+  "source_on_screen": "常時",
+  "sections": [
+    {"start_sec": 0, "label": "ジェンダー"},
+    {"start_sec": 27, "label": "ペット"},
+    {"start_sec": 53, "label": "出身国"},
+    {"start_sec": 80, "label": "言語"},
+    {"start_sec": 107, "label": "所得"},
+    {"start_sec": 133, "label": "難民・避難民"},
+    {"start_sec": 160, "label": "健康"},
+    {"start_sec": 187, "label": "携帯"}
+  ],
+  "surprise_sec": 133,
+  "ending_type": "次回予告",
+  "visual_mix": {"stick_figure": 85, "chart": 0, "text_only": 10, "ai_or_photo": 0, "other": 5},
+  "policy_flags": [],
+  "why": "身近な100人換算と棒人間ビジュアルで格差を直感的に見せ拡散された可能性"
+}

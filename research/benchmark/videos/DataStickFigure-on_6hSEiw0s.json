@@ -1,0 +1,29 @@
+{
+  "id": "on_6hSEiw0s",
+  "channel": "DataStickFigure",
+  "question": "ウクライナ戦争の死傷者数はどれほどか",
+  "topic": "その他",
+  "title_type": "その他",
+  "hook_type": "物語",
+  "hook_summary": "最初の戦死者デニスの実話を語り導入する",
+  "first_chart_sec": 150,
+  "n_sources": 11,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["棒", "数字の強調", "図解", "地図", "折れ線"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "戦死者の物語"},
+    {"start_sec": 143, "label": "難民・避難民の数"},
+    {"start_sec": 362, "label": "データの不確実性"},
+    {"start_sec": 444, "label": "ウクライナ軍の損失"},
+    {"start_sec": 549, "label": "ロシア軍の損失"},
+    {"start_sec": 635, "label": "民間人の死傷者"},
+    {"start_sec": 755, "label": "死傷者数の合計"},
+    {"start_sec": 807, "label": "他の戦争と比較"}
+  ],
+  "surprise_sec": 840,
+  "ending_type": "登録の呼びかけ",
+  "visual_mix": {"stick_figure": 30, "chart": 55, "text_only": 5, "ai_or_photo": 0, "other": 10},
+  "policy_flags": ["ショック系"],
+  "why": "戦死者個人の物語で感情移入させた上で複数データを慎重に比較検証し信頼感を高めた"
+}

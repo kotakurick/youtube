@@ -1,0 +1,27 @@
+{
+  "id": "TaeQVt8Yz4M",
+  "channel": "DataStickFigure",
+  "question": "人はどんな原因で、なぜ死ぬのか？",
+  "topic": "体・見た目",
+  "title_type": "検証型",
+  "hook_type": "意外な数字",
+  "hook_summary": "毎秒の出生・死亡数を対比し死の分析を予告",
+  "first_chart_sec": 80,
+  "n_sources": 2,
+  "source_kinds": ["公的統計"],
+  "chart_types": ["棒", "図解", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 43, "label": "人類の死亡原因"},
+    {"start_sec": 166, "label": "病気と人生への影響"},
+    {"start_sec": 254, "label": "DALYとは"},
+    {"start_sec": 395, "label": "病気の危険因子"},
+    {"start_sec": 510, "label": "結論"}
+  ],
+  "surprise_sec": 470,
+  "ending_type": "登録の呼びかけ",
+  "visual_mix": {"stick_figure": 25, "chart": 50, "text_only": 5, "ai_or_photo": 15, "other": 5},
+  "policy_flags": [],
+  "why": "誕生と死の対比という意外な数字で始め、DALYという専門指標を図解で分かりやすく解説し健康への実用的な示唆を与えた点が評価された"
+}

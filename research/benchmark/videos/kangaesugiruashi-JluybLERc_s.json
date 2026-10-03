@@ -1,0 +1,27 @@
+{
+  "id": "JluybLERc_s",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ復讐は甘く感じるのに実際は苦いのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "復讐の脳反応がチョコと同じと判明する実験話",
+  "first_chart_sec": 20,
+  "n_sources": 15,
+  "source_kinds": ["論文"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 85, "label": "脳の報酬回路"},
+    {"start_sec": 241, "label": "復讐で不幸になる"},
+    {"start_sec": 405, "label": "必要な嘘だった"},
+    {"start_sec": 549, "label": "子どもの第三者罰"},
+    {"start_sec": 797, "label": "恨みと許しの身体"}
+  ],
+  "surprise_sec": 210,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 30, "chart": 35, "text_only": 25, "ai_or_photo": 0, "other": 10},
+  "policy_flags": ["断定しすぎ"],
+  "why": "科学的エビデンスと感情心理を結びつけた構成は秀逸だが、テーマが抽象的で検索需要が限定的なため伸びは中程度に留まったと考えられる。"
+}

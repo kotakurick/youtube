@@ -1,0 +1,28 @@
+{
+  "id": "9rz6XR0z9FY",
+  "channel": "kangaesugiruashi",
+  "question": "夜職の一晩になぜ年収以上の値がつくのか",
+  "topic": "お金・格差",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "交際費3兆5800億円など数字で導入",
+  "first_chart_sec": 15,
+  "n_sources": 14,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["図解", "数字の強調", "棒"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "銀座8丁目の夜"},
+    {"start_sec": 106, "label": "酒は口実にすぎない"},
+    {"start_sec": 305, "label": "若さは短期資産"},
+    {"start_sec": 448, "label": "金じゃないと言う時"},
+    {"start_sec": 719, "label": "市場は価値測らず"},
+    {"start_sec": 927, "label": "売る側が先に壊れる"},
+    {"start_sec": 1112, "label": "その物差しは誰の"}
+  ],
+  "surprise_sec": 465,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 10, "chart": 25, "text_only": 55, "ai_or_photo": 0, "other": 10},
+  "policy_flags": ["断定しすぎ"],
+  "why": "水商売という身近な題材を行動経済学・脳科学で解剖する意外性と、介護士との格差対比が共感と拡散を呼んだと推測"
+}

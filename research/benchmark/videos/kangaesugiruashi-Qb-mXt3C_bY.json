@@ -1,0 +1,28 @@
+{
+  "id": "Qb-mXt3C_bY",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ人は幸せを感じ続けられないのか",
+  "topic": "幸福・心理",
+  "title_type": "問いかけ型",
+  "hook_type": "問いかけ",
+  "hook_summary": "目を閉じて一番幸せな瞬間を思い出させる",
+  "first_chart_sec": 15,
+  "n_sources": 18,
+  "source_kinds": ["論文", "公的統計"],
+  "chart_types": ["棒", "折れ線", "円", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 56, "label": "ドーパミンの罠"},
+    {"start_sec": 158, "label": "煙探知器の99%"},
+    {"start_sec": 306, "label": "遺伝の檻"},
+    {"start_sec": 405, "label": "3倍豊かでも幸せ横ばい"},
+    {"start_sec": 534, "label": "40%の希望と15%"},
+    {"start_sec": 642, "label": "まとめ"}
+  ],
+  "surprise_sec": 495,
+  "ending_type": "登録の呼びかけ",
+  "visual_mix": {"stick_figure": 15, "chart": 35, "text_only": 40, "ai_or_photo": 0, "other": 10},
+  "policy_flags": [],
+  "why": "身近な問いと衝撃データで引き込むが専門的で重く爆発的な伸びには至らなかった"
+}

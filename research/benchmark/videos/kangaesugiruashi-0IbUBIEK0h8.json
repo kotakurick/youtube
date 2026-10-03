@@ -1,0 +1,27 @@
+{
+  "id": "0IbUBIEK0h8",
+  "channel": "kangaesugiruashi",
+  "question": "「頑張れ」はなぜ人のやる気を奪うのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "震災後「頑張ろう」を受けた被災者はうつ傾向が2倍という数字を提示",
+  "first_chart_sec": 30,
+  "n_sources": 16,
+  "source_kinds": ["論文", "公的統計", "民間調査"],
+  "chart_types": ["棒", "折れ線", "円", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "頑張れの導入"},
+    {"start_sec": 65, "label": "すべきで逆に動けない"},
+    {"start_sec": 255, "label": "やる気スイッチが消える"},
+    {"start_sec": 495, "label": "褒め言葉で変わる反応"},
+    {"start_sec": 688, "label": "頑張れが効く国日本"},
+    {"start_sec": 896, "label": "エピローグ"}
+  ],
+  "surprise_sec": 840,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 20, "chart": 30, "text_only": 15, "ai_or_photo": 5, "other": 30},
+  "policy_flags": [],
+  "why": "身近な「頑張れ」への違和感を震災データや海外実験で裏付け、共感と学びを両立させた構成が伸びた一因と考えられる"
+}

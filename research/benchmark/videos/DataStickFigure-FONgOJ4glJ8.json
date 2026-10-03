@@ -1,0 +1,35 @@
+{
+  "id": "FONgOJ4glJ8",
+  "channel": "DataStickFigure",
+  "question": "人生の様々なピークは何歳に訪れるのか",
+  "topic": "幸福・心理",
+  "title_type": "検証型",
+  "hook_type": "問いかけ",
+  "hook_summary": "平均寿命を示し人生のピークの年齢を問いかける",
+  "first_chart_sec": 73,
+  "n_sources": 16,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["棒", "折れ線", "図解", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 45, "label": "100m走のピーク"},
+    {"start_sec": 133, "label": "幼少期のピーク"},
+    {"start_sec": 185, "label": "10代のピーク"},
+    {"start_sec": 238, "label": "20代のピーク"},
+    {"start_sec": 413, "label": "50代のピーク"},
+    {"start_sec": 495, "label": "幸福のU字型カーブ"},
+    {"start_sec": 564, "label": "ピークを過ぎたら"}
+  ],
+  "surprise_sec": 495,
+  "ending_type": "教訓",
+  "visual_mix": {
+    "stick_figure": 45,
+    "chart": 20,
+    "text_only": 15,
+    "ai_or_photo": 15,
+    "other": 5
+  },
+  "policy_flags": [],
+  "why": "年齢別ピークを次々提示する構成とスティックフィギュアの軽快な図解で、多様な統計を飽きずに見せている"
+}

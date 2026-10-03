@@ -1,0 +1,29 @@
+{
+  "id": "Oi7ZE0ZwZRQ",
+  "channel": "DataStickFigure",
+  "question": "カロリー表示はどこまで正確なのか？",
+  "topic": "体・見た目",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "りんごとポテトのカロリーを示し計算の謎を問う",
+  "first_chart_sec": 45,
+  "n_sources": 5,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["棒", "数字の強調", "図解", "表"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "導入:カロリーとは"},
+    {"start_sec": 60, "label": "カロリーの定義と測定"},
+    {"start_sec": 150, "label": "栄養成分表示の計算法"},
+    {"start_sec": 210, "label": "アトウォーター係数の起源"},
+    {"start_sec": 270, "label": "係数算出の実験"},
+    {"start_sec": 420, "label": "実食品で検証"},
+    {"start_sec": 480, "label": "係数の誤差・ナッツ問題"},
+    {"start_sec": 600, "label": "誤差は問題か・PR"}
+  ],
+  "surprise_sec": 520,
+  "ending_type": "登録の呼びかけ",
+  "visual_mix": {"stick_figure": 30, "chart": 35, "text_only": 10, "ai_or_photo": 20, "other": 5},
+  "policy_flags": [],
+  "why": "身近な疑問とデータ検証で惹きつけるが、後半が長い宅配弁当PRで再生数は伸び悩んだ可能性"
+}

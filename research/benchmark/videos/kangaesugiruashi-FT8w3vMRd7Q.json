@@ -1,0 +1,28 @@
+{
+  "id": "FT8w3vMRd7Q",
+  "channel": "kangaesugiruashi",
+  "question": "なぜモテたい男は中性的な見た目を選ぶのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "問いかけ",
+  "hook_summary": "15年前と今のモテる男像の違いを提示",
+  "first_chart_sec": 120,
+  "n_sources": 7,
+  "source_kinds": ["公的統計", "民間調査"],
+  "chart_types": ["数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "渋谷の街を歩く"},
+    {"start_sec": 105, "label": "2015年に入替わった"},
+    {"start_sec": 269, "label": "採点場所が変わった"},
+    {"start_sec": 516, "label": "強さがコスプレ化した"},
+    {"start_sec": 647, "label": "新テンプレート登場"},
+    {"start_sec": 804, "label": "古い物差しは残る"},
+    {"start_sec": 895, "label": "男らしさは遅れて笑われる"}
+  ],
+  "surprise_sec": 360,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 20, "chart": 15, "text_only": 50, "ai_or_photo": 10, "other": 5},
+  "policy_flags": ["断定しすぎ"],
+  "why": "進化心理学や統計で中性化の理由を論理的に解説し、世代間ギャップへの共感・反発が議論とコメントを呼んだと考えられる。"
+}

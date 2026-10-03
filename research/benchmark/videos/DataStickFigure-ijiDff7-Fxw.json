@@ -1,0 +1,28 @@
+{
+  "id": "ijiDff7-Fxw",
+  "channel": "DataStickFigure",
+  "question": "なぜ人は損するギャンブルに惹かれるのか",
+  "topic": "お金・格差",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "ルーレットを例に控除率という損の仕組みを提示",
+  "first_chart_sec": 27,
+  "n_sources": 3,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 50, "label": "控除率とは"},
+    {"start_sec": 98, "label": "日本の控除率"},
+    {"start_sec": 119, "label": "プロスペクト理論"},
+    {"start_sec": 200, "label": "確率の誤認"},
+    {"start_sec": 250, "label": "損失回避"},
+    {"start_sec": 373, "label": "結論"}
+  ],
+  "surprise_sec": 330,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 50, "chart": 25, "text_only": 10, "ai_or_photo": 0, "other": 15},
+  "policy_flags": [],
+  "why": "行動経済学の理論を身近なギャンブル例と図解で分かりやすく説明した点が再生を伸ばした要因と考えられる"
+}

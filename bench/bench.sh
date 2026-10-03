@@ -52,11 +52,14 @@ cap() {
   if [ -f "$d/times.tsv" ]; then return 0; fi  # 取得済みはスキップ（times.tsv は最後に作る）
 
   rm -f "$d"/v.* "$d"/f_*.jpg "$d"/sheet_*.jpg "$d/times.tsv"
-  if ! yt-dlp -q --no-warnings --sleep-requests 1 --sleep-interval 3 --max-sleep-interval 8 \
+  # HTTP 403 で落とせない動画があるので、失敗したら android クライアントで1回だけやり直す
+  yt-dlp -q --no-warnings --sleep-requests 1 --sleep-interval 3 --max-sleep-interval 8 \
       -f "bv*[height<=360][vcodec^=avc1]/bv*[height<=360]/b[height<=360]" -o "$d/v.%(ext)s" \
-      "https://www.youtube.com/watch?v=$id"; then
-    printf '%s\tdownload\n' "$id" >> "$OUT/failed.tsv"; return 0
-  fi
+      "https://www.youtube.com/watch?v=$id" ||
+  yt-dlp -q --no-warnings --sleep-requests 1 --extractor-args "youtube:player_client=android,web" \
+      -f "bv*[height<=360]/b[height<=360]/b" -o "$d/v.%(ext)s" \
+      "https://www.youtube.com/watch?v=$id" || {
+    printf '%s\tdownload\n' "$id" >> "$OUT/failed.tsv"; return 0; }
   v=$(ls "$d"/v.* 2>/dev/null | head -n 1)
 
   # 1秒ごとに1コマ取り出して場面転換を検出（キーフレーム方式は AV1 で効かず、検出も粗すぎた）
@@ -64,6 +67,13 @@ cap() {
   ffmpeg -nostdin -loglevel info -i "$v" \
     -vf "fps=1,select='gt(scene,0.3)',scale=480:-1,showinfo" -fps_mode vfr -strict unofficial \
     "$d/f_%04d.jpg" 2> "$d/ffmpeg.log"
+  # 転換が少ない（タイル2枚未満）動画は、30秒ごとの均等サンプリングに切り替える（画面の様子を読めるようにするため）
+  if [ "$(ls "$d"/f_*.jpg 2>/dev/null | wc -l)" -lt 18 ]; then
+    rm -f "$d"/f_*.jpg
+    ffmpeg -nostdin -loglevel info -i "$v" \
+      -vf "fps=1/30,scale=480:-1,showinfo" -fps_mode vfr -strict unofficial \
+      "$d/f_%04d.jpg" 2> "$d/ffmpeg.log"
+  fi
   rm -f "$d"/v.*
 
   if [ ! -f "$d/f_0001.jpg" ]; then

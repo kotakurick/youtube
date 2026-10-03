@@ -1,0 +1,27 @@
+{
+  "id": "LEzJKwC8e6Q",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ子を残さない反出生主義は2500年も滅びないのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "問いかけ",
+  "hook_summary": "身近なセリフから2000年仏最高裁の衝撃判決へ",
+  "first_chart_sec": 310,
+  "n_sources": 5,
+  "source_kinds": ["論文", "公的統計", "民間調査"],
+  "chart_types": ["数字の強調", "折れ線", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "無断出生の法廷"},
+    {"start_sec": 134, "label": "快楽のトレッドミル"},
+    {"start_sec": 416, "label": "主語なき世界の陥穽"},
+    {"start_sec": 677, "label": "絶滅を走る文化遺伝子"},
+    {"start_sec": 924, "label": "封殺された判決の行方"},
+    {"start_sec": 1191, "label": "考えすぎる葦への宿題"}
+  ],
+  "surprise_sec": 960,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 55, "chart": 10, "text_only": 30, "ai_or_photo": 0, "other": 5},
+  "policy_flags": [],
+  "why": "衝撃的な仏最高裁判例と哲学パラドックスを組み合わせ、身近な「親ガチャ」論にまで繋げた知的好奇心を刺激する構成が伸びた要因と考えられる。"
+}

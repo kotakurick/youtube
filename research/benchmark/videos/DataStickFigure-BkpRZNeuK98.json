@@ -1,0 +1,28 @@
+{
+  "id": "BkpRZNeuK98",
+  "channel": "DataStickFigure",
+  "question": "なぜスマホは時間を奪い続けるのか？",
+  "topic": "社会・ネット",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "流行語「ブレインロット」と急増率を紹介",
+  "first_chart_sec": 75,
+  "n_sources": 10,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "ブレインロットとは"},
+    {"start_sec": 79, "label": "本当の問題"},
+    {"start_sec": 114, "label": "通知機能"},
+    {"start_sec": 229, "label": "画面の配色"},
+    {"start_sec": 280, "label": "無限スクロール"},
+    {"start_sec": 377, "label": "スクリーンタイムを減らすには"},
+    {"start_sec": 429, "label": "幸福度とスクリーンタイム"}
+  ],
+  "surprise_sec": 420,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 40, "chart": 15, "text_only": 20, "ai_or_photo": 20, "other": 5},
+  "policy_flags": ["助言"],
+  "why": "身近なスマホ依存を具体的データと棒人間の解説で分かりやすく示し、共感と納得感を得られたため"
+}

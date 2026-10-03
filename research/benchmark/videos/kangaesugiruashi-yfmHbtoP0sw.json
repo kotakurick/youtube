@@ -1,0 +1,27 @@
+{
+  "id": "yfmHbtoP0sw",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ若者が集まる東京の出生率は最低なのか",
+  "topic": "東京と地方・住まい",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "死滅回遊魚の比喩と出生率0.96を提示",
+  "first_chart_sec": 27,
+  "n_sources": 9,
+  "source_kinds": ["公的統計", "論文", "その他"],
+  "chart_types": ["棒", "折れ線", "数字の強調", "図解", "地図"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "死滅回遊人とは"},
+    {"start_sec": 164, "label": "暖流に乗る18歳"},
+    {"start_sec": 390, "label": "冬の東京の代償"},
+    {"start_sec": 596, "label": "繁殖の断絶"},
+    {"start_sec": 932, "label": "優しい絶滅"},
+    {"start_sec": 1252, "label": "種の自殺ではない"}
+  ],
+  "surprise_sec": 900,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 15, "chart": 35, "text_only": 40, "ai_or_photo": 0, "other": 10},
+  "policy_flags": ["断定しすぎ"],
+  "why": "生物学の比喩で東京一極集中と少子化を結び、当事者性の高い切実なテーマが共感を呼んだため"
+}

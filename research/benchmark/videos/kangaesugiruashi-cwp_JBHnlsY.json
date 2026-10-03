@@ -1,0 +1,29 @@
+{
+  "id": "cwp_JBHnlsY",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ現代人は何者でもない自分に耐えられないのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "1967年と2007年の子供向け価値観の統計変化から導入",
+  "first_chart_sec": 120,
+  "n_sources": 15,
+  "source_kinds": ["公的統計", "論文", "民間調査", "その他"],
+  "chart_types": ["数字の強調", "折れ線", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "導入"},
+    {"start_sec": 151, "label": "終わりなき追いかけっこ"},
+    {"start_sec": 310, "label": "可能性が開かれた日"},
+    {"start_sec": 525, "label": "可能性と認知の罠"},
+    {"start_sec": 691, "label": "流動化する所属"},
+    {"start_sec": 887, "label": "地位の感覚と心身"},
+    {"start_sec": 1026, "label": "何者でもない時間の技術"},
+    {"start_sec": 1159, "label": "エピローグ"}
+  ],
+  "surprise_sec": 960,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 15, "chart": 20, "text_only": 50, "ai_or_photo": 5, "other": 10},
+  "policy_flags": ["助言"],
+  "why": "身近な同窓会の描写と豊富な統計・学術引用で共感と説得力を両立させた点が伸びた要因と考えられる"
+}

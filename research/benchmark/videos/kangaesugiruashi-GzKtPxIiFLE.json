@@ -1,0 +1,27 @@
+{
+  "id": "GzKtPxIiFLE",
+  "channel": "kangaesugiruashi",
+  "question": "「上書き保存/名前をつけて保存」説は本当か？",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "深夜に元恋人を思い出す情景を描き共感を誘う",
+  "first_chart_sec": 60,
+  "n_sources": 16,
+  "source_kinds": ["論文", "民間調査"],
+  "chart_types": ["棒", "折れ線", "円", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "導入"},
+    {"start_sec": 114, "label": "言説に根拠なし"},
+    {"start_sec": 312, "label": "記憶は書き換わる"},
+    {"start_sec": 503, "label": "男の記憶に結末なし"},
+    {"start_sec": 683, "label": "進化の2戦略と封印"},
+    {"start_sec": 977, "label": "まとめ"}
+  ],
+  "surprise_sec": 810,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 10, "chart": 30, "text_only": 35, "ai_or_photo": 10, "other": 15},
+  "policy_flags": [],
+  "why": "身近な失恋の情景描写で共感を呼び、俗説を学術データで検証し、終盤のどんでん返しで最後まで引き込む構成。"
+}

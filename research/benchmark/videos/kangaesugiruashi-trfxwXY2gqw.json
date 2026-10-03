@@ -1,0 +1,27 @@
+{
+  "id": "trfxwXY2gqw",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ同じ不倫でも炎上する人としない人がいるのか",
+  "topic": "社会・ネット",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "同僚の親切を疑う心理から炎上の謎を提示",
+  "first_chart_sec": 75,
+  "n_sources": 6,
+  "source_kinds": ["論文", "民間調査"],
+  "chart_types": ["数字の強調", "表", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "他者というアレルゲン"},
+    {"start_sec": 140, "label": "偽善のシグナル投資"},
+    {"start_sec": 478, "label": "抗原なきアレルギー"},
+    {"start_sec": 878, "label": "自己という虚構"},
+    {"start_sec": 1153, "label": "間抜けな晴れ舞台の主役"},
+    {"start_sec": 1332, "label": "無菌室の憂鬱"}
+  ],
+  "surprise_sec": 1050,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 5, "chart": 15, "text_only": 5, "ai_or_photo": 0, "other": 75},
+  "policy_flags": ["断定しすぎ"],
+  "why": "免疫アレルギーの比喩で炎上心理を体系的に説明し、複数の実話と実験で裏付けた構成力が伸びた要因と推測"
+}

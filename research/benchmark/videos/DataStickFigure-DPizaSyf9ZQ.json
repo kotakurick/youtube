@@ -1,0 +1,28 @@
+{
+  "id": "DPizaSyf9ZQ",
+  "channel": "DataStickFigure",
+  "question": "なぜ戦争後に男の子が多く生まれるのか？",
+  "topic": "世代・人口",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "出生性比が105対100と偏る意外な事実を提示",
+  "first_chart_sec": 65,
+  "n_sources": 6,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["折れ線", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "生まれる男女の比率"},
+    {"start_sec": 60, "label": "帰還兵効果とは？"},
+    {"start_sec": 168, "label": "なぜ男の子が多いのか"},
+    {"start_sec": 282, "label": "トリヴァース仮説"},
+    {"start_sec": 387, "label": "帰還兵効果の理由"},
+    {"start_sec": 450, "label": "その他の要因"},
+    {"start_sec": 488, "label": "結論"}
+  ],
+  "surprise_sec": 85,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 30, "chart": 25, "text_only": 10, "ai_or_photo": 0, "other": 35},
+  "policy_flags": [],
+  "why": "意外な統計と科学仮説で知的好奇心を刺激する構成だが、専門的で地味なタイトルのため伸びは中程度に留まったと推測"
+}

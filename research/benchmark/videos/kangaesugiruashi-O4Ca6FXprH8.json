@@ -1,0 +1,27 @@
+{
+  "id": "O4Ca6FXprH8",
+  "channel": "kangaesugiruashi",
+  "question": "なぜAIは我々を喰らう蟻になったのか",
+  "topic": "仕事・キャリア",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "キメラアントの摂食交配の話を生成AIの生態になぞらえる",
+  "first_chart_sec": 270,
+  "n_sources": 22,
+  "source_kinds": ["公的統計", "論文", "民間調査", "その他"],
+  "chart_types": ["円", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "摂食交配"},
+    {"start_sec": 147, "label": "喰う蟻"},
+    {"start_sec": 321, "label": "選別"},
+    {"start_sec": 574, "label": "喰い破る母腹"},
+    {"start_sec": 836, "label": "巣出つ蟻"},
+    {"start_sec": 1038, "label": "すべてを照らす光"}
+  ],
+  "surprise_sec": 720,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 35, "chart": 15, "text_only": 35, "ai_or_photo": 0, "other": 15},
+  "policy_flags": ["ショック系"],
+  "why": "キメラアントという強烈な比喩に訴訟・雇用統計などの実例を重ね、知的興味と危機感を同時に煽った考察系動画"
+}

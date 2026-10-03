@@ -1,0 +1,28 @@
+{
+  "id": "pwEz4geoLnA",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ人は売れた推しに冷めるのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "推しの紅白出場通知に複雑な感情を抱く場面を描写",
+  "first_chart_sec": 150,
+  "n_sources": 10,
+  "source_kinds": ["論文"],
+  "chart_types": ["棒", "折れ線", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "導入"},
+    {"start_sec": 138, "label": "推しを所有と感じる理由"},
+    {"start_sec": 310, "label": "推しは自己の一部"},
+    {"start_sec": 470, "label": "希少性が自己を作る"},
+    {"start_sec": 637, "label": "同担という戦場"},
+    {"start_sec": 793, "label": "日本の「冷めた」考"},
+    {"start_sec": 953, "label": "まとめ"}
+  ],
+  "surprise_sec": 60,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 10, "chart": 25, "text_only": 20, "ai_or_photo": 0, "other": 45},
+  "policy_flags": [],
+  "why": "多くの人が持つ「推しに冷めた」経験を学術的に言語化し共感を呼んだが、専門用語が多く拡散力は限定的だったと推測される。"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "IGnziS65Idk",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ人は他人の成功に苦痛を感じるよう進化したのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "同僚の昇進や元恋人の投稿で疼く嫉妬の痛みを描写する",
+  "first_chart_sec": 120,
+  "n_sources": 9,
+  "source_kinds": ["論文", "民間調査"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 117, "label": "嫉妬は脳の怪我"},
+    {"start_sec": 286, "label": "猿の実験と進化の設計図"},
+    {"start_sec": 466, "label": "愛情ホルモンの裏切り"},
+    {"start_sec": 622, "label": "良い嫉妬と悪い嫉妬"},
+    {"start_sec": 807, "label": "まとめ"}
+  ],
+  "surprise_sec": 510,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 20, "chart": 30, "text_only": 40, "ai_or_photo": 0, "other": 10},
+  "policy_flags": ["断定しすぎ"],
+  "why": "学術論文を多数引用した構成と身近な嫉妬の描写が信頼感を生み、安定した再生を獲得したと考えられる"
+}

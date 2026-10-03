@@ -1,0 +1,27 @@
+{
+  "id": "emdZYeTJrEc",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ人は好きなものを最後まで残すのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "野生動物と対比し好物を最後に残す人間の不合理さを提示",
+  "first_chart_sec": 40,
+  "n_sources": 15,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["棒", "折れ線", "散布図", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "追熟しない果実"},
+    {"start_sec": 174, "label": "マシュマロと腐敗"},
+    {"start_sec": 374, "label": "三日目の吻"},
+    {"start_sec": 578, "label": "埃をかぶる理想"},
+    {"start_sec": 823, "label": "隣の客はよく食後に来る客"},
+    {"start_sec": 1045, "label": "蛇足"}
+  ],
+  "surprise_sec": 540,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 5, "chart": 10, "text_only": 10, "ai_or_photo": 0, "other": 75},
+  "policy_flags": ["断定しすぎ"],
+  "why": "身近な「イチゴ」題材に複数の学術実験を重ね、人生論へ昇華する構成と丁寧な映像美が共感を呼んだ"
+}

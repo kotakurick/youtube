@@ -1,0 +1,27 @@
+{
+  "id": "rI9mUEB76gs",
+  "channel": "kangaesugiruashi",
+  "question": "「英雄色を好む」は本当か、真犯人は誰か",
+  "topic": "恋愛・結婚",
+  "title_type": "問いかけ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "チンギス・ハンの子孫が中央アジア人口の8%という数字を提示",
+  "first_chart_sec": 20,
+  "n_sources": 7,
+  "source_kinds": ["論文"],
+  "chart_types": ["図解", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "プロローグ:容疑者4人"},
+    {"start_sec": 182, "label": "容疑者A:ホルモン"},
+    {"start_sec": 364, "label": "容疑者B:記録係"},
+    {"start_sec": 570, "label": "容疑者C:制度"},
+    {"start_sec": 765, "label": "容疑者D:権力"},
+    {"start_sec": 999, "label": "エピローグ:共犯"}
+  ],
+  "surprise_sec": 390,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 60, "chart": 10, "text_only": 20, "ai_or_photo": 0, "other": 10},
+  "policy_flags": ["断定しすぎ"],
+  "why": "ミステリー仕立てで通説を検証する構成と意外な統計が興味を引くが、テーマが地味で再生数は伸び悩んだと見られる"
+}

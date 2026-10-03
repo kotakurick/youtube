@@ -1,0 +1,26 @@
+{
+  "id": "bmDBQwo_pV4",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ女児は人形、男児はミニカーを選ぶのか",
+  "topic": "教育・子ども",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "ニモの父の性転換から赤ちゃんの玩具実験へ",
+  "first_chart_sec": 40,
+  "n_sources": 12,
+  "source_kinds": ["論文", "民間調査"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "性の虚構"},
+    {"start_sec": 151, "label": "ホルモンの指紋"},
+    {"start_sec": 333, "label": "ピンクの100年"},
+    {"start_sec": 577, "label": "性差の轍"},
+    {"start_sec": 878, "label": "一筆"}
+  ],
+  "surprise_sec": 337,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 45, "chart": 15, "text_only": 30, "ai_or_photo": 0, "other": 10},
+  "policy_flags": [],
+  "why": "専門的な学術ネタで知的好奇心を刺激するが、長尺かつ抽象的で拡散向きではなく再生数は中規模にとどまった"
+}

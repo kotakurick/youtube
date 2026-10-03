@@ -1,0 +1,27 @@
+{
+  "id": "EW5TIPkdAqg",
+  "channel": "kangaesugiruashi",
+  "question": "托卵率1.7%はなぜ1万年も変わらないのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "托卵する鳥の巣の情景から父性不安の問いへ",
+  "first_chart_sec": 60,
+  "n_sources": 15,
+  "source_kinds": ["論文", "民間調査", "その他"],
+  "chart_types": ["数字の強調", "図解"],
+  "source_on_screen": "常時",
+  "sections": [
+    {"start_sec": 0, "label": "1.7%という謎"},
+    {"start_sec": 140, "label": "1.7%はどう維持されるか"},
+    {"start_sec": 349, "label": "結婚はレモン市場"},
+    {"start_sec": 582, "label": "血ではなく婚姻が父を決める"},
+    {"start_sec": 881, "label": "DNAは1.7%を消さない"},
+    {"start_sec": 1113, "label": "父とは毎朝の小さな嘘"}
+  ],
+  "surprise_sec": 705,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 10, "chart": 0, "text_only": 55, "ai_or_photo": 30, "other": 5},
+  "policy_flags": ["断定しすぎ"],
+  "why": "進化×経済×法を貫く托卵1.7%という切り口が知的好奇心を刺激したが、重い学術的テーマで拡散力は限定的だったと見られる"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "GlhT-q-PV-Y",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ同じ家で育った兄弟の性格が真逆になるのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "兄弟の性格差という身近な疑問から双子研究の物語へ",
+  "first_chart_sec": 270,
+  "n_sources": 8,
+  "source_kinds": ["論文"],
+  "chart_types": ["棒", "円", "折れ線", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "導入"},
+    {"start_sec": 81, "label": "ジム双子の一致"},
+    {"start_sec": 233, "label": "1450万組の結論"},
+    {"start_sec": 384, "label": "親は無関係という異端説"},
+    {"start_sec": 595, "label": "性格を作るもの"},
+    {"start_sec": 777, "label": "エピローグ"}
+  ],
+  "surprise_sec": 300,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 20, "chart": 35, "text_only": 35, "ai_or_photo": 0, "other": 10},
+  "policy_flags": ["断定しすぎ"],
+  "why": "双子の衝撃的な実話と「親の影響はほぼゼロ」という定説を覆す意外性が興味を引いたため"
+}

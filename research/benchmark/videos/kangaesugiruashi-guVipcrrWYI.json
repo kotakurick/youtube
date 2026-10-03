@@ -1,0 +1,27 @@
+{
+  "id": "guVipcrrWYI",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ男は体の浮気、女は心の浮気を嫌うのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "彼女のスマホ通知を見て嫉妬する場面から問いを投げる",
+  "first_chart_sec": 120,
+  "n_sources": 9,
+  "source_kinds": ["論文"],
+  "chart_types": ["棒", "折れ線", "図解", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "導入"},
+    {"start_sec": 100, "label": "脳が光る場所の違い"},
+    {"start_sec": 266, "label": "9ヶ月の非対称性"},
+    {"start_sec": 471, "label": "進化心理学30年戦争"},
+    {"start_sec": 689, "label": "嫉妬が消える条件"},
+    {"start_sec": 885, "label": "エピローグ"}
+  ],
+  "surprise_sec": 700,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 5, "chart": 20, "text_only": 45, "ai_or_photo": 0, "other": 30},
+  "policy_flags": [],
+  "why": "身近な修羅場描写で引き込み、反論やメタ分析まで誠実に見せる構成が最後まで視聴を保たせたと考えられる"
+}

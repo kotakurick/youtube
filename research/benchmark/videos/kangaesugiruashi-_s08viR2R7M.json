@@ -1,0 +1,27 @@
+{
+  "id": "_s08viR2R7M",
+  "channel": "kangaesugiruashi",
+  "question": "なぜSNSはデスノートより残酷なのか",
+  "topic": "社会・ネット",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "死神リュークとデスノートの寓話からSNSの話へ接続",
+  "first_chart_sec": 480,
+  "n_sources": 8,
+  "source_kinds": ["論文", "公的統計", "その他"],
+  "chart_types": ["数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "退屈な神"},
+    {"start_sec": 139, "label": "死神の目"},
+    {"start_sec": 352, "label": "広場へ還る処刑台"},
+    {"start_sec": 544, "label": "売り物の正義"},
+    {"start_sec": 810, "label": "消しゴムのないノート"},
+    {"start_sec": 991, "label": "万人が神になる時代"}
+  ],
+  "surprise_sec": 480,
+  "ending_type": "登録の呼びかけ",
+  "visual_mix": {"stick_figure": 40, "chart": 10, "text_only": 35, "ai_or_photo": 5, "other": 10},
+  "policy_flags": ["ショック系", "断定しすぎ"],
+  "why": "デスノートという国民的作品の比喩で法社会学の硬い話題を身近にし、炎上・自殺事件など実例で不安と知的好奇心を同時に刺激した構成が強み"
+}

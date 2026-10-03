@@ -1,0 +1,27 @@
+{
+  "id": "3PWz24fVAaI",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ4月生まれは人生で有利なのか",
+  "topic": "教育・子ども",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "教室の体格差は才能でなく生まれ月だと明かす",
+  "first_chart_sec": 60,
+  "n_sources": 19,
+  "source_kinds": ["論文", "公的統計"],
+  "chart_types": ["棒", "円", "折れ線", "数字の強調", "図解", "地図"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 89, "label": "11ヶ月の差"},
+    {"start_sec": 325, "label": "誕生月と処方薬"},
+    {"start_sec": 559, "label": "季節と身体"},
+    {"start_sec": 815, "label": "不利の逆転"},
+    {"start_sec": 1007, "label": "エピローグ"}
+  ],
+  "surprise_sec": 390,
+  "ending_type": "登録の呼びかけ",
+  "visual_mix": {"stick_figure": 17, "chart": 61, "text_only": 3, "ai_or_photo": 0, "other": 19},
+  "policy_flags": ["ショック系", "断定しすぎ"],
+  "why": "身近な体験から入り衝撃統計で引き込むが、情報量が多く長尺で視聴維持がやや難しかった可能性がある"
+}

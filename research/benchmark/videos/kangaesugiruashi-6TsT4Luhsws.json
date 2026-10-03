@@ -1,0 +1,27 @@
+{
+  "id": "6TsT4Luhsws",
+  "channel": "kangaesugiruashi",
+  "question": "才能を決めるのは努力か生まれつきか?",
+  "topic": "教育・子ども",
+  "title_type": "数字型",
+  "hook_type": "意外な数字",
+  "hook_summary": "遺伝率という指標で才能の正体を数値化して提示",
+  "first_chart_sec": 10,
+  "n_sources": 13,
+  "source_kinds": ["論文", "公的統計"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "才能の半分は生得的"},
+    {"start_sec": 126, "label": "努力信仰が崩れる"},
+    {"start_sec": 465, "label": "才能を見抜けぬ採掘者"},
+    {"start_sec": 840, "label": "集中の質と評価ガチャ"},
+    {"start_sec": 1177, "label": "採掘者が消えた日本"},
+    {"start_sec": 1468, "label": "掘られない才能たち"}
+  ],
+  "surprise_sec": 990,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 15, "chart": 20, "text_only": 55, "ai_or_photo": 0, "other": 10},
+  "policy_flags": ["断定しすぎ"],
+  "why": "遺伝率・採掘率など具体的数字と逆説的な構成で、努力神話を覆す知的好奇心を刺激した"
+}

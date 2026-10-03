@@ -1,0 +1,26 @@
+{
+  "id": "yfgm7Eug0OM",
+  "channel": "DataStickFigure",
+  "question": "なぜ友達の方が自分より友達が多いのか？",
+  "topic": "社会・ネット",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "友達が少ないと感じる男子学生の悩みを紹介",
+  "first_chart_sec": 60,
+  "n_sources": 4,
+  "source_kinds": ["論文", "独自シミュレーション"],
+  "chart_types": ["図解", "数字の強調", "棒"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 57, "label": "友情のパラドックスとは"},
+    {"start_sec": 165, "label": "パラドックスの影響"},
+    {"start_sec": 224, "label": "サンプリングバイアス"},
+    {"start_sec": 300, "label": "結論"}
+  ],
+  "surprise_sec": 150,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 45, "chart": 35, "text_only": 10, "ai_or_photo": 0, "other": 10},
+  "policy_flags": [],
+  "why": "誰もが感じる身近な違和感を数学的現象として鮮やかに証明し、SNSや対戦ゲームにも応用して腹落ちさせた"
+}

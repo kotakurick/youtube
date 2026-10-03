@@ -1,0 +1,27 @@
+{
+  "id": "qYMEucR0j80",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ人類だけが恵みの雨を「うざい」と感じるのか",
+  "topic": "その他",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "てるてる坊主の残酷な起源を紹介し雨への呪いを提示",
+  "first_chart_sec": 175,
+  "n_sources": 18,
+  "source_kinds": ["論文", "公的統計"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "序章:晴れを呪う"},
+    {"start_sec": 106, "label": "第1章:灰色の空"},
+    {"start_sec": 280, "label": "第2章:乾いた揺りかご"},
+    {"start_sec": 534, "label": "第3章:哺乳類の負債"},
+    {"start_sec": 784, "label": "第4章:呪われた饗宴"},
+    {"start_sec": 1016, "label": "終章:46億年の雨"}
+  ],
+  "surprise_sec": 540,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 13, "chart": 19, "text_only": 40, "ai_or_photo": 0, "other": 28},
+  "policy_flags": ["ショック系"],
+  "why": "身近な「雨がうざい」感情を進化生物学と統計で裏付け、最後に途上国の死亡格差へ転換する構成が知的満足感と余韻を生んだ"
+}

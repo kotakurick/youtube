@@ -1,0 +1,27 @@
+{
+  "id": "m-8a1M3rcv0",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ儲からない会社は潰れずに生き残るのか",
+  "topic": "お金・格差",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "ゾンビ企業の謎を地下鉄の蚊に例えて提示",
+  "first_chart_sec": 20,
+  "n_sources": 6,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "冬を知らない生物"},
+    {"start_sec": 182, "label": "低金利という夏日"},
+    {"start_sec": 503, "label": "潮の引き際"},
+    {"start_sec": 772, "label": "血を知らない蚊"},
+    {"start_sec": 964, "label": "漂う屍たち"},
+    {"start_sec": 1163, "label": "越冬の暮れに夏"}
+  ],
+  "surprise_sec": 1057,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 15, "chart": 12, "text_only": 35, "ai_or_photo": 0, "other": 38},
+  "policy_flags": [],
+  "why": "ゾンビ企業という経済テーマを蚊の生態になぞらえる文学的比喩で差別化、ただし題材が地味で再生数は中規模"
+}

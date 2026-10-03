@@ -1,0 +1,27 @@
+{
+  "id": "gsWohSj3Acg",
+  "channel": "kangaesugiruashi",
+  "question": "なぜコンビニより美容室の方が多いのか",
+  "topic": "仕事・キャリア",
+  "title_type": "なぜ型",
+  "hook_type": "問いかけ",
+  "hook_summary": "日本一多い店は何かと視聴者に問いかける",
+  "first_chart_sec": 35,
+  "n_sources": 4,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "日本一多い店"},
+    {"start_sec": 140, "label": "束ねられる世界"},
+    {"start_sec": 305, "label": "毛細血管で生きる国"},
+    {"start_sec": 477, "label": "翳る末端"},
+    {"start_sec": 668, "label": "考える力の落日"},
+    {"start_sec": 851, "label": "人にふれて生きる"}
+  ],
+  "surprise_sec": 40,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 9, "chart": 28, "text_only": 0, "ai_or_photo": 0, "other": 63},
+  "policy_flags": [],
+  "why": "身近な「店の数」の謎から経済地理学・生理学・AI失業不安まで繋ぐ構成の意外性が伸びた要因と推測"
+}

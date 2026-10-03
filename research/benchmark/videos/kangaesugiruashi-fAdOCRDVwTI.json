@@ -1,0 +1,28 @@
+{
+  "id": "fAdOCRDVwTI",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ進化は恐怖を全員同じに統一しなかったのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "蓮の実の映像で鳥肌を誘発し恐怖の個人差を問う",
+  "first_chart_sec": 110,
+  "n_sources": 11,
+  "source_kinds": ["論文", "公的統計"],
+  "chart_types": ["数字の強調", "円", "棒", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "蓮の実でゾワッとする"},
+    {"start_sec": 77, "label": "500種類の恐怖"},
+    {"start_sec": 344, "label": "12ミリ秒の世界"},
+    {"start_sec": 585, "label": "親の恐怖が孫を変える"},
+    {"start_sec": 818, "label": "恐怖を統一しない理由"},
+    {"start_sec": 1025, "label": "3時間で恐怖が消える"},
+    {"start_sec": 1259, "label": "エピローグ"}
+  ],
+  "surprise_sec": 700,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 15, "chart": 25, "text_only": 50, "ai_or_photo": 5, "other": 5},
+  "policy_flags": ["ショック系"],
+  "why": "恐怖症の衝撃的な数字と進化論の謎解きで引き込み、身近な鳥肌体験への共感が最後まで視聴を維持させたと考えられる"
+}

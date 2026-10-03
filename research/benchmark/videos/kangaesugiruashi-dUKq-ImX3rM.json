@@ -1,0 +1,26 @@
+{
+  "id": "dUKq-ImX3rM",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ韻を踏む言葉は気持ちよく、正しく感じるのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "慣用句の語尾母音ひとつの違いで印象が変わる例を示す",
+  "first_chart_sec": 85,
+  "n_sources": 9,
+  "source_kinds": ["論文", "民間調査"],
+  "chart_types": ["数字の強調", "棒", "折れ線", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "語尾の母音ひとつの違い"},
+    {"start_sec": 128, "label": "韻を踏む側と動かされる側"},
+    {"start_sec": 440, "label": "気持ちよさが真実を奪う"},
+    {"start_sec": 609, "label": "キャッチコピーと韻"},
+    {"start_sec": 832, "label": "気持ちよさを正しさと錯覚"}
+  ],
+  "surprise_sec": 270,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 25, "chart": 30, "text_only": 30, "ai_or_photo": 10, "other": 5},
+  "policy_flags": [],
+  "why": "専門的な研究紹介が多く結論までが長いため、身近さはあるが伸び悩んだと考えられる"
+}

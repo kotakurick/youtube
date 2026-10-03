@@ -1,0 +1,28 @@
+{
+  "id": "wmrwEe-rdWQ",
+  "channel": "kangaesugiruashi",
+  "question": "選択肢が多いほど人は不幸になるのか？",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "深夜Netflixで選べず18分経つ場面を描写",
+  "first_chart_sec": 0,
+  "n_sources": 13,
+  "source_kinds": ["論文", "民間調査"],
+  "chart_types": ["棒", "折れ線", "円", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 96, "label": "ノコギリの刃"},
+    {"start_sec": 194, "label": "見えない226回"},
+    {"start_sec": 300, "label": "黒いタートルネック100枚"},
+    {"start_sec": 446, "label": "全部比べたい人と、これでいい人"},
+    {"start_sec": 557, "label": "理論が壊れた日"},
+    {"start_sec": 698, "label": "エピローグ"}
+  ],
+  "surprise_sec": 560,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 0, "chart": 45, "text_only": 35, "ai_or_photo": 10, "other": 10},
+  "policy_flags": [],
+  "why": "夜のNetflixという身近な場面から入り、意外な数字を連打した後に通説の土台を覆す構成が最後まで引きつけた"
+}

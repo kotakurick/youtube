@@ -1,0 +1,27 @@
+{
+  "id": "WgSVwMf1kWI",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ同じ音が日本人だけ違って聞こえるのか",
+  "topic": "その他",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "虫の声に日本人と欧米人で感じ方が違うと提示",
+  "first_chart_sec": 60,
+  "n_sources": 7,
+  "source_kinds": ["論文"],
+  "chart_types": ["数字の強調", "図解", "折れ線"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 95, "label": "30万部の日本人の脳"},
+    {"start_sec": 219, "label": "同じ音が違って聞こえる"},
+    {"start_sec": 362, "label": "4500の音"},
+    {"start_sec": 551, "label": "1100年の耳"},
+    {"start_sec": 656, "label": "エピローグ"}
+  ],
+  "surprise_sec": 290,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 15, "chart": 35, "text_only": 30, "ai_or_photo": 15, "other": 5},
+  "policy_flags": [],
+  "why": "脳科学の定説を覆す構成と4500語・1100年という具体数字の意外性が興味を引いた"
+}

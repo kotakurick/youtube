@@ -1,0 +1,27 @@
+{
+  "id": "zbPMYJzyyJE",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ都会にヤンキーはいないのか",
+  "topic": "東京と地方・住まい",
+  "title_type": "なぜ型",
+  "hook_type": "問いかけ",
+  "hook_summary": "東京でヤンキーを見なくなった体験を問いかける",
+  "first_chart_sec": 280,
+  "n_sources": 10,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "17歳のディスタンス"},
+    {"start_sec": 112, "label": "絶滅しかけたヒトの亜種"},
+    {"start_sec": 353, "label": "孤独な緑、狂暴な橙"},
+    {"start_sec": 525, "label": "過密という名の透明"},
+    {"start_sec": 916, "label": "人生を人質にする投資"},
+    {"start_sec": 1171, "label": "忘却の街のコスプレ"}
+  ],
+  "surprise_sec": 780,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 45, "chart": 15, "text_only": 5, "ai_or_photo": 0, "other": 35},
+  "policy_flags": [],
+  "why": "生物学の亜種概念で引きつけ、途中で仮説を自ら崩す二段構成と一貫した棒人間演出が最後まで見せる力に寄与"
+}

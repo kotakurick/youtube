@@ -1,0 +1,28 @@
+{
+  "id": "E3KEdSw5Fq8",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ自力で成功した人など一人もいないのか",
+  "topic": "お金・格差",
+  "title_type": "なぜ型",
+  "hook_type": "問いかけ",
+  "hook_summary": "成功者に出自を問い、OECD統計で格差の実態を提示",
+  "first_chart_sec": 30,
+  "n_sources": 15,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["棒", "折れ線", "円", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "生物学的に自力は無い"},
+    {"start_sec": 106, "label": "森の掟"},
+    {"start_sec": 334, "label": "見えない細い糸"},
+    {"start_sec": 494, "label": "生まれ落ちた日陰"},
+    {"start_sec": 703, "label": "富める木"},
+    {"start_sec": 903, "label": "自力という神話"},
+    {"start_sec": 1113, "label": "細い糸は伸びたか"}
+  ],
+  "surprise_sec": 600,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 30, "chart": 25, "text_only": 15, "ai_or_photo": 0, "other": 30},
+  "policy_flags": ["断定しすぎ"],
+  "why": "森の菌類ネットワークという意外なメタファーと多数の学術統計を組み合わせ、自力神話への反証を説得力高く展開した点が伸びた要因と考えられる。"
+}

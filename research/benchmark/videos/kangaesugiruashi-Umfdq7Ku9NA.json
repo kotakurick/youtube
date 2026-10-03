@@ -1,0 +1,28 @@
+{
+  "id": "Umfdq7Ku9NA",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ友達が多い人ほど孤独で寿命が縮むのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "陽キャ風の人物の脳は実は4〜5人しか友人認識していないと提示",
+  "first_chart_sec": 230,
+  "n_sources": 12,
+  "source_kinds": ["論文", "民間調査", "公的統計"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "導入"},
+    {"start_sec": 99, "label": "脳の5つの席"},
+    {"start_sec": 272, "label": "テキストは無力"},
+    {"start_sec": 514, "label": "弱い絆は厄介"},
+    {"start_sec": 721, "label": "多いと選べない"},
+    {"start_sec": 888, "label": "脳のキャパ超過"},
+    {"start_sec": 1046, "label": "まとめ"}
+  ],
+  "surprise_sec": 990,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 5, "chart": 25, "text_only": 50, "ai_or_photo": 0, "other": 20},
+  "policy_flags": ["断定しすぎ", "ショック系"],
+  "why": "身近な「陽キャ」批判と5本の学問分野の研究を積み重ねる構成が共感と説得力を両立させた"
+}

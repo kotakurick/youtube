@@ -1,0 +1,27 @@
+{
+  "id": "uecAE3bCR4Y",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ現代人は死ぬ間際まで身を引けなくなったのか",
+  "topic": "世代・人口",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "動物は繁殖後すぐ死ぬのに人とシャチだけ長く生きる謎を提示",
+  "first_chart_sec": 95,
+  "n_sources": 11,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["棒", "折れ線", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "余った歳月"},
+    {"start_sec": 175, "label": "祖母の海"},
+    {"start_sec": 477, "label": "去り際の発明"},
+    {"start_sec": 650, "label": "姨捨ての国"},
+    {"start_sec": 934, "label": "順番"},
+    {"start_sec": 1100, "label": "終わりの作法"}
+  ],
+  "surprise_sec": 860,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 60, "chart": 15, "text_only": 10, "ai_or_photo": 0, "other": 15},
+  "policy_flags": ["対立あおり"],
+  "why": "シャチの比喩から入り進化論と年金問題を接続、身近な老後不安を扱い長尺でも離脱を防いだ"
+}
