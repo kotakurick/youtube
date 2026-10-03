@@ -1,0 +1,227 @@
+{
+ "BODY_R": 32,
+ "WHISKER_Y": 8,
+ "WHISKER_W": 6,
+ "CAP": 12,
+ "EAR_TIPS": {
+  "normal": [
+   [
+    -25,
+    -46
+   ],
+   [
+    25,
+    -46
+   ]
+  ],
+  "tall": [
+   [
+    -28,
+    -56
+   ],
+   [
+    28,
+    -56
+   ]
+  ],
+  "down": [
+   [
+    -36,
+    -34
+   ],
+   [
+    36,
+    -34
+   ]
+  ],
+  "flat": [
+   [
+    -40,
+    -24
+   ],
+   [
+    40,
+    -24
+   ]
+  ]
+ },
+ "expressions": {
+  "normal": {
+   "label": "ふつう",
+   "ears": "normal",
+   "L": [
+    70,
+    70
+   ],
+   "eyes": "normal",
+   "mouth": "w"
+  },
+  "surprised": {
+   "label": "驚き：ひげが跳ね上がる",
+   "ears": "tall",
+   "L": [
+    72,
+    72
+   ],
+   "dy": [
+    -18,
+    -18
+   ],
+   "eyes": "big",
+   "mouth": "o",
+   "marks": [
+    "!"
+   ]
+  },
+  "assertive": {
+   "label": "言い切り：ひげが短い＝確か",
+   "ears": "normal",
+   "L": [
+    46,
+    46
+   ],
+   "eyes": "happy",
+   "mouth": "w"
+  },
+  "thinking": {
+   "label": "考え中：ひげが片方ずつ上下",
+   "ears": "normal",
+   "L": [
+    70,
+    70
+   ],
+   "dy": [
+    -12,
+    10
+   ],
+   "eyes": "flat",
+   "mouth": "line",
+   "marks": [
+    "?"
+   ],
+   "tilt": -8
+  },
+  "skeptical": {
+   "label": "ジト目：疑っている",
+   "ears": "normal",
+   "L": [
+    64,
+    64
+   ],
+   "eyes": "half",
+   "look": [
+    3,
+    0
+   ],
+   "mouth": "line"
+  },
+  "depends": {
+   "label": "条件次第：ひげが長く垂れる＝不確か",
+   "ears": "down",
+   "L": [
+    96,
+    96
+   ],
+   "dy": [
+    18,
+    18
+   ],
+   "bend": [
+    4,
+    4
+   ],
+   "eyes": "normal",
+   "look": [
+    -2,
+    0
+   ],
+   "mouth": "wavy"
+  },
+  "happy": {
+   "label": "喜び",
+   "ears": "tall",
+   "L": [
+    70,
+    70
+   ],
+   "dy": [
+    -8,
+    -8
+   ],
+   "eyes": "happy",
+   "mouth": "smile",
+   "marks": [
+    "sparkle"
+   ]
+  },
+  "down": {
+   "label": "落胆：ひげも耳も下がる",
+   "ears": "flat",
+   "L": [
+    66,
+    66
+   ],
+   "dy": [
+    26,
+    26
+   ],
+   "bend": [
+    6,
+    6
+   ],
+   "eyes": "sad",
+   "mouth": "frown",
+   "squash": true
+  },
+  "panic": {
+   "label": "焦り：ひげが震える",
+   "ears": "tall",
+   "L": [
+    74,
+    74
+   ],
+   "jitter": true,
+   "eyes": "dots",
+   "mouth": "wavy",
+   "marks": [
+    "sweat"
+   ]
+  },
+  "idea": {
+   "label": "ひらめき",
+   "ears": "tall",
+   "L": [
+    70,
+    70
+   ],
+   "dy": [
+    -10,
+    -10
+   ],
+   "eyes": "sparkle",
+   "mouth": "open",
+   "marks": [
+    "idea"
+   ]
+  },
+  "point": {
+   "label": "指し示し：右のひげを伸ばして指す",
+   "ears": "normal",
+   "L": [
+    60,
+    118
+   ],
+   "dy": [
+    0,
+    -4
+   ],
+   "eyes": "normal",
+   "look": [
+    3,
+    0
+   ],
+   "mouth": "w",
+   "tilt": -6
+  }
+ }
+}

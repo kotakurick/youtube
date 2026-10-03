@@ -2,8 +2,11 @@
 //  - ゴサの SVG：assets/characters/gosa/svg → public/gosa
 //  - フォント：Noto Sans JP → public/fonts（無ければダウンロード）
 //  - 各回の音声：$YT_DATA_DIR/episodes/<回>/audio → public/episodes/<回>/audio（あれば）
+//  - BGM：$YT_DATA_DIR/bgm → public/bgm（YouTube オーディオライブラリから落とした曲。あれば）
+//  - 効果音：scripts/make-sfx.mjs で作る → public/sfx
 import fs from "fs";
 import path from "path";
+import { makeSfx } from "./make-sfx.mjs";
 
 const render = process.cwd();
 const repo = path.resolve(render, "..");
@@ -28,6 +31,8 @@ if (fs.existsSync(epRoot)) {
     n += copyDir(path.join(epRoot, ep, "audio"), path.join(pub, "episodes", ep, "audio"));
   }
 }
+n += copyDir(path.join(dataDir, "bgm"), path.join(pub, "bgm"));
+n += makeSfx(path.join(pub, "sfx"));
 // フォント（無ければ一度だけダウンロード。約9.6MB、SIL Open Font License）
 const fontPath = path.join(pub, "fonts", "NotoSansJP.ttf");
 if (!fs.existsSync(fontPath)) {

@@ -5,14 +5,16 @@
 
 出力（このフォルダの下）:
     svg/<表情>.svg        表情ごとの立ち絵（明るい背景用）
-    svg/<表情>_dark.svg   同じ絵に白い縁取りを付けたもの（暗い背景・サムネイルの濃い帯の上用）
-    icon.svg              チャンネルのアイコン（円の中に顔）
+    svg/<表情>_dark.svg   同じ絵に白い縁取りを付けたもの（サムネイルの濃い帯の上用）
+    icon.svg              チャンネルのアイコン（円の中に顔。小さく表示してもひげが見えるよう太め）
+    gosa.json             表情の設定。動画の部品（render/src/lib/Gosa.tsx）がこれを読み、表情の間をなめらかにつなぐ
 
 決まり（docs/concepts/2026-10-04-gosa-cat.html の案C を仕上げたもの）:
     - 原点＝体の中心。どの表情も viewBox は同じ（-130 -100 260 180）なので、差し替えても位置がずれない。
     - 色は墨 #1D2333 と白だけ。データの色（男性の青・女性のオレンジ）は使わない。
     - ひげ＝横向きの誤差棒。ひげの長さ＝確かさ（短い＝言い切り、長く垂れる＝条件次第）。
 """
+import json
 from pathlib import Path
 
 INK = "#1D2333"
@@ -28,19 +30,25 @@ CAP = 12               # ひげの先の縦棒の半分の長さ
 
 # ---------- 部品 ----------
 
+EAR_TIPS = {
+    "normal": ((-25, -46), (25, -46)),
+    "tall": ((-28, -56), (28, -56)),
+    "down": ((-36, -34), (36, -34)),
+    "flat": ((-40, -24), (40, -24)),
+}
+
+
 def ears(kind: str) -> str:
-    tips = {
-        "normal": ((-25, -46), (25, -46)),
-        "tall": ((-28, -56), (28, -56)),
-        "down": ((-36, -34), (36, -34)),
-        "flat": ((-40, -24), (40, -24)),
-    }[kind]
-    (lx, ly), (rx, ry) = tips
-    return (f'<path d="M-28 -12 L{lx} {ly} L-6 -28 Z M28 -12 L{rx} {ry} L6 -28 Z" fill="{INK}"/>')
+    (lx, ly), (rx, ry) = EAR_TIPS[kind]
+    # 角を丸める（同じ色の線を太さ6・丸い角で重ねる＝半径3の丸み）
+    return (f'<path d="M-28 -12 L{lx} {ly} L-6 -28 Z M28 -12 L{rx} {ry} L6 -28 Z" fill="{INK}" '
+            f'stroke="{INK}" stroke-width="6" stroke-linejoin="round"/>')
 
 
-def whisker(side: int, length: float, dy: float = 0, bend: float = 0, jitter: bool = False) -> str:
+def whisker(side: int, length: float, dy: float = 0, bend: float = 0, jitter: bool = False,
+            width: float = WHISKER_W, cap: float = CAP) -> str:
     """片側のひげ。side=-1 左, 1 右。dy=先の上下（負で上）、bend=途中のふくらみ（正で下）。"""
+    WHISKER_W, CAP = width, cap  # noqa: N806（アイコンだけ太くする）
     x0, y0 = side * 20, WHISKER_Y
     x1, y1 = side * length, WHISKER_Y + dy
     if jitter:
@@ -165,7 +173,8 @@ def svg(inner: str, title: str, outline: bool = False) -> str:
 
 
 def icon() -> str:
-    face = (ears("normal") + whisker(-1, 50) + whisker(1, 50) + f'<circle r="{BODY_R}" fill="{INK}"/>'
+    face = (ears("normal") + whisker(-1, 50, width=9, cap=15) + whisker(1, 50, width=9, cap=15)
+            + f'<circle r="{BODY_R}" fill="{INK}"/>'
             + eyes("normal") + mouth("w"))
     return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="-80 -80 160 160" width="512" height="512">'
             '<title>ゴサの答え合わせ アイコン</title>'
@@ -181,6 +190,9 @@ def main():
         (out / f"{name}.svg").write_text(svg(inner, f"ゴサ：{label}"), encoding="utf-8")
         (out / f"{name}_dark.svg").write_text(svg(inner, f"ゴサ：{label}（暗い背景用）", outline=True), encoding="utf-8")
     (HERE / "icon.svg").write_text(icon(), encoding="utf-8")
+    rig = dict(BODY_R=BODY_R, WHISKER_Y=WHISKER_Y, WHISKER_W=WHISKER_W, CAP=CAP, EAR_TIPS=EAR_TIPS,
+               expressions={k: dict(label=v[0], **v[1]) for k, v in EXPRESSIONS.items()})
+    (HERE / "gosa.json").write_text(json.dumps(rig, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     print(f"{len(EXPRESSIONS)} 種類 × 2 と icon.svg を書き出しました: {out}")
 
 

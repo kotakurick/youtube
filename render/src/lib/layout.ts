@@ -9,8 +9,8 @@ import type { Kind } from "./Figure";
 
 export type Pt = { x: number; y: number };
 
-/** 1人分の大きさ（size=1 のとき）。Figure.tsx の絵に合わせる：横 ±12、縦は頭の上 -45 から足元 +5。 */
-export const FOOT = { w: 24, top: 45, bottom: 5 };
+/** 1人分の大きさ（size=1 のとき）。Figure.tsx の絵に合わせる：横 ±13（女性の裾）、縦は頭の上 -45 から足元 +5。 */
+export const FOOT = { w: 26, top: 45, bottom: 5 };
 /** 人と人のすきま（size=1 のとき） */
 export const GAP = 8;
 
@@ -82,6 +82,16 @@ export const grid = (n: number, o: { x: number; y: number; cols: number; dx: num
     throw new Error(`grid: 間隔 ${o.dx}x${o.dy} が1人分より狭いです（size=${size}）。`);
   }
   return Array.from({ length: n }, (_, i) => ({ x: o.x + (i % o.cols) * o.dx, y: o.y + Math.floor(i / o.cols) * o.dy }));
+};
+
+/** 100マス（看板のグラフ）：左下から行の順に埋める。x,bottom は左下の人の足元。
+ *  群衆をここへ並び直す動きがチャンネルの決まり手。棒の代わりに積むときは cols を小さくする。 */
+export const hundred = (
+  n: number, o: { x: number; bottom: number; cols?: number; dx?: number; dy?: number }, size = 1,
+): Pt[] => {
+  const cols = o.cols ?? 10;
+  const dx = o.dx ?? (footW(size) + GAP * size) * 1.15, dy = o.dy ?? (footH(size) + GAP * size);
+  return grid(n, { x: o.x, y: 0, cols, dx, dy }, size).map((p) => ({ x: p.x, y: o.bottom - p.y }));
 };
 
 /** 重なっている組を返す（見つからなければ空） */

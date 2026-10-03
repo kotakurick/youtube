@@ -1,7 +1,7 @@
 # 描画・合成（Remotion）
 
 動画は Remotion（React＋SVG）で作る（2026-10-04 決定、`docs/decisions.md`）。
-群衆は100人が標準（1人＝1%）。決まりは `CLAUDE.md` の「作り方の基準」。
+群衆は100人が標準（1人＝1%）。決まりは `CLAUDE.md` の「作り方の基準」と `docs/brand.md`（色・大きさ・動きの数字は `src/lib/theme.ts`）。
 
 ## 使い方
 
@@ -18,10 +18,14 @@ npm install
 npm run studio                                   # ブラウザで確認（コマ送り・場面ごとの確認）
 npm run render -- demo out/demo.mp4              # 書き出し（demo は部品の見本）
 npm run render -- 001-where-couples-meet out/001.mp4
+npm run still -- demo-thumb out/thumb.png        # サムネイル（紙色の地）。-thumb-ink は墨の地（テスト用）
+npm run still -- gosa-sheet out/gosa.png         # ゴサの表情一覧（確認用）
+npm run master -- out/001.mp4                    # 音量を -14 LUFS にそろえる → out/001.master.mp4
 npm run typecheck                                # 書き間違いの確認
 ```
 
-`npm run sync` が、書き出しの前に素材を `public/` にそろえる（ゴサの SVG、フォント、各回の音声）。`public/` は作り直せるので Git に入れない。
+`npm run sync` が、書き出しの前に素材を `public/` にそろえる（ゴサの SVG、フォント、各回の音声、BGM、効果音）。
+BGM は YouTube オーディオライブラリから落とした曲を `$YT_DATA_DIR/bgm/` に置く。効果音はコードで作る（`scripts/make-sfx.mjs`）。`public/` は作り直せるので Git に入れない。
 フォントは Noto Sans JP（OFL）を初回に一度だけダウンロードする（約9.6MB）。
 
 ## 作り
@@ -29,19 +33,27 @@ npm run typecheck                                # 書き間違いの確認
 ```
 render/
   src/lib/        部品（どの回でも使う）
-    theme.ts        色・フォント・大きさ（sec(秒) でフレーム数）
-    Figure.tsx      群衆の1人（男性＝青、女性＝オレンジ＋裾の広がり、追う1人は縁取り）
-    Crowd.tsx       群衆（出発点→到着点をばねで動かす）
-    layout.ts       並べ方（ばらまき・格子・男女の割り当て）
-    Gosa.tsx        ゴサ（表情の切り替えで弾む、flip で左右反転）
-    Question.tsx    問いの見出し
-    BarChart.tsx    棒グラフ（数字は数え上げ）
-    SourceNote.tsx  出典（右上の決まった位置）
-    Subtitle.tsx    字幕
-    Verdict.tsx     締めの判定（〇△×）
-    Episode.tsx     1本＝場面の並び（場面ごとに長さと音声）
-  src/demo/demo.tsx 部品の見本（数字は仮）
-  src/Root.tsx      動画の一覧（episodes/<回>/scenes/Episode.tsx を自動で登録）
+    theme.ts        見た目の数字（色・区画 Z・文字 T・線・角・ばね SPRING・ゴサの大きさ）。sec(秒) でフレーム数
+    Figure.tsx      群衆の1人（男女の面積をそろえた形、その他は丸い胴、追う1人は輪＋名札、対象外は薄い色）
+    Crowd.tsx       群衆（出発点→到着点をばねで動かす。重なっていたら止める）
+    layout.ts       並べ方（ばらまき・格子・100マス・重なりの確認）
+    Gosa.tsx        ゴサ（gosa.json を読んで描く。表情の間をなめらかに、まばたき、吹き出し、効果音、ひげで指す）
+    Cards.tsx       ChannelTag（冒頭のチャンネル名）、TodayCard（今日の答え合わせ）
+    Chapter.tsx     章の扉（墨のワイプ）と章の位置の点
+    Question.tsx    問いの見出し（冒頭とカードのときだけ）
+    HeroNumber.tsx  主役の数字（数え上げ＋蛍光ペン）
+    BarChart.tsx    棒グラフ（注目の1本、誤差棒、barGeometry で位置を取れる）
+    Bracket.tsx     まとまりの括弧とラベル
+    SimBackground.tsx シミュレーションの場面の方眼
+    SourceNote.tsx  出典（グラフの左下）。sim でシミュレーションの札
+    Subtitle.tsx    字幕（幅を固定した帯、48字まで）
+    Verdict.tsx     答え合わせ（証拠｜印｜ゴサ の3列、刻み→無音→スタンプ）
+    Sfx.tsx         効果音
+    Thumbnail.tsx   サムネイル（1280×720）
+    Episode.tsx     1本＝場面の並び（場面ごとに長さと音声、BGM の層）
+  src/demo/       部品の見本（demo.tsx：標準構成を短く通す、数字は仮）とゴサの表情一覧
+  src/Root.tsx    動画の一覧（episodes/<回>/scenes/Episode.tsx を自動で登録。thumb があればサムネイルも）
+  scripts/        sync-assets.mjs（素材をそろえる）、make-sfx.mjs（効果音）、master.mjs（音量の仕上げ）
 ```
 
 各回の場面のコードは `episodes/<回>/scenes/Episode.tsx` に書く（雛形は `episodes/_template/scenes/Episode.example.tsx`）。
