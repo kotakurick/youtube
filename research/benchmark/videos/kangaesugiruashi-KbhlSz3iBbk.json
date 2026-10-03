@@ -1,0 +1,28 @@
+{
+  "id": "KbhlSz3iBbk",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ反逆者は皆同じ見た目になるのか",
+  "topic": "体・見た目",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "世界中の不良の外見が国を問わず酷似する例を提示",
+  "first_chart_sec": 5,
+  "n_sources": 8,
+  "source_kinds": ["論文"],
+  "chart_types": ["図解", "地図", "数字の強調", "その他"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 63, "label": "毒ガエルの警告色"},
+    {"start_sec": 167, "label": "コストが信頼を作る"},
+    {"start_sec": 268, "label": "反逆は数学的に収束"},
+    {"start_sec": 367, "label": "ブリコラージュの檻"},
+    {"start_sec": 471, "label": "自由という名の収束"},
+    {"start_sec": 545, "label": "エピローグ"}
+  ],
+  "surprise_sec": 30,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 20, "chart": 30, "text_only": 35, "ai_or_photo": 5, "other": 10},
+  "policy_flags": ["断定しすぎ"],
+  "why": "進化生物学・数学・社会学を横断する意外な接続と図解が知的好奇心を刺激したが、抽象度が高く伸びは中程度に留まった"
+}

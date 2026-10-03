@@ -1,0 +1,27 @@
+{
+  "id": "nUMPHQQHq-E",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ港区女子は皆同じ見た目に収束するのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "六本木の交差点で港区女子が皆同じ姿だと気づく描写",
+  "first_chart_sec": 100,
+  "n_sources": 12,
+  "source_kinds": ["公的統計", "論文", "民間調査", "その他"],
+  "chart_types": ["棒", "円", "数字の強調", "図解", "地図"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "港区女子の謎"},
+    {"start_sec": 69, "label": "33カ国の配偶者選択"},
+    {"start_sec": 321, "label": "バッグは誰への合図か"},
+    {"start_sec": 528, "label": "情報カスケードと同調"},
+    {"start_sec": 866, "label": "なぜ気になるのか"},
+    {"start_sec": 1126, "label": "まとめと問いかけ"}
+  ],
+  "surprise_sec": 390,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 25, "chart": 40, "text_only": 20, "ai_or_photo": 0, "other": 15},
+  "policy_flags": ["対立あおり"],
+  "why": "港区女子という身近な揶揄対象を科学的データで解体し、最後に視聴者自身の反応に矛先を向ける構成が意外性と自分ごと化を両立させた"
+}

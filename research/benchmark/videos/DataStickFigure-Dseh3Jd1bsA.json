@@ -1,0 +1,35 @@
+{
+  "id": "Dseh3Jd1bsA",
+  "channel": "DataStickFigure",
+  "question": "人類のIQは本当に上がり続けているのか？",
+  "topic": "幸福・心理",
+  "title_type": "問いかけ型",
+  "hook_type": "物語",
+  "hook_summary": "1984年の研究者がIQ上昇を発見した逸話を紹介",
+  "first_chart_sec": 20,
+  "n_sources": 6,
+  "source_kinds": ["論文", "公的統計", "その他"],
+  "chart_types": ["折れ線", "図解", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "IQの上昇現象"},
+    {"start_sec": 52, "label": "フリン効果とは？"},
+    {"start_sec": 114, "label": "IQとは何か？"},
+    {"start_sec": 155, "label": "要因1「栄養」"},
+    {"start_sec": 245, "label": "要因2「教育」"},
+    {"start_sec": 378, "label": "要因3「労働」"},
+    {"start_sec": 423, "label": "負のフリン効果"},
+    {"start_sec": 468, "label": "結論"}
+  ],
+  "surprise_sec": 428,
+  "ending_type": "教訓",
+  "visual_mix": {
+    "stick_figure": 45,
+    "chart": 25,
+    "text_only": 15,
+    "ai_or_photo": 10,
+    "other": 5
+  },
+  "policy_flags": ["断定しすぎ"],
+  "why": "意外な事実とストーリー仕立ての導入は良いが、抽象的な心理学テーマで身近さに欠け伸びが限定的だったと考えられる"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "4JjnhgD_iOk",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ男性の体は女性より大きいのか",
+  "topic": "体・見た目",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "自分の手を広げ男女の手の大きさの差を実感させる",
+  "first_chart_sec": 30,
+  "n_sources": 10,
+  "source_kinds": ["論文", "公的統計"],
+  "chart_types": ["数字の強調", "棒", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "導入"},
+    {"start_sec": 110, "label": "テストステロンの代償"},
+    {"start_sec": 232, "label": "浜辺の血"},
+    {"start_sec": 430, "label": "深海の取引"},
+    {"start_sec": 691, "label": "角のない動物の戦い方"},
+    {"start_sec": 826, "label": "まとめ"}
+  ],
+  "surprise_sec": 500,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 30, "chart": 35, "text_only": 20, "ai_or_photo": 0, "other": 15},
+  "policy_flags": ["ショック系"],
+  "why": "身近な手の比較で始め、意外な統計と生物学エピソードを畳みかける構成が最後まで視聴を引っ張った"
+}

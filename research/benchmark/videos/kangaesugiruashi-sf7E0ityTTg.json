@@ -1,0 +1,28 @@
+{
+  "id": "sf7E0ityTTg",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ大阪のおばちゃんは値切るのに飴をくれるのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "魚屋での値切りと飴配りの対照的な場面を描写する",
+  "first_chart_sec": 390,
+  "n_sources": 16,
+  "source_kinds": ["論文"],
+  "chart_types": ["図解", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "導入:矛盾する行動"},
+    {"start_sec": 147, "label": "おばちゃん像の起源"},
+    {"start_sec": 330, "label": "ケチの正体:心の財布"},
+    {"start_sec": 742, "label": "飴ちゃんの正体"},
+    {"start_sec": 1173, "label": "派手とズケズケの理由"},
+    {"start_sec": 1586, "label": "世界のおばちゃんたち"},
+    {"start_sec": 1704, "label": "街角の経済学者"}
+  ],
+  "surprise_sec": 1005,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 15, "chart": 35, "text_only": 45, "ai_or_photo": 0, "other": 5},
+  "policy_flags": [],
+  "why": "身近な矛盾を行動経済学・人類学・神経科学で解き明かす構成は知的好奇心を刺激するが、30分の長尺が視聴維持の壁になった可能性"
+}

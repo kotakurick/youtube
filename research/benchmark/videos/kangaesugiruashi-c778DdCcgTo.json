@@ -1,0 +1,27 @@
+{
+  "id": "c778DdCcgTo",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ正義は世代を越えられないのか",
+  "topic": "世代・人口",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "18世紀処刑場の見物風景から世代差を提起",
+  "first_chart_sec": 150,
+  "n_sources": 14,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "処刑場と正義の起源"},
+    {"start_sec": 148, "label": "正義は17歳で決まる"},
+    {"start_sec": 451, "label": "辞書は説得で変わらない"},
+    {"start_sec": 652, "label": "相手世代の脳の景色"},
+    {"start_sec": 858, "label": "あなたの辞書は何年版か"},
+    {"start_sec": 1080, "label": "辞書をめくり続ける"}
+  ],
+  "surprise_sec": 580,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 15, "chart": 20, "text_only": 60, "ai_or_photo": 0, "other": 5},
+  "policy_flags": [],
+  "why": "処刑場や親子の食卓という身近な情景と、心理学・脳科学の学際的裏付けを組み合わせ、世代対立という普遍テーマへの共感を誘った"
+}

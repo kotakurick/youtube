@@ -1,0 +1,27 @@
+{
+  "id": "55PFDeeWueM",
+  "channel": "kangaesugiruashi",
+  "question": "国家はなぜ違法を知りつつ見逃すのか",
+  "topic": "社会・ネット",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "パチンコ換金の奇妙な数mの遠回りを描写し謎を提示",
+  "first_chart_sec": 377,
+  "n_sources": 8,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["棒", "折れ線", "数字の強調", "図解", "地図"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "世界一奇妙な数m"},
+    {"start_sec": 152, "label": "合法が描かれた地図"},
+    {"start_sec": 371, "label": "禁じられた洪水"},
+    {"start_sec": 703, "label": "世界の地下水路"},
+    {"start_sec": 970, "label": "低い土地に沈む者"},
+    {"start_sec": 1220, "label": "薄目の作法"}
+  ],
+  "surprise_sec": 930,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 15, "chart": 25, "text_only": 45, "ai_or_photo": 0, "other": 15},
+  "policy_flags": ["断定しすぎ"],
+  "why": "フーコー理論と遊水地の比喩で哲学的な謎解きを構成し、世界各国の実例比較で説得力を高めたことが伸びた一因と推測"
+}

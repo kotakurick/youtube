@@ -1,0 +1,27 @@
+{
+  "id": "saOYjXdd_lY",
+  "channel": "kangaesugiruashi",
+  "question": "学歴を消すとなぜもっと残酷な選別が起きるのか",
+  "topic": "教育・子ども",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "イエローストーンの狼復活と捕食者解放仮説を紹介",
+  "first_chart_sec": 3,
+  "n_sources": 18,
+  "source_kinds": ["論文", "公的統計", "民間調査"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "狼と捕食者解放仮説"},
+    {"start_sec": 191, "label": "学歴を消す試み"},
+    {"start_sec": 499, "label": "捕食者解放の実例"},
+    {"start_sec": 791, "label": "学歴が担う4つの仕事"},
+    {"start_sec": 1074, "label": "学歴という檻の発明"},
+    {"start_sec": 1228, "label": "軋み始める檻"}
+  ],
+  "surprise_sec": 525,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 20, "chart": 25, "text_only": 40, "ai_or_photo": 0, "other": 15},
+  "policy_flags": ["断定しすぎ"],
+  "why": "狼の生態学と学歴論を結ぶ意外な比喩と、中韓印など各国の衝撃データで興味を引き最後まで見せる構成が効いた"
+}

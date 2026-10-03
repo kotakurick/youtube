@@ -1,0 +1,26 @@
+{
+  "id": "Ztcan00vAN8",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ続編は必ず駄作になるのか",
+  "topic": "その他",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "続編にがっかりした経験を視聴者に重ねさせる",
+  "first_chart_sec": 30,
+  "n_sources": 5,
+  "source_kinds": ["論文", "民間調査", "その他"],
+  "chart_types": ["数字の強調", "図解", "その他"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "減点法のスイッチ"},
+    {"start_sec": 116, "label": "過去の記憶"},
+    {"start_sec": 331, "label": "爆死を避ける保険"},
+    {"start_sec": 632, "label": "3000年続く相続争い"},
+    {"start_sec": 906, "label": "四手の遺品"}
+  ],
+  "surprise_sec": 90,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 20, "chart": 0, "text_only": 40, "ai_or_photo": 30, "other": 10},
+  "policy_flags": ["断定しすぎ"],
+  "why": "映画評論的な身近な違和感を行動経済学と歴史で裏付け、普遍的な人生訓に広げた構成が共感と拡散を呼んだと推測"
+}

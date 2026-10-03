@@ -1,0 +1,27 @@
+{
+  "id": "WnhrE2YG9-U",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ人間だけが大義のために死ねるのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "ガゼルの本能描写から人間だけが大義で死ねる謎を提示",
+  "first_chart_sec": 120,
+  "n_sources": 10,
+  "source_kinds": ["論文", "独自シミュレーション", "独自アンケート"],
+  "chart_types": ["数字の強調", "図解", "棒", "散布図", "折れ線"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "大義で死ねる謎"},
+    {"start_sec": 88, "label": "血縁と利他の数式"},
+    {"start_sec": 343, "label": "死を見つめる心理"},
+    {"start_sec": 630, "label": "大義に値札は禁物"},
+    {"start_sec": 850, "label": "人を動かす隣人愛"},
+    {"start_sec": 1132, "label": "死の恐怖は消えない"}
+  ],
+  "surprise_sec": 705,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 35, "chart": 20, "text_only": 30, "ai_or_photo": 0, "other": 15},
+  "policy_flags": ["断定しすぎ"],
+  "why": "進化心理学と文化人類学の学術知見に、特攻隊やアウシュビッツなど感情に訴える具体例を重ね、知的好奇心と感情を同時に刺激する構成が最後まで視聴を引っ張ったと考えられる。"
+}

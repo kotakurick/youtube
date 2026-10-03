@@ -1,0 +1,28 @@
+{
+  "id": "RRYRFjIPpTA",
+  "channel": "kangaesugiruashi",
+  "question": "愛されても心を閉ざす回避型の謎を解く",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "既読999件を放置する人物像を通説と逆から再定義する",
+  "first_chart_sec": 230,
+  "n_sources": 8,
+  "source_kinds": ["論文"],
+  "chart_types": ["折れ線", "数字の強調", "図解", "表"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "999+の堆積"},
+    {"start_sec": 90, "label": "悩みのないカルテ"},
+    {"start_sec": 280, "label": "皮膚の下のパニック"},
+    {"start_sec": 595, "label": "ラッチ解除と安い自衛"},
+    {"start_sec": 787, "label": "へその緒からの孤立"},
+    {"start_sec": 917, "label": "血流が戻る閾値"},
+    {"start_sec": 1250, "label": "みんな貝になりたい"}
+  ],
+  "surprise_sec": 450,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 50, "chart": 20, "text_only": 20, "ai_or_photo": 0, "other": 10},
+  "policy_flags": ["助言", "断定しすぎ"],
+  "why": "二枚貝の生態になぞらえた独自の視点で回避型愛着を解説し、通説を覆す意外性が共感と拡散を呼んだため"
+}

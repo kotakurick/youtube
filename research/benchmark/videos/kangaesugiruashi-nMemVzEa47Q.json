@@ -1,0 +1,27 @@
+{
+  "id": "nMemVzEa47Q",
+  "channel": "kangaesugiruashi",
+  "question": "男女の友情はなぜ成立するのに疑われ続けるのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "ラーメン屋のカウンターで男女の一夜を描写",
+  "first_chart_sec": 160,
+  "n_sources": 12,
+  "source_kinds": ["論文", "民間調査"],
+  "chart_types": ["棒", "円", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "ひとつのカウンター席"},
+    {"start_sec": 137, "label": "別々の質問に答える"},
+    {"start_sec": 339, "label": "科学の誤読説を検証"},
+    {"start_sec": 599, "label": "本物の友情じゃない"},
+    {"start_sec": 853, "label": "問われているのは友情か"},
+    {"start_sec": 1051, "label": "同じ夜、違う名前で保存"}
+  ],
+  "surprise_sec": 500,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 18, "chart": 36, "text_only": 38, "ai_or_photo": 0, "other": 8},
+  "policy_flags": [],
+  "why": "身近な論争を哲学・進化心理学の知見で解きほぐし、物語仕立てと意外な研究結果が共感を呼び視聴維持に繋がったと考えられる。"
+}

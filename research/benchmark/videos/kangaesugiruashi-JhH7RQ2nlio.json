@@ -1,0 +1,27 @@
+{
+  "id": "JhH7RQ2nlio",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ人は忙しさや謙遜を自慢してしまうのか",
+  "topic": "仕事・キャリア",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "忙しい自己申告は実態より盛られると統計で示す",
+  "first_chart_sec": 20,
+  "n_sources": 10,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["折れ線", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "見えない分母"},
+    {"start_sec": 213, "label": "紳士のシャツ"},
+    {"start_sec": 437, "label": "眠らない男たち"},
+    {"start_sec": 689, "label": "努力と天才の評価"},
+    {"start_sec": 941, "label": "泥沼のチキンレース"},
+    {"start_sec": 1132, "label": "つまらないものですが"}
+  ],
+  "surprise_sec": 590,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 40, "chart": 10, "text_only": 35, "ai_or_photo": 10, "other": 5},
+  "policy_flags": ["断定しすぎ"],
+  "why": "身近な「忙しい自慢」ネタで共感を呼ぶが、題材の既視感でバイラル性は中程度にとどまった"
+}

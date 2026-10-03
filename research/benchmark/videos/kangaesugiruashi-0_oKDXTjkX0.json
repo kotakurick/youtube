@@ -1,0 +1,28 @@
+{
+  "id": "0_oKDXTjkX0",
+  "channel": "kangaesugiruashi",
+  "question": "なぜサイコパスは恋愛でモテるのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "身近な恋愛体験を想起させ謎の人物像を提示",
+  "first_chart_sec": 44,
+  "n_sources": 13,
+  "source_kinds": ["論文"],
+  "chart_types": ["数字の強調", "図解", "棒", "折れ線"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 85, "label": "46人撮影実験の正体"},
+    {"start_sec": 191, "label": "魅力の増幅装置"},
+    {"start_sec": 275, "label": "恐怖が壊れた脳"},
+    {"start_sec": 467, "label": "進化のゲーム理論"},
+    {"start_sec": 625, "label": "サイコパスの生贄"},
+    {"start_sec": 761, "label": "エピローグ"}
+  ],
+  "surprise_sec": 695,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 40, "chart": 30, "text_only": 10, "ai_or_photo": 15, "other": 5},
+  "policy_flags": ["ショック系", "断定しすぎ"],
+  "why": "18%・4倍・98%など衝撃数値を連発し、恋愛という身近な題材に科学的権威を重ね最後に被害実態で反転させる構成が最後まで視聴を牽引した"
+}

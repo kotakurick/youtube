@@ -1,0 +1,27 @@
+{
+  "id": "qp4oFj4C8jo",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ港区女子はモテるのに結婚できないのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "六本木の夜の世界を文学的に描写し謎を提示",
+  "first_chart_sec": 180,
+  "n_sources": 10,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["棒", "図解", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "事実は小説より醜悪なり"},
+    {"start_sec": 119, "label": "ふたつの物差し"},
+    {"start_sec": 409, "label": "レモンと履歴書"},
+    {"start_sec": 598, "label": "名乗らない女たち"},
+    {"start_sec": 842, "label": "表彰台と砂時計"},
+    {"start_sec": 1087, "label": "最後の換金所"}
+  ],
+  "surprise_sec": 510,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 40, "chart": 20, "text_only": 15, "ai_or_photo": 0, "other": 25},
+  "policy_flags": ["断定しすぎ"],
+  "why": "港区女子という際どい題材に進化心理学・経済学の理論を重ね、知的好奇心をくすぐった構成"
+}

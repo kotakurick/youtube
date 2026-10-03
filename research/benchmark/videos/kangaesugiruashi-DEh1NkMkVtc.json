@@ -1,0 +1,27 @@
+{
+  "id": "DEh1NkMkVtc",
+  "channel": "kangaesugiruashi",
+  "question": "いいねの価値はなぜここまで暴落したのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "京都祇園の『一元さんお断り』という老舗文化の話から入る",
+  "first_chart_sec": 440,
+  "n_sources": 10,
+  "source_kinds": ["論文", "公的統計", "民間調査"],
+  "chart_types": ["数字の強調", "図解", "棒"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "350年のドアマン"},
+    {"start_sec": 172, "label": "門番のいない市場"},
+    {"start_sec": 382, "label": "価値なき愛のインフレ"},
+    {"start_sec": 635, "label": "酸っぱい果実の市場"},
+    {"start_sec": 864, "label": "美しき混雑税"},
+    {"start_sec": 1218, "label": "自由という名の刑期"}
+  ],
+  "surprise_sec": 660,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 45, "chart": 10, "text_only": 30, "ai_or_photo": 0, "other": 15},
+  "policy_flags": ["断定しすぎ"],
+  "why": "祇園の老舗文化という意外な導入から経済学理論で謎を解き明かす構成が知的好奇心を刺激し拡散に繋がったと考えられる"
+}

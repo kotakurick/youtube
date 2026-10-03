@@ -1,0 +1,27 @@
+{
+  "id": "8m_KObEOGgA",
+  "channel": "kangaesugiruashi",
+  "question": "なぜトムは80年間ジェリーを食べないのか",
+  "topic": "仕事・キャリア",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "トムが一度もジェリーを食べない事実に違和感を提示",
+  "first_chart_sec": 45,
+  "n_sources": 13,
+  "source_kinds": ["論文", "公的統計", "民間調査"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "未完の追いかけっこ"},
+    {"start_sec": 196, "label": "窮鼠、トムを噛む"},
+    {"start_sec": 559, "label": "見かけの競争"},
+    {"start_sec": 818, "label": "危うい夕食"},
+    {"start_sec": 1168, "label": "砂上の楼閣"},
+    {"start_sec": 1485, "label": "プラットフォームの寄生蜂"}
+  ],
+  "surprise_sec": 1230,
+  "ending_type": "登録の呼びかけ",
+  "visual_mix": {"stick_figure": 65, "chart": 10, "text_only": 15, "ai_or_photo": 0, "other": 10},
+  "policy_flags": [],
+  "why": "身近なトムとジェリーの謎から生態学と労働経済学へ飛躍する構成が新鮮だが、抽象度の高さが拡散力を抑えた可能性"
+}

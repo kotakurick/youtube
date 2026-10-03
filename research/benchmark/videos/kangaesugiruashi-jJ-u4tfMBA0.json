@@ -1,0 +1,27 @@
+{
+  "id": "jJ-u4tfMBA0",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ人類はスマホ依存に気づけないのか",
+  "topic": "社会・ネット",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "研究室の設計者と深夜の中学生を対比して描く",
+  "first_chart_sec": 60,
+  "n_sources": 14,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["数字の強調", "図解", "折れ線", "表"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "20万年を奪う装置"},
+    {"start_sec": 150, "label": "逃げた設計者たち"},
+    {"start_sec": 368, "label": "脳が3年で別物に"},
+    {"start_sec": 620, "label": "200年同じ筋書き"},
+    {"start_sec": 847, "label": "14兆円産業の完成"},
+    {"start_sec": 1051, "label": "気づかない依存の終着点"}
+  ],
+  "surprise_sec": 480,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 25, "chart": 35, "text_only": 15, "ai_or_photo": 20, "other": 5},
+  "policy_flags": ["ショック系"],
+  "why": "冒頭の衝撃的な数字と対比構成が引きを作り、統計の連打で説得力を保ち視聴維持に貢献したと考えられる"
+}

@@ -1,0 +1,29 @@
+{
+  "id": "PCTUAu3MX2E",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ揺れているだけで乗り物酔いは起きるのか",
+  "topic": "体・見た目",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "嘔吐の本来の目的を説明し乗り物酔いの矛盾を提示",
+  "first_chart_sec": 150,
+  "n_sources": 8,
+  "source_kinds": ["論文", "民間調査"],
+  "chart_types": ["棒", "折れ線", "円", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "導入:嘔吐の謎"},
+    {"start_sec": 86, "label": "脳の毒検問所"},
+    {"start_sec": 221, "label": "揺れ=毒と誤認"},
+    {"start_sec": 353, "label": "嵐の海の11人"},
+    {"start_sec": 537, "label": "運転手は酔わない"},
+    {"start_sec": 652, "label": "VR酔いと宇宙酔い"},
+    {"start_sec": 807, "label": "酔いやすさは遺伝"},
+    {"start_sec": 1002, "label": "まとめ"}
+  ],
+  "surprise_sec": 450,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 20, "chart": 35, "text_only": 35, "ai_or_photo": 0, "other": 10},
+  "policy_flags": [],
+  "why": "身近な乗り物酔いを入口に進化論的謎解きへ展開する構成と、NASA実験の意外性が興味を引いたと考えられる"
+}

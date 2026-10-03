@@ -1,0 +1,28 @@
+{
+  "id": "Y58BrL1aR48",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ人は正義の味方より悪役に惹かれるのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "敗れた悪役の顔が忘れられない謎を問いかける",
+  "first_chart_sec": 100,
+  "n_sources": 10,
+  "source_kinds": ["論文", "その他"],
+  "chart_types": ["棒", "図解", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "導入:悪役への引力"},
+    {"start_sec": 134, "label": "鏡:似た悪役に惹かれる"},
+    {"start_sec": 353, "label": "快楽:脳が悪役を欲する"},
+    {"start_sec": 578, "label": "遺伝:悪に惹かれる本能"},
+    {"start_sec": 789, "label": "スイッチ:道徳を切る"},
+    {"start_sec": 1128, "label": "あなた:Villain Era"},
+    {"start_sec": 1313, "label": "エピローグ"}
+  ],
+  "surprise_sec": 210,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 15, "chart": 25, "text_only": 35, "ai_or_photo": 5, "other": 20},
+  "policy_flags": [],
+  "why": "大ヒット作品の実例と5学問の研究結果を結び付けた意外性のある問いが好奇心を刺激した"
+}

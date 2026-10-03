@@ -1,0 +1,28 @@
+{
+  "id": "6K6x1C2J2mg",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ地方イオン派vs都会独身派論争は終わらないのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "銀座の独身男性とイオンの家族、同じ土曜夕方の対照描写",
+  "first_chart_sec": 60,
+  "n_sources": 16,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["棒", "折れ線", "表", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "土曜夕方の二つの場面"},
+    {"start_sec": 98, "label": "幸せの3要素を分解"},
+    {"start_sec": 250, "label": "幸福度は制度が決める"},
+    {"start_sec": 438, "label": "優位性は2年で消える"},
+    {"start_sec": 677, "label": "審判なき時代の採点表"},
+    {"start_sec": 963, "label": "同窓会は聖杯戦争"},
+    {"start_sec": 1174, "label": "選ばなかった道の影"}
+  ],
+  "surprise_sec": 510,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 15, "chart": 20, "text_only": 35, "ai_or_photo": 15, "other": 15},
+  "policy_flags": [],
+  "why": "身近な「イオン派vs独身派」論争を脳科学・進化心理学で解きほぐし、共感と自己正当化欲求を刺激した"
+}

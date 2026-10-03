@@ -1,0 +1,27 @@
+{
+  "id": "18TFMl33w8I",
+  "channel": "kangaesugiruashi",
+  "question": "都会の孤独はなぜ故郷より心地よいのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "赤飯の風習を例に田舎の相互監視を描写",
+  "first_chart_sec": 215,
+  "n_sources": 14,
+  "source_kinds": ["公的統計", "論文", "その他"],
+  "chart_types": ["数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "赤飯とフジツボ"},
+    {"start_sec": 149, "label": "静かな追放"},
+    {"start_sec": 421, "label": "善意でできた檻"},
+    {"start_sec": 677, "label": "着底しない自由"},
+    {"start_sec": 988, "label": "雨戸の向こうの目"},
+    {"start_sec": 1203, "label": "仲間の匂いのする岩へ"}
+  ],
+  "surprise_sec": 1020,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 45, "chart": 10, "text_only": 35, "ai_or_photo": 0, "other": 10},
+  "policy_flags": ["断定しすぎ"],
+  "why": "比喩と学術的裏付けで構成した物語性と強い問いかけタイトルが共感と好奇心を引いた"
+}

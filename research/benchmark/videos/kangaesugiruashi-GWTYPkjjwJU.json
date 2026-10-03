@@ -1,0 +1,27 @@
+{
+  "id": "GWTYPkjjwJU",
+  "channel": "kangaesugiruashi",
+  "question": "なぜセンスのいい人は間違いに先に気づけるのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "問いかけ",
+  "hook_summary": "奇妙な日本語の例文で言葉にできない違和感を提示",
+  "first_chart_sec": 480,
+  "n_sources": 12,
+  "source_kinds": ["論文"],
+  "chart_types": ["図解", "数字の強調"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "コーヒーと助詞"},
+    {"start_sec": 112, "label": "脳が盗んだ文法"},
+    {"start_sec": 442, "label": "比べない専門家"},
+    {"start_sec": 696, "label": "手本という毒"},
+    {"start_sec": 928, "label": "期限つきの美意識"},
+    {"start_sec": 1135, "label": "見過ごせない不自由"}
+  ],
+  "surprise_sec": 480,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 30, "chart": 15, "text_only": 35, "ai_or_photo": 15, "other": 5},
+  "policy_flags": ["断定しすぎ"],
+  "why": "身近な違和感を入口に複数の学術研究で裏付け、普遍的テーマへ昇華する構成が刺さった"
+}

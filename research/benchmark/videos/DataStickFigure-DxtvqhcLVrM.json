@@ -1,0 +1,29 @@
+{
+  "id": "DxtvqhcLVrM",
+  "channel": "DataStickFigure",
+  "question": "ネット恋愛で外見はどこまで重要なのか",
+  "topic": "恋愛・結婚",
+  "title_type": "数字型",
+  "hook_type": "意外な数字",
+  "hook_summary": "男女の外見評価グラフの偏りをいきなり提示",
+  "first_chart_sec": 0,
+  "n_sources": 2,
+  "source_kinds": ["民間調査", "論文"],
+  "chart_types": ["折れ線", "棒", "円", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "異性の魅力を評価すると"},
+    {"start_sec": 86, "label": "オンラインデートの利点"},
+    {"start_sec": 121, "label": "1つ目のグラフ"},
+    {"start_sec": 194, "label": "2つ目のグラフ"},
+    {"start_sec": 252, "label": "3つ目のグラフ"},
+    {"start_sec": 297, "label": "4つ目のグラフ"},
+    {"start_sec": 361, "label": "恋は盲目実験"},
+    {"start_sec": 386, "label": "5つ目のグラフ"}
+  ],
+  "surprise_sec": 400,
+  "ending_type": "登録の呼びかけ",
+  "visual_mix": {"stick_figure": 40, "chart": 40, "text_only": 10, "ai_or_photo": 5, "other": 5},
+  "policy_flags": [],
+  "why": "恋愛という普遍的関心事を実データで裏付け、棒人間アニメで数字を直感的に理解させた点が伸びた要因と考えられる"
+}

@@ -1,0 +1,28 @@
+{
+  "id": "uvGqLNEgFdM",
+  "channel": "kangaesugiruashi",
+  "question": "なぜW杯と五輪で強い国が入れ替わるのか",
+  "topic": "その他",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "五輪とW杯の覇者リストを対比して見せる",
+  "first_chart_sec": 0,
+  "n_sources": 5,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["棒", "散布図", "数字の強調", "図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "二つの物理法則"},
+    {"start_sec": 142, "label": "値札のついた表彰台"},
+    {"start_sec": 306, "label": "ボールが裏返す地図"},
+    {"start_sec": 539, "label": "憧れという土壌"},
+    {"start_sec": 762, "label": "銃を持たない戦争"},
+    {"start_sec": 955, "label": "ドーハの一本の線"},
+    {"start_sec": 1118, "label": "放課後のスター選手"}
+  ],
+  "surprise_sec": 480,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 20, "chart": 20, "text_only": 35, "ai_or_photo": 5, "other": 20},
+  "policy_flags": ["断定しすぎ"],
+  "why": "経済学×スポーツの意外な切り口と謎解き構成が知的好奇心を刺激したが、専門色の強さで伸びは中程度に留まった"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "6qUif5KtQLw",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ現代人は病名を自ら名乗りたがるのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "猟奇的な殺人クイズを出し自分も異常か問いかける",
+  "first_chart_sec": 185,
+  "n_sources": 7,
+  "source_kinds": ["論文", "公的統計"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "エンタメの燃え滓"},
+    {"start_sec": 124, "label": "滑稽な伝言ゲーム"},
+    {"start_sec": 378, "label": "温かさを隠すドライ"},
+    {"start_sec": 692, "label": "バースの温泉町へ"},
+    {"start_sec": 918, "label": "甘美な3つの境界線"},
+    {"start_sec": 1233, "label": "都合のいい福音"}
+  ],
+  "surprise_sec": 960,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 50, "chart": 15, "text_only": 20, "ai_or_photo": 0, "other": 15},
+  "policy_flags": ["対立あおり", "断定しすぎ"],
+  "why": "サイコパス診断とADHD/HSP自称ブームを結びつけ、意外な研究結果を連発する構成が好奇心と共感を刺激した。"
+}

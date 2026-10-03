@@ -1,0 +1,27 @@
+{
+  "id": "6r0TDzptfOc",
+  "channel": "kangaesugiruashi",
+  "question": "なぜGW明けに会社を辞めたくなるのか",
+  "topic": "仕事・キャリア",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "布団から出られない朝の情景を描写",
+  "first_chart_sec": 150,
+  "n_sources": 11,
+  "source_kinds": ["論文", "公的統計", "民間調査"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "4月の手紙(序)"},
+    {"start_sec": 98, "label": "なぜ4月は上機嫌か"},
+    {"start_sec": 234, "label": "真面目な人ほど動けない"},
+    {"start_sec": 472, "label": "なぜ5月病と呼ぶか"},
+    {"start_sec": 698, "label": "10万年前の序列読み"},
+    {"start_sec": 993, "label": "目標の書き直しは裏切りでない"}
+  ],
+  "surprise_sec": 605,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 35, "chart": 10, "text_only": 40, "ai_or_photo": 0, "other": 15},
+  "policy_flags": [],
+  "why": "共感を誘う物語導入と学術的根拠の多さで信頼感を得たが、暗いトーンと長尺(18分)が視聴維持を難しくした可能性"
+}

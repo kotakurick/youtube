@@ -1,0 +1,28 @@
+{
+  "id": "pjj6INSUcfQ",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ人は不安という商品に大金を払い続けるのか",
+  "topic": "お金・格差",
+  "title_type": "なぜ型",
+  "hook_type": "結論の先出し",
+  "hook_summary": "保険料は戻らない方が成功だという逆説的な導入",
+  "first_chart_sec": 420,
+  "n_sources": 15,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["数字の強調", "図解", "棒"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "元手のいらない商売"},
+    {"start_sec": 152, "label": "脳が愛した百回目の恐怖"},
+    {"start_sec": 354, "label": "口臭に値札を貼る魔術"},
+    {"start_sec": 611, "label": "恐怖を計る計量カップ"},
+    {"start_sec": 858, "label": "死人に口なし"},
+    {"start_sec": 1120, "label": "営業を捨てた神域"},
+    {"start_sec": 1395, "label": "恐怖の通貨"}
+  ],
+  "surprise_sec": 905,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 10, "chart": 10, "text_only": 30, "ai_or_photo": 0, "other": 50},
+  "policy_flags": ["断定しすぎ"],
+  "why": "身近な保険や塾代を進化心理学で解体し、2000万円問題など記憶に残る実話を重ねて構造的な気づきを与える構成が刺さったと推測"
+}

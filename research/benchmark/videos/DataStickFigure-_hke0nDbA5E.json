@@ -1,0 +1,27 @@
+{
+  "id": "_hke0nDbA5E",
+  "channel": "DataStickFigure",
+  "question": "誕生月は人生にどこまで影響するか",
+  "topic": "教育・子ども",
+  "title_type": "問いかけ型",
+  "hook_type": "問いかけ",
+  "hook_summary": "プロ野球選手の誕生月の偏りを見せ問いかける",
+  "first_chart_sec": 5,
+  "n_sources": 8,
+  "source_kinds": ["論文", "公的統計"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 32, "label": "相対年齢効果とは"},
+    {"start_sec": 92, "label": "スポーツでの影響"},
+    {"start_sec": 259, "label": "教育・仕事での影響"},
+    {"start_sec": 361, "label": "子供への負の影響"},
+    {"start_sec": 401, "label": "影響を小さくするには"}
+  ],
+  "surprise_sec": 390,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 45, "chart": 35, "text_only": 15, "ai_or_photo": 0, "other": 5},
+  "policy_flags": ["ショック系"],
+  "why": "身近な誕生月の話題に自殺リスク30%増という衝撃的数字を添え、データ図解で説得力を持たせたため"
+}

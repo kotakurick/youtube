@@ -1,0 +1,28 @@
+{
+  "id": "MZS3WhG1iKw",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ人は届かないと知りつつ手紙を書くのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "手紙を破る情景から中目黒脱線事故の逸話へ導入",
+  "first_chart_sec": 290,
+  "n_sources": 9,
+  "source_kinds": ["論文", "公的統計"],
+  "chart_types": ["数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "届かぬ手紙の序章"},
+    {"start_sec": 160, "label": "白紙前の逡巡"},
+    {"start_sec": 417, "label": "愛を模倣する夜"},
+    {"start_sec": 678, "label": "退路を断つ性"},
+    {"start_sec": 906, "label": "空白が育てる恋"},
+    {"start_sec": 1073, "label": "紙に宿る情念"},
+    {"start_sec": 1241, "label": "20年の朝日"}
+  ],
+  "surprise_sec": 280,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 0, "chart": 10, "text_only": 5, "ai_or_photo": 0, "other": 85},
+  "policy_flags": ["断定しすぎ"],
+  "why": "物語導入と心理実験の意外性は強いが、22分の長尺と抽象的テーマが新規流入の壁になった"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "uJQ5bS-PX3U",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ進化の敗者パンダが巨万の富を生むのか",
+  "topic": "社会・ネット",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "パンダ消失で年200億円の経済損失という謎を提示",
+  "first_chart_sec": null,
+  "n_sources": 10,
+  "source_kinds": ["論文", "公的統計", "その他"],
+  "chart_types": ["図解", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "失格者の値段"},
+    {"start_sec": 164, "label": "かわいさという凶器"},
+    {"start_sec": 501, "label": "愛嬌という通貨"},
+    {"start_sec": 843, "label": "聖像になった熊"},
+    {"start_sec": 1159, "label": "真犯人は鏡の中に"},
+    {"start_sec": 1337, "label": "見られない自由"}
+  ],
+  "surprise_sec": 660,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 10, "chart": 0, "text_only": 40, "ai_or_photo": 0, "other": 50},
+  "policy_flags": ["断定しすぎ"],
+  "why": "進化生物学とSNS論・注目経済を結びつける知的な飛躍と語り口の独自性が、ニッチながら安定した関心を集めた要因と考えられる。"
+}

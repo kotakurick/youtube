@@ -1,0 +1,28 @@
+{
+  "id": "yAhmcL-zYMw",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ他人の恥が自分まで苦しいのか？",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "テレビで芸人が滑る場面とソファの視聴者を描写",
+  "first_chart_sec": 53,
+  "n_sources": 7,
+  "source_kinds": ["論文"],
+  "chart_types": ["図解", "表", "数字の強調"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 88, "label": "脳は恥を痛みと処理"},
+    {"start_sec": 208, "label": "気づかぬ恥が一番痛い"},
+    {"start_sec": 333, "label": "身体が反応する"},
+    {"start_sec": 437, "label": "社会的監視装置"},
+    {"start_sec": 551, "label": "1日100回の恥"},
+    {"start_sec": 701, "label": "エピローグ"}
+  ],
+  "surprise_sec": 270,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 25, "chart": 45, "text_only": 15, "ai_or_photo": 5, "other": 10},
+  "policy_flags": ["断定しすぎ"],
+  "why": "心理ネタだが数字の弱いタイトルと抽象的なテーマで検索・サムネ訴求が弱く、伸びが限定的だったと考えられる。"
+}

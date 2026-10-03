@@ -1,0 +1,27 @@
+{
+  "id": "MgC9VAWbJuE",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ銃は一度しか生まれず弓や剣は何度も生まれたのか",
+  "topic": "その他",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "核より自動小銃の方が死者数が多い事実を提示",
+  "first_chart_sec": 10,
+  "n_sources": 8,
+  "source_kinds": ["論文", "その他"],
+  "chart_types": ["図解", "数字の強調"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "ありふれた最終兵器"},
+    {"start_sec": 130, "label": "殺戮の粉"},
+    {"start_sec": 296, "label": "起源を持たない武器"},
+    {"start_sec": 487, "label": "収斂と放散"},
+    {"start_sec": 769, "label": "必然か、偶然か"},
+    {"start_sec": 1011, "label": "神は賽を振りうる"}
+  ],
+  "surprise_sec": 180,
+  "ending_type": "登録の呼びかけ",
+  "visual_mix": {"stick_figure": 15, "chart": 10, "text_only": 0, "ai_or_photo": 0, "other": 75},
+  "policy_flags": [],
+  "why": "銃と弓の起源を対比し進化生物学の収斂・放散理論へ展開する知的構成だが、科学教養系のニッチさで伸びは中程度に留まった"
+}

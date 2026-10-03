@@ -1,0 +1,27 @@
+{
+  "id": "hjJyXAx9DCM",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ勉強ができる人ほど地味な見た目になるのか",
+  "topic": "体・見た目",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "子供の頃の『勉強で目が悪くなる』発言の真偽を提示",
+  "first_chart_sec": 15,
+  "n_sources": 13,
+  "source_kinds": ["論文", "公的統計", "民間調査"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 106, "label": "勉強は目を壊す"},
+    {"start_sec": 297, "label": "金持ちは美人と結婚?"},
+    {"start_sec": 440, "label": "着飾らない戦略"},
+    {"start_sec": 605, "label": "ガリ勉のパラドックス"},
+    {"start_sec": 830, "label": "エピローグ"}
+  ],
+  "surprise_sec": 630,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 20, "chart": 40, "text_only": 35, "ai_or_photo": 0, "other": 5},
+  "policy_flags": ["断定しすぎ"],
+  "why": "身近な『チー牛』ネタに進化心理学・統計を絡め、意外な数字を連打しつつ最後にどんでん返しで答えを提示する構成が最後まで興味を引っ張ったと考えられる。"
+}

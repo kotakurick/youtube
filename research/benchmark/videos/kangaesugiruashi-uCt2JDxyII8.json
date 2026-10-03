@@ -1,0 +1,27 @@
+{
+  "id": "uCt2JDxyII8",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ人類は役に立たない動物を家族として愛するのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "子供より犬猫が多いという衝撃の数字から始まる",
+  "first_chart_sec": 15,
+  "n_sources": 13,
+  "source_kinds": ["公的統計", "論文", "民間調査", "その他"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "子どもより犬猫多い国"},
+    {"start_sec": 142, "label": "愛猫と豚肉"},
+    {"start_sec": 418, "label": "情動の永久機関"},
+    {"start_sec": 715, "label": "エゴイズムの境界"},
+    {"start_sec": 980, "label": "最も高貴で脆い配線"},
+    {"start_sec": 1243, "label": "愛という不器用な作法"}
+  ],
+  "surprise_sec": 715,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 5, "chart": 15, "text_only": 10, "ai_or_photo": 5, "other": 65},
+  "policy_flags": ["断定しすぎ"],
+  "why": "通説を覆す托卵の比喩と二転三転する論理展開、豊富な出典提示が視聴維持に寄与したと考えられる"
+}

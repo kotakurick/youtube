@@ -1,0 +1,27 @@
+{
+  "id": "syE-bnCbBvE",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ識字率が上がると国家は転覆するのか",
+  "topic": "社会・ネット",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "桶屋の譬え話の構造で識字と国家崩壊の連鎖を予告",
+  "first_chart_sec": 640,
+  "n_sources": 10,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["数字の強調", "図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "風が吹けば王が倒れる"},
+    {"start_sec": 171, "label": "文字を縛る法律"},
+    {"start_sec": 382, "label": "北極の熊は何色か"},
+    {"start_sec": 700, "label": "もしもという導火線"},
+    {"start_sec": 930, "label": "情報に溺れさせる"},
+    {"start_sec": 1310, "label": "虚の玉座、迷う言葉"}
+  ],
+  "surprise_sec": 600,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 55, "chart": 5, "text_only": 25, "ai_or_photo": 0, "other": 15},
+  "policy_flags": ["断定しすぎ"],
+  "why": "識字と国家崩壊という意外な因果をなぜ型タイトルと歴史の逸話で引き込み、SNS時代の政治にも接続した構成が伸びた要因と推測"
+}

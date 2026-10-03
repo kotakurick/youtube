@@ -1,0 +1,29 @@
+{
+  "id": "3vma_ytEHcY",
+  "channel": "DataStickFigure",
+  "question": "なぜ社会は朝型を称賛し夜型を否定するのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "世界のことわざは早起きを称賛し夜更かし推奨は0個だと示す",
+  "first_chart_sec": 180,
+  "n_sources": 7,
+  "source_kinds": ["論文", "その他"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "世界のことわざ分析"},
+    {"start_sec": 60, "label": "朝型と夜型を検証"},
+    {"start_sec": 90, "label": "クロノタイプとは"},
+    {"start_sec": 180, "label": "日本人の分布データ"},
+    {"start_sec": 210, "label": "朝型と夜型の違い"},
+    {"start_sec": 270, "label": "体内時計のずれ"},
+    {"start_sec": 360, "label": "健康リスクと進化的理由"},
+    {"start_sec": 480, "label": "夜型への対処法"}
+  ],
+  "surprise_sec": 400,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 55, "chart": 15, "text_only": 25, "ai_or_photo": 0, "other": 5},
+  "policy_flags": ["助言"],
+  "why": "ことわざ分析という身近な導入から科学データで朝型神話を覆し、進化的理由と実用的な改善策まで示す構成が満足感を生んだ"
+}

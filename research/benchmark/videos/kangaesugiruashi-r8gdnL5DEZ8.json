@@ -1,0 +1,27 @@
+{
+  "id": "r8gdnL5DEZ8",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ脳は推しとリアルな恋人を区別できないのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "問いかけ",
+  "hook_summary": "恋人の顔を問い、椅子と結婚式を挙げた女性を紹介",
+  "first_chart_sec": 90,
+  "n_sources": 14,
+  "source_kinds": ["論文", "公的統計"],
+  "chart_types": ["棒", "数字の強調", "図解", "散布図"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "椅子に永遠の愛を誓う"},
+    {"start_sec": 151, "label": "恋の分解史2400年"},
+    {"start_sec": 345, "label": "恋に客観的境界線はない"},
+    {"start_sec": 658, "label": "新しい病ではない"},
+    {"start_sec": 872, "label": "恋ではないと思ったもの"},
+    {"start_sec": 1093, "label": "穴に落ちる権利は誰に"}
+  ],
+  "surprise_sec": 680,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 15, "chart": 25, "text_only": 45, "ai_or_photo": 0, "other": 15},
+  "policy_flags": ["断定しすぎ"],
+  "why": "時事性の高いAI恋愛ニュースと神経科学・進化人類学の権威付けを組み合わせ、知的好奇心と自己投影を喚起したため"
+}

@@ -1,0 +1,29 @@
+{
+  "id": "fbvB-2Q0lRg",
+  "channel": "DataStickFigure",
+  "question": "名前の流行は何に左右されるのか？",
+  "topic": "世代・人口",
+  "title_type": "問いかけ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "2025年と100年前の人気の名前ランキングを対比して見せる",
+  "first_chart_sec": 0,
+  "n_sources": 9,
+  "source_kinds": ["公的統計", "民間調査", "論文"],
+  "chart_types": ["表", "図解", "数字の強調", "円", "折れ線"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 100, "label": "名付けの要因"},
+    {"start_sec": 166, "label": "名前の中性化"},
+    {"start_sec": 227, "label": "ポップカルチャー影響"},
+    {"start_sec": 358, "label": "流行サイクル加速"},
+    {"start_sec": 439, "label": "名前の多様化"},
+    {"start_sec": 546, "label": "ユニークネーム増加"},
+    {"start_sec": 598, "label": "結論"}
+  ],
+  "surprise_sec": 420,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 30, "chart": 40, "text_only": 20, "ai_or_photo": 5, "other": 5},
+  "policy_flags": [],
+  "why": "身近な「名前」というテーマに学術研究と出生データを絡め、意外な歴史比較で知的好奇心を刺激した"
+}

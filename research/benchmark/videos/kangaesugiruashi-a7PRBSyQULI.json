@@ -1,0 +1,27 @@
+{
+  "id": "a7PRBSyQULI",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ音楽を聴くと鳥肌が立つのか？",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "問いかけ",
+  "hook_summary": "好きな曲を思い浮かべさせ鳥肌現象を予告する",
+  "first_chart_sec": 20,
+  "n_sources": 9,
+  "source_kinds": ["論文"],
+  "chart_types": ["折れ線", "棒", "図解", "その他"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 78, "label": "脳は次の音を予測"},
+    {"start_sec": 205, "label": "聴覚のチーズケーキ"},
+    {"start_sec": 307, "label": "感じる脳感じない脳"},
+    {"start_sec": 407, "label": "悲しい曲がなぜ心地よいか"},
+    {"start_sec": 543, "label": "鳥肌がまだ立つ理由"}
+  ],
+  "surprise_sec": 510,
+  "ending_type": "登録の呼びかけ",
+  "visual_mix": {"stick_figure": 15, "chart": 30, "text_only": 40, "ai_or_photo": 10, "other": 5},
+  "policy_flags": [],
+  "why": "科学的根拠と意外な事実(AI音楽でも鳥肌)を積み重ねる構成だが、テーマが抽象的で伸びは中程度に留まった"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "xXjB3nxRqhI",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ人は金持ちを性格が悪いと決めつけるのか",
+  "topic": "お金・格差",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "時代劇やドラえもんの金持ち悪役描写を提示",
+  "first_chart_sec": 270,
+  "n_sources": 9,
+  "source_kinds": ["論文", "公的統計"],
+  "chart_types": ["図解", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "導入"},
+    {"start_sec": 147, "label": "10歳の反転"},
+    {"start_sec": 269, "label": "格差を見た脳の反応"},
+    {"start_sec": 530, "label": "日本語という古い辞書"},
+    {"start_sec": 794, "label": "揺り戻し"},
+    {"start_sec": 999, "label": "エピローグ"}
+  ],
+  "surprise_sec": 930,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 10, "chart": 25, "text_only": 40, "ai_or_photo": 0, "other": 25},
+  "policy_flags": [],
+  "why": "学術研究9本と時代劇・上級国民など身近な素材を組合せ、なぜ型の問いで好奇心を刺激した構成が伸びに寄与した可能性"
+}

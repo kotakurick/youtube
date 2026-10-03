@@ -1,0 +1,27 @@
+{
+  "id": "N-9Wm8mnbPE",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ我々は赤の他人に平気で命を預けられるのか",
+  "topic": "社会・ネット",
+  "title_type": "問いかけ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "おにぎりや満員電車など身近な信頼の例を提示",
+  "first_chart_sec": 820,
+  "n_sources": 12,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["折れ線", "棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "無菌室の赤の他人"},
+    {"start_sec": 97, "label": "サンゴ礁の行列店"},
+    {"start_sec": 272, "label": "100ミリ秒の被告席"},
+    {"start_sec": 545, "label": "神の手を縛る"},
+    {"start_sec": 849, "label": "盲目の胃袋"},
+    {"start_sec": 1203, "label": "風景に溶けた歯車"}
+  ],
+  "surprise_sec": 450,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 50, "chart": 8, "text_only": 12, "ai_or_photo": 0, "other": 30},
+  "policy_flags": ["ショック系"],
+  "why": "身近な信頼の疑問を事故・事件の衝撃統計で裏付け、知的好奇心を刺激する構成が功を奏した"
+}

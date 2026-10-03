@@ -1,0 +1,27 @@
+{
+  "id": "e9kN3HAlG7I",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ英雄はいつも遅れて登場するのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "救急車到着9.8分とAED使用率4.7%で映画ヒーローの登場と対比",
+  "first_chart_sec": 90,
+  "n_sources": 9,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["数字の強調", "棒", "折れ線", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "英雄は遅れてくる"},
+    {"start_sec": 148, "label": "脚本家は発明してない"},
+    {"start_sec": 370, "label": "沈黙する神を待つ者"},
+    {"start_sec": 579, "label": "遅れているのは時計"},
+    {"start_sec": 841, "label": "最初の一歩を引き受けた者"},
+    {"start_sec": 1083, "label": "救い主でなく名もない一人"}
+  ],
+  "surprise_sec": 780,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 15, "chart": 30, "text_only": 40, "ai_or_photo": 10, "other": 5},
+  "policy_flags": ["ショック系"],
+  "why": "映画解析・神話学・神経科学・社会心理学を貫く知的統合は強いが、抽象的で19分と長く拡散力は限定的だったと推測"
+}

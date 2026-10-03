@@ -1,0 +1,27 @@
+{
+  "id": "ckjBx-ngYkQ",
+  "channel": "kangaesugiruashi",
+  "question": "悪人ゼロの世界はユートピアに到達するのか",
+  "topic": "社会・ネット",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "共感性インプラントで悪人が消える思考実験を提示",
+  "first_chart_sec": 60,
+  "n_sources": 10,
+  "source_kinds": ["論文", "独自シミュレーション"],
+  "chart_types": ["折れ線", "数字の強調", "図解", "地図"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "導入:悪人ゼロの実験"},
+    {"start_sec": 112, "label": "罰と報酬回路の快楽"},
+    {"start_sec": 326, "label": "進化は悪人を残した"},
+    {"start_sec": 465, "label": "衛生仮説と自己免疫"},
+    {"start_sec": 755, "label": "共同体が内側を喰う"},
+    {"start_sec": 1184, "label": "結論:悪と共にある"}
+  ],
+  "surprise_sec": 630,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 25, "chart": 15, "text_only": 40, "ai_or_photo": 0, "other": 20},
+  "policy_flags": [],
+  "why": "進化生物学・免疫学・歴史を横断する知的謎解き構成と、SNS私刑など身近な具体例の提示が納得感と拡散性を両立させたと考えられる"
+}

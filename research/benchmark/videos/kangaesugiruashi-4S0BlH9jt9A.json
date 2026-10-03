@@ -1,0 +1,27 @@
+{
+  "id": "4S0BlH9jt9A",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ好きは些細な行動ひとつで冷めるのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "フードコートで彼女が彼に冷める情景を描写",
+  "first_chart_sec": 227,
+  "n_sources": 17,
+  "source_kinds": ["論文", "民間調査"],
+  "chart_types": ["棒", "散布図", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 108, "label": "恋する脳は美化する"},
+    {"start_sec": 284, "label": "一瞬のダサさが理想壊す"},
+    {"start_sec": 538, "label": "蛙化は命名で完成した"},
+    {"start_sec": 854, "label": "男の蛙化に名前はない"},
+    {"start_sec": 1114, "label": "エピローグ"}
+  ],
+  "surprise_sec": 510,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 20, "chart": 25, "text_only": 45, "ai_or_photo": 10, "other": 0},
+  "policy_flags": ["断定しすぎ"],
+  "why": "蛙化現象という流行語に17本の学術研究で裏付けを与え、男女の非対称性という意外な切り口で引き込んだ"
+}

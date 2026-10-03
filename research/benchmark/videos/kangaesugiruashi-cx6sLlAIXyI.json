@@ -1,0 +1,28 @@
+{
+  "id": "cx6sLlAIXyI",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ結婚相手は一人でなければならないのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "ヒカルのオープンマリッジ公表と離婚の顛末を導入に使う",
+  "first_chart_sec": 130,
+  "n_sources": 9,
+  "source_kinds": ["論文", "公的統計", "その他"],
+  "chart_types": ["棒", "図解", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "不貞の通行許可証"},
+    {"start_sec": 120, "label": "500年前の寝室"},
+    {"start_sec": 391, "label": "嘘のないナイフ"},
+    {"start_sec": 563, "label": "持たざる男の器"},
+    {"start_sec": 747, "label": "愛の不在の空欄"},
+    {"start_sec": 957, "label": "自由というワンオペ"},
+    {"start_sec": 1146, "label": "愛を切り離せない猿"}
+  ],
+  "surprise_sec": 210,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 5, "chart": 15, "text_only": 20, "ai_or_photo": 0, "other": 60},
+  "policy_flags": ["断定しすぎ"],
+  "why": "話題の芸能人騒動を導入に使い、進化生物学と法制史で「なぜ」に答える知的構成が好奇心を刺激した"
+}

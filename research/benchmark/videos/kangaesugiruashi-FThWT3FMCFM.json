@@ -1,0 +1,27 @@
+{
+  "id": "FThWT3FMCFM",
+  "channel": "kangaesugiruashi",
+  "question": "嘘をつく能力は知性の証拠なのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "嘘をつけない子を心配する親の矛盾した場面から導入",
+  "first_chart_sec": 35,
+  "n_sources": 9,
+  "source_kinds": ["論文"],
+  "chart_types": ["散布図", "棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 92, "label": "社会という名の軍拡競争"},
+    {"start_sec": 238, "label": "自然界のペテン師カタログ"},
+    {"start_sec": 403, "label": "嘘をつける日"},
+    {"start_sec": 609, "label": "嘘に慣れる脳"},
+    {"start_sec": 861, "label": "Epilogue"}
+  ],
+  "surprise_sec": 490,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 15, "chart": 25, "text_only": 50, "ai_or_photo": 0, "other": 10},
+  "policy_flags": [],
+  "why": "子育て経験者にも刺さる逆説的な問いと霊長類・脳科学の具体例を積み重ね、知的好奇心を最後まで持続させた"
+}

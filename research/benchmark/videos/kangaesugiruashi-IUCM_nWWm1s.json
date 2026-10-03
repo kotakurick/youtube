@@ -1,0 +1,27 @@
+{
+  "id": "IUCM_nWWm1s",
+  "channel": "kangaesugiruashi",
+  "question": "頭が大きいほど賢いというのは本当か",
+  "topic": "その他",
+  "title_type": "問いかけ型",
+  "hook_type": "物語",
+  "hook_summary": "浜に打ち上げられた巨大クジラの脳の重さを描写し提起",
+  "first_chart_sec": 185,
+  "n_sources": 5,
+  "source_kinds": ["論文"],
+  "chart_types": ["数字の強調", "図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "浜辺の王様"},
+    {"start_sec": 142, "label": "大きすぎた代償"},
+    {"start_sec": 379, "label": "クルミの中の天才"},
+    {"start_sec": 615, "label": "八本の腕で考える"},
+    {"start_sec": 866, "label": "物差しという凶器"},
+    {"start_sec": 1035, "label": "脳を捨てた人類"}
+  ],
+  "surprise_sec": 300,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 10, "chart": 0, "text_only": 25, "ai_or_photo": 0, "other": 65},
+  "policy_flags": ["断定しすぎ"],
+  "why": "差別の科学史と動物の意外な知能比較を組み合わせ、常識を覆す構成が興味を引いたと考えられる"
+}

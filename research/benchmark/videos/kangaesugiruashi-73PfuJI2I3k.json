@@ -1,0 +1,28 @@
+{
+  "id": "73PfuJI2I3k",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ自分を責めていた男がある日女性を責め始めるのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "スイスで魔女として処刑された女性の逸話から始まる",
+  "first_chart_sec": 270,
+  "n_sources": 9,
+  "source_kinds": ["公的統計", "民間調査", "その他"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "首をはねる隣人"},
+    {"start_sec": 155, "label": "人権の値段"},
+    {"start_sec": 384, "label": "消えたセーフティネット"},
+    {"start_sec": 621, "label": "甘美な身代わり"},
+    {"start_sec": 803, "label": "無垢な正義の粛清"},
+    {"start_sec": 982, "label": "魔女狩るマジョリティ"},
+    {"start_sec": 1202, "label": "怒りではなく"}
+  ],
+  "surprise_sec": 1080,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 55, "chart": 10, "text_only": 20, "ai_or_photo": 0, "other": 15},
+  "policy_flags": [],
+  "why": "魔女裁判とインセル問題という意外な接続、歴史と統計を織り交ぜた構成が知的好奇心を刺激した"
+}

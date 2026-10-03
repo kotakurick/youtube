@@ -1,0 +1,27 @@
+{
+  "id": "b-1ikaXMKbA",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ世界中の怪物は同じ見た目に収束するのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "怪物絶滅説を提示した直後、世界の怪物が4類型しかない矛盾を突く",
+  "first_chart_sec": 390,
+  "n_sources": 10,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["棒", "折れ線", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "絶滅説の綻び"},
+    {"start_sec": 168, "label": "殺し損ねた老婆"},
+    {"start_sec": 373, "label": "記憶の急所"},
+    {"start_sec": 658, "label": "眼球の草むら"},
+    {"start_sec": 982, "label": "死を配る隣人"},
+    {"start_sec": 1201, "label": "タイムラインの物の怪"}
+  ],
+  "surprise_sec": 240,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 45, "chart": 15, "text_only": 15, "ai_or_photo": 0, "other": 25},
+  "policy_flags": ["ショック系"],
+  "why": "「なぜ型」の謎提示と学術データの積み重ねで知的好奇心を刺激し、最後は現代社会への問いかけで余韻を残す構成が高評価に繋がったと推測"
+}

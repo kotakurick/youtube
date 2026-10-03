@@ -1,0 +1,29 @@
+{
+  "id": "ybTeMlQmGjc",
+  "channel": "DataStickFigure",
+  "question": "世界の富はどれほど偏って分配されているのか",
+  "topic": "お金・格差",
+  "title_type": "数字型",
+  "hook_type": "意外な数字",
+  "hook_summary": "お金を丸で表し大谷翔平とマスクの資産差を提示",
+  "first_chart_sec": 5,
+  "n_sources": 5,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["棒", "折れ線", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 89, "label": "動画の概要"},
+    {"start_sec": 153, "label": "富(純資産)とは"},
+    {"start_sec": 206, "label": "1つ目のグラフ"},
+    {"start_sec": 297, "label": "2つ目のグラフ"},
+    {"start_sec": 434, "label": "上位1%の富裕層"},
+    {"start_sec": 559, "label": "3〜5つ目のグラフ"},
+    {"start_sec": 693, "label": "結論"}
+  ],
+  "surprise_sec": 480,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 35, "chart": 35, "text_only": 15, "ai_or_photo": 5, "other": 10},
+  "policy_flags": ["ショック系"],
+  "why": "衝撃的な数字演出と丁寧なデータ解説で格差への関心を引いたが、類似企画との既視感もあり伸びは中程度に留まった"
+}

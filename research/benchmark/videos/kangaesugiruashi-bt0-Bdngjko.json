@@ -1,0 +1,28 @@
+{
+  "id": "bt0-Bdngjko",
+  "channel": "kangaesugiruashi",
+  "question": "翻訳AIが語学を不要にするのか",
+  "topic": "教育・子ども",
+  "title_type": "問いかけ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "ドラえもんの翻訳こんにゃくが現実になった話から英語不要論へ",
+  "first_chart_sec": 95,
+  "n_sources": 14,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["数字の強調", "図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "無用の言語"},
+    {"start_sec": 154, "label": "王の退位"},
+    {"start_sec": 419, "label": "耳の中の通訳者"},
+    {"start_sec": 579, "label": "翻訳できないもの"},
+    {"start_sec": 872, "label": "沈黙の国"},
+    {"start_sec": 1127, "label": "もう一人の自分"},
+    {"start_sec": 1271, "label": "贅沢な時代の到来"}
+  ],
+  "surprise_sec": 1140,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 70, "chart": 0, "text_only": 15, "ai_or_photo": 10, "other": 5},
+  "policy_flags": ["助言"],
+  "why": "ドラえもんの身近な比喩と言語学的逆説で引き込み、PRアプリへ違和感なく着地させた構成が評価された可能性"
+}

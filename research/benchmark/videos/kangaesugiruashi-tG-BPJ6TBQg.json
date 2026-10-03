@@ -1,0 +1,28 @@
+{
+  "id": "tG-BPJ6TBQg",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ深夜にスマホを閉じられないのか",
+  "topic": "時間・生活",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "深夜布団の中でスマホを閉じられない場面を描写",
+  "first_chart_sec": 30,
+  "n_sources": 13,
+  "source_kinds": ["論文", "公的統計", "民間調査"],
+  "chart_types": ["棒", "折れ線", "数字の強調", "図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 65, "label": "意志力の口座残高"},
+    {"start_sec": 169, "label": "スマホはスロットマシン"},
+    {"start_sec": 292, "label": "睡眠負債の利息"},
+    {"start_sec": 387, "label": "10万年前の脳と現代の夜"},
+    {"start_sec": 475, "label": "「報復」の本当の意味"},
+    {"start_sec": 586, "label": "エピローグ"}
+  ],
+  "surprise_sec": 300,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 0, "chart": 55, "text_only": 18, "ai_or_photo": 14, "other": 13},
+  "policy_flags": ["ショック系"],
+  "why": "共感しやすい深夜スマホ問題に、意外な統計と脳科学の裏付けを重ね説得力を高めたため"
+}

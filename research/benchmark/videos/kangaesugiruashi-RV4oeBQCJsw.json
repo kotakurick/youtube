@@ -1,0 +1,27 @@
+{
+  "id": "RV4oeBQCJsw",
+  "channel": "kangaesugiruashi",
+  "question": "サウナやマラソン好きは本当にドMなのか？",
+  "topic": "幸福・心理",
+  "title_type": "問いかけ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "本能に反し苦痛を買う矛盾な行動を提示",
+  "first_chart_sec": 260,
+  "n_sources": 8,
+  "source_kinds": ["論文"],
+  "chart_types": ["棒", "図解", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "逆行する生存本能"},
+    {"start_sec": 90, "label": "タダ飯食らいへの抵抗"},
+    {"start_sec": 379, "label": "手なずけられた防衛本能"},
+    {"start_sec": 548, "label": "出口を塞ぐ重力"},
+    {"start_sec": 864, "label": "絶望へのワクチン"},
+    {"start_sec": 1129, "label": "従順なる抵抗者たち"}
+  ],
+  "surprise_sec": 270,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 55, "chart": 10, "text_only": 25, "ai_or_photo": 0, "other": 10},
+  "policy_flags": ["ショック系", "断定しすぎ"],
+  "why": "身近な俗説を動物実験や心理学データで覆していく構成が意外性と説得力を両立させ最後まで引き込んだと考えられる"
+}

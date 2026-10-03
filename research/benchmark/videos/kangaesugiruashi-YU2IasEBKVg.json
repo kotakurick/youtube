@@ -1,0 +1,27 @@
+{
+  "id": "YU2IasEBKVg",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ人は過去の記憶を美化してしまうのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "人生の3/4を脳は覚えていないと衝撃の数字を提示",
+  "first_chart_sec": 15,
+  "n_sources": 15,
+  "source_kinds": ["論文"],
+  "chart_types": ["棒", "折れ線", "図解", "数字の強調"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 74, "label": "16歳の夏が美しい理由"},
+    {"start_sec": 164, "label": "書き換えられる思い出"},
+    {"start_sec": 342, "label": "人を殺す病だった"},
+    {"start_sec": 479, "label": "懐かしい曲の効果"},
+    {"start_sec": 650, "label": "知らない過去を懐かしむ"}
+  ],
+  "surprise_sec": 660,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 20, "chart": 35, "text_only": 20, "ai_or_photo": 0, "other": 25},
+  "policy_flags": [],
+  "why": "身近な『あの頃は良かった』を科学的に裏付け、共感と意外な事実の連続で最後まで引っ張る構成"
+}

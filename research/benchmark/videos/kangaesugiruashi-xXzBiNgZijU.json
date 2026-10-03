@@ -1,0 +1,27 @@
+{
+  "id": "xXzBiNgZijU",
+  "channel": "kangaesugiruashi",
+  "question": "なぜサイコパスにはあくびがうつらないのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "金曜深夜の会議であくびが次々伝染する場面を描写",
+  "first_chart_sec": 30,
+  "n_sources": 19,
+  "source_kinds": ["論文"],
+  "chart_types": ["棒", "数字の強調", "図解", "散布図"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "導入:会議の欠伸"},
+    {"start_sec": 88, "label": "欠伸は眠気でない"},
+    {"start_sec": 321, "label": "見てもうつらぬ人"},
+    {"start_sec": 526, "label": "誰の欠伸がうつるか"},
+    {"start_sec": 778, "label": "あなたへのテスト"},
+    {"start_sec": 1002, "label": "まとめ"}
+  ],
+  "surprise_sec": 778,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 15, "chart": 35, "text_only": 20, "ai_or_photo": 0, "other": 30},
+  "policy_flags": [],
+  "why": "身近なあくびを入口に19本の論文を重ね、視聴者自身をテストする演出で引き込むが、情報密度の高さが中盤の離脱を招いた可能性"
+}

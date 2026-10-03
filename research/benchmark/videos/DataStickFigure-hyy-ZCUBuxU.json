@@ -1,0 +1,26 @@
+{
+  "id": "hyy-ZCUBuxU",
+  "channel": "DataStickFigure",
+  "question": "なぜ歳を取ると1年を短く感じるのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "小学校で習う反比例グラフでジャネの法則を説明",
+  "first_chart_sec": 5,
+  "n_sources": 4,
+  "source_kinds": ["論文"],
+  "chart_types": ["折れ線", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "ジャネの法則とは?"},
+    {"start_sec": 42, "label": "体感時間を計算"},
+    {"start_sec": 122, "label": "アンケート調査"},
+    {"start_sec": 176, "label": "時間感覚の変化"},
+    {"start_sec": 278, "label": "年齢と体感時間"}
+  ],
+  "surprise_sec": 60,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 40, "chart": 30, "text_only": 10, "ai_or_photo": 15, "other": 5},
+  "policy_flags": [],
+  "why": "誰もが実感する「歳を取ると時間が速い」という共通体験に、論文や実験データで科学的根拠を与え納得感を生んだため"
+}

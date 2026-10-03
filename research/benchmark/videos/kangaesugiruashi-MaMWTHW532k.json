@@ -1,0 +1,27 @@
+{
+  "id": "MaMWTHW532k",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ人は異世界転生にこれほど惹かれるのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "問いかけ",
+  "hook_summary": "中世風の異世界設定の不便さを指摘し問いを立てる",
+  "first_chart_sec": null,
+  "n_sources": 4,
+  "source_kinds": ["論文", "民間調査"],
+  "chart_types": ["図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "石畳への郷愁"},
+    {"start_sec": 127, "label": "はじまりの街の脱獄囚"},
+    {"start_sec": 349, "label": "因果応報という名の魔法"},
+    {"start_sec": 546, "label": "孤島に咲いた歪なくちばし"},
+    {"start_sec": 887, "label": "心の穴の化石"},
+    {"start_sec": 1075, "label": "ファジーな世界へようこそ"}
+  ],
+  "surprise_sec": 190,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 55, "chart": 0, "text_only": 30, "ai_or_photo": 0, "other": 15},
+  "policy_flags": [],
+  "why": "異世界転生という身近な流行コンテンツを心理学・社会学で読み解く切り口が共感と納得感を生んだため"
+}

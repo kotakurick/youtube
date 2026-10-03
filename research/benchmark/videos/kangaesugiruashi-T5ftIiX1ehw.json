@@ -1,0 +1,27 @@
+{
+  "id": "T5ftIiX1ehw",
+  "channel": "kangaesugiruashi",
+  "question": "低身長はなぜ何万世代経っても淘汰されないのか",
+  "topic": "体・見た目",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "孔雀・鹿・カニの派手な装飾の謎から身長論争へ接続",
+  "first_chart_sec": 380,
+  "n_sources": 12,
+  "source_kinds": ["論文", "公的統計"],
+  "chart_types": ["散布図", "折れ線", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "派手な装飾の謎"},
+    {"start_sec": 150, "label": "720組中1組の謎"},
+    {"start_sec": 434, "label": "遺伝率60-80%"},
+    {"start_sec": 591, "label": "淘汰されない3回路"},
+    {"start_sec": 845, "label": "身長の経済的価値"},
+    {"start_sec": 1062, "label": "勝者の子孫ではない"}
+  ],
+  "surprise_sec": 880,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 11, "chart": 17, "text_only": 28, "ai_or_photo": 39, "other": 5},
+  "policy_flags": ["対立あおり"],
+  "why": "身長煽りというSNSの身近な火種を入口に進化生物学・経済学の複数研究で裏付け、意外な結論へ着地させ納得感を与えた。"
+}

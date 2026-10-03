@@ -1,0 +1,29 @@
+{
+  "id": "Nzv8FU1LQEI",
+  "channel": "DataStickFigure",
+  "question": "バイリンガルの脳は認知的に優れているのか？",
+  "topic": "教育・子ども",
+  "title_type": "問いかけ型",
+  "hook_type": "問いかけ",
+  "hook_summary": "ウサギアヒル錯視画像で視点切替を体験させる",
+  "first_chart_sec": 180,
+  "n_sources": 6,
+  "source_kinds": ["論文"],
+  "chart_types": ["棒", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "曖昧図形とは何か"},
+    {"start_sec": 77, "label": "言語学習に最適な時期"},
+    {"start_sec": 152, "label": "音素を聞き取る能力"},
+    {"start_sec": 268, "label": "脳の「切り替える能力」"},
+    {"start_sec": 358, "label": "実行機能とは何か"},
+    {"start_sec": 436, "label": "バイリンガルがもつ脳の利点"},
+    {"start_sec": 507, "label": "大人からでも可能か"},
+    {"start_sec": 560, "label": "「スピーク」のご紹介"}
+  ],
+  "surprise_sec": 450,
+  "ending_type": "その他",
+  "visual_mix": {"stick_figure": 40, "chart": 35, "text_only": 10, "ai_or_photo": 10, "other": 5},
+  "policy_flags": [],
+  "why": "錯視クイズで引き込み、研究データで脳科学の通説を覆す構成が興味を持続させた"
+}

@@ -1,0 +1,26 @@
+{
+  "id": "ec26DzgBKIU",
+  "channel": "DataStickFigure",
+  "question": "自分の視聴者は普段どんなチャンネルを見ているのか？",
+  "topic": "社会・ネット",
+  "title_type": "問いかけ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "登録者10万人達成を機に視聴者の傾向調査を予告",
+  "first_chart_sec": 19,
+  "n_sources": 5,
+  "source_kinds": ["独自シミュレーション", "論文", "その他"],
+  "chart_types": ["図解", "数字の強調", "棒"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 73, "label": "ネットワークを作る"},
+    {"start_sec": 227, "label": "みんなが見ているチャンネル"},
+    {"start_sec": 354, "label": "視聴者はどんな人？"},
+    {"start_sec": 409, "label": "感謝！"}
+  ],
+  "surprise_sec": 385,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 35, "chart": 45, "text_only": 10, "ai_or_photo": 0, "other": 10},
+  "policy_flags": [],
+  "why": "10万人記念で視聴者自身を分析するという自己言及的企画と、API実データによる具体的ネットワーク図が興味を引いた"
+}

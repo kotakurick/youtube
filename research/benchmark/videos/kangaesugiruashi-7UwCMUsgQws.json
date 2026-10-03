@@ -1,0 +1,27 @@
+{
+  "id": "7UwCMUsgQws",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ汚いはずのうんこだけ世界中で愛されるのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "問いかけ",
+  "hook_summary": "うんこへの嫌悪と愛着の矛盾を問いかける",
+  "first_chart_sec": 69,
+  "n_sources": 11,
+  "source_kinds": ["公的統計", "論文", "その他"],
+  "chart_types": ["数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "ゴキブリは可愛くならない"},
+    {"start_sec": 116, "label": "汲み取り桶の消えた都市"},
+    {"start_sec": 353, "label": "大人が敷いた禁止のペンキ"},
+    {"start_sec": 555, "label": "5年で駆け抜ける500年"},
+    {"start_sec": 856, "label": "文字の席をもらった汚物"},
+    {"start_sec": 1173, "label": "文明の地底に眠る332人"}
+  ],
+  "surprise_sec": 1173,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 55, "chart": 10, "text_only": 20, "ai_or_photo": 0, "other": 15},
+  "policy_flags": ["ショック系"],
+  "why": "身近な言葉を歴史・心理・社会構造へ広げる構成で知的好奇心を刺激するが、後半の重いテーマ転換が離脱を招いた可能性もある"
+}
