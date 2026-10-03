@@ -41,10 +41,19 @@ scripts/     共通スクリプト（paths.sh、new_episode.sh）
 動画・音声・画像・字幕の取得物は `$YT_DATA_DIR`（未設定なら `_local/`）に置き、Gitに入れない。Git LFSは使わない。
 完成動画は公開後に消してよい。音声は作り直すと料金がかかるので残す。
 
+## 実行環境
+
+オーナーのPCは **Windows**。シェルスクリプトは Git Bash で実行する（PowerShell 版は作らない）。
+
+- Python は `python`（または `py`）で呼ぶ。`python3` は Windows ではストアに飛ぶことがある。
+- `.gitattributes` で改行を LF に固定している。`.sh` が CRLF になると Git Bash で動かない。
+- CSV は BOM 付き UTF-8（Excel で文字化けしないため）。Python で読むときは `encoding="utf-8-sig"`。
+- `YT_DATA_DIR` は Windows のユーザー環境変数に設定する（Git Bash 側では `scripts/paths.sh` が `/g/...` 形式に直す）。
+
 ## よく使うコマンド
 
 ```bash
 bench/bench.sh @lovebynumbers                      # ベンチマーク取得（オーナーのPCで実行）
-python3 bench/analyze.py --out research/benchmark/summary.md
+python bench/analyze.py --out research/benchmark/summary.md
 scripts/new_episode.sh where-couples-meet          # 新しい回を作る → episodes/001-where-couples-meet/
 ```

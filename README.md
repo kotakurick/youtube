@@ -11,7 +11,9 @@
 
 大きいファイルの保存先を環境変数で指定する（未設定ならリポジトリ内の `_local/`。Gitには入らない）。
 
-```bash
-# 例：~/.zshrc に追記
-export YT_DATA_DIR="$HOME/（同期フォルダ）/youtube-data"
+```powershell
+# Windows（PowerShell で1回だけ実行。ターミナルを開き直すと有効になる）
+setx YT_DATA_DIR "G:\マイドライブ\youtube-data"
 ```
+
+スクリプトは Git Bash で動く（Windows 版 Claude Code が使うシェルと同じ）。

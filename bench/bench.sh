@@ -28,7 +28,7 @@ URL="https://www.youtube.com/$CH/videos"
 
 # 1. 動画一覧
 echo "[1/3] 動画一覧を取得: $CH"
-yt-dlp --flat-playlist --print "%(id)s	%(duration)s	%(view_count)s	%(title)s" "$URL" > "$OUT/list.tsv"
+yt-dlp --flat-playlist --encoding utf-8 --print "%(id)s	%(duration)s	%(view_count)s	%(title)s" "$URL" > "$OUT/list.tsv"
 echo "  $(wc -l < "$OUT/list.tsv" | tr -d ' ') 本"
 
 # 2. サムネイル・自動字幕・メタデータ（動画本体は落とさない）

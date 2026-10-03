@@ -1,8 +1,8 @@
 """ベンチマーク取得物を集計する（標準ライブラリのみ）。
 
 使い方:
-    python3 bench/analyze.py                      # 集計を画面に表示
-    python3 bench/analyze.py --out research/benchmark/summary.md
+    python bench/analyze.py                       # 集計を画面に表示
+    python bench/analyze.py --out research/benchmark/summary.md
 
 入力:  $YT_DATA_DIR/bench/<チャンネル>/<ID>/<ID>.info.json（bench.sh の出力）
 出力:  $YT_DATA_DIR/bench/videos.csv（1動画1行。Gitの外）
@@ -153,7 +153,7 @@ def main():
         raise SystemExit(f"info.json が見つかりません: {BENCH}（先に bench/bench.sh を実行）")
 
     csv_path = BENCH / "videos.csv"
-    with csv_path.open("w", encoding="utf-8", newline="") as f:
+    with csv_path.open("w", encoding="utf-8-sig", newline="") as f:  # BOM付き：Excelで文字化けしない
         w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
         w.writeheader()
         w.writerows(rows)

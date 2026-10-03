@@ -1,0 +1,2 @@
+# 改行コードを LF に統一する（Windows で .sh が CRLF になると Git Bash で動かなくなるため）
+* text=auto eol=lf

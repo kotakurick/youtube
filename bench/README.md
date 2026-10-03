@@ -5,8 +5,17 @@
 
 ## 必要なもの
 
-`yt-dlp`、`ffmpeg`（5.1以上）、`python3`。Mac なら `brew install yt-dlp ffmpeg`。
-yt-dlp は YouTube 側の変更ですぐ動かなくなるので、実行前に `brew upgrade yt-dlp` で最新にする。
+`yt-dlp`、`ffmpeg`（5.1以上）、Python 3.10以上。スクリプトは Git Bash で実行する（Claude Code が使うのと同じ）。
+
+Windows では PowerShell で次を実行する（インストール後はターミナルを開き直す）。
+
+```powershell
+winget install yt-dlp.yt-dlp
+winget install Gyan.FFmpeg
+winget install Python.Python.3.12
+```
+
+yt-dlp は YouTube 側の変更ですぐ動かなくなるので、実行前に `winget upgrade yt-dlp.yt-dlp` で最新にする。
 
 ## 手順
 
@@ -14,7 +23,7 @@ yt-dlp は YouTube 側の変更ですぐ動かなくなるので、実行前に 
 bench/bench.sh @lovebynumbers
 bench/bench.sh @kangaesugiruashi
 bench/bench.sh @DataStickFigure
-python3 bench/analyze.py --out research/benchmark/summary.md
+python bench/analyze.py --out research/benchmark/summary.md
 ```
 
 - 途中で止まっても、もう一度実行すれば取得済みの動画は飛ばす。失敗した動画は `failed.tsv` に残る。
