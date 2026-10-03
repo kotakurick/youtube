@@ -17,6 +17,7 @@ EP="$num-$SLUG"
 
 cp -R _template "$EP"
 sed -i.bak "s/{{EPISODE}}/$EP/g" "$EP/README.md" && rm "$EP/README.md.bak"
+sed -i.bak "s/000-example/$EP/" "$EP/scenes/Episode.example.tsx" && rm "$EP/scenes/Episode.example.tsx.bak"
 mkdir -p "$YT_DATA_DIR/episodes/$EP/audio" "$YT_DATA_DIR/episodes/$EP/render"
 
 echo "作成しました: episodes/$EP/"

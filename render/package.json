@@ -1,0 +1,23 @@
+{
+  "name": "gosa-render",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync": "node scripts/sync-assets.mjs",
+    "studio": "npm run sync && remotion studio src/index.ts",
+    "render": "npm run sync && remotion render src/index.ts",
+    "still": "npm run sync && remotion still src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.357",
+    "@remotion/fonts": "^4.0.357",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "remotion": "4.0.357"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.12",
+    "typescript": "5.9.2"
+  }
+}

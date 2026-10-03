@@ -60,7 +60,7 @@ bench/       ベンチマーク取得・集計のスクリプト（取得物はG
 research/    分析結果のメモ（集計Markdownなど、小さいものだけ）
 episodes/    1回＝1フォルダ（_template をコピーして使う）
 assets/      自作の使い回し素材（棒人間SVG、背景、アイコン）
-render/      描画・合成のコード（ツール決定後に構築）
+render/      描画・合成（Remotion。部品は render/src/lib、各回の場面は episodes/<回>/scenes/Episode.tsx）
 tts/         音声合成（engines.json で声を切り替え、yomi.tsv で読み間違いを直す）
 scripts/     共通スクリプト（paths.sh、new_episode.sh）
 .claude/agents/  サブエージェント（bench-analyst：ベンチマーク動画1本の分析）
@@ -86,4 +86,6 @@ scripts/     共通スクリプト（paths.sh、new_episode.sh）
 bench/bench.sh @lovebynumbers                      # ベンチマーク取得（オーナーのPCで実行）
 python bench/analyze.py --out research/benchmark/summary.md
 scripts/new_episode.sh where-couples-meet          # 新しい回を作る → episodes/001-where-couples-meet/
+cd render && npm run studio                         # 動画をブラウザで確認（Remotion Studio）
+cd render && npm run render -- <回のid> out/<回>.mp4  # 動画を書き出す
 ```
