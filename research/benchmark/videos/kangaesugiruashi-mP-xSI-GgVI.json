@@ -21,7 +21,7 @@
   ],
   "surprise_sec": 560,
   "ending_type": "視聴者への問いかけ",
-  "visual_mix": {"stick_figure": 50, "chart": 10, "text_only": 25, "ai_or_photo": 0, "other": 15},
+  "visual_mix": {"stick_figure": 4, "flat_person": 40, "character": 0, "chart": 5, "text_only": 3, "ai_or_photo": 0, "other": 48},
   "policy_flags": ["ショック系"],
   "narration_style": "1人ナレーション",
   "originality": "既存の知見の整理",

@@ -23,7 +23,7 @@
   ],
   "surprise_sec": 870,
   "ending_type": "教訓",
-  "visual_mix": {"stick_figure": 15, "chart": 15, "text_only": 45, "ai_or_photo": 0, "other": 25},
+  "visual_mix": {"stick_figure": 10, "flat_person": 0, "character": 2, "chart": 8, "text_only": 48, "ai_or_photo": 0, "other": 32},
   "policy_flags": [],
   "narration_style": "キャラの掛け合い",
   "originality": "既存の知見の整理",

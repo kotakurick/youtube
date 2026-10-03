@@ -23,7 +23,7 @@
   ],
   "surprise_sec": 120,
   "ending_type": "教訓",
-  "visual_mix": {"stick_figure": 0, "chart": 15, "text_only": 5, "ai_or_photo": 70, "other": 10},
+  "visual_mix": {"stick_figure": 0, "flat_person": 0, "character": 0, "chart": 2, "text_only": 2, "ai_or_photo": 93, "other": 3},
   "policy_flags": ["対立あおり", "断定しすぎ", "ショック系"],
   "narration_style": "1人ナレーション",
   "originality": "独自の分析・シミュレーションあり",

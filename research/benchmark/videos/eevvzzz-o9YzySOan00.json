@@ -21,7 +21,7 @@
   ],
   "surprise_sec": 671,
   "ending_type": "次回予告",
-  "visual_mix": {"stick_figure": 0, "chart": 60, "text_only": 40, "ai_or_photo": 0, "other": 0},
+  "visual_mix": {"stick_figure": 0, "flat_person": 0, "character": 0, "chart": 0, "text_only": 65, "ai_or_photo": 0, "other": 35},
   "policy_flags": [],
   "narration_style": "1人ナレーション",
   "originality": "既存の知見の整理",

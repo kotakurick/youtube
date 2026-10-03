@@ -22,7 +22,7 @@
   ],
   "surprise_sec": 125,
   "ending_type": "登録の呼びかけ",
-  "visual_mix": {"stick_figure": 55, "chart": 15, "text_only": 5, "ai_or_photo": 20, "other": 5},
+  "visual_mix": {"stick_figure": 0, "flat_person": 72, "character": 0, "chart": 20, "text_only": 0, "ai_or_photo": 3, "other": 5},
   "policy_flags": ["助言"],
   "narration_style": "1人ナレーション",
   "originality": "既存の知見の整理",

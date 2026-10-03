@@ -102,7 +102,9 @@
 | first_chart_sec | 0.18 |
 | n_sources | 0.08 |
 | surprise_sec | 0.11 |
-| visual_mix.stick_figure | 0.22 |
-| visual_mix.chart | -0.15 |
-| visual_mix.text_only | -0.06 |
-| visual_mix.ai_or_photo | -0.10 |
+| visual_mix.stick_figure | 0.05 |
+| visual_mix.flat_person | 0.17 |
+| visual_mix.character | -0.14 |
+| visual_mix.chart | -0.17 |
+| visual_mix.text_only | -0.07 |
+| visual_mix.ai_or_photo | -0.14 |

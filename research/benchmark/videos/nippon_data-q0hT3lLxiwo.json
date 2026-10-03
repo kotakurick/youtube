@@ -23,7 +23,7 @@
   ],
   "surprise_sec": 90,
   "ending_type": "視聴者への問いかけ",
-  "visual_mix": {"stick_figure": 20, "chart": 45, "text_only": 20, "ai_or_photo": 10, "other": 5},
+  "visual_mix": {"stick_figure": 0, "flat_person": 10, "character": 0, "chart": 60, "text_only": 17, "ai_or_photo": 3, "other": 10},
   "policy_flags": [],
   "narration_style": "1人ナレーション",
   "originality": "独自の分析・シミュレーションあり",

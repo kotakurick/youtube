@@ -70,7 +70,7 @@ def main():
     md += ["### 数値の項目と倍率の順位相関", "", "| 項目 | 相関 |", "|---|---:|"]
     for k in NUMBERS:
         md.append(f"| {k} | {fmt(spearman([r.get(k) for r in rows], [r['_ratio'] for r in rows]), 2)} |")
-    for k in ["stick_figure", "chart", "text_only", "ai_or_photo"]:
+    for k in ["stick_figure", "flat_person", "character", "chart", "text_only", "ai_or_photo"]:
         xs = [(r.get("visual_mix") or {}).get(k) for r in rows]
         md.append(f"| visual_mix.{k} | {fmt(spearman(xs, [r['_ratio'] for r in rows]), 2)} |")
     text = "\n".join(md) + "\n"

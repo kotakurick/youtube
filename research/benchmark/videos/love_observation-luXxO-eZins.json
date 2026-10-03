@@ -22,7 +22,7 @@
   ],
   "surprise_sec": 540,
   "ending_type": "答えの提示",
-  "visual_mix": {"stick_figure": 55, "chart": 15, "text_only": 20, "ai_or_photo": 0, "other": 10},
+  "visual_mix": {"stick_figure": 0, "flat_person": 85, "character": 0, "chart": 3, "text_only": 2, "ai_or_photo": 0, "other": 10},
   "policy_flags": ["助言", "断定しすぎ"],
   "narration_style": "1人ナレーション",
   "originality": "既存の知見の整理",

@@ -21,7 +21,7 @@
   ],
   "surprise_sec": 1200,
   "ending_type": "視聴者への問いかけ",
-  "visual_mix": {"stick_figure": 50, "chart": 10, "text_only": 35, "ai_or_photo": 0, "other": 5},
+  "visual_mix": {"stick_figure": 2, "flat_person": 40, "character": 0, "chart": 8, "text_only": 13, "ai_or_photo": 0, "other": 37},
   "policy_flags": ["断定しすぎ"],
   "narration_style": "1人ナレーション",
   "originality": "既存の知見の整理",

@@ -20,7 +20,7 @@
   ],
   "surprise_sec": 360,
   "ending_type": "視聴者への問いかけ",
-  "visual_mix": {"stick_figure": 55, "chart": 20, "text_only": 15, "ai_or_photo": 0, "other": 10},
+  "visual_mix": {"stick_figure": 5, "flat_person": 40, "character": 0, "chart": 12, "text_only": 0, "ai_or_photo": 0, "other": 43},
   "policy_flags": ["対立あおり", "性別の見下し", "断定しすぎ", "ショック系"],
   "narration_style": "1人ナレーション",
   "originality": "既存の知見の整理",

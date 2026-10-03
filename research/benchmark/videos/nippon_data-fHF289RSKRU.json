@@ -23,7 +23,7 @@
   ],
   "surprise_sec": 397,
   "ending_type": "視聴者への問いかけ",
-  "visual_mix": {"stick_figure": 15, "chart": 45, "text_only": 20, "ai_or_photo": 5, "other": 15},
+  "visual_mix": {"stick_figure": 0, "flat_person": 8, "character": 0, "chart": 55, "text_only": 30, "ai_or_photo": 3, "other": 4},
   "policy_flags": [],
   "narration_style": "1人ナレーション",
   "originality": "既存の知見の整理",
