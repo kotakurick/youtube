@@ -1,0 +1,33 @@
+{
+  "id": "9o3w6lJpnS0",
+  "channel": "kangaedako",
+  "question": "なぜFIREした人は「FIRE卒業」してしまうのか",
+  "topic": "仕事・キャリア",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "45歳でFIREした人が平日昼に求人サイトを開く場面",
+  "first_chart_sec": 10,
+  "n_sources": 16,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "求人サイトを開く彼"},
+    {"start_sec": 138, "label": "4%ルールの出どころ"},
+    {"start_sec": 261, "label": "計算は甘かったのか"},
+    {"start_sec": 389, "label": "戻った人を追跡"},
+    {"start_sec": 588, "label": "給料以外に渡すもの"},
+    {"start_sec": 727, "label": "寂しさで戻るのか"},
+    {"start_sec": 848, "label": "自分で辞めた人は不幸か"},
+    {"start_sec": 1010, "label": "辞めない人は臆病か"}
+  ],
+  "surprise_sec": 900,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 20, "chart": 35, "text_only": 30, "ai_or_photo": 0, "other": 15},
+  "policy_flags": [],
+  "narration_style": "キャラの掛け合い",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": ["静止画が長い"],
+  "why": "心理学的に丁寧で誠実だが20分と長尺・地味な構成で、タイトルも刺さりにくく伸び悩んだ可能性"
+}

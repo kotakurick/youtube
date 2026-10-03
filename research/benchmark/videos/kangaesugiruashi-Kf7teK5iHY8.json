@@ -1,0 +1,32 @@
+{
+  "id": "Kf7teK5iHY8",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ差別をなくすほど社会は分断するのか",
+  "topic": "社会・ネット",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "差別をなくすほど社会が冷たくなる逆説を提示",
+  "first_chart_sec": 900,
+  "n_sources": 11,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["折れ線", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "完璧なコミュニケーション"},
+    {"start_sec": 134, "label": "薄氷の甲冑"},
+    {"start_sec": 344, "label": "配られすぎた刃"},
+    {"start_sec": 622, "label": "影と踊る自己検閲"},
+    {"start_sec": 791, "label": "正義を演じるコロッセオ"},
+    {"start_sec": 1038, "label": "残響のなかの孤島"},
+    {"start_sec": 1223, "label": "鏡あわせの吐息"}
+  ],
+  "surprise_sec": 960,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 55, "chart": 5, "text_only": 25, "ai_or_photo": 0, "other": 15},
+  "policy_flags": ["断定しすぎ"],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["同じ話の繰り返し", "結論がない"],
+  "visual_flags": ["静止画が長い"],
+  "why": "誰もが実感するハラスメント疲れを逆説で切り取り、具体例と統計で飽きさせない構成にした"
+}

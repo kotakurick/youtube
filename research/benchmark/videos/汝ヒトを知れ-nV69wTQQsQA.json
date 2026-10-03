@@ -1,0 +1,29 @@
+{
+  "id": "nV69wTQQsQA",
+  "channel": "汝ヒトを知れ",
+  "question": "奢り奢られ論争はなぜ終わらないのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "初デートの会計で2人が2秒固まる場面を描写",
+  "first_chart_sec": 20,
+  "n_sources": 11,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["数字の強調", "図解", "地図"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "導入"},
+    {"start_sec": 94, "label": "ずるいのは誰か"},
+    {"start_sec": 256, "label": "男が稼いだ時代"},
+    {"start_sec": 453, "label": "消えもの"}
+  ],
+  "surprise_sec": 510,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 15, "chart": 10, "text_only": 10, "ai_or_photo": 0, "other": 65},
+  "policy_flags": ["対立あおり"],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "学術的で長いタイトルと地味な導入で、男女対立という扱いにくい題材の強いフックを欠き伸び悩んだとみられる"
+}

@@ -1,0 +1,30 @@
+{
+  "id": "zheZ94ofp4U",
+  "channel": "datademirunippon",
+  "question": "条件が合うのに2回目に進まないのはなぜか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "40.1%という数字とケンタの体験談で始める",
+  "first_chart_sec": 0,
+  "n_sources": 4,
+  "source_kinds": ["民間調査", "公的統計"],
+  "chart_types": ["数字の強調", "図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "条件が合うのに止まる"},
+    {"start_sec": 55, "label": "2回目に進まない理由"},
+    {"start_sec": 119, "label": "プロフィールの分かる限界"},
+    {"start_sec": 190, "label": "交際中にすり合わせる価値観"},
+    {"start_sec": 248, "label": "もう一度スマホを開く"}
+  ],
+  "surprise_sec": 200,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 0, "chart": 0, "text_only": 10, "ai_or_photo": 85, "other": 5},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["同じ話の繰り返し"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "タイトルと出だしは強いが、終盤の結論が繰り返されがちで同じ電車の絵が続き単調に見え伸びなかったと考えられる"
+}

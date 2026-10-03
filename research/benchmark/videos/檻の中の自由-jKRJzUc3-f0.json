@@ -1,0 +1,31 @@
+{
+  "id": "jKRJzUc3-f0",
+  "channel": "檻の中の自由",
+  "question": "お金持ちと貧乏人を分けるのは才能か運か",
+  "topic": "お金・格差",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "1000人の才能だけが違う世界を40年間シミュレーション",
+  "first_chart_sec": 90,
+  "n_sources": 8,
+  "source_kinds": ["独自シミュレーション", "論文", "公的統計"],
+  "chart_types": ["棒", "円", "散布図", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "1000人の才能実験"},
+    {"start_sec": 209, "label": "シミュレーションの仕組み"},
+    {"start_sec": 577, "label": "現実のデータ"},
+    {"start_sec": 665, "label": "就職氷河期という運"},
+    {"start_sec": 815, "label": "才能は最低条件"},
+    {"start_sec": 909, "label": "お金の配り方の実験"}
+  ],
+  "surprise_sec": 100,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 35, "chart": 30, "text_only": 20, "ai_or_photo": 5, "other": 10},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": ["静止画が長い"],
+  "why": "学術的で硬いテーマとゆっくりした展開(37カット/17分)で伸びにくかったとみられる"
+}

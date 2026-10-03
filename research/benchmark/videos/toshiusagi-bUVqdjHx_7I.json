@@ -1,0 +1,33 @@
+{
+  "id": "bUVqdjHx_7I",
+  "channel": "toshiusagi",
+  "question": "平均給与487万円の実態と資産格差の真相は?",
+  "topic": "お金・格差",
+  "title_type": "数字型",
+  "hook_type": "意外な数字",
+  "hook_summary": "平均給与487万円増加にうさぎが驚き困惑する",
+  "first_chart_sec": 90,
+  "n_sources": 2,
+  "source_kinds": ["公的統計"],
+  "chart_types": ["棒", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "導入・平均給与487万円"},
+    {"start_sec": 82, "label": "給与所得者の分布"},
+    {"start_sec": 133, "label": "正社員の給与分布"},
+    {"start_sec": 283, "label": "企業規模別の給与"},
+    {"start_sec": 370, "label": "業種別の平均給与"},
+    {"start_sec": 458, "label": "年齢・勤続年数別給与"},
+    {"start_sec": 560, "label": "年収別の貯蓄分布"},
+    {"start_sec": 655, "label": "世帯主年齢別貯蓄"}
+  ],
+  "surprise_sec": 620,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 0, "chart": 15, "text_only": 10, "ai_or_photo": 5, "other": 70},
+  "policy_flags": ["助言", "断定しすぎ"],
+  "narration_style": "キャラの掛け合い",
+  "originality": "既存の知見の整理",
+  "script_flags": ["前置きが長い"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "身近な「増えてない」疑問を公的統計で掘り下げ、キャラの掛け合いで飽きさせない構成。"
+}

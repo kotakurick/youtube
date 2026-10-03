@@ -1,0 +1,33 @@
+{
+  "id": "sPEvE9iVngU",
+  "channel": "toshiusagi",
+  "question": "なぜ人は将来のためにお金を貯められないのか",
+  "topic": "お金・格差",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "神様コールセンターへの謎のクレーム電話から始まる寸劇",
+  "first_chart_sec": 540,
+  "n_sources": 3,
+  "source_kinds": ["公的統計", "民間調査"],
+  "chart_types": ["円", "折れ線", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "謎のクレーム電話"},
+    {"start_sec": 90, "label": "20代の推し活生活"},
+    {"start_sec": 150, "label": "40代の自分と口論"},
+    {"start_sec": 270, "label": "60代の自分も登場"},
+    {"start_sec": 360, "label": "80代も合流し大乱闘"},
+    {"start_sec": 480, "label": "部長が原因を調査"},
+    {"start_sec": 537, "label": "推し活市場データ解説"},
+    {"start_sec": 600, "label": "将来を見誤る心理構造"}
+  ],
+  "surprise_sec": 630,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 80, "chart": 10, "text_only": 5, "ai_or_photo": 0, "other": 5},
+  "policy_flags": ["助言", "断定しすぎ"],
+  "narration_style": "キャラの掛け合い",
+  "originality": "既存の知見の整理",
+  "script_flags": ["前置きが長い", "同じ話の繰り返し", "数字が少ない"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "年代別の自分同士が争う寸劇で心理ギャップを体感的に描き、データ提示は要所に絞って物語で引っ張った点が高視聴につながった可能性"
+}

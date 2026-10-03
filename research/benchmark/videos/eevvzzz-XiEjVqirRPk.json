@@ -1,0 +1,33 @@
+{
+  "id": "XiEjVqirRPk",
+  "channel": "eevvzzz",
+  "question": "弾いた弦はなぜ波打って見えるのか",
+  "topic": "その他",
+  "title_type": "断言型",
+  "hook_type": "結論の先出し",
+  "hook_summary": "縄跳び状の波イメージを提示し間違いだと告げる",
+  "first_chart_sec": null,
+  "n_sources": 0,
+  "source_kinds": [],
+  "chart_types": ["図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "縄跳びイメージは誤り"},
+    {"start_sec": 21, "label": "張力の物理"},
+    {"start_sec": 50, "label": "1点をズームイン"},
+    {"start_sec": 67, "label": "角が反射し三角波に"},
+    {"start_sec": 95, "label": "ローリングシャッター"},
+    {"start_sec": 130, "label": "倍音の重ね合わせ"},
+    {"start_sec": 162, "label": "ピアノ:ハンマーで打つ"},
+    {"start_sec": 187, "label": "ヴァイオリン:弓でこする"}
+  ],
+  "surprise_sec": 95,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 0, "chart": 0, "text_only": 10, "ai_or_photo": 10, "other": 80},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["数字が少ない"],
+  "visual_flags": [],
+  "why": "専門的な物理トピックで対象視聴者が狭く、派手な数字や主張もないため伸びにくいと推測"
+}

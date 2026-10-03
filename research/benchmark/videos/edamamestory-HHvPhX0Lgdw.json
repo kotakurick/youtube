@@ -1,0 +1,33 @@
+{
+  "id": "HHvPhX0Lgdw",
+  "channel": "edamamestory",
+  "question": "同い年なのになぜ若く見える人がいるのか",
+  "topic": "体・見た目",
+  "title_type": "数字型",
+  "hook_type": "物語",
+  "hook_summary": "同窓会で老けたと言われ若い同級生に驚く",
+  "first_chart_sec": 100,
+  "n_sources": 10,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["数字の強調"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "同窓会で老けた発言"},
+    {"start_sec": 90, "label": "老化は遺伝2割環境8割"},
+    {"start_sec": 150, "label": "習慣1紫外線対策"},
+    {"start_sec": 240, "label": "習慣2睡眠"},
+    {"start_sec": 300, "label": "習慣3運動"},
+    {"start_sec": 360, "label": "習慣4禁煙"},
+    {"start_sec": 420, "label": "習慣5食べ方"},
+    {"start_sec": 480, "label": "習慣6姿勢・歩き方"}
+  ],
+  "surprise_sec": 100,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 0, "chart": 0, "text_only": 5, "ai_or_photo": 10, "other": 85},
+  "policy_flags": ["助言"],
+  "narration_style": "キャラの掛け合い",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "「老けた」と言われる共感体験から入り、具体的な7習慣に落とし込んだ構成が最後まで見せ切ったと考えられる"
+}

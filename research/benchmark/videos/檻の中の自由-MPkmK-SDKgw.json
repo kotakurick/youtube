@@ -1,0 +1,33 @@
+{
+  "id": "MPkmK-SDKgw",
+  "channel": "檻の中の自由",
+  "question": "生まれ順はどこまで性格を左右するか",
+  "topic": "幸福・心理",
+  "title_type": "問いかけ型",
+  "hook_type": "問いかけ",
+  "hook_summary": "2人の性格を見せどちらが長子か当てさせる",
+  "first_chart_sec": 344,
+  "n_sources": 7,
+  "source_kinds": ["論文"],
+  "chart_types": ["散布図", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "長子当てクイズ"},
+    {"start_sec": 140, "label": "アドラーの通説"},
+    {"start_sec": 266, "label": "比較方法の落とし穴"},
+    {"start_sec": 344, "label": "37万人データで検証"},
+    {"start_sec": 565, "label": "長子らしさを信じる訳"},
+    {"start_sec": 645, "label": "2024年の新研究"},
+    {"start_sec": 775, "label": "知能とノルウェー研究"},
+    {"start_sec": 917, "label": "生まれ順の思い込み"}
+  ],
+  "surprise_sec": 870,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 45, "chart": 20, "text_only": 30, "ai_or_photo": 0, "other": 5},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "身近なクイズで始まるが展開が終始学術的で淡々としており、対立や強い感情フックに乏しく話題の意外性も伝わりにくかった。"
+}

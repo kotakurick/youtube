@@ -1,0 +1,33 @@
+{
+  "id": "aVtd6okhLNg",
+  "channel": "檻の中の自由",
+  "question": "名前すら呼ばれない世代が、なぜ一番強いのか",
+  "topic": "世代・人口",
+  "title_type": "なぜ型",
+  "hook_type": "問いかけ",
+  "hook_summary": "団塊とZ世代に挟まれ存在感のない世代がいると提示する",
+  "first_chart_sec": 320,
+  "n_sources": 0,
+  "source_kinds": [],
+  "chart_types": ["棒", "図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "名前のない世代"},
+    {"start_sec": 30, "label": "鍵っ子として育った世代"},
+    {"start_sec": 120, "label": "バブル崩壊とリストラ"},
+    {"start_sec": 150, "label": "防御的悲観主義"},
+    {"start_sec": 180, "label": "SNSで発信しない理由"},
+    {"start_sec": 210, "label": "皮肉とユーモアを盾に"},
+    {"start_sec": 270, "label": "実力を信じる働き方"},
+    {"start_sec": 480, "label": "橋になる世代"}
+  ],
+  "surprise_sec": 30,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 55, "chart": 5, "text_only": 30, "ai_or_photo": 0, "other": 10},
+  "policy_flags": ["断定しすぎ"],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["数字が少ない"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "具体的な統計や数字がほぼなく、X世代という限定的な世代論のため共感の裾野が狭く伸びなかったと考えられる"
+}

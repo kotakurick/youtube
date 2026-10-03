@@ -1,0 +1,31 @@
+{
+  "id": "Gokx4jhP9_A",
+  "channel": "kangaesugiruashi",
+  "question": "タピオカブームはなぜわずか2年で終わったのか",
+  "topic": "社会・ネット",
+  "title_type": "比較型",
+  "hook_type": "物語",
+  "hook_summary": "タピオカ行列を原始宗教の儀式になぞらえ情景描写",
+  "first_chart_sec": 330,
+  "n_sources": 10,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "原宿の原始宗教"},
+    {"start_sec": 122, "label": "泥水と聖杯"},
+    {"start_sec": 414, "label": "最後尾の錬金術"},
+    {"start_sec": 687, "label": "神の自死"},
+    {"start_sec": 934, "label": "使い捨ての神々"},
+    {"start_sec": 1193, "label": "プラスチックの墓標"}
+  ],
+  "surprise_sec": 1200,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 50, "chart": 10, "text_only": 35, "ai_or_photo": 0, "other": 5},
+  "policy_flags": ["断定しすぎ"],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "宗教社会学と経済学を絡めた意外な切り口だが専門用語が多く40分超の長尺で視聴者を選ぶため伸び切らなかった"
+}

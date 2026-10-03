@@ -1,0 +1,33 @@
+{
+  "id": "nuZIcjfkiVU",
+  "channel": "まめポ",
+  "question": "コンテナハウスは本当に安く家を持てるのか",
+  "topic": "東京と地方・住まい",
+  "title_type": "検証型",
+  "hook_type": "意外な数字",
+  "hook_summary": "500万円で家が持てると知り見学に行く",
+  "first_chart_sec": 700,
+  "n_sources": 3,
+  "source_kinds": ["民間調査", "公的統計"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "500万の家?見学へ"},
+    {"start_sec": 90, "label": "土地探しでつまずく"},
+    {"start_sec": 150, "label": "見積もり1170万円"},
+    {"start_sec": 300, "label": "完成し新生活開始"},
+    {"start_sec": 420, "label": "梅雨の洗濯物問題"},
+    {"start_sec": 510, "label": "夏の暑さと電気代"},
+    {"start_sec": 900, "label": "錆びと10年保証の誤解"},
+    {"start_sec": 1140, "label": "不審者事件と総額発覚"}
+  ],
+  "surprise_sec": 1470,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 0, "chart": 5, "text_only": 5, "ai_or_photo": 0, "other": 90},
+  "policy_flags": ["ショック系"],
+  "narration_style": "キャラの掛け合い",
+  "originality": "既存の知見の整理",
+  "script_flags": ["話が散らかる"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "500万円という安さのフックに加え、総額1785万円への裏切りと不審者事件の家族ドラマで視聴を引き付け再生を伸ばしたと見られる"
+}

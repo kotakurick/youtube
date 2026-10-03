@@ -1,0 +1,32 @@
+{
+  "id": "IU6SunvgSdw",
+  "channel": "love_observation",
+  "question": "なぜ恋愛経験ゼロの男は恋愛以外も自信を失うのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "30歳男性が同級生の出産報告に劣等感を抱く夜の場面",
+  "first_chart_sec": null,
+  "n_sources": 9,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "フック"},
+    {"start_sec": 119, "label": "同じ場所にいる自分"},
+    {"start_sec": 259, "label": "見えすぎる人生の進捗"},
+    {"start_sec": 436, "label": "彼女から自分の問題へ"},
+    {"start_sec": 574, "label": "経験不足が人格に化ける"},
+    {"start_sec": 731, "label": "自信の増減は複利で進む"},
+    {"start_sec": 916, "label": "選ばれなかったのではない"}
+  ],
+  "surprise_sec": 480,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 55, "chart": 0, "text_only": 15, "ai_or_photo": 0, "other": 30},
+  "policy_flags": ["断定しすぎ"],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["同じ話の繰り返し"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "公開初日でデータ不足。物語×心理学引用の構成は丁寧だが、画面が地味で絵の使い回しもあり伸びを抑えた可能性。"
+}

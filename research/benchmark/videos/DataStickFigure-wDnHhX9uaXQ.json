@@ -1,0 +1,33 @@
+{
+  "id": "wDnHhX9uaXQ",
+  "channel": "DataStickFigure",
+  "question": "AIは世界をどう変えつつあるのか？",
+  "topic": "社会・ネット",
+  "title_type": "数字型",
+  "hook_type": "意外な数字",
+  "hook_summary": "AI生成記事が人間の記事を超えたグラフを提示",
+  "first_chart_sec": 0,
+  "n_sources": 8,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["折れ線", "棒", "散布図", "数字の強調", "図解"],
+  "source_on_screen": "常時",
+  "sections": [
+    {"start_sec": 0, "label": "AI生成記事の割合"},
+    {"start_sec": 150, "label": "仕事でのAI活用実態"},
+    {"start_sec": 240, "label": "大学試験でのAI不正疑惑"},
+    {"start_sec": 330, "label": "国別AI特許ランキング"},
+    {"start_sec": 420, "label": "年齢とAIへの期待度"},
+    {"start_sec": 510, "label": "AI利用の男女格差"},
+    {"start_sec": 570, "label": "AI生成画像の性別バイアス"},
+    {"start_sec": 690, "label": "まとめとPR"}
+  ],
+  "surprise_sec": 300,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 25, "chart": 45, "text_only": 15, "ai_or_photo": 10, "other": 5},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["話が散らかる"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "「7つの衝撃的なグラフ」という数字型タイトルと多様なデータの連打で好奇心を維持し再生が伸びたと考えられる"
+}

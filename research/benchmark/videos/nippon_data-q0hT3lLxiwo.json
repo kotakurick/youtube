@@ -1,0 +1,33 @@
+{
+  "id": "q0hT3lLxiwo",
+  "channel": "nippon_data",
+  "question": "なぜ47都道府県すべてで独身男性が余るのか",
+  "topic": "恋愛・結婚",
+  "title_type": "数字型",
+  "hook_type": "意外な数字",
+  "hook_summary": "111万人という男女差を示し通説の説明に疑問を呈する",
+  "first_chart_sec": 10,
+  "n_sources": 3,
+  "source_kinds": ["公的統計"],
+  "chart_types": ["棒", "折れ線", "地図", "表", "数字の強調", "図解"],
+  "source_on_screen": "常時",
+  "sections": [
+    {"start_sec": 52, "label": "47都道府県で男余り"},
+    {"start_sec": 137, "label": "理由1:女性超過は数千人"},
+    {"start_sec": 235, "label": "理由2:地元を離れたい"},
+    {"start_sec": 317, "label": "理由3:年の差婚が主因"},
+    {"start_sec": 496, "label": "理由4:30代で拡大"},
+    {"start_sec": 569, "label": "理由5:年上有利30代前半"},
+    {"start_sec": 648, "label": "東京でも解決せず"},
+    {"start_sec": 702, "label": "まとめ"}
+  ],
+  "surprise_sec": 90,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 20, "chart": 45, "text_only": 20, "ai_or_photo": 10, "other": 5},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "独自の分析・シミュレーションあり",
+  "script_flags": [],
+  "visual_flags": ["静止画が長い"],
+  "why": "通説を丁寧に検証する構成で信頼度は高いが、意外な事実の提示が後半に偏り序盤の引きが弱かった可能性がある"
+}

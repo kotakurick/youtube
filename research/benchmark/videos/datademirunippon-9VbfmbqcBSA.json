@@ -1,0 +1,33 @@
+{
+  "id": "9VbfmbqcBSA",
+  "channel": "datademirunippon",
+  "question": "月給30万円は本当に高い条件なのか?",
+  "topic": "仕事・キャリア",
+  "title_type": "検証型",
+  "hook_type": "問いかけ",
+  "hook_summary": "月給30万円求人の内訳を見ているか問いかける",
+  "first_chart_sec": 20,
+  "n_sources": 0,
+  "source_kinds": [],
+  "chart_types": ["数字の強調", "図解", "表"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "月給30万円の内訳"},
+    {"start_sec": 35, "label": "年間固定額を比較"},
+    {"start_sec": 71, "label": "月給を同じ形に分解"},
+    {"start_sec": 121, "label": "固定残業代の確認点"},
+    {"start_sec": 169, "label": "賞与で順位が逆転"},
+    {"start_sec": 276, "label": "条件は年収だけでない"},
+    {"start_sec": 364, "label": "求人票は最終条件でない"},
+    {"start_sec": 463, "label": "まとめ・再確認"}
+  ],
+  "surprise_sec": 200,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 30, "chart": 35, "text_only": 10, "ai_or_photo": 20, "other": 5},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["同じ話の繰り返し"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "実務的だが地味な内容で、インパクトある数字や感情的な驚きが少なく拡散力に欠けるため伸びなかったと推測。"
+}

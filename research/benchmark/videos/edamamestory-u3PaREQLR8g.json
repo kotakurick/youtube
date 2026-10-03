@@ -1,0 +1,33 @@
+{
+  "id": "u3PaREQLR8g",
+  "channel": "edamamestory",
+  "question": "なぜ何度言っても後輩に伝わらないのか",
+  "topic": "仕事・キャリア",
+  "title_type": "数字型",
+  "hook_type": "物語",
+  "hook_summary": "後輩への指示がかみ合わない職場の様子を描く",
+  "first_chart_sec": null,
+  "n_sources": 1,
+  "source_kinds": ["公的統計"],
+  "chart_types": ["図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "噛み合わない後輩"},
+    {"start_sec": 210, "label": "境界知能の紹介"},
+    {"start_sec": 240, "label": "IQ70-84と7人に1人"},
+    {"start_sec": 360, "label": "抽象語が伝わらない"},
+    {"start_sec": 420, "label": "ワーキングメモリ"},
+    {"start_sec": 510, "label": "皮肉が伝わらない"},
+    {"start_sec": 570, "label": "叱責と二次障害"},
+    {"start_sec": 660, "label": "伝え方を変える"}
+  ],
+  "surprise_sec": 270,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 0, "chart": 0, "text_only": 0, "ai_or_photo": 15, "other": 85},
+  "policy_flags": ["助言"],
+  "narration_style": "キャラの掛け合い",
+  "originality": "既存の知見の整理",
+  "script_flags": ["数字が少ない"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "あるある職場会話から境界知能という意外な切り口に展開し、自分ごと化と伝え方改善という実用性で共感を得たと考えられる"
+}

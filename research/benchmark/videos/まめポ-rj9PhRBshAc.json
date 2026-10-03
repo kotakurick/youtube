@@ -1,0 +1,33 @@
+{
+  "id": "rj9PhRBshAc",
+  "channel": "まめポ",
+  "question": "なぜ筋トレが好きでもジムを離れてしまうのか",
+  "topic": "体・見た目",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "ずんだもんが筋トレを始める経緯を語る",
+  "first_chart_sec": 15,
+  "n_sources": 9,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["折れ線", "棒", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "筋トレブームの背景"},
+    {"start_sec": 60, "label": "入会の手続き"},
+    {"start_sec": 120, "label": "初心者指導"},
+    {"start_sec": 240, "label": "友人と食事の話"},
+    {"start_sec": 360, "label": "混雑とマナー問題"},
+    {"start_sec": 540, "label": "離脱理由の統計"},
+    {"start_sec": 720, "label": "退会の決断"},
+    {"start_sec": 960, "label": "退会データの深掘り"}
+  ],
+  "surprise_sec": 660,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 75, "chart": 8, "text_only": 2, "ai_or_photo": 10, "other": 5},
+  "policy_flags": [],
+  "narration_style": "キャラの掛け合い",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "身近なジムあるある劇とデータ裏付けを組み合わせ、共感と説得力を両立させたため"
+}

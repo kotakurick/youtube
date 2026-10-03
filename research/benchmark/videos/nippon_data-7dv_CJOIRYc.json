@@ -1,0 +1,33 @@
+{
+  "id": "7dv_CJOIRYc",
+  "channel": "nippon_data",
+  "question": "普通の男はなぜ婚活市場にいないのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "年収・学歴を満たす独身男性は8.7%だけと数字で衝撃提示",
+  "first_chart_sec": 0,
+  "n_sources": 5,
+  "source_kinds": ["公的統計", "論文", "民間調査", "独自シミュレーション"],
+  "chart_types": ["棒", "折れ線", "散布図", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "オープニング"},
+    {"start_sec": 60, "label": "三高の時代"},
+    {"start_sec": 147, "label": "掛け算が消す普通"},
+    {"start_sec": 468, "label": "売れる順番と残る両端"},
+    {"start_sec": 800, "label": "チェックボックスの順番"},
+    {"start_sec": 945, "label": "不揃いなまま"},
+    {"start_sec": 1046, "label": "まとめ"},
+    {"start_sec": 1107, "label": "エンディング"}
+  ],
+  "surprise_sec": 480,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 25, "chart": 45, "text_only": 25, "ai_or_photo": 0, "other": 5},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "独自の分析・シミュレーションあり",
+  "script_flags": ["同じ話の繰り返し"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "データ検証は丁寧だが、婚活論争に見えるタイトルで敬遠され、内容がやや専門的で伸び悩んだとみられる"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "_ANYOxL08_o",
+  "channel": "知られざる令和の世界",
+  "question": "なぜ職場でAI使用を言い出せないのか",
+  "topic": "仕事・キャリア",
+  "title_type": "断言型",
+  "hook_type": "物語",
+  "hook_summary": "金曜夕方の部下とのやり取りを描く場面",
+  "first_chart_sec": 90,
+  "n_sources": 6,
+  "source_kinds": ["公的統計", "民間調査", "論文"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "整った資料とメール"},
+    {"start_sec": 78, "label": "今何が起きているか"},
+    {"start_sec": 162, "label": "昔はどうだったか"},
+    {"start_sec": 252, "label": "知られると何が起きるか"},
+    {"start_sec": 426, "label": "なぜ言い出さないのか"},
+    {"start_sec": 537, "label": "結び"}
+  ],
+  "surprise_sec": 390,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 10, "chart": 35, "text_only": 25, "ai_or_photo": 25, "other": 5},
+  "policy_flags": ["断定しすぎ"],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["同じ話の繰り返し"],
+  "visual_flags": ["静止画が長い", "同じ絵の使い回し"],
+  "why": "格差やお金のような強い数字フックがなく、職場心理という地味な切り口でタイトルも控えめなため伸びが弱かったと考えられる。"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "6t_UQyD5WpA",
+  "channel": "toshiusagi",
+  "question": "NISA・こどもNISA批判は本当に正しいのか？",
+  "topic": "お金・格差",
+  "title_type": "断言型",
+  "hook_type": "物語",
+  "hook_summary": "NISAを思考停止と批判する人物の発言にうさぎ達が驚き反応する",
+  "first_chart_sec": 95,
+  "n_sources": 7,
+  "source_kinds": ["独自シミュレーション", "公的統計"],
+  "chart_types": ["表", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "批判者の主張紹介"},
+    {"start_sec": 30, "label": "NISA批判の中身"},
+    {"start_sec": 90, "label": "NISAは非課税なだけ"},
+    {"start_sec": 120, "label": "こどもNISAとは"},
+    {"start_sec": 210, "label": "批判①教育投資すべき"},
+    {"start_sec": 420, "label": "批判②親次第で格差拡大"},
+    {"start_sec": 480, "label": "子供NISAと特定口座比較"},
+    {"start_sec": 660, "label": "教育格差との矛盾を指摘"}
+  ],
+  "surprise_sec": 510,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 55, "chart": 15, "text_only": 10, "ai_or_photo": 15, "other": 5},
+  "policy_flags": ["断定しすぎ", "助言"],
+  "narration_style": "キャラの掛け合い",
+  "originality": "独自の分析・シミュレーションあり",
+  "script_flags": ["同じ話の繰り返し", "話が散らかる"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "批判への反論という対立構造と具体的な金額シミュレーションの提示で関心を引けたと推測"
+}

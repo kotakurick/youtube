@@ -1,0 +1,31 @@
+{
+  "id": "ocOMrRwyMLY",
+  "channel": "知られざる令和の世界",
+  "question": "生き物なのに、なぜ子どもはいらないと言えるのか",
+  "topic": "世代・人口",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "部下が結婚報告で子どもを作らないと告げる場面",
+  "first_chart_sec": 80,
+  "n_sources": 6,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["棒", "折れ線", "図解", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "結婚報告と付け足し"},
+    {"start_sec": 118, "label": "何が変わったのか"},
+    {"start_sec": 195, "label": "当たり前といらない"},
+    {"start_sec": 298, "label": "本能はあるのか"},
+    {"start_sec": 460, "label": "なぜ少なくへ進むか"},
+    {"start_sec": 560, "label": "結び"}
+  ],
+  "surprise_sec": 495,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 40, "chart": 25, "text_only": 20, "ai_or_photo": 5, "other": 10},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "学術的で丁寧だが地味なビジュアルとテンポの遅さで離脱しやすく、伸びなかったと考えられる"
+}

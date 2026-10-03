@@ -1,0 +1,33 @@
+{
+  "id": "1raA8e8wCbA",
+  "channel": "edamamestory",
+  "question": "評価されない仕事はなぜ誰にも気づかれないのか",
+  "topic": "仕事・キャリア",
+  "title_type": "数字型",
+  "hook_type": "身近な場面",
+  "hook_summary": "几帳面で頼られる45歳会社員の日常を描写",
+  "first_chart_sec": 150,
+  "n_sources": 6,
+  "source_kinds": ["民間調査", "公的統計", "その他"],
+  "chart_types": ["数字の強調", "図解", "表"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "几帳面な先輩の日常"},
+    {"start_sec": 120, "label": "評価面談でB評価に落胆"},
+    {"start_sec": 210, "label": "同期メタンに相談"},
+    {"start_sec": 270, "label": "強みを言語化していく"},
+    {"start_sec": 420, "label": "5つの実力が判明"},
+    {"start_sec": 480, "label": "評価されない理由の解説"},
+    {"start_sec": 600, "label": "転職活動・面接で高評価"},
+    {"start_sec": 840, "label": "転職先で評価される"}
+  ],
+  "surprise_sec": 420,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 70, "chart": 10, "text_only": 5, "ai_or_photo": 10, "other": 5},
+  "policy_flags": ["助言", "断定しすぎ"],
+  "narration_style": "キャラの掛け合い",
+  "originality": "既存の知見の整理",
+  "script_flags": ["数字が少ない"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "「誰でもできる仕事」という共感ワードと転職成功の物語が、評価に悩む会社員の心に刺さったため"
+}

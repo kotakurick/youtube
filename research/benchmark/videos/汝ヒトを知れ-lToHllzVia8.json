@@ -1,0 +1,29 @@
+{
+  "id": "lToHllzVia8",
+  "channel": "汝ヒトを知れ",
+  "question": "なぜ教室には誰も望まない上下ができるのか",
+  "topic": "教育・子ども",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "中学2年の教室で机の島ができていく様子を描写",
+  "first_chart_sec": 134,
+  "n_sources": 12,
+  "source_kinds": ["論文", "民間調査"],
+  "chart_types": ["図解", "数字の強調"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "導入"},
+    {"start_sec": 119, "label": "性格のせいか"},
+    {"start_sec": 306, "label": "油と水"},
+    {"start_sec": 602, "label": "群れの順位"}
+  ],
+  "surprise_sec": 750,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 45, "chart": 20, "text_only": 15, "ai_or_photo": 0, "other": 20},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": [],
+  "why": "新着で再生数はまだ少ないが、学術色の強い地味なタイトルで検索・クリックを呼びにくい可能性がある"
+}

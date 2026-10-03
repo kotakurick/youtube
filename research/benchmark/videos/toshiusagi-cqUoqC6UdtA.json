@@ -1,0 +1,33 @@
+{
+  "id": "cqUoqC6UdtA",
+  "channel": "toshiusagi",
+  "question": "株高・企業最高益なのに生活が苦しいのはなぜ？",
+  "topic": "お金・格差",
+  "title_type": "断言型",
+  "hook_type": "身近な場面",
+  "hook_summary": "夫婦のスタバ値上げ・節約談義から景気の話へ",
+  "first_chart_sec": 5,
+  "n_sources": 8,
+  "source_kinds": ["公的統計", "民間調査", "その他"],
+  "chart_types": ["表", "棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "スタバ値上げの夫婦会話"},
+    {"start_sec": 60, "label": "景気指標は絶好調に見える"},
+    {"start_sec": 90, "label": "日銀調査は悪化と回答"},
+    {"start_sec": 150, "label": "平均のワナ村とイーロン"},
+    {"start_sec": 210, "label": "内部留保654兆円"},
+    {"start_sec": 270, "label": "労働分配率低下と株主還元"},
+    {"start_sec": 330, "label": "大企業だけ賃上げ5%"},
+    {"start_sec": 420, "label": "物価上昇とポイント囲い込み"}
+  ],
+  "surprise_sec": 228,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 55, "chart": 20, "text_only": 10, "ai_or_photo": 5, "other": 10},
+  "policy_flags": ["対立あおり"],
+  "narration_style": "キャラの掛け合い",
+  "originality": "既存の知見の整理",
+  "script_flags": ["前置きが長い", "話が散らかる"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "物価高・格差という共感しやすい不満に日銀調査や内部留保などの具体数字を重ね、キャラ掛け合いで分かりやすく見せた点が伸びた要因と推測"
+}

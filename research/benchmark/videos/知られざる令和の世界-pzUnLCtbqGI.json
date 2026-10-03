@@ -1,0 +1,31 @@
+{
+  "id": "pzUnLCtbqGI",
+  "channel": "知られざる令和の世界",
+  "question": "結婚相手に求める条件はなぜ増え続けるのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "部下の婚活エピソードから家事条件の話に入る",
+  "first_chart_sec": 30,
+  "n_sources": 2,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["棒", "折れ線", "数字の強調", "図解"],
+  "source_on_screen": "常時",
+  "sections": [
+    {"start_sec": 0, "label": "導入：部下のため息"},
+    {"start_sec": 71, "label": "家事はどれだけ求められたか"},
+    {"start_sec": 151, "label": "男性は家事をしなかったか"},
+    {"start_sec": 243, "label": "稼ぎはもう見られないか"},
+    {"start_sec": 315, "label": "なぜ結婚は難しくなったか"},
+    {"start_sec": 371, "label": "結び"}
+  ],
+  "surprise_sec": 250,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 36, "chart": 43, "text_only": 7, "ai_or_photo": 14, "other": 0},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["同じ話の繰り返し"],
+  "visual_flags": ["静止画が長い", "同じ絵の使い回し"],
+  "why": "データは手堅いが主張は既存知見の整理にとどまり、目新しさや強い意外性に欠け拡散しにくかったとみられる"
+}

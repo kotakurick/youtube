@@ -1,0 +1,33 @@
+{
+  "id": "Zl_uieE6v0g",
+  "channel": "まめポ",
+  "question": "登山人口はなぜここまで減ったのか",
+  "topic": "時間・生活",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "登山仲間が次々「もう行けない」と言う場面から始まる",
+  "first_chart_sec": 120,
+  "n_sources": 9,
+  "source_kinds": ["公的統計", "民間調査"],
+  "chart_types": ["棒", "折れ線", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "仲間が登山をやめる"},
+    {"start_sec": 30, "label": "2005年 初登山"},
+    {"start_sec": 120, "label": "白書データで前提説明"},
+    {"start_sec": 150, "label": "山ガールブーム到来"},
+    {"start_sec": 420, "label": "膝の痛みと下り"},
+    {"start_sec": 540, "label": "コロナで登山自粛"},
+    {"start_sec": 780, "label": "猛暑と山小屋値上げ"},
+    {"start_sec": 900, "label": "一人登山と出会い"}
+  ],
+  "surprise_sec": 1020,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 0, "chart": 10, "text_only": 5, "ai_or_photo": 15, "other": 70},
+  "policy_flags": [],
+  "narration_style": "キャラの掛け合い",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "山好きの実話風ドラマに公的統計を重ね、離脱の理由を個人の心情として描いたことで登山層以外にも共感が広がり伸びたと考えられる"
+}

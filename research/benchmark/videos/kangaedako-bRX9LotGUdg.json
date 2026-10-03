@@ -1,0 +1,33 @@
+{
+  "id": "bRX9LotGUdg",
+  "channel": "kangaedako",
+  "question": "なぜ高学歴女性は男性の前で野心を隠すのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "婚活中の女性が学歴欄を大学院から大学卒に書き直す",
+  "first_chart_sec": 180,
+  "n_sources": 8,
+  "source_kinds": ["論文", "公的統計"],
+  "chart_types": ["棒", "図解", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "大学院を消す場面"},
+    {"start_sec": 117, "label": "質問票ひとつの違い"},
+    {"start_sec": 322, "label": "男性が避けたもの"},
+    {"start_sec": 446, "label": "日本で結婚する人"},
+    {"start_sec": 664, "label": "変わってない意識"},
+    {"start_sec": 846, "label": "笑いの宛先は誰か"},
+    {"start_sec": 975, "label": "60人の話の限界"},
+    {"start_sec": 1068, "label": "地図は書き直せる"}
+  ],
+  "surprise_sec": 870,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 15, "chart": 15, "text_only": 45, "ai_or_photo": 0, "other": 25},
+  "policy_flags": [],
+  "narration_style": "キャラの掛け合い",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": ["静止画が長い"],
+  "why": "学術論文の丁寧な検証が中心で、タイトルも地味なため婚活世代以外に刺さらず伸びなかったと考えられる"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "x1LHmJc8eLM",
+  "channel": "love_observation",
+  "question": "なぜ女性は存在しない男にハマるのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "学食で彼女がAIの男に夢中になる場面を描写",
+  "first_chart_sec": 125,
+  "n_sources": 13,
+  "source_kinds": ["論文", "民間調査"],
+  "chart_types": ["数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "フック"},
+    {"start_sec": 130, "label": "会わない恋は昔から"},
+    {"start_sec": 314, "label": "顔は入り口反応で深まる"},
+    {"start_sec": 471, "label": "主人公になれる物語"},
+    {"start_sec": 636, "label": "言葉でなく感情を返す"},
+    {"start_sec": 775, "label": "今と昨日が二人を作る"},
+    {"start_sec": 938, "label": "現実の男の会話術"}
+  ],
+  "surprise_sec": 150,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 55, "chart": 0, "text_only": 25, "ai_or_photo": 0, "other": 20},
+  "policy_flags": ["助言"],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["前置きが長い"],
+  "visual_flags": ["静止画が長い", "同じ絵の使い回し"],
+  "why": "時事性の高いAI恋愛というテーマとなぜ型タイトルで興味は引くが、研究紹介の羅列が続きテンポが重く伸び悩んだ可能性がある"
+}

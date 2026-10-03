@@ -1,0 +1,33 @@
+{
+  "id": "I4Yswqp3yes",
+  "channel": "kangaedako",
+  "question": "なぜ社長のキャバクラ代は経費で落ちるのか",
+  "topic": "お金・格差",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "社長がキャバクラで会計する場面を描写し問いを立てる",
+  "first_chart_sec": 80,
+  "n_sources": 6,
+  "source_kinds": ["公的統計", "論文", "その他"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "領収書は会社の名前で"},
+    {"start_sec": 90, "label": "経費で落ちるとは何か"},
+    {"start_sec": 288, "label": "誰が使っているのか"},
+    {"start_sec": 458, "label": "3年限りのルール"},
+    {"start_sec": 639, "label": "寂しいから通うのか"},
+    {"start_sec": 748, "label": "接待はもうかるのか"},
+    {"start_sec": 900, "label": "受け取る側"},
+    {"start_sec": 1001, "label": "こっそりつける社長も"}
+  ],
+  "surprise_sec": 330,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 50, "chart": 15, "text_only": 20, "ai_or_photo": 5, "other": 10},
+  "policy_flags": [],
+  "narration_style": "キャラの掛け合い",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": ["静止画が長い"],
+  "why": "税制の専門的な話で導入が重く20分と長尺なため、再生回数が伸びる前に離脱されやすかったとみられる。"
+}

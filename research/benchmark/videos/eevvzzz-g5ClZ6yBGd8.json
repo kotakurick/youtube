@@ -1,0 +1,33 @@
+{
+  "id": "g5ClZ6yBGd8",
+  "channel": "eevvzzz",
+  "question": "死滅回遊の複雑なルールは結局何なのか",
+  "topic": "その他",
+  "title_type": "その他",
+  "hook_type": "身近な場面",
+  "hook_summary": "アニメのルール説明が分かりにくいと共感を誘う",
+  "first_chart_sec": 540,
+  "n_sources": 0,
+  "source_kinds": [],
+  "chart_types": ["地図", "表", "図解", "数字の強調"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 72, "label": "今までのおさらい"},
+    {"start_sec": 206, "label": "天元様とは"},
+    {"start_sec": 292, "label": "死滅回遊の目的"},
+    {"start_sec": 457, "label": "なぜ必要なのか"},
+    {"start_sec": 628, "label": "ルール解説"},
+    {"start_sec": 862, "label": "ここまでのまとめ"},
+    {"start_sec": 935, "label": "言葉の由来"},
+    {"start_sec": 994, "label": "総まとめ"}
+  ],
+  "surprise_sec": 355,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 0, "chart": 8, "text_only": 7, "ai_or_photo": 0, "other": 85},
+  "policy_flags": ["断定しすぎ"],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["前置きが長い"],
+  "visual_flags": ["静止画が長い", "同じ絵の使い回し"],
+  "why": "呪術廻戦ファン限定の専門的ルール解説で対象層が狭く、前置きが長く同じ静止画の使い回しも多い"
+}

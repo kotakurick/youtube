@@ -1,0 +1,33 @@
+{
+  "id": "sL_gKtgg1wk",
+  "channel": "檻の中の自由",
+  "question": "マッチングアプリのいいね格差はなぜ起きるのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "いいねが来ず悩む男性の体験談を描写する",
+  "first_chart_sec": 290,
+  "n_sources": 7,
+  "source_kinds": ["論文", "民間調査"],
+  "chart_types": ["棒", "折れ線", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "いいね格差の悩み"},
+    {"start_sec": 111, "label": "10人の思考実験"},
+    {"start_sec": 291, "label": "実データのいいね格差"},
+    {"start_sec": 350, "label": "上位2割8割説の検証"},
+    {"start_sec": 406, "label": "優先的選択とマタイ効果"},
+    {"start_sec": 514, "label": "同じ構造はSNSや都市にも"},
+    {"start_sec": 574, "label": "バイアスとスコアの罠"},
+    {"start_sec": 724, "label": "結論は仕組みが生む偏り"}
+  ],
+  "surprise_sec": 360,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 40, "chart": 30, "text_only": 10, "ai_or_photo": 0, "other": 20},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": [],
+  "why": "体験談の導入が長く最初の数字提示が遅いため、データ目当ての視聴者が序盤で離脱した可能性がある"
+}

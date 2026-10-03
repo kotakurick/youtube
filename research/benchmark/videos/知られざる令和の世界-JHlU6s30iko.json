@@ -1,0 +1,31 @@
+{
+  "id": "JHlU6s30iko",
+  "channel": "知られざる令和の世界",
+  "question": "なぜスキマバイトは40代に広がったのか",
+  "topic": "仕事・キャリア",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "部下の一言から40代利用の謎を提示する",
+  "first_chart_sec": 30,
+  "n_sources": 7,
+  "source_kinds": ["民間調査", "公的統計"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "導入：部下の一言"},
+    {"start_sec": 116, "label": "本当に40代が一番か"},
+    {"start_sec": 212, "label": "昔のバイトの入口"},
+    {"start_sec": 323, "label": "40代の時間が売れぬ訳"},
+    {"start_sec": 472, "label": "なぜ今時間を売るか"},
+    {"start_sec": 582, "label": "結び"}
+  ],
+  "surprise_sec": 180,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 0, "chart": 35, "text_only": 20, "ai_or_photo": 25, "other": 20},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "独自の分析・シミュレーションあり",
+  "script_flags": [],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "題材が労働経済の専門的分析で地味な見出し、小規模チャンネルで初動が弱く再生が伸びなかったと推測"
+}

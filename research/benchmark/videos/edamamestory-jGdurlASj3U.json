@@ -1,0 +1,33 @@
+{
+  "id": "jGdurlASj3U",
+  "channel": "edamamestory",
+  "question": "恋愛経験ゼロの男性が急増する理由とは",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "同僚の結婚報告から主人公の恋愛経験ゼロの苦悩を描く",
+  "first_chart_sec": 170,
+  "n_sources": 6,
+  "source_kinds": ["公的統計", "民間調査"],
+  "chart_types": ["数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "同僚の結婚報告"},
+    {"start_sec": 60, "label": "恋愛経験ゼロの告白"},
+    {"start_sec": 150, "label": "国の統計データ提示"},
+    {"start_sec": 270, "label": "お見合いシステムの消滅"},
+    {"start_sec": 390, "label": "声かけリスクの上昇"},
+    {"start_sec": 480, "label": "経済的余裕のなさ"},
+    {"start_sec": 540, "label": "恋愛のコスパ低下"},
+    {"start_sec": 600, "label": "経験ゼロループと解決策"}
+  ],
+  "surprise_sec": 250,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 75, "chart": 5, "text_only": 10, "ai_or_photo": 5, "other": 5},
+  "policy_flags": ["助言"],
+  "narration_style": "キャラの掛け合い",
+  "originality": "既存の知見の整理",
+  "script_flags": ["前置きが長い"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "32歳童貞という身近な悩みを公的統計で一般化しつつ解決策まで示す構成が共感と実用性を両立させた"
+}

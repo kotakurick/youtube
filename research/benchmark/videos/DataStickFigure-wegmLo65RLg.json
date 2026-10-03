@@ -1,0 +1,33 @@
+{
+  "id": "wegmLo65RLg",
+  "channel": "DataStickFigure",
+  "question": "公平なゲームでもなぜ資産格差が生まれるのか",
+  "topic": "お金・格差",
+  "title_type": "検証型",
+  "hook_type": "物語",
+  "hook_summary": "100人が平等な資産で公平なコイン賭けゲームを行う設定を説明",
+  "first_chart_sec": 49,
+  "n_sources": 3,
+  "source_kinds": ["論文", "公的統計", "独自シミュレーション"],
+  "chart_types": ["棒", "折れ線", "図解", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "公平なゲーム設定"},
+    {"start_sec": 30, "label": "1回目で格差発生"},
+    {"start_sec": 90, "label": "1万回で独占完成"},
+    {"start_sec": 150, "label": "原因を分析"},
+    {"start_sec": 240, "label": "資産差で再試算"},
+    {"start_sec": 330, "label": "ヤードセールモデル"},
+    {"start_sec": 390, "label": "富の再分配導入"},
+    {"start_sec": 480, "label": "現実の格差と結論"}
+  ],
+  "surprise_sec": 120,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 35, "chart": 45, "text_only": 5, "ai_or_photo": 0, "other": 15},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "独自の分析・シミュレーションあり",
+  "script_flags": [],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "公平なゲームでも格差が自然発生するという意外性と、視覚的なシミュレーションの積み重ねによる説得力の高さが伸びた要因と考えられる。"
+}

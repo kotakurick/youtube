@@ -1,0 +1,32 @@
+{
+  "id": "oPXromlDseg",
+  "channel": "love_observation",
+  "question": "なぜ一部の男に女性の人気が集中するのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "冴えない婚活男といいね4桁の友人を対比する",
+  "first_chart_sec": 450,
+  "n_sources": 9,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "フック"},
+    {"start_sec": 149, "label": "人気の不均等は昔から"},
+    {"start_sec": 326, "label": "ローカル市場の終わり"},
+    {"start_sec": 551, "label": "推し活が基準値を上げた"},
+    {"start_sec": 751, "label": "アプリが比較を可能に"},
+    {"start_sec": 943, "label": "外見は入口関係は出口"},
+    {"start_sec": 1097, "label": "失いたくない男になる"}
+  ],
+  "surprise_sec": 80,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 70, "chart": 5, "text_only": 5, "ai_or_photo": 0, "other": 20},
+  "policy_flags": ["助言", "ショック系"],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": ["静止画が長い", "同じ絵の使い回し"],
+  "why": "出会い系アプリで結果が出ない男性の悔しさを研究引用で構造化し説得力を出したが、展開が緩やかで爆発力に欠ける"
+}

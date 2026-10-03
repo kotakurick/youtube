@@ -1,0 +1,33 @@
+{
+  "id": "g4OW1M76O9Q",
+  "channel": "toshiusagi",
+  "question": "利上げ観測後退でも米国株が続落したのはなぜ？",
+  "topic": "お金・格差",
+  "title_type": "断言型",
+  "hook_type": "意外な数字",
+  "hook_summary": "前日の米国株4指数の騰落を表で提示",
+  "first_chart_sec": 20,
+  "n_sources": 6,
+  "source_kinds": ["公的統計", "その他"],
+  "chart_types": ["表", "折れ線", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "米国株指数の概況"},
+    {"start_sec": 60, "label": "長期金利上昇の謎"},
+    {"start_sec": 90, "label": "FOMCと利上げ確率低下"},
+    {"start_sec": 120, "label": "PCE物価指数の発表"},
+    {"start_sec": 210, "label": "長期金利上昇の2理由"},
+    {"start_sec": 300, "label": "国債価格と金利の関係"},
+    {"start_sec": 480, "label": "マイクロン決算"},
+    {"start_sec": 600, "label": "9月総括と分散投資"}
+  ],
+  "surprise_sec": 655,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 55, "chart": 20, "text_only": 15, "ai_or_photo": 0, "other": 10},
+  "policy_flags": [],
+  "narration_style": "キャラの掛け合い",
+  "originality": "既存の知見の整理",
+  "script_flags": ["話が散らかる"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "利上げ観測後退なのに株安という矛盾を切り口に、金利・決算・雇用統計まで一気に整理した速報性が強み"
+}

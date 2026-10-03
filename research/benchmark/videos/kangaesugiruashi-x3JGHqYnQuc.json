@@ -1,0 +1,32 @@
+{
+  "id": "x3JGHqYnQuc",
+  "channel": "kangaesugiruashi",
+  "question": "忘却が消えたら人類は幸せになれるのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "忘却が消えた世界を単語帳や夫婦喧嘩の例で仮定",
+  "first_chart_sec": 150,
+  "n_sources": 8,
+  "source_kinds": ["論文", "その他"],
+  "chart_types": ["表", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "過去に墓標なき朝"},
+    {"start_sec": 136, "label": "記憶に喰われた天才"},
+    {"start_sec": 318, "label": "墓標の下の恐怖"},
+    {"start_sec": 573, "label": "風化頼みの平和"},
+    {"start_sec": 770, "label": "法もすがる風化"},
+    {"start_sec": 961, "label": "記憶のゾンビ世界"},
+    {"start_sec": 1216, "label": "美しきポンコツな脳"}
+  ],
+  "surprise_sec": 440,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 55, "chart": 15, "text_only": 25, "ai_or_photo": 0, "other": 5},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "個人の記憶症例からIT・歴史・SNSまで同じ「墓標」の比喩でつなぐ構成が最後まで飽きさせない"
+}

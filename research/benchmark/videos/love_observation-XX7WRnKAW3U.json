@@ -1,0 +1,32 @@
+{
+  "id": "XX7WRnKAW3U",
+  "channel": "love_observation",
+  "question": "モテなかった男はなぜ大人になっても恋愛で苦戦するのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "同窓会で恋愛話に入れず疎外感を抱く男の情景描写",
+  "first_chart_sec": null,
+  "n_sources": 13,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": [],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "フック"},
+    {"start_sec": 130, "label": "恋は学習が先"},
+    {"start_sec": 297, "label": "拒絶を恐れる脳"},
+    {"start_sec": 476, "label": "経験が経験を呼ぶ"},
+    {"start_sec": 655, "label": "消える初心者の舞台"},
+    {"start_sec": 828, "label": "隠すほど遠ざかる"},
+    {"start_sec": 969, "label": "上手い男も最初は下手"}
+  ],
+  "surprise_sec": 870,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 75, "chart": 0, "text_only": 15, "ai_or_photo": 0, "other": 10},
+  "policy_flags": ["助言"],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "共感しやすい物語の導入と多数の研究データの積み重ねで説得力を持たせ、非モテ男性の悩みに直接刺さった"
+}

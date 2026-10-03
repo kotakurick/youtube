@@ -1,32 +1,30 @@
 {
   "id": "7JLPx1w_aZU",
   "channel": "lovebynumbers",
-  "question": "優しい男はなぜ恋愛で報われないのか",
+  "question": "なぜ「優しい男」より「余裕のある男」がモテるのか",
   "topic": "恋愛・結婚",
-  "title_type": "比較型",
+  "title_type": "なぜ型",
   "hook_type": "物語",
-  "hook_summary": "サバンナでガゼルが逃げず跳躍する奇妙な行動の謎を提示",
+  "hook_summary": "サバンナのガゼルが捕食者の前で跳躍する謎の行動を提示",
   "first_chart_sec": null,
-  "n_sources": 4,
-  "source_kinds": ["論文", "その他"],
+  "n_sources": 2,
+  "source_kinds": ["論文"],
   "chart_types": ["図解"],
   "source_on_screen": "なし",
   "sections": [
-    {"start_sec": 0, "label": "序章:サバンナの跳躍"},
-    {"start_sec": 262, "label": "第1章:安価シグナル"},
+    {"start_sec": 0, "label": "序章:ガゼルの跳躍"},
+    {"start_sec": 262, "label": "第1章:安価なシグナル"},
     {"start_sec": 494, "label": "第2章:気遣いの重税"},
     {"start_sec": 747, "label": "第3章:透明な孤独"},
-    {"start_sec": 938, "label": "終章:輪郭なき優しさ"}
+    {"start_sec": 938, "label": "終章:輪郭ある優しさ"}
   ],
-  "surprise_sec": 60,
-  "ending_type": "視聴者への問いかけ",
-  "visual_mix": {
-    "stick_figure": 40,
-    "chart": 0,
-    "text_only": 0,
-    "ai_or_photo": 0,
-    "other": 60
-  },
+  "surprise_sec": 150,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 50, "chart": 30, "text_only": 15, "ai_or_photo": 0, "other": 5},
   "policy_flags": ["断定しすぎ"],
-  "why": "ガゼルの比喩と恋愛心理を結ぶ物語構成で惹きつけるが、統計やグラフが皆無で説得材料が理論と寓話に偏り、拡散力は中程度に留まったと見られる"
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["前置きが長い", "数字が少ない"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "ガゼルの逆説という強いフックと明快な構成で引き込むが、具体的な統計データが乏しく理論の整理に留まるため伸びは中程度"
 }

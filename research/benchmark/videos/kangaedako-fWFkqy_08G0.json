@@ -1,0 +1,33 @@
+{
+  "id": "fWFkqy_08G0",
+  "channel": "kangaedako",
+  "question": "なぜ人は「昔はよかった」と感じるのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "電車内で昔の曲を聴く48歳会社員の場面から問いを提示",
+  "first_chart_sec": 35,
+  "n_sources": 22,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "帰りの電車と昔の曲"},
+    {"start_sec": 101, "label": "記憶で何が薄れるか"},
+    {"start_sec": 319, "label": "書き換えが弱いのは誰か"},
+    {"start_sec": 403, "label": "昔の人が良かったの70年"},
+    {"start_sec": 634, "label": "40代の谷は人生の底か"},
+    {"start_sec": 815, "label": "いちばんよかった10年"},
+    {"start_sec": 1015, "label": "懐かしさは何のためか"},
+    {"start_sec": 1092, "label": "Ending"}
+  ],
+  "surprise_sec": 900,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 35, "chart": 15, "text_only": 45, "ai_or_photo": 0, "other": 5},
+  "policy_flags": [],
+  "narration_style": "キャラの掛け合い",
+  "originality": "既存の知見の整理",
+  "script_flags": ["話が散らかる"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "心理×経済の学術的内容で専門的すぎ、タイトルも控えめで新規層に刺さりにくかったと見られる"
+}

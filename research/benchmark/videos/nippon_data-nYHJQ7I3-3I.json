@@ -1,0 +1,33 @@
+{
+  "id": "nYHJQ7I3-3I",
+  "channel": "nippon_data",
+  "question": "外国人妻は選ばれなかった男の逃げ道か",
+  "topic": "恋愛・結婚",
+  "title_type": "検証型",
+  "hook_type": "意外な数字",
+  "hook_summary": "初婚男性の1.8%のみ外国籍妻、4割は再婚と提示",
+  "first_chart_sec": 0,
+  "n_sources": 1,
+  "source_kinds": ["公的統計"],
+  "chart_types": ["棒", "折れ線", "数字の強調", "図解", "表"],
+  "source_on_screen": "常時",
+  "sections": [
+    {"start_sec": 0, "label": "オープニング"},
+    {"start_sec": 94, "label": "ウソ1:増え続ける?"},
+    {"start_sec": 152, "label": "ウソ2:地方に多い?"},
+    {"start_sec": 218, "label": "ウソ3:年配ばかり?"},
+    {"start_sec": 279, "label": "ウソ4:年の差婚?"},
+    {"start_sec": 370, "label": "ウソ5:逃げ道?"},
+    {"start_sec": 472, "label": "言えないこと"},
+    {"start_sec": 510, "label": "結論:半分当たり"}
+  ],
+  "surprise_sec": 230,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 5, "chart": 50, "text_only": 36, "ai_or_photo": 0, "other": 9},
+  "policy_flags": ["対立あおり"],
+  "narration_style": "1人ナレーション",
+  "originality": "独自の分析・シミュレーションあり",
+  "script_flags": [],
+  "visual_flags": ["静止画が長い"],
+  "why": "専門的な統計考察で情報量が多く、感情に刺さる訴求や争点の強調が弱いため伸び悩んだと推測"
+}

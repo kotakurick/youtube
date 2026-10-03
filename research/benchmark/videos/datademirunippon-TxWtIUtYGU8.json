@@ -1,0 +1,32 @@
+{
+  "id": "TxWtIUtYGU8",
+  "channel": "datademirunippon",
+  "question": "恋人がいないのに交際を望まないのはなぜか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "3人に1人望まない数字と恋愛app放置の場面描写",
+  "first_chart_sec": 60,
+  "n_sources": 2,
+  "source_kinds": ["公的統計"],
+  "chart_types": ["数字の強調", "図解", "円"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "恋愛が嫌いとは限らない"},
+    {"start_sec": 61, "label": "「いない」と「ほしい」の間"},
+    {"start_sec": 118, "label": "面倒なのに、価値はある"},
+    {"start_sec": 202, "label": "出会いがない、だけでない"},
+    {"start_sec": 298, "label": "「いつか」と「今週」は別"},
+    {"start_sec": 376, "label": "責める前に重さを分ける"},
+    {"start_sec": 443, "label": "閉じた理由が少し見える"}
+  ],
+  "surprise_sec": 125,
+  "ending_type": "登録の呼びかけ",
+  "visual_mix": {"stick_figure": 55, "chart": 15, "text_only": 5, "ai_or_photo": 20, "other": 5},
+  "policy_flags": ["助言"],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["同じ話の繰り返し"],
+  "visual_flags": ["静止画が長い", "同じ絵の使い回し"],
+  "why": "投稿直後で再生数はまだ少ない。公的統計は豊富だが地味な語り口と抑えた結論で拡散を呼ぶ驚きや感情の起伏が弱い"
+}

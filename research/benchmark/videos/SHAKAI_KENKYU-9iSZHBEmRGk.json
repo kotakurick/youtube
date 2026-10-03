@@ -1,0 +1,33 @@
+{
+  "id": "9iSZHBEmRGk",
+  "channel": "SHAKAI_KENKYU",
+  "question": "男性が女性に奢らなくなったら日本はどうなるか",
+  "topic": "恋愛・結婚",
+  "title_type": "断言型",
+  "hook_type": "問いかけ",
+  "hook_summary": "奢り奢られ論争を紹介し、奢らない日本を問いかける",
+  "first_chart_sec": 120,
+  "n_sources": 1,
+  "source_kinds": ["公的統計"],
+  "chart_types": ["数字の強調", "折れ線", "表"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "奢り奢られ論争紹介"},
+    {"start_sec": 90, "label": "女性から誘う恋愛に"},
+    {"start_sec": 120, "label": "未婚男性の実態データ"},
+    {"start_sec": 150, "label": "一人消費が拡大"},
+    {"start_sec": 300, "label": "女性の社会進出"},
+    {"start_sec": 420, "label": "少子化と経済衰退"},
+    {"start_sec": 510, "label": "趣味市場等のメリット"},
+    {"start_sec": 630, "label": "結論と教訓"}
+  ],
+  "surprise_sec": 120,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 0, "chart": 15, "text_only": 5, "ai_or_photo": 70, "other": 10},
+  "policy_flags": ["対立あおり", "断定しすぎ", "ショック系"],
+  "narration_style": "1人ナレーション",
+  "originality": "独自の分析・シミュレーションあり",
+  "script_flags": ["数字が少ない"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "奢り論争は使い古されたテーマで目新しさが薄く、根拠も1統計のみで説得力が弱い"
+}

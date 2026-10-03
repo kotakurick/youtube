@@ -1,0 +1,33 @@
+{
+  "id": "wfKRLb15404",
+  "channel": "eevvzzz",
+  "question": "なぜ恋愛経験ゼロの男性が2人に1人に増えたのか",
+  "topic": "恋愛・結婚",
+  "title_type": "数字型",
+  "hook_type": "意外な数字",
+  "hook_summary": "交際経験ゼロ46%を示し矛盾を提示する",
+  "first_chart_sec": 20,
+  "n_sources": 11,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "常時",
+  "sections": [
+    {"start_sec": 0, "label": "2人に1人の矛盾"},
+    {"start_sec": 148, "label": "消えた層"},
+    {"start_sec": 333, "label": "順番が回ってきた時代"},
+    {"start_sec": 564, "label": "出会いは市場になった"},
+    {"start_sec": 906, "label": "日本の3つの手がかり"},
+    {"start_sec": 1146, "label": "時間は解決しない"},
+    {"start_sec": 1303, "label": "この数字で言えないこと"},
+    {"start_sec": 1382, "label": "勝ち取るものへ"}
+  ],
+  "surprise_sec": 90,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 0, "chart": 50, "text_only": 40, "ai_or_photo": 0, "other": 10},
+  "policy_flags": ["対立あおり"],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["同じ話の繰り返し"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "内容は精緻だが硬く専門的で、画面演出も同じテンプレの繰り返し。感情訴求が弱く新規層に刺さらなかった可能性。"
+}

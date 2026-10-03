@@ -1,0 +1,33 @@
+{
+  "id": "2Q5rzC89_Sw",
+  "channel": "datademirunippon",
+  "question": "転職後の給料が上がるのは何歳まで",
+  "topic": "仕事・キャリア",
+  "title_type": "問いかけ型",
+  "hook_type": "物語",
+  "hook_summary": "主人公が転職求人を前に悩む場面から始まる",
+  "first_chart_sec": 22,
+  "n_sources": 1,
+  "source_kinds": ["公的統計"],
+  "chart_types": ["数字の強調", "図解"],
+  "source_on_screen": "常時",
+  "sections": [
+    {"start_sec": 0, "label": "転職後給料はいつまで上昇"},
+    {"start_sec": 68, "label": "2025年の年齢別逆転"},
+    {"start_sec": 143, "label": "前年は逆転なし"},
+    {"start_sec": 192, "label": "他年代の動き比較"},
+    {"start_sec": 265, "label": "年齢だけが原因でない"},
+    {"start_sec": 315, "label": "全体の40.8%の意味"},
+    {"start_sec": 379, "label": "転職への統計の使い方"},
+    {"start_sec": 434, "label": "分かれ目は期限でない"}
+  ],
+  "surprise_sec": 92,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 45, "chart": 30, "text_only": 5, "ai_or_photo": 20, "other": 0},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["同じ話の繰り返し"],
+  "visual_flags": [],
+  "why": "統計の年齢階級比較という専門的で地味な切り口のため、感情を動かす要素が薄く拡散しなかったと考えられる"
+}

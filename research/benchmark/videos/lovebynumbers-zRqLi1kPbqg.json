@@ -1,26 +1,30 @@
 {
   "id": "zRqLi1kPbqg",
   "channel": "lovebynumbers",
-  "question": "なぜ男女の友情は成立しないのか",
+  "question": "男女の友情はなぜ成立しないのか",
   "topic": "恋愛・結婚",
   "title_type": "なぜ型",
   "hook_type": "物語",
-  "hook_summary": "過冷却水の実験映像から友情の比喩へ導入",
-  "first_chart_sec": 50,
+  "hook_summary": "過冷却水の比喩で友情の脆さを提示",
+  "first_chart_sec": 65,
   "n_sources": 6,
   "source_kinds": ["論文"],
-  "chart_types": ["図解"],
+  "chart_types": ["折れ線", "図解"],
   "source_on_screen": "要所",
   "sections": [
-    {"start_sec": 0, "label": "過冷却の比喩"},
-    {"start_sec": 214, "label": "男の可能性と無害化"},
+    {"start_sec": 0, "label": "過冷却水の比喩"},
+    {"start_sec": 214, "label": "男の下心と女の無害化"},
     {"start_sec": 460, "label": "肉体関係の不可逆性"},
-    {"start_sec": 700, "label": "窓と壁の理論"},
-    {"start_sec": 925, "label": "性の引力は生の証"}
+    {"start_sec": 700, "label": "不貞と窓と壁理論"},
+    {"start_sec": 925, "label": "性の引力という結論"}
   ],
   "surprise_sec": 750,
   "ending_type": "教訓",
-  "visual_mix": {"stick_figure": 50, "chart": 20, "text_only": 5, "ai_or_photo": 0, "other": 25},
-  "policy_flags": ["断定しすぎ", "対立あおり"],
-  "why": "過冷却の比喩と禁忌的な断定題で好奇心を煽るが、長尺の心理学解説で視聴維持が難しく再生数は伸び悩んだと推測"
+  "visual_mix": {"stick_figure": 60, "chart": 15, "text_only": 15, "ai_or_photo": 0, "other": 10},
+  "policy_flags": ["断定しすぎ", "対立あおり", "性別の見下し"],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["前置きが長い", "同じ話の繰り返し", "数字が少ない"],
+  "visual_flags": ["静止画が長い"],
+  "why": "なぜ型の挑発的タイトルと過冷却現象の比喩導入が好奇心を刺激し、恋愛心理学ネタで最後まで視聴を維持したと考えられる。"
 }

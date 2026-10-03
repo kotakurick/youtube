@@ -1,0 +1,33 @@
+{
+  "id": "VE_d8J0Ykoc",
+  "channel": "SHAKAI_KENKYU",
+  "question": "バブル崩壊が無かったら日本はどうなったか",
+  "topic": "お金・格差",
+  "title_type": "検証型",
+  "hook_type": "問いかけ",
+  "hook_summary": "バブル崩壊の経緯を振り返り「もしも」を問いかける",
+  "first_chart_sec": 75,
+  "n_sources": 0,
+  "source_kinds": ["独自シミュレーション"],
+  "chart_types": ["折れ線", "数字の強調", "図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "問いかけ・導入"},
+    {"start_sec": 30, "label": "バブル経済の説明"},
+    {"start_sec": 90, "label": "シミュレーション設定"},
+    {"start_sec": 150, "label": "もう一つの東京"},
+    {"start_sec": 210, "label": "給与・物価の体験"},
+    {"start_sec": 330, "label": "国際競争・日中関係"},
+    {"start_sec": 390, "label": "家庭・住宅・子育て"},
+    {"start_sec": 540, "label": "格差とまとめ"}
+  ],
+  "surprise_sec": 270,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 0, "chart": 10, "text_only": 15, "ai_or_photo": 70, "other": 5},
+  "policy_flags": ["断定しすぎ"],
+  "narration_style": "1人ナレーション",
+  "originality": "独自の分析・シミュレーションあり",
+  "script_flags": ["話が散らかる"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "「もしも」設定と具体的な年収・物価の数字提示で好奇心を刺激し、バブル世代の関心も引いたため"
+}

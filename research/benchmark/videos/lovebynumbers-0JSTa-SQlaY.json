@@ -1,26 +1,30 @@
 {
   "id": "0JSTa-SQlaY",
   "channel": "lovebynumbers",
-  "question": "ヤンキーがいつの時代もモテるのはなぜか",
+  "question": "なぜヤンキーは真面目な男よりモテるのか",
   "topic": "恋愛・結婚",
   "title_type": "なぜ型",
   "hook_type": "物語",
-  "hook_summary": "セコイアと山火事の逆説を語る自然科学の寓話から始める",
+  "hook_summary": "セコイアの山火事パラドックスの寓話",
   "first_chart_sec": null,
   "n_sources": 2,
   "source_kinds": ["論文"],
   "chart_types": ["図解"],
   "source_on_screen": "なし",
   "sections": [
-    {"start_sec": 0, "label": "序章：セコイアと山火事"},
-    {"start_sec": 262, "label": "第1章：チープシグナル"},
-    {"start_sec": 535, "label": "第2章：境界の破壊と投資"},
-    {"start_sec": 754, "label": "第3章：社会の窒息"},
-    {"start_sec": 970, "label": "終章：傷つく覚悟"}
+    {"start_sec": 0, "label": "セコイアと山火事の逆説"},
+    {"start_sec": 262, "label": "チープシグナルと偽造不可能性"},
+    {"start_sec": 535, "label": "境界の破壊と不可逆投資"},
+    {"start_sec": 754, "label": "完全消火社会の窒息"},
+    {"start_sec": 970, "label": "傷つく覚悟という野生"}
   ],
-  "surprise_sec": 600,
+  "surprise_sec": 90,
   "ending_type": "視聴者への問いかけ",
-  "visual_mix": {"stick_figure": 45, "chart": 15, "text_only": 10, "ai_or_photo": 0, "other": 30},
+  "visual_mix": {"stick_figure": 55, "chart": 5, "text_only": 20, "ai_or_photo": 0, "other": 20},
   "policy_flags": ["断定しすぎ"],
-  "why": "挑発的な問いと寓話・比喩で引き込むが統計的根拠はなく理論の語りのみで説得力は中程度に留まる"
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["前置きが長い", "数字が少ない"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "セコイアの寓話とハンディキャップ理論を使った知的な比喩構成は魅力だが、本編に入るまでの前置きが4分半と長く、統計データもほぼ無いため離脱しやすい構造。"
 }

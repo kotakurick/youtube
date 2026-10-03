@@ -1,0 +1,33 @@
+{
+  "id": "7vD75kdyc0c",
+  "channel": "エモサピエンスの進化論",
+  "question": "人生を最適化すると、なぜつまらなくなるのか",
+  "topic": "幸福・心理",
+  "title_type": "問いかけ型",
+  "hook_type": "物語",
+  "hook_summary": "ブライアン・ジョンソンの体の極端な最適化計画の逸話",
+  "first_chart_sec": 5,
+  "n_sources": 11,
+  "source_kinds": ["論文"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "最適化の極端な実例"},
+    {"start_sec": 150, "label": "自己計測ブームの起源"},
+    {"start_sec": 270, "label": "マキシマイザーの不満"},
+    {"start_sec": 330, "label": "ジャムの選択実験"},
+    {"start_sec": 390, "label": "記録が楽しみを奪う"},
+    {"start_sec": 510, "label": "ドーパミンと予測誤差"},
+    {"start_sec": 570, "label": "探索と活用の進化論"},
+    {"start_sec": 720, "label": "法則と余白の結論"}
+  ],
+  "surprise_sec": 345,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 40, "chart": 15, "text_only": 20, "ai_or_photo": 0, "other": 25},
+  "policy_flags": ["断定しすぎ"],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": ["静止画が長い", "同じ絵の使い回し"],
+  "why": "内容は骨太だが地味な演出と使い回しの絵作りで目を引けず、視聴回数が伸びなかったと考えられる"
+}

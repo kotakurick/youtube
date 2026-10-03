@@ -1,0 +1,32 @@
+{
+  "id": "0_Ib3vhtGj8",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ神童は大人になると消えるのか",
+  "topic": "教育・子ども",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "町の神童が進学後に埋もれる現象を提示",
+  "first_chart_sec": 60,
+  "n_sources": 6,
+  "source_kinds": ["論文", "その他"],
+  "chart_types": ["数字の強調", "図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "井の中の鼠"},
+    {"start_sec": 118, "label": "才能という相対地位"},
+    {"start_sec": 291, "label": "深海魚の病"},
+    {"start_sec": 466, "label": "一番しかいない部屋"},
+    {"start_sec": 704, "label": "偏差値という人工島"},
+    {"start_sec": 931, "label": "ローカルドミナンス効果"},
+    {"start_sec": 1174, "label": "28人の島の囚人"}
+  ],
+  "surprise_sec": 960,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 40, "chart": 5, "text_only": 25, "ai_or_photo": 0, "other": 30},
+  "policy_flags": ["断定しすぎ"],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["同じ話の繰り返し"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "生物学の比喩と複数研究を束ねた構成力、意外な心理実験の提示、最後の価値観反転が視聴維持と共感を生んだと考えられる。"
+}

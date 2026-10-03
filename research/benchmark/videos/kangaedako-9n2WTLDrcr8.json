@@ -1,0 +1,32 @@
+{
+  "id": "9n2WTLDrcr8",
+  "channel": "kangaedako",
+  "question": "女は上位2割の男しか見ないは本当か",
+  "topic": "恋愛・結婚",
+  "title_type": "検証型",
+  "hook_type": "物語",
+  "hook_summary": "いいねを押す29歳男性と絞る31歳女性の対比を描写",
+  "first_chart_sec": 15,
+  "n_sources": 10,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "Intro：すれ違う2人"},
+    {"start_sec": 127, "label": "上位2割の元記事を読む"},
+    {"start_sec": 267, "label": "押す男と絞る女"},
+    {"start_sec": 563, "label": "女性は上を見ないのか"},
+    {"start_sec": 803, "label": "選べないのは多すぎか"},
+    {"start_sec": 1017, "label": "日本ではどうなのか"},
+    {"start_sec": 1212, "label": "Ending"}
+  ],
+  "surprise_sec": 210,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 0, "chart": 25, "text_only": 50, "ai_or_photo": 0, "other": 25},
+  "policy_flags": ["対立あおり"],
+  "narration_style": "キャラの掛け合い",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": ["静止画が長い", "同じ絵の使い回し"],
+  "why": "統計の検証は丁寧だが絵が単調で展開も淡々とし、再生が伸び悩んだと見られる"
+}

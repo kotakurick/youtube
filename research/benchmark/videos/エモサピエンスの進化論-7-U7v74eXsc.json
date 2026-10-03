@@ -1,0 +1,33 @@
+{
+  "id": "7-U7v74eXsc",
+  "channel": "エモサピエンスの進化論",
+  "question": "人は一生でいくら税金を払うのか？",
+  "topic": "お金・格差",
+  "title_type": "問いかけ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "年収の壁引き上げと防衛増税のニュースを紹介",
+  "first_chart_sec": 60,
+  "n_sources": 5,
+  "source_kinds": ["公的統計", "独自シミュレーション", "論文"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "増税ニュースの導入"},
+    {"start_sec": 120, "label": "国民負担率45.7%"},
+    {"start_sec": 180, "label": "生涯賃金2.7億円"},
+    {"start_sec": 210, "label": "所得税住民税は1割"},
+    {"start_sec": 240, "label": "社会保険料を追加"},
+    {"start_sec": 270, "label": "消費税タバコ等も追加"},
+    {"start_sec": 390, "label": "総額8000万~1億円"},
+    {"start_sec": 390, "label": "税の起源は人類史"}
+  ],
+  "surprise_sec": 390,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 10, "chart": 25, "text_only": 45, "ai_or_photo": 0, "other": 20},
+  "policy_flags": ["断定しすぎ"],
+  "narration_style": "1人ナレーション",
+  "originality": "独自の分析・シミュレーションあり",
+  "script_flags": ["前置きが長い"],
+  "visual_flags": ["静止画が長い"],
+  "why": "前置きの政治ニュースが長く本題に入るのが遅い上、タイトルも地味で視聴者を引き込めなかったため伸びなかったと考えられる"
+}

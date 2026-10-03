@@ -1,0 +1,33 @@
+{
+  "id": "_uEuxwqp1H8",
+  "channel": "檻の中の自由",
+  "question": "人はなぜ推しにお金を使い続けるのか",
+  "topic": "幸福・心理",
+  "title_type": "断言型",
+  "hook_type": "身近な場面",
+  "hook_summary": "他人の推し活を即断する自分の矛盾を提示",
+  "first_chart_sec": 30,
+  "n_sources": 11,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["図解", "数字の強調", "散布図"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "他人の推し活への断定"},
+    {"start_sec": 29, "label": "市場規模4.1兆円の数字"},
+    {"start_sec": 107, "label": "第1章 知り合いと思う脳"},
+    {"start_sec": 315, "label": "第2章 当たるかもの時間"},
+    {"start_sec": 472, "label": "第3章 栄光の反射"},
+    {"start_sec": 625, "label": "第4章 払うほど縛られる"},
+    {"start_sec": 778, "label": "第5章 操られているのか"},
+    {"start_sec": 929, "label": "終章 何を買っているのか"}
+  ],
+  "surprise_sec": 800,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 45, "chart": 10, "text_only": 15, "ai_or_photo": 0, "other": 30},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["前置きが長い"],
+  "visual_flags": [],
+  "why": "専門的な行動経済学の切り口でタイトルも硬めなため新規流入が弱かったと見られる"
+}

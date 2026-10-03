@@ -1,0 +1,33 @@
+{
+  "id": "q8mI1ARKlBM",
+  "channel": "edamamestory",
+  "question": "50代で頑張るのをやめた人に何が起きるか",
+  "topic": "仕事・キャリア",
+  "title_type": "数字型",
+  "hook_type": "物語",
+  "hook_summary": "新ツールに張り切る53歳ずんだもんの日常コント",
+  "first_chart_sec": null,
+  "n_sources": 5,
+  "source_kinds": ["公的統計", "民間調査", "論文"],
+  "chart_types": ["図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "張り切るずんだもん"},
+    {"start_sec": 90, "label": "残業と休めない疲労"},
+    {"start_sec": 150, "label": "健診で要注意判定"},
+    {"start_sec": 180, "label": "余裕ある同期と遭遇"},
+    {"start_sec": 240, "label": "頑張るのをやめるとは"},
+    {"start_sec": 330, "label": "5つの無理な頑張り"},
+    {"start_sec": 450, "label": "やめた後の6つの変化"},
+    {"start_sec": 720, "label": "実践と半年後のまとめ"}
+  ],
+  "surprise_sec": 690,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 5, "chart": 0, "text_only": 5, "ai_or_photo": 15, "other": 75},
+  "policy_flags": ["助言"],
+  "narration_style": "キャラの掛け合い",
+  "originality": "既存の知見の整理",
+  "script_flags": ["前置きが長い"],
+  "visual_flags": ["静止画が長い", "同じ絵の使い回し"],
+  "why": "導入コントが長く本題到達が遅いため離脱されやすく、再生数が伸びなかったと考えられる。"
+}

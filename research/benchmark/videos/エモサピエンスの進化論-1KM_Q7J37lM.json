@@ -1,0 +1,33 @@
+{
+  "id": "1KM_Q7J37lM",
+  "channel": "エモサピエンスの進化論",
+  "question": "なぜ賢い人ほどAIにイライラしてしまうのか",
+  "topic": "仕事・キャリア",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "2025年MIT実験でAI使用の開発者が19%遅くなった結果を提示",
+  "first_chart_sec": 0,
+  "n_sources": 8,
+  "source_kinds": ["論文"],
+  "chart_types": ["折れ線", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "AIで開発者が遅くなった実験"},
+    {"start_sec": 90, "label": "なぜ賢い人ほど苛立つのか"},
+    {"start_sec": 150, "label": "アルゴリズム嫌悪の実験"},
+    {"start_sec": 210, "label": "専門家ほどAIの助言を拒む"},
+    {"start_sec": 270, "label": "知識の呪いという心理"},
+    {"start_sec": 330, "label": "ギザギザの技術的フロンティア"},
+    {"start_sec": 420, "label": "脳の物差しと苛立ちの正体"},
+    {"start_sec": 570, "label": "苛立ちを武器に変える結論"}
+  ],
+  "surprise_sec": 30,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 55, "chart": 20, "text_only": 5, "ai_or_photo": 0, "other": 20},
+  "policy_flags": ["断定しすぎ"],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["話が散らかる"],
+  "visual_flags": ["静止画が長い"],
+  "why": "賢い人×AIという身近な葛藤を複数の学術研究で裏付け、意外性と納得感を両立させた構成が視聴維持に寄与したと見られる"
+}

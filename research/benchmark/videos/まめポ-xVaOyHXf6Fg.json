@@ -1,0 +1,33 @@
+{
+  "id": "xVaOyHXf6Fg",
+  "channel": "まめポ",
+  "question": "タクシー運転手は本当に稼げる仕事なのか",
+  "topic": "仕事・キャリア",
+  "title_type": "断言型",
+  "hook_type": "物語",
+  "hook_summary": "客に撮影され脅される場面から始まる",
+  "first_chart_sec": 45,
+  "n_sources": 6,
+  "source_kinds": ["公的統計", "その他"],
+  "chart_types": ["数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "客に脅される導入"},
+    {"start_sec": 40, "label": "タクシー年収データ"},
+    {"start_sec": 70, "label": "説明会で条件説明"},
+    {"start_sec": 180, "label": "班長同乗の研修"},
+    {"start_sec": 300, "label": "独り立ちし好調"},
+    {"start_sec": 480, "label": "休憩取れず疲労"},
+    {"start_sec": 660, "label": "保証終了とカスハラ"},
+    {"start_sec": 900, "label": "事故後の転機と継続"}
+  ],
+  "surprise_sec": 810,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 0, "chart": 5, "text_only": 10, "ai_or_photo": 0, "other": 85},
+  "policy_flags": ["ショック系"],
+  "narration_style": "キャラの掛け合い",
+  "originality": "既存の知見の整理",
+  "script_flags": ["数字が少ない"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "実話風ドラマで感情移入させ、過酷な体験と最後の感動エピソードで共感を呼んだため"
+}

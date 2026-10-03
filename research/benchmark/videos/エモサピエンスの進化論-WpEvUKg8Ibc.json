@@ -1,0 +1,33 @@
+{
+  "id": "WpEvUKg8Ibc",
+  "channel": "エモサピエンスの進化論",
+  "question": "なぜ人生が退屈な人ほど忙しいのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "電気ショック実験、15分の孤独に耐えられない人々を紹介",
+  "first_chart_sec": 25,
+  "n_sources": 7,
+  "source_kinds": ["論文"],
+  "chart_types": ["数字の強調", "円", "棒", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "電気ショック実験"},
+    {"start_sec": 90, "label": "忙しいのに退屈の謎"},
+    {"start_sec": 120, "label": "ケインズの予言"},
+    {"start_sec": 210, "label": "チョコレート実験"},
+    {"start_sec": 270, "label": "忙しさは地位の証"},
+    {"start_sec": 300, "label": "パスカルの洞察"},
+    {"start_sec": 360, "label": "退屈=警報の仮説"},
+    {"start_sec": 600, "label": "ニュートンの余白"}
+  ],
+  "surprise_sec": 270,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 55, "chart": 20, "text_only": 15, "ai_or_photo": 0, "other": 10},
+  "policy_flags": ["断定しすぎ"],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "複数の有名研究を物語的に積み上げる王道構成だが、11分超と長尺でサムネ外の伸びは弱く再生数は低調"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "lxuPYdaGJtM",
+  "channel": "知られざる令和の世界",
+  "question": "35歳過ぎの未婚男性はその後結婚しているのか",
+  "topic": "恋愛・結婚",
+  "title_type": "問いかけ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "同窓会で結婚の話題に誰も触れない場面を描く",
+  "first_chart_sec": 30,
+  "n_sources": 3,
+  "source_kinds": ["公的統計", "独自シミュレーション"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "同窓会のテーブル"},
+    {"start_sec": 79, "label": "未婚男性はどれだけ増えたか"},
+    {"start_sec": 188, "label": "その後結婚しているか"},
+    {"start_sec": 283, "label": "なぜ35歳で減るのか"},
+    {"start_sec": 432, "label": "昔は結婚できたのか"},
+    {"start_sec": 565, "label": "結び"}
+  ],
+  "surprise_sec": 500,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 25, "chart": 50, "text_only": 20, "ai_or_photo": 0, "other": 5},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "独自の分析・シミュレーションあり",
+  "script_flags": [],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "公的統計を丁寧に積み上げ構成も明快だが、公開直後で再生数がまだ少なく伸びは未知数"
+}

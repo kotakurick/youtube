@@ -1,0 +1,31 @@
+{
+  "id": "SBoHl_AwNIA",
+  "channel": "eevvzzz",
+  "question": "YouTubeはなぜ19年も抜け道を潰し続けたのか",
+  "topic": "社会・ネット",
+  "title_type": "数字型",
+  "hook_type": "意外な数字",
+  "hook_summary": "動画投稿だけで月100万円稼げた時代の紹介",
+  "first_chart_sec": 330,
+  "n_sources": 1,
+  "source_kinds": ["その他"],
+  "chart_types": ["図解", "表", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "収益化の始まりと抜け道"},
+    {"start_sec": 106, "label": "文字動画とアドポカリプス"},
+    {"start_sec": 335, "label": "2019年ゆっくり解説剥奪"},
+    {"start_sec": 556, "label": "業者全盛とついに逮捕者"},
+    {"start_sec": 907, "label": "ショートとAI音楽の抜け道"},
+    {"start_sec": 1186, "label": "19年の結論とBAN祭り"}
+  ],
+  "surprise_sec": 900,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 70, "chart": 15, "text_only": 15, "ai_or_photo": 0, "other": 0},
+  "policy_flags": ["ショック系"],
+  "narration_style": "キャラの掛け合い",
+  "originality": "既存の知見の整理",
+  "script_flags": ["同じ話の繰り返し"],
+  "visual_flags": ["静止画が長い", "同じ絵の使い回し"],
+  "why": "ずんだもん1キャラの使い回しで単調になり、同じ抜け道→収益停止の反復構成が間延びして伸び悩んだとみられる。"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "-4VSgaKH83A",
+  "channel": "edamamestory",
+  "question": "50代から笑って暮らせる人の特徴とは何か",
+  "topic": "幸福・心理",
+  "title_type": "数字型",
+  "hook_type": "物語",
+  "hook_summary": "48歳ずんだもんが50代への不安を語り始める",
+  "first_chart_sec": null,
+  "n_sources": 0,
+  "source_kinds": [],
+  "chart_types": [],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "導入:48歳の悩み"},
+    {"start_sec": 60, "label": "出世する同期たち"},
+    {"start_sec": 220, "label": "5つの特徴を予告"},
+    {"start_sec": 240, "label": "①機嫌は自分でとる"},
+    {"start_sec": 480, "label": "②人間関係を絞る"},
+    {"start_sec": 540, "label": "③会社外の居場所"},
+    {"start_sec": 660, "label": "④今更より今から"},
+    {"start_sec": 840, "label": "⑤比較せず実践"}
+  ],
+  "surprise_sec": 165,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 90, "chart": 0, "text_only": 5, "ai_or_photo": 0, "other": 5},
+  "policy_flags": ["助言"],
+  "narration_style": "キャラの掛け合い",
+  "originality": "既存の知見の整理",
+  "script_flags": ["数字が少ない", "前置きが長い"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "統計ではなく身近な先輩の物語で共感を作り、5つの特徴という数字型タイトルで具体性を示した点が伸びた要因と推測"
+}

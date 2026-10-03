@@ -1,0 +1,32 @@
+{
+  "id": "GtACODHJ6M4",
+  "channel": "kangaesugiruashi",
+  "question": "なぜ月は肉眼で大きく、写真では小さく見えるのか",
+  "topic": "幸福・心理",
+  "title_type": "なぜ型",
+  "hook_type": "結論の先出し",
+  "hook_summary": "今夜の月は贋作だと宣言し、肉眼とスマホ写真の差を提示",
+  "first_chart_sec": 560,
+  "n_sources": 8,
+  "source_kinds": ["論文", "その他"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "贋作の十五夜"},
+    {"start_sec": 107, "label": "遠ざかるほど近づく月"},
+    {"start_sec": 318, "label": "ありのままという悪夢"},
+    {"start_sec": 507, "label": "不自然な真作"},
+    {"start_sec": 681, "label": "事実を名乗る罪"},
+    {"start_sec": 882, "label": "愛という名の空間歪曲"},
+    {"start_sec": 1060, "label": "月が綺麗ですね"}
+  ],
+  "surprise_sec": 240,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 55, "chart": 15, "text_only": 5, "ai_or_photo": 0, "other": 25},
+  "policy_flags": ["断定しすぎ"],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "身近な「月が小さく撮れる」あるあるから錯覚の心理学、絵画、AI炎上、恋愛論へと展開し、夏目漱石の逸話で締める構成の幅広さが伸びた要因と考えられる"
+}

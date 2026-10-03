@@ -1,0 +1,29 @@
+{
+  "id": "ssey6L4sa2M",
+  "channel": "汝ヒトを知れ",
+  "question": "なぜ結婚式にお金をかけた夫婦ほど別れやすいのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "架空の夫婦が指輪と式の予算を削り合う場面を描写",
+  "first_chart_sec": 82,
+  "n_sources": 3,
+  "source_kinds": ["論文"],
+  "chart_types": ["数字の強調", "図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "導入"},
+    {"start_sec": 92, "label": "第1章 給料3か月分"},
+    {"start_sec": 351, "label": "第2章 分割払いの夜"},
+    {"start_sec": 480, "label": "第3章 200人の証人"}
+  ],
+  "surprise_sec": 510,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 45, "chart": 10, "text_only": 25, "ai_or_photo": 0, "other": 20},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["前置きが長い"],
+  "visual_flags": ["静止画が長い", "同じ絵の使い回し"],
+  "why": "結婚式費用という関心の狭いテーマと地味なタイトルに加え、前置きや黒画面が長く序盤で離脱されやすかったと考えられる"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "luXxO-eZins",
+  "channel": "love_observation",
+  "question": "振られ続ける男はなぜ同じ失敗を繰り返すのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "大学生男性が告白に失敗した一日を再現する",
+  "first_chart_sec": 210,
+  "n_sources": 8,
+  "source_kinds": ["民間調査", "論文"],
+  "chart_types": ["数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "フック"},
+    {"start_sec": 147, "label": "告白の正体"},
+    {"start_sec": 294, "label": "リアルの場という罠"},
+    {"start_sec": 529, "label": "曖昧な反応の変換"},
+    {"start_sec": 706, "label": "試行回数を増やす罠"},
+    {"start_sec": 924, "label": "見るべきシグナル"},
+    {"start_sec": 1121, "label": "確信してから言う"}
+  ],
+  "surprise_sec": 540,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 55, "chart": 15, "text_only": 20, "ai_or_photo": 0, "other": 10},
+  "policy_flags": ["助言", "断定しすぎ"],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["同じ話の繰り返し"],
+  "visual_flags": ["静止画が長い", "同じ絵の使い回し"],
+  "why": "具体的な失敗エピソードと複数の調査データで告白の正体を解明し、悩める男性に刺さった"
+}

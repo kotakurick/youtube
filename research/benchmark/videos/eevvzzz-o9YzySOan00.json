@@ -1,0 +1,31 @@
+{
+  "id": "o9YzySOan00",
+  "channel": "eevvzzz",
+  "question": "追加4シーンはドゥームズデイにどうつながるか",
+  "topic": "その他",
+  "title_type": "断言型",
+  "hook_type": "結論の先出し",
+  "hook_summary": "ネタバレ注意と追加4シーンが1本で繋がると予告",
+  "first_chart_sec": null,
+  "n_sources": 0,
+  "source_kinds": [],
+  "chart_types": ["図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "イントロ"},
+    {"start_sec": 81, "label": "キャップを呼ぶ理由"},
+    {"start_sec": 415, "label": "バナー博士は？"},
+    {"start_sec": 665, "label": "ハンマーのシーンとは？"},
+    {"start_sec": 782, "label": "ドゥームズデイはどうなる？"},
+    {"start_sec": 856, "label": "エンドクレジット後のボーナス"}
+  ],
+  "surprise_sec": 671,
+  "ending_type": "次回予告",
+  "visual_mix": {"stick_figure": 0, "chart": 60, "text_only": 40, "ai_or_photo": 0, "other": 0},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["前置きが長い", "数字が少ない"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "ニッチなMCUネタバレ考察で対象層が狭く、前置きも長いため低視聴に留まったと考えられる"
+}

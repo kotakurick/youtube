@@ -1,0 +1,33 @@
+{
+  "id": "IXRKJls5pb8",
+  "channel": "toshiusagi",
+  "question": "米国株はなぜ下がった?過剰反応なのか",
+  "topic": "お金・格差",
+  "title_type": "断言型",
+  "hook_type": "身近な場面",
+  "hook_summary": "桃うさぎの株がまた下落し会話で愚痴る",
+  "first_chart_sec": 50,
+  "n_sources": 6,
+  "source_kinds": ["公的統計", "民間調査", "独自シミュレーション"],
+  "chart_types": ["表", "折れ線", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "米国株下落の実況"},
+    {"start_sec": 45, "label": "4指数と下落銘柄"},
+    {"start_sec": 155, "label": "下落要因3つ提示"},
+    {"start_sec": 180, "label": "原油とイラン情勢"},
+    {"start_sec": 245, "label": "長期金利と住宅ローン"},
+    {"start_sec": 365, "label": "OpenAI訓練停止"},
+    {"start_sec": 455, "label": "今後の見通し"},
+    {"start_sec": 635, "label": "まとめ"}
+  ],
+  "surprise_sec": 480,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 55, "chart": 30, "text_only": 10, "ai_or_photo": 5, "other": 0},
+  "policy_flags": ["断定しすぎ"],
+  "narration_style": "キャラの掛け合い",
+  "originality": "既存の知見の整理",
+  "script_flags": ["同じ話の繰り返し"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "下落不安という検索ニーズに即応し3つの理由で整理、キャラ掛け合いで分かりやすく見やすい"
+}

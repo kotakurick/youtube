@@ -1,0 +1,33 @@
+{
+  "id": "tx0YsBaT0vw",
+  "channel": "SHAKAI_KENKYU",
+  "question": "共産主義になったら日本はどうなるか",
+  "topic": "お金・格差",
+  "title_type": "検証型",
+  "hook_type": "問いかけ",
+  "hook_summary": "共産主義への偏見に疑問を呈し設定を提示",
+  "first_chart_sec": 240,
+  "n_sources": 0,
+  "source_kinds": [],
+  "chart_types": ["数字の強調"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "導入・問題提起"},
+    {"start_sec": 30, "label": "共産主義日本の設定"},
+    {"start_sec": 60, "label": "住宅・暮らし"},
+    {"start_sec": 150, "label": "働き方・雇用保障"},
+    {"start_sec": 330, "label": "企業と政府の癒着"},
+    {"start_sec": 480, "label": "経済停滞・GDP低下"},
+    {"start_sec": 660, "label": "教育と格差是正"},
+    {"start_sec": 780, "label": "物価・まとめ"}
+  ],
+  "surprise_sec": 210,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 0, "chart": 5, "text_only": 0, "ai_or_photo": 85, "other": 10},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["数字が少ない"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "「共産主義シミュレーション」という切り口は目新しいが、具体的な統計根拠が乏しく説得力が弱まった可能性がある"
+}

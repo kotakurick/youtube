@@ -1,0 +1,32 @@
+{
+  "id": "WHKdfGvjrmo",
+  "channel": "love_observation",
+  "question": "なぜ男は「たのピク女」を求めるのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "深夜電車で男が『たのピク』絵を見る場面",
+  "first_chart_sec": 120,
+  "n_sources": 14,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "フック"},
+    {"start_sec": 131, "label": "有能さでは選ばれない"},
+    {"start_sec": 303, "label": "笑顔が語る安心の信号"},
+    {"start_sec": 474, "label": "恋人の目と同僚の目"},
+    {"start_sec": 631, "label": "人気が生む同性の競争"},
+    {"start_sec": 800, "label": "たぬき顔とあざとい"},
+    {"start_sec": 973, "label": "努力と恋は一致しない"}
+  ],
+  "surprise_sec": 220,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 75, "chart": 0, "text_only": 15, "ai_or_photo": 0, "other": 10},
+  "policy_flags": ["対立あおり"],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "SNSで炎上した身近なネタと進化心理学・研究データを組み合わせ、男女双方が共感しつつ賛否を呼ぶ構成が拡散を後押しした"
+}

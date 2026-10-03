@@ -1,0 +1,29 @@
+{
+  "id": "JNZEo58-15s",
+  "channel": "汝ヒトを知れ",
+  "question": "なぜいい人ほど都合よく使われるのか",
+  "topic": "仕事・キャリア",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "金曜夜、頼まれ事を断れない会社員の場面描写",
+  "first_chart_sec": 420,
+  "n_sources": 11,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["図解", "数字の強調", "棒"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "導入"},
+    {"start_sec": 95, "label": "君なら早いから"},
+    {"start_sec": 294, "label": "やりがいの代金"},
+    {"start_sec": 461, "label": "自分の線"}
+  ],
+  "surprise_sec": 470,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 55, "chart": 10, "text_only": 20, "ai_or_photo": 0, "other": 15},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["前置きが長い"],
+  "visual_flags": ["静止画が長い"],
+  "why": "再生数が伸びないのは、物語調の前置きが長く結論やフックの鮮度が序盤で伝わりにくいため"
+}

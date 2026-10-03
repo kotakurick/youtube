@@ -1,0 +1,31 @@
+{
+  "id": "nF30CjIE0GY",
+  "channel": "知られざる令和の世界",
+  "question": "なぜウェブ会議なのに会議ばかりの日になるのか",
+  "topic": "仕事・キャリア",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "会議だらけの予定表で1日が終わる課長の朝を描く",
+  "first_chart_sec": 45,
+  "n_sources": 7,
+  "source_kinds": ["公的統計", "民間調査", "論文"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "導入：月曜の朝"},
+    {"start_sec": 84, "label": "本当に会議は増えたか"},
+    {"start_sec": 166, "label": "昔の会議の開き方"},
+    {"start_sec": 237, "label": "石炭の話との関係"},
+    {"start_sec": 326, "label": "会議で消えたもの"},
+    {"start_sec": 396, "label": "結び"}
+  ],
+  "surprise_sec": 125,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 20, "chart": 66, "text_only": 7, "ai_or_photo": 0, "other": 7},
+  "policy_flags": ["断定しすぎ"],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "再生数が極端に少なく伸びていない。テーマが地味で検索ニーズが弱く、経営学×経済学という切り口も硬いためクリックされにくいと考えられる。"
+}

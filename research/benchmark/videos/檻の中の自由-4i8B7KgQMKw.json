@@ -1,0 +1,33 @@
+{
+  "id": "4i8B7KgQMKw",
+  "channel": "檻の中の自由",
+  "question": "幼なじみに恋が生まれにくいのはなぜか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "負けヒロインの法則と幼なじみ婚1.3%の数字で問いを提示",
+  "first_chart_sec": 282,
+  "n_sources": 9,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["表", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "幼なじみはなぜ選ばれない"},
+    {"start_sec": 73, "label": "ウェスターマーク効果とは"},
+    {"start_sec": 104, "label": "第1章 遺伝子の穴"},
+    {"start_sec": 206, "label": "第2章 家族を見分ける装置"},
+    {"start_sec": 315, "label": "第3章 フロイトとの論争"},
+    {"start_sec": 514, "label": "第4章 設計の粗さ"},
+    {"start_sec": 701, "label": "第5章 台湾の記録"},
+    {"start_sec": 897, "label": "終章 物語の中の幼なじみ"}
+  ],
+  "surprise_sec": 447,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 40, "chart": 20, "text_only": 30, "ai_or_photo": 0, "other": 10},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": [],
+  "why": "身近な「幼なじみ」テーマを複数の学術研究で裏付け意外性もあるが、小規模チャンネルゆえ伸びなかったとみられる"
+}

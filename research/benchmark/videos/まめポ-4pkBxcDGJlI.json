@@ -1,0 +1,33 @@
+{
+  "id": "4pkBxcDGJlI",
+  "channel": "まめポ",
+  "question": "なぜコロナ後もサウナ利用者は戻らなかったのか",
+  "topic": "時間・生活",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "店主の独白で客が減った違和感を語る",
+  "first_chart_sec": 30,
+  "n_sources": 5,
+  "source_kinds": ["民間調査"],
+  "chart_types": ["棒", "表", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "客が来ない違和感"},
+    {"start_sec": 30, "label": "利用者数の推移データ"},
+    {"start_sec": 60, "label": "サウナ誕生の歴史"},
+    {"start_sec": 150, "label": "スーパー銭湯で拡大"},
+    {"start_sec": 270, "label": "整うの誕生"},
+    {"start_sec": 420, "label": "2019年ブーム到来"},
+    {"start_sec": 600, "label": "コロナで休業"},
+    {"start_sec": 900, "label": "制限後も戻らぬ客"}
+  ],
+  "surprise_sec": 960,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 0, "chart": 10, "text_only": 15, "ai_or_photo": 0, "other": 75},
+  "policy_flags": [],
+  "narration_style": "キャラの掛け合い",
+  "originality": "既存の知見の整理",
+  "script_flags": ["同じ話の繰り返し"],
+  "visual_flags": ["文字が読みにくい", "同じ絵の使い回し"],
+  "why": "店主と客の日常描写に実際の統計を重ねる構成で、ブーム終焉への共感と納得感を両立させたため"
+}

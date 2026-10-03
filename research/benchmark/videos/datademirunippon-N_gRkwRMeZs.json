@@ -1,0 +1,33 @@
+{
+  "id": "N_gRkwRMeZs",
+  "channel": "datademirunippon",
+  "question": "マッチしたのに会えないのはなぜか",
+  "topic": "恋愛・結婚",
+  "title_type": "問いかけ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "いきなり数字を提示し、会えない男性の心情を描く",
+  "first_chart_sec": 0,
+  "n_sources": 5,
+  "source_kinds": ["民間調査"],
+  "chart_types": ["数字の強調", "図解"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "会えない導入"},
+    {"start_sec": 91, "label": "提案なしが最多"},
+    {"start_sec": 165, "label": "予定まで進む差"},
+    {"start_sec": 219, "label": "会う意思は見える"},
+    {"start_sec": 284, "label": "埋まらない不確実さ"},
+    {"start_sec": 339, "label": "平均20時間"},
+    {"start_sec": 407, "label": "慎重さと会いたさ"},
+    {"start_sec": 447, "label": "まとめ"}
+  ],
+  "surprise_sec": 283,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 30, "chart": 55, "text_only": 10, "ai_or_photo": 0, "other": 5},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["同じ話の繰り返し"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "数字は多いが新規の調査ではなく、同じ言い回しや絵の使い回しが続き新鮮味に欠けた可能性"
+}

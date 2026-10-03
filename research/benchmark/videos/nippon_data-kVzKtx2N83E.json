@@ -1,0 +1,33 @@
+{
+  "id": "kVzKtx2N83E",
+  "channel": "nippon_data",
+  "question": "「若い女性がいい」は男のわがままか",
+  "topic": "恋愛・結婚",
+  "title_type": "検証型",
+  "hook_type": "意外な数字",
+  "hook_summary": "男性の希望8.6歳差と実際13%の差を提示",
+  "first_chart_sec": 0,
+  "n_sources": 2,
+  "source_kinds": ["公的統計"],
+  "chart_types": ["棒", "折れ線", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "オープニング"},
+    {"start_sec": 53, "label": "答えが真っ二つに割れる"},
+    {"start_sec": 87, "label": "ウソ1 年の差婚は当然"},
+    {"start_sec": 144, "label": "ウソ2 年の差は不変"},
+    {"start_sec": 213, "label": "ウソ3 男だけの願望"},
+    {"start_sec": 274, "label": "ウソ4 女性は歓迎"},
+    {"start_sec": 350, "label": "ウソ5 40代でも結婚"},
+    {"start_sec": 487, "label": "結論 半分はわがまま"}
+  ],
+  "surprise_sec": 390,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 14, "chart": 48, "text_only": 24, "ai_or_photo": 5, "other": 9},
+  "policy_flags": ["対立あおり"],
+  "narration_style": "1人ナレーション",
+  "originality": "独自の分析・シミュレーションあり",
+  "script_flags": [],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "データ分析は丁寧だが再生数は伸び悩んだ。恋愛ネタでも数字中心で硬く、対立をあおる訴求力も弱かった可能性がある"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "Vdr9GFCNDhQ",
+  "channel": "eevvzzz",
+  "question": "本当に頭が良い人は何を考えているのか?",
+  "topic": "幸福・心理",
+  "title_type": "数字型",
+  "hook_type": "身近な場面",
+  "hook_summary": "会議室での反応差から思考の7段階を予告",
+  "first_chart_sec": 15,
+  "n_sources": 0,
+  "source_kinds": [],
+  "chart_types": ["図解", "数字の強調"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "7種の反応を予告"},
+    {"start_sec": 78, "label": "①反応的思考"},
+    {"start_sec": 167, "label": "③論理的思考"},
+    {"start_sec": 260, "label": "⑤自己意識的思考"},
+    {"start_sec": 331, "label": "⑥全体像の思考"},
+    {"start_sec": 377, "label": "⑦戦略的思考"},
+    {"start_sec": 605, "label": "最上段に住むな"},
+    {"start_sec": 744, "label": "各段のトレーニング"}
+  ],
+  "surprise_sec": 610,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 0, "chart": 0, "text_only": 55, "ai_or_photo": 0, "other": 45},
+  "policy_flags": ["助言", "断定しすぎ"],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["数字が少ない", "同じ話の繰り返し"],
+  "visual_flags": ["静止画が長い", "同じ絵の使い回し"],
+  "why": "具体的な統計がなく抽象的な自己啓発枠のため差別化が弱く、再生が伸びなかったと見られる"
+}

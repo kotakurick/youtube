@@ -1,0 +1,33 @@
+{
+  "id": "mpwFbnhrXKM",
+  "channel": "kangaedako",
+  "question": "なぜ好きだった相手に突然冷めてしまうのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "身近な場面",
+  "hook_summary": "27歳男女の実例で蛙化の夜を描写",
+  "first_chart_sec": 30,
+  "n_sources": 27,
+  "source_kinds": ["論文", "民間調査"],
+  "chart_types": ["数字の強調", "図解", "棒"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "冒頭:好きだよの夜"},
+    {"start_sec": 119, "label": "蛙化とは何か"},
+    {"start_sec": 239, "label": "冷めた側の心理"},
+    {"start_sec": 376, "label": "盛る心と追う心"},
+    {"start_sec": 518, "label": "小さな言動で冷める"},
+    {"start_sec": 645, "label": "冷める側の仕組み"},
+    {"start_sec": 834, "label": "価値で決まる割合"},
+    {"start_sec": 1020, "label": "直せることはあるか"}
+  ],
+  "surprise_sec": 840,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 40, "chart": 35, "text_only": 20, "ai_or_photo": 0, "other": 5},
+  "policy_flags": [],
+  "narration_style": "キャラの掛け合い",
+  "originality": "既存の知見の整理",
+  "script_flags": ["話が散らかる"],
+  "visual_flags": ["同じ絵の使い回し"],
+  "why": "蛙化を硬い研究の羅列で説明し情報過多、新規公開で再生がまだ伸びていない"
+}

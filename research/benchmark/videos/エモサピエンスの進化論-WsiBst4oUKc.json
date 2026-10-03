@@ -1,0 +1,33 @@
+{
+  "id": "WsiBst4oUKc",
+  "channel": "エモサピエンスの進化論",
+  "question": "世界のお金を平等に配ったら1人いくら？",
+  "topic": "お金・格差",
+  "title_type": "問いかけ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "史上初、マスク資産が1日で1兆ドル突破した事実",
+  "first_chart_sec": 65,
+  "n_sources": 7,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["棒", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "マスク資産1兆ドル"},
+    {"start_sec": 60, "label": "均等分配なら840万円"},
+    {"start_sec": 90, "label": "資産格差の実態"},
+    {"start_sec": 210, "label": "バブーフの平等思想"},
+    {"start_sec": 270, "label": "ケニアの給付実験"},
+    {"start_sec": 360, "label": "お金の統計力学"},
+    {"start_sec": 450, "label": "ピケティのR>G"},
+    {"start_sec": 630, "label": "アラスカ配当モデル"}
+  ],
+  "surprise_sec": 390,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 20, "chart": 15, "text_only": 50, "ai_or_photo": 0, "other": 15},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": ["静止画が長い"],
+  "why": "内容は骨太で出典も豊富だが、チャンネル規模が小さく題材も地味な経済理論のため、検索流入やサムネ訴求が弱く再生数が伸びなかったと考えられる。"
+}

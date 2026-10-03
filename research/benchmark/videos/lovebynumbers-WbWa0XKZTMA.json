@@ -5,22 +5,26 @@
   "topic": "恋愛・結婚",
   "title_type": "なぜ型",
   "hook_type": "物語",
-  "hook_summary": "バブル期の不動産価格崩壊と塩漬け物件の物語から始める",
-  "first_chart_sec": 400,
+  "hook_summary": "バブル期の不動産高騰と暴落の逸話を語る",
+  "first_chart_sec": 29,
   "n_sources": 3,
   "source_kinds": ["公的統計"],
-  "chart_types": ["棒", "図解", "数字の強調", "表"],
+  "chart_types": ["棒", "数字の強調", "図解"],
   "source_on_screen": "要所",
   "sections": [
-    {"start_sec": 0, "label": "バブルと塩漬け物件"},
-    {"start_sec": 235, "label": "自然市場の早期刈り取り"},
-    {"start_sec": 603, "label": "20代のモテバブル"},
-    {"start_sec": 881, "label": "需要と供給の断絶"},
-    {"start_sec": 1069, "label": "過去の最高値という幻影"}
+    {"start_sec": 0, "title": "バブル崩壊と損切り拒否"},
+    {"start_sec": 235, "title": "自然市場の早期刈り取り"},
+    {"start_sec": 603, "title": "モテバブルと価格硬直"},
+    {"start_sec": 881, "title": "需要と供給の断絶"},
+    {"start_sec": 1069, "title": "過去の最高値という幻影"}
   ],
-  "surprise_sec": 510,
+  "surprise_sec": 920,
   "ending_type": "視聴者への問いかけ",
-  "visual_mix": {"stick_figure": 0, "chart": 20, "text_only": 10, "ai_or_photo": 0, "other": 70},
-  "policy_flags": ["断定しすぎ", "対立あおり"],
-  "why": "バブル崩壊の比喩で惹きつけ、公的統計と心理学理論を重ねて納得感を出した構成が刺さったと推測"
+  "visual_mix": {"stick_figure": 73, "chart": 18, "text_only": 7, "ai_or_photo": 0, "other": 2},
+  "policy_flags": ["対立あおり", "性別の見下し", "断定しすぎ"],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": ["前置きが長い", "同じ話の繰り返し"],
+  "visual_flags": ["静止画が長い"],
+  "why": "不動産バブルの比喩と公的統計を絡めた挑発的な分析で、婚活への不満を抱える層の共感と反発を同時に誘発した"
 }

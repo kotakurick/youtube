@@ -1,0 +1,33 @@
+{
+  "id": "fHF289RSKRU",
+  "channel": "nippon_data",
+  "question": "なぜ離婚から再婚までの時間はこんなに長くなったのか",
+  "topic": "恋愛・結婚",
+  "title_type": "断言型",
+  "hook_type": "意外な数字",
+  "hook_summary": "去年再婚男性の23%が10年以上経過という数字で切り出す",
+  "first_chart_sec": 0,
+  "n_sources": 6,
+  "source_kinds": ["公的統計", "論文"],
+  "chart_types": ["棒", "折れ線", "数字の強調", "図解"],
+  "source_on_screen": "常時",
+  "sections": [
+    {"start_sec": 0, "label": "10年以上が4人に1人"},
+    {"start_sec": 113, "label": "1970年は速かった"},
+    {"start_sec": 220, "label": "直近2年は逆行"},
+    {"start_sec": 284, "label": "消えた男女差"},
+    {"start_sec": 397, "label": "差の正体は法律"},
+    {"start_sec": 510, "label": "離婚後の再婚率"},
+    {"start_sec": 615, "label": "待たせる女性側の事情"},
+    {"start_sec": 1078, "label": "まとめ"}
+  ],
+  "surprise_sec": 397,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 15, "chart": 45, "text_only": 20, "ai_or_photo": 5, "other": 15},
+  "policy_flags": [],
+  "narration_style": "1人ナレーション",
+  "originality": "既存の知見の整理",
+  "script_flags": [],
+  "visual_flags": ["静止画が長い"],
+  "why": "再婚という切り口は前作の離婚ネタより訴求が弱く、法改正や追跡調査の細かい数字が続く長尺構成で視聴維持が落ちたとみられる"
+}

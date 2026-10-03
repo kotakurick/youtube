@@ -1,0 +1,33 @@
+{
+  "id": "edIRfe6t_5s",
+  "channel": "nippon_data",
+  "question": "老後資金は何で決まり、未婚だと毎月いくら差が出るのか",
+  "topic": "お金・格差",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "2086万円という取り崩し額を提示し差の正体を予告",
+  "first_chart_sec": 0,
+  "n_sources": 7,
+  "source_kinds": ["公的統計", "民間調査", "論文"],
+  "chart_types": ["数字の強調", "棒", "折れ線", "図解", "表"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "オープニング"},
+    {"start_sec": 98, "label": "残高ではなく、毎月"},
+    {"start_sec": 268, "label": "ふたりと、ひとり"},
+    {"start_sec": 453, "label": "賃貸だと、毎月7万円"},
+    {"start_sec": 682, "label": "水路の本数"},
+    {"start_sec": 923, "label": "いまから、何本引けるのか"},
+    {"start_sec": 1156, "label": "削ってはいけないもの"},
+    {"start_sec": 1360, "label": "まとめ"}
+  ],
+  "surprise_sec": 630,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 0, "chart": 35, "text_only": 55, "ai_or_photo": 5, "other": 5},
+  "policy_flags": ["助言"],
+  "narration_style": "1人ナレーション",
+  "originality": "独自の分析・シミュレーションあり",
+  "script_flags": ["前置きが長い", "同じ話の繰り返し"],
+  "visual_flags": ["静止画が長い", "同じ絵の使い回し"],
+  "why": "タイトルが地味で検索に引っかかりにくく、前置きも長いため離脱が早く伸びなかったと推測"
+}
