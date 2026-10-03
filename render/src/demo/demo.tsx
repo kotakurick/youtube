@@ -15,22 +15,29 @@ import type { EpisodeDef } from "@lib/Episode";
 
 const N = 100, PAIRS = 19; // 38人＝38%
 const base = kinds(N).map((kind, i) => ({ kind, i }));
-const start = scatter(N, { x: 120, y: 260, w: 820, h: 560 }, 11);
+const start = scatter(N, { x: 100, y: 200, w: 900, h: 640 }, 11);
 const pairSlots = grid(PAIRS, { x: 1080, y: 300, cols: 5, dx: 150, dy: 120 });
 const men = shuffle(base.filter((p) => p.kind === "male").map((p) => p.i), 3).slice(0, PAIRS);
 const women = shuffle(base.filter((p) => p.kind === "female").map((p) => p.i), 4).slice(0, PAIRS);
-const people = (dimRest: boolean): Person[] => base.map(({ kind, i }) => {
+const peopleMemo = new Map<boolean, Person[]>();
+const buildPeople = (dimRest: boolean): Person[] => base.map(({ kind, i }) => {
   const m = men.indexOf(i), w = women.indexOf(i);
   const k = m >= 0 ? m : w;
   if (k < 0) return { kind, from: start[i], dim: dimRest };
   const slot = pairSlots[k];
   return { kind, from: start[i], to: { x: slot.x + (w >= 0 ? 44 : 0), y: slot.y }, delay: 10 + k * 5, highlight: i === men[0] };
 });
+// 毎フレーム作り直さない（重なりの確認も1回で済む）
+const people = (dimRest: boolean) => {
+  if (!peopleMemo.has(dimRest)) peopleMemo.set(dimRest, buildPeople(dimRest));
+  return peopleMemo.get(dimRest)!;
+};
+const openingPeople: Person[] = base.map(({ kind, i }) => ({ kind, from: start[i], highlight: i === men[0] }));
 
 const Opening: React.FC = () => (
   <>
     <Question text="100人で婚活したら、何人がペアになる？" />
-    <svg width={1920} height={1080} style={{ position: "absolute" }}><Crowd people={base.map(({ kind, i }) => ({ kind, from: start[i], highlight: i === men[0] }))} /></svg>
+    <svg width={1920} height={1080} style={{ position: "absolute" }}><Crowd people={openingPeople} /></svg>
     <Gosa cues={[[10, "thinking"]]} x={1650} y={760} />
     <Subtitle lines={[[0, sec(4), "ある婚活パーティーに、100人が集まりました。"]]} />
   </>
