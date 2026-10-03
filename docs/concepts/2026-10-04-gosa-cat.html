@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<style>
+  body { margin:0; width:1500px; background:#F5F2EA; font-family:'IPAGothic', sans-serif; color:#1D2333; }
+  .row { padding:18px 30px 6px; border-bottom:2px solid #e2ddd0; }
+  h1 { font-size:34px; margin:18px 30px 0; }
+  .lead { font-size:18px; margin:4px 30px 0; }
+  h2 { font-size:26px; margin:6px 0 2px; }
+  .d { font-size:16px; margin-bottom:4px; }
+  .lab { font-size:14px; text-anchor:middle; }
+</style></head><body>
+<h1>ゴサ × 猫　3つの組み合わせ方</h1>
+<div class="lead">どれも墨色1色＋白目。右端は、アイコンの大きさ（64px）とそれを縮めたもの。誤差棒の長さ＝確かさ、は3案とも同じ。</div>
+
+<!-- ============ A ねこみみ ============ -->
+<div class="row">
+  <h2>A　ねこみみゴサ</h2>
+  <div class="d">黒い点に猫耳。誤差棒は耳のあいだから上へ、下は足。いちばん元のゴサに近く、単純。</div>
+  <svg width="1440" height="230" viewBox="0 0 1440 230">
+    <defs>
+      <g id="A-body">
+        <path d="M-27 -14 L-24 -44 L-6 -28 Z M27 -14 L24 -44 L6 -28 Z" fill="#1D2333"/>
+        <circle r="30" fill="#1D2333"/>
+      </g>
+    </defs>
+    <!-- ふつう -->
+    <g transform="translate(110,115)">
+      <line x1="0" y1="-62" x2="0" y2="62" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <line x1="-14" y1="-62" x2="14" y2="-62" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <line x1="-14" y1="62" x2="14" y2="62" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <use href="#A-body"/>
+      <circle cx="-11" cy="-2" r="7" fill="#fff"/><circle cx="11" cy="-2" r="7" fill="#fff"/>
+      <circle cx="-10" cy="-1" r="3.5" fill="#1D2333"/><circle cx="12" cy="-1" r="3.5" fill="#1D2333"/>
+      <path d="M-6 13 q3 4 6 0 q3 4 6 0" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    </g>
+    <text class="lab" x="110" y="222">ふつう</text>
+    <!-- 驚き -->
+    <g transform="translate(300,115)">
+      <line x1="0" y1="-70" x2="0" y2="62" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <line x1="-14" y1="-70" x2="14" y2="-70" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <line x1="-14" y1="62" x2="14" y2="62" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <path d="M-27 -14 L-28 -52 L-6 -28 Z M27 -14 L28 -52 L6 -28 Z" fill="#1D2333"/><circle r="30" fill="#1D2333"/>
+      <circle cx="-11" cy="-4" r="10" fill="#fff"/><circle cx="11" cy="-4" r="10" fill="#fff"/>
+      <circle cx="-11" cy="-4" r="3.5" fill="#1D2333"/><circle cx="11" cy="-4" r="3.5" fill="#1D2333"/>
+      <ellipse cx="0" cy="15" rx="4" ry="5" fill="#fff"/>
+      <text x="34" y="-50" font-size="38" font-weight="bold" fill="#1D2333">!</text>
+    </g>
+    <text class="lab" x="300" y="222">驚き</text>
+    <!-- 言い切り -->
+    <g transform="translate(490,115)">
+      <line x1="0" y1="-46" x2="0" y2="62" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <line x1="-14" y1="-46" x2="14" y2="-46" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <line x1="-14" y1="62" x2="14" y2="62" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <use href="#A-body"/>
+      <path d="M-18 -1 q7 -7 14 0 M4 -1 q7 -7 14 0" stroke="#fff" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+      <path d="M-6 13 q3 4 6 0 q3 4 6 0" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    </g>
+    <text class="lab" x="490" y="222">言い切り（棒が短い）</text>
+    <!-- 条件次第 -->
+    <g transform="translate(680,115)">
+      <path d="M0 -84 Q7 -58 0 -30 M0 30 Q-7 56 0 82" stroke="#1D2333" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <line x1="-14" y1="-88" x2="14" y2="-80" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <line x1="-14" y1="78" x2="14" y2="86" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <path d="M-27 -14 L-30 -40 L-8 -28 Z M27 -14 L30 -40 L8 -28 Z" fill="#1D2333"/><circle r="30" fill="#1D2333"/>
+      <circle cx="-11" cy="-1" r="7" fill="#fff"/><circle cx="11" cy="-1" r="7" fill="#fff"/>
+      <circle cx="-13" cy="-1" r="3.5" fill="#1D2333"/><circle cx="13" cy="-1" r="3.5" fill="#1D2333"/>
+      <path d="M-7 15 q3.5 -3 7 0 q3.5 3 7 0" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    </g>
+    <text class="lab" x="680" y="222">条件次第（棒が長い・耳が下がる）</text>
+    <!-- icon -->
+    <g transform="translate(980,110)">
+      <circle r="64" fill="#fff" stroke="#d9d3c4" stroke-width="2"/>
+      <g transform="scale(.8)"><line x1="0" y1="-62" x2="0" y2="62" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/><line x1="-14" y1="-62" x2="14" y2="-62" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/><line x1="-14" y1="62" x2="14" y2="62" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/><use href="#A-body"/><circle cx="-11" cy="-2" r="7" fill="#fff"/><circle cx="11" cy="-2" r="7" fill="#fff"/><circle cx="-10" cy="-1" r="3.5" fill="#1D2333"/><circle cx="12" cy="-1" r="3.5" fill="#1D2333"/></g>
+    </g>
+    <g transform="translate(1110,110)">
+      <circle r="24" fill="#fff" stroke="#d9d3c4" stroke-width="1.5"/>
+      <g transform="scale(.3)"><line x1="0" y1="-62" x2="0" y2="62" stroke="#1D2333" stroke-width="9" stroke-linecap="round"/><use href="#A-body"/><circle cx="-11" cy="-2" r="8" fill="#fff"/><circle cx="11" cy="-2" r="8" fill="#fff"/></g>
+    </g>
+    <text class="lab" x="1045" y="222">アイコン（64px／24px）</text>
+  </svg>
+</div>
+
+<!-- ============ B しっぽ ============ -->
+<div class="row">
+  <h2>B　しっぽゴサ</h2>
+  <div class="d">座った黒猫。立てたしっぽが誤差棒の上半分。しっぽの立ち方で気持ちが出る（猫はうれしいとしっぽを立てる）。</div>
+  <svg width="1440" height="230" viewBox="0 0 1440 230">
+    <defs>
+      <g id="B-cat">
+        <ellipse cx="0" cy="34" rx="30" ry="24" fill="#1D2333"/>
+        <path d="M-25 -12 L-22 -42 L-5 -26 Z M25 -12 L22 -42 L5 -26 Z" fill="#1D2333"/>
+        <circle r="28" fill="#1D2333"/>
+        <line x1="-12" y1="58" x2="12" y2="58" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      </g>
+    </defs>
+    <!-- ふつう -->
+    <g transform="translate(110,120)">
+      <path d="M26 40 Q44 30 42 -10 L42 -60" stroke="#1D2333" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <line x1="30" y1="-60" x2="54" y2="-60" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <use href="#B-cat"/>
+      <circle cx="-10" cy="-2" r="6.5" fill="#fff"/><circle cx="10" cy="-2" r="6.5" fill="#fff"/>
+      <circle cx="-9" cy="-1" r="3.3" fill="#1D2333"/><circle cx="11" cy="-1" r="3.3" fill="#1D2333"/>
+      <path d="M-6 12 q3 4 6 0 q3 4 6 0" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    </g>
+    <text class="lab" x="110" y="222">ふつう</text>
+    <!-- 驚き：しっぽが太くなる -->
+    <g transform="translate(300,120)">
+      <path d="M26 40 Q46 30 44 -10 L44 -68" stroke="#1D2333" stroke-width="16" fill="none" stroke-linecap="round"/>
+      <line x1="30" y1="-70" x2="58" y2="-70" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <ellipse cx="0" cy="34" rx="30" ry="24" fill="#1D2333"/>
+      <path d="M-25 -12 L-26 -50 L-5 -26 Z M25 -12 L26 -50 L5 -26 Z" fill="#1D2333"/><circle r="28" fill="#1D2333"/>
+      <line x1="-12" y1="58" x2="12" y2="58" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <circle cx="-10" cy="-4" r="9.5" fill="#fff"/><circle cx="10" cy="-4" r="9.5" fill="#fff"/>
+      <circle cx="-10" cy="-4" r="3.3" fill="#1D2333"/><circle cx="10" cy="-4" r="3.3" fill="#1D2333"/>
+      <ellipse cx="0" cy="14" rx="4" ry="5" fill="#fff"/>
+    </g>
+    <text class="lab" x="300" y="222">驚き（しっぽが太る）</text>
+    <!-- 言い切り：短くピンと -->
+    <g transform="translate(490,120)">
+      <path d="M26 40 Q42 30 42 0 L42 -34" stroke="#1D2333" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <line x1="30" y1="-34" x2="54" y2="-34" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <use href="#B-cat"/>
+      <path d="M-17 -1 q7 -7 14 0 M3 -1 q7 -7 14 0" stroke="#fff" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+      <path d="M-6 12 q3 4 6 0 q3 4 6 0" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    </g>
+    <text class="lab" x="490" y="222">言い切り（しっぽが短い）</text>
+    <!-- 条件次第：長くゆらゆら -->
+    <g transform="translate(680,120)">
+      <path d="M26 40 Q46 30 40 0 Q32 -30 44 -50 Q54 -66 46 -84" stroke="#1D2333" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <line x1="34" y1="-88" x2="58" y2="-82" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <ellipse cx="0" cy="34" rx="30" ry="24" fill="#1D2333"/>
+      <path d="M-25 -12 L-30 -36 L-7 -26 Z M25 -12 L30 -36 L7 -26 Z" fill="#1D2333"/><circle r="28" fill="#1D2333"/>
+      <line x1="-12" y1="58" x2="12" y2="58" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+      <circle cx="-10" cy="-1" r="6.5" fill="#fff"/><circle cx="10" cy="-1" r="6.5" fill="#fff"/>
+      <circle cx="-12" cy="-1" r="3.3" fill="#1D2333"/><circle cx="12" cy="-1" r="3.3" fill="#1D2333"/>
+      <path d="M-7 14 q3.5 -3 7 0 q3.5 3 7 0" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    </g>
+    <text class="lab" x="680" y="222">条件次第（しっぽが長く揺れる）</text>
+    <!-- icon -->
+    <g transform="translate(980,110)">
+      <circle r="64" fill="#fff" stroke="#d9d3c4" stroke-width="2"/>
+      <g transform="translate(-6,-6) scale(.8)"><path d="M26 40 Q44 30 42 -10 L42 -60" stroke="#1D2333" stroke-width="7" fill="none" stroke-linecap="round"/><line x1="30" y1="-60" x2="54" y2="-60" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/><use href="#B-cat"/><circle cx="-10" cy="-2" r="6.5" fill="#fff"/><circle cx="10" cy="-2" r="6.5" fill="#fff"/><circle cx="-9" cy="-1" r="3.3" fill="#1D2333"/><circle cx="11" cy="-1" r="3.3" fill="#1D2333"/></g>
+    </g>
+    <g transform="translate(1110,110)">
+      <circle r="24" fill="#fff" stroke="#d9d3c4" stroke-width="1.5"/>
+      <g transform="translate(-2,-3) scale(.3)"><path d="M26 40 Q44 30 42 -10 L42 -60" stroke="#1D2333" stroke-width="9" fill="none"/><use href="#B-cat"/><circle cx="-10" cy="-2" r="8" fill="#fff"/><circle cx="10" cy="-2" r="8" fill="#fff"/></g>
+    </g>
+    <text class="lab" x="1045" y="222">アイコン（64px／24px）</text>
+  </svg>
+</div>
+
+<!-- ============ C ひげ ============ -->
+<div class="row">
+  <h2>C　ひげゴサ</h2>
+  <div class="d">ひげが横向きの誤差棒。ひげの長さ＝確かさ。統計の「箱ひげ図」の"ひげ"とも掛かっている。</div>
+  <svg width="1440" height="230" viewBox="0 0 1440 230">
+    <defs>
+      <g id="C-body">
+        <path d="M-28 -12 L-25 -46 L-6 -28 Z M28 -12 L25 -46 L6 -28 Z" fill="#1D2333"/>
+        <circle r="32" fill="#1D2333"/>
+      </g>
+    </defs>
+    <!-- ふつう -->
+    <g transform="translate(130,110)">
+      <line x1="-70" y1="8" x2="70" y2="8" stroke="#1D2333" stroke-width="6" stroke-linecap="round"/>
+      <line x1="-70" y1="-4" x2="-70" y2="20" stroke="#1D2333" stroke-width="6" stroke-linecap="round"/>
+      <line x1="70" y1="-4" x2="70" y2="20" stroke="#1D2333" stroke-width="6" stroke-linecap="round"/>
+      <use href="#C-body"/>
+      <circle cx="-11" cy="-4" r="7" fill="#fff"/><circle cx="11" cy="-4" r="7" fill="#fff"/>
+      <circle cx="-10" cy="-3" r="3.5" fill="#1D2333"/><circle cx="12" cy="-3" r="3.5" fill="#1D2333"/>
+      <path d="M-6 12 q3 4 6 0 q3 4 6 0" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+      <path d="M-16 32 v20 M16 32 v20" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+    </g>
+    <text class="lab" x="130" y="222">ふつう</text>
+    <!-- 驚き：ひげが逆立つ -->
+    <g transform="translate(330,110)">
+      <path d="M-30 4 L-72 -10 M30 4 L72 -10" stroke="#1D2333" stroke-width="6" stroke-linecap="round"/>
+      <line x1="-76" y1="-22" x2="-68" y2="2" stroke="#1D2333" stroke-width="6" stroke-linecap="round"/>
+      <line x1="76" y1="-22" x2="68" y2="2" stroke="#1D2333" stroke-width="6" stroke-linecap="round"/>
+      <path d="M-28 -12 L-28 -54 L-6 -28 Z M28 -12 L28 -54 L6 -28 Z" fill="#1D2333"/><circle r="32" fill="#1D2333"/>
+      <circle cx="-11" cy="-6" r="10" fill="#fff"/><circle cx="11" cy="-6" r="10" fill="#fff"/>
+      <circle cx="-11" cy="-6" r="3.5" fill="#1D2333"/><circle cx="11" cy="-6" r="3.5" fill="#1D2333"/>
+      <ellipse cx="0" cy="14" rx="4" ry="5" fill="#fff"/>
+      <path d="M-16 32 v20 M16 32 v20" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+    </g>
+    <text class="lab" x="330" y="222">驚き（ひげが逆立つ）</text>
+    <!-- 言い切り：ひげが短い -->
+    <g transform="translate(530,110)">
+      <line x1="-46" y1="8" x2="46" y2="8" stroke="#1D2333" stroke-width="6" stroke-linecap="round"/>
+      <line x1="-46" y1="-4" x2="-46" y2="20" stroke="#1D2333" stroke-width="6" stroke-linecap="round"/>
+      <line x1="46" y1="-4" x2="46" y2="20" stroke="#1D2333" stroke-width="6" stroke-linecap="round"/>
+      <use href="#C-body"/>
+      <path d="M-18 -3 q7 -7 14 0 M4 -3 q7 -7 14 0" stroke="#fff" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+      <path d="M-6 12 q3 4 6 0 q3 4 6 0" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+      <path d="M-16 32 v20 M16 32 v20" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+    </g>
+    <text class="lab" x="530" y="222">言い切り（ひげが短い）</text>
+    <!-- 条件次第：ひげが長く垂れる -->
+    <g transform="translate(750,110)">
+      <path d="M-30 8 Q-60 14 -96 26 M30 8 Q60 14 96 26" stroke="#1D2333" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <line x1="-100" y1="14" x2="-92" y2="38" stroke="#1D2333" stroke-width="6" stroke-linecap="round"/>
+      <line x1="100" y1="14" x2="92" y2="38" stroke="#1D2333" stroke-width="6" stroke-linecap="round"/>
+      <path d="M-28 -12 L-32 -38 L-8 -28 Z M28 -12 L32 -38 L8 -28 Z" fill="#1D2333"/><circle r="32" fill="#1D2333"/>
+      <circle cx="-11" cy="-3" r="7" fill="#fff"/><circle cx="11" cy="-3" r="7" fill="#fff"/>
+      <circle cx="-13" cy="-3" r="3.5" fill="#1D2333"/><circle cx="13" cy="-3" r="3.5" fill="#1D2333"/>
+      <path d="M-7 13 q3.5 -3 7 0 q3.5 3 7 0" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+      <path d="M-16 32 v20 M16 32 v20" stroke="#1D2333" stroke-width="7" stroke-linecap="round"/>
+    </g>
+    <text class="lab" x="750" y="222">条件次第（ひげが長く垂れる）</text>
+    <!-- icon -->
+    <g transform="translate(980,110)">
+      <circle r="64" fill="#fff" stroke="#d9d3c4" stroke-width="2"/>
+      <g transform="translate(0,-4) scale(.72)"><line x1="-70" y1="8" x2="70" y2="8" stroke="#1D2333" stroke-width="6" stroke-linecap="round"/><line x1="-70" y1="-4" x2="-70" y2="20" stroke="#1D2333" stroke-width="6" stroke-linecap="round"/><line x1="70" y1="-4" x2="70" y2="20" stroke="#1D2333" stroke-width="6" stroke-linecap="round"/><use href="#C-body"/><circle cx="-11" cy="-4" r="7" fill="#fff"/><circle cx="11" cy="-4" r="7" fill="#fff"/><circle cx="-10" cy="-3" r="3.5" fill="#1D2333"/><circle cx="12" cy="-3" r="3.5" fill="#1D2333"/></g>
+    </g>
+    <g transform="translate(1110,110)">
+      <circle r="24" fill="#fff" stroke="#d9d3c4" stroke-width="1.5"/>
+      <g transform="translate(0,-2) scale(.27)"><line x1="-70" y1="8" x2="70" y2="8" stroke="#1D2333" stroke-width="9"/><use href="#C-body"/><circle cx="-11" cy="-4" r="8" fill="#fff"/><circle cx="11" cy="-4" r="8" fill="#fff"/></g>
+    </g>
+    <text class="lab" x="1045" y="222">アイコン（64px／24px）</text>
+  </svg>
+</div>
+</body></html>
