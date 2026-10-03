@@ -57,4 +57,6 @@ python bench/aggregate.py --out research/benchmark/aggregate.md
 チャンネルごとの本数・期間、再生数の中央値と最大、長さ、投稿間隔、場面転換の間隔、字幕の文字数（字/分）、長さと再生数の順位相関、再生数の上位10本。
 動画ごとの表は `$YT_DATA_DIR/bench/videos.csv`。
 
+伸びた／伸びていないチャンネルの比較（声の比較を含む）は [`research/benchmark/compare/PLAN.md`](../research/benchmark/compare/PLAN.md)。
+
 字幕とタイルを読む分析の手順は [`research/benchmark/ANALYSIS_PLAN.md`](../research/benchmark/ANALYSIS_PLAN.md)。

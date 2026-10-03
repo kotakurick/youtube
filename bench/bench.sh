@@ -2,7 +2,9 @@
 # ベンチマークの取得（個人の分析専用。取得物を制作物に流用しない）
 #
 # 使い方:  bench/bench.sh @lovebynumbers
-#   並列数を変える:  BENCH_JOBS=1 bench/bench.sh @lovebynumbers
+#          bench/bench.sh channel/UCxxxxxxxx     （ハンドルが分からないときはチャンネルID）
+#   並列数を変える:      BENCH_JOBS=1 bench/bench.sh @lovebynumbers
+#   新しい順にN本だけ:   BENCH_MAX=6 bench/bench.sh @somechannel   （比較用のチャンネル向け）
 #
 # 出力先: $YT_DATA_DIR/bench/<チャンネル名>/
 #   list.tsv            動画一覧（ID・秒数・再生数・タイトル）
@@ -22,18 +24,21 @@ for cmd in yt-dlp ffmpeg; do
   command -v "$cmd" >/dev/null || { echo "$cmd が見つかりません。インストールが必要です。" >&2; exit 1; }
 done
 
-export OUT="$YT_DATA_DIR/bench/${CH#@}"
+NAME="${CH##*/}"; NAME="${NAME#@}"
+export OUT="$YT_DATA_DIR/bench/$NAME"
 mkdir -p "$OUT"
 URL="https://www.youtube.com/$CH/videos"
+LIMIT=()
+if [ -n "${BENCH_MAX:-}" ]; then LIMIT=(--playlist-end "$BENCH_MAX"); fi
 
 # 1. 動画一覧
 echo "[1/3] 動画一覧を取得: $CH"
-yt-dlp --flat-playlist --encoding utf-8 --print "%(id)s	%(duration)s	%(view_count)s	%(title)s" "$URL" > "$OUT/list.tsv"
+yt-dlp --flat-playlist ${LIMIT[@]+"${LIMIT[@]}"} --encoding utf-8 --print "%(id)s	%(duration)s	%(view_count)s	%(title)s" "$URL" > "$OUT/list.tsv"
 echo "  $(wc -l < "$OUT/list.tsv" | tr -d ' ') 本"
 
 # 2. サムネイル・自動字幕・メタデータ（動画本体は落とさない）
 echo "[2/3] サムネイル・字幕・メタデータを取得"
-yt-dlp --skip-download --ignore-errors --no-write-playlist-metafiles \
+yt-dlp --skip-download --ignore-errors --no-write-playlist-metafiles ${LIMIT[@]+"${LIMIT[@]}"} \
   --write-thumbnail --convert-thumbnails jpg \
   --write-auto-subs --sub-langs "ja,ja-orig" \
   --write-info-json \
