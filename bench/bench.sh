@@ -9,9 +9,9 @@
 #   <ID>/<ID>.info.json メタデータ
 #   <ID>/<ID>.jpg       サムネイル
 #   <ID>/<ID>.ja*.vtt   自動字幕
-#   <ID>/f_0001.jpg…    場面転換ごとのキャプチャ
-#   <ID>/sheet_001.jpg… 3x3 タイル
-#   <ID>/times.log      各キャプチャの秒数（showinfo の pts_time）
+#   <ID>/sheet_001.jpg… 場面転換ごとのキャプチャを 3x3 にまとめたタイル（左上→右下の順）
+#   <ID>/times.tsv      タイル番号・コマ番号・秒数の対応表
+#   ※ 1コマずつの画像はタイル作成後に消す（ファイル数を約1/10にするため）
 #   failed.tsv          失敗した動画（再実行すると未完了分だけやり直す）
 set -uo pipefail
 
@@ -44,9 +44,9 @@ yt-dlp --skip-download --ignore-errors \
 cap() {
   local id="$1" d="$OUT/$1" v
   mkdir -p "$d"
-  if ls "$d"/sheet_*.jpg >/dev/null 2>&1; then return 0; fi  # 取得済みはスキップ
+  if [ -f "$d/times.tsv" ]; then return 0; fi  # 取得済みはスキップ（times.tsv は最後に作る）
 
-  rm -f "$d"/v.* "$d"/f_*.jpg
+  rm -f "$d"/v.* "$d"/f_*.jpg "$d"/sheet_*.jpg "$d/times.tsv"
   if ! yt-dlp -q --no-warnings --sleep-requests 1 --sleep-interval 3 --max-sleep-interval 8 \
       -f "bv*[height<=360]/b[height<=360]" -o "$d/v.%(ext)s" \
       "https://www.youtube.com/watch?v=$id"; then
@@ -57,13 +57,19 @@ cap() {
   # キーフレームだけをデコードして場面転換を検出（高速化のため）
   ffmpeg -nostdin -loglevel info -skip_frame nokey -i "$v" \
     -vf "select='gt(scene,0.3)',scale=480:-1,showinfo" -fps_mode vfr \
-    "$d/f_%04d.jpg" 2> "$d/times.log"
+    "$d/f_%04d.jpg" 2> "$d/ffmpeg.log"
   rm -f "$d"/v.*
 
   if [ ! -f "$d/f_0001.jpg" ]; then
     printf '%s\tno_scene\n' "$id" >> "$OUT/failed.tsv"; return 0
   fi
-  ffmpeg -nostdin -loglevel error -i "$d/f_%04d.jpg" -vf "tile=3x3" "$d/sheet_%03d.jpg"
+  ffmpeg -nostdin -loglevel error -i "$d/f_%04d.jpg" -vf "tile=3x3" "$d/sheet_%03d.jpg" || {
+    printf '%s\ttile\n' "$id" >> "$OUT/failed.tsv"; return 0; }
+  { printf 'sheet\tframe\tsec\n'
+    grep -o 'pts_time:[0-9.]*' "$d/ffmpeg.log" | cut -d: -f2 |
+      awk '{ printf "%d\t%d\t%s\n", int((NR-1)/9)+1, NR, $1 }'
+  } > "$d/times.tsv.tmp" && mv "$d/times.tsv.tmp" "$d/times.tsv"
+  rm -f "$d"/f_*.jpg "$d/ffmpeg.log"
   echo "  済: $id"
 }
 export -f cap

@@ -49,7 +49,8 @@ def load_videos() -> list[dict]:
         up_date = datetime.strptime(up, "%Y%m%d").date() if up else None
         age = max((today - up_date).days, 1) if up_date else None
         views = info.get("view_count")
-        cuts = len(list(vdir.glob("f_*.jpg")))
+        times = vdir / "times.tsv"
+        cuts = len(times.read_text(encoding="utf-8").splitlines()) - 1 if times.exists() else 0
         chars = caption_chars(vdir)
         rows.append({
             "channel": vdir.parent.name,
