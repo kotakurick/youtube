@@ -25,9 +25,11 @@ EARLY = 20
 HIT_X = 5
 
 
-def ytdlp(args: list[str]) -> str:
-    r = subprocess.run(["yt-dlp", "--no-warnings", "--sleep-requests", "1", "--encoding", "utf-8",
-                        "--extractor-args", "youtube:lang=ja", *args],  # 一覧のタイトルが英訳されるのを防ぐ
+def ytdlp(args: list[str], ja: bool = False) -> str:
+    # 一覧のタイトルは英訳されることがある。lang=ja にすると日本語になるが、再生数が読めなくなる（NA）。
+    # そこで一覧は2回取り、再生数は通常の取得、タイトルは lang=ja の取得から使う。
+    lang = ["--extractor-args", "youtube:lang=ja"] if ja else []
+    r = subprocess.run(["yt-dlp", "--no-warnings", "--sleep-requests", "1", "--encoding", "utf-8", *lang, *args],
                        capture_output=True, text=True, encoding="utf-8", errors="replace")
     return r.stdout
 
@@ -39,17 +41,23 @@ def handle_url(ch: str) -> str:
 def fetch() -> None:
     groups = list(csv.DictReader((DIR / "groups.tsv").open(encoding="utf-8-sig"), delimiter="\t"))
     rows = []
+    # 前回取った投稿日は使い回す（1本ずつ取るので時間がかかる）
+    known = ({r["id"]: r["upload_date"] for r in csv.DictReader(TSV.open(encoding="utf-8-sig"), delimiter="\t")}
+             if TSV.exists() else {})
     for g in groups:
         ch = g["channel"]
         out = ytdlp(["--flat-playlist", "--print", "%(id)s\t%(duration)s\t%(view_count)s\t%(title)s", handle_url(ch)])
         vids = [line.split("\t", 3) for line in out.splitlines() if line.count("\t") >= 3]
+        out = ytdlp(["--flat-playlist", "--print", "%(id)s\t%(title)s", handle_url(ch)], ja=True)
+        ja = dict(line.split("\t", 1) for line in out.splitlines() if "\t" in line)
+        vids = [[vid, dur, views, ja.get(vid, title)] for vid, dur, views, title in vids]
         vids.reverse()  # 新しい順 → 古い順
-        dates = {}
-        ids = [v[0] for v in vids[:EARLY]]
+        dates = {k: v for k, v in known.items() if v}
+        ids = [v[0] for v in vids[:EARLY] if v[0] not in dates]
         if ids:
             out = ytdlp(["--skip-download", "--print", "%(id)s\t%(upload_date)s",
                          *[f"https://www.youtube.com/watch?v={i}" for i in ids]])
-            dates = dict(line.split("\t", 1) for line in out.splitlines() if "\t" in line)
+            dates.update(line.split("\t", 1) for line in out.splitlines() if "\t" in line)
         for n, (vid, dur, views, title) in enumerate(vids, 1):
             rows.append({"channel": ch, "group": g["group"], "n": n, "id": vid,
                          "upload_date": dates.get(vid, ""), "duration": dur, "views": views, "title": title})
@@ -81,8 +89,9 @@ def report(out: Path | None) -> None:
           "|---|---|---:|---|---:|---:|---|---:|---:|"]
     detail = []
     for ch in dict.fromkeys(r["channel"] for r in rows):
-        rs = [r for r in rows if r["channel"] == ch]
-        v = [num(r["views"]) or 0 for r in rs]
+        # 再生数が取れない動画（メンバー限定・プレミア公開待ちなど）は数えない
+        rs = [r for r in rows if r["channel"] == ch and num(r["views"]) is not None]
+        v = [num(r["views"]) for r in rs]
         base = statistics.median(v[:5]) if v else 0
         hit = next((r for r, x in zip(rs, v) if base and x >= base * HIT_X), None)
         hit_n = f"{hit['n']}本目" if hit else "なし"
