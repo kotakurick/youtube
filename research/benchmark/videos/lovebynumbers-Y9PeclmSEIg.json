@@ -1,0 +1,26 @@
+{
+  "id": "Y9PeclmSEIg",
+  "channel": "lovebynumbers",
+  "question": "なぜ婚活に「普通の男」がいないのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "ヴァーサ号沈没の逸話で婚活の教訓を導入",
+  "first_chart_sec": 20,
+  "n_sources": 4,
+  "source_kinds": ["公的統計", "論文", "独自シミュレーション"],
+  "chart_types": ["棒", "散布図", "数字の強調", "図解", "表"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "序章：沈没と婚活市場"},
+    {"start_sec": 243, "label": "掛け算が消す99%"},
+    {"start_sec": 646, "label": "早期マッチングの罠"},
+    {"start_sec": 1063, "label": "チェックボックスの呪縛"},
+    {"start_sec": 1350, "label": "終章：不揃いな覚悟"}
+  ],
+  "surprise_sec": 540,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 40, "chart": 25, "text_only": 15, "ai_or_photo": 0, "other": 20},
+  "policy_flags": ["対立あおり", "断定しすぎ"],
+  "why": "婚活女性批判とデータで権威付けた意外な数字(1%未満)が共感と反発の両方で拡散しやすい構成"
+}

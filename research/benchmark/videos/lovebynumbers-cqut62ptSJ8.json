@@ -1,0 +1,26 @@
+{
+  "id": "cqut62ptSJ8",
+  "channel": "lovebynumbers",
+  "question": "なぜスマホ普及で恋愛経験ゼロの男性が急増したのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "1954年マギル大学のラット脳内電極実験の逸話から始まる",
+  "first_chart_sec": null,
+  "n_sources": 4,
+  "source_kinds": ["論文", "公的統計"],
+  "chart_types": ["図解", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "快楽の裏口と地殻変動"},
+    {"start_sec": 226, "label": "摩擦ゼロという麻薬"},
+    {"start_sec": 449, "label": "去勢された飢えと刺激"},
+    {"start_sec": 718, "label": "無菌室に立てこもる合理性"},
+    {"start_sec": 936, "label": "手の中の冷たいガラス"}
+  ],
+  "surprise_sec": 174,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 45, "chart": 0, "text_only": 30, "ai_or_photo": 0, "other": 25},
+  "policy_flags": ["断定しすぎ"],
+  "why": "ラット実験の衝撃的な逸話とスマホ依存の仕組みを重ねる構成が、身につまされる当事者性を生み共有を誘発したと考えられる"
+}

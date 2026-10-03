@@ -1,0 +1,26 @@
+{
+  "id": "WbWa0XKZTMA",
+  "channel": "lovebynumbers",
+  "question": "なぜ婚活市場に普通の女性がいないのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "バブル期の不動産価格崩壊と塩漬け物件の物語から始める",
+  "first_chart_sec": 400,
+  "n_sources": 3,
+  "source_kinds": ["公的統計"],
+  "chart_types": ["棒", "図解", "数字の強調", "表"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "バブルと塩漬け物件"},
+    {"start_sec": 235, "label": "自然市場の早期刈り取り"},
+    {"start_sec": 603, "label": "20代のモテバブル"},
+    {"start_sec": 881, "label": "需要と供給の断絶"},
+    {"start_sec": 1069, "label": "過去の最高値という幻影"}
+  ],
+  "surprise_sec": 510,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 0, "chart": 20, "text_only": 10, "ai_or_photo": 0, "other": 70},
+  "policy_flags": ["断定しすぎ", "対立あおり"],
+  "why": "バブル崩壊の比喩で惹きつけ、公的統計と心理学理論を重ねて納得感を出した構成が刺さったと推測"
+}

@@ -1,0 +1,29 @@
+{
+  "id": "fZrqG13mzFs",
+  "channel": "lovebynumbers",
+  "question": "なぜ恋愛経験ゼロの20代男性が2人に1人に増えたのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "意外な数字",
+  "hook_summary": "交際経験ゼロ46%と矛盾する40年不変の数字を提示",
+  "first_chart_sec": 15,
+  "n_sources": 11,
+  "source_kinds": ["公的統計", "論文", "民間調査"],
+  "chart_types": ["棒", "折れ線", "数字の強調", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "交際経験ゼロ2人に1人"},
+    {"start_sec": 137, "label": "消えた層"},
+    {"start_sec": 316, "label": "順番が回った時代"},
+    {"start_sec": 471, "label": "学生時代は不変"},
+    {"start_sec": 525, "label": "出会いは市場に"},
+    {"start_sec": 1113, "label": "時間は解決しない"},
+    {"start_sec": 1279, "label": "言えないこと"},
+    {"start_sec": 1358, "label": "勝ち取る恋愛へ"}
+  ],
+  "surprise_sec": 90,
+  "ending_type": "答えの提示",
+  "visual_mix": {"stick_figure": 50, "chart": 30, "text_only": 15, "ai_or_photo": 0, "other": 5},
+  "policy_flags": [],
+  "why": "矛盾する2つの数字を起点に統計と論文で謎解きする構成が知的好奇心を刺激し拡散を後押しした"
+}

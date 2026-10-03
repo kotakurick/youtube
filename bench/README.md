@@ -17,6 +17,10 @@ winget install Python.Python.3.12
 
 yt-dlp は YouTube 側の変更ですぐ動かなくなるので、実行前に `winget upgrade yt-dlp.yt-dlp` で最新にする。
 
+2026-10-03 のオーナーのPCでは winget が固まり、python.org の MSI も失敗したため、公式配布元の実行ファイルを `C:\Users\<名前>\bin` に直接置いた
+（yt-dlp.exe、ffmpeg.exe、deno.exe は GitHub / gyan.dev から、Python は `uv python install 3.12 --default`）。
+yt-dlp は JavaScript 実行環境として deno を要求するので、deno も同じ場所に置く。更新は `yt-dlp -U`。
+
 ## 手順
 
 ```bash
@@ -32,7 +36,7 @@ python bench/aggregate.py --out research/benchmark/aggregate.md
 
 - 途中で止まっても、もう一度実行すれば取得済みの動画は飛ばす。失敗した動画は `failed.tsv` に残る。
 - 並列数は既定2。アクセス制限（HTTP 429 など）が出たら `BENCH_JOBS=1` にして時間をおく。
-- 場面転換はキーフレームだけで検出する（速さのため）。秒数は数秒ずれることがあり、数秒以内に続く転換は1回に数えられる。
+- 場面転換は1秒ごとに1コマを取り出して検出する（しきい値 0.3）。秒数は1秒単位で、1秒以内に続く転換は1回に数えられる。
 - キャプチャは3×3のタイル（`sheet_*.jpg`）だけを残し、1コマずつの画像は消す。どのコマが何秒目かは `times.tsv` を見る。
 - 容量の目安は1本あたり数MB、3チャンネル全体で数百MB・数千ファイル。取得物は分析専用で取り直せるので、同期フォルダではなくパソコン内（既定の `_local/`）に置いてよい。
 

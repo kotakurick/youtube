@@ -1,0 +1,26 @@
+{
+  "id": "iUiZkONN4MU",
+  "channel": "lovebynumbers",
+  "question": "なぜ普通の人ほどマッチングアプリで損をするのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "ラスベガスのカジノがわざと客を勝たせない設計の物語から始まる",
+  "first_chart_sec": 421,
+  "n_sources": 5,
+  "source_kinds": ["論文", "公的統計", "その他"],
+  "chart_types": ["棒", "図解", "数字の強調"],
+  "source_on_screen": "なし",
+  "sections": [
+    {"start_sec": 0, "label": "序章：カジノの比喩"},
+    {"start_sec": 202, "label": "情報の非対称性"},
+    {"start_sec": 421, "label": "企業と利用者の対立"},
+    {"start_sec": 591, "label": "普通の基準の狂気"},
+    {"start_sec": 788, "label": "終章：問い直し"}
+  ],
+  "surprise_sec": 630,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 40, "chart": 15, "text_only": 30, "ai_or_photo": 0, "other": 15},
+  "policy_flags": ["断定しすぎ"],
+  "why": "カジノ比喩と経済学・心理学理論でマッチングアプリの不満を知的に代弁した切り口が共感を呼んだと推測される"
+}

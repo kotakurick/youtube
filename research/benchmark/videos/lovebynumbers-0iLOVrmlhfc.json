@@ -1,0 +1,26 @@
+{
+  "id": "0iLOVrmlhfc",
+  "channel": "lovebynumbers",
+  "question": "なぜ若い女性は過酷な東京に集まるのか",
+  "topic": "東京と地方・住まい",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "地方の濃密な人間関係と東京の匿名性を対比する情景描写",
+  "first_chart_sec": 110,
+  "n_sources": 4,
+  "source_kinds": ["公的統計"],
+  "chart_types": ["数字の強調", "表", "棒", "図解"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "序章：見えない檻と自由"},
+    {"start_sec": 236, "label": "第1章：地方という檻"},
+    {"start_sec": 461, "label": "オプション価値と過密"},
+    {"start_sec": 818, "label": "シンク生息地と合成の誤謬"},
+    {"start_sec": 1037, "label": "終章：自由と孤独の交換"}
+  ],
+  "surprise_sec": 978,
+  "ending_type": "教訓",
+  "visual_mix": {"stick_figure": 55, "chart": 30, "text_only": 10, "ai_or_photo": 0, "other": 5},
+  "policy_flags": ["断定しすぎ"],
+  "why": "出生率0.96やジェンダー格差など衝撃的な数字と、金融工学・生態学の比喩で知的好奇心を刺激し共感と議論を呼んだため"
+}

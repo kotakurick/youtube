@@ -1,0 +1,26 @@
+{
+  "id": "9cwLSH0nf4s",
+  "channel": "lovebynumbers",
+  "question": "なぜ彼氏持ち女性と彼女持ち男性の数は一致しないのか",
+  "topic": "恋愛・結婚",
+  "title_type": "なぜ型",
+  "hook_type": "物語",
+  "hook_summary": "指輪を外し二股をかける男の夜を描く不倫風の物語導入",
+  "first_chart_sec": 150,
+  "n_sources": 3,
+  "source_kinds": ["公的統計", "民間調査"],
+  "chart_types": ["棒", "図解", "数字の強調"],
+  "source_on_screen": "要所",
+  "sections": [
+    {"start_sec": 0, "label": "序章：消えた彼氏"},
+    {"start_sec": 485, "label": "べき乗則と勝者総取り"},
+    {"start_sec": 784, "label": "不完全契約とシェア"},
+    {"start_sec": 1079, "label": "共有の選好と誤謬"},
+    {"start_sec": 1346, "label": "自由市場と制度不在"}
+  ],
+  "surprise_sec": 360,
+  "ending_type": "視聴者への問いかけ",
+  "visual_mix": {"stick_figure": 55, "chart": 25, "text_only": 5, "ai_or_photo": 0, "other": 15},
+  "policy_flags": ["断定しすぎ", "対立あおり"],
+  "why": "不倫風の物語導入と「44万人消えた彼氏」という具体的な矛盾が好奇心を刺激し、経済学・進化生物学の理論で権威付けした構成が伸びた要因と考えられる"
+}

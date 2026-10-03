@@ -33,7 +33,7 @@ echo "  $(wc -l < "$OUT/list.tsv" | tr -d ' ') 本"
 
 # 2. サムネイル・自動字幕・メタデータ（動画本体は落とさない）
 echo "[2/3] サムネイル・字幕・メタデータを取得"
-yt-dlp --skip-download --ignore-errors \
+yt-dlp --skip-download --ignore-errors --no-write-playlist-metafiles \
   --write-thumbnail --convert-thumbnails jpg \
   --write-auto-subs --sub-langs "ja,ja-orig" \
   --write-info-json \
@@ -48,22 +48,23 @@ cap() {
 
   rm -f "$d"/v.* "$d"/f_*.jpg "$d"/sheet_*.jpg "$d/times.tsv"
   if ! yt-dlp -q --no-warnings --sleep-requests 1 --sleep-interval 3 --max-sleep-interval 8 \
-      -f "bv*[height<=360]/b[height<=360]" -o "$d/v.%(ext)s" \
+      -f "bv*[height<=360][vcodec^=avc1]/bv*[height<=360]/b[height<=360]" -o "$d/v.%(ext)s" \
       "https://www.youtube.com/watch?v=$id"; then
     printf '%s\tdownload\n' "$id" >> "$OUT/failed.tsv"; return 0
   fi
   v=$(ls "$d"/v.* 2>/dev/null | head -n 1)
 
-  # キーフレームだけをデコードして場面転換を検出（高速化のため）
-  ffmpeg -nostdin -loglevel info -skip_frame nokey -i "$v" \
-    -vf "select='gt(scene,0.3)',scale=480:-1,showinfo" -fps_mode vfr \
+  # 1秒ごとに1コマ取り出して場面転換を検出（キーフレーム方式は AV1 で効かず、検出も粗すぎた）
+  # -strict unofficial は ffmpeg 9 で JPEG を書くのに必要
+  ffmpeg -nostdin -loglevel info -i "$v" \
+    -vf "fps=1,select='gt(scene,0.3)',scale=480:-1,showinfo" -fps_mode vfr -strict unofficial \
     "$d/f_%04d.jpg" 2> "$d/ffmpeg.log"
   rm -f "$d"/v.*
 
   if [ ! -f "$d/f_0001.jpg" ]; then
     printf '%s\tno_scene\n' "$id" >> "$OUT/failed.tsv"; return 0
   fi
-  ffmpeg -nostdin -loglevel error -i "$d/f_%04d.jpg" -vf "tile=3x3" "$d/sheet_%03d.jpg" || {
+  ffmpeg -nostdin -loglevel error -i "$d/f_%04d.jpg" -vf "tile=3x3" -strict unofficial "$d/sheet_%03d.jpg" || {
     printf '%s\ttile\n' "$id" >> "$OUT/failed.tsv"; return 0; }
   { printf 'sheet\tframe\tsec\n'
     grep -o 'pts_time:[0-9.]*' "$d/ffmpeg.log" | cut -d: -f2 |
