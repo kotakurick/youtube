@@ -20,8 +20,9 @@ export type SceneDef = {
   lines?: Line[];      // 読み上げの字幕（fromTiming が入れる）。あれば字幕を自動で出し、useNarration() に渡す
 };
 
-/** BGM の区間：from の場面の頭から、to の場面の終わりまで（to を省くと from の場面だけ） */
-export type BgmDef = { file: string; from: string; to?: string };
+/** BGM の区間：from の場面の頭から、to の場面の終わりまで（to を省くと from の場面だけ）。
+ *  startAt は曲の何秒目から流すか（頭が静かな曲を途中から使うとき。ループしても2周目以降もそこから始まる） */
+export type BgmDef = { file: string; from: string; to?: string; startAt?: number };
 
 export type EpisodeDef = {
   id: string; title: string; scenes: SceneDef[]; bgm?: BgmDef[];
@@ -104,7 +105,7 @@ export const Episode: React.FC<{ ep: EpisodeDef }> = ({ ep }) => {
         const g = gainOf(b.file);
         return (
           <Sequence key={b.from} from={a.f} durationInFrames={len} name={`bgm:${b.file}`} layout="none">
-            <Audio src={staticFile(`bgm/${b.file}`)} loop
+            <Audio src={staticFile(`bgm/${b.file}`)} loop trimBefore={b.startAt ? sec(b.startAt) : undefined}
               volume={(f) => Math.min(1, g * volumeAt(a.f + f)) * interpolate(f, [0, 15, len - 30, len], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })} />
           </Sequence>
         );

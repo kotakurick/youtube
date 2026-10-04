@@ -37,6 +37,6 @@ const episode: EpisodeDef = {
   title: "（タイトル）",
   // draft: true のうちは、部品のない場面が仮の画面（場面名と字幕）になる。全部そろったら外す
   scenes: fromTiming(timing as Timing, { opening: Opening, today: Today }, { draft: true }),
-  // bgm: [{ file: "story.mp3", from: "opening", to: "today" }],  // 曲は $YT_DATA_DIR/bgm/ に置く
+  // bgm: [{ file: "story.mp3", from: "opening", to: "today" }],  // 曲は $YT_DATA_DIR/bgm/ に置く。startAt: 10 で曲の10秒目から流す
 };
 export default episode;

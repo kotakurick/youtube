@@ -45,7 +45,7 @@ const episode: EpisodeDef = {
     { file: "Stayin' Lazy - Godmode.mp3", from: "ch1", to: "ch2" },          // 第1章・第2章
     { file: "Jomon Grove - The Mini Vandals.mp3", from: "ch3" },             // 第3章（シミュレーション）
     { file: "Traversing - Godmode.mp3", from: "verdict" },                   // 判定
-    { file: "Sizzr - Schwartzy.mp3", from: "lesson" },                       // 教訓の前半：冒頭の人物に戻る
+    { file: "Sizzr - Schwartzy.mp3", from: "lesson", startAt: 10 },          // 教訓の前半：冒頭の人物に戻る（頭の静かな10秒を飛ばす）
     { file: "Away - Patrick Patrikios.mp3", from: "lesson-main" },           // 教訓の後半：一般化
   ],
 };
