@@ -17,7 +17,7 @@ import { fromTiming, Timing, useNarration } from "@lib/Narration";
 import { PairedBars } from "@lib/PairedBars";
 import { Clock, Cup, Desk, Phone, Table, tableTop } from "@lib/Props";
 import { Question } from "@lib/Question";
-import { Quiz } from "@lib/Quiz";
+import { Quiz, QUIZ_TIMING } from "@lib/Quiz";
 import { SimBackground } from "@lib/SimBackground";
 import { SourceNote } from "@lib/SourceNote";
 import { StackedTrend } from "@lib/StackedTrend";
@@ -213,6 +213,7 @@ const Ch1: React.FC = () => {
   const { find, end } = useCue();
   const ans = find("およそ1組", 330);
   const trend = find("国の調査で", 700);
+  const qs = Math.max(0, ans - QUIZ_TIMING.reveal); // 答えが光る時刻を読み上げの「答えは」に合わせる
   const office = find("母が結婚した", 1500);
   const map = find("当てはめて", 2100);
   const latest = find("最新の調査", 3000);
@@ -220,9 +221,10 @@ const Ch1: React.FC = () => {
   return (
     <>
       <ChapterDots current={1} />
-      <Beat from={0} to={trend}>
-        <Quiz question="いま結婚する夫婦のうち、お見合いで出会ったのは100組に何組？" choices={["約1組", "約5組", "約10組", "約20組"]} answer={0} reveal={true} title="小さな問題" />
-        <Beat from={ans + 60} to={trend}>
+      <Beat from={0} to={qs}><Statement text={"小さな問題"} y={360} /></Beat>
+      <Beat from={qs} to={trend}>
+        <Quiz question="いま結婚する夫婦のうち、お見合いで出会ったのは100組に何組？" choices={["約1組", "約5組", "約10組", "約20組"]} answer={0} reveal title="小さな問題" />
+        <Beat from={ans - qs + 60} to={trend - qs}>
           <HeroNumber value={1} unit="組" prefix="100組に" x={Z.header.x} y={860} detail="2025年 1.1%（1982年は29.3%）" />
         </Beat>
       </Beat>
@@ -246,7 +248,7 @@ const Ch1: React.FC = () => {
         <SourceNote text={SRC + " 図表5-3"} />
       </Beat>
       <Beat from={latest} to={end + 30}>
-        <StackedTrend categories={CATS} rows={ROWS} focus={4} x={Z.stage.x} y={Z.stage.y + 20} width={Z.stageWithGosa.w - 160} start={net - latest} />
+        <StackedTrend categories={CATS} rows={ROWS.slice(4)} focus={4} x={Z.stage.x} y={Z.stage.y + 120} width={Z.stageWithGosa.w - 160} start={net - latest} />
         <SourceNote text={SRC + " 図表5-3。ネットは第16回（2021年）から"} />
       </Beat>
       <Gosa cues={[[0, "thinking"], [ans + 10, "surprised"], [trend, "normal"], [net, "point"]]} />
@@ -268,6 +270,7 @@ const Ch2: React.FC = () => {
   const study = find("研究があります", 3700);
   const quiz = find("クイズ", 5000);
   const ans = find("ほぼ同じです", 5600);
+  const qz = Math.max(quiz, ans - QUIZ_TIMING.reveal);
   const agency = find("結婚相談所です", 6600);
   const mid = find("ここまでの答え合わせ", 7600);
   return (
@@ -281,9 +284,9 @@ const Ch2: React.FC = () => {
         <Svg>
           <BarChart bars={[
             { label: "ネット", value: 20.2, focus: true }, { label: "友人", value: 20.2 }, { label: "職場", value: 20.9 }, { label: "学校", value: 14.0 },
-          ]} x={200} y={230} width={1150} height={540} max={30} format={(v) => `${v.toFixed(1)}%`} />
+          ]} x={160} y={230} width={900} height={540} max={30} format={(v) => `${v.toFixed(1)}%`} />
         </Svg>
-        <div style={{ position: "absolute", left: 1400, top: 260, width: 420, display: "flex", flexDirection: "column", gap: 18 }}>
+        <div style={{ position: "absolute", left: 1120, top: 260, width: 400, display: "flex", flexDirection: "column", gap: 18 }}>
           <div style={font("label", C.ink2)}>2021年 → 2025年</div>
           <div style={font("body")}>ネット　11.0 → 20.2</div>
           <div style={font("body")}>友人　24.9 → 20.2</div>
@@ -306,7 +309,7 @@ const Ch2: React.FC = () => {
         <Svg>
           <Figure kind="male" x={500} y={FLOOR} size={4} pose="phone" facing={1} />
           <Figure kind="female" x={1400} y={FLOOR} size={4} pose="phone" facing={-1} />
-          <Phone x={960} y={440} h={360} screen="like" likes={1} />
+          <Phone x={960} y={560} h={300} screen="like" likes={1} />
         </Svg>
         <Beat from={yoso - bridge} to={think - bridge}>
           <Statement text={"周りが用意する出会い"} sub="お見合いの親せき・職場の同僚・友人の紹介" y={120} />
@@ -315,7 +318,7 @@ const Ch2: React.FC = () => {
       <Beat from={think} to={study}>
         <Statement text={"あなたの周りに、\n「いい人がいるよ」と\n紹介してくれる人は何人？"} y={260} />
       </Beat>
-      <Beat from={study} to={quiz}>
+      <Beat from={study} to={qz}>
         <Svg>
           <BarChart bars={[
             { label: "見合いの減少", value: 50, focus: true }, { label: "職場の出会いの減少", value: 38, focus: true }, { label: "それ以外", value: 12 },
@@ -324,7 +327,7 @@ const Ch2: React.FC = () => {
         <div style={{ position: "absolute", left: Z.header.x, top: 150, ...font("label", C.ink2) }}>初婚率が下がった分の内訳（2000年代のはじめまで）</div>
         <SourceNote text="出典：岩澤美帆・三田房美「職縁結婚の盛衰と未婚化の進展」日本労働研究雑誌 No.535（2005）" />
       </Beat>
-      <Beat from={quiz} to={ans + 150}>
+      <Beat from={qz} to={ans + 150}>
         <Quiz question="若い独身の人で、交際を望んでいない人は？" choices={["男性が多い", "女性が多い", "ほぼ同じ"]} answer={2} reveal title="クイズ" />
       </Beat>
       <Beat from={ans + 150} to={agency}>
@@ -387,7 +390,7 @@ const Ch3: React.FC = () => {
       <Beat from={cake} to={method}>
         <Svg>
           <Cake cx={560} scale={1} share={0.11} label="4年前：取り分 11%" />
-          <Cake cx={1260} scale={0.82} share={0.2} label="いま：取り分 20%、ケーキは小さく" />
+          <Cake cx={1150} scale={0.82} share={0.2} label="いま：取り分 20%" />
         </Svg>
         <Beat from={marriages - cake} to={method - cake}>
           <div style={{ position: "absolute", left: Z.header.x, top: 120, ...font("sub") }}>初婚どうしの結婚：年に約49万組 → 約37万組</div>
@@ -409,12 +412,13 @@ const Ch3: React.FC = () => {
       <Beat from={guess} to={lead}>
         <Svg>
           <BarChart bars={[
-            { label: "周りが用意 2016〜20年", value: 22.7 }, { label: "周りが用意 2020〜24年", value: 15.7, focus: true },
-            { label: "ネット 2016〜20年", value: 4.7 }, { label: "ネット 2020〜24年", value: 7.5 },
-          ]} x={200} y={260} width={1250} height={500} max={25} start={seven - guess} format={(v) => `${v.toFixed(1)}万組`} />
+            { label: "周り・前", value: 22.7 }, { label: "周り・今", value: 15.7, focus: true },
+            { label: "ネット・前", value: 4.7 }, { label: "ネット・今", value: 7.5 },
+          ]} x={160} y={260} width={1000} height={500} max={25} start={seven - guess} format={(v) => `${v.toFixed(1)}万組`} />
         </Svg>
+        <div style={{ position: "absolute", left: Z.stage.x, top: 160, ...font("label", C.ink2) }}>年あたりの組数（推計）　前＝2016〜20年、今＝2020〜24年</div>
         <Beat from={seven - guess} to={lead - guess}>
-          <HeroNumber value={7} unit="万組" prefix="−" x={1480} y={420} detail="周りが用意する出会い（見合い＋職場＋友人）年あたり" />
+          <HeroNumber value={7} unit="万組" prefix="−" x={1180} y={420} detail="周りが用意（見合い＋職場＋友人）" />
         </Beat>
         <SourceNote text={SRC_EST} />
       </Beat>
