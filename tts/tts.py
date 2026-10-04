@@ -133,10 +133,47 @@ def load_yomi() -> list[tuple[str, str]]:
     return sorted(rows, key=lambda r: -len(r[0]))
 
 
+KANA_DIGIT = ["", "いち", "に", "さん", "よん", "ご", "ろく", "なな", "はち", "きゅう"]
+# 「十・百・千」の前の音の変化（さんびゃく、はっぴゃく、さんぜん…）
+KANA_PLACE = {
+    1000: {1: "せん", 3: "さんぜん", 8: "はっせん"},
+    100: {1: "ひゃく", 3: "さんびゃく", 6: "ろっぴゃく", 8: "はっぴゃく"},
+    10: {1: "じゅう"},
+}
+KANA_PLACE_NAME = {1000: "せん", 100: "ひゃく", 10: "じゅう"}
+KANA_FRAC = ["ぜろ", "いち", "に", "さん", "よん", "ご", "ろく", "なな", "はち", "きゅう"]
+
+
+def int_to_kana(n: int) -> str:
+    """0〜9999 をひらがなに。それより大きい数は数字のまま返す（万・億は声のほうが正しく読む）。"""
+    if n == 0:
+        return "ぜろ"
+    if n > 9999:
+        return str(n)
+    out = ""
+    for place in (1000, 100, 10):
+        d, n = divmod(n, place)
+        if d:
+            out += KANA_PLACE[place].get(d, KANA_DIGIT[d] + KANA_PLACE_NAME[place])
+    return out + KANA_DIGIT[n]
+
+
+def decimal_to_kana(m: re.Match) -> str:
+    """28.3 → にじゅうはってんさん。声に任せると「点」が抜けたり「にじゅうはち、さん」になったりする。"""
+    head = "れい" if m.group(1) == "0" else int_to_kana(int(m.group(1)))
+    # 「点」の前の促音（いってん、はってん、じゅってん）
+    for a, b in (("いち", "いっ"), ("はち", "はっ"), ("じゅう", "じゅっ")):
+        if head.endswith(a):
+            head = head[: -len(a)] + b
+            break
+    return head + "てん" + "".join(KANA_FRAC[int(c)] for c in m.group(2))
+
+
 def apply_yomi(text: str) -> str:
     for src, dst in load_yomi():
         text = text.replace(src, dst)
-    return text
+    # 小数（台本の決まりでは読み上げないが、残っていても正しく読ませる）
+    return re.sub(r"(?<![\d.,])(\d{1,4})\.(\d+)(?![\d.])", decimal_to_kana, text)
 
 
 def chunks(text: str, limit: int) -> list[str]:
