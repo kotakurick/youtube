@@ -23,7 +23,7 @@ const Svg: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 
 const Opening: React.FC = () => {
   const n = useNarration();
-  const people: Person[] = base.map((kind, i) => ({ kind, from: start[i], highlight: i === 47, label: i === 47 ? "27番さん（32）" : undefined,
+  const people: Person[] = base.map((kind, i) => ({ kind, from: start[i], highlight: i === 47, label: i === 47 ? "会社員（32）" : undefined,
     pose: i === 47 ? [[0, "phone"]] : "stand" }));
   return (
     <>

@@ -39,13 +39,13 @@ const start = scatter(N, { ...Z.stageWithGosa, y: Z.stage.y + 40, h: Z.stage.h -
 const HERO = 47;
 
 // 1. カメラ：1人に寄る → 引くと100人の中の1人
-const camPeople: Person[] = base.map((kind, i) => ({ kind, from: start[i], highlight: i === HERO, label: i === HERO ? "27番さん（32）" : undefined }));
+const camPeople: Person[] = base.map((kind, i) => ({ kind, from: start[i], highlight: i === HERO, label: i === HERO ? "会社員（32）" : undefined }));
 const CameraScene: React.FC = () => (
   <>
     <Camera keys={[[0, { x: start[HERO].x, y: start[HERO].y - 40, scale: 3 }], [60, { x: 960, y: 540, scale: 1 }]]} dur={40}>
       <Svg><Crowd people={camPeople} /></Svg>
     </Camera>
-    <Subtitle lines={[[0, sec(2), "27番さんは、32歳。"], [sec(2), sec(5), "この夜、会場には100人がいました。"]]} />
+    <Subtitle lines={[[0, sec(2), "32歳の会社員です。"], [sec(2), sec(5), "この夜、会場には100人がいました。"]]} />
   </>
 );
 
@@ -122,7 +122,7 @@ const DayScene: React.FC = () => (
     <DayReplay days={["1日目", "2日目", "3日目", "4日目", "5日目"]} perDay={30} x={300} y={300} />
     <HeroNumber value={5} unit="人" prefix="出会い " x={1000} y={560} start={130} />
     <Gosa cues={[[10, "normal"]]} />
-    <Subtitle lines={[[0, sec(5.5), "1日ずつ、27番さんの1週間を再現します。"]]} />
+    <Subtitle lines={[[0, sec(5.5), "1日ずつ、彼の1週間を再現します。"]]} />
   </>
 );
 

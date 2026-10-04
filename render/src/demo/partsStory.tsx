@@ -33,7 +33,7 @@ const r0 = rng(4);
 const crowdPoses: Pose[] = base.map(() => (r0() < 0.4 ? "phone" : "stand"));
 const storyPeople: Person[] = base.map((kind, i) => ({
   kind, from: platform[i], pose: i === HERO ? [[0, "phone"], [100, "headInHands"]] : crowdPoses[i],
-  highlight: i === HERO, label: i === HERO ? "27番さん（32）" : undefined,
+  highlight: i === HERO, label: i === HERO ? "会社員（32）" : undefined,
 }));
 export const StoryScene: React.FC = () => (
   <>
@@ -41,7 +41,7 @@ export const StoryScene: React.FC = () => (
       <Backdrop kind="station" floor={860} variant={2} />
       <Svg><Crowd people={storyPeople} /></Svg>
     </Camera>
-    <Subtitle lines={[[0, sec(2.3), "金曜の夜、27番さんはまたアプリを開きました。"], [sec(2.3), sec(6), "同じホームに、同じような人が100人。"]]} />
+    <Subtitle lines={[[0, sec(2.3), "金曜の夜、彼はまたアプリを開きました。"], [sec(2.3), sec(6), "同じホームに、同じような人が100人。"]]} />
   </>
 );
 
@@ -103,7 +103,7 @@ export const SIM_SECONDS = (5 * 45 + 40) / 30;
 export const SimScene: React.FC = () => (
   <>
     <SimBackground />
-    <MatchingSim result={real} box={{ x: Z.stage.x, y: Z.stage.y, w: Z.stageWithGosa.w, h: Z.stage.h }} highlight={{ id: SIM_HERO, label: "27番さん" }} />
+    <MatchingSim result={real} box={{ x: Z.stage.x, y: Z.stage.y, w: Z.stageWithGosa.w, h: Z.stage.h }} highlight={{ id: SIM_HERO, label: "会社員（32）" }} />
     <SourceNote sim />
     <Gosa cues={[[0, "thinking"], [5 * 45, "surprised"]]} />
     <Subtitle lines={[[0, sec(4), "全員が「自分と同じかそれ以上」の相手を探すと、"], [sec(4), sec(9), `ペアになれたのは、100人中${Math.round(pairedShare(real) * 100)}人でした。`]]} />

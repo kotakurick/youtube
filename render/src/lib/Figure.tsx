@@ -87,8 +87,8 @@ const Posed: React.FC<{ kind: Kind; pose: Pose; facing: number; phase: number; f
 export const Figure: React.FC<{
   kind: Kind; x: number; y: number; size?: number; opacity?: number;
   dim?: boolean;        // 話の対象外（薄い色。opacity では薄くしない）
-  highlight?: boolean;  // 追う1人（○番さん）：輪で囲んで1.25倍
-  label?: string;       // 追う1人の名札（例：「27番さん（32）」）
+  highlight?: boolean;  // 追う1人（主人公。番号で呼ばない）：輪で囲んで1.25倍
+  label?: string;       // 追う1人の名札（例：「会社員（32）」「孫娘（30）」。番号は付けない）
   color?: string;
   pose?: Pose;
   facing?: -1 | 0 | 1;  // 左右に少し向く（2人で向き合うとき）

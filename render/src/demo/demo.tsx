@@ -1,5 +1,5 @@
 // 部品の見本（数字は仮）。標準構成の流れを短く通す：
-// 物語の冒頭（○番さん）→ 今日の答え合わせ → 100人実験（群衆が100マスに並び直す）→ 章の扉 → もしも → 答え合わせ → 教訓
+// 物語の冒頭（主人公）→ 今日の答え合わせ → 100人実験（群衆が100マスに並び直す）→ 章の扉 → もしも → 答え合わせ → 教訓
 import React from "react";
 import { AbsoluteFill } from "remotion";
 import { BarChart, barGeometry, BarChartProps } from "@lib/BarChart";
@@ -27,7 +27,7 @@ const men = shuffle(base.flatMap((k, i) => (k === "male" ? [i] : [])), 3);
 const women = shuffle(base.flatMap((k, i) => (k === "female" ? [i] : [])), 4);
 const paired = new Set([...men.slice(0, PAIRS), ...women.slice(0, PAIRS)]);
 const HERO = men[PAIRS + 2]; // 追う1人（ペアにならない側）
-const LABEL = "27番さん（32）";
+const LABEL = "会社員（32）";
 
 // 100マス：20列×5段、左の列から下→上に埋める。ペア成立を左に、残りを右に
 const COLS = 20, ROWS = 5, DX = 50, DY = 76, GX = 330, BOTTOM = 840;
@@ -54,7 +54,7 @@ const Opening: React.FC = () => (
     <Svg><Crowd people={opening} /></Svg>
     <ChannelTag />
     <Gosa cues={[[20, "normal"]]} size="S" exit={50} />
-    <Subtitle lines={[[0, sec(4.5), "32歳の27番さんは、この夜、3人と話しました。"]]} />
+    <Subtitle lines={[[0, sec(4.5), "32歳の彼は、この夜、3人と話しました。"]]} />
   </>
 );
 

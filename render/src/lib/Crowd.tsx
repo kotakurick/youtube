@@ -11,9 +11,9 @@ export type Person = {
   to?: Pt;          // 省略すると動かない
   delay?: number;   // 動き出すまでのフレーム
   dim?: boolean | number; // 話の対象外：true ならずっと薄い色、数字ならそのフレームから薄い色に変わる
-  highlight?: boolean;    // 追う1人（○番さん）
+  highlight?: boolean;    // 追う1人（主人公。番号で呼ばない）
   label?: string;         // 追う1人の名札
-  pose?: Pose | [number, Pose][]; // 姿勢。[フレーム, 姿勢] の並びなら、その時刻に姿勢が変わる（○番さんが座る・スマホを見る など）
+  pose?: Pose | [number, Pose][]; // 姿勢。[フレーム, 姿勢] の並びなら、その時刻に姿勢が変わる（主人公が座る・スマホを見る など）
   facing?: -1 | 0 | 1;
   age?: Age;
 };
