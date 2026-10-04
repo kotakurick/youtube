@@ -102,7 +102,7 @@
       "model": "eleven_v4_turbo",
       "voice": "fUjY9K2nAIwlALOwSiwc",
       "tags": true,
-      "default_tag": "warm, clear narration",
+      "default_tag": "warm, clear, even-toned narration",
       "pace": "brisk pace",
       "options": {"seed": 42, "voice_settings": {"stability": 0.5, "similarity_boost": 0.45}},
       "memo": "本番の声（2026-10-04 オーナー決定）。Voice Library「Yui - Warm, Clear and Natural」女性・若め。v4 Turbo は文字あたり半額。v4 では style・speed は効かない（公式）ので、速さと語り方はタグで指示する。安定度は聞き比べで差が出なかった。Starter 以上のプランが必要"
