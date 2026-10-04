@@ -27,7 +27,9 @@ const collect = (): { boxes: QABox[]; els: Element[] } => {
   const els: Element[] = [];
   const push = (el: Element, kind: QAKind, r: DOMRect, label: string, fontPx?: number) => {
     if (r.width < 1 || r.height < 1) return;
-    const allow = (el.closest("[data-qa-allow]")?.getAttribute("data-qa-allow") ?? "").split(/\s+/).filter(Boolean);
+    // 重なってよい相手は、自分と親の印をすべて合わせる（例：寄りの画面の中の、名札つきの人型）
+    const allow: string[] = [];
+    for (let e: Element | null = el; e; e = e.parentElement) allow.push(...(e.getAttribute("data-qa-allow") ?? "").split(/\s+/).filter(Boolean));
     boxes.push({ id: boxes.length, kind, x: r.left, y: r.top, w: r.width, h: r.height, allow, label, fontPx });
     els.push(el);
   };

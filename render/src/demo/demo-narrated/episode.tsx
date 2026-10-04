@@ -64,3 +64,10 @@ export const demoNarrated: EpisodeDef = {
   title: "読み上げの見本",
   scenes: fromTiming(timing as Timing, { opening: Opening, today: Today, "ch3-card": Ch3Card, ch3: Ch3, lesson: Lesson }),
 };
+
+/** 仮通しの見本：冒頭だけ部品があり、ほかの場面は仮の画面（場面名と字幕）になる */
+export const demoDraft: EpisodeDef = {
+  id: "demo-narrated-draft",
+  title: "仮通しの見本",
+  scenes: fromTiming(timing as Timing, { opening: Opening }, { draft: true }),
+};

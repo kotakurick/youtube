@@ -1,41 +1,42 @@
 // この回の動画。使うときは Episode.tsx に名前を変える（名前が Episode.tsx のものだけ自動で登録される）。
-// 部品は render/src/lib/ にある。書き方の見本は render/src/demo/demo.tsx、決まりは docs/brand.md。
-// seconds は読み上げ音声の長さに合わせる（tts/tts.py の出力）。音声は npm run sync で public/ に写る。
+// 部品は render/src/lib/ にある。書き方の見本は render/src/demo/（demo-narrated が台本からの流れ）、決まりは docs/brand.md。
 //
-// 標準構成（18分前後・3章）：
-//   物語の冒頭（○番さん。最初の1割で問いと最初の数字）→ 今日の答え合わせ（TodayCard）→ 予想タイム → 道案内
-//   → 第1章（身近な統計）→ 第2章（仕組み。もう一方の側のデータも出す。終わりに「ここまでの答え合わせ」を1行）
-//   → 第3章（もしも：SimBackground ＋ SourceNote sim）→ 答え合わせ（Verdict）→ 教訓（冒頭の人物に戻る）→ 終了画面20秒
+// 流れ：
+//   1. script.md を書く（## 見出しが場面。細かく分けるときは <!-- 場面: ch1-crowd -->、声のない場面は <!-- 場面: ch2-card 2.8秒 -->）
+//   2. python tts/narrate.py episodes/<回> --voice silent   … 仮の無音で尺と字幕の時刻（timing.json）を作る
+//   3. 下の parts を空のまま draft: true で書き出す → 仮の場面で18分を通して見る（仮通し）
+//   4. 場面の部品を1つずつ足す。動きは useNarration() で読み上げに合わせる（n.at(2)＝3文目の始まり、n.find("38人")）
+//   5. 声が決まったら --voice を変えて narrate.py をもう一度。尺と字幕は自動で声に合う
+//   6. cd render && npm run check -- <回のid> で「直すもの」を0にしてから書き出す
 import React from "react";
 import { ChannelTag, TodayCard } from "@lib/Cards";
 import { Gosa } from "@lib/Gosa";
-import { Subtitle } from "@lib/Subtitle";
-import { sec } from "@lib/theme";
+import { fromTiming, Timing, useNarration } from "@lib/Narration";
 import type { EpisodeDef } from "@lib/Episode";
+import timing from "../timing.json";
 
-const Opening: React.FC = () => (
-  <>
-    <ChannelTag />
-    <Gosa cues={[[20, "normal"]]} size="S" exit={50} />
-    <Subtitle lines={[[0, sec(5), "（字幕）"]]} />
-  </>
-);
+const Opening: React.FC = () => {
+  const n = useNarration();
+  return (
+    <>
+      <ChannelTag />
+      <Gosa cues={[[n.at(0) + 20, "normal"]]} size="S" exit={n.at(0) + 50} />
+    </>
+  );
+};
 
 const Today: React.FC = () => (
   <>
     <TodayCard claim="（通説を1行で）" />
     <Gosa cues={[[6, "thinking"]]} />
-    <Subtitle lines={[[0, sec(3), "今日の答え合わせは、この説です。"]]} />
   </>
 );
 
 const episode: EpisodeDef = {
   id: "000-example",            // フォルダ名と同じにする（英数字とハイフン）
   title: "（タイトル）",
-  scenes: [
-    { id: "opening", seconds: 5, audio: undefined, Scene: Opening },
-    { id: "today", seconds: 3, audio: undefined, Scene: Today },
-  ],
+  // draft: true のうちは、部品のない場面が仮の画面（場面名と字幕）になる。全部そろったら外す
+  scenes: fromTiming(timing as Timing, { opening: Opening, today: Today }, { draft: true }),
   // bgm: [{ file: "story.mp3", from: "opening", to: "today" }],  // 曲は $YT_DATA_DIR/bgm/ に置く
 };
 export default episode;

@@ -103,9 +103,9 @@ export const ensureFont = () => (fontPromise ??= (async () => {
   document.fonts.add(f);
 })());
 
-/** 文字の役割から style を作る（数字は等幅） */
+/** 文字の役割から style を作る（数字は等幅）。HTML の文字は color、SVG の文字は fill で色が付く（両方入れる） */
 export const font = (role: keyof typeof T, color: string = C.ink): React.CSSProperties => ({
-  fontFamily: FONT, fontSize: T[role][0], fontWeight: T[role][1], color, fontVariantNumeric: "tabular-nums",
+  fontFamily: FONT, fontSize: T[role][0], fontWeight: T[role][1], color, fill: color, fontVariantNumeric: "tabular-nums",
 });
 
 /** 秒をフレームに */

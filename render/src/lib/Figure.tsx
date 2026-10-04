@@ -7,6 +7,8 @@ import { C, FONT, LINE } from "./theme";
 
 export type Kind = "male" | "female" | "other";
 export type Pose = "stand" | "sit" | "phone" | "headInHands" | "walk";
+/** 年代：子ども（小さく、頭が大きめ）／大人／高齢（少し前かがみで杖） */
+export type Age = "child" | "adult" | "elder";
 
 export const kindColor = (kind: Kind, dim = false) =>
   dim ? (kind === "male" ? C.maleTint : kind === "female" ? C.femaleTint : C.otherTint)
@@ -91,19 +93,32 @@ export const Figure: React.FC<{
   pose?: Pose;
   facing?: -1 | 0 | 1;  // 左右に少し向く（2人で向き合うとき）
   phase?: number;       // 歩く姿勢の足の位置（0〜1）
-}> = ({ kind, x, y, size = 1, opacity = 1, dim = false, highlight = false, label, color, pose = "stand", facing = 0, phase = 0 }) => {
+  age?: Age;
+}> = ({ kind, x, y, size = 1, opacity = 1, dim = false, highlight = false, label, color, pose = "stand", facing = 0, phase = 0, age = "adult" }) => {
   const fill = color ?? kindColor(kind, dim);
   const s = highlight ? size * 1.25 : size;
   const bob = pose === "walk" ? -Math.abs(Math.sin(phase * Math.PI * 2)) * 2 : 0;
   return (
-    <g data-qa="figure" data-qa-label={label ?? "人型"} transform={`translate(${x},${y + bob * size}) scale(${s})`} opacity={opacity}>
+    <g data-qa="figure" data-qa-label={label ?? "人型"} data-qa-allow={highlight ? "figure" : undefined} transform={`translate(${x},${y + bob * size}) scale(${s})`} opacity={opacity}>
       {highlight && (
         <>
           <circle cx={0} cy={-20} r={36} fill="none" stroke={C.bg} strokeWidth={12} />
           <circle cx={0} cy={-20} r={36} fill="none" stroke={C.ink} strokeWidth={LINE.thin} />
         </>
       )}
-      <g fill={fill}><Posed kind={kind} pose={pose} facing={facing} phase={phase} fill={fill} /></g>
+      <g fill={fill}>
+        {age === "child" ? (
+          // 子ども：大人の0.68倍。頭は少し大きめ（足元はそのまま）
+          <g transform="scale(0.68)"><Posed kind={kind} pose={pose} facing={facing} phase={phase} fill={fill} />
+            <circle cx={3 * facing} cy={pose === "sit" ? -34 : -36} r={10.5} /></g>
+        ) : age === "elder" ? (
+          // 高齢：頭が少し前に出て、杖（墨）をつく
+          <g>
+            <g transform="translate(1,1.5) skewX(-4)"><Posed kind={kind} pose={pose} facing={facing} phase={phase} fill={fill} /></g>
+            {pose !== "sit" && <path d="M13 -14 Q17 -16 17 -12 L18 5" fill="none" stroke={C.ink} strokeWidth={3} strokeLinecap="round" />}
+          </g>
+        ) : <Posed kind={kind} pose={pose} facing={facing} phase={phase} fill={fill} />}
+      </g>
       {highlight && label && (
         <g transform="translate(0,-70)" data-qa-allow="figure">
           <rect x={-label.length * 11 - 14} y={-22} width={label.length * 22 + 28} height={40} rx={20} fill={C.ink} />

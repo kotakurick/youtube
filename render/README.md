@@ -72,8 +72,20 @@ render/
     sim/matching.ts 婚活のマッチングの計算（安定マッチングを基本に、条件で変えられる。純粋な関数、種で同じ結果）
     MatchingSim.tsx マッチングの描画（1回ずつペアが並び直し、残りを数える）、MatchingCompare（現実ともしもを左右に）
     StackedTrend.tsx 構成比の推移（100%積み上げの横帯、注目の区分だけ色、帯の間を線でつなぐ）
+    Narration.tsx   読み上げとのつなぎ：fromTiming（timing.json から場面・字幕・音声）、useNarration（動きを読み上げに合わせる）、draft（仮通し）
+    sim/spread.ts + SimSpread.tsx  シミュレーションのばらつき（100回やり直し、9割の幅を誤差棒で）
+    sim/filter.ts + FilterSteps.tsx 条件を1つずつ重ねて100人が減る（独立か相関かを仮定として出す）
+    sim/cohort.ts + CohortRace.tsx  年齢ごとの割合で1年ずつ進める（25歳で始めた100人と35歳で始めた100人など）
+    sim/ageMatch.ts + Pyramid.tsx   年齢で相手を選ぶと誰が余るか、人口ピラミッド
+    PairedBars.tsx  男女2本ずつの縦棒
+    Waterfall.tsx   要因を分ける滝グラフ
+    Matrix.tsx      組み合わせの表（5×5まで、濃さで表す、対角を強調）
+    Dumbbell.tsx    理想と実際を線でつなぐ
+    Cards.tsx の MidCheck・SubscribeNudge  ここまでの答え合わせ（1行）、登録のお願い（画面の文字で1行）
+    Figure の age   子ども・高齢（杖）。Backdrop に和室・結婚式場
     Episode.tsx     1本＝場面の並び（場面ごとに長さと音声、BGM の層）
-  src/demo/       見本（demo.tsx：標準構成を短く通す／parts.tsx：部品の見本帳／short.tsx：縦型ショート／GosaSheet.tsx：ゴサの表情一覧）。数字はすべて仮
+  src/demo/       見本（demo.tsx：標準構成を短く通す／parts.tsx・parts2.tsx：部品の見本帳／short.tsx：縦型ショート／
+                  demo-narrated/：台本 → narrate.py → 動画の流れ／GosaSheet.tsx：ゴサの表情一覧）。数字はすべて仮
   src/Root.tsx    動画の一覧（episodes/<回>/scenes/Episode.tsx を自動で登録。thumb があればサムネイルも）
   scripts/        sync-assets.mjs（素材をそろえる）、make-sfx.mjs（効果音）、master.mjs（音量の仕上げ）
 ```

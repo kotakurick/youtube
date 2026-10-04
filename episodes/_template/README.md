@@ -11,8 +11,9 @@
 - [ ] 2. 構成案 → `outline.md`
 - [ ] 3. 台本 → `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲）
 - [ ] ★ 一次資料との照合（オーナー）→ `sources.csv` の「照合」欄をすべて埋める
-- [ ] 5. シーン分割とシーンのコード → `scenes/Episode.tsx`（`Episode.example.tsx` を名前を変えて使う。部品は `render/src/lib`）
-- [ ] 6. 音声合成
+- [ ] 4. 仮通し：`python tts/narrate.py episodes/{{EPISODE}} --voice silent` で仮の尺と字幕（`timing.json`）を作り、部品なしの仮の場面（draft）で18分を通して見て、テンポ・章の長さ・考える場面の位置を直す
+- [ ] 5. シーンのコード → `scenes/Episode.tsx`（`Episode.example.tsx` を名前を変えて使う。部品は `render/src/lib`、動きは `useNarration()` で読み上げに合わせる）
+- [ ] 6. 音声合成：`python tts/narrate.py episodes/{{EPISODE}} --voice <声>`（文ごとに作り、尺・字幕・`subtitles.srt` も自動で声に合う。同じ文は作り直さない）
 - [ ] 7. 合成・字幕・レンダリング
 - [ ] 8. 画面のチェック：`cd render && npm run check -- {{EPISODE}}` の「直すもの」を0にし、「確かめるもの」は画像を見て判断する（重なり・28px未満の文字・はみ出し。結果は `render/out/qa/{{EPISODE}}/`）。縦型ショートも同じ
 - [ ] ★ 1.25倍速で通し確認（オーナー）

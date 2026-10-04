@@ -37,7 +37,20 @@
 4. **オーナー**：クリップを聞いて `listening.csv` を採点する（自然さ、聞き続けたいか、不気味さ、読み間違い）。
 5. **Claude**：採点と料金をまとめて、どの声にするかの案を出す。決めるのはオーナー。
 
-## 本番での使い方（声が決まった後）
+## 台本から動画へ（tts/narrate.py）
+
+```bash
+python tts/narrate.py episodes/001-xxx --voice silent    # 仮の無音で尺と字幕だけ決める（声が決まる前の仮通し）
+python tts/narrate.py episodes/001-xxx --voice aivis-1   # 本番の声で作る
+```
+
+- 台本の「## 見出し」が場面。細かく分けるときは `<!-- 場面: ch1-crowd -->`、声のない場面は `<!-- 場面: ch2-card 2.8秒 -->`。
+- 文ごとに音声を作ってつなぐ。同じ声・同じ文は作り直さない（`$YT_DATA_DIR/episodes/<回>/tts_cache/`）ので、台本を1文直しても払い直すのはその1文だけ。
+- 字幕は1行（横長24字・縦長16字）。長い文は読点や助詞のあとで自動で区切る。「」の中では切らない。
+- 書き出すもの：場面ごとの音声（`$YT_DATA_DIR/episodes/<回>/audio/`）、`episodes/<回>/timing.json`（render が読む）、`episodes/<回>/subtitles.srt`（YouTube に上げる字幕）。
+- ショートは `short.md` を書いて `--vertical`（`timing-short.json`）。
+
+## 1つの文だけ作るとき
 
 ```bash
 python tts/tts.py say --voice google-1 --in 原稿.txt --out 音声.wav

@@ -14,6 +14,7 @@
     $YT_DATA_DIR/episodes/<回>/audio/<場面>.wav   … 場面ごとの音声（npm run sync で render/public に写る）
     $YT_DATA_DIR/episodes/<回>/tts_cache/<声>/   … 文ごとの音声。同じ文は作り直さない（料金を払い直さない）
     episodes/<回>/timing.json                   … 場面の長さ・音声・字幕の時刻（Git に入れる。render の fromTiming が読む）
+    episodes/<回>/subtitles.srt                 … YouTube に上げる字幕ファイル（焼き込みと同じ文と時刻）
 """
 import argparse
 import hashlib
@@ -127,6 +128,20 @@ def wav_seconds(p: Path) -> float:
         return r.getnframes() / r.getframerate()
 
 
+def write_srt(scenes: list[dict], out: Path) -> None:
+    """YouTube に上げる字幕ファイル（SRT）。動画に焼き込んだ字幕と同じ時刻・文。"""
+    def ts(x: float) -> str:
+        ms = int(round(x * 1000))
+        return f"{ms // 3600000:02d}:{ms // 60000 % 60:02d}:{ms // 1000 % 60:02d},{ms % 1000:03d}"
+    rows, t0, n = [], 0.0, 0
+    for sc in scenes:
+        for a_, b_, text in sc["lines"]:
+            n += 1
+            rows.append(f"{n}\n{ts(t0 + a_)} --> {ts(t0 + b_)}\n{text}\n")
+        t0 += sc["seconds"] or 0
+    out.write_text("\n".join(rows), encoding="utf-8")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("episode", type=Path, help="episodes/<回> のフォルダ")
@@ -177,6 +192,7 @@ def main():
     # 字幕の1枚は1行にまとめて読みやすくする
     text = re.sub(r'\[\n\s+([\d.]+),\n\s+([\d.]+),\n\s+(".*?")\n\s+\]', r"[\1, \2, \3]", text)
     (ep / ("timing-short.json" if a.vertical else "timing.json")).write_text(text + "\n", encoding="utf-8")
+    write_srt(out_scenes, ep / ("subtitles-short.srt" if a.vertical else "subtitles.srt"))
     total = sum(s["seconds"] or 0 for s in out_scenes)
     cost = "" if v is None else f"、今回作った分 {paid_chars}字・約{tts.cost_usd(v['engine'], 'あ' * paid_chars, cfg['pricing']) * cfg['jpy_per_usd']:.0f}円"
     print(f"\n{len(out_scenes)}場面、合計 {int(total // 60)}分{total % 60:.0f}秒{cost}")

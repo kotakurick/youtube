@@ -20,6 +20,7 @@ const RULES: Record<string, { level: "error" | "warn"; why: string }> = {
   "gosa|mark": { level: "error", why: "ゴサがグラフに重なっています" },
   "gosa|prop": { level: "error", why: "ゴサが小道具に重なっています" },
   "figure|mark": { level: "warn", why: "人型がグラフに重なっています" },
+  "figure|figure": { level: "warn", why: "人型どうしが重なっています（群衆は Crowd が止める。1人ずつ置いた人型は間を空ける）" },
   "sub|text": { level: "error", why: "字幕の帯に文字がかかっています" },
   "figure|sub": { level: "error", why: "字幕の帯に人型がかかっています" },
   "gosa|sub": { level: "error", why: "字幕の帯にゴサがかかっています" },

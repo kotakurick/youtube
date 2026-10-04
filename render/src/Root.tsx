@@ -10,15 +10,16 @@ import { THUMB, Thumbnail } from "@lib/Thumbnail";
 import { withFont } from "@lib/FontGate";
 import { demo } from "./demo/demo";
 import { parts } from "./demo/parts";
+import { parts2 } from "./demo/parts2";
 import { demoShort } from "./demo/short";
-import { demoNarrated } from "./demo/demo-narrated/episode";
+import { demoDraft, demoNarrated } from "./demo/demo-narrated/episode";
 import { GosaSheet } from "./demo/GosaSheet";
 import { BackdropSheet, PoseSheet } from "./demo/partsStory";
 
 const found = require.context("../../episodes", true, /scenes\/Episode\.tsx$/);
 const foundShorts = require.context("../../episodes", true, /scenes\/Short\.tsx$/);
 const load = (ctx: ReturnType<typeof require.context>) => ctx.keys().filter((k) => !k.startsWith("./_")).map((k) => ctx(k).default as EpisodeDef);
-const episodes: EpisodeDef[] = [demo, parts, demoNarrated, ...load(found)];
+const episodes: EpisodeDef[] = [demo, parts, parts2, demoNarrated, demoDraft, ...load(found)];
 const shorts: EpisodeDef[] = [demoShort, ...load(foundShorts)];
 const comps = [...episodes.map((ep) => ({ ep, w: W, h: H })), ...shorts.map((ep) => ({ ep, w: H, h: W }))]
   .map(({ ep, w, h }) => ({ ep, w, h, Comp: withFont(() => <Episode ep={ep} />) }));

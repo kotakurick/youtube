@@ -6,7 +6,7 @@ import { useVideoConfig } from "remotion";
 import { rng } from "./random";
 import { C, LINE, R } from "./theme";
 
-export type BackdropKind = "room" | "station" | "night" | "office";
+export type BackdropKind = "room" | "station" | "night" | "office" | "washitsu" | "wedding";
 
 /** 部屋・職場の背景で、壁に何も描かない横の範囲（時計・カレンダーを置く場所） */
 export const WALL_FREE = { x1: 0.45, x2: 0.7 } as const;
@@ -73,6 +73,53 @@ export const Backdrop: React.FC<{ kind: BackdropKind; floor?: number; variant?: 
           const x = f * W + pick(-60, 60);
           return <path key={f} d={`M${x} ${floor} V${floor - 330} Q${x} ${floor - 360} ${x + 40} ${floor - 360} H${x + 60}`} fill="none" {...st} />;
         })}
+        <line x1={0} x2={W} y1={floor} y2={floor} {...st} />
+      </>
+    );
+  } else if (kind === "washitsu") {
+    // 和室（昔の見合いの情景）：障子・畳・床の間と掛け軸
+    const flip = variant % 2 === 1;
+    const X = (x: number, w: number) => (flip ? W - x - w : x);
+    const n = 4;
+    body = (
+      <>
+        <line x1={0} x2={W} y1={floor - 6} y2={floor - 6} {...st} />
+        {/* 障子 */}
+        {Array.from({ length: n }, (_, i) => {
+          const x0 = X(120 + i * 230, 220);
+          return (
+            <g key={i}>
+              <rect x={x0} y={floor - 600} width={220} height={590} fill={C.white} {...st} />
+              {[1, 2, 3, 4, 5].map((r) => <line key={r} x1={x0} x2={x0 + 220} y1={floor - 600 + r * 98} y2={floor - 600 + r * 98} {...thin} />)}
+              {[1, 2].map((c) => <line key={c} x1={x0 + c * 73} x2={x0 + c * 73} y1={floor - 600} y2={floor - 10} {...thin} />)}
+            </g>
+          );
+        })}
+        {/* 床の間と掛け軸 */}
+        <rect x={X(W - 560, 380)} y={floor - 640} width={380} height={634} fill={C.paper2} {...st} />
+        <rect x={X(W - 430, 120)} y={floor - 580} width={120} height={380} rx={4} fill={C.white} {...st} />
+        <rect x={X(W - 560, 380)} y={floor - 60} width={380} height={54} fill={C.white} {...st} />
+        {/* 畳の目 */}
+        <path d={`M0 ${floor + 50} H${W} M${W * 0.3} ${floor} L${W * 0.25} ${H} M${W * 0.7} ${floor} L${W * 0.75} ${H}`} {...thin} />
+      </>
+    );
+  } else if (kind === "wedding") {
+    // 結婚式場：アーチ、バージンロード、両側の席
+    const cx = W / 2 + (variant % 3 - 1) * 120;
+    body = (
+      <>
+        <path d={`M${cx - 260} ${floor} V${floor - 420} Q${cx - 260} ${floor - 640} ${cx} ${floor - 660} Q${cx + 260} ${floor - 640} ${cx + 260} ${floor - 420} V${floor}`}
+          fill={C.white} {...st} />
+        <path d={`M${cx - 200} ${floor} V${floor - 400} Q${cx - 200} ${floor - 580} ${cx} ${floor - 596} Q${cx + 200} ${floor - 580} ${cx + 200} ${floor - 400} V${floor}`}
+          fill="none" {...thin} />
+        {[-1, 1].map((s) => [0, 1, 2].map((k) => (
+          <circle key={`${s}${k}`} cx={cx + s * (300 + k * 40)} cy={floor - 430 + k * 60} r={26} fill={C.paper2} {...thin} />
+        )))}
+        <path d={`M${cx - 90} ${floor} L${cx - 260} ${H} M${cx + 90} ${floor} L${cx + 260} ${H}`} {...st} />
+        <rect x={cx - 90} y={floor} width={180} height={H - floor} fill={C.paper2} />
+        {[-1, 1].map((s) => [0, 1, 2, 3].map((k) => (
+          <rect key={`b${s}${k}`} x={s < 0 ? cx - 420 - k * 260 : cx + 160 + k * 260} y={floor - 70} width={240} height={64} rx={R.sm} fill={C.paper2} {...thin} />
+        )))}
         <line x1={0} x2={W} y1={floor} y2={floor} {...st} />
       </>
     );

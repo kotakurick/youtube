@@ -1,7 +1,7 @@
 // 群衆。1人ずつ「出発点 → 到着点」をばね（SPRING.move）で移す。標準は100人（1人＝1%）。
 import React, { useMemo } from "react";
 import { interpolateColors, useCurrentFrame, useVideoConfig } from "remotion";
-import { Figure, Kind, kindColor, Pose } from "./Figure";
+import { Age, Figure, Kind, kindColor, Pose } from "./Figure";
 import { overlaps, Pt } from "./layout";
 import { CROWD_SIZE, sp } from "./theme";
 
@@ -15,6 +15,7 @@ export type Person = {
   label?: string;         // 追う1人の名札
   pose?: Pose | [number, Pose][]; // 姿勢。[フレーム, 姿勢] の並びなら、その時刻に姿勢が変わる（○番さんが座る・スマホを見る など）
   facing?: -1 | 0 | 1;
+  age?: Age;
 };
 
 /** いまの姿勢（[フレーム, 姿勢] の並びなら時刻で選ぶ） */
@@ -56,7 +57,7 @@ export const Crowd: React.FC<{
         return (
           <g key={i} data-qa-skip={moving ? "" : undefined}>
           <Figure kind={p.kind} size={size} highlight={p.highlight} label={p.label} color={color}
-            pose={poseAt(p.pose, frame - start)} facing={p.facing} phase={((frame + i * 7) % 20) / 20}
+            pose={poseAt(p.pose, frame - start)} facing={p.facing} age={p.age} phase={((frame + i * 7) % 20) / 20}
             x={p.from.x + (to.x - p.from.x) * t} y={p.from.y + (to.y - p.from.y) * t} />
           </g>
         );

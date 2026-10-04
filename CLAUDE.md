@@ -91,5 +91,7 @@ bench/bench.sh @lovebynumbers                      # ベンチマーク取得（
 python bench/analyze.py --out research/benchmark/summary.md
 scripts/new_episode.sh where-couples-meet          # 新しい回を作る → episodes/001-where-couples-meet/
 cd render && npm run studio                         # 動画をブラウザで確認（Remotion Studio）
+python tts/narrate.py episodes/<回> --voice silent  # 台本から仮の尺と字幕（声が決まったら --voice を変える）
+cd render && npm run check -- <回のid>               # 画面のチェック（直すものを0に）
 cd render && npm run render -- <回のid> out/<回>.mp4  # 動画を書き出す
 ```
