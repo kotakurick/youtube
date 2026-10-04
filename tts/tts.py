@@ -70,7 +70,10 @@ def need_key(name: str) -> str:
 
 def synth_fish(text: str, v: dict) -> tuple[bytes, str]:
     url = os.environ.get("FISH_API_URL", "https://api.fish.audio") + "/v1/tts"
-    body = json.dumps({"text": text, "reference_id": v["voice"], "format": "wav", "sample_rate": RATE}).encode()
+    req = {"text": text, "reference_id": v["voice"], "format": "wav", "sample_rate": RATE}
+    if v.get("speed"):  # 話す速さの倍率（engines.json の speed）。ルールの1分390〜400字に合わせる
+        req["prosody"] = {"speed": float(v["speed"]), "volume": 0}
+    body = json.dumps(req).encode()
     headers = {"Authorization": f"Bearer {need_key('FISH_API_KEY')}", "Content-Type": "application/json",
                "model": v.get("model", "s2.1-pro")}
     return http(url, body, headers), "wav"
