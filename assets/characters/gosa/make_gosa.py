@@ -6,6 +6,8 @@
 出力（このフォルダの下）:
     svg/<表情>.svg        表情ごとの立ち絵（明るい背景用）
     svg/<表情>_dark.svg   暗い背景用の反転版（白い体に墨の目。2026-10-04 決定）
+    watermark.svg         動画の透かし（紙色の円に棒グラフ。assets/channel/watermark_300.png に書き出す）
+    watermark_face.svg    透かしの別案（ゴサの顔）
     icon.svg              チャンネルのアイコン（ゴサが棒グラフを見ている。小さく表示してもひげが見えるよう太め）
     gosa.json             表情の設定。動画の部品（render/src/lib/Gosa.tsx）がこれを読み、表情の間をなめらかにつなぐ
 
@@ -198,6 +200,28 @@ def icon() -> str:
             f'<g transform="translate(0,-12) scale(1.15)">{face}</g>{chart}</svg>\n')
 
 
+def watermark() -> str:
+    """動画の透かし（YouTube が動画の右下に小さく出し、押すと登録できる）。
+    画面の右下にはゴサがいるので、猫が2匹並ばないよう、アイコンの棒グラフだけにする（2026-10-04）。
+    明るい場面でも暗い場面でも見えるよう、紙色の円に墨の縁を付ける。"""
+    base, w, xs, hs = 38, 28, (-30, 0, 30), (34, 56, 82)
+    chart = (bar(xs[0], hs[0], base, w, GREY, 6) + bar(xs[1], hs[1], base, w, GREY, 6) + bar(xs[2], hs[2], base, w, MARKER, 6)
+             + f'<line x1="-52" y1="{base}" x2="52" y2="{base}" stroke="{INK}" stroke-width="7" stroke-linecap="round"/>')
+    return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="-80 -80 160 160" width="300" height="300">'
+            '<title>吾輩は数える猫である 透かし</title>'
+            f'<circle r="76" fill="{PAPER}" stroke="{INK}" stroke-width="6"/>{chart}</svg>\n')
+
+
+def watermark_face() -> str:
+    """透かしの別案：紙色の円にゴサの顔（画面のゴサと並ぶので、今は使わない）。"""
+    face = (ears("normal") + whisker(-1, 46, width=10, cap=16) + whisker(1, 46, width=10, cap=16)
+            + f'<circle r="{BODY_R}" fill="{INK}"/>' + eyes("normal") + mouth("w"))
+    return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="-80 -80 160 160" width="300" height="300">'
+            '<title>吾輩は数える猫である 透かし（ゴサの顔）</title>'
+            f'<circle r="76" fill="{PAPER}" stroke="{INK}" stroke-width="6"/>'
+            f'<g transform="translate(0,6) scale(1.2)">{face}</g></svg>\n')
+
+
 def main():
     out = HERE / "svg"
     out.mkdir(exist_ok=True)
@@ -206,6 +230,8 @@ def main():
         (out / f"{name}.svg").write_text(svg(inner, f"ゴサ：{label}"), encoding="utf-8")
         (out / f"{name}_dark.svg").write_text(svg(invert(inner), f"ゴサ：{label}（暗い背景用・反転版）"), encoding="utf-8")
     (HERE / "icon.svg").write_text(icon(), encoding="utf-8")
+    (HERE / "watermark.svg").write_text(watermark(), encoding="utf-8")
+    (HERE / "watermark_face.svg").write_text(watermark_face(), encoding="utf-8")
     rig = dict(BODY_R=BODY_R, WHISKER_Y=WHISKER_Y, WHISKER_W=WHISKER_W, CAP=CAP, EAR_TIPS=EAR_TIPS,
                expressions={k: dict(label=v[0], **v[1]) for k, v in EXPRESSIONS.items()})
     (HERE / "gosa.json").write_text(json.dumps(rig, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")

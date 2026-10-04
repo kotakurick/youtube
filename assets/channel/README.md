@@ -8,9 +8,11 @@ YouTube の「チャンネルのカスタマイズ」に入れるもの。2026-1
 |---|---|---|
 | 写真（アイコン） | `icon_800.png`（800×800） | `python assets/characters/gosa/make_gosa.py` で `icon.svg` を作り、800px に書き出したもの（正本は `assets/characters/gosa/`） |
 | バナー画像 | `banner_2560x1440.png`（2560×1440） | `cd render && npm run still -- channel-banner out/banner.png`（`render/src/channel/Banner.tsx`） |
-
 - バナーは、どの端末でも見える中央の区画（1546×423）に、ゴサ・棒グラフ・名前・キャッチコピーを収めてある。左右の薄い群衆は、パソコンやテレビでだけ見える飾り。
-- 動画の透かし（右下に出る小さな画像）を使うなら、アイコンと同じ絵でよい（150×150 以上）。
+| 動画の透かし | `watermark_300.png`（300×300、背景は透明） | `make_gosa.py` の `watermark()`（`watermark.svg`）を300pxで書き出したもの |
+
+- 動画の透かし（YouTube が動画の右下に小さく出し、押すと登録できる）は、アイコンの棒グラフだけにした。画面の右下にはゴサがいるので、透かしにもゴサを入れると猫が2匹並ぶため。ゴサの顔の案は `watermark_face.svg` に残してある。
+- 透かしの表示時間は「動画全体」でよい。右下の角に小さく出るので、字幕の帯（中央）とは重ならない。
 
 ## 名前とハンドル
 
