@@ -7,9 +7,9 @@
 人の工程（★）は飛ばさない。チェックを付けたら日付も書く。
 
 - [x] 1. テーマ・データ収集（2026-10-04、S1〜S7） → `sources.csv`、`data/`
-- [ ] ★ テーマと切り口の承認（オーナー）
+- [x] ★ テーマと切り口の承認（オーナー 2026-10-04「その筋で進めて」。タイトルは別途検討）
 - [x] 2. 構成案（2026-10-04 初版） → `outline.md`
-- [ ] 3. 台本 → `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲）
+- [x] 3. 台本（2026-10-04 初稿。lint のエラー0、仮の尺15分9秒）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲）
 - [ ] ★ 一次資料との照合（オーナー）→ `sources.csv` の「照合」欄をすべて埋める
 - [ ] 4. 仮通し：`python tts/narrate.py episodes/001-where-couples-meet --voice silent` で仮の尺と字幕（`timing.json`）を作り、部品なしの仮の場面（draft）で18分を通して見て、テンポ・章の長さ・考える場面の位置を直す
 - [ ] 5. シーンのコード → `scenes/Episode.tsx`（`Episode.example.tsx` を名前を変えて使う。部品は `render/src/lib`、動きは `useNarration()` で読み上げに合わせる）
