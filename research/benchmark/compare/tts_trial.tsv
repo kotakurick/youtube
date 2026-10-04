@@ -1,3 +1,4 @@
 ﻿name	engine	model	voice	sample_sec	chars_per_min	gen_sec	jpy_per_video	jpy_per_month	pricing_checked
-aivis-1	aivis		888753763	44.3	395	26.3	0	0	2026-10-04
-aivis-2	aivis		1878365376	44.4	395	25.9	0	0	2026-10-04
+fish-3	fish	s2.1-pro	46745543e52548238593a3962be77e3a	45.2	401	12.9	44	2090	2026-10-04
+aivis-1	aivis		888753763	47.9	378	49.4	0	0	2026-10-04
+aivis-2	aivis		1878365376	47.4	383	45.0	0	0	2026-10-04

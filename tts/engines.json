@@ -61,6 +61,13 @@
       "memo": "licensed「しおり (ナレーション)」女性・若め・はっきり"
     },
     {
+      "name": "fish-3",
+      "engine": "fish",
+      "model": "s2.1-pro",
+      "voice": "46745543e52548238593a3962be77e3a",
+      "memo": "オーナー指定（2026-10-04）。ユーザー投稿「ふうか」（作者：株式会社Namaka）。女性・若め・明るい・速め。licensed ではないので、採用前に利用条件と元の声の権利を確認する"
+    },
+    {
       "name": "eleven-1",
       "engine": "elevenlabs",
       "model": "eleven_v3",
