@@ -41,7 +41,7 @@ const episode: EpisodeDef = {
   // 教訓は2つの場面：lesson（冒頭の人物に戻る所）と lesson-main（一般化。script.md の <!-- 場面: lesson-main --> から）。
   // 終了画面の場面ができたら、Away の to をそこまで延ばす。
   bgm: [
-    { file: "Sizzr - Schwartzy.mp3", from: "opening", to: "quiz" },          // 冒頭の物語・今日の答え合わせ・予想タイム
+    { file: "Sizzr - Schwartzy.mp3", from: "opening", to: "quiz", startAt: 10 }, // 冒頭の物語・今日の答え合わせ・予想タイム（頭の静かな10秒を飛ばす）
     { file: "Stayin' Lazy - Godmode.mp3", from: "ch1", to: "ch2" },          // 第1章・第2章
     { file: "Jomon Grove - The Mini Vandals.mp3", from: "ch3" },             // 第3章（シミュレーション）
     { file: "Traversing - Godmode.mp3", from: "verdict" },                   // 判定
