@@ -6,7 +6,7 @@
 出力（このフォルダの下）:
     svg/<表情>.svg        表情ごとの立ち絵（明るい背景用）
     svg/<表情>_dark.svg   暗い背景用の反転版（白い体に墨の目。2026-10-04 決定）
-    icon.svg              チャンネルのアイコン（円の中に顔。小さく表示してもひげが見えるよう太め）
+    icon.svg              チャンネルのアイコン（ゴサが人型3人を見下ろして数えている。小さく表示してもひげが見えるよう太め）
     gosa.json             表情の設定。動画の部品（render/src/lib/Gosa.tsx）がこれを読み、表情の間をなめらかにつなぐ
 
 決まり（docs/concepts/2026-10-04-gosa-cat.html の案C を仕上げたもの）:
@@ -170,14 +170,28 @@ def svg(inner: str, title: str) -> str:
             f"<title>{title}</title>{inner}</svg>\n")
 
 
+# アイコン用の人型（render/src/lib/Figure.tsx の立ち姿と同じ形・色。人はデータなので青とオレンジを使ってよい）
+PAPER = "#F5F2EA"
+MALE, FEMALE = "#2F6FDE", "#D9541E"
+
+
+def person(kind: str, x: float, y: float, s: float) -> str:
+    body = ('<rect x="-11" y="-25" width="22" height="30" rx="8"/>' if kind == "male" else
+            '<path d="M-8 -25 h16 q2 0 2.4 2 l4.4 25 q0.4 3 -2.6 3 h-22.4 q-3 0 -2.6 -3 l4.4 -25 q0.4 -2 2.4 -2 z"/>')
+    return (f'<g transform="translate({x},{y}) scale({s})" fill="{MALE if kind == "male" else FEMALE}">'
+            f'<circle cx="0" cy="-36" r="9"/>{body}</g>')
+
+
 def icon() -> str:
-    face = (ears("normal") + whisker(-1, 50, width=9, cap=15) + whisker(1, 50, width=9, cap=15)
+    """チャンネル「吾輩は数える猫である」のアイコン：ゴサが下の人型3人を見下ろして数えている（2026-10-04）。"""
+    face = (ears("normal") + whisker(-1, 46, width=9, cap=15) + whisker(1, 46, width=9, cap=15)
             + f'<circle r="{BODY_R}" fill="{INK}"/>'
-            + eyes("normal") + mouth("w"))
+            + eyes("normal", look=(0, 2)) + mouth("w"))
+    people = person("male", -27, 60, 0.85) + person("female", 0, 60, 0.85) + person("male", 27, 60, 0.85)
     return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="-80 -80 160 160" width="512" height="512">'
             '<title>吾輩は数える猫である アイコン</title>'
-            '<circle r="80" fill="#F5F2EA"/>'
-            f'<g transform="translate(0,4) scale(1.35)">{face}</g></svg>\n')
+            f'<circle r="80" fill="{PAPER}"/>'
+            f'<g transform="translate(0,-16)">{face}</g>{people}</svg>\n')
 
 
 def main():
