@@ -93,5 +93,6 @@ scripts/new_episode.sh where-couples-meet          # 新しい回を作る → e
 cd render && npm run studio                         # 動画をブラウザで確認（Remotion Studio）
 python tts/narrate.py episodes/<回> --voice silent  # 台本から仮の尺と字幕（声が決まったら --voice を変える）
 cd render && npm run check -- <回のid>               # 画面のチェック（直すものを0に）
+cd render && npm run bgm                             # BGM を測り、曲ごとの音量をそろえる（曲を置いた・替えたとき）
 cd render && npm run render -- <回のid> out/<回>.mp4  # 動画を書き出す
 ```

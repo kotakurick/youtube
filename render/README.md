@@ -30,7 +30,7 @@ npm run typecheck                                # 書き間違いの確認
 ```
 
 `npm run sync` が、書き出しの前に素材を `public/` にそろえる（ゴサの SVG、フォント、各回の音声、BGM、効果音）。
-BGM は YouTube オーディオライブラリから落とした曲を `$YT_DATA_DIR/bgm/` に置く。効果音はコードで作る（`scripts/make-sfx.mjs`）。`public/` は作り直せるので Git に入れない。
+BGM は YouTube オーディオライブラリから落とした曲を `$YT_DATA_DIR/bgm/` に置く。置いたら `npm run bgm` で測る（長さ・音量・ピーク・途中の無音・終わりのフェード・テンポの目安・声の帯域の強さ）。結果は `research/bgm.md`、曲ごとの音量の直しは `bgm/levels.json` に書かれ、`Episode` が自動で使う（どの曲も声の下で約19dB小さく聞こえるようにそろう）。曲を替えたら測り直す。効果音はコードで作る（`scripts/make-sfx.mjs`）。`public/` は作り直せるので Git に入れない。
 フォントは Noto Sans JP（OFL）を初回に一度だけダウンロードする（約9.6MB）。
 
 ## 作り

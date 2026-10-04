@@ -2,8 +2,9 @@
 // 音声は tts/tts.py で作り、npm run sync で public/episodes/<回>/audio/ に写したものを使う。
 // BGM は YouTube オーディオライブラリの5〜6曲を固定で使う（2026-10-04 決定）。曲は $YT_DATA_DIR/bgm/ に置き、
 // npm run sync で public/bgm/ に写る。声のある場面では声より約19dB下げ、声のない場面では少し上げる（自動）。
-import React, { useMemo } from "react";
-import { AbsoluteFill, Audio, getStaticFiles, interpolate, Sequence, Series, staticFile } from "remotion";
+// 曲ごとの大きさの違いは npm run bgm が測って bgm/levels.json に書き、ここで自動でそろえる。
+import React, { useEffect, useMemo, useState } from "react";
+import { AbsoluteFill, Audio, cancelRender, continueRender, delayRender, getStaticFiles, interpolate, Sequence, Series, staticFile } from "remotion";
 import { NarrationContext } from "./Narration";
 import { Line, Subtitle } from "./Subtitle";
 import { C, sec } from "./theme";
@@ -51,6 +52,19 @@ const useBgmVolume = (ep: EpisodeDef) => useMemo(() => {
   };
 }, [ep]);
 
+type Levels = { files: Record<string, { gainDb: number }> };
+/** 曲ごとの音量の直し（倍率）。bgm/levels.json がなければ直さない */
+const useBgmGains = () => {
+  const has = hasFile("bgm/levels.json");
+  const [levels, setLevels] = useState<Levels | null>(null);
+  const [handle] = useState(() => (has ? delayRender("BGM の音量") : null));
+  useEffect(() => {
+    if (handle === null) return;
+    fetch(staticFile("bgm/levels.json")).then((r) => r.json()).then((j: Levels) => { setLevels(j); continueRender(handle); }).catch(cancelRender);
+  }, [handle]);
+  return (file: string) => 10 ** ((levels?.files[file]?.gainDb ?? 0) / 20);
+};
+
 // 音声ファイルがない（tts/narrate.py をまだ動かしていない・別のパソコン）ときは、音なしで描く
 const hasFile = (p: string) => {
   try { return getStaticFiles().some((f) => f.name === p); } catch { return true; }
@@ -65,6 +79,7 @@ export const Episode: React.FC<{ ep: EpisodeDef }> = ({ ep }) => {
     console.debug("QA_SCENES:" + JSON.stringify(ep.scenes.map((s) => { const a = f; f += sec(s.seconds); return { id: s.id, from: a, len: sec(s.seconds) }; })));
   }
   const volumeAt = useBgmVolume(ep);
+  const gainOf = useBgmGains();
   const startOf = (id: string) => {
     let f = 0;
     for (const s of ep.scenes) { if (s.id === id) return { f, len: sec(s.seconds) }; f += sec(s.seconds); }
@@ -86,10 +101,11 @@ export const Episode: React.FC<{ ep: EpisodeDef }> = ({ ep }) => {
       {(ep.bgm ?? []).map((b) => {
         const a = startOf(b.from), z = startOf(b.to ?? b.from);
         const len = z.f + z.len - a.f;
+        const g = gainOf(b.file);
         return (
           <Sequence key={b.from} from={a.f} durationInFrames={len} name={`bgm:${b.file}`} layout="none">
             <Audio src={staticFile(`bgm/${b.file}`)} loop
-              volume={(f) => volumeAt(a.f + f) * interpolate(f, [0, 15, len - 30, len], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })} />
+              volume={(f) => Math.min(1, g * volumeAt(a.f + f)) * interpolate(f, [0, 15, len - 30, len], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })} />
           </Sequence>
         );
       })}
