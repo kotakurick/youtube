@@ -15,6 +15,7 @@ import { demoShort } from "./demo/short";
 import { demoDraft, demoNarrated } from "./demo/demo-narrated/episode";
 import { GosaSheet } from "./demo/GosaSheet";
 import { BackdropSheet, PoseSheet } from "./demo/partsStory";
+import { Banner, BANNER } from "./channel/Banner";
 
 const found = require.context("../../episodes", true, /scenes\/Episode\.tsx$/);
 const foundShorts = require.context("../../episodes", true, /scenes\/Short\.tsx$/);
@@ -26,6 +27,7 @@ const comps = [...episodes.map((ep) => ({ ep, w: W, h: H })), ...shorts.map((ep)
 // どの動画・静止画も、フォントを読み込んでから描く（FontGate.tsx）
 const GosaSheetF = withFont(GosaSheet), PoseSheetF = withFont(PoseSheet), BackdropSheetF = withFont(BackdropSheet);
 const ThumbnailF = withFont(Thumbnail);
+const BannerF = withFont(Banner);
 
 export const Root: React.FC = () => (
   <>
@@ -36,6 +38,7 @@ export const Root: React.FC = () => (
     <Still id="gosa-sheet" component={GosaSheetF} width={W} height={H} />
     <Still id="pose-sheet" component={PoseSheetF} width={W} height={H} />
     <Still id="backdrop-sheet" component={BackdropSheetF} width={W} height={H} />
+    <Still id="channel-banner" component={BannerF} width={BANNER.w} height={BANNER.h} />
     {episodes.filter((ep) => ep.thumb).flatMap((ep) => [
       <Still key={`${ep.id}-thumb`} id={`${ep.id}-thumb`} component={ThumbnailF} width={THUMB.w} height={THUMB.h}
         defaultProps={{ ...ep.thumb!, ground: "paper" as const }} />,
