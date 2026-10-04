@@ -22,8 +22,11 @@ const AUDIO = /\.(mp3|wav|m4a|aac|ogg|opus|flac)$/i;
 const UNDER_VOICE_DB = 20 * Math.log10(0.11); // Episode の声の下の音量（約 -19dB）
 const DEFAULT_VOICE = -18;                    // 声の音声がないときの仮の大きさ（LUFS）
 
-const ffmpeg = (args, opts = {}) => spawnSync("npx", ["remotion", "ffmpeg", "-hide_banner", "-nostats", ...args],
-  { shell: process.platform === "win32", maxBuffer: 512 * 1024 * 1024, ...opts });
+// Windows では npx を shell 経由で呼ぶので、空白や記号を含む引数（曲のファイル名など）を引用符で囲む
+const win = process.platform === "win32";
+const q = (a) => (win && /[\s,;=&|<>^()'"]/.test(a) ? `"${a.replace(/"/g, '\\"')}"` : a);
+const ffmpeg = (args, opts = {}) => spawnSync("npx", ["remotion", "ffmpeg", "-hide_banner", "-nostats", ...args].map(q),
+  { shell: win, maxBuffer: 512 * 1024 * 1024, ...opts });
 
 /** 音量（LUFS）・ピーク（dBTP）・幅（LRA）。loudnorm の測定だけ使う */
 const loudness = (file) => {
