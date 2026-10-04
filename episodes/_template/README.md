@@ -9,7 +9,7 @@
 - [ ] 1. テーマ・データ収集 → `sources.csv`、`data/`
 - [ ] ★ テーマと切り口の承認（オーナー）
 - [ ] 2. 構成案 → `outline.md`
-- [ ] 3. 台本 → `script.md`
+- [ ] 3. 台本 → `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲）
 - [ ] ★ 一次資料との照合（オーナー）→ `sources.csv` の「照合」欄をすべて埋める
 - [ ] 5. シーン分割とシーンのコード → `scenes/Episode.tsx`（`Episode.example.tsx` を名前を変えて使う。部品は `render/src/lib`）
 - [ ] 6. 音声合成
