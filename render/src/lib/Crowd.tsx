@@ -52,10 +52,13 @@ export const Crowd: React.FC<{
         const color = typeof p.dim === "number"
           ? interpolateColors(frame - start, [p.dim, p.dim + 10], [kindColor(p.kind), kindColor(p.kind, true)])
           : kindColor(p.kind, p.dim === true);
+        const moving = p.to !== undefined && t > 0.001 && t < 0.98;
         return (
-          <Figure key={i} kind={p.kind} size={size} highlight={p.highlight} label={p.label} color={color}
+          <g key={i} data-qa-skip={moving ? "" : undefined}>
+          <Figure kind={p.kind} size={size} highlight={p.highlight} label={p.label} color={color}
             pose={poseAt(p.pose, frame - start)} facing={p.facing} phase={((frame + i * 7) % 20) / 20}
             x={p.from.x + (to.x - p.from.x) * t} y={p.from.y + (to.y - p.from.y) * t} />
+          </g>
         );
       })}
     </>

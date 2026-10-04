@@ -181,6 +181,8 @@ export const Gosa: React.FC<{
   }
   const scX = 1 + 0.06 * squashT + 0.04 * pre, scY = 1 - 0.08 * squashT - 0.08 * pre;
   const dropY = (1 - enter) * (d * 1.6 + 60) + leave * (d * 1.6 + 60);
+  const moving = Math.abs(dropY) > 2; // 出入りの途中（チェックでは調べない）
+  const clipId = `gosa-floor-${Math.round(x)}-${Math.round(foot)}`;
 
   const ink = dark ? C.white : C.ink;   // 体の色
   const paper = dark ? C.ink : C.white; // 目・口の色
@@ -221,7 +223,11 @@ export const Gosa: React.FC<{
     <>
     {sounds.map(([f, name]) => <Sfx key={f} name={name} at={f} volume={0.5} />)}
     <svg width={VW} height={VH} style={{ position: "absolute", left: 0, top: 0, overflow: "visible", pointerEvents: "none" }}>
-      <g transform={`translate(${x},${foot + dropY - hop})`} data-qa-allow={reachTo && expr === "point" ? "text mark" : undefined}>
+      {/* 出入りは床（足元の線）から上だけ見せる：下から生えるように出て、字幕の帯を横切らない */}
+      <clipPath id={clipId}><rect x={-VW} y={-VH} width={VW * 3} height={foot + 14 + VH} /></clipPath>
+      <g clipPath={moving ? `url(#${clipId})` : undefined}>
+      <g transform={`translate(${x},${foot + dropY - hop})`} data-qa-allow={reachTo && expr === "point" ? "text mark" : undefined}
+        data-qa-skip={moving ? "" : undefined}>
         <g data-qa="gosa" data-qa-label="ゴサ" transform={`scale(${k * scX},${k * scY}) translate(0,${-legY})`}>
           <g transform={`scale(${sx},1) rotate(${p.tilt})`}>{body}</g>
           {(cfg.marks ?? []).map((m) => <Mark key={m} kind={m} sx={sx} ink={dark ? C.white : C.ink} paper={C.white} />)}
@@ -231,6 +237,7 @@ export const Gosa: React.FC<{
             <Bubble text={say[1]} />
           </g>
         )}
+      </g>
       </g>
     </svg>
     </>

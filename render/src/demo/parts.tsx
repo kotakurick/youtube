@@ -138,7 +138,7 @@ const LineScene: React.FC = () => (
       ]} />
     <SourceNote text={FAKE} x={200} />
     <Gosa cues={[[10, "normal"], [70, "surprised"]]} />
-    <Subtitle lines={[[0, sec(6), "初めて結婚する年齢は、40年で約4歳上がりました。"]]} />
+    <Subtitle lines={[[0, sec(2.5), "初めて結婚する年齢は、"], [sec(2.5), sec(6), "40年で約4歳上がりました。"]]} />
   </>
 );
 

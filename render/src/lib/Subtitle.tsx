@@ -1,18 +1,21 @@
-// 字幕（常に焼き込み）。帯は幅を固定（文の長さで変わらない）、位置は SUB の区画。1行24字・2行まで。
+// 字幕（常に焼き込み）。帯は幅を固定（文の長さで変わらない）、位置は SUB の区画。1枚は1行（横長は24字、縦長は16字）まで。
+// 2行にすると帯が上に伸びて絵にかかるので、長い文は tts/narrate.py が自動で区切る（手で書くときも1行にする）。
 // lines は [開始フレーム, 終了フレーム, 文] の並び。
 import React from "react";
 import { useCurrentFrame } from "remotion";
 import { C, font, R, useZ } from "./theme";
 
 export type Line = [number, number, string];
-export const SUB_MAX = 48; // 2行×24字
+export const SUB_MAX = 24; // 横長の1行
+export const SUB_MAX_V = 16; // 縦長（ショート）の1行
 
 export const Subtitle: React.FC<{ lines: Line[] }> = ({ lines }) => {
-  for (const [, , t] of lines) {
-    if (t.length > SUB_MAX) throw new Error(`Subtitle: 「${t}」が${t.length}字です。1枚は${SUB_MAX}字（24字×2行）までに分けてください。`);
-  }
   const frame = useCurrentFrame();
   const Z = useZ();
+  const max = Z.vertical ? SUB_MAX_V : SUB_MAX;
+  for (const [, , t] of lines) {
+    if (t.length > max) throw new Error(`Subtitle: 「${t}」が${t.length}字です。字幕は1行${max}字までに分けてください（tts/narrate.py は自動で分ける）。`);
+  }
   const cur = lines.find(([a, b]) => frame >= a && frame < b);
   if (!cur) return null;
   return (

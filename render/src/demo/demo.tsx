@@ -95,7 +95,7 @@ const WhatIf: React.FC = () => (
     <Svg><BarChart {...chart} /></Svg>
     <SourceNote sim x={chart.x} y={Z.noteY} start={12} />
     <Gosa cues={[[0, "normal"], [70, "point"]]} size="M" reachTo={{ x: focusTop.cx + 96, y: focusTop.valueY + 42 }} />
-    <Subtitle lines={[[0, sec(6), "年齢の幅を広げると、ペアは約1.6倍になりました。"]]} />
+    <Subtitle lines={[[0, sec(2.5), "年齢の幅を広げると、"], [sec(2.5), sec(6), "ペアは約1.6倍になりました。"]]} />
   </>
 );
 

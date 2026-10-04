@@ -3,7 +3,9 @@
 // BGM は YouTube オーディオライブラリの5〜6曲を固定で使う（2026-10-04 決定）。曲は $YT_DATA_DIR/bgm/ に置き、
 // npm run sync で public/bgm/ に写る。声のある場面では声より約19dB下げ、声のない場面では少し上げる（自動）。
 import React, { useMemo } from "react";
-import { AbsoluteFill, Audio, interpolate, Sequence, Series, staticFile } from "remotion";
+import { AbsoluteFill, Audio, getStaticFiles, interpolate, Sequence, Series, staticFile } from "remotion";
+import { NarrationContext } from "./Narration";
+import { Line, Subtitle } from "./Subtitle";
 import { C, sec } from "./theme";
 import type { ThumbProps } from "./Thumbnail";
 import { qaEnabled } from "./QAOverlay";
@@ -14,6 +16,7 @@ export type SceneDef = {
   audio?: string;      // public/episodes/<回>/audio/ の中のファイル名
   Scene: React.FC;
   bgmMute?: [number, number][]; // この場面の中で BGM を止める区間（秒）。判定の直前の無音など
+  lines?: Line[];      // 読み上げの字幕（fromTiming が入れる）。あれば字幕を自動で出し、useNarration() に渡す
 };
 
 /** BGM の区間：from の場面の頭から、to の場面の終わりまで（to を省くと from の場面だけ） */
@@ -48,6 +51,11 @@ const useBgmVolume = (ep: EpisodeDef) => useMemo(() => {
   };
 }, [ep]);
 
+// 音声ファイルがない（tts/narrate.py をまだ動かしていない・別のパソコン）ときは、音なしで描く
+const hasFile = (p: string) => {
+  try { return getStaticFiles().some((f) => f.name === p); } catch { return true; }
+};
+
 let scenesLogged = false;
 export const Episode: React.FC<{ ep: EpisodeDef }> = ({ ep }) => {
   // npm run check のとき、場面の区切りを書き出す（どのフレームを調べるかに使う）
@@ -65,10 +73,13 @@ export const Episode: React.FC<{ ep: EpisodeDef }> = ({ ep }) => {
   return (
     <AbsoluteFill style={{ background: C.bg }}>
       <Series>
-        {ep.scenes.map(({ id, seconds, audio, Scene }) => (
+        {ep.scenes.map(({ id, seconds, audio, Scene, lines }) => (
           <Series.Sequence key={id} durationInFrames={sec(seconds)} name={id}>
-            <AbsoluteFill><Scene /></AbsoluteFill>
-            {audio && <Audio src={staticFile(`episodes/${ep.id}/audio/${audio}`)} />}
+            <NarrationContext.Provider value={{ lines: lines ?? [] }}>
+              <AbsoluteFill><Scene /></AbsoluteFill>
+              {lines && lines.length > 0 && <Subtitle lines={lines} />}
+            </NarrationContext.Provider>
+            {audio && hasFile(`episodes/${ep.id}/audio/${audio}`) && <Audio src={staticFile(`episodes/${ep.id}/audio/${audio}`)} />}
           </Series.Sequence>
         ))}
       </Series>

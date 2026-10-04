@@ -35,7 +35,7 @@ const collect = (): { boxes: QABox[]; els: Element[] } => {
   root.querySelectorAll("[data-qa]").forEach((el) => {
     const kind = el.getAttribute("data-qa") as QAKind | "bg" | "qa";
     if (kind === "bg" || kind === "qa" || el.parentElement?.closest("[data-qa=bg],[data-qa=qa]")) return;
-    if (!visible(el)) return;
+    if (!visible(el) || el.closest("[data-qa-skip]")) return; // 動いている途中のものは調べない
     // 入れ子の同じ種類（人型の中の人型など）は外側だけ
     if (el.parentElement?.closest(`[data-qa=${kind}]`)) return;
     push(el, kind as QAKind, el.getBoundingClientRect(), el.getAttribute("data-qa-label") ?? kind);
@@ -46,7 +46,7 @@ const collect = (): { boxes: QABox[]; els: Element[] } => {
     const text = n.textContent?.trim();
     const el = n.parentElement;
     if (!text || !el || el.closest("[data-qa=bg],[data-qa=sub],[data-qa=gosa],[data-qa=qa],style,script,title")) continue;
-    if (!visible(el)) continue;
+    if (!visible(el) || el.closest("[data-qa-skip]")) continue;
     const range = document.createRange();
     range.selectNodeContents(n);
     // 画面上の文字の大きさ（拡大・縮小を含む）

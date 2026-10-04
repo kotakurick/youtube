@@ -26,7 +26,7 @@ const Svg: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 const Ask: React.FC = () => (
   <>
     <Quiz question="100人で婚活。ペアになれるのは？" choices={["約2割", "約4割", "約6割"]} />
-    <Subtitle lines={[[0, sec(5), "100人で婚活したら、何人がペアになる？"]]} />
+    <Subtitle lines={[[0, sec(2.5), "100人で婚活したら、"], [sec(2.5), sec(5), "何人がペアになる？"]]} />
   </>
 );
 

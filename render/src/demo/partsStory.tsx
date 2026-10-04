@@ -122,7 +122,7 @@ export const CompareScene: React.FC = () => (
     <MatchingCompare box={{ x: Z.stage.x, y: Z.stage.y, w: Z.stage.w, h: Z.stage.h }}
       left={{ title: "現実：同じ以上", result: real }} right={{ title: "もしも：全員が少し上", result: higher }} />
     <SourceNote sim />
-    <Subtitle lines={[[0, sec(9), "全員が少し上を狙うと、同じ100人でもペアは減る。"]]} />
+    <Subtitle lines={[[0, sec(4), "全員が少し上を狙うと、"], [sec(4), sec(9), "同じ100人でもペアは減る。"]]} />
   </>
 );
 
@@ -135,7 +135,7 @@ export const Sim1000Scene: React.FC = () => (
     <MatchingSim result={real1000} box={{ x: Z.stage.x, y: Z.stage.y, w: Z.stageWithGosa.w, h: Z.stage.h }} size={0.42} />
     <SourceNote sim />
     <Gosa cues={[[0, "normal"]]} />
-    <Subtitle lines={[[0, sec(9), "1000人にすると、人気はさらに上位に集中します。"]]} />
+    <Subtitle lines={[[0, sec(4), "1000人にすると、"], [sec(4), sec(9), "人気はさらに上位に集中します。"]]} />
   </>
 );
 
@@ -154,7 +154,7 @@ export const TrendScene: React.FC = () => (
     <StackedTrend categories={CATS} rows={TREND} focus={4} x={Z.stage.x} y={Z.stage.y + 20} width={Z.stageWithGosa.w - 160} />
     <SourceNote text={FAKE} />
     <Gosa cues={[[0, "normal"], [110, "surprised"]]} />
-    <Subtitle lines={[[0, sec(7), "ネットで出会った夫婦は、この30年で0から15%へ。"]]} />
+    <Subtitle lines={[[0, sec(3), "ネットで出会った夫婦は、"], [sec(3), sec(7), "この30年で0から15%へ。"]]} />
   </>
 );
 
