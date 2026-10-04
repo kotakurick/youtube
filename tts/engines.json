@@ -68,6 +68,13 @@
       "memo": "オーナー指定（2026-10-04）。ユーザー投稿「ふうか」（作者：株式会社Namaka）。女性・若め・明るい・速め。licensed ではないので、採用前に利用条件と元の声の権利を確認する"
     },
     {
+      "name": "fish-4",
+      "engine": "fish",
+      "model": "s2.1-pro",
+      "voice": "0089dce5fefb4c6ba9b9f2f0debe1ddc",
+      "memo": "オーナー指定（2026-10-04）。ユーザー投稿「落ち着いた女性」（作者：escrow FH）。女性・落ち着いた・温かい・ナレーション。licensed ではないので、採用前に利用条件と元の声の権利を確認する"
+    },
+    {
       "name": "eleven-1",
       "engine": "elevenlabs",
       "model": "eleven_v3",

@@ -281,6 +281,12 @@ def cmd_trial(args) -> None:
         sys.exit("作れた候補がありません。engines.json の voice と APIキーを確認してください。")
     path = REPO / "research/benchmark/compare/tts_trial.tsv"
     path.parent.mkdir(parents=True, exist_ok=True)
+    # 今回作らなかった候補の行は残す（--only で一部だけ作り直しても前の結果が消えない）
+    if path.exists():
+        done = {r["name"] for r in rows}
+        with path.open(encoding="utf-8-sig", newline="") as f:
+            old = [r for r in csv.DictReader(f, delimiter="\t") if r["name"] not in done]
+        rows = old + rows
     with path.open("w", encoding="utf-8-sig", newline="") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0].keys()), delimiter="\t")
         w.writeheader()
