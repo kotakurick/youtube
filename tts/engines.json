@@ -90,6 +90,13 @@
       "memo": "Voice Library「Konoha - Professional JP Explainer」女性・中年・解説向け"
     },
     {
+      "name": "eleven-3",
+      "engine": "elevenlabs",
+      "model": "eleven_v3",
+      "voice": "tPngN48DaHQOvU1YFqtz",
+      "memo": "オーナー指定（2026-10-04）。Voice Library「Malo - Friendly, Clear and Natural」女性・若め・物語の朗読向け。Starter 以上のプランが必要（無料プランでは API で使えない）"
+    },
+    {
       "name": "google-1",
       "engine": "google",
       "voice": "ja-JP-Chirp3-HD-Aoede",

@@ -73,6 +73,9 @@ def synth_fish(text: str, v: dict) -> tuple[bytes, str]:
     req = {"text": text, "reference_id": v["voice"], "format": "wav", "sample_rate": RATE}
     if v.get("speed"):  # 話す速さの倍率（engines.json の speed）。ルールの1分390〜400字に合わせる
         req["prosody"] = {"speed": float(v["speed"]), "volume": 0}
+    for k in ("temperature", "top_p"):  # 低いほど毎回の出力がそろう（Fish の初期値は 0.7）
+        if v.get(k) is not None:
+            req[k] = float(v[k])
     body = json.dumps(req).encode()
     headers = {"Authorization": f"Bearer {need_key('FISH_API_KEY')}", "Content-Type": "application/json",
                "model": v.get("model", "s2.1-pro")}
