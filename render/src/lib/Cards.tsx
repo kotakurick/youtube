@@ -17,7 +17,7 @@ export const ChannelTag: React.FC<{ start?: number; seconds?: number }> = ({ sta
   return (
     <div style={{ position: "absolute", right: Z.margin.x, top: Z.margin.top, background: C.ink, borderRadius: R.md,
       padding: "8px 24px", ...font("label", C.white), fontWeight: 900, opacity: Math.min(1, t * 2), transform: `translateX(${(1 - t) * 60}px)` }}>
-      ゴサの答え合わせ
+      吾輩は数える猫である
     </div>
   );
 };

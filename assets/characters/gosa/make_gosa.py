@@ -175,7 +175,7 @@ def icon() -> str:
             + f'<circle r="{BODY_R}" fill="{INK}"/>'
             + eyes("normal") + mouth("w"))
     return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="-80 -80 160 160" width="512" height="512">'
-            '<title>ゴサの答え合わせ アイコン</title>'
+            '<title>吾輩は数える猫である アイコン</title>'
             '<circle r="80" fill="#F5F2EA"/>'
             f'<g transform="translate(0,4) scale(1.35)">{face}</g></svg>\n')
 
