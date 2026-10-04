@@ -6,7 +6,7 @@
 出力（このフォルダの下）:
     svg/<表情>.svg        表情ごとの立ち絵（明るい背景用）
     svg/<表情>_dark.svg   暗い背景用の反転版（白い体に墨の目。2026-10-04 決定）
-    icon.svg              チャンネルのアイコン（ゴサが人型3人を見下ろして数えている。小さく表示してもひげが見えるよう太め）
+    icon.svg              チャンネルのアイコン（ゴサが棒グラフを見ている。小さく表示してもひげが見えるよう太め）
     gosa.json             表情の設定。動画の部品（render/src/lib/Gosa.tsx）がこれを読み、表情の間をなめらかにつなぐ
 
 決まり（docs/concepts/2026-10-04-gosa-cat.html の案C を仕上げたもの）:
@@ -170,28 +170,32 @@ def svg(inner: str, title: str) -> str:
             f"<title>{title}</title>{inner}</svg>\n")
 
 
-# アイコン用の人型（render/src/lib/Figure.tsx の立ち姿と同じ形・色。人はデータなので青とオレンジを使ってよい）
+# アイコン：ゴサが棒グラフを見ている。棒は灰色2本と、伸びた最後の1本だけ蛍光ペンの黄（画面の強調色と同じ）
 PAPER = "#F5F2EA"
-MALE, FEMALE = "#2F6FDE", "#D9541E"
+GREY = "#B9B4A8"
+MARKER = "#FFD23F"
 
 
-def person(kind: str, x: float, y: float, s: float) -> str:
-    body = ('<rect x="-11" y="-25" width="22" height="30" rx="8"/>' if kind == "male" else
-            '<path d="M-8 -25 h16 q2 0 2.4 2 l4.4 25 q0.4 3 -2.6 3 h-22.4 q-3 0 -2.6 -3 l4.4 -25 q0.4 -2 2.4 -2 z"/>')
-    return (f'<g transform="translate({x},{y}) scale({s})" fill="{MALE if kind == "male" else FEMALE}">'
-            f'<circle cx="0" cy="-36" r="9"/>{body}</g>')
+def bar(x: float, h: float, base: float, w: float, fill: str, r: float = 4) -> str:
+    """上の角だけ丸い棒（docs/brand.md のグラフの決まりと同じ）"""
+    return (f'<path d="M{x - w / 2} {base} V{base - h + r} q0 -{r} {r} -{r} H{x + w / 2 - r} '
+            f'q{r} 0 {r} {r} V{base} Z" fill="{fill}"/>')
 
 
 def icon() -> str:
-    """チャンネル「吾輩は数える猫である」のアイコン：ゴサが下の人型3人を見下ろして数えている（2026-10-04）。"""
+    """チャンネル「吾輩は数える猫である」のアイコン（2026-10-04、オーナーが選んだ案）。
+    猫を大きく真ん中寄りに、下に小さな棒グラフ。円に切り抜いても欠けない位置に収める。"""
     face = (ears("normal") + whisker(-1, 46, width=9, cap=15) + whisker(1, 46, width=9, cap=15)
             + f'<circle r="{BODY_R}" fill="{INK}"/>'
             + eyes("normal", look=(0, 2)) + mouth("w"))
-    people = person("male", -27, 60, 0.85) + person("female", 0, 60, 0.85) + person("male", 27, 60, 0.85)
+    base, w, xs, hs = 66, 17, (-22, 0, 22), (12, 21, 32)
+    chart = (bar(xs[0], hs[0], base, w, GREY) + bar(xs[1], hs[1], base, w, GREY) + bar(xs[2], hs[2], base, w, MARKER)
+             + f'<line x1="{xs[0] - w / 2 - 6}" y1="{base}" x2="{xs[2] + w / 2 + 6}" y2="{base}" '
+               f'stroke="{INK}" stroke-width="4" stroke-linecap="round"/>')
     return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="-80 -80 160 160" width="512" height="512">'
             '<title>吾輩は数える猫である アイコン</title>'
             f'<circle r="80" fill="{PAPER}"/>'
-            f'<g transform="translate(0,-16)">{face}</g>{people}</svg>\n')
+            f'<g transform="translate(0,-12) scale(1.15)">{face}</g>{chart}</svg>\n')
 
 
 def main():
