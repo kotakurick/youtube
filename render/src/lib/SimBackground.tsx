@@ -6,7 +6,7 @@ import { C, LINE } from "./theme";
 export const SimBackground: React.FC<{ step?: number }> = ({ step = 40 }) => {
   const { width, height } = useVideoConfig();
   return (
-  <AbsoluteFill style={{ background: C.bg }}>
+  <AbsoluteFill data-qa="bg" style={{ background: C.bg }}>
     <svg width={width} height={height}>
       <defs>
         <pattern id="sim-grid" width={step} height={step} patternUnits="userSpaceOnUse">

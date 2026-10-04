@@ -151,7 +151,7 @@ const TREND = [
 export const TrendScene: React.FC = () => (
   <>
     <div style={{ position: "absolute", left: Z.header.x, top: Z.header.y, ...font("question") }}>夫婦が出会ったきっかけ</div>
-    <StackedTrend categories={CATS} rows={TREND} focus={4} x={Z.stage.x} y={Z.stage.y + 20} width={1380} />
+    <StackedTrend categories={CATS} rows={TREND} focus={4} x={Z.stage.x} y={Z.stage.y + 20} width={Z.stageWithGosa.w - 160} />
     <SourceNote text={FAKE} />
     <Gosa cues={[[0, "normal"], [110, "surprised"]]} />
     <Subtitle lines={[[0, sec(7), "ネットで出会った夫婦は、この30年で0から15%へ。"]]} />

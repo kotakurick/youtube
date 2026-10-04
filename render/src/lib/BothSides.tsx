@@ -31,8 +31,8 @@ export const BothSides: React.FC<{ rows: SideRow[]; max: number; format?: (v: nu
         return (
           <g key={r.label}>
             <text x={mid} y={cy + 14} textAnchor="middle" style={font("label")}>{r.label}</text>
-            <rect x={mid - labelW / 2 - wm} y={cy - 26} width={wm} height={52} rx={R.sm} fill={C.male} />
-            <rect x={mid + labelW / 2} y={cy - 26} width={wf} height={52} rx={R.sm} fill={C.female} />
+            <rect data-qa="mark" data-qa-label={`男性：${r.label}`} x={mid - labelW / 2 - wm} y={cy - 26} width={wm} height={52} rx={R.sm} fill={C.male} />
+            <rect data-qa="mark" data-qa-label={`女性：${r.label}`} x={mid + labelW / 2} y={cy - 26} width={wf} height={52} rx={R.sm} fill={C.female} />
             <text x={mid - labelW / 2 - wm - 16} y={cy + 14} textAnchor="end" style={font("label")} opacity={p}>{format(r.male * p)}</text>
             <text x={mid + labelW / 2 + wf + 16} y={cy + 14} style={font("label")} opacity={p}>{format(r.female * p)}</text>
           </g>

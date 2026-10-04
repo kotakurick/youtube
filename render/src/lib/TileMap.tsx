@@ -36,7 +36,7 @@ export const TileMap: React.FC<{
       {PREFS.map(([n, c, r], i) => {
         // 北から順に塗る
         const t = interpolate(frame - (r * 3 + c * 0.6), [0, 10], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-        return <rect key={n} x={x + c * step} y={y + r * step} width={tile} height={tile} rx={R.sm} fill={shade(values[n])} opacity={t} />;
+        return <rect key={n} data-qa="mark" data-qa-label={n} x={x + c * step} y={y + r * step} width={tile} height={tile} rx={R.sm} fill={shade(values[n])} opacity={t} />;
       })}
       {f && ft > 0 && (
         <g>
@@ -53,7 +53,7 @@ export const TileMap: React.FC<{
         {legend && <text x={0} y={-12} style={font("note", C.ink2)}>{legend}</text>}
         {SHADES.map((s, i) => (
           <g key={s} transform={`translate(${i * 116},0)`}>
-            <rect width={104} height={28} rx={6} fill={s} />
+            <rect data-qa="mark" data-qa-label="凡例" width={104} height={28} rx={6} fill={s} />
             <text x={52} y={64} textAnchor="middle" style={font("note", C.ink2)}>{i === 0 ? `〜${format(breaks[0])}` : `${format(breaks[i - 1])}〜`}</text>
           </g>
         ))}

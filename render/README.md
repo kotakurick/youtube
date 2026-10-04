@@ -25,6 +25,7 @@ npm run still -- gosa-sheet out/gosa.png         # ゴサの表情一覧（確�
 npm run still -- pose-sheet out/pose.png         # 姿勢と小道具の一覧
 npm run still -- backdrop-sheet out/bg.png       # 背景の一覧
 npm run master -- out/001.mp4                    # 音量を -14 LUFS にそろえる → out/001.master.mp4
+npm run check -- demo                            # 画面のチェック（重なり・小さい文字・はみ出し）→ out/qa/demo/
 npm run typecheck                                # 書き間違いの確認
 ```
 
@@ -80,6 +81,18 @@ render/
 縦型ショートは `episodes/<回>/scenes/Short.tsx` に書く（1080×1920 で自動登録。部品は縦長だと縦用の区画 `ZS` に自動で切り替わる）。
 各回の場面のコードは `episodes/<回>/scenes/Episode.tsx` に書く（雛形は `episodes/_template/scenes/Episode.example.tsx`）。
 部品は `@lib/...` で読み込める。
+
+## 画面のチェック（npm run check）
+
+図と図・図と文字の重なりを、人の目ではなく仕組みで見つける。
+
+- 各場面の「真ん中」と「終わりの0.5秒前」を書き出し、実際の画面上の位置で、文字・人型・ゴサ・グラフ・小道具・字幕の帯の箱を測る。
+- 見つけるもの：文字どうしの重なり、文字と人型・ゴサ・小道具の重なり、ゴサと図の重なり、字幕の帯にかかるもの、28px未満の文字、画面からはみ出した文字、再生バーの重なる下80pxの文字。
+  文字とグラフの棒・線の重なり、人型とグラフの重なりは「確かめるもの」（直すとは限らない）。
+- 結果は `out/qa/<id>/report.md` と、問題のあったコマの画像（赤＝直すもの、橙＝確かめるもの、番号は報告の番号）。直すものがあれば終了コード1。
+- 部品の決まり：描いたものに `data-qa`（figure／gosa／mark／prop／sub／bg）を付ける。文字は自動で拾う。わざと重ねるところは `data-qa-allow`（例：人型の名札、ゴサがひげで数字を指すとき、寄りの画面の字幕）。親子の関係にあるもの（カードの中の文字など）は調べない。
+- 文字の箱は、フォントの上下の余白を除いた字の高さで測る（行の箱で測ると、重なっていないものまで重なりに見えるため）。
+- 動いている途中の重なり（人が移動中など）は調べない。止まった画面だけを調べる。
 
 注意：
 - Remotion は props を JSON にするので、場面（関数）は props で渡さない（`Root.tsx` が回ごとに部品を作っている）。

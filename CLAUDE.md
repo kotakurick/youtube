@@ -40,6 +40,7 @@ AIで制作する日本向けYouTubeチャンネル「データ×疑問」の制
 - サムネイルは様式を1つ決めて毎回守る。大きな文字2〜3かたまり、主題は1つ、数字は入れても1つ。作り込みだけでは伸びない。
 - 最初の20本は恋愛・結婚に絞る（2026-10-04 オーナー決定。伸びたチャンネルは最初の20本の分野がほぼ1つ）。1本目から質の最低ラインを守る（1本だけ当たっても続かない）。
 - 標準構成は3章・18分前後（物語 → 答え合わせカード → 予想 → 3章 → 判定 → 教訓）。動きのばねは3種類、群衆が並び直してグラフになる。詳細は `docs/decisions.md`（2026-10-04）と `docs/concepts/2026-10-04-brand-consult.md`。
+- 画面の重なりは仕組みで防ぐ：部品は描いたものに印（data-qa）を付け、書き出す前に `cd render && npm run check -- <回のid>` で「直すもの」を0にする（重なり・28px未満の文字・はみ出し。決まりは `render/src/lib/qa.ts`）。新しい部品を作ったら印を付ける。
 - 台本の書き方は `docs/script-style.md`。書いたら `python scripts/lint_script.py <script.md>` を通し、`.claude/skills/script-review` の手順で推敲する。
 - 詳細と根拠は `research/benchmark/report.md`、`research/benchmark/compare/report.md`（「追加の4つの分析」）。
 - ブランドの決まり（約束・部品の名前・標準構成・ゴサ・見た目・音・サムネイル）は `docs/brand.md`（2026-10-04 決定）。数字はコードの `render/src/lib/theme.ts` が正本。

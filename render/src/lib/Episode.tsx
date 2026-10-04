@@ -6,6 +6,7 @@ import React, { useMemo } from "react";
 import { AbsoluteFill, Audio, interpolate, Sequence, Series, staticFile } from "remotion";
 import { C, sec } from "./theme";
 import type { ThumbProps } from "./Thumbnail";
+import { qaEnabled } from "./QAOverlay";
 
 export type SceneDef = {
   id: string;
@@ -47,7 +48,14 @@ const useBgmVolume = (ep: EpisodeDef) => useMemo(() => {
   };
 }, [ep]);
 
+let scenesLogged = false;
 export const Episode: React.FC<{ ep: EpisodeDef }> = ({ ep }) => {
+  // npm run check のとき、場面の区切りを書き出す（どのフレームを調べるかに使う）
+  if (!scenesLogged && qaEnabled()) {
+    scenesLogged = true;
+    let f = 0;
+    console.debug("QA_SCENES:" + JSON.stringify(ep.scenes.map((s) => { const a = f; f += sec(s.seconds); return { id: s.id, from: a, len: sec(s.seconds) }; })));
+  }
   const volumeAt = useBgmVolume(ep);
   const startOf = (id: string) => {
     let f = 0;

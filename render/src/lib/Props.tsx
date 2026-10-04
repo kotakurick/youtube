@@ -14,7 +14,7 @@ export const Phone: React.FC<{ x: number; y: number; h?: number; screen?: "list"
   const w = h * 0.5, k = h / 360;
   const sx = -w / 2 + 12 * k, sy = -h / 2 + 30 * k, sw = w - 24 * k, sh = h - 60 * k;
   return (
-    <g transform={`translate(${x},${y})`}>
+    <g data-qa="prop" data-qa-label="スマホ" transform={`translate(${x},${y})`}>
       <rect x={-w / 2} y={-h / 2} width={w} height={h} rx={w * 0.16} fill={C.ink} />
       <rect x={sx} y={sy} width={sw} height={sh} rx={6 * k} fill={C.white} />
       {screen === "list" && [0, 1, 2, 3].map((i) => (
@@ -45,7 +45,7 @@ export const Phone: React.FC<{ x: number; y: number; h?: number; screen?: "list"
 /** テーブル（人物の単位で高さ19・幅 w）。人物の横に置く。上に物を置くときの高さは tableTop(size) */
 export const tableTop = (size: number) => -21 * size;
 export const Table: React.FC<{ x: number; y: number; size?: number; w?: number }> = ({ x, y, size = 1, w = 60 }) => (
-  <g transform={`translate(${x},${y}) scale(${size})`}>
+  <g data-qa="prop" data-qa-label="テーブル" transform={`translate(${x},${y}) scale(${size})`}>
     <path d={`M${-w / 2 + 5} -19 V5 M${w / 2 - 5} -19 V5`} {...line} {...ns} />
     <rect x={-w / 2} y={-21} width={w} height={3} rx={1} fill={C.white} {...line} {...ns} />
   </g>
@@ -53,7 +53,7 @@ export const Table: React.FC<{ x: number; y: number; size?: number; w?: number }
 
 /** 椅子（人物の単位。座面の高さ9＝Figure の座る姿勢と同じ）。人物より先に描くと、背もたれが人物の後ろになる */
 export const Chair: React.FC<{ x: number; y: number; size?: number }> = ({ x, y, size = 1 }) => (
-  <g transform={`translate(${x},${y}) scale(${size})`}>
+  <g data-qa="prop" data-qa-label="椅子" transform={`translate(${x},${y}) scale(${size})`}>
     <rect x={-14} y={-40} width={28} height={30} rx={3} fill={C.paper2} {...line} {...ns} />
     <path d="M-16 -9 H16 M-12 -9 V5 M12 -9 V5" {...line} {...ns} />
   </g>
@@ -61,7 +61,7 @@ export const Chair: React.FC<{ x: number; y: number; size?: number }> = ({ x, y,
 
 /** 机とモニター（人物の単位）。人物の横か後ろに置く */
 export const Desk: React.FC<{ x: number; y: number; size?: number; w?: number }> = ({ x, y, size = 1, w = 70 }) => (
-  <g transform={`translate(${x},${y}) scale(${size})`}>
+  <g data-qa="prop" data-qa-label="机" transform={`translate(${x},${y}) scale(${size})`}>
     <path d={`M${-w / 2 + 4} -20 V5 M${w / 2 - 4} -20 V5`} {...line} {...ns} />
     <rect x={-w / 2} y={-22} width={w} height={3} rx={1} fill={C.paper2} {...line} {...ns} />
     <rect x={-14} y={-46} width={28} height={19} rx={2} fill={C.white} {...line} {...ns} />
@@ -73,7 +73,7 @@ export const Desk: React.FC<{ x: number; y: number; size?: number; w?: number }>
 export const Clock: React.FC<{ x: number; y: number; r?: number; hour?: number; minute?: number }> = ({ x, y, r = 50, hour = 9, minute = 0 }) => {
   const a = (deg: number, len: number) => `L${Math.sin((deg * Math.PI) / 180) * len} ${-Math.cos((deg * Math.PI) / 180) * len}`;
   return (
-    <g transform={`translate(${x},${y})`}>
+    <g data-qa="prop" data-qa-label="時計" transform={`translate(${x},${y})`}>
       <circle r={r} fill={C.white} {...line} />
       <path d={`M0 0 ${a((hour % 12) * 30 + minute / 2, r * 0.5)} M0 0 ${a(minute * 6, r * 0.75)}`} {...line} strokeWidth={LINE.base - 2} />
       <circle r={4} fill={C.ink} />
@@ -83,7 +83,7 @@ export const Clock: React.FC<{ x: number; y: number; r?: number; hour?: number; 
 
 /** 壁のカレンダー（原点＝左上、w は px） */
 export const Calendar: React.FC<{ x: number; y: number; w?: number; label?: string }> = ({ x, y, w = 120, label = "" }) => (
-  <g transform={`translate(${x},${y})`}>
+  <g data-qa="prop" data-qa-label="カレンダー" transform={`translate(${x},${y})`}>
     <rect width={w} height={w * 1.1} rx={R.sm} fill={C.white} {...line} />
     <rect width={w} height={w * 0.28} rx={R.sm} fill={C.ink} />
     {label
@@ -94,7 +94,7 @@ export const Calendar: React.FC<{ x: number; y: number; w?: number; label?: stri
 
 /** カップ（原点＝底の中央、人物の単位。テーブルの上なら y に tableTop(size) を足す） */
 export const Cup: React.FC<{ x: number; y: number; size?: number; steam?: boolean }> = ({ x, y, size = 1, steam = true }) => (
-  <g transform={`translate(${x},${y}) scale(${size / 5})`}>
+  <g data-qa="prop" data-qa-label="カップ" transform={`translate(${x},${y}) scale(${size / 5})`}>
     <path d="M-16 -36 H16 V-8 Q16 0 8 0 H-8 Q-16 0 -16 -8 Z" fill={C.white} {...line} {...ns} />
     <path d="M16 -28 Q28 -28 28 -18 Q28 -10 16 -10" fill="none" {...line} {...ns} />
     {steam && <path d="M-6 -46 Q-10 -54 -6 -62 M6 -46 Q2 -54 6 -62" fill="none" {...line} {...ns} strokeWidth={LINE.hair + 1} stroke={C.ink2} />}

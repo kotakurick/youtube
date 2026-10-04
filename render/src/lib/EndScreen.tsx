@@ -20,7 +20,7 @@ export const EndScreen: React.FC<{ lesson: string }> = ({ lesson }) => {
       <div style={{ position: "absolute", left: 96, top: 200, width: 900, ...font("question"), lineHeight: 1.35, whiteSpace: "pre-line", opacity: t }}>{lesson}</div>
       {slot(120, "次の1本")}
       {slot(560, "再生リスト")}
-      <Gosa cues={[[10, "happy"]]} size="L" x={420} foot={880} sfx={false} />
+      <Gosa cues={[[10, "happy"]]} size="M" x={420} foot={880} sfx={false} />
     </>
   );
 };

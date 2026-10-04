@@ -91,7 +91,7 @@ export const Backdrop: React.FC<{ kind: BackdropKind; floor?: number; variant?: 
     );
   }
   return (
-    <svg width={W} height={H} style={{ position: "absolute", left: 0, top: 0 }}>
+    <svg data-qa="bg" width={W} height={H} style={{ position: "absolute", left: 0, top: 0 }}>
       <rect width={W} height={H} fill={C.bg} />
       {body}
     </svg>

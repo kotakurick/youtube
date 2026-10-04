@@ -24,7 +24,8 @@ export const Camera: React.FC<{ keys?: [number, Shot][]; dur?: number; drift?: n
   const d = drift ? interpolate(frame, [0, drift], [1, 1.04], { extrapolateRight: "clamp" }) : 1;
   const s = cur.scale * d;
   return (
-    <AbsoluteFill style={{ transformOrigin: "0 0", transform: `translate(${width / 2}px,${height / 2}px) scale(${s}) translate(${-cur.x}px,${-cur.y}px)` }}>
+    // 寄りの画面（1.05倍より大きい）では、絵が字幕の帯の下に入るのは当たり前なので、チェックで見逃す
+    <AbsoluteFill data-qa-allow={s > 1.05 ? "sub" : undefined} style={{ transformOrigin: "0 0", transform: `translate(${width / 2}px,${height / 2}px) scale(${s}) translate(${-cur.x}px,${-cur.y}px)` }}>
       {children}
     </AbsoluteFill>
   );

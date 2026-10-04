@@ -147,7 +147,7 @@ const r = rng(5);
 const prefValues = Object.fromEntries(PREFS.map(([n]) => [n, Math.round(20 + r() * 25)]));
 const MapScene: React.FC = () => (
   <>
-    <TileMap values={prefValues} x={200} y={200} breaks={[25, 30, 35, 40]} focus="東京" format={(v) => `${v}%`} legend="未婚率（30代）" />
+    <TileMap values={prefValues} x={200} y={186} breaks={[25, 30, 35, 40]} focus="東京" format={(v) => `${v}%`} legend="未婚率（30代）" />
     <SourceNote text={FAKE} />
     <Gosa cues={[[10, "normal"]]} />
     <Subtitle lines={[[0, sec(6), "都道府県で比べると、こうなります。"]]} />

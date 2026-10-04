@@ -17,7 +17,7 @@ const MarkShape: React.FC<{ mark: Mark; t: number }> = ({ mark, t }) => {
   const st = { fill: "none", stroke: C.ink, strokeWidth: LINE.heavy + 2, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
   const s = 1.35 - 0.35 * Math.min(1, t); // 大きく出てから少し戻る
   return (
-    <g transform={`scale(${s * Math.min(1, t * 1.2)})`} opacity={Math.min(1, t * 2)}>
+    <g data-qa="mark" data-qa-label={`判定の印 ${mark}`} transform={`scale(${s * Math.min(1, t * 1.2)})`} opacity={Math.min(1, t * 2)}>
       {mark === "〇" && <circle r={120} {...st} />}
       {mark === "△" && <path d="M0 -125 L128 100 H-128 Z" {...st} />}
       {mark === "×" && <path d="M-105 -105 L105 105 M105 -105 L-105 105" {...st} />}

@@ -16,11 +16,11 @@ export const DayReplay: React.FC<{ days: string[]; perDay: number; x: number; y:
   const hand = interpolate(Math.min(frame, days.length * perDay), [0, perDay], [0, 360]);
   return (
     <>
-      <div style={{ position: "absolute", left: x, top: y, width: 260, height: 280 }}>
-        {i > 0 && <Page text={days[i - 1]} />}
+      <div data-qa="prop" data-qa-label="日めくり" style={{ position: "absolute", left: x, top: y, width: 260, height: 280 }}>
+        {i > 0 && drop < 0.99 && <Page text={days[i - 1]} />}
         <div style={{ position: "absolute", inset: 0, transform: `translateY(${(1 - drop) * -40}px)`, opacity: drop }}><Page text={days[i]} /></div>
       </div>
-      <svg width={200} height={200} style={{ position: "absolute", left: x + 300, top: y + 40 }}>
+      <svg data-qa="prop" data-qa-label="時計" width={200} height={200} style={{ position: "absolute", left: x + 300, top: y + 40 }}>
         <circle cx={100} cy={100} r={84} fill={C.white} stroke={C.ink} strokeWidth={LINE.base} />
         <line x1={100} y1={100} x2={100} y2={40} stroke={C.ink} strokeWidth={LINE.base} strokeLinecap="round" transform={`rotate(${hand} 100 100)`} />
         <line x1={100} y1={100} x2={100} y2={62} stroke={C.ink} strokeWidth={LINE.heavy - 4} strokeLinecap="round" transform={`rotate(${hand / 12} 100 100)`} />

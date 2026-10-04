@@ -96,7 +96,7 @@ export const Figure: React.FC<{
   const s = highlight ? size * 1.25 : size;
   const bob = pose === "walk" ? -Math.abs(Math.sin(phase * Math.PI * 2)) * 2 : 0;
   return (
-    <g transform={`translate(${x},${y + bob * size}) scale(${s})`} opacity={opacity}>
+    <g data-qa="figure" data-qa-label={label ?? "人型"} transform={`translate(${x},${y + bob * size}) scale(${s})`} opacity={opacity}>
       {highlight && (
         <>
           <circle cx={0} cy={-20} r={36} fill="none" stroke={C.bg} strokeWidth={12} />
@@ -105,7 +105,7 @@ export const Figure: React.FC<{
       )}
       <g fill={fill}><Posed kind={kind} pose={pose} facing={facing} phase={phase} fill={fill} /></g>
       {highlight && label && (
-        <g transform="translate(0,-70)">
+        <g transform="translate(0,-70)" data-qa-allow="figure">
           <rect x={-label.length * 11 - 14} y={-22} width={label.length * 22 + 28} height={40} rx={20} fill={C.ink} />
           <text x={0} y={7} textAnchor="middle" fontFamily={FONT} fontWeight={700} fontSize={22} fill={C.white}>{label}</text>
         </g>

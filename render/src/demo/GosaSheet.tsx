@@ -14,7 +14,7 @@ export const GosaSheet: React.FC = () => (
     {EXPRS.map((e, i) => (
       <React.Fragment key={e}>
         <Gosa cues={[[-60, e]]} size={70} x={X(i)} foot={250} sfx={false} />
-        <div style={{ position: "absolute", left: X(i) - 80, width: 160, top: 280, textAlign: "center", fontFamily: FONT, fontSize: 24, fontWeight: 700, color: C.ink }}>{e}</div>
+        <div style={{ position: "absolute", left: X(i) - 80, width: 160, top: 280, textAlign: "center", fontFamily: FONT, fontSize: 28, fontWeight: 700, color: C.ink }}>{e}</div>
         <Gosa cues={[[-60, e]]} size={70} x={X(i)} foot={620} dark sfx={false} />
         <Img src={staticFile(`gosa/${e}_dark.svg`)} style={{ position: "absolute", left: X(i) - 83, top: 790, width: 166 }} />
       </React.Fragment>

@@ -16,7 +16,7 @@ export const Subtitle: React.FC<{ lines: Line[] }> = ({ lines }) => {
   const cur = lines.find(([a, b]) => frame >= a && frame < b);
   if (!cur) return null;
   return (
-    <div style={{
+    <div data-qa="sub" data-qa-label="字幕" style={{
       position: "absolute", left: (Z.W - Z.sub.w) / 2, width: Z.sub.w, bottom: Z.H - (Z.sub.y + Z.sub.h),
       minHeight: Z.sub.h, display: "flex", alignItems: "center", justifyContent: "center", boxSizing: "border-box",
       background: "rgba(29,35,51,.92)", borderRadius: R.md, padding: "6px 48px",

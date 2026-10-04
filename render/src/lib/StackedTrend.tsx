@@ -1,6 +1,7 @@
 // 構成比の推移（100%積み上げの横帯）。調査回ごとに1本、上から順に帯が左から伸びる。
 // 区分は6つまで。注目の区分（focus）だけ色を付け、ほかは墨の濃淡（色はデータの意味にだけ使う）。
-// 注目の区分は、帯と帯の間を線でつないで推移を見せる。区分名は最後の帯の下に直接書く（凡例は使わない）。
+// 注目の区分は、帯と帯の間を線でつないで推移を見せ、その値は帯の右端の外に書く（ほかの区分に文字を重ねない）。
+// 区分名は最後の帯の下に直接書く（凡例は使わない）。width は値の文字（約110px）の分を空けて決める。
 import React from "react";
 import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { C, EASE, font, LINE, R } from "./theme";
@@ -60,13 +61,13 @@ export const StackedTrend: React.FC<{
           <clipPath id={`trend-${i}`}><rect x={bx} y={Y(i)} width={bw * prog[i]} height={barH} /></clipPath>
           <g clipPath={`url(#trend-${i})`}>
             {segs[i].map((s, j) => (
-              <rect key={j} x={bx + s.x0 * bw + (j ? 1.5 : 0)} y={Y(i)} width={Math.max(0, s.w * bw - (j ? 1.5 : 0))} height={barH} fill={colors[j]}
+              <rect key={j} data-qa="mark" data-qa-label={`${r.label}・${categories[j]}`} x={bx + s.x0 * bw + (j ? 1.5 : 0)} y={Y(i)} width={Math.max(0, s.w * bw - (j ? 1.5 : 0))} height={barH} fill={colors[j]}
                 rx={j === 0 || j === segs[i].length - 1 ? R.sm : 0} />
             ))}
           </g>
           {/* 注目の区分の値 */}
           {prog[i] >= 1 && (
-            <text x={bx + (segs[i][focus].x0 + segs[i][focus].w) * bw + 14} y={Y(i) + barH / 2 + 14}
+            <text x={bx + bw + 20} y={Y(i) + barH / 2 + 14}
               style={font("label", C.ink)} opacity={interpolate(frame - i * stagger - duration, [0, 8], [0, 1], { extrapolateRight: "clamp" })}>
               {Math.round(segs[i][focus].v)}%
             </text>

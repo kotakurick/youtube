@@ -58,8 +58,8 @@ export const LineChart: React.FC<{
         const [ex, ey] = pts[pts.length - 1];
         return (
           <g key={s.label}>
-            <polyline points={pts.map(([a, b]) => `${X(a)},${Y(b)}`).join(" ")} fill="none" stroke={color} strokeWidth={LINE.base} strokeLinecap="round" strokeLinejoin="round" />
-            <circle cx={X(ex)} cy={Y(ey)} r={10} fill={color} />
+            <polyline data-qa="mark" data-qa-label={`線：${s.label}`} points={pts.map(([a, b]) => `${X(a)},${Y(b)}`).join(" ")} fill="none" stroke={color} strokeWidth={LINE.base} strokeLinecap="round" strokeLinejoin="round" />
+            <circle data-qa="mark" data-qa-label={`線の端：${s.label}`} cx={X(ex)} cy={Y(ey)} r={10} fill={color} />
             {done > 0 && (
               <text x={X(ex) + 22} y={(labelY.get(s.label) ?? Y(ey)) + 14} style={font(s.focus ? "value" : "label", s.focus ? C.ink : C.ink2)} opacity={done}>
                 {format(ey)}{s.focus ? "" : ` ${s.label}`}

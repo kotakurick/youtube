@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { cancelRender, continueRender, delayRender } from "remotion";
 import { ensureFont } from "./theme";
+import { QAOverlay, qaEnabled } from "./QAOverlay";
 
 export const FontGate: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [handle] = useState(() => delayRender("フォント（Noto Sans JP）の読み込み"));
@@ -9,7 +10,8 @@ export const FontGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
   useEffect(() => {
     ensureFont().then(() => { setReady(true); continueRender(handle); }).catch((e) => cancelRender(e));
   }, [handle]);
-  return ready ? <>{children}</> : null;
+  // npm run check のときは、画面のチェックを上に重ねる
+  return ready ? <>{children}{qaEnabled() && <QAOverlay />}</> : null;
 };
 
 /** 部品を FontGate で包む（props はそのまま渡す） */

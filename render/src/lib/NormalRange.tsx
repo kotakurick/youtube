@@ -36,7 +36,7 @@ export const NormalRange: React.FC<{
         ))}
       </g>
       {/* ふつうの幅（誤差棒） */}
-      <g stroke={C.ink} strokeWidth={LINE.base} strokeLinecap="round" opacity={band > 0 ? 1 : 0}>
+      <g data-qa="mark" data-qa-label="ふつうの幅" stroke={C.ink} strokeWidth={LINE.base} strokeLinecap="round" opacity={band > 0 ? 1 : 0}>
         <line x1={cx - half} x2={cx + half} y1={by} y2={by} />
         <line x1={cx - half} x2={cx - half} y1={by - LINE.base * 2} y2={by + LINE.base * 2} />
         <line x1={cx + half} x2={cx + half} y1={by - LINE.base * 2} y2={by + LINE.base * 2} />

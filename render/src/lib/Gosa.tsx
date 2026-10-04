@@ -221,13 +221,13 @@ export const Gosa: React.FC<{
     <>
     {sounds.map(([f, name]) => <Sfx key={f} name={name} at={f} volume={0.5} />)}
     <svg width={VW} height={VH} style={{ position: "absolute", left: 0, top: 0, overflow: "visible", pointerEvents: "none" }}>
-      <g transform={`translate(${x},${foot + dropY - hop})`}>
-        <g transform={`scale(${k * scX},${k * scY}) translate(0,${-legY})`}>
+      <g transform={`translate(${x},${foot + dropY - hop})`} data-qa-allow={reachTo && expr === "point" ? "text mark" : undefined}>
+        <g data-qa="gosa" data-qa-label="ゴサ" transform={`scale(${k * scX},${k * scY}) translate(0,${-legY})`}>
           <g transform={`scale(${sx},1) rotate(${p.tilt})`}>{body}</g>
           {(cfg.marks ?? []).map((m) => <Mark key={m} kind={m} sx={sx} ink={dark ? C.white : C.ink} paper={C.white} />)}
         </g>
         {say && (
-          <g transform={`translate(${d * bubble[0]},${d * bubble[1]}) scale(${bubbleT})`}>
+          <g data-qa="gosa" data-qa-label="ゴサの吹き出し" transform={`translate(${d * bubble[0]},${d * bubble[1]}) scale(${bubbleT})`}>
             <Bubble text={say[1]} />
           </g>
         )}

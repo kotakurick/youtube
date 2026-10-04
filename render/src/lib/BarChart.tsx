@@ -51,10 +51,10 @@ export const BarChart: React.FC<BarChartProps> = (props) => {
         const tw = label.length * T[role][0] * 0.62;
         return (
           <g key={b.label}>
-            <path d={barPath(g.cx - g.bw / 2, g.bw, base, h)} fill={fill} />
+            <path data-qa="mark" data-qa-label={`棒：${b.label}`} d={barPath(g.cx - g.bw / 2, g.bw, base, h)} fill={fill} />
             {b.err && p > 0.98 && [{ c: C.bg, w: LINE.base + 6 }, { c: C.ink, w: LINE.base }].map(({ c, w }) => (
               // 誤差棒（95%の範囲）。紙色の縁で、濃い棒の上でも見える
-              <g key={c} stroke={c} strokeWidth={w} strokeLinecap="round" opacity={done}>
+              <g key={c} data-qa="mark" data-qa-label="誤差棒" stroke={c} strokeWidth={w} strokeLinecap="round" opacity={done}>
                 <line x1={g.cx} x2={g.cx} y1={base - b.err![0] * g.scale} y2={base - b.err![1] * g.scale} />
                 {b.err!.map((e) => <line key={e} x1={g.cx - LINE.base * 2} x2={g.cx + LINE.base * 2} y1={base - e * g.scale} y2={base - e * g.scale} />)}
               </g>
