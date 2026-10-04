@@ -1,7 +1,7 @@
 // 群衆。1人ずつ「出発点 → 到着点」をばね（SPRING.move）で移す。標準は100人（1人＝1%）。
 import React, { useMemo } from "react";
 import { interpolateColors, useCurrentFrame, useVideoConfig } from "remotion";
-import { Figure, Kind, kindColor } from "./Figure";
+import { Figure, Kind, kindColor, Pose } from "./Figure";
 import { overlaps, Pt } from "./layout";
 import { CROWD_SIZE, sp } from "./theme";
 
@@ -13,6 +13,17 @@ export type Person = {
   dim?: boolean | number; // 話の対象外：true ならずっと薄い色、数字ならそのフレームから薄い色に変わる
   highlight?: boolean;    // 追う1人（○番さん）
   label?: string;         // 追う1人の名札
+  pose?: Pose | [number, Pose][]; // 姿勢。[フレーム, 姿勢] の並びなら、その時刻に姿勢が変わる（○番さんが座る・スマホを見る など）
+  facing?: -1 | 0 | 1;
+};
+
+/** いまの姿勢（[フレーム, 姿勢] の並びなら時刻で選ぶ） */
+const poseAt = (pose: Person["pose"], frame: number): Pose => {
+  if (!pose) return "stand";
+  if (typeof pose === "string") return pose;
+  let cur: Pose = "stand";
+  for (const [f, p] of pose) if (frame >= f) cur = p;
+  return cur;
 };
 
 export const Crowd: React.FC<{
@@ -43,6 +54,7 @@ export const Crowd: React.FC<{
           : kindColor(p.kind, p.dim === true);
         return (
           <Figure key={i} kind={p.kind} size={size} highlight={p.highlight} label={p.label} color={color}
+            pose={poseAt(p.pose, frame - start)} facing={p.facing} phase={((frame + i * 7) % 20) / 20}
             x={p.from.x + (to.x - p.from.x) * t} y={p.from.y + (to.y - p.from.y) * t} />
         );
       })}

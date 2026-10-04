@@ -6,7 +6,7 @@ import path from "path";
 const here = process.cwd();
 Config.setVideoImageFormat("jpeg");
 Config.setConcurrency(null); // CPU のコア数に合わせる
-Config.setDelayRenderTimeoutInMilliseconds(120000); // 日本語フォント（約9.6MB）の読み込みに時間がかかるため
+Config.setDelayRenderTimeoutInMilliseconds(120000); // 待ちの上限（フォントは FontGate.tsx で動画ごとに待つ）
 Config.overrideWebpackConfig((c) => ({
   ...c,
   resolve: {

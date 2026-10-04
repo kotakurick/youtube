@@ -1,6 +1,5 @@
 // 見た目の決まり（docs/brand.md）。数字はここだけに書き、部品はここから読む。
 import type React from "react";
-import { loadFont } from "@remotion/fonts";
 import { Easing, spring, SpringConfig, staticFile, useVideoConfig } from "remotion";
 
 export const C = {
@@ -93,8 +92,16 @@ export const CROWD_SIZE = 1.3;
 
 // フォントは Noto Sans JP（OFL）。npm run sync が public/fonts/ に一度だけ取ってくる。
 // 書き出しのたびにネットから取らないので、速く、オフラインでも同じ見た目になる。
+// 読み込みは FontGate.tsx（動画ごとに読み込みを待つ）。ファイルの読み込み自体は1回だけ。
+// 注意：@remotion/fonts の loadFont をファイルの先頭で呼ぶと、書き出しが2分を超えたところで
+// 「フォントの読み込みが終わらない」エラーで止まる（待ちの記録が書き出しの準備で消され、時間切れだけが残るため）。
 export const FONT = "NotoSansJP";
-loadFont({ family: FONT, url: staticFile("fonts/NotoSansJP.ttf"), weight: "100 900" });
+let fontPromise: Promise<void> | null = null;
+export const ensureFont = () => (fontPromise ??= (async () => {
+  const f = new FontFace(FONT, `url('${staticFile("fonts/NotoSansJP.ttf")}') format('truetype')`, { weight: "100 900" });
+  await f.load();
+  document.fonts.add(f);
+})());
 
 /** 文字の役割から style を作る（数字は等幅） */
 export const font = (role: keyof typeof T, color: string = C.ink): React.CSSProperties => ({

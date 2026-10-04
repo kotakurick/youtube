@@ -7,10 +7,12 @@ import { Composition, Still } from "remotion";
 import { Episode, EpisodeDef, episodeFrames } from "@lib/Episode";
 import { FPS, H, W } from "@lib/theme";
 import { THUMB, Thumbnail } from "@lib/Thumbnail";
+import { withFont } from "@lib/FontGate";
 import { demo } from "./demo/demo";
 import { parts } from "./demo/parts";
 import { demoShort } from "./demo/short";
 import { GosaSheet } from "./demo/GosaSheet";
+import { BackdropSheet, PoseSheet } from "./demo/partsStory";
 
 const found = require.context("../../episodes", true, /scenes\/Episode\.tsx$/);
 const foundShorts = require.context("../../episodes", true, /scenes\/Short\.tsx$/);
@@ -18,7 +20,10 @@ const load = (ctx: ReturnType<typeof require.context>) => ctx.keys().filter((k) 
 const episodes: EpisodeDef[] = [demo, parts, ...load(found)];
 const shorts: EpisodeDef[] = [demoShort, ...load(foundShorts)];
 const comps = [...episodes.map((ep) => ({ ep, w: W, h: H })), ...shorts.map((ep) => ({ ep, w: H, h: W }))]
-  .map(({ ep, w, h }) => ({ ep, w, h, Comp: () => <Episode ep={ep} /> }));
+  .map(({ ep, w, h }) => ({ ep, w, h, Comp: withFont(() => <Episode ep={ep} />) }));
+// どの動画・静止画も、フォントを読み込んでから描く（FontGate.tsx）
+const GosaSheetF = withFont(GosaSheet), PoseSheetF = withFont(PoseSheet), BackdropSheetF = withFont(BackdropSheet);
+const ThumbnailF = withFont(Thumbnail);
 
 export const Root: React.FC = () => (
   <>
@@ -26,11 +31,13 @@ export const Root: React.FC = () => (
       <Composition key={ep.id} id={ep.id} component={Comp}
         durationInFrames={episodeFrames(ep)} fps={FPS} width={w} height={h} />
     ))}
-    <Still id="gosa-sheet" component={GosaSheet} width={W} height={H} />
+    <Still id="gosa-sheet" component={GosaSheetF} width={W} height={H} />
+    <Still id="pose-sheet" component={PoseSheetF} width={W} height={H} />
+    <Still id="backdrop-sheet" component={BackdropSheetF} width={W} height={H} />
     {episodes.filter((ep) => ep.thumb).flatMap((ep) => [
-      <Still key={`${ep.id}-thumb`} id={`${ep.id}-thumb`} component={Thumbnail} width={THUMB.w} height={THUMB.h}
+      <Still key={`${ep.id}-thumb`} id={`${ep.id}-thumb`} component={ThumbnailF} width={THUMB.w} height={THUMB.h}
         defaultProps={{ ...ep.thumb!, ground: "paper" as const }} />,
-      <Still key={`${ep.id}-thumb-ink`} id={`${ep.id}-thumb-ink`} component={Thumbnail} width={THUMB.w} height={THUMB.h}
+      <Still key={`${ep.id}-thumb-ink`} id={`${ep.id}-thumb-ink`} component={ThumbnailF} width={THUMB.w} height={THUMB.h}
         defaultProps={{ ...ep.thumb!, ground: "ink" as const }} />,
     ])}
   </>

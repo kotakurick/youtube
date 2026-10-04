@@ -22,6 +22,8 @@ npm run render -- parts out/parts.mp4            # 部品の見本帳
 npm run render -- demo-short out/short.mp4       # 縦型ショートの見本（1080×1920）
 npm run still -- demo-thumb out/thumb.png        # サムネイル（紙色の地）。-thumb-ink は墨の地（テスト用）
 npm run still -- gosa-sheet out/gosa.png         # ゴサの表情一覧（確認用）
+npm run still -- pose-sheet out/pose.png         # 姿勢と小道具の一覧
+npm run still -- backdrop-sheet out/bg.png       # 背景の一覧
 npm run master -- out/001.mp4                    # 音量を -14 LUFS にそろえる → out/001.master.mp4
 npm run typecheck                                # 書き間違いの確認
 ```
@@ -63,6 +65,12 @@ render/
     TileMap.tsx     日本地図（47都道府県のタイル、墨の5段階）
     BothSides.tsx   もう一方の側（男女を左右対称に比べる）
     EndScreen.tsx   終了画面（20秒、YouTube の要素を置く枠）
+    Figure.tsx の pose  姿勢（立つ・座る・スマホ・うつむく・歩く、facing で向き合う）。Crowd の Person.pose で時刻ごとに変えられる
+    Props.tsx       小道具（スマホ〈一覧・いいね・メッセージ〉、テーブル、椅子、机、時計、カレンダー、カップ）。家具は人物と同じ単位
+    Backdrop.tsx    物語の背景（部屋・駅のホーム・夜の街・職場）。墨2と紙色2の線画、variant で構図が変わる
+    sim/matching.ts 婚活のマッチングの計算（安定マッチングを基本に、条件で変えられる。純粋な関数、種で同じ結果）
+    MatchingSim.tsx マッチングの描画（1回ずつペアが並び直し、残りを数える）、MatchingCompare（現実ともしもを左右に）
+    StackedTrend.tsx 構成比の推移（100%積み上げの横帯、注目の区分だけ色、帯の間を線でつなぐ）
     Episode.tsx     1本＝場面の並び（場面ごとに長さと音声、BGM の層）
   src/demo/       見本（demo.tsx：標準構成を短く通す／parts.tsx：部品の見本帳／short.tsx：縦型ショート／GosaSheet.tsx：ゴサの表情一覧）。数字はすべて仮
   src/Root.tsx    動画の一覧（episodes/<回>/scenes/Episode.tsx を自動で登録。thumb があればサムネイルも）

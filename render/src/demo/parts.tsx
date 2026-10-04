@@ -1,5 +1,5 @@
 // 部品の見本帳（数字はすべて仮）。各場面で部品を1つずつ見せる。
-// カメラ → 群衆が分かれる → 予想タイム → ふつうの幅 → 当てはめる表 → もしものつまみ → 日めくり → 折れ線 → 日本地図 → もう一方の側 → 終了画面
+// 情景（駅・部屋・夜の街・職場）→ カメラ → 群衆が分かれる → 予想タイム → ふつうの幅 → 当てはめる表 → もしものつまみ → 日めくり → 折れ線 → 日本地図 → もう一方の側 → 終了画面
 import React from "react";
 import { BothSides } from "@lib/BothSides";
 import { Bracket } from "@lib/Bracket";
@@ -25,6 +25,7 @@ import { rng } from "@lib/random";
 import { CROWD_SIZE, sec, Z } from "@lib/theme";
 import { useCurrentFrame } from "remotion";
 import type { EpisodeDef } from "@lib/Episode";
+import { AIM_PAIRED, AIM_STOPS, CompareScene, NightScene, OfficeScene, RoomScene, SIM_SECONDS, Sim1000Scene, SimScene, StoryScene, TrendScene } from "./partsStory";
 
 const FAKE = "見本用の仮の数字";
 const Svg: React.FC<{ children: React.ReactNode }> = ({ children }) => (
@@ -95,7 +96,8 @@ const TableScene: React.FC = () => (
 );
 
 // 6. もしものつまみ：条件を動かすと、色の付く人数が変わる
-const STOPS = ["±0歳", "±3歳", "±5歳", "±10歳"], PAIRED = [38, 48, 61, 70];
+// 目盛りごとの人数は、シミュレーション（sim/matching.ts）で計算した値
+const STOPS = AIM_STOPS.map((s) => s.label), PAIRED = AIM_PAIRED;
 const SLIDE_KEYS: [number, number][] = [[0, 0], [40, 1], [80, 2], [120, 3]];
 const grid = hundred(N, { x: 180, bottom: 840, cols: 20, dx: 50, dy: 76 }, CROWD_SIZE);
 const SliderScene: React.FC = () => {
@@ -105,8 +107,8 @@ const SliderScene: React.FC = () => {
     <>
       <SimBackground />
       <Svg>{grid.map((p, i) => <Figure key={i} kind={base[i]} x={p.x} y={p.y} size={CROWD_SIZE} dim={i >= PAIRED[k]} />)}</Svg>
-      <Slider label="年齢の幅を広げると" stops={STOPS} keys={SLIDE_KEYS} x={180} y={330} w={900} />
-      <HeroNumber value={PAIRED[k]} unit="人" x={1180} y={420} from={PAIRED[Math.max(0, k - 1)]} start={SLIDE_KEYS[k][0] + 8} duration={20} />
+      <Slider label="受け入れる相手の基準" stops={STOPS} keys={SLIDE_KEYS} x={180} y={330} w={900} />
+      <HeroNumber value={PAIRED[k]} unit="人" x={1260} y={420} from={PAIRED[Math.max(0, k - 1)]} start={SLIDE_KEYS[k][0] + 8} duration={20} />
       <SourceNote sim />
       <Gosa cues={[[0, "thinking"], [130, "depends"]]} />
       <Subtitle lines={[[0, sec(6), "条件を動かすと、ペアの数はここまで変わります。"]]} />
@@ -170,14 +172,22 @@ export const parts: EpisodeDef = {
   id: "parts",
   title: "部品の見本帳",
   scenes: [
+    { id: "story", seconds: 6, Scene: StoryScene },
+    { id: "room", seconds: 5, Scene: RoomScene },
+    { id: "night", seconds: 5, Scene: NightScene },
+    { id: "office", seconds: 4, Scene: OfficeScene },
     { id: "camera", seconds: 5, Scene: CameraScene },
     { id: "split", seconds: 5, Scene: SplitScene },
     { id: "quiz", seconds: 6.5, Scene: QuizScene },
     { id: "range", seconds: 6, Scene: RangeScene },
     { id: "table", seconds: 5.5, Scene: TableScene },
+    { id: "sim", seconds: SIM_SECONDS, Scene: SimScene },
     { id: "slider", seconds: 6, Scene: SliderScene },
+    { id: "compare", seconds: SIM_SECONDS, Scene: CompareScene },
+    { id: "sim1000", seconds: SIM_SECONDS, Scene: Sim1000Scene },
     { id: "days", seconds: 6, Scene: DayScene },
     { id: "line", seconds: 6, Scene: LineScene },
+    { id: "trend", seconds: 7, Scene: TrendScene },
     { id: "map", seconds: 6, Scene: MapScene },
     { id: "both", seconds: 5, Scene: BothScene },
     { id: "end", seconds: 6, Scene: EndScene },
