@@ -4,6 +4,7 @@
 
 ## 決定済み
 
+- 2026-10-04：**冒頭（物語）の BGM は「Sizzr - Schwartzy」**（オーナー決定）。残りの割り当ての案（`research/bgm.md` の測定と、調・明るさ・音の密度の推定から）：第1・2章「Stayin' Lazy - Godmode」（終わりがフェードアウトしない唯一の曲で、ループが目立たない）、第3章「Jomon Grove - The Mini Vandals」、判定「Traversing - Godmode」（唯一の短調、途中の無音なし）、教訓と終了画面「Away - Patrick Patrikios」。教訓の前に冒頭の人物へ戻る所は Sizzr に戻す。テンポの目安が決まり（90〜110）を外れる曲は耳で確かめる。残りの割り当ては承認待ち。
 - 2026-10-04：**1本目は「夫婦の出会いの変化」**（`themes/first20.md` の2番、themes.csv の2。オーナー決定）。公的統計が中心で事実確認で詰まりにくく、構成比の推移の部品があるため。「婚活市場の『少し上』」（1番）は2本目以降に回す。制作フォルダは `episodes/001-where-couples-meet/`。
 - 2026-10-04：**声は ElevenLabs の「Yui - Warm, Clear and Natural」、モデルは eleven_v4_turbo**（オーナー決定。`tts/engines.json` の `eleven-yui`）。
   - 経緯：Fish Audio（オーナー指定の2声）は、数字・複合語のイントネーションが崩れ、同じ原稿でも出力が毎回大きく変わったため見送り。AivisSpeech は聞き比べの点が低かった（競合と混ぜた名前を伏せた採点：Fish「落ち着いた女性」4・4・2、AivisSpeech 1〜3）。ElevenLabs の画面で試した Yui＋v4 Turbo がいちばん良く、API でも同じ質が出た。
