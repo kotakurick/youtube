@@ -73,8 +73,16 @@ def narration(text: str) -> list[tuple[int, str]]:
     return out
 
 
+SOURCE_TAG = re.compile(r"\[S\d+(?:[,，]\s*S?\d+)*\]")
+VOICE_TAG = re.compile(r"〔[^〕]*〕")  # 声への指示（〔間〕〔間・長〕〔thoughtful〕など）。読み上げない
+
+
+def strip_sources(s: str) -> str:
+    return SOURCE_TAG.sub("", s)
+
+
 def strip_tags(s: str) -> str:
-    return re.sub(r"\[S\d+(?:[,，]\s*S?\d+)*\]", "", s)
+    return VOICE_TAG.sub("", strip_sources(s))
 
 
 def sentences(lines: list[tuple[int, str]]) -> list[tuple[int, str]]:

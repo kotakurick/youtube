@@ -1,5 +1,16 @@
 # 音声合成（TTS）
 
+**本番の声は `eleven-yui`（ElevenLabs「Yui」・eleven_v4_turbo。2026-10-04 決定、経緯は `docs/decisions.md`）。**
+台本に〔間〕〔thoughtful〕などの指示を書ける（`docs/script-style.md` の7章）。
+
+### ElevenLabs で分かったこと（2026-10-04）
+
+- v4／v4 Turbo で効く設定は安定度（stability）と似せる強さ（similarity_boost）だけ。style・speed は効かない（公式）。速さと語り方はタグ（`[calm storytelling, brisk pace]`）で指示する。タグは効かせたい言葉の前に置き、次のタグまで続く。
+- Voice Library の声は無料プランでは API で使えない（Starter 以上）。
+- 声を試すときは、声の作者が保存した設定と、どのモデルで学習された声か（`high_quality_base_model_ids`）を先に API で確かめる。ただし学習されていないモデルでも良いことがある（Yui は v4 向けに学習されていないが v4 Turbo が一番良かった）。結局は聞いて決める。
+- seed を固定すると長さ・間はほぼ同じになる（ファイルは完全には一致しない）。
+- 画面（API の試し場）とスクリプトで質が違うときは、声 ID・モデル・設定・原稿の4つを突き合わせる。
+
 台本から読み上げ音声を作る。声（エンジン）は `engines.json` の設定で切り替える。Claude がスクリプトから自動で呼ぶ前提で、人の手作業は要らない。
 
 ## いまの段階：候補の聞き比べ（2026-10-04〜）

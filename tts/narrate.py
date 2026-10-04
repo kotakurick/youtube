@@ -74,7 +74,7 @@ def parse(script: Path) -> list[dict]:
         if cur is None:
             cur = {"id": "opening", "seconds": None, "lines": []}
             scenes.append(cur)
-        cur["lines"].append(lint.strip_tags(lint.unicodedata.normalize("NFKC", line)).strip())
+        cur["lines"].append(lint.strip_sources(lint.unicodedata.normalize("NFKC", line)).strip())
     ids = [s["id"] for s in scenes]
     dup = {i for i in ids if ids.count(i) > 1}
     if dup:
@@ -82,11 +82,36 @@ def parse(script: Path) -> list[dict]:
     return [s for s in scenes if s["lines"] or s["seconds"]]
 
 
-def split_sentences(lines: list[str]) -> list[str]:
+# 台本に書く声への指示（docs/script-style.md）。〔間〕は文のあとの無音、それ以外の〔…〕は語り方のタグ
+PAUSES = {"間・短": 0.6, "間": 1.0, "間・長": 1.5}  # 文の終わりから次の文までの秒数（指示がなければ GAP）
+
+
+def split_sentences(lines: list[str]) -> list[tuple[str, str]]:
+    """[(種類, 中身)]。種類は "s"（読む文）、"pause"（〔間〕の名前）、"tag"（〔thoughtful〕などの語り方）。"""
     out = []
     for line in lines:
-        out += [s.strip() for s in re.split(r"(?<=[。？?！!])", line) if s.strip()]
+        for tok in re.split(r"(〔[^〕]*〕)", line):
+            if tok.startswith("〔"):
+                name = tok[1:-1].strip()
+                if name in PAUSES:
+                    out.append(("pause", name))
+                elif name.startswith("間"):
+                    sys.exit(f"間の指示は {'・'.join('〔' + k + '〕' for k in PAUSES)} のどれかにしてください：{tok}")
+                else:
+                    out.append(("tag", name))
+                continue
+            out += [("s", s.strip()) for s in re.split(r"(?<=[。？?！!])", tok) if s.strip()]
     return out
+
+
+def with_tag(text: str, tag: str | None, v: dict | None) -> str:
+    """語り方のタグを付ける（ElevenLabs v4 のように tags: true の声だけ。ほかの声には付けない）。
+    1文ずつ作るので、毎回の文の頭に「その場面で最後に指示した語り方＋声ごとの速さ」を付ける。"""
+    if not v or not v.get("tags"):
+        return text
+    parts = [tag or v.get("default_tag")] + ([v["pace"]] if v.get("pace") else [])
+    parts = [p for p in parts if p]
+    return f"[{', '.join(parts)}] {text}" if parts else text
 
 
 PARTICLES = ("は", "が", "を", "に", "で", "と", "も", "へ", "や", "の", "から", "まで", "より", "けど", "ので")
@@ -121,6 +146,15 @@ def silent_wav(text: str, out: Path) -> float:
         w.setframerate(tts.RATE)
         w.writeframes(b"\x00\x00" * int(tts.RATE * sec))
     return sec
+
+
+def silent_seconds(sec: float, out: Path) -> None:
+    out.parent.mkdir(parents=True, exist_ok=True)
+    with wave.open(str(out), "wb") as w:
+        w.setnchannels(1)
+        w.setsampwidth(2)
+        w.setframerate(tts.RATE)
+        w.writeframes(b"\x00\x00" * int(tts.RATE * sec))
 
 
 def wav_seconds(p: Path) -> float:
@@ -162,9 +196,19 @@ def main():
         if not sc["lines"]:  # 声のない場面
             out_scenes.append({"id": sc["id"], "seconds": sc["seconds"], "audio": None, "lines": []})
             continue
-        parts, lines, t = [], [], 0.0
-        for s in split_sentences(sc["lines"]):
-            spoken = tts.apply_yomi(s)  # 読み間違いを直した文で音声を作る（字幕は元の表記）
+        parts, lines, t, tag = [], [], 0.0, None
+        for kind, s in split_sentences(sc["lines"]):
+            if kind == "tag":
+                tag = s
+                continue
+            if kind == "pause":  # 前後の GAP と合わせて PAUSES の秒数になる無音をはさむ
+                if parts:
+                    sil = cache.parent / "_pause" / f"{s}.wav"
+                    silent_seconds(max(0.0, PAUSES[s] - 2 * GAP), sil)
+                    parts.append(sil)
+                    t += wav_seconds(sil) + GAP
+                continue
+            spoken = with_tag(tts.apply_yomi(s), tag, v)  # 読み間違いを直した文で音声を作る（字幕は元の表記）
             key = hashlib.sha1(f"{a.voice}\n{spoken}".encode()).hexdigest()[:16]
             wav = cache / f"{key}.wav"
             if not wav.exists():
