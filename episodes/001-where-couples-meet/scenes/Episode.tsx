@@ -38,15 +38,15 @@ const episode: EpisodeDef = {
   // draft: true のうちは、部品のない場面が仮の画面（場面名と字幕）になる。全部そろったら外す
   scenes: fromTiming(timing as Timing, { opening: Opening, today: Today }, { draft: true }),
   // BGM の割り当て（2026-10-04 決定、docs/decisions.md）。曲は $YT_DATA_DIR/bgm/ に置き、npm run sync で写る。
-  // 決定では「教訓の前に冒頭の人物へ戻る所」も Sizzr だが、今は教訓が1つの場面なので Away だけにしている。
-  // 戻る所を分けるには、script.md の教訓に <!-- 場面: lesson-return --> を足し、下の lesson の行を分ける。
+  // 教訓は2つの場面：lesson（冒頭の人物に戻る所）と lesson-main（一般化。script.md の <!-- 場面: lesson-main --> から）。
   // 終了画面の場面ができたら、Away の to をそこまで延ばす。
   bgm: [
     { file: "Sizzr - Schwartzy.mp3", from: "opening", to: "quiz" },          // 冒頭の物語・今日の答え合わせ・予想タイム
     { file: "Stayin' Lazy - Godmode.mp3", from: "ch1", to: "ch2" },          // 第1章・第2章
     { file: "Jomon Grove - The Mini Vandals.mp3", from: "ch3" },             // 第3章（シミュレーション）
     { file: "Traversing - Godmode.mp3", from: "verdict" },                   // 判定
-    { file: "Away - Patrick Patrikios.mp3", from: "lesson" },                // 教訓
+    { file: "Sizzr - Schwartzy.mp3", from: "lesson" },                       // 教訓の前半：冒頭の人物に戻る
+    { file: "Away - Patrick Patrikios.mp3", from: "lesson-main" },           // 教訓の後半：一般化
   ],
 };
 export default episode;
