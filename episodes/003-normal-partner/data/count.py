@@ -234,6 +234,25 @@ def main():
             ("健康", "たばこを吸わない", ("非喫煙",)),
         ], kenko)
 
+    print("## 5. 物差しを変えると、男女の人数はどう動くか（同じ条件を男女に。100人中）\n")
+    print("| 物差し | 未婚男性 | 未婚女性 |")
+    print("|---|---:|---:|")
+    import contextlib, io
+    variants = [
+        ("正社員・年収300万円以上・大卒以上・体型が標準・たばこを吸わない", [("表", "a", dict(seiki=True)), ("表", "b", dict(inc=inc_ge(300))), ("表", "c", dict(uni=True)), ("健康", "d", ("BMI標準",)), ("健康", "e", ("非喫煙",))]),
+        ("年収の線を400万円に", [("表", "a", dict(seiki=True)), ("表", "b", dict(inc=inc_ge(400))), ("表", "c", dict(uni=True)), ("健康", "d", ("BMI標準",)), ("健康", "e", ("非喫煙",))]),
+        ("年収の条件なし（正社員・大卒以上・体型・たばこ）", [("表", "a", dict(seiki=True)), ("表", "c", dict(uni=True)), ("健康", "d", ("BMI標準",)), ("健康", "e", ("非喫煙",))]),
+        ("たばこの条件なし（正社員・300万円以上・大卒以上・体型）", [("表", "a", dict(seiki=True)), ("表", "b", dict(inc=inc_ge(300))), ("表", "c", dict(uni=True)), ("健康", "d", ("BMI標準",))]),
+        ("体型の条件なし（正社員・300万円以上・大卒以上・たばこ）", [("表", "a", dict(seiki=True)), ("表", "b", dict(inc=inc_ge(300))), ("表", "c", dict(uni=True)), ("健康", "e", ("非喫煙",))]),
+    ]
+    for lab, steps in variants:
+        vals = []
+        for pool, sk in ((men, "男性"), (women, "女性")):
+            with contextlib.redirect_stdout(io.StringIO()):
+                vals.append(run("", pool, sk, steps, kenko))
+        print(f"| {lab} | {vals[0] * 100:.1f} | {vals[1] * 100:.1f} |")
+    print()
+
     print("## 4. 同じ5条件で、満たす数ごとの人数（100人中）\n")
     print("| 満たす数 | 0個 | 1個 | 2個 | 3個 | 4個 | 5個 |")
     print("|---|---:|---:|---:|---:|---:|---:|")
