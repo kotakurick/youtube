@@ -16,3 +16,4 @@
 - X でバズっていた記事：「恋愛で大切なのは、2人の愛情表現の『差がない』ことではなく『総量』だった」（ナゾロジー https://nazology.kusuguru.co.jp/archives/191310 ）。米WSU。片方が控えめでも、全体として多ければ2人は幸せ
   - 元の研究：WSU の発表 https://news.wsu.edu/press-release/2026/02/05/hug-your-boo-more-affection-not-equal-amounts-strengthens-romantic-ties/ （Communication Studies 掲載、米国の異性カップル141組）
   - → themes.csv 121
+  - オーナー「なんか微妙なのかね？類似研究を集めてメタ的に扱うとどうなるの？」→ 類似研究を確認して 121 に追記（似ている度の研究、ラブランゲージの総説、反対側として家事の不公平感）
