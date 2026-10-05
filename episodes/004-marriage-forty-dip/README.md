@@ -8,7 +8,7 @@
 
 - [x] 1. テーマ・データ収集（クラウド、2026-10-05 第1版）→ `sources.csv`、`research.md`（まとめ）。2026-10-05 環境のネットワークを広げて一次資料で読み直し（`verify-japan.md`・`verify-papers.md`）、sources.csv を原文の値に直した。オーナーの照合（★）は未
 - [x] ★ テーマと切り口の承認（オーナー 2026-10-05 「A」：40代から、妻だけが冷めていく。`research.md` の第2版の案A）
-- [ ] 2. 企画カードと構成案（クラウド）→ `outline.md`（一番上の企画カードを先に埋める。埋まったら `review-rival` に見せて、負けている所を構成で直す → `review/rival-outline.md`）
+- [x] 2. 企画カードと構成案（クラウド、2026-10-05 第2版。ライバル役の判定を反映。`research-micro.md` でミクロのデータを足した）→ `outline.md`（一番上の企画カードを先に埋める。埋まったら `review-rival` に見せて、負けている所を構成で直す → `review/rival-outline.md`）
 - [ ] 3. 台本（クラウド）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。5役のレビュー → `review/`）
 - [ ] ★ 一次資料との照合（オーナー）→ `sources.csv` の「照合」欄をすべて埋める
 - [ ] ★ 台本レビュー（オーナー）→ `review/owner.md`（Claude が読みやすい形にまとめて渡す。オーナーの指摘は Claude が書き写して台本に反映し、直した／直さなかったを1行ずつ書く）
