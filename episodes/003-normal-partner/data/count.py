@@ -1,0 +1,209 @@
+"""「普通」の条件を重ねると、25〜34歳の未婚の100人に何人残るか（一次資料の表から数える）。
+
+使い方:  python episodes/003-normal-partner/data/count.py > episodes/003-normal-partner/data/count_result.md
+
+数え方
+- 母集団：25〜34歳の未婚者（有業者＋無業者）。令和4年就業構造基本調査。
+  - 有業者：第40表（男女・配偶関係・年齢・雇用形態・所得・教育）→ shugyo2022_t040_25-34.csv
+  - 無業者：第118表（男女・配偶関係・年齢・教育）→ shugyo2022_t118_mugyo_25-34.csv
+  - 無業者は「正社員」「年収」の条件を満たさないものとして数える。
+- 正社員・年収・学歴・年齢は、表の**実際の重なり**で数える（独立と仮定しない）。
+- 身長・喫煙・体型は就業構造基本調査にないので、令和5年国民健康・栄養調査（kenko2023.csv）の割合を
+  **独立と仮定して掛ける**（画面に前提を出す）。身長は平均と標準偏差から正規分布で割合を出す。
+  年齢は20〜29歳・30〜39歳の値を、25〜29歳・30〜34歳の人数で重みづけする。
+- 年収は「主な仕事からの年間収入・収益」（税込み。副業や資産の収入は入らない）。
+"""
+import csv
+import math
+from pathlib import Path
+
+HERE = Path(__file__).parent
+AGES = ("03_25～29歳", "04_30～34歳")
+UNI = ("18_大学（卒業者）", "19_大学院（卒業者）")
+SEIKI = "22_うち正規の職員・従業員"
+
+
+def num(x):
+    try:
+        return float(x)
+    except (TypeError, ValueError):
+        return 0.0  # 「-」は0
+
+
+def load():
+    t40 = list(csv.DictReader(open(HERE / "shugyo2022_t040_25-34.csv", encoding="utf-8-sig")))
+    t118 = list(csv.DictReader(open(HERE / "shugyo2022_t118_mugyo_25-34.csv", encoding="utf-8-sig")))
+    kenko = {}
+    for r in csv.DictReader(open(HERE / "kenko2023.csv", encoding="utf-8-sig")):
+        kenko[(r["表"][:3] + r["表"].split()[-1], r["性別"], r["年齢"], r["区分"])] = float(r["値"])
+    return t40, t118, kenko
+
+
+def inc_ge(lo):
+    """年収 lo 万円以上の所得区分（区分の番号で判定）。"""
+    start = {0: 1, 300: 7, 400: 8, 500: 9, 600: 10}[lo]
+    return lambda code: code != "00_総数" and int(code[:2]) >= start
+
+
+def norm_sf(x, mu, sd):
+    return 0.5 * math.erfc((x - mu) / (sd * math.sqrt(2)))
+
+
+class Pool:
+    def __init__(self, t40, t118, sex, mar="1_うち未婚", ages=AGES):
+        self.w = [r for r in t40 if r["男女"] == sex and r["配偶関係"] == mar and r["年齢"] in ages]
+        self.nw = [r for r in t118 if r["男女"] == sex and r["年齢"] in ages] if mar == "1_うち未婚" else []
+        self.ages = ages
+
+    def workers(self, age=None):
+        return sum(num(r["0_総数"]) for r in self.w
+                   if r["従業上の地位・雇用形態"] == "0_総数" and r["所得"] == "00_総数" and (age is None or r["年齢"] == age))
+
+    def nonworkers(self, age=None, edu=None):
+        return sum(num(r["無業者_総数"]) for r in self.nw
+                   if r["教育"] == (edu or "0_総数") and (age is None or r["年齢"] == age))
+
+    def total(self, age=None):
+        return self.workers(age) + self.nonworkers(age)
+
+    def count(self, seiki=False, inc=None, uni=False, age=None):
+        """正社員・年収・大卒以上・年齢の条件を実際の重なりで数える。"""
+        emp = SEIKI if seiki else "0_総数"
+        edu = UNI if uni else ("0_総数",)
+        s = 0.0
+        for r in self.w:
+            if r["従業上の地位・雇用形態"] != emp or (age and r["年齢"] != age):
+                continue
+            if inc is None:
+                if r["所得"] != "00_総数":
+                    continue
+            elif not inc(r["所得"]):
+                continue
+            s += sum(num(r[e]) for e in edu)
+        if not seiki and inc is None:  # 無業者も入る条件だけ
+            s += sum(self.nonworkers(age, e) for e in edu)
+        return s
+
+
+def health_share(kenko, sex, key, ages_w):
+    """国民健康・栄養調査の割合を、25〜29歳・30〜34歳の人数で重みづけ。"""
+    a, b = ages_w
+    if key[0] == "身長":
+        cm, side = key[1], key[2]
+        out = 0.0
+        for w, band in ((a, "20-29歳"), (b, "30-39歳")):
+            mu = kenko[("第14身長", sex, band, "平均")]
+            sd = kenko[("第14身長", sex, band, "標準偏差")]
+            p = norm_sf(cm, mu, sd)
+            out += w * (p if side == "以上" else 1 - p)
+        return out / (a + b)
+    if key[0] == "非喫煙":
+        out = 0.0
+        for w, band in ((a, "20-29歳"), (b, "30-39歳")):
+            out += w * (kenko[("第73喫煙", sex, band, "吸わない")] + kenko[("第73喫煙", sex, band, "以前は吸っていた")]) / 100
+        return out / (a + b)
+    if key[0] == "BMI標準":
+        return kenko[("第17BMI", sex, "20-39歳", "18.5以上25未満")] / 100
+    raise KeyError(key)
+
+
+def run(title, pool, sex_kenko, steps, kenko):
+    """steps：条件のリスト。('表', 名前, dict(seiki/inc/uni/age)) か ('健康', 名前, key)。上から順に重ねる。"""
+    n = pool.total()
+    wa = (pool.total(AGES[0]), pool.total(AGES[1]))
+    print(f"### {title}\n")
+    print(f"母集団：{n:,.0f}人（就業構造基本調査 2022）\n")
+    print("| 重ねた条件 | その条件だけ | 独立と仮定して掛けた数 | 実際に重ねた数 | 100人中 |")
+    print("|---|---:|---:|---:|---:|")
+    cond = {}
+    indep = 1.0
+    health = 1.0
+    singles = []
+    for kind, name, arg in steps:
+        if kind == "表":
+            single = pool.count(**arg) / n
+            cond.update(arg)
+            actual_tab = pool.count(**cond) / n
+        else:
+            single = health_share(kenko, sex_kenko, arg, wa)
+            health *= single
+            actual_tab = pool.count(**cond) / n if cond else 1.0
+        singles.append((name, single))
+        indep *= single
+        actual = actual_tab * health
+        print(f"| ＋{name} | {single:.1%} | {indep * 100:.1f} | {actual * 100:.1f} | {round(actual * 100)} |")
+    final = actual
+    print(f"\n全部そろうのは100人中 **{final * 100:.1f}人**（独立と仮定すると {indep * 100:.1f}人）。人数にすると約{final * n / 10000:.0f}万人。\n")
+    # 1つだけ外したら
+    print("| 1つだけ外したら | 100人中 | 何倍 |")
+    print("|---|---:|---:|")
+    for i, (kind, name, arg) in enumerate(steps):
+        c, h = {}, 1.0
+        for j, (k2, _, a2) in enumerate(steps):
+            if j == i:
+                continue
+            if k2 == "表":
+                c.update(a2)
+            else:
+                h *= health_share(kenko, sex_kenko, a2, wa)
+        v = (pool.count(**c) / n if c else 1.0) * h
+        print(f"| {name} を外す | {v * 100:.1f} | {v / final:.1f} |")
+    print()
+    return final
+
+
+def main():
+    t40, t118, kenko = load()
+    men = Pool(t40, t118, "1_男")
+    women = Pool(t40, t118, "2_女")
+
+    print("# 数えた結果（count.py の出力。手で直さない）\n")
+    print("## 0. 未婚でしぼると、年収の線はどう変わるか（25〜34歳、有業者）\n")
+    print("| | 有業者 | 年収500万円以上 | 400万円以上 | 300万円以上 |")
+    print("|---|---:|---:|---:|---:|")
+    for sex, lab in (("1_男", "男性"), ("2_女", "女性")):
+        for mar, ml in (("0_総数", "全体"), ("1_うち未婚", "未婚")):
+            p = Pool(t40, t118, sex, mar)
+            w = p.workers()
+            cnt = lambda lo: sum(num(r["0_総数"]) for r in p.w if r["従業上の地位・雇用形態"] == "0_総数" and inc_ge(lo)(r["所得"]))
+            print(f"| {lab}・{ml} | {w:,.0f} | {cnt(500) / w:.1%} | {cnt(400) / w:.1%} | {cnt(300) / w:.1%} |")
+    print()
+
+    print("## 1. 女性がよく聞く「普通の男性」（25〜34歳の未婚男性）\n")
+    for lo in (500, 400, 300):
+        run(f"年収{lo}万円以上の線", men, "男性", [
+            ("表", "正社員", dict(seiki=True)),
+            ("表", f"年収{lo}万円以上", dict(inc=inc_ge(lo))),
+            ("表", "大卒以上", dict(uni=True)),
+            ("健康", "身長170cm以上", ("身長", 170, "以上")),
+            ("健康", "たばこを吸わない", ("非喫煙",)),
+        ], kenko)
+
+    print("## 2. 男性がよく聞く「普通の女性」（25〜34歳の未婚女性）\n")
+    run("20代・正社員・体型が標準・たばこを吸わない", women, "女性", [
+        ("表", "20代（25〜29歳）", dict(age=AGES[0])),
+        ("表", "正社員", dict(seiki=True)),
+        ("健康", "体型が標準（BMI 18.5〜25）", ("BMI標準",)),
+        ("健康", "たばこを吸わない", ("非喫煙",)),
+    ], kenko)
+    run("上に「年収300万円以上」を足す（5条件）", women, "女性", [
+        ("表", "20代（25〜29歳）", dict(age=AGES[0])),
+        ("表", "正社員", dict(seiki=True)),
+        ("表", "年収300万円以上", dict(inc=inc_ge(300))),
+        ("健康", "体型が標準（BMI 18.5〜25）", ("BMI標準",)),
+        ("健康", "たばこを吸わない", ("非喫煙",)),
+    ], kenko)
+
+    print("## 3. 同じ物差し：男女とも同じ5条件（正社員・年収300万円以上・大卒以上・体型が標準・たばこを吸わない）\n")
+    for pool, lab, sk in ((men, "未婚男性", "男性"), (women, "未婚女性", "女性")):
+        run(lab, pool, sk, [
+            ("表", "正社員", dict(seiki=True)),
+            ("表", "年収300万円以上", dict(inc=inc_ge(300))),
+            ("表", "大卒以上", dict(uni=True)),
+            ("健康", "体型が標準（BMI 18.5〜25）", ("BMI標準",)),
+            ("健康", "たばこを吸わない", ("非喫煙",)),
+        ], kenko)
+
+
+if __name__ == "__main__":
+    main()

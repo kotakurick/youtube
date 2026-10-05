@@ -4,15 +4,15 @@
 
 ## いまの状態（2026-10-05）
 
-- 下調べと切り口の案まで。構成・台本には入っていない。
-- **止まっていること**：クラウドの環境から政府統計のサイト（ipss.go.jp・e-stat.go.jp・mhlw.go.jp・stat.go.jp）が開けない。オーナーが環境のネットワーク設定でこれらのドメインを許可すれば、クラウドで表を取り直せる（https://code.claude.com/docs/en/cloud-environments#network-access）。または、オーナーのPCで表を落として `data/` に置く。
-- 取り直す表は `research.md` の B。要は就業構造基本調査の表04000（未婚・年齢・雇用形態・年収・学歴の同時の分布）。
+- 一次資料の表（社人研・e-Stat）を取り、条件を重ねた人数を数えた（`research.md`、`data/count_result.md`、`sources.csv` の S1〜S6）。構成・台本には入っていない。
+- 次：★オーナーが切り口（`outline.md` の上の部分）を承認 → 企画カードを仕上げて構成案へ。
+- 米空軍の操縦士の原典（DTIC）は機械から取れない。使うならブラウザで確かめる。
 
 ## 進行状況
 
 人の工程（★）は飛ばさない。チェックを付けたら日付も書く。
 
-- [ ] 1. テーマ・データ収集（クラウド、2026-10-05 下調べのみ。一次資料が開けず、数字は確かさ低）→ `research.md`、仮の試算 `data/overlap.py`→ `sources.csv`、`data/`
+- [x] 1. テーマ・データ収集（クラウド、2026-10-05）→ `research.md`、`sources.csv`、`data/`（`count.py` で数える）
 - [ ] ★ テーマと切り口の承認（オーナー）→ `outline.md` の「切り口の案」
 - [ ] 2. 企画カードと構成案（クラウド）→ `outline.md`（一番上の企画カードを先に埋める。埋まったら `review-rival` に見せて、負けている所を構成で直す → `review/rival-outline.md`）
 - [ ] 3. 台本（クラウド）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。5役のレビュー → `review/`）
