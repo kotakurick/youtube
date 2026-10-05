@@ -86,29 +86,21 @@ export const CatSketch: React.FC<{ d: CatDesign; sex: "male" | "female"; x: numb
       fill={d.fill === "full" ? p.dark : p.main} stroke={line === "none" ? "none" : line} strokeWidth={sw * 0.6} strokeLinejoin="round" />;
   };
 
-  const ey = hy + ry * 0.05, ex = rx * (d.chibi ? 0.36 : 0.38);
+  // 目と口はゴサと同じ形（Gosa.tsx の Eyes・Mouth。体の半径32を頭の大きさに合わせて広げる）。2026-10-05 オーナー「目と口はゴサと同じトーン」
+  const k = ry / 32, kx = Math.max(k, rx / 32 * 0.85);
+  const face = d.fill === "full" && d.pattern !== "socks" ? C.white : C.ink;        // ゴサの paper にあたる色（目の白・口の線）
+  const ring = d.fill === "full" ? undefined : C.ink;       // 明るい体では白目のふちを墨で描く
+  const ey = hy - 4 * k, ex = 11 * kx;
   const eye = (side: 1 | -1) => {
     const cx = side * ex;
     switch (d.eyes) {
-      case "white": return <g key={side}><ellipse cx={cx} cy={ey} rx={12} ry={14} fill={C.white} /><circle cx={cx + 2} cy={ey + 2} r={7.5} fill={C.ink} /><circle cx={cx + 4} cy={ey - 1} r={2.6} fill={C.white} /></g>;
-      case "big": return <g key={side}><ellipse cx={cx} cy={ey} rx={10} ry={12.5} fill={C.ink} /><circle cx={cx + 3} cy={ey - 4} r={3.6} fill={C.white} /></g>;
-      case "sleepy": return <path key={side} d={`M ${cx - 11} ${ey} Q ${cx} ${ey + 8} ${cx + 11} ${ey}`} fill="none" stroke={C.ink} strokeWidth={5} strokeLinecap="round" />;
-      case "smile": return <path key={side} d={`M ${cx - 11} ${ey + 4} Q ${cx} ${ey - 10} ${cx + 11} ${ey + 4}`} fill="none" stroke={C.ink} strokeWidth={5} strokeLinecap="round" />;
-      default: return <circle key={side} cx={cx} cy={ey} r={7} fill={C.ink} />;
+      case "smile": return <path key={side} d={`M ${cx - 7 * k} ${ey + 2 * k} q ${7 * k} ${-8 * k} ${14 * k} 0`} fill="none" stroke={face} strokeWidth={4.5 * k * 0.8} strokeLinecap="round" />;
+      case "sleepy": return <g key={side}><path d={`M ${cx - 7 * k} ${ey - k} h ${14 * k} a ${7 * k} ${7 * k} 0 0 1 ${-14 * k} 0 z`} fill={C.white} stroke={ring} strokeWidth={ring ? 3 : 0} /><circle cx={cx} cy={ey + 2.5 * k} r={3 * k} fill={C.ink} /></g>;
+      default: return <g key={side}><circle cx={cx} cy={ey} r={7 * k} fill={C.white} stroke={ring} strokeWidth={ring ? 3 : 0} /><circle cx={cx + k} cy={ey + k} r={3.5 * k} fill={C.ink} /></g>;
     }
   };
-  const my = hy + ry * 0.36;
-  const mouth = () => {
-    const m = d.mouth ?? "w";
-    if (m === "none") return null;
-    if (m === "dot") return <ellipse cx={0} cy={my} rx={5} ry={4} fill={C.ink} />;
-    return (
-      <g>
-        <path d={`M -4 ${my - 9} L 4 ${my - 9} L 0 ${my - 4} Z`} fill={C.ink} stroke={C.ink} strokeWidth={2} strokeLinejoin="round" />
-        <path d={`M -11 ${my} Q -5.5 ${my + 8} 0 ${my} Q 5.5 ${my + 8} 11 ${my}`} fill="none" stroke={C.ink} strokeWidth={3.5} strokeLinecap="round" />
-      </g>
-    );
-  };
+  const my = hy + 12 * k;
+  const mouth = () => <path d={`M ${-6 * k} ${my} q ${3 * k} ${4 * k} ${6 * k} 0 q ${3 * k} ${4 * k} ${6 * k} 0`} fill="none" stroke={face} strokeWidth={2.8 * k} strokeLinecap="round" strokeLinejoin="round" />;
   const tailEl = () => {
     const t = d.tail ?? "curl";
     if (t === "none") return null;
@@ -139,9 +131,9 @@ export const CatSketch: React.FC<{ d: CatDesign; sex: "male" | "female"; x: numb
     </g>
   );
   const patch = () => pat !== "patch" ? null : (
-    <ellipse cx={ex + 4} cy={ey - 6} rx={rx * 0.42} ry={ry * 0.42} fill={p.main} />
+    <ellipse cx={ex} cy={ey - 2} rx={rx * 0.42} ry={ry * 0.42} fill={p.main} />
   );
-  const muzzle = () => pat !== "socks" ? null : <ellipse cx={0} cy={my - 2} rx={rx * 0.38} ry={ry * 0.26} fill={C.white} />;
+  const muzzle = () => pat !== "socks" ? null : <ellipse cx={0} cy={my + k} rx={13 * k} ry={8 * k} fill={C.white} />;
   const whisk = () => !d.whiskers ? null : (
     <g stroke={C.ink} strokeWidth={3} strokeLinecap="round">
       {[-1, 1].flatMap((k) => [0, 1].map((j) => <line key={`${k}${j}`} x1={k * rx * 0.62} y1={my - 6 + j * 10} x2={k * rx * 1.05} y2={my - 12 + j * 18} />))}
@@ -172,7 +164,7 @@ export const CatSketch: React.FC<{ d: CatDesign; sex: "male" | "female"; x: numb
       {d.ears === "fold" && [foldEar(-1), foldEar(1)]}
       {patch()}
       {muzzle()}
-      {d.blush && [-1, 1].map((k) => <ellipse key={k} cx={k * rx * 0.6} cy={ey + 20} rx={11} ry={7} fill={BLUSH} />)}
+      {d.blush && [-1, 1].map((sd) => <ellipse key={sd} cx={sd * (ex + 10 * k)} cy={ey + 11 * k} rx={5 * k} ry={3 * k} fill={BLUSH} />)}
       {eye(-1)}{eye(1)}
       {mouth()}
       {whisk()}
@@ -186,14 +178,14 @@ export const CAT_DESIGNS: { key: string; name: string; d: CatDesign }[] = [
   { key: "B", name: "もち", d: { head: "mochi", ears: "point", body: "bean", eyes: "dot", fill: "tint", blush: true, tail: "none" } },
   { key: "C", name: "ちび・線画", d: { head: "round", ears: "point", body: "bean", eyes: "big", fill: "outline", blush: true, chibi: true, tail: "none" } },
   { key: "D", name: "おにぎり", d: { head: "onigiri", ears: "point", body: "rect", eyes: "white", fill: "full", pattern: "belly" } },
-  { key: "E", name: "たれ耳", d: { head: "round", ears: "fold", body: "bean", eyes: "sleepy", fill: "inkline", tail: "straight" } },
+  { key: "E", name: "たれ耳", d: { head: "round", ears: "fold", body: "bean", eyes: "dot", fill: "inkline", tail: "straight" } },
   { key: "F", name: "トラ柄", d: { head: "round", ears: "big", body: "pear", eyes: "white", fill: "full", pattern: "stripes", whiskers: true } },
   { key: "G", name: "だるま", d: { head: "mochi", ears: "point", body: "daruma", eyes: "white", fill: "full", pattern: "belly", tail: "none" } },
-  { key: "H", name: "ぶち", d: { head: "round", ears: "point", body: "pear", eyes: "dot", fill: "tint", pattern: "patch", mouth: "dot" } },
+  { key: "H", name: "ぶち", d: { head: "round", ears: "point", body: "pear", eyes: "dot", fill: "tint", pattern: "patch" } },
   { key: "I", name: "四角", d: { head: "square", ears: "point", body: "rect", eyes: "big", fill: "inkline" } },
   { key: "J", name: "くつした", d: { head: "round", ears: "point", body: "pear", eyes: "white", fill: "full", pattern: "socks" } },
   { key: "K", name: "にっこり", d: { head: "mochi", ears: "point", body: "bean", eyes: "smile", fill: "full", blush: true, chibi: true, acc: "bow" } },
-  { key: "L", name: "のっぽ", d: { head: "round", ears: "point", body: "tall", eyes: "dot", fill: "tint", tail: "straight", acc: "scarf", mouth: "dot" } },
+  { key: "L", name: "のっぽ", d: { head: "round", ears: "point", body: "tall", eyes: "dot", fill: "tint", tail: "straight", acc: "scarf" } },
 ];
 
 const CW = 480, CH = 330, TOP = 80;
