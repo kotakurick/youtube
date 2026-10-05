@@ -10,7 +10,7 @@
 - [x] ★ テーマと切り口の承認（オーナー 2026-10-05「構成に入っておーけー」）
 - [x] 2. 企画カードと構成案（クラウド、2026-10-05 第2版）→ `outline.md`（一番上の企画カードを先に埋める。埋まったら `review-rival` に見せて、負けている所を構成で直す → `review/rival-outline.md`）
 - [x] 3. 台本（クラウド、2026-10-05 第4稿。5役のレビュー済み）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。5役のレビュー → `review/`）
-- [ ] ★ 一次資料との照合（オーナー）→ `sources.csv` の「照合」欄をすべて埋める。**2026-10-05 オーナー判断で後回し**（「出典は飛ばしてつぎいこう」）。省略はしない：音声を作る前（7の前）に必ず行う
+- [x] ★ 一次資料との照合（オーナー 2026-10-05「すべてかくにんした！」。S1〜S27、本の結論の章の一文 S27 も）→ `sources.csv` の照合欄
 - [x] ★ 台本レビュー（オーナー 2026-10-05 第4稿に「おもろい！」）→ `review/owner.md`（Claude が読みやすい形にまとめて渡す。オーナーの指摘は Claude が書き写して台本に反映し、直した／直さなかったを1行ずつ書く）
 - [x] 4. 絵コンテ（クラウド、2026-10-05 第2版・45場面。3役の見直しを反映。物語の主人公は猫、締めのひと言つき。画面のチェックの直すもの0）：`scenes/Storyboard.tsx`（絵の部品は render/src/lib の Snowball・Village・Money・Bedroom）、秒数と動きの表は `storyboard.md`。`cd render && npm run storyboard -- 002-r-greater-than-g` → ★ オーナーが確認　★オーナー確認済み（2026-10-05「絵コンテおーけー！」）
 - [x] 5. 場面のコード（クラウド、2026-10-05 第1版）→ `scenes/Episode.tsx`。絵は `scenes/Storyboard.tsx` の場面を使い、区切り（Beat）を読み上げの語に合わせた。静止画の確認：`cd render && npm run storyboard -- 002-r-greater-than-g --scenes`（102枚、直すもの0）
