@@ -417,7 +417,7 @@ const QuizAsk: React.FC = () => {
 const Ch1Card: React.FC = () => <ChapterCard no={1} title="紹介の町" />;
 const Ch2Card: React.FC = () => <ChapterCard no={2} title="アプリの町" />;
 const Ch3Card: React.FC = () => <ChapterCard no={3} title="犯人は誰か" />;
-const Ch4Card: React.FC = () => <ChapterCard no={4} title="紹介は、なぜ細ったのか" />;
+const Ch4Card: React.FC = () => <ChapterCard no={4} title="紹介は、なぜ少なくなったのか" />;
 const Ch5Card: React.FC = () => <ChapterCard no={5} title="うまくいく人は、何をしていたか" />;
 
 /** 飲み会の席：世話焼きの先輩が、ふたりを引き合わせる */
@@ -925,7 +925,7 @@ const Ch4: React.FC = () => {
   );
 };
 
-// ---------- 第4章：紹介は、なぜ細ったのか ----------
+// ---------- 第4章：紹介は、なぜ少なくなったのか ----------
 /** n人のうち k人だけ色（20人の列）。割合を人数で見せる */
 const PeopleOf: React.FC<{ x: number; y: number; k: number; n?: number; kind?: "male" | "female" | "mix"; size?: number; start?: number }> = (
   { x, y, k, n = 20, kind = "mix", size = 1.05, start = 0 },
