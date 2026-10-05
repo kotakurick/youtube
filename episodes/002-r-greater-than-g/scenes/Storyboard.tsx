@@ -130,11 +130,14 @@ const P06: React.FC = () => (
       <div style={{ ...font("note", C.ink2) }}>流れてきた投稿</div>
       <div style={{ ...font("label"), marginTop: 12, lineHeight: 1.4 }}>r ＞ g。だから、<span style={{ textDecoration: "line-through", textDecorationThickness: 6 }}>給料より資産</span></div>
     </div>
-    <div style={{ position: "absolute", left: 96, top: 470, width: 1300, padding: "40px 48px", background: C.goldTint, border: `6px solid ${C.ink}`, borderRadius: R.lg }}>
-      <div style={{ ...font("label", C.ink2) }}>この式を広めた本人（ピケティ、2015年の論文）</div>
-      <div style={{ ...font("question"), marginTop: 20 }}>「r ＞ g は、給料の格差を語るための式ではない」</div>
+    <div style={{ position: "absolute", left: 96, top: 330, width: 1300, padding: "32px 48px", background: C.goldTint, border: `6px solid ${C.ink}`, borderRadius: R.lg }}>
+      <div style={{ ...font("label", C.ink2) }}>ピケティの本（結論の章）</div>
+      <div style={{ ...font("question"), marginTop: 12, lineHeight: 1.3 }}>賃金より速く増えるのは<br />「過去に積み上がった富」</div>
     </div>
-    <SourceNote text="Piketty (2015) AER 105(5) p.48（要約）" />
+    <div style={{ position: "absolute", left: 96, top: 700, width: 1300, padding: "18px 32px", background: C.white, border: `4px solid ${C.ink2}`, borderRadius: R.md, ...font("label") }}>
+      のちの論文：この式だけで格差を語らないでほしい
+    </div>
+    <SourceNote text="Piketty (2014) 結論の章／Piketty (2015) AER 105(5) p.48（要約）" />
     <Gosa cues={[[-60, "surprised"]]} says={[[200, "！"]]} size="M" />
   </AbsoluteFill>
 );
@@ -856,7 +859,7 @@ const panels: Panel[] = [
   { key: "03", title: "冒頭：買えるものが5%減", C: P03, sec: 6, move: "かごに20個の品が入る → 1個が点線になって消える" },
   { key: "04", title: "冒頭：日経平均34年ぶり", C: P04, sec: 5, move: "1989年の点から線が下り、2024年に元の高さの点線を越える。越えた瞬間に「34年」" },
   { key: "05", title: "冒頭：投稿とつぶやき", C: P05, sec: 20, move: "スマホに投稿が1行ずつ流れる → 彼が頭を抱える姿勢に変わり、つぶやきの吹き出し" },
-  { key: "06", title: "冒頭：本人の言葉", C: P06, sec: 15, move: "投稿の下から引用カードがせり上がる。投稿の「給料より資産」に打ち消し線。ゴサ「！」は1回だけ" },
+  { key: "06", title: "冒頭：本の主語", C: P06, sec: 15, move: "投稿の下から本の一文のカードがせり上がり、「過去に積み上がった富」に墨の下線。投稿の「給料より資産」に打ち消し線（だから、の飛躍）。論文の一言は小さく後から。ゴサ「！」は1回だけ" },
   { key: "07", title: "冒頭：四つの道", C: P07, sec: 13, move: "「預金か、投資か、転職か、起業か」の1語ごとに札が1枚ずつ立つ（第3章の村の札と同じ形）" },
   { key: "08", title: "今日の答え合わせ", C: P08, sec: 6, move: "四つの札を左へ払ってカード" },
   { key: "09", title: "予想タイム", C: P09, sec: 24, move: "選択肢を1つずつ。下に年収の白い棒と、ほぼ点の利息の黒い棒（答えは出さない）" },
