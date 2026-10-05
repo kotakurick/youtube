@@ -2,7 +2,8 @@
 // 4列の一覧（<回>-storyboard）を作る。
 //   npm run storyboard -- <回のid>                例：npm run storyboard -- 002-r-greater-than-g
 //   npm run storyboard -- <回のid> out/sb.png     一覧の置き場所を変える（既定は out/<回>-storyboard.png）
-// 結果：一覧の画像と、out/qa/<回>-storyboard.md（場面ごとの「直すもの」「確かめるもの」）。直すものがあれば終了コード1。
+// 結果：一覧の画像、場面ごとの秒数と動きの表（episodes/<回>/storyboard.md）、
+//       out/qa/<回>-storyboard.md（場面ごとの「直すもの」「確かめるもの」）。直すものがあれば終了コード1。
 import fs from "fs";
 import path from "path";
 import { bundle } from "@remotion/bundler";
@@ -49,6 +50,26 @@ serveUrl = await pack();
 const sheet = await selectComposition({ serveUrl, id: `${id}-storyboard`, browserExecutable, puppeteerInstance: browser, logLevel: "error" });
 fs.mkdirSync(path.dirname(out), { recursive: true });
 await renderStill({ composition: sheet, serveUrl, output: out, puppeteerInstance: browser, logLevel: "error" });
+// 秒数と動きの表（オーナーが読む。リポジトリに入れる）
+const meta = sheet.props.meta;
+if (meta) {
+  const total = meta.panels.reduce((a, p) => a + p.sec, 0);
+  const mmss = (t) => `${Math.floor(t / 60)}:${String(Math.round(t % 60)).padStart(2, "0")}`;
+  let t = 0;
+  const rows = meta.panels.map((p, i) => {
+    const r = `| ${String(i + 1).padStart(2, "0")} | ${mmss(t)} | ${p.sec || "—"} | ${p.title} | ${p.move.replace(/\|/g, "／").replace(/\n/g, "<br>")} |`;
+    t += p.sec;
+    return r;
+  });
+  const md = [
+    `# 絵コンテ：${meta.title}`, "",
+    `場面 ${meta.panels.length}、合計 約${mmss(total)}（秒数は台本の文字数からの見積もり。声を作ると変わる）。`,
+    "一覧の画像は動き終わりの姿。動きはこの表で読む。書き出し：\`cd render && npm run storyboard -- " + id + "\`", "",
+    "| # | 始まり | 秒 | 場面 | 動き |", "|---:|---:|---:|---|---|", ...rows, "",
+  ].join("\n");
+  const epDir = path.join("..", "episodes", id);
+  if (fs.existsSync(epDir)) fs.writeFileSync(path.join(epDir, "storyboard.md"), md);
+}
 await browser.close({ silent: true });
 fs.mkdirSync(path.join("out", "qa"), { recursive: true });
 fs.writeFileSync(path.join("out", "qa", `${id}-storyboard.md`), report.join("\n") + (errors ? "" : "直すものはなし。\n"));

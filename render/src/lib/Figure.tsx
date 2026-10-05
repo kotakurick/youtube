@@ -88,19 +88,22 @@ export const Figure: React.FC<{
   kind: Kind; x: number; y: number; size?: number; opacity?: number;
   dim?: boolean;        // 話の対象外（薄い色。opacity では薄くしない）
   highlight?: boolean;  // 追う1人（主人公。番号で呼ばない）：輪で囲んで1.25倍
-  label?: string;       // 追う1人の名札（例：「会社員（32）」「孫娘（30）」。番号は付けない）
+  ring?: boolean;       // 輪を付けるか（既定 true）。1人だけの寄りの絵では false（2026-10-05 決定）
+  label?: string;       // 追う1人の名札（例：「会社員（32）」「孫娘（30）」。番号は付けない）。文字は人の大きさによらず40px
   color?: string;
   pose?: Pose;
   facing?: -1 | 0 | 1;  // 左右に少し向く（2人で向き合うとき）
   phase?: number;       // 歩く姿勢の足の位置（0〜1）
   age?: Age;
-}> = ({ kind, x, y, size = 1, opacity = 1, dim = false, highlight = false, label, color, pose = "stand", facing = 0, phase = 0, age = "adult" }) => {
+}> = ({ kind, x, y, size = 1, opacity = 1, dim = false, highlight = false, ring = true, label, color, pose = "stand", facing = 0, phase = 0, age = "adult" }) => {
   const fill = color ?? kindColor(kind, dim);
   const s = highlight ? size * 1.25 : size;
   const bob = pose === "walk" ? -Math.abs(Math.sin(phase * Math.PI * 2)) * 2 : 0;
+  const tagW = label ? label.length * 40 + 40 : 0;
   return (
-    <g data-qa="figure" data-qa-label={label ?? "人型"} data-qa-allow={highlight ? "figure" : undefined} transform={`translate(${x},${y + bob * size}) scale(${s})`} opacity={opacity}>
-      {highlight && (
+    <g opacity={opacity}>
+    <g data-qa="figure" data-qa-label={label ?? "人型"} data-qa-allow={highlight ? "figure" : undefined} transform={`translate(${x},${y + bob * size}) scale(${s})`}>
+      {highlight && ring && (
         <>
           <circle cx={0} cy={-20} r={36} fill="none" stroke={C.bg} strokeWidth={12} />
           <circle cx={0} cy={-20} r={36} fill="none" stroke={C.ink} strokeWidth={LINE.thin} />
@@ -119,10 +122,12 @@ export const Figure: React.FC<{
           </g>
         ) : <Posed kind={kind} pose={pose} facing={facing} phase={phase} fill={fill} />}
       </g>
+    </g>
+      {/* 名札：人の大きさによらず文字40px。頭（輪があれば輪）の上に置く */}
       {highlight && label && (
-        <g transform="translate(0,-70)" data-qa-allow="figure">
-          <rect x={-label.length * 11 - 14} y={-22} width={label.length * 22 + 28} height={40} rx={20} fill={C.ink} />
-          <text x={0} y={7} textAnchor="middle" fontFamily={FONT} fontWeight={700} fontSize={22} fill={C.white}>{label}</text>
+        <g transform={`translate(${x},${y + bob * size - (ring ? 56 : 45) * s - 42})`} data-qa-allow="figure">
+          <rect x={-tagW / 2} y={-30} width={tagW} height={60} rx={30} fill={C.ink} />
+          <text x={0} y={14} textAnchor="middle" fontFamily={FONT} fontWeight={700} fontSize={40} fill={C.white}>{label}</text>
         </g>
       )}
     </g>
