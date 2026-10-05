@@ -7,7 +7,7 @@
 - **オーナー**：★の工程。決める・確かめる・公開する。
 - **クラウドの Claude**：PCを閉じていても進む作業（考える・調べる・書く・コード・静止画）。GitHub にあるものだけで作業する。
 - **ローカルの Claude**（オーナーのPC）：APIキーや `_local/` の音声・BGM が要る作業（音声・書き出し・音量）。
-- **サブエージェント**（`.claude/agents/`）：書いた会話とは別の目でのレビュー。事実 `review-facts`・ポリシー `review-policy`・心の動き `review-flow`・深さ `review-depth`・ライバル `review-rival`。
+- **サブエージェント**（`.claude/agents/`）：書いた会話とは別の目でのレビュー。絵コンテは アニメーター `review-animator`・イラストレーター `review-illustrator`・デザイナー `review-designer` の3役。事実 `review-facts`・ポリシー `review-policy`・心の動き `review-flow`・深さ `review-depth`・ライバル `review-rival`。
 - **自動のチェック**：台本 `scripts/lint_script.py`、出典 `scripts/check_sources.py`、画面 `npm run check`、BGM `npm run bgm`。
 
 引き継ぎはすべてリポジトリで行う（クラウドには Claude のメモがない）。各回の進み具合は `episodes/<回>/README.md`。
@@ -24,7 +24,7 @@
 | 6 | 別の目でのレビュー | サブエージェント5役 | 直した／直さなかった（理由）を1行ずつ | `review/` |
 | 7 | 一次資料との照合 | ★オーナー | 数字を一次資料と突き合わせる | `sources.csv` の照合欄 |
 | 8 | 台本レビュー | ★オーナー | Claude が企画カード・ライバル役の判定・直さなかった指摘をまとめて渡す。オーナーはチャットで返すだけ | `review/owner.md` |
-| 9 | 絵コンテ | クラウド → ★オーナーが確認 | `episodes/<回>/scenes/Storyboard.tsx` に場面を描き、`cd render && npm run storyboard -- <回のid>` で一覧の1枚を作る（画面のチェック込み）。見た目は音声・動画の前に決める | 静止画 |
+| 9 | 絵コンテ | クラウド＋絵コンテの3役 → ★オーナーが確認 | `episodes/<回>/scenes/Storyboard.tsx` に場面を描き（秒数 sec と動き move も書く）、`cd render && npm run storyboard -- <回のid>` で一覧と表（30秒を超える場面に ⚠）を作る。**第1版をアニメーター `review-animator`・イラストレーター `review-illustrator`・デザイナー `review-designer` に見せ**、まとめ（`review/storyboard-summary.md`）で直してからオーナーへ。色はその回の意味の色 | 一覧の画像、`storyboard.md`、`review/storyboard-*.md` |
 | 10 | 場面のコード | クラウド | シミュレーションも含む | `scenes/Episode.tsx` |
 | 11 | 仮通し | クラウド | 無音の仮の尺と字幕で13〜18分を通し、テンポを直す | `timing.json` |
 | 12 | 音声 | ローカル | ElevenLabs の Yui（`--voice eleven-yui`） | `_local/episodes/<回>/audio/` |

@@ -56,14 +56,19 @@ if (meta) {
   const total = meta.panels.reduce((a, p) => a + p.sec, 0);
   const mmss = (t) => `${Math.floor(t / 60)}:${String(Math.round(t % 60)).padStart(2, "0")}`;
   let t = 0;
+  // 30秒を超えて同じ画面が続く場面に印（CLAUDE.md「画面を止めない」。2026-10-05 オーナー決定で自動の警告に）
+  const LONG_SEC = 30;
+  const longs = meta.panels.filter((p) => p.sec > LONG_SEC);
   const rows = meta.panels.map((p, i) => {
-    const r = `| ${String(i + 1).padStart(2, "0")} | ${mmss(t)} | ${p.sec || "—"} | ${p.title} | ${p.move.replace(/\|/g, "／").replace(/\n/g, "<br>")} |`;
+    const long = p.sec > LONG_SEC;
+    const r = `| ${String(i + 1).padStart(2, "0")} | ${mmss(t)} | ${p.sec || "—"}${long ? " ⚠" : ""} | ${p.title} | ${p.move.replace(/\|/g, "／").replace(/\n/g, "<br>")} |`;
     t += p.sec;
     return r;
   });
   const md = [
     `# 絵コンテ：${meta.title}`, "",
     `場面 ${meta.panels.length}、合計 約${mmss(total)}（秒数は台本の文字数からの見積もり。声を作ると変わる）。`,
+    longs.length ? `⚠ 30秒を超える場面が ${longs.length} つ（${longs.map((p) => p.key).join("・")}）。本編では場面の中で絵やカメラを動かすか、場面を割る。` : "30秒を超える場面はない。",
     "一覧の画像は動き終わりの姿。動きはこの表で読む。書き出し：\`cd render && npm run storyboard -- " + id + "\`", "",
     "| # | 始まり | 秒 | 場面 | 動き |", "|---:|---:|---:|---|---|", ...rows, "",
   ].join("\n");
@@ -73,5 +78,6 @@ if (meta) {
 await browser.close({ silent: true });
 fs.mkdirSync(path.join("out", "qa"), { recursive: true });
 fs.writeFileSync(path.join("out", "qa", `${id}-storyboard.md`), report.join("\n") + (errors ? "" : "直すものはなし。\n"));
+if (meta) { const L = meta.panels.filter((p) => p.sec > 30); if (L.length) console.log(`⚠ 30秒を超える場面：${L.map((p) => `${p.key}（${p.sec}秒）`).join("、")}`); }
 console.log(`一覧：${out}　チェック：out/qa/${id}-storyboard.md（直すもの ${errors}件）`);
 process.exit(errors ? 1 : 0);
