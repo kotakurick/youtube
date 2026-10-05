@@ -31,6 +31,7 @@ export type TownOptions = {
   vouchNoise: number;  // 紹介の見え方のずれ（±）
   tolerance: number;   // 紹介：自分より tolerance 下まで受け入れる
   perCircle: number;   // 紹介：1か月に1つの輪で世話役が引き合わせる組数
+  matchmaker: number;  // 紹介：その月に世話役が動く確率（1＝毎月。職場や地域の世話役が減ると下がる）
   aim: number;         // アプリ：自分より aim 上だけにいいね
   reply: number;       // アプリ：いいねを受けたとき、自分より reply 下まで返す（受け取るのが少ないとき）
   raise: number;       // アプリ：受け取ったいいねが倍になるごとに基準が上がる幅
@@ -39,10 +40,10 @@ export type TownOptions = {
   /** アプリ：1人だけやり方を変える（「もしも彼だけが〜したら」）。住人の id → その人だけの値 */
   personal?: Record<number, Personal>;
 };
-export type Personal = { aim?: number; raise?: number; reply?: number; likes?: number; browse?: number };
+export type Personal = { aim?: number; raise?: number; reply?: number; likes?: number; browse?: number; consider?: number }; // consider：1か月に見る届いたいいねの数の上限（候補を絞る）
 
 export const DEFAULTS: TownOptions = {
-  months: 12, noise: 0.6, vouchNoise: 0.25, tolerance: 0.15, perCircle: 1,
+  months: 12, noise: 0.6, vouchNoise: 0.25, tolerance: 0.15, perCircle: 1, matchmaker: 1,
   aim: 0.3, reply: 0.3, raise: 0.2, browse: 25, likes: { male: 8, female: 3 },
 };
 
@@ -105,7 +106,9 @@ export const simulateIntro = (rs: Resident[], o: Partial<TownOptions> = {}, seed
     const newPairs: [number, number][] = [];
     // 輪ごとに世話役が perCircle 組まで引き合わせる（相手のいない男性を1人選び、届く範囲の女性から相手を探す）
     const men: Resident[] = [];
+    const act = rng(seed * 4099 + m);
     for (let c = 0; c < nc; c++) {
+      if (act() >= opt.matchmaker) continue; // この月は世話役が動かない
       men.push(...shuffle(rs.filter((a) => a.kind === "male" && a.circle === c && !partner.has(a.id)), seed * 31 + m * 101 + c).slice(0, opt.perCircle));
     }
     for (const p of shuffle(men, seed * 37 + m)) {
@@ -130,6 +133,7 @@ export const simulateApp = (rs: Resident[], o: Partial<TownOptions> = {}, seed =
   const view = viewer(seed + 1, opt.noise);
   const partner = new Map<number, number>();
   const seen = new Map<number, number>(); // これまでに受け取ったいいねの累計（見てきた候補の数）
+  const byId = new Map(rs.map((a) => [a.id, a])); // rs は町の一部（混ざった町）でもよい
   const months: Month[] = [];
   const all: [number, number][] = [];
   for (let m = 1; m <= opt.months; m++) {
@@ -146,18 +150,20 @@ export const simulateApp = (rs: Resident[], o: Partial<TownOptions> = {}, seed =
     // 受けた人は、自分の基準（自分より reply 下まで）に届く相手にだけ返す。いいねを多く受け取ってきた人ほど基準が上がる
     const matches: [number, number][] = [];
     for (const q of singles) {
-      const from = got.get(q.id) ?? [];
+      const mq0 = opt.personal?.[q.id] ?? {};
+      const from = (got.get(q.id) ?? []).slice(0, mq0.consider ?? Infinity); // 候補を絞る人は、届いた順に上限まで見る
       seen.set(q.id, (seen.get(q.id) ?? 0) + from.length);
       const mq = opt.personal?.[q.id] ?? {};
       const bar = q.score - (mq.reply ?? opt.reply) + (mq.raise ?? opt.raise) * Math.log2(1 + seen.get(q.id)!);
       for (const pid of from) {
-        const p = rs[pid];
+        const p = byId.get(pid)!;
         if (view(q, p) >= bar) matches.push(p.kind === "male" ? [p.id, q.id] : [q.id, p.id]);
       }
     }
     // 両思いが重なる人は、いちばん良く見える相手を選ぶ（2人の好みの合計が高い順に決める）
     const uniq = [...new Map(matches.map((x) => [`${x[0]}:${x[1]}`, x])).values()];
-    uniq.sort((a, b) => (view(rs[b[0]], rs[b[1]]) + view(rs[b[1]], rs[b[0]])) - (view(rs[a[0]], rs[a[1]]) + view(rs[a[1]], rs[a[0]])));
+    const R = (id: number) => byId.get(id)!;
+    uniq.sort((a, b) => (view(R(b[0]), R(b[1])) + view(R(b[1]), R(b[0]))) - (view(R(a[0]), R(a[1])) + view(R(a[1]), R(a[0]))));
     const newPairs: [number, number][] = [];
     for (const [a, b] of uniq) {
       if (partner.has(a) || partner.has(b)) continue;
