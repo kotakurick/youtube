@@ -584,6 +584,8 @@ const Verdict: React.FC = () => {
   const { find, end } = useCue();
   const ans = find("答えは", 300);
   const race = find("ペアの数の動き", 500);
+  const us = find("アメリカの追跡調査", 900);
+  const left = find("差がつくのは、出会えずに", 1300);
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const stamp = sp("pop", frame - ans, fps);
@@ -600,18 +602,33 @@ const Verdict: React.FC = () => {
         )}
         <Beat from={ans} to={race}><Tag_ x={96} y={80} text="答え：D　アプリの町は、紹介の町より少ない" /></Beat>
       </Beat>
-      <Beat from={race} to={end + 30}>
+      <Beat from={race} to={us}>
         <Tag_ x={96} y={80} text="ペアの数（累計）。横は何か月目か" />
         <LineChart x={220} y={240} width={1240} height={500} xDomain={[0, 12]} yDomain={[0, 30]} xTicks={[1, 3, 6, 9, 12]}
           format={(v) => `${v}組`} series={[
             { label: "紹介の町", points: line(INTRO), color: C.ink, focus: true },
             { label: "アプリの町", points: line(APP), color: C.ink2 },
           ]} duration={90} />
-        <Beat from={find("アメリカの追跡調査", 900) - race} to={end + 30 - race}>
-          <SourceNote text="Rosenfeld (2017) Sociological Science：ネットで出会ったカップルは結婚への移行が早い（米国の追跡調査）（★未照合）" />
-        </Beat>
+      </Beat>
+      {/* 仮通しで22秒止まっていたので、線のあとを2つに分けた（2026-10-05） */}
+      <Beat from={us} to={left}>
+        <Note x={96} y={300} text={"ネットで出会ったカップルは、\n結婚までが早いくらい"} sub="アメリカの追跡調査" />
+        <Svg>
+          <Cat kind="male" x={1300} y={800} size={4.4} facing={1} face="happy" seed={3} label="ネットで出会ったふたり" />
+          <Cat kind="female" x={1500} y={800} size={4.4} facing={-1} face="happy" seed={7} label="ネットで出会ったふたり" />
+          <Heart x={1400} y={500} r={36} fill={C.ink} />
+        </Svg>
+        <SourceNote text="Rosenfeld (2017) Sociological Science：ネットで出会ったカップルは結婚への移行が早い（米国の追跡調査）（★未照合）" />
+      </Beat>
+      <Beat from={left} to={end + 30}>
+        <SimBackground />
+        <Tag_ x={96} y={80} text="差がつくのは、相手が見つからずに残る人の数" />
+        <Town result={INTRO} box={{ x: 96, y: 200, w: 820, h: 620 }} at={12} title="紹介の町" size={0.8} split={0.66} compact legend={false} dimSingles />
+        <Town result={APP} box={{ x: 1000, y: 200, w: 820, h: 620 }} at={12} title="アプリの町" size={0.8} split={0.66} compact dimSingles />
+        <SimNote />
       </Beat>
       <Beat from={0} to={race}><SimNote /></Beat>
+      <Beat from={race} to={us}><SimNote /></Beat>
       <Gosa cues={[[ans - 6, "surprised"]]} size="S" sfx={false} exit={race} />
     </>
   );
@@ -796,15 +813,30 @@ const Ch3: React.FC = () => {
 const Ch3Raise: React.FC = () => {
   const { find, end } = useCue();
   const nl = find("オランダ", 300);
+  const drop = find("すると、見続けるほど", 500);
+  const hers = find("これが、彼女の側", 900);
   return (
     <>
       <Beat from={0} to={nl}>
         <Tag_ x={96} y={80} text="② 候補が多い人ほど、基準が上がる" />
         <BarRises start={30} />
       </Beat>
-      <Beat from={nl} to={end + 30}>
+      {/* 実験の様子 → 結果の曲線 → 彼女の側（2026-10-05 仮通しで28秒止まっていたので3つに分けた） */}
+      <Beat from={nl} to={drop}>
+        <PaperTag title="Pronk & Denissen (2020)" meta="Social Psychological and Personality Science。オランダの実験（3つの研究）" />
+        <Svg>
+          <Cat kind="female" x={620} y={840} size={4.4} pose="phone" face="think" seed={2} label="実験の参加者" />
+          <SwipeDeck x={1060} y={500} h={520} every={14} start={10} kind="male" count={false} />
+        </Svg>
+      </Beat>
+      <Beat from={drop} to={hers}>
         <PaperTag title="Pronk & Denissen (2020)" meta="Social Psychological and Personality Science。オランダの実験（3つの研究）" />
         <PronkCurve />
+      </Beat>
+      <Beat from={hers} to={end + 30}>
+        <Tag_ x={96} y={80} text="選ばれやすい側（いいねがたくさん届く人。男性でも同じ）" />
+        <Svg><Cat kind="female" x={560} y={840} size={4.4} pose="phone" face="think" seed={6} label="彼女" /></Svg>
+        <Svg><NotifStack x={1100} y={500} h={560} every={10} start={6} max={15} from="male" /></Svg>
       </Beat>
       <ChapterDots current={3} />
     </>

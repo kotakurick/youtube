@@ -2,6 +2,26 @@
 
 テーマ: themes.csv の 2「夫婦はどこで出会っているのか。見合いからアプリまでの変化」（first20.md の2番）。タイトル案：夫婦の出会い、アプリはまだ◯位だった
 
+## v3（いま作っている版。2026-10-05〜）
+
+| もの | ファイル |
+|---|---|
+| 企画カード・構成案 | `outline-v3.md` |
+| 台本 | `script-v3.md`（lint のエラー0、数字は1分に4.6個。締めのひと言「数えてみると、景色が変わりました。」は〔字幕なし〕） |
+| レビュー | `review/v3/`（5役）、`review/owner.md`（オーナー） |
+| 尺と字幕（仮の無音） | `timing-v3.json`・`subtitles-v3.srt`（約18分22秒。終了画面20秒を含む） |
+| 場面のコード | `scenes/Episode-v3.tsx`（動画の id は `001-where-couples-meet-v3`） |
+| 絵コンテ | `cd render && npm run storyboard -- 001-where-couples-meet-v3`（83枚、直すもの0） |
+| テンポ | `npm run storyboard -- 001-where-couples-meet-v3 --every 2` のあと `python scripts/tempo.py 001-where-couples-meet-v3`（20秒以上止まる所0） |
+
+- [x] 台本 v3・5役のレビュー・★オーナーの台本レビュー（2026-10-05）
+- [ ] ★ 一次資料との照合（7）：オーナーの判断で今回は割愛（2026-10-05）。S1〜S23 は★未照合のまま。画面の出典の（★未照合）は、公開前に外すか照合するかを決める
+- [x] ★ 絵コンテの確認（9）：猫の主人公（トラ柄）、章の扉のチャンネル名、締めのアニメーション（ゴサ・夜空）と夜の終了画面まで確認済み（2026-10-05）
+- [x] 場面のコード（10）・仮通し（11）：テンポのチェックで止まる所（判定の線グラフ22秒・オランダの実験28秒）を分けた（2026-10-05）
+- [ ] 音声（12、ローカル）：`python tts/narrate.py episodes/001-where-couples-meet --voice eleven-yui --script script-v3.md`（声が決まると尺と字幕が声に合わせて変わる。そのあと `cd render && npm run check -- 001-where-couples-meet-v3` で直すもの0を確かめる）
+- [ ] 書き出し・BGM・音量（13、ローカル）：`cd render && npm run render -- 001-where-couples-meet-v3 out/001-v3.mp4`
+- [ ] ★ 通しで見る（15）
+
 ## v2（なぜ×100人のシミュレーション。2026-10-05〜）
 
 試作（第6稿）が「全く面白くない」と判定されたので、同じテーマを新しい型で作り直している（`docs/decisions.md` 2026-10-05）。第6稿のファイル（`script.md`・`scenes/Episode.tsx`・`timing.json`）はそのまま残してある。
