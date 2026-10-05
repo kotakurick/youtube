@@ -83,7 +83,8 @@ def parse(script: Path) -> list[dict]:
 
 
 # 台本に書く声への指示（docs/script-style.md）。〔間〕は文のあとの無音、それ以外の〔…〕は語り方のタグ
-PAUSES = {"間・短": 1.0, "間": 1.5, "間・長": 2.2}  # 文の終わりから次の文までの秒数（指示がなければ GAP）
+PAUSES = {"間・短": 1.0, "間": 1.5, "間・長": 2.2}
+NOSUB = "字幕なし"  # 〔字幕なし〕：次の1文は字幕を出さない（読み上げはする）  # 文の終わりから次の文までの秒数（指示がなければ GAP）
 
 
 def split_sentences(lines: list[str]) -> list[tuple[str, str]]:
@@ -213,10 +214,13 @@ def main():
         if not sc["lines"]:  # 声のない場面
             out_scenes.append({"id": sc["id"], "seconds": sc["seconds"], "audio": None, "lines": []})
             continue
-        parts, lines, t, tag = [], [], 0.0, None
+        parts, lines, t, tag, nosub = [], [], 0.0, None, False
         for kind, s in split_sentences(sc["lines"]):
             if kind == "tag":
-                tag = s
+                if s == NOSUB:  # 次の1文は字幕を出さない（毎回の締めのひと言など、画面に大きく出す文。2026-10-05）
+                    nosub = True
+                else:
+                    tag = s
                 continue
             if kind == "pause":  # 前後の GAP と合わせて PAUSES の秒数になる無音をはさむ
                 if parts:
@@ -235,8 +239,9 @@ def main():
                     tts.synthesize(spoken, v, wav)
                     paid_chars += len(spoken)
             dur = wav_seconds(wav)
-            subs = subtitle_parts(s, 16 if a.vertical else SUB_MAX)
-            total = sum(len(x) for x in subs)
+            subs = [] if nosub else subtitle_parts(s, 16 if a.vertical else SUB_MAX)
+            nosub = False
+            total = sum(len(x) for x in subs) or 1
             st = t
             for x in subs:  # 文を字幕に分けたときは、字数の割合で時間を分ける
                 d = dur * len(x) / total
