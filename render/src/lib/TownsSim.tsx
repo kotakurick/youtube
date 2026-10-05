@@ -35,7 +35,13 @@ const ringRy = (size: number) => ringDy(size) / 2 + 41 * size;
 
 /** 町の中の家の位置。紹介の町は輪ごとに円く、アプリの町はばらばら */
 export const homes = (res: TownResult, box: Box, size: number, seed = 5) => {
-  if (res.town === "app") return { pts: scatter(res.residents.length, box, seed, size), rings: [] as { cx: number; cy: number; r: number }[] };
+  if (res.town === "app") {
+    // 位置は住人の id で引く（町の一部だけの住人でも使えるように）
+    const sc = scatter(res.residents.length, box, seed, size);
+    const pts: Pt[] = [];
+    res.residents.forEach((a, i) => { pts[a.id] = sc[i]; });
+    return { pts, rings: [] as { cx: number; cy: number; r: number }[] };
+  }
   const nc = Math.max(...res.residents.map((a) => a.circle)) + 1;
   // 輪の大きさから、横に何個並ぶかを決める（狭い箱なら段を増やす）。輪は蛇行して並び、隣どうしがつながる
   const ringW = 2 * ringRx(size) + 4 * size, ringH = 2 * ringRy(size) + 10 * size;
@@ -47,7 +53,7 @@ export const homes = (res: TownResult, box: Box, size: number, seed = 5) => {
     return { cx: box.x + cw * (col + 0.5), cy: box.y + ch * (row + 0.5), r: (FOOT.w + GAP) * size * 1.15 * 2.5 };
   });
   const members = rings.map((_, c) => res.residents.filter((a) => a.circle === c));
-  const pts: Pt[] = res.residents.map(() => ({ x: 0, y: 0 }));
+  const pts: Pt[] = [];
   // 輪の中は、男女が交互になるように上下2列に並ぶ（テーブルを囲むように）
   const dx = ringDx(size), dy = ringDy(size);
   members.forEach((ms, c) => {
@@ -101,7 +107,7 @@ export const Town: React.FC<{
 }> = ({ result, box, size = 1.05, start = 0, fpm = 75, upto = 12, at, title, tags = [], events = true, maxHearts = 40, split = 0.66, dimSingles = false, compact = false }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const head = 96;
+  const head = 104; // 見出し（町の名前・ペアの数）。追う人の輪が見出しにかからない高さ
   const noPairs = split >= 0.99; // split=1 なら町だけ（ペアの置き場を描かない）
   const town: Box = { x: box.x, y: box.y + head, w: noPairs ? box.w : box.w * split - 24, h: box.h - head };
   const pairs: Box = { x: box.x + box.w * split + 24, y: box.y + head, w: box.w * (1 - split) - 24, h: box.h - head };

@@ -56,7 +56,7 @@ export const SwipeDeck: React.FC<{ x: number; y: number; h?: number; every?: num
         {/* 下の1枚（次のカード） */}
         <g transform={`translate(${cx},${cy})`}><Card w={cw} h={ch} kind={kind} /></g>
         {/* いま飛ぶカード */}
-        <g transform={`translate(${cx + (right ? 1 : -1) * fly * w * 1.2},${cy - fly * 30}) rotate(${(right ? 1 : -1) * fly * 18} ${cw / 2} ${ch})`}>
+        <g data-qa-skip="" opacity={1 - fly} transform={`translate(${cx + (right ? 1 : -1) * fly * w * 0.35},${cy - fly * 30}) rotate(${(right ? 1 : -1) * fly * 18} ${cw / 2} ${ch})`}>
           <Card w={cw} h={ch} kind={kind} />
         </g>
         {/* 下のボタン（× と ハート）。押した方が少し大きくなる */}
@@ -85,11 +85,13 @@ export const NotifStack: React.FC<{ x: number; y: number; h?: number; every?: nu
   const w = h * 0.52 - 24;
   const n = frame < 0 ? 0 : Math.min(max, Math.floor(frame / every) + 1);
   const rowH = 64;
+  const fit = Math.floor((h - 60 - 14) / rowH); // 画面に入る行数（それより古い通知は描かない）
   return (
     <>
       <PhoneFrame x={x} y={y} h={h} label="スマホ（通知）">
         {Array.from({ length: n }, (_, i) => {
           const age = n - 1 - i; // 0＝いちばん新しい
+          if (age >= fit) return null;
           const t = sp("enter", frame - i * every, fps);
           const top = 14 + age * rowH;
           return (
@@ -104,7 +106,7 @@ export const NotifStack: React.FC<{ x: number; y: number; h?: number; every?: nu
       </PhoneFrame>
       {/* 未読の数の札（スマホの右上） */}
       {n > 0 && (
-        <g data-qa="label" data-qa-label="未読の数" transform={`translate(${x + (w + 24) / 2 - 6},${y - h / 2 + 8})`}>
+        <g data-qa="label" data-qa-label="未読の数" data-qa-allow="prop" transform={`translate(${x + (w + 24) / 2 - 6},${y - h / 2 + 8})`}>
           <circle r={34} fill={C.female} />
           <text y={12} textAnchor="middle" style={{ ...font("label", C.white), fontWeight: 900 }}>{n}</text>
         </g>
@@ -147,10 +149,10 @@ export const OfficeYears: React.FC<{
   const u = interpolate(frame - k * per, [0, 20], [0, 1], clamp);
   const prevSeated = k > 0 ? years[k - 1].seated : cur.seated;
   const seated = prevSeated + (cur.seated - prevSeated) * u;
-  const cols = 6, rows = 2, size = 2.2;
-  const seats = Array.from({ length: cols * rows }, (_, i) => ({ x: 360 + (i % cols) * 230, y: floor - 40 - Math.floor(i / cols) * 210, i }));
+  const cols = 5, rows = 2, size = 2.2;
+  const seats = Array.from({ length: cols * rows }, (_, i) => ({ x: 880 + (i % cols) * 200, y: floor - 20 - Math.floor(i / cols) * 210, i }));
   // 人が減る順は決めておく（毎回同じ）
-  const order = [3, 8, 0, 11, 5, 9, 1, 6, 10, 2, 7, 4];
+  const order = [3, 8, 0, 5, 9, 1, 6, 2, 7, 4];
   const n = Math.round(seated * seats.length);
   return (
     <>
@@ -167,15 +169,15 @@ export const OfficeYears: React.FC<{
         })}
         {cur.party && (
           <g opacity={u} data-qa="prop" data-qa-label="歓迎会の札">
-            <path d="M600 220 Q960 280 1320 220" fill="none" stroke={C.ink} strokeWidth={LINE.thin} />
-            {Array.from({ length: 7 }, (_, i) => (
-              <path key={i} d={`M${640 + i * 110} ${232 + Math.sin((i / 6) * Math.PI) * 26} l30 0 l-15 34 z`} fill={i % 2 ? C.male : C.female} />
+            <path d={`M860 ${floor - 470} Q1330 ${floor - 420} 1800 ${floor - 470}`} fill="none" stroke={C.ink} strokeWidth={LINE.thin} />
+            {Array.from({ length: 8 }, (_, i) => (
+              <path key={i} d={`M${900 + i * 120} ${floor - 460 + Math.sin((i / 7) * Math.PI) * 22} l30 0 l-15 34 z`} fill={i % 2 ? C.male : C.female} />
             ))}
           </g>
         )}
       </svg>
-      <div style={{ position: "absolute", left: 96, top: 200, ...font("hero"), lineHeight: 1 }}>{cur.year}</div>
-      {cur.note && <div style={{ position: "absolute", left: 96, top: 420, ...font("label", C.ink2), opacity: u }}>{cur.note}</div>}
+      <div style={{ position: "absolute", left: 96, top: 200, ...font("value"), fontSize: 120, lineHeight: 1, whiteSpace: "nowrap" }}>{cur.year}</div>
+      {cur.note && <div style={{ position: "absolute", left: 96, top: 350, ...font("label", C.ink2), opacity: u, whiteSpace: "nowrap" }}>{cur.note}</div>}
     </>
   );
 };
