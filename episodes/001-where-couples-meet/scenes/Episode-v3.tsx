@@ -1055,7 +1055,7 @@ const Ch4Sim: React.FC = () => {
       <SimBackground />
       <Beat from={0} to={move}>
         <Tag_ x={96} y={80} text="世話焼きが、ときどきしか動かない紹介の町" />
-        <Town result={INTRO_LOW} box={{ x: 96, y: 200, w: 820, h: 620 }} start={low} fpm={Math.max(10, Math.floor((res - low) / 12))} title="紹介の町（世話焼きが3割）" size={0.8} split={0.66} compact />
+        <Town result={INTRO_LOW} box={{ x: 96, y: 200, w: 820, h: 620 }} start={low} fpm={Math.max(10, Math.floor((res - low) / 12))} title="紹介の町（世話焼きが3割）" size={0.8} split={0.66} compact legend={false} />
         <Beat from={res} to={move}>
           <Town result={APP} box={{ x: 1000, y: 200, w: 820, h: 620 }} at={12} title="アプリの町" size={0.8} split={0.66} compact />
         </Beat>
