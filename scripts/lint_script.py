@@ -12,7 +12,7 @@
 面白さの仕掛け（docs/script-style.md の11章）:
     置いた所に <!-- 仕掛け: 先回り --> のように印を書く（読み上げない）。10分以上の台本では、
     必須の仕掛け（先回り・比喩・回収・ミクロ・締め）の印がないとエラー。比喩は名前を付け、同じ名前で回収する
-    （<!-- 仕掛け: 比喩 ケーキ --> … <!-- 仕掛け: 回収 ケーキ -->）。健康・お金の回は <!-- 仕掛け: ミクロ なし --> と書く。
+    （<!-- 仕掛け: 比喩 ケーキ --> … <!-- 仕掛け: 回収 ケーキ -->）。健康・お金の回はミクロの代わりに <!-- 仕掛け: 示唆 --> を置く。
 
 結果:
     エラー（直してから進む）と注意（読んで判断する）を行番号つきで出す。エラーが1つでもあれば終了コード1。
@@ -120,6 +120,8 @@ def tricks(text: str, long: bool) -> tuple[list, list]:
             found.setdefault(kind, []).append((i, name))
             if kind == "比喩":
                 chapter_metaphors.setdefault(chapter, []).append(i)
+    if "示唆" in found:   # 健康・お金の回は、ミクロの代わりに示唆を置く（11章）
+        found.setdefault("ミクロ", found["示唆"])
     for kind, why in TRICK_REQUIRED.items():
         if kind not in found:
             (errors if long else notes).append((0, f"仕掛け「{kind}」の印がない（{why}。<!-- 仕掛け: {kind} --> を置く）"))
