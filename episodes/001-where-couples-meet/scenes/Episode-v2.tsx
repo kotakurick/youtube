@@ -39,7 +39,7 @@ const HIM = 6, HER = 35;
 const TAGS: Tag[] = [{ id: HIM, label: "彼（32）" }, { id: HER, label: "彼女（30）" }];
 const HER_SENT = [...new Set(APP.months.flatMap((m) => m.likes!.filter(([p]) => p === HER).map(([, q]) => q)))];
 const sentBy = (id: number) => APP.months.reduce((s, m) => s + m.likes!.filter(([p]) => p === id).length, 0);
-const STAGE = { x: 96, y: 200, w: 1728, h: 660 };
+const STAGE = { x: 96, y: 200, w: 1728, h: 620 }; // 下は出典の札（y844）の上まで
 const SIM_NOTE = "仮定の世界。紹介の町の「保証」の仮定は根拠が弱い";
 /** シミュレーションの札＋仮定の断り書き（画面の隅） */
 const SimNote: React.FC = () => <SourceNote sim text={SIM_NOTE} prefix="" />;
@@ -162,7 +162,7 @@ const Introduced: React.FC = () => {
 
 // ---------- 冒頭の物語 ----------
 const S = 6; // 寄りの絵の人物の大きさ
-const FLOOR = 860;
+const FLOOR = 840;
 
 /** 夜の部屋でスマホを見る1人。hearts は周りに出る通知のハートの数（時間とともに増える） */
 const NightRoom: React.FC<{ kind: "male" | "female"; label: string; hearts?: number; heartsFrom?: number; heartsEvery?: number }> = (
@@ -170,7 +170,7 @@ const NightRoom: React.FC<{ kind: "male" | "female"; label: string; hearts?: num
 ) => {
   const frame = useCurrentFrame();
   const n = Math.max(0, Math.min(hearts, Math.floor((frame - heartsFrom) / heartsEvery) + 1));
-  const spots = scatter(hearts, { x: 1060, y: 230, w: 640, h: 420 }, 9, 1.2);
+  const spots = scatter(hearts, { x: 960, y: 200, w: 520, h: 420 }, 9, 1.2);
   return (
     <>
       <Backdrop kind="room" floor={FLOOR} variant={kind === "male" ? 3 : 4} />
@@ -211,7 +211,7 @@ const Opening: React.FC = () => {
           <NightRoom kind="female" label="彼女（30）" hearts={15} heartsFrom={her15 - her - 60} heartsEvery={4} />
         </Camera>
         <Beat from={her15 - her} to={both - her}><Rules x={1500} y={700} items={["届いた 15件"]} /></Beat>
-        <Thought x={140} y={240} text="もっといい人が、いるかも" tail={[600, 470]} start={think - her} />
+        <Thought x={120} y={380} text="もっといい人が、いるかも" tail={[620, 520]} start={think - her} />
       </Beat>
       <Beat from={both} to={end + 30}>
         <OpeningTown />
@@ -261,7 +261,7 @@ const Hook: React.FC = () => {
     <>
       <Beat from={0} to={down}>
         <Tag_ x={96} y={80} text="ネットで出会った夫婦（100組あたり）" />
-        <Hundred x={160} bottom={840} from={11} to={20} start={70} />
+        <Hundred x={160} bottom={790} from={11} to={20} start={70} />
         <div style={{ position: "absolute", left: 760, top: 300, ...font("value") }}>11組 → 20組</div>
         <div style={{ position: "absolute", left: 760, top: 390, ...font("label", C.ink2) }}>2021年の調査 → 2025年の調査</div>
         <div style={{ position: "absolute", left: 760, top: 470, ...font("sub") }}>割合は、ほぼ倍に</div>
@@ -269,7 +269,7 @@ const Hook: React.FC = () => {
       </Beat>
       <Beat from={down} to={q}>
         <Tag_ x={96} y={80} text="初めてどうしの結婚（1年あたり）" />
-        <Hundred x={160} bottom={840} from={100} to={75} start={50} fade />
+        <Hundred x={160} bottom={790} from={100} to={75} start={50} fade />
         <div style={{ position: "absolute", left: 760, top: 300, ...font("value") }}>約49万組 → 約37万組</div>
         <div style={{ position: "absolute", left: 760, top: 390, ...font("label", C.ink2) }}>2010〜14年の平均 → 2020〜24年の平均</div>
         <div style={{ position: "absolute", left: 760, top: 470, ...font("sub") }}>四分の一ほど減った</div>
@@ -370,8 +370,8 @@ const QuizAsk: React.FC = () => {
         <div style={{ display: "inline-block", background: C.ink, borderRadius: R.md, padding: "4px 20px", ...font("label", C.white) }}>予想タイム</div>
         <div style={{ ...font("question"), marginTop: 10 }}>1年後、カップルが多いのはどっち？</div>
       </div>
-      <Town result={INTRO} box={{ x: 96, y: 290, w: 820, h: 580 }} at={0} title="A　紹介の町" size={0.8} split={1.0} />
-      <Town result={APP} box={{ x: 1000, y: 290, w: 820, h: 580 }} at={0} title="B　アプリの町" size={0.8} split={1.0} />
+      <Town result={INTRO} box={{ x: 96, y: 290, w: 820, h: 540 }} at={0} title="A　紹介の町" size={0.8} split={1.0} />
+      <Town result={APP} box={{ x: 1000, y: 290, w: 820, h: 540 }} at={0} title="B　アプリの町" size={0.8} split={1.0} />
       <SourceNote sim />
       <Gosa cues={[[20, "thinking"]]} size="S" x={1700} foot={230} sfx={false} />
       <Beat from={0} to={end + 30}><></></Beat>
@@ -437,7 +437,7 @@ const Ch2: React.FC = () => {
   );
 };
 
-const ROWS = { x: 96, y: 240, w: 1728, h: 540 };
+const ROWS = { x: 96, y: 240, w: 1728, h: 500 };
 const Ch2Hearts: React.FC = () => {
   const { find, end } = useCue();
   const pile = find("ハートは", 300);
@@ -453,11 +453,11 @@ const Ch2Hearts: React.FC = () => {
       </Beat>
       <Beat from={pile} to={end + 30}>
         <Tag_ x={96} y={80} text="受け取ったいいね（1年分）の多い順" />
-        <div style={{ position: "absolute", left: 96, top: 150, ...font("label", C.ink2) }}>上の列＝女性、下の列＝男性。ハート1つ＝15件</div>
-        <HeartRows result={APP} received={RECEIVED} box={ROWS} from={town} start={0} dur={150} bracketTop={top - pile > 0 ? 8 : 0} />
+        <div style={{ position: "absolute", left: 96, top: 150, ...font("label", C.ink2) }}>上の列＝女性、下の列＝男性。ハート1つ＝20件</div>
+        <HeartRows result={APP} received={RECEIVED} box={ROWS} perHeart={20} from={town} start={0} dur={150} bracketTop={top - pile > 0 ? 8 : 0} />
       </Beat>
       <Beat from={real} to={end + 30}>
-        <SourceNote x={96} y={884} text="実際のアプリ：いいねの半分を、男性は上位15%、女性は上位25%が受け取る（Hinge 2017、米国）" />
+        <SourceNote x={96} text="実際のアプリ：いいねの半分を、男性は上位15%、女性は上位25%が受け取る（Hinge 2017、米国）" />
       </Beat>
       <ChapterDots current={2} />
     </>
@@ -468,7 +468,7 @@ const Ch2Hearts: React.FC = () => {
 const RowsFocus: React.FC<{ id: number; card: string[]; arrows?: number[]; arrowsFrom?: number }> = ({ id, card, arrows, arrowsFrom = 0 }) => (
   <>
     <SimBackground />
-    <HeartRows result={APP} received={RECEIVED} box={ROWS} start={-400} tags={TAGS.filter((t) => t.id === id)} focus={id}
+    <HeartRows result={APP} received={RECEIVED} box={ROWS} perHeart={20} start={-400} tags={TAGS.filter((t) => t.id === id)} focus={id}
       lines={arrows ? { from: id, to: arrows, start: arrowsFrom } : undefined} />
     <Rules x={1380} y={60} items={card} every={30} start={30} />
   </>
@@ -512,8 +512,8 @@ const Verdict: React.FC = () => {
     <>
       <SimBackground />
       <Beat from={0} to={race}>
-        <Town result={INTRO} box={{ x: 96, y: 200, w: 820, h: 660 }} at={12} title="A　紹介の町" size={0.8} split={0.66} compact />
-        <Town result={APP} box={{ x: 1000, y: 200, w: 820, h: 660 }} at={12} title="B　アプリの町" size={0.8} split={0.66} compact />
+        <Town result={INTRO} box={{ x: 96, y: 200, w: 820, h: 620 }} at={12} title="A　紹介の町" size={0.8} split={0.66} compact />
+        <Town result={APP} box={{ x: 1000, y: 200, w: 820, h: 620 }} at={12} title="B　アプリの町" size={0.8} split={0.66} compact />
         {frame >= ans && (
           <div style={{ position: "absolute", left: 96 - 16, top: 184, width: 852, height: 692, border: `${LINE.heavy}px solid ${C.ink}`,
             borderRadius: R.lg, transform: `scale(${0.96 + 0.04 * stamp})` }} />
@@ -521,7 +521,7 @@ const Verdict: React.FC = () => {
       </Beat>
       <Beat from={race} to={end + 30}>
         <Tag_ x={96} y={80} text="ペアの数（累計）。横は何か月目か" />
-        <LineChart x={220} y={240} width={1240} height={560} xDomain={[0, 12]} yDomain={[0, 30]} xTicks={[1, 3, 6, 9, 12]}
+        <LineChart x={220} y={240} width={1240} height={500} xDomain={[0, 12]} yDomain={[0, 30]} xTicks={[1, 3, 6, 9, 12]}
           format={(v) => `${v}組`} series={[
             { label: "紹介の町", points: line(INTRO), color: C.ink, focus: true },
             { label: "アプリの町", points: line(APP), color: C.ink2 },
@@ -595,7 +595,7 @@ const PaperTag: React.FC<{ title: string; meta: string }> = ({ title, meta }) =>
 /** Bruch & Newman (2018) の模式図：望ましさのはしご。自分から上へ連絡が向かい、上ほど返事が来にくい */
 const BruchLadder: React.FC = () => {
   const frame = useCurrentFrame();
-  const x = 620, top = 230, bottom = 840;
+  const x = 400, top = 230, bottom = 800;
   const yOf = (pct: number) => bottom - (bottom - top) * pct; // 0〜1（望ましさの順位）
   const me = 0.42, aim = 0.62;
   const arrow = interpolate(frame, [20, 60], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: EASE });
@@ -610,19 +610,20 @@ const BruchLadder: React.FC = () => {
       <text x={x - 160} y={yOf(me) + 12} textAnchor="end" style={font("label")}>自分</text>
       <path d={`M${x + 50} ${yOf(me)} Q${x + 170} ${(yOf(me) + yOf(aim)) / 2} ${x + 50} ${yOf(me) + (yOf(aim) - yOf(me)) * arrow}`} fill="none" stroke={C.ink} strokeWidth={LINE.base} strokeLinecap="round" />
       {arrow > 0.95 && <text x={x + 150} y={(yOf(me) + yOf(aim)) / 2 + 14} style={font("sub")}>平均で約25%上へ</text>}
-      {/* 返事：上の相手ほど来にくい（模式図。太さと濃さで見せる） */}
-      {replies.map((r, i) => {
-        const t = interpolate(frame, [80 + i * 12, 100 + i * 12], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-        const strength = 1 - i * 0.28;
+      {/* 返事の来やすさ：相手が上であるほど短い棒（模式図）。どの棒にも何の段かを書く */}
+      <text x={1040} y={yOf(0.97)} style={font("label")}>相手が自分より</text>
+      <text x={1400} y={yOf(0.97)} style={font("label")}>返事の来やすさ</text>
+      {[["同じくらい", 1], ["少し上", 0.75], ["かなり上", 0.5], ["ずっと上", 0.28]].map(([label, k], i) => {
+        const t = interpolate(frame, [70 + i * 6, 86 + i * 6], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+        const y = yOf(0.78 - i * 0.16);
         return (
           <g key={i} opacity={t}>
-            <rect x={1240} y={yOf(r) - 22} width={300 * strength} height={36} rx={18} fill={C.ink2} opacity={0.35 + 0.65 * strength} />
-            <text x={1240 + 300 * strength + 16} y={yOf(r) + 12} style={font("label", C.ink2)}>{i === 0 ? "返事が来やすい" : i === replies.length - 1 ? "来にくい" : ""}</text>
+            <text x={1040} y={y + 12} style={font("label", C.ink2)}>{label as string}</text>
+            <rect x={1400} y={y - 18} width={360 * (k as number)} height={36} rx={18} fill={C.ink2} />
           </g>
         );
       })}
-      <text x={1240} y={yOf(0.97)} style={font("label")}>相手が上であるほど</text>
-      <text x={1240} y={bottom + 12} style={font("note", C.ink2)}>模式図（論文の結果をもとに描いたもの）</text>
+      <text x={1040} y={bottom + 12} style={font("note", C.ink2)}>模式図（論文の結果をもとに描いたもの。棒の長さは目安）</text>
     </Svg>
   );
 };
@@ -637,13 +638,13 @@ const MailRain: React.FC = () => {
       <Svg>
         <Figure kind="female" x={560} y={840} size={4} />
         {Array.from({ length: pile }, (_, i) => {
-          const col = i % 10, row = Math.floor(i / 10);
-          return <rect key={i} x={760 + col * 52} y={800 - row * 40} width={44} height={30} rx={4} fill={C.white} stroke={C.ink} strokeWidth={3} />;
+          const col = i % 8, row = Math.floor(i / 8);
+          return <rect key={i} x={680 + col * 52} y={800 - row * 40} width={44} height={30} rx={4} fill={C.white} stroke={C.ink} strokeWidth={3} />;
         })}
       </Svg>
-      <div style={{ position: "absolute", left: 1340, top: 380, ...font("hero"), lineHeight: 1 }}>{n}<span style={{ fontSize: 80 }}>通</span></div>
-      <div style={{ position: "absolute", left: 1340, top: 590, ...font("label", C.ink2) }}>ひと月に（30歳・ニューヨーク）</div>
-      <div style={{ position: "absolute", left: 1340, top: 680, ...font("sub") }}>30分に1通</div>
+      <div style={{ position: "absolute", left: 1180, top: 380, ...font("hero"), lineHeight: 1, whiteSpace: "nowrap" }}>{n}<span style={{ fontSize: 80 }}>通</span></div>
+      <div style={{ position: "absolute", left: 1180, top: 590, ...font("label", C.ink2), whiteSpace: "nowrap" }}>ひと月に（30歳・ニューヨーク）</div>
+      <div style={{ position: "absolute", left: 1180, top: 680, ...font("sub"), whiteSpace: "nowrap" }}>30分に1通</div>
     </>
   );
 };
@@ -700,7 +701,7 @@ const Ch3: React.FC = () => {
       </Beat>
       <Beat from={pile} to={end + 30}>
         <Tag_ x={96} y={80} text="① ハートが、ひと握りに集まる" />
-        <HeartRows result={APP} received={RECEIVED} box={ROWS} start={-400} tags={[TAGS[0]]} bracketTop={8} />
+        <HeartRows result={APP} received={RECEIVED} box={ROWS} perHeart={20} start={-400} tags={[TAGS[0]]} bracketTop={8} />
         <SimNote />
       </Beat>
       <ChapterDots current={3} />
@@ -902,8 +903,8 @@ const Lesson: React.FC = () => {
       </Beat>
       <Beat from={self} to={lesson}>
         <SimBackground />
-        <Town result={APP} box={{ x: 96, y: 200, w: 820, h: 660 }} at={12} title="アプリの町" size={0.8} split={0.66} compact />
-        <Town result={INTRO} box={{ x: 1000, y: 200, w: 820, h: 660 }} at={12} title="紹介の町" size={0.8} split={0.66} compact />
+        <Town result={APP} box={{ x: 96, y: 200, w: 820, h: 620 }} at={12} title="アプリの町" size={0.8} split={0.66} compact />
+        <Town result={INTRO} box={{ x: 1000, y: 200, w: 820, h: 620 }} at={12} title="紹介の町" size={0.8} split={0.66} compact />
       </Beat>
       <Beat from={lesson} to={end + 30}>
         <WalkingTown />

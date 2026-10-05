@@ -29,6 +29,8 @@ const RULES: Record<string, { level: "error" | "warn"; why: string }> = {
 };
 
 export const MIN_FONT_PX = 28;   // これより小さい文字は作らない（docs/brand.md）
+/** 字幕の帯の上に空ける間（px）。帯のすぐ上に出典や文字があると、字幕とくっついて読みにくい（2026-10-05 オーナー） */
+export const SUB_GAP = 28;
 const MIN_OVERLAP = 4;           // 4px 未満の接触は見逃す（線の太さの誤差）
 
 const inter = (a: QABox, b: QABox) => {
@@ -54,8 +56,11 @@ export const checkBoxes = (
       const rule = RULES[key];
       if (!rule) continue;
       if (a.allow.includes(b.kind) || b.allow.includes(a.kind)) continue;
-      if (!inter(a, b) || related(a, b)) continue;
-      out.push({ level: rule.level, rule: key, message: `${rule.why}：「${a.label}」と「${b.label}」`, boxes: [a, b] });
+      // 字幕の帯は、上に SUB_GAP だけ広げて調べる（帯にくっついているものも直すものにする）
+      const grow = (q: QABox) => (q.kind === "sub" ? { ...q, y: q.y - SUB_GAP, h: q.h + SUB_GAP } : q);
+      if (!inter(grow(a), grow(b)) || related(a, b)) continue;
+      const near = (a.kind === "sub" || b.kind === "sub") && !inter(a, b);
+      out.push({ level: rule.level, rule: key, message: near ? `字幕の帯に近すぎます（上に${SUB_GAP}px空ける）：「${a.label}」と「${b.label}」` : `${rule.why}：「${a.label}」と「${b.label}」`, boxes: [a, b] });
     }
     if (a.kind === "text") {
       if (a.fontPx !== undefined && a.fontPx < MIN_FONT_PX * canvas.fontScale - 0.5) {
