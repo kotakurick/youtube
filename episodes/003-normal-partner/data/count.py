@@ -266,6 +266,28 @@ def main():
         print(f"| {lab} | {vals[0] * 100:.1f} | {vals[1] * 100:.1f} |")
     print()
 
+
+    print("## 6. 条件どうしは、どれくらい一緒に動くか（25〜34歳の未婚者。表の実際の重なり）\n")
+    print("相関係数はφ（2つの「満たす・満たさない」の相関。0なら無関係、1なら完全に一緒）。")
+    print("「Aを満たす人のうちBも満たす割合」と「全体でBを満たす割合」を並べる。\n")
+    print("| | A | B | 全体でB | Aを満たす人のうちB | φ |")
+    print("|---|---|---|---:|---:|---:|")
+    for pool, lab in ((men, "未婚男性"), (women, "未婚女性")):
+        n = pool.total()
+        conds = {"正社員": dict(seiki=True), "年収500万円以上": dict(inc=inc_ge(500)), "年収300万円以上": dict(inc=inc_ge(300)), "大卒以上": dict(uni=True)}
+        if lab == "未婚女性":
+            conds["20代（25〜29歳）"] = dict(age=AGES[0])
+        names = list(conds)
+        for i, a in enumerate(names):
+            for b in names[i + 1:]:
+                if {a, b} == {"年収500万円以上", "年収300万円以上"}:
+                    continue
+                pa = pool.count(**conds[a]) / n
+                pb = pool.count(**conds[b]) / n
+                pab = pool.count(**{**conds[a], **conds[b]}) / n
+                phi = (pab - pa * pb) / math.sqrt(pa * (1 - pa) * pb * (1 - pb))
+                print(f"| {lab} | {a} | {b} | {pb:.1%} | {pab / pa:.1%} | {phi:.2f} |")
+    print()
     print("## 4. 同じ5条件で、満たす数ごとの人数（100人中）\n")
     print("| 満たす数 | 0個 | 1個 | 2個 | 3個 | 4個 | 5個 |")
     print("|---|---:|---:|---:|---:|---:|---:|")
