@@ -82,7 +82,7 @@
 | ChapterCard / ChapterDots | Chapter.tsx | 章の扉と位置の点 |
 | Quiz | Quiz.tsx | 予想タイム（問いと選択肢を全面で） |
 | Verdict | Verdict.tsx | 答え合わせ（〇△×） |
-| Cards | Cards.tsx | チャンネル名・今日の答え合わせ・中間の確認・登録の一言 |
+| Cards | Cards.tsx | チャンネル名・今日の答え合わせ・中間の確認・登録の一言・毎回の締めのひと言（SignOff） |
 | Camera | Camera.tsx | 寄り・引き・横移動 |
 | Counter / Bracket | Counter.tsx・Bracket.tsx | 人数の数え上げ・まとまりの括弧 |
 | EndScreen | EndScreen.tsx | 終了画面 |

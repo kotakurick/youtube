@@ -1,4 +1,5 @@
 // 毎回の型になるカード。
+//  - SignOff：毎回の締めのひと言「数えてみると、景色が変わりました。」（教訓のあと、終了画面の前）
 //  - ChannelTag：冒頭0〜5秒に右上へ1.5秒だけすべり込むチャンネル名（ロゴやあいさつは入れない）
 //  - TodayCard：「今日の答え合わせ」。通説を1行で見せる（3秒前後）
 //  - MidCheck：第2章の終わりの「ここまでの答え合わせ」（1行。最終の判定は最後に1回だけ）
@@ -68,6 +69,21 @@ export const SubscribeNudge: React.FC<{ start?: number; seconds?: number }> = ({
     <div style={{ position: "absolute", right: Z.margin.x, top: Z.margin.top, border: `4px solid ${C.ink}`, background: C.white, borderRadius: R.md,
       padding: "6px 22px", ...font("label"), opacity: Math.min(1, t * 2) }}>
       次の答え合わせも、登録で届きます
+    </div>
+  );
+};
+
+/** 毎回の締めのひと言（2026-10-05 オーナー決定）。教訓のあと、終了画面の前に、紙の地の真ん中に出す。チャンネル名を小さく添える */
+export const SIGN_OFF = "数えてみると、景色が変わりました。";
+export const SignOff: React.FC<{ start?: number }> = ({ start = 0 }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const t = sp("enter", frame - start, fps);
+  const n = sp("enter", frame - start - 20, fps);
+  return (
+    <div style={{ position: "absolute", left: 0, top: 0, width: 1920, height: 880, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 28, background: C.bg }}>
+      <div style={{ ...font("question"), opacity: t, transform: `translateY(${(1 - t) * 20}px)`, whiteSpace: "nowrap" }}>{SIGN_OFF}</div>
+      <div style={{ ...font("label", C.ink2), opacity: n, fontWeight: 900 }}>{CHANNEL_NAME}</div>
     </div>
   );
 };

@@ -7,7 +7,7 @@ import React from "react";
 import { AbsoluteFill, interpolate, Sequence, useCurrentFrame, useVideoConfig } from "remotion";
 import { Backdrop, WALL_FREE } from "@lib/Backdrop";
 import { Camera } from "@lib/Camera";
-import { ChannelTag } from "@lib/Cards";
+import { ChannelTag, SignOff } from "@lib/Cards";
 import { ChapterCard, ChapterDots } from "@lib/Chapter";
 import { Crowd, Person } from "@lib/Crowd";
 import { EndScreen } from "@lib/EndScreen";
@@ -1250,6 +1250,7 @@ const Lesson: React.FC = () => {
   const self = find("うまくいかない", 900);
   const lesson = find("入り口を広げることは", 1100);
   const last = find("誰も間違っていないのに", 1300);
+  const sign = find("数えてみると", 1500);
   return (
     <>
       <Beat from={0} to={intro}>
@@ -1272,10 +1273,11 @@ const Lesson: React.FC = () => {
         <WalkingTown />
         <Headline text={"入り口を広げることは、\nひとりひとりには正しい"} />
       </Beat>
-      <Beat from={last} to={end + 30}>
+      <Beat from={last} to={sign}>
         <WalkingTown />
         <Headline text={"誰も間違っていないのに、\n出口だけが狭くなっていく"} />
       </Beat>
+      <Beat from={sign} to={end + 30}><SignOff /></Beat>
     </>
   );
 };
