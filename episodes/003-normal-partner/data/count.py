@@ -152,6 +152,36 @@ def run(title, pool, sex_kenko, steps, kenko):
     return final
 
 
+def distribution(pool, sex_kenko, kenko):
+    """同じ5条件で、満たす数（0〜5個）ごとの人数。表の3条件は実際の重なり、健康の2条件は独立と仮定。"""
+    n = pool.total()
+    wa = (pool.total(AGES[0]), pool.total(AGES[1]))
+    inc = inc_ge(300)
+    # 表の3条件（正社員 s・年収300万円以上 i・大卒以上 u）の8通りを、包除で出す
+    def c(s=False, i=False, u=False):
+        return pool.count(seiki=s, inc=inc if i else None, uni=u) / n
+    tab = {}
+    for s in (0, 1):
+        for i in (0, 1):
+            for u in (0, 1):
+                # ちょうど (s,i,u) の割合 = 包除
+                tot = 0.0
+                for s2 in range(s, 2):
+                    for i2 in range(i, 2):
+                        for u2 in range(u, 2):
+                            sign = (-1) ** ((s2 - s) + (i2 - i) + (u2 - u))
+                            tot += sign * c(bool(s2), bool(i2), bool(u2))
+                tab[(s, i, u)] = tot
+    hb = [health_share(kenko, sex_kenko, ("BMI標準",), wa), health_share(kenko, sex_kenko, ("非喫煙",), wa)]
+    dist = [0.0] * 6
+    for k, v in tab.items():
+        for b in (0, 1):
+            for m in (0, 1):
+                p = v * (hb[0] if b else 1 - hb[0]) * (hb[1] if m else 1 - hb[1])
+                dist[sum(k) + b + m] += p
+    return dist
+
+
 def main():
     t40, t118, kenko = load()
     men = Pool(t40, t118, "1_男")
@@ -203,6 +233,14 @@ def main():
             ("健康", "体型が標準（BMI 18.5〜25）", ("BMI標準",)),
             ("健康", "たばこを吸わない", ("非喫煙",)),
         ], kenko)
+
+    print("## 4. 同じ5条件で、満たす数ごとの人数（100人中）\n")
+    print("| 満たす数 | 0個 | 1個 | 2個 | 3個 | 4個 | 5個 |")
+    print("|---|---:|---:|---:|---:|---:|---:|")
+    for pool, lab, sk in ((men, "未婚男性", "男性"), (women, "未婚女性", "女性")):
+        dist = distribution(pool, sk, kenko)
+        print(f"| {lab} | " + " | ".join(f"{x * 100:.1f}" for x in dist) + " |")
+    print()
 
 
 if __name__ == "__main__":

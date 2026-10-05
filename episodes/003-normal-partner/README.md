@@ -13,7 +13,7 @@
 人の工程（★）は飛ばさない。チェックを付けたら日付も書く。
 
 - [x] 1. テーマ・データ収集（クラウド、2026-10-05）→ `research.md`、`sources.csv`、`data/`（`count.py` で数える）
-- [ ] ★ テーマと切り口の承認（オーナー）→ `outline.md` の「切り口の案」
+- [x] ★ テーマと切り口の承認（オーナー 2026-10-05「おけすすんで」）
 - [ ] 2. 企画カードと構成案（クラウド）→ `outline.md`（一番上の企画カードを先に埋める。埋まったら `review-rival` に見せて、負けている所を構成で直す → `review/rival-outline.md`）
 - [ ] 3. 台本（クラウド）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。5役のレビュー → `review/`）
 - [ ] ★ 一次資料との照合（オーナー）→ `sources.csv` の「照合」欄をすべて埋める
