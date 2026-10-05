@@ -85,6 +85,6 @@
 | Cards | Cards.tsx | チャンネル名・今日の答え合わせ・中間の確認・登録の一言 |
 | Camera | Camera.tsx | 寄り・引き・横移動 |
 | Counter / Bracket | Counter.tsx・Bracket.tsx | 人数の数え上げ・まとまりの括弧 |
-| SignOff | SignOff.tsx | 毎回の締めのひと言のアニメーション（丘の猫2匹・100個の点が星になる）。教訓のあと、終了画面の前 |
+| SignOff | SignOff.tsx | 毎回の締めのひと言のアニメーション（丘の上のゴサが100個の点を数え、点が星になる）。教訓のあと、終了画面の前 |
 | EndScreen | EndScreen.tsx | 終了画面 |
 | Thumbnail | Thumbnail.tsx | サムネイル |
