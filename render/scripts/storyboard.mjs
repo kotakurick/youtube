@@ -1,6 +1,7 @@
 // 静止画の絵コンテ。動画を書き出す前に、場面ごとに2〜3枚の静止画を作って、重なりや違和感を確かめる（2026-10-05）。
 //   npm run storyboard -- <動画のid>                 例：npm run storyboard -- 001-where-couples-meet-v2
 //   npm run storyboard -- <動画のid> --only ch2,ch3   場面をしぼる
+//   npm run storyboard -- <動画のid> --every 5        場面の中を5秒ごとにも撮る（区切りの多い場面を全部見るとき）
 // 場面ごとに、長さの 20%・55%・90% のコマ（章の扉など声のない短い場面は真ん中の1枚）を書き出す。
 // 同時に画面のチェック（src/lib/qa.ts の決まり：重なり・28px未満の文字・はみ出し）も行い、結果を一覧に書く。
 // 結果：out/storyboard/<id>/ に PNG（半分の大きさ）と index.html（一覧。字幕と時刻つき）、report.md。
@@ -15,6 +16,7 @@ const args = process.argv.slice(2);
 const id = args.find((a) => !a.startsWith("--"));
 if (!id) { console.error("使い方：npm run storyboard -- <動画のid>"); process.exit(2); }
 const only = args.includes("--only") ? args[args.indexOf("--only") + 1].split(",") : null;
+const every = args.includes("--every") ? Number(args[args.indexOf("--every") + 1]) : 0;
 const outDir = path.join("out", "storyboard", id);
 fs.rmSync(outDir, { recursive: true, force: true });
 fs.mkdirSync(outDir, { recursive: true });
@@ -58,9 +60,10 @@ const shots = [];
 let n = 0;
 for (const s of first.scenes) {
   if (only && !only.some((o) => s.id.startsWith(o))) continue;
-  const ratios = s.len < 4 * fps ? [0.5] : [0.2, 0.55, 0.9];
-  for (const r of ratios) {
-    const frame = s.from + Math.min(s.len - 1, Math.floor(s.len * r));
+  const ratios = s.len < 4 * fps ? [0.5] : every ? [] : [0.2, 0.55, 0.9];
+  const frames = ratios.map((r) => s.from + Math.min(s.len - 1, Math.floor(s.len * r)));
+  if (every && s.len >= 4 * fps) for (let f = s.from + Math.round(every * fps / 2); f < s.from + s.len; f += Math.round(every * fps)) frames.push(f);
+  for (const frame of frames) {
     const name = `${String(++n).padStart(3, "0")}-${s.id}-${mmss(frame).replace(":", "m")}.png`;
     const { issues } = await shoot(frame, name);
     const sub = subsOf(s.id, (frame - s.from) / fps);

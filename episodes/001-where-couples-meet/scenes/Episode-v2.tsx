@@ -576,33 +576,217 @@ const BarRises: React.FC<{ start?: number }> = ({ start = 0 }) => {
   );
 };
 
-const Ch3: React.FC = () => {
-  const { find, end } = useCue();
-  const pile = find("みんなが少し上を狙うと", 400);
-  const two = find("ふたつ目は", 700);
-  const nl = find("オランダ", 900);
+/** 論文の札（左上）。どの研究か：著者・年・雑誌・対象 */
+const PaperTag: React.FC<{ title: string; meta: string }> = ({ title, meta }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const t = sp("enter", frame, fps);
+  return (
+    <div style={{ position: "absolute", left: 96, top: 56, opacity: t, display: "flex", gap: 20, alignItems: "center", whiteSpace: "nowrap" }}>
+      <div style={{ ...font("label", C.white), background: C.ink, borderRadius: R.sm, padding: "4px 16px" }}>論文</div>
+      <div>
+        <div style={font("sub")}>{title}</div>
+        <div style={font("note", C.ink2)}>{meta}</div>
+      </div>
+    </div>
+  );
+};
+
+/** Bruch & Newman (2018) の模式図：望ましさのはしご。自分から上へ連絡が向かい、上ほど返事が来にくい */
+const BruchLadder: React.FC = () => {
+  const frame = useCurrentFrame();
+  const x = 620, top = 230, bottom = 840;
+  const yOf = (pct: number) => bottom - (bottom - top) * pct; // 0〜1（望ましさの順位）
+  const me = 0.42, aim = 0.62;
+  const arrow = interpolate(frame, [20, 60], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: EASE });
+  const replies = [0.5, 0.62, 0.74, 0.86];
+  return (
+    <Svg>
+      <line x1={x} y1={top} x2={x} y2={bottom} stroke={C.ink} strokeWidth={LINE.base} strokeLinecap="round" />
+      {Array.from({ length: 11 }, (_, i) => <line key={i} x1={x - 30} y1={yOf(i / 10)} x2={x + 30} y2={yOf(i / 10)} stroke={C.ink} strokeWidth={LINE.thin} />)}
+      <text x={x - 60} y={top + 12} textAnchor="end" style={font("label", C.ink2)}>望ましい</text>
+      <text x={x - 60} y={bottom + 12} textAnchor="end" style={font("label", C.ink2)}>そうでもない</text>
+      <Figure kind="male" x={x - 110} y={yOf(me) + 30} size={1.8} />
+      <text x={x - 160} y={yOf(me) + 12} textAnchor="end" style={font("label")}>自分</text>
+      <path d={`M${x + 50} ${yOf(me)} Q${x + 170} ${(yOf(me) + yOf(aim)) / 2} ${x + 50} ${yOf(me) + (yOf(aim) - yOf(me)) * arrow}`} fill="none" stroke={C.ink} strokeWidth={LINE.base} strokeLinecap="round" />
+      {arrow > 0.95 && <text x={x + 150} y={(yOf(me) + yOf(aim)) / 2 + 14} style={font("sub")}>平均で約25%上へ</text>}
+      {/* 返事：上の相手ほど来にくい（模式図。太さと濃さで見せる） */}
+      {replies.map((r, i) => {
+        const t = interpolate(frame, [80 + i * 12, 100 + i * 12], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+        const strength = 1 - i * 0.28;
+        return (
+          <g key={i} opacity={t}>
+            <rect x={1240} y={yOf(r) - 22} width={300 * strength} height={36} rx={18} fill={C.ink2} opacity={0.35 + 0.65 * strength} />
+            <text x={1240 + 300 * strength + 16} y={yOf(r) + 12} style={font("label", C.ink2)}>{i === 0 ? "返事が来やすい" : i === replies.length - 1 ? "来にくい" : ""}</text>
+          </g>
+        );
+      })}
+      <text x={1240} y={yOf(0.97)} style={font("label")}>相手が上であるほど</text>
+      <text x={1240} y={bottom + 12} style={font("note", C.ink2)}>模式図（論文の結果をもとに描いたもの）</text>
+    </Svg>
+  );
+};
+
+/** ひと月に約1500通：1人のもとに封筒が降り積もる */
+const MailRain: React.FC = () => {
+  const frame = useCurrentFrame();
+  const n = Math.min(1504, Math.round(interpolate(frame, [10, 120], [0, 1504], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: EASE })));
+  const pile = Math.min(60, Math.round(n / 25));
   return (
     <>
-      <Beat from={0} to={pile}>
+      <Svg>
+        <Figure kind="female" x={560} y={840} size={4} />
+        {Array.from({ length: pile }, (_, i) => {
+          const col = i % 10, row = Math.floor(i / 10);
+          return <rect key={i} x={760 + col * 52} y={800 - row * 40} width={44} height={30} rx={4} fill={C.white} stroke={C.ink} strokeWidth={3} />;
+        })}
+      </Svg>
+      <div style={{ position: "absolute", left: 1340, top: 380, ...font("hero"), lineHeight: 1 }}>{n}<span style={{ fontSize: 80 }}>通</span></div>
+      <div style={{ position: "absolute", left: 1340, top: 590, ...font("label", C.ink2) }}>ひと月に（30歳・ニューヨーク）</div>
+      <div style={{ position: "absolute", left: 1340, top: 680, ...font("sub") }}>30分に1通</div>
+    </>
+  );
+};
+
+/** Pronk & Denissen (2020) の模式図：見たプロフィールの数と、受け入れる割合。最初に急に下がり、最後は約3割低い */
+const PronkCurve: React.FC = () => {
+  const frame = useCurrentFrame();
+  const x0 = 360, x1 = 1500, y0 = 280, y1 = 780; // y0＝100、y1＝50
+  const v = (u: number) => 100 - 27 * (1 - Math.exp(-u * 5)) / (1 - Math.exp(-5)); // 0〜1 → 100〜73
+  const X = (u: number) => x0 + (x1 - x0) * u, Y = (val: number) => y1 - ((val - 50) / 50) * (y1 - y0);
+  const p = interpolate(frame, [20, 110], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: EASE });
+  const pts = Array.from({ length: 41 }, (_, i) => i / 40).filter((u) => u <= p);
+  const d = pts.map((u, i) => `${i ? "L" : "M"}${X(u)} ${Y(v(u))}`).join(" ");
+  return (
+    <Svg>
+      <line x1={x0} y1={y1} x2={x1} y2={y1} stroke={C.ink} strokeWidth={LINE.thin} />
+      <line x1={x0} y1={y0 - 20} x2={x0} y2={y1} stroke={C.ink} strokeWidth={LINE.thin} />
+      <text x={x0 - 20} y={Y(100) + 12} textAnchor="end" style={font("label")}>100</text>
+      <text x={x0 - 20} y={y1 + 12} textAnchor="end" style={font("label", C.ink2)}>50</text>
+      <text x={x0} y={y1 + 60} style={font("label", C.ink2)}>見た最初のプロフィール</text>
+      <text x={x1} y={y1 + 60} textAnchor="end" style={font("label", C.ink2)}>最後</text>
+      <text x={x0 + 20} y={y0 - 40} style={font("label")}>受け入れる割合（最初を100）</text>
+      <path d={d} fill="none" stroke={C.female} strokeWidth={LINE.base} strokeLinecap="round" strokeLinejoin="round" />
+      {p > 0.98 && (
+        <>
+          <circle cx={X(1)} cy={Y(73)} r={10} fill={C.female} />
+          <text x={X(1) + 24} y={Y(73) + 16} style={font("value")}>約73</text>
+          <text x={X(0.3)} y={Y(62)} style={font("label", C.ink2)}>最初の十数枚で急に下がる</text>
+        </>
+      )}
+      <text x={x1} y={y0 - 40} textAnchor="end" style={font("note", C.ink2)}>模式図（論文の結果をもとに描いたもの）</text>
+    </Svg>
+  );
+};
+
+const Ch3: React.FC = () => {
+  const { find, end } = useCue();
+  const paper = find("アメリカで", 200);
+  const most = find("いちばん多く", 500);
+  const pile = find("みんなが少し上を狙うと", 700);
+  return (
+    <>
+      <Beat from={0} to={paper}>
         <Tag_ x={96} y={80} text="① みんなが、少し上を狙う" />
         <AimUp start={60} />
-        <Beat from={find("実際の出会いサイト", 200)} to={pile}>
-          <SourceNote text="Bruch & Newman (2018) Science Advances：平均で自分より約25%望ましい相手に送る（米国4都市・約18.7万人）" />
-        </Beat>
       </Beat>
-      <Beat from={pile} to={two}>
+      <Beat from={paper} to={most}>
+        <PaperTag title="Bruch & Newman (2018) Science Advances" meta="米国4都市の出会いサイト利用者 約18.7万人（2014年）" />
+        <BruchLadder />
+      </Beat>
+      <Beat from={most} to={pile}>
+        <PaperTag title="Bruch & Newman (2018) Science Advances" meta="いちばん多く連絡を受けていた人" />
+        <MailRain />
+      </Beat>
+      <Beat from={pile} to={end + 30}>
         <Tag_ x={96} y={80} text="① ハートが、ひと握りに集まる" />
         <HeartRows result={APP} received={RECEIVED} box={ROWS} start={-400} tags={[TAGS[0]]} bracketTop={8} />
         <SimNote />
       </Beat>
-      <Beat from={two} to={end + 30}>
+      <ChapterDots current={3} />
+    </>
+  );
+};
+
+const Ch3Raise: React.FC = () => {
+  const { find, end } = useCue();
+  const nl = find("オランダ", 300);
+  return (
+    <>
+      <Beat from={0} to={nl}>
         <Tag_ x={96} y={80} text="② 候補が多い人ほど、基準が上がる" />
         <BarRises start={30} />
-        <Beat from={nl - two} to={end + 30 - two}>
-          <SourceNote text="Pronk & Denissen (2020)：見続けると受け入れる割合が最初→最後で約27%低下（オランダの実験）" />
-        </Beat>
+      </Beat>
+      <Beat from={nl} to={end + 30}>
+        <PaperTag title="Pronk & Denissen (2020)" meta="Social Psychological and Personality Science。オランダの実験（3つの研究）" />
+        <PronkCurve />
       </Beat>
       <ChapterDots current={3} />
+    </>
+  );
+};
+
+// ---------- 1人だけやり方を変えたら ----------
+const APP_HIM = simulateApp(RS, { personal: { [HIM]: { aim: 0 } } }, SEED);
+const APP_HER = simulateApp(RS, { personal: { [HER]: { raise: 0 } } }, SEED);
+
+/** 20人の列で割合を見せる（ペアになれた人だけ色） */
+const ShareRow: React.FC<{ y: number; label: string; pct: number; kind: "male" | "female"; start: number; focus?: boolean }> = ({ y, label, pct, kind, start, focus }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  if (frame < start) return null;
+  const t = sp("enter", frame - start, fps);
+  const k = Math.round((pct / 100) * 20 * interpolate(frame - start, [10, 40], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }));
+  return (
+    <div style={{ position: "absolute", left: 0, top: 0, opacity: t }}>
+      <div style={{ position: "absolute", left: 96, top: y - 56, width: 520, ...font("label", focus ? C.ink : C.ink2), whiteSpace: "nowrap" }}>{label}</div>
+      <Svg>{Array.from({ length: 20 }, (_, i) => <Figure key={i} kind={kind} x={660 + i * 44} y={y} size={1.05} dim={i >= k} />)}</Svg>
+      <div style={{ position: "absolute", left: 1560, top: y - 70, ...font("value") }}>{pct}%</div>
+    </div>
+  );
+};
+
+const Me: React.FC = () => {
+  const { find, end } = useCue();
+  const dbl = find("倍の数", 300);
+  const same = find("同じくらいに見える人にも", 600);
+  const him = find("冒頭の彼も", 800);
+  const pop = find("人気のある側", 1000);
+  const keep = find("基準を上げなかった場合", 1100);
+  const her = find("冒頭の彼女も", 1300);
+  const sum = find("数を増やしても", 1500);
+  return (
+    <>
+      <SimBackground />
+      <Beat from={0} to={dbl}>
+        <Town result={APP} box={STAGE} at={12} title="アプリの町（ほかの99人はそのまま）" compact />
+      </Beat>
+      <Beat from={dbl} to={him}>
+        <Tag_ x={96} y={80} text="真ん中より下の男性が、ひとりだけ変えたら（1年でペアになれた割合）" />
+        <ShareRow y={330} label="そのまま" pct={52} kind="male" start={0} />
+        <ShareRow y={530} label="いいねを倍送る" pct={54} kind="male" start={30} />
+        <ShareRow y={730} label="同じくらいの人にも送る" pct={70} kind="male" start={same - dbl} focus />
+      </Beat>
+      <Beat from={him} to={pop}>
+        <Town result={APP_HIM} box={STAGE} at={12} title="彼だけが、同じくらいの人にも送ったら" compact tags={[TAGS[0]]} />
+      </Beat>
+      <Beat from={pop} to={her}>
+        <Tag_ x={96} y={80} text="人気のある女性が、ひとりだけ変えたら（1年でペアになれた割合）" />
+        <ShareRow y={430} label="そのまま" pct={25} kind="female" start={0} />
+        <ShareRow y={680} label="基準を上げない" pct={93} kind="female" start={keep - pop} focus />
+      </Beat>
+      <Beat from={her} to={sum}>
+        <Town result={APP_HER} box={STAGE} at={12} title="彼女だけが、基準を上げなかったら" compact tags={[TAGS[1]]} />
+      </Beat>
+      <Beat from={sum} to={end + 30}>
+        <Tag_ x={96} y={80} text="数を増やしてもほぼ変わらない。変わるのは、狙う高さと基準の上げ方" />
+        <ShareRow y={300} label="男性：そのまま" pct={52} kind="male" start={-60} />
+        <ShareRow y={410} label="男性：いいねを倍送る" pct={54} kind="male" start={-60} />
+        <ShareRow y={520} label="男性：同じくらいにも送る" pct={70} kind="male" start={-60} focus />
+        <ShareRow y={670} label="女性：そのまま" pct={25} kind="female" start={-60} />
+        <ShareRow y={780} label="女性：基準を上げない" pct={93} kind="female" start={-60} focus />
+      </Beat>
+      <SourceNote sim text="ほかの99人はそのまま。種を20通り変えた平均（仮定の世界）" prefix="" />
     </>
   );
 };
@@ -740,7 +924,7 @@ const episode: EpisodeDef = {
     opening: Opening, hook: Hook, quiz: QuizSetup, "quiz-ask": QuizAsk,
     "ch1-card": Ch1Card, ch1: Ch1, "ch1-end": Ch1End,
     "ch2-card": Ch2Card, ch2: Ch2, "ch2-hearts": Ch2Hearts, "ch2-him": Ch2Him, "ch2-her": Ch2Her,
-    verdict: Verdict, "ch3-card": Ch3Card, ch3: Ch3, "ch3-quiz": Ch3Quiz, "ch3-vouch": Ch3Vouch, real: Real,
+    verdict: Verdict, "ch3-card": Ch3Card, ch3: Ch3, "ch3-quiz": Ch3Quiz, "ch3-raise": Ch3Raise, "ch3-vouch": Ch3Vouch, real: Real, me: Me,
     lesson: Lesson, end: End,
   }),
   bgm: [
@@ -748,7 +932,7 @@ const episode: EpisodeDef = {
     { file: "Stayin' Lazy - Godmode.mp3", from: "quiz", to: "quiz-ask" },
     { file: "Jomon Grove - The Mini Vandals.mp3", from: "ch1-card", to: "ch2-her" },
     { file: "Traversing - Godmode.mp3", from: "verdict" },
-    { file: "Stayin' Lazy - Godmode.mp3", from: "ch3-card", to: "real" },
+    { file: "Stayin' Lazy - Godmode.mp3", from: "ch3-card", to: "me" },
     { file: "Away - Patrick Patrikios.mp3", from: "lesson", to: "end" },
   ],
 };
