@@ -5,7 +5,7 @@
 //  - SubscribeNudge：登録のお願い（30〜40%の位置に画面の文字で1行だけ。声では言わない）
 import React from "react";
 import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
-import { C, font, R, sp, useZ } from "./theme";
+import { C, CHANNEL_NAME, font, R, sp, useZ } from "./theme";
 
 export const ChannelTag: React.FC<{ start?: number; seconds?: number }> = ({ start = 6, seconds = 1.5 }) => {
   const frame = useCurrentFrame();
@@ -17,7 +17,7 @@ export const ChannelTag: React.FC<{ start?: number; seconds?: number }> = ({ sta
   return (
     <div style={{ position: "absolute", right: Z.margin.x, top: Z.margin.top, background: C.ink, borderRadius: R.md,
       padding: "8px 24px", ...font("label", C.white), fontWeight: 900, opacity: Math.min(1, t * 2), transform: `translateX(${(1 - t) * 60}px)` }}>
-      吾輩は数える猫である
+      {CHANNEL_NAME}
     </div>
   );
 };

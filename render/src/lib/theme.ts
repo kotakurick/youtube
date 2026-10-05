@@ -22,6 +22,9 @@ export const C = {
   shadow: "rgba(29,35,51,0.14)", // 人や家具の足元の影
 } as const;
 
+/** チャンネル名（画面に出すときはここから。チャンネル名の右上の札・章の扉） */
+export const CHANNEL_NAME = "吾輩は数える猫である";
+
 export const W = 1920;
 export const H = 1080;
 export const FPS = 30;
