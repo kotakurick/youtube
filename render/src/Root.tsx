@@ -22,6 +22,10 @@ import { PanelPaper, SB_FRAMES, sbMeta, sheetSize, StoryboardDef, StoryboardShee
 
 const found = require.context("../../episodes", true, /scenes\/Episode(-[A-Za-z0-9]+)?\.tsx$/); // Episode-v2.tsx のような版違いも登録する
 const foundShorts = require.context("../../episodes", true, /scenes\/Short\.tsx$/);
+// 回ごとの絵のサムネイル：episodes/<回>/scenes/Thumb(-xxx).tsx が [{ id, component }] を出す（1280×720 の静止画。2026-10-06）
+const foundThumbs = require.context("../../episodes", true, /scenes\/Thumb(-[A-Za-z0-9]+)?\.tsx$/);
+const thumbs = foundThumbs.keys().filter((k) => !k.startsWith("./_"))
+  .flatMap((k) => foundThumbs(k).default as { id: string; component: React.FC }[]).map((t) => ({ id: t.id, C: withFont(t.component) }));
 const load = (ctx: ReturnType<typeof require.context>) => ctx.keys().filter((k) => !k.startsWith("./_")).map((k) => ctx(k).default as EpisodeDef);
 const episodes: EpisodeDef[] = [demo, parts, parts2, demoNarrated, demoDraft, ...load(found)];
 const shorts: EpisodeDef[] = [demoShort, ...load(foundShorts)];
@@ -56,6 +60,7 @@ export const Root: React.FC = () => (
         <Composition key={`${b.id}-sb-${p.key}`} id={`${b.id}-sb-${p.key}`} component={p.C} durationInFrames={SB_FRAMES} fps={FPS} width={W} height={H} />
       )),
     ])}
+    {thumbs.map((t) => <Still key={t.id} id={t.id} component={t.C} width={THUMB.w} height={THUMB.h} />)}
     {episodes.filter((ep) => ep.thumb).flatMap((ep) => [
       <Still key={`${ep.id}-thumb`} id={`${ep.id}-thumb`} component={ThumbnailF} width={THUMB.w} height={THUMB.h}
         defaultProps={{ ...ep.thumb!, ground: "paper" as const }} />,

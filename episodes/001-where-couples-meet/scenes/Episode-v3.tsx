@@ -1364,7 +1364,8 @@ const End: React.FC = () => <SignOff end />;
 
 const episode: EpisodeDef = {
   id: "001-where-couples-meet-v3",
-  title: "アプリで出会いは増えたのに、なぜ結婚は増えないのか", // 仮。タイトルは meta.md で決める
+  title: "選ばれない人と、選べない人。マッチングアプリでカップルが増えない仕組み", // 2026-10-06 オーナー決定（meta.md）
+  thumb: { lines: ["出会いは増えた", "結ばれない"], count: 34, kinds: "both", gosa: "thinking" }, // サムネイル案 S2（今の様式のまま。review/title-thumb.md）
   scenes: fromTiming(timing as Timing, {
     opening: Opening, hook: Hook, quiz: QuizSetup, "quiz-rules": QuizRules, "quiz-ask": QuizAsk,
     "ch1-card": Ch1Card, ch1: Ch1, "ch1-sim": Ch1Sim, "ch1-end": Ch1End,
