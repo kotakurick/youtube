@@ -137,15 +137,17 @@ def subtitle_parts(s: str, limit: int = SUB_MAX) -> list[str]:
         depth += ch in "「（(『" ; depth -= ch in "」）)』"
         if depth > 0:
             inside.add(i + 1)
-    rng = [i for i in range(max(1, lo), min(len(s) - 1, hi) + 1) if i not in inside]
-    commas = [i for i in rng if s[i - 1] == "、"]
-    parts = [i for i in rng if s[i] not in "、。？！」" and any(
+    narrow = [i for i in range(max(1, lo), min(len(s) - 1, hi) + 1) if i not in inside]
+    wide = [i for i in range(1, len(s) - 1) if i not in inside]  # 3枚以上に分かれる長い文（2026-10-05「なぜ現｜実の」のような語の途中の切れを防ぐ）
+    commas = lambda rng: [i for i in rng if s[i - 1] == "、"]
+    parts = lambda rng: [i for i in rng if s[i] not in "、。？！」" and any(
         s[:i].endswith(p) and i - len(p) > 0 and not KANA.match(s[i - len(p) - 1]) for p in PARTICLES)]
-    for cands in (commas, parts):
+    for cands in (commas(narrow), parts(narrow), commas(wide), parts(wide)):
         if cands:
             cut = min(cands, key=lambda i: abs(i - mid))
             return subtitle_parts(s[:cut], limit) + subtitle_parts(s[cut:], limit)
-    return subtitle_parts(s[:limit], limit) + subtitle_parts(s[limit:], limit)  # 切れ目がなければ字数で
+    cut = limit - 1 if s[limit] in "、。？！」）" else limit  # 切れ目がなければ字数で（句読点で始めない）
+    return subtitle_parts(s[:cut], limit) + subtitle_parts(s[cut:], limit)
 
 
 def silent_wav(text: str, out: Path) -> float:

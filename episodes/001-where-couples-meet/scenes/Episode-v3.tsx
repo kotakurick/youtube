@@ -610,7 +610,7 @@ const Ch2Him: React.FC = () => {
   return (
     <>
       <RowsFocus id={HIM} card={[`送った ${sentBy(HIM)}件`, `届いた ${RECEIVED.get(HIM)}件`]} />
-      <Beat from={zero} to={zero + 600}><Rules x={1380} y={200} items={["両思い 0"]} /></Beat>
+      <Beat from={zero} to={zero + 600}><Rules x={1380} y={268} items={["両思い 0"]} /></Beat>
       <SimNote />
     </>
   );
@@ -623,7 +623,7 @@ const Ch2Her: React.FC = () => {
   return (
     <>
       <RowsFocus id={HER} card={[`届いた ${RECEIVED.get(HER)}件`, `送った ${sentBy(HER)}件`]} arrows={HER_SENT} arrowsFrom={up} />
-      <Beat from={zero} to={zero + 600}><Rules x={1380} y={200} items={["両思い 0"]} /></Beat>
+      <Beat from={zero} to={zero + 600}><Rules x={1380} y={268} items={["両思い 0"]} /></Beat>
       <SimNote />
     </>
   );
@@ -903,7 +903,7 @@ const Ch3Quiz: React.FC = () => {
       </Beat>
       <Beat from={first} to={end + 30}>
         <Beat from={0} to={culprit - first}><Tag_ x={96} y={80} text="アプリの町で、ひとつだけ止める（1年後のペア）" /></Beat>
-        <Beat from={culprit - first} to={end + 30 - first}><Tag_ x={96} y={80} text="主犯は「基準が動くこと」。道具が、選び方を変えていた" /></Beat>
+        <Beat from={culprit - first} to={end + 30 - first}><Tag_ x={96} y={80} text="この町の主犯は「基準が動くこと」" /></Beat>
         <PairPanel result={APP} x={96} y={200} title="アプリの町" start={0} dur={1} />
         <PairPanel result={NO_AIM} x={516} y={200} title="① 上を狙わない" start={20} from={17} focus />
         <Beat from={second - first} to={end + 30 - first}>
