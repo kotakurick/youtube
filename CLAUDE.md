@@ -80,7 +80,7 @@ scripts/     共通スクリプト（paths.sh、new_episode.sh）
 
 動画の作り方の流れと、工程ごとの担当（オーナーの★を含む）は `docs/process.md`。
 
-- **クラウドのセッション**：ネタ選び、構成案、台本、シミュレーションのコード、静止画の絵コンテ（`npm run still`）。PCを閉じていても進む。GitHub にあるものだけで作業する。
+- **クラウドのセッション**：ネタ選び、構成案、台本、シミュレーションのコード、静止画の絵コンテ（`npm run storyboard`）。PCを閉じていても進む。GitHub にあるものだけで作業する。
 - **ローカル（オーナーのPC）**：音声の生成（API キーは PC の環境変数）、動画の書き出し・音量の調整（`_local/` の音声と BGM を使う）、動画をオーナーに送る。
 - クラウドには Claude のメモ（memory）がないので、引き継ぐことは必ずリポジトリ（`docs/`、各回の `README.md`）に書く。
 
@@ -101,6 +101,7 @@ python bench/analyze.py --out research/benchmark/summary.md
 scripts/new_episode.sh where-couples-meet          # 新しい回を作る → episodes/001-where-couples-meet/
 cd render && npm run studio                         # 動画をブラウザで確認（Remotion Studio）
 python tts/narrate.py episodes/<回> --voice silent  # 台本から仮の尺と字幕（声が決まったら --voice を変える）
+cd render && npm run storyboard -- <回のid>          # 絵コンテの一覧（場面は episodes/<回>/scenes/Storyboard.tsx）
 cd render && npm run check -- <回のid>               # 画面のチェック（直すものを0に）
 cd render && npm run bgm                             # BGM を測り、曲ごとの音量をそろえる（曲を置いた・替えたとき）
 cd render && npm run render -- <回のid> out/<回>.mp4  # 動画を書き出す

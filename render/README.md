@@ -25,6 +25,7 @@ npm run still -- gosa-sheet out/gosa.png         # ゴサの表情一覧（確�
 npm run still -- pose-sheet out/pose.png         # 姿勢と小道具の一覧
 npm run still -- backdrop-sheet out/bg.png       # 背景の一覧
 npm run master -- out/001.mp4                    # 音量を -14 LUFS にそろえる → out/001.master.mp4
+npm run storyboard -- 002-r-greater-than-g       # 絵コンテ：場面を1枚ずつ書き出してチェックし、4列の一覧に → out/<回>-storyboard.png
 npm run check -- demo                            # 画面のチェック（重なり・小さい文字・はみ出し）→ out/qa/demo/
 npm run typecheck                                # 書き間違いの確認
 ```

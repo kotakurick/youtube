@@ -16,12 +16,17 @@ import { demoDraft, demoNarrated } from "./demo/demo-narrated/episode";
 import { GosaSheet } from "./demo/GosaSheet";
 import { BackdropSheet, PoseSheet } from "./demo/partsStory";
 import { Banner, BANNER } from "./channel/Banner";
+import { SB_FRAMES, sheetSize, StoryboardDef, StoryboardSheet } from "@lib/Storyboard";
 
 const found = require.context("../../episodes", true, /scenes\/Episode\.tsx$/);
 const foundShorts = require.context("../../episodes", true, /scenes\/Short\.tsx$/);
 const load = (ctx: ReturnType<typeof require.context>) => ctx.keys().filter((k) => !k.startsWith("./_")).map((k) => ctx(k).default as EpisodeDef);
 const episodes: EpisodeDef[] = [demo, parts, parts2, demoNarrated, demoDraft, ...load(found)];
 const shorts: EpisodeDef[] = [demoShort, ...load(foundShorts)];
+// 絵コンテ：episodes/<回>/scenes/Storyboard.tsx（src/lib/Storyboard.tsx）
+const foundBoards = require.context("../../episodes", true, /scenes\/Storyboard\.tsx$/);
+const boards = foundBoards.keys().filter((k) => !k.startsWith("./_")).map((k) => foundBoards(k).default as StoryboardDef)
+  .map((b) => ({ b, Sheet: withFont(() => <StoryboardSheet def={b} />), panels: b.panels.map((p) => ({ key: p.key, C: withFont(p.C) })) }));
 const comps = [...episodes.map((ep) => ({ ep, w: W, h: H })), ...shorts.map((ep) => ({ ep, w: H, h: W }))]
   .map(({ ep, w, h }) => ({ ep, w, h, Comp: withFont(() => <Episode ep={ep} />) }));
 // どの動画・静止画も、フォントを読み込んでから描く（FontGate.tsx）
@@ -39,6 +44,13 @@ export const Root: React.FC = () => (
     <Still id="pose-sheet" component={PoseSheetF} width={W} height={H} />
     <Still id="backdrop-sheet" component={BackdropSheetF} width={W} height={H} />
     <Still id="channel-banner" component={BannerF} width={BANNER.w} height={BANNER.h} />
+    {boards.flatMap(({ b, Sheet, panels }) => [
+      <Still key={`${b.id}-storyboard`} id={`${b.id}-storyboard`} component={Sheet}
+        width={sheetSize(b.panels.length).w} height={sheetSize(b.panels.length).h} />,
+      ...panels.map((p) => (
+        <Composition key={`${b.id}-sb-${p.key}`} id={`${b.id}-sb-${p.key}`} component={p.C} durationInFrames={SB_FRAMES} fps={FPS} width={W} height={H} />
+      )),
+    ])}
     {episodes.filter((ep) => ep.thumb).flatMap((ep) => [
       <Still key={`${ep.id}-thumb`} id={`${ep.id}-thumb`} component={ThumbnailF} width={THUMB.w} height={THUMB.h}
         defaultProps={{ ...ep.thumb!, ground: "paper" as const }} />,

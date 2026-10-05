@@ -9,10 +9,10 @@
 - [x] 1. テーマ・データ収集（クラウド、2026-10-05）→ `sources.csv`、`data/`
 - [x] ★ テーマと切り口の承認（オーナー 2026-10-05「構成に入っておーけー」）
 - [x] 2. 企画カードと構成案（クラウド、2026-10-05 第2版）→ `outline.md`（一番上の企画カードを先に埋める。埋まったら `review-rival` に見せて、負けている所を構成で直す → `review/rival-outline.md`）
-- [x] 3. 台本（クラウド、2026-10-05 第2稿。5役のレビュー済み）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。5役のレビュー → `review/`）
-- [ ] ★ 一次資料との照合（オーナー）→ `sources.csv` の「照合」欄をすべて埋める
-- [ ] ★ 台本レビュー（オーナー）→ `review/owner.md`（Claude が読みやすい形にまとめて渡す。オーナーの指摘は Claude が書き写して台本に反映し、直した／直さなかったを1行ずつ書く）
-- [ ] 4. 絵コンテ（クラウド）：`npm run still` で場面ごとの静止画を作る → ★ オーナーが確認（見た目は音声・動画にする前に決める）
+- [x] 3. 台本（クラウド、2026-10-05 第4稿。5役のレビュー済み）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。5役のレビュー → `review/`）
+- [ ] ★ 一次資料との照合（オーナー）→ `sources.csv` の「照合」欄をすべて埋める。**2026-10-05 オーナー判断で後回し**（「出典は飛ばしてつぎいこう」）。省略はしない：音声を作る前（7の前）に必ず行う
+- [x] ★ 台本レビュー（オーナー 2026-10-05 第4稿に「おもろい！」）→ `review/owner.md`（Claude が読みやすい形にまとめて渡す。オーナーの指摘は Claude が書き写して台本に反映し、直した／直さなかったを1行ずつ書く）
+- [ ] 4. 絵コンテ（クラウド、2026-10-05 第1版・18場面。画面のチェックの直すもの0）：`scenes/Storyboard.tsx`、`cd render && npm run storyboard -- 002-r-greater-than-g` → ★ オーナーが確認
 - [ ] 5. 場面のコード（クラウド）→ `scenes/Episode.tsx`（`Episode.example.tsx` を名前を変えて使う。部品は `render/src/lib`、動きは `useNarration()` で読み上げに合わせる）
 - [ ] 6. 仮通し（クラウド）：`python tts/narrate.py episodes/002-r-greater-than-g --voice silent` で仮の尺と字幕（`timing.json`）を作り、部品のない場面は仮の画面（draft）で13〜18分を通して、テンポ・章の長さ・考える場面の位置を直す
 - [ ] 7. 音声合成（ローカル）：`python tts/narrate.py episodes/002-r-greater-than-g --voice eleven-yui`（文ごとに作り、尺・字幕・`subtitles.srt` も自動で声に合う。同じ文は作り直さない）

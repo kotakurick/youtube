@@ -8,9 +8,9 @@ export type Series = { label: string; points: [number, number][]; color?: string
 
 export const LineChart: React.FC<{
   series: Series[]; x: number; y: number; width: number; height: number;
-  xDomain: [number, number]; yDomain: [number, number]; xTicks?: number[]; format?: (v: number) => string;
+  xDomain: [number, number]; yDomain: [number, number]; xTicks?: number[]; xTickLabel?: (v: number) => string; format?: (v: number) => string;
   eras?: { x: number; label: string }[]; start?: number; duration?: number;
-}> = ({ series, x, y, width, height, xDomain, yDomain, xTicks = [], format = (v) => `${v}`, eras = [], start = 0, duration = 45 }) => {
+}> = ({ series, x, y, width, height, xDomain, yDomain, xTicks = [], xTickLabel = (v) => `${v}`, format = (v) => `${v}`, eras = [], start = 0, duration = 45 }) => {
   const frame = useCurrentFrame() - start;
   const { width: VW, height: VH } = useVideoConfig();
   const X = (v: number) => x + ((v - xDomain[0]) / (xDomain[1] - xDomain[0])) * width;
@@ -49,7 +49,7 @@ export const LineChart: React.FC<{
         </g>
       ))}
       <line x1={x} x2={x + width} y1={y + height} y2={y + height} stroke={C.ink} strokeWidth={LINE.thin} strokeLinecap="round" />
-      {xTicks.map((t) => <text key={t} x={X(t)} y={y + height + 48} textAnchor="middle" style={font("label", C.ink2)}>{t}</text>)}
+      {xTicks.map((t) => <text key={t} x={X(t)} y={y + height + 48} textAnchor="middle" style={font("label", C.ink2)}>{xTickLabel(t)}</text>)}
       {/* 注目しない線を先に、注目の線を手前に */}
       {[...series].sort((a, b) => Number(!!a.focus) - Number(!!b.focus)).map((s) => {
         const pts = clip(s.points);

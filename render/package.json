@@ -9,6 +9,7 @@
     "still": "npm run sync && remotion still src/index.ts",
     "master": "node scripts/master.mjs",
     "check": "npm run sync && node scripts/check-layout.mjs",
+    "storyboard": "npm run sync && node scripts/storyboard.mjs",
     "bgm": "node scripts/check-bgm.mjs",
     "typecheck": "tsc --noEmit"
   },
