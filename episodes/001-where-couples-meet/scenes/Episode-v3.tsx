@@ -45,9 +45,8 @@ const TAGS: Tag[] = [{ id: HIM, label: "彼（32）" }, { id: HER, label: "彼�
 const HER_SENT = [...new Set(APP.months.flatMap((m) => m.likes!.filter(([p]) => p === HER).map(([, q]) => q)))];
 const sentBy = (id: number) => APP.months.reduce((s, m) => s + m.likes!.filter(([p]) => p === id).length, 0);
 const STAGE = { x: 96, y: 200, w: 1728, h: 620 }; // 下は出典の札（y844）の上まで
-const SIM_NOTE = "仮定の世界。紹介の町の「保証」の仮定は根拠が弱い";
 /** シミュレーションの札＋仮定の断り書き（画面の隅） */
-const SimNote: React.FC = () => <SourceNote sim text={SIM_NOTE} prefix="" />;
+const SimNote: React.FC = () => <SourceNote sim />; // 仮定の注記（「保証」の根拠が弱いこと）は概要欄へ（2026-10-06 オーナー）
 
 // ---------- 共通 ----------
 const Svg: React.FC<{ children: React.ReactNode }> = ({ children }) => (
@@ -381,6 +380,48 @@ const QuizSetup: React.FC = () => {
   );
 };
 
+// 町の条件の一覧（2026-10-06 オーナー「条件を一瞬でよいので提示」「パラメータの納得感が大事」）。予想の前に、主な数字と根拠を並べる
+const RULE_ROWS: [string, string, string, string][] = [
+  ["出会える範囲", "自分の輪と、隣の輪だけ", "全員が全員を見られる", "設定"],
+  ["1か月の動き", "世話焼きが輪ごとに1組を\n引き合わせる", "25人のプロフィールを見て\nいいねを送る", "設定"],
+  ["声をかける相手", "点数の近い人", "自分より少し上だけ", "平均で約25%上の相手に\n連絡していた（米国）"],
+  ["送る数", "—", "男性 月8件・女性 月3件", "最初の連絡の8割は男性"],
+  ["会う・返す基準", "少し下でも会う\n（知り合いの保証）", "いいねが届くほど上がる", "見続けると受け入れが\n約3割下がる（実験）"],
+];
+const QuizRules: React.FC = () => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const cols = [300, 520, 520, 388];
+  const cell = (k: number): React.CSSProperties => ({ width: cols[k], padding: "10px 16px", boxSizing: "border-box", whiteSpace: "pre", lineHeight: 1.25 });
+  return (
+    <>
+      <SimBackground />
+      <Tag_ x={96} y={60} text="ふたつの町の決まり（どちらも同じ100人・12か月）" />
+      <div style={{ position: "absolute", left: 96, top: 160, display: "flex", flexDirection: "column", gap: 10 }}>
+        <div style={{ display: "flex", ...font("label", C.ink2) }}>
+          <div style={cell(0)} />
+          <div style={{ ...cell(1), ...font("label", C.gold), fontWeight: 900 }}>紹介の町</div>
+          <div style={{ ...cell(2), ...font("label", C.teal), fontWeight: 900 }}>アプリの町</div>
+          <div style={{ ...cell(3), ...font("label", C.ink2) }}>根拠</div>
+        </div>
+        {RULE_ROWS.map(([k, a, b, why], i) => {
+          const t = sp("enter", frame - 10 - i * 12, fps);
+          return (
+            <div key={k} style={{ display: "flex", alignItems: "center", minHeight: 104, opacity: t, transform: `translateY(${(1 - t) * 14}px)`,
+              background: C.white, border: `${LINE.hair}px solid ${C.ink}`, borderRadius: R.md }}>
+              <div style={{ ...cell(0), ...font("label", C.ink2) }}>{k}</div>
+              <div style={{ ...cell(1), ...font("label") }}>{a}</div>
+              <div style={{ ...cell(2), ...font("label") }}>{b}</div>
+              <div style={{ ...cell(3), ...font("note", why === "設定" ? C.ink2 : C.ink) }}>{why}</div>
+            </div>
+          );
+        })}
+      </div>
+      <SourceNote sim text="Bruch & Newman (2018)、Pronk & Denissen (2020)" />
+    </>
+  );
+};
+
 const QuizAsk: React.FC = () => {
   const { find, end } = useCue();
   const frame = useCurrentFrame();
@@ -606,8 +647,8 @@ const Verdict: React.FC = () => {
         <Tag_ x={96} y={80} text="ペアの数（累計）。横は何か月目か" />
         <LineChart x={220} y={240} width={1240} height={500} xDomain={[0, 12]} yDomain={[0, 30]} xTicks={[1, 3, 6, 9, 12]}
           format={(v) => `${v}組`} series={[
-            { label: "紹介の町", points: line(INTRO), color: C.ink, focus: true },
-            { label: "アプリの町", points: line(APP), color: C.ink2 },
+            { label: "紹介の町", points: line(INTRO), color: C.gold, focus: true }, // 墨2本では見分けにくい（2026-10-06 オーナー）
+            { label: "アプリの町", points: line(APP), color: C.teal },
           ]} duration={90} />
       </Beat>
       {/* 仮通しで22秒止まっていたので、線のあとを2つに分けた（2026-10-05） */}
@@ -618,7 +659,7 @@ const Verdict: React.FC = () => {
           <Cat kind="female" x={1500} y={800} size={4.4} facing={-1} face="happy" seed={7} label="ネットで出会ったふたり" />
           <Heart x={1400} y={500} r={36} fill={C.ink} />
         </Svg>
-        <SourceNote text="Rosenfeld (2017) Sociological Science：ネットで出会ったカップルは結婚への移行が早い（米国の追跡調査）（★未照合）" />
+        <SourceNote text="Rosenfeld (2017) Sociological Science：ネットで出会ったカップルは結婚への移行が早い（米国の追跡調査）" />
       </Beat>
       <Beat from={left} to={end + 30}>
         <SimBackground />
@@ -1023,7 +1064,7 @@ const Ch4Office: React.FC = () => {
       <Beat from={nako} to={trip}>
         <Tag_ x={96} y={80} text="仲人の役目は、村 → 家 → 会社へ。そして2000年代に消えた" />
         <Matchmakers start={10} />
-        <SourceNote text="阪井裕一郎『仲人の近代』(2021)（★未照合）" />
+        <SourceNote text="阪井裕一郎『仲人の近代』(2021)" />
       </Beat>
       <Beat from={trip} to={nonreg}>
         <Tag_ x={96} y={80} text="社員旅行をする会社（20社あたり）" />
@@ -1039,7 +1080,7 @@ const Ch4Office: React.FC = () => {
         <PeopleOf x={520} y={320} k={3} start={10} />
         <div style={{ position: "absolute", left: 96, top: 440, ...font("label") }}>2025年 36.5%</div>
         <PeopleOf x={520} y={500} k={7} start={30} />
-        <SourceNote text="総務省「労働力調査」（1984年は特別調査、2025年は詳細集計で、調べ方が違う）（★未照合）" />
+        <SourceNote text="総務省「労働力調査」（1984年は特別調査、2025年は詳細集計で、調べ方が違う）" />
       </Beat>
       <Beat from={love} to={reveal}>
         <OfficeYears start={-1000} per={90} years={[{ year: "いま", seated: 0.5 }]} />
@@ -1051,7 +1092,7 @@ const Ch4Office: React.FC = () => {
         <PeopleOf x={520} y={320} k={13} kind="male" start={10} />
         <div style={{ position: "absolute", left: 96, top: 440, ...font("label") }}>女性 75.8%</div>
         <PeopleOf x={520} y={500} k={15} kind="female" start={30} />
-        <SourceNote text="Job総研「仕事と恋愛に関する意識調査」(2022、20〜50代923人、民間Web調査)（★未照合）" />
+        <SourceNote text="Job総研「仕事と恋愛に関する意識調査」(2022、20〜50代923人、民間Web調査)" />
       </Beat>
       <Beat from={nobody} to={end + 30}>
         <OfficeYears start={-1000} per={90} years={[{ year: "いま", seated: 0.5 }]} />
@@ -1200,7 +1241,7 @@ const Ch5Wide: React.FC = () => {
           <rect x={480} y={708} width={250} height={44} rx={22} fill={C.female} />
           <text x={760} y={744} style={font("label", C.ink2)}>男性の4分の1</text>
         </Svg>
-        <SourceNote text="J. Marriage and Family 76(2)（★未照合）" />
+        <SourceNote text="J. Marriage and Family 76(2)" />
       </Beat>
       <ChapterDots current={5} total={5} />
     </>
@@ -1322,7 +1363,7 @@ const episode: EpisodeDef = {
   id: "001-where-couples-meet-v3",
   title: "アプリで出会いは増えたのに、なぜ結婚は増えないのか", // 仮。タイトルは meta.md で決める
   scenes: fromTiming(timing as Timing, {
-    opening: Opening, hook: Hook, quiz: QuizSetup, "quiz-ask": QuizAsk,
+    opening: Opening, hook: Hook, quiz: QuizSetup, "quiz-rules": QuizRules, "quiz-ask": QuizAsk,
     "ch1-card": Ch1Card, ch1: Ch1, "ch1-sim": Ch1Sim, "ch1-end": Ch1End,
     "ch2-card": Ch2Card, ch2: Ch2, "ch2-hearts": Ch2Hearts, "ch2-him": Ch2Him, "ch2-her": Ch2Her,
     verdict: Verdict, "ch3-card": Ch3Card, ch3: Ch3, "ch3-raise": Ch3Raise, "ch3-quiz": Ch3Quiz, "ch3-vouch": Ch3Vouch,
@@ -1331,13 +1372,8 @@ const episode: EpisodeDef = {
     lesson: Lesson, end: End,
   }),
   bgm: [
-    { file: "Sizzr - Schwartzy.mp3", from: "opening", to: "hook", startAt: 10 },
-    { file: "Stayin' Lazy - Godmode.mp3", from: "quiz", to: "quiz-ask" },
-    { file: "Jomon Grove - The Mini Vandals.mp3", from: "ch1-card", to: "ch2-her" },
-    { file: "Traversing - Godmode.mp3", from: "verdict" },
-    { file: "Stayin' Lazy - Godmode.mp3", from: "ch3-card", to: "ch3-vouch" },
-    { file: "Jomon Grove - The Mini Vandals.mp3", from: "ch4-card", to: "ch5-again" },
-    { file: "Away - Patrick Patrikios.mp3", from: "lesson", to: "end" },
+    // 1曲を通しで流す（2026-10-06 オーナー「3分目くらいの曲で共通でいい。複数使わなくてもいい」）
+    { file: "Stayin' Lazy - Godmode.mp3", from: "opening", to: "end" },
   ],
 };
 export default episode;

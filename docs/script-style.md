@@ -84,6 +84,7 @@ AIっぽい言い回しの直し方は、yomiyasu（https://github.com/nanaism/y
   - 弱い言い方で書く：〔slightly thoughtful〕〔gently curious〕のように slightly・gently を付ける。〔excited〕〔surprised〕のような強い感情は使わない。
   - 吐息・笑い・ため息（[sighs] など）は使わない。
   - 例：`返ってきたのは、ひとつだけです。〔間〕〔slightly thoughtful〕でも、それは彼のせいでしょうか？`
+- **文の頭に「では、」を置かない**（2026-10-06 1本目 v3）：eleven-yui（ElevenLabs v4）は、文頭の「では、」を「では、では」と2回読むことがある（「では、一年後。」のような短い文で起きやすい）。「一年後、〜でしょうか。」のように前置きなしで始めるか、「それなら、」などにする。
 
 ## 8. 心の動き（2026-10-04 オーナー指示）
 
