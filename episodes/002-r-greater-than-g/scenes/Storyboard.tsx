@@ -23,7 +23,7 @@ import { Bedroom, BEDROOM } from "@lib/Bedroom";
 import { Cat } from "@lib/Cat";
 import { DebtBall, EquityBox } from "@lib/Money";
 import { ballR, Cloud, Flake, Snow, Snowball } from "@lib/Snowball";
-import { VillageIcon, VillageKind, VILLAGES } from "@lib/Village";
+import { VILLAGE_COLOR, VillageIcon, VillageKind, VILLAGES } from "@lib/Village";
 
 // ---- この回の配置の道具（絵の部品は render/src/lib） ----
 /** SVG の画面（1920×1080）。SVG の部品はこの中に置く */
@@ -75,14 +75,15 @@ const P03: React.FC = () => (
     <Heading>給料で買えるもの：4年で約5%減</Heading>
     <Svg>
       {/* 買い物かご：20個の品のうち1個が消える（5%＝20個に1個） */}
-      <path d="M520 420 L1400 420 L1330 860 L590 860 Z" fill={C.white} stroke={C.ink} strokeWidth={LINE.base} strokeLinejoin="round" />
+      <path d="M520 420 L1400 420 L1330 820 L590 820 Z" fill={C.white} stroke={C.ink} strokeWidth={LINE.base} strokeLinejoin="round" />
       <path d="M700 420 Q960 200 1220 420" fill="none" stroke={C.ink} strokeWidth={LINE.base} />
       {Array.from({ length: 20 }, (_, i) => {
         const cx = 640 + (i % 10) * 72, cy = 520 + Math.floor(i / 10) * 140;
         return i === 19
           ? <rect key={i} x={cx - 26} y={cy - 40} width={52} height={80} rx={10} fill="none" stroke={C.ink2} strokeWidth={3} strokeDasharray="8 6" />
-          : <rect key={i} x={cx - 26} y={cy - 40} width={52} height={80} rx={10} fill={i % 3 === 0 ? C.otherTint : C.paper2} stroke={C.ink} strokeWidth={3} />;
+          : <rect key={i} x={cx - 26} y={cy - 40} width={52} height={80} rx={10} fill={[C.goldTint, C.tealTint, C.debtTint, C.maleTint][i % 4]} stroke={C.ink} strokeWidth={3} />;
       })}
+      <Cat kind="male" x={300} y={800} size={3.4} pose="stand" facing={1} face="sad" label="彼" />
       <Label x={1430} y={660} color={C.ink2}>20個のうち</Label>
       <Label x={1430} y={720} color={C.ink2}>1個が消える</Label>
     </Svg>
@@ -97,9 +98,9 @@ const P04: React.FC = () => {
       <Heading>日経平均、34年ぶりの最高値</Heading>
       <Svg>
         <line x1={240} x2={1600} y1={Y(38915)} y2={Y(38915)} stroke={C.ink2} strokeWidth={LINE.hair} strokeDasharray="10 8" />
-        <polyline points={`${X(1989.99)},${Y(38915)} ${X(2009.2)},${Y(7055)} ${X(2024.15)},${Y(39099)}`} fill="none" stroke={C.ink} strokeWidth={LINE.base} strokeLinejoin="round" />
+        <polyline points={`${X(1989.99)},${Y(38915)} ${X(2009.2)},${Y(7055)} ${X(2024.15)},${Y(39099)}`} fill="none" stroke={C.gold} strokeWidth={LINE.heavy} strokeLinejoin="round" />
         {[[1989.99, 38915, "1989年末 38,916円"], [2009.2, 7055, "2009年3月 7,055円"], [2024.15, 39099, "2024年2月 39,099円"]].map(([yy, v, t], i) => (
-          <g key={i}><circle cx={X(yy as number)} cy={Y(v as number)} r={12} fill={C.ink} />
+          <g key={i}><circle cx={X(yy as number)} cy={Y(v as number)} r={14} fill={C.gold} stroke={C.ink} strokeWidth={3} />
             <Label x={X(yy as number) + (i === 2 ? -20 : 20)} y={Y(v as number) + (i === 1 ? 60 : -30)} anchor={i === 2 ? "end" : "start"} size="note">{t}</Label></g>
         ))}
         <Underline x={X(2004)} y={Y(38915) - 34} w={220} />
@@ -129,7 +130,7 @@ const P06: React.FC = () => (
       <div style={{ ...font("note", C.ink2) }}>流れてきた投稿</div>
       <div style={{ ...font("label"), marginTop: 12, lineHeight: 1.4 }}>r ＞ g。だから、<span style={{ textDecoration: "line-through", textDecorationThickness: 6 }}>給料より資産</span></div>
     </div>
-    <div style={{ position: "absolute", left: 96, top: 470, width: 1300, padding: "40px 48px", background: C.white, border: `6px solid ${C.ink}`, borderRadius: R.lg }}>
+    <div style={{ position: "absolute", left: 96, top: 470, width: 1300, padding: "40px 48px", background: C.goldTint, border: `6px solid ${C.ink}`, borderRadius: R.lg }}>
       <div style={{ ...font("label", C.ink2) }}>この式を広めた本人（ピケティ、2015年の論文）</div>
       <div style={{ ...font("question"), marginTop: 20 }}>「r ＞ g は、給料の格差を語るための式ではない」</div>
     </div>
@@ -146,7 +147,7 @@ const P07: React.FC = () => (
         const x = 300 + i * 440;
         return (
           <g key={t}>
-            <line x1={960} y1={740} x2={x} y2={520} stroke={C.rest} strokeWidth={LINE.heavy} strokeLinecap="round" />
+            <line x1={960} y1={740} x2={x} y2={520} stroke={C.floor} strokeWidth={LINE.heavy * 2} strokeLinecap="round" />
             <rect x={x - 150} y={220} width={300} height={300} rx={R.lg} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
             <VillageIcon kind={k} x={x} y={330} s={1.3} />
             <Label x={x} y={470} anchor="middle" size="value">{t}</Label>
@@ -163,9 +164,9 @@ const P09: React.FC = () => (
     <Quiz question="37万円を年5%で回すと、利息が年収に追いつくのは？" choices={["10年後", "30年後", "60年後", "100年より先"]} />
     <Svg>
       <Label x={96} y={760} color={C.ink2}>年収 約370万円</Label>
-      <rect x={420} y={725} width={1100} height={50} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
+      <rect x={420} y={725} width={1100} height={50} fill={C.teal} stroke={C.ink} strokeWidth={LINE.thin} />
       <Label x={96} y={860} color={C.ink2}>利息 1年目</Label>
-      <rect x={420} y={825} width={1100 * 1.85 / 370} height={50} fill={C.ink} />
+      <rect x={420} y={825} width={1100 * 1.85 / 370} height={50} fill={C.gold} stroke={C.ink} strokeWidth={2} />
       <Label x={450} y={862} size="note" color={C.ink2}>約1.9万円</Label>
     </Svg>
     <SourceNote text="年収は20代の平均（国税庁 民間給与実態統計調査 2025）" y={930} />
@@ -173,7 +174,7 @@ const P09: React.FC = () => (
 );
 const P10: React.FC = () => {
   const cards: [string, string, React.ReactNode][] = [
-    ["1", "この式は本当か", <g key="a"><polyline points="-90,30 -30,10 30,14 90,-6" fill="none" stroke={C.ink} strokeWidth={8} /><polyline points="-90,60 -30,58 30,40 90,20" fill="none" stroke={C.ink2} strokeWidth={8} /></g>],
+    ["1", "この式は本当か", <g key="a"><polyline points="-90,30 -30,10 30,14 90,-6" fill="none" stroke={C.gold} strokeWidth={10} /><polyline points="-90,60 -30,58 30,40 90,20" fill="none" stroke={C.teal} strokeWidth={10} /></g>],
     ["2", "誰の財布の話か", <g key="b"><Snowball x={0} y={20} core={37} interest={40} snow={200} k={3.5} /></g>],
     ["3", "六つの村で二十年", <g key="c">{VILLAGES.map((v, i) => <VillageIcon key={v} kind={v} x={-90 + (i % 3) * 90} y={-10 + Math.floor(i / 3) * 80} s={0.6} />)}</g>],
   ];
@@ -203,24 +204,24 @@ const P11: React.FC = () => (
     <Heading>r と g：二つの文字の意味</Heading>
     <Svg>
       {/* r：資本（田んぼ・工場・家）から毎年出てくる黒い粒 */}
-      <rect x={140} y={300} width={760} height={560} rx={R.lg} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
+      <rect x={140} y={300} width={760} height={500} rx={R.lg} fill={C.white} stroke={C.gold} strokeWidth={LINE.base} />
       <g transform="translate(300,620)">
         <rect x={-110} y={-20} width={220} height={120} fill={C.paper2} stroke={C.ink} strokeWidth={LINE.thin} />
         {[0, 1, 2, 3].map((i) => <line key={i} x1={-110} x2={110} y1={10 + i * 25} y2={10 + i * 25} stroke={C.ink2} strokeWidth={2} />)}
         <path d="M150 100 V0 h70 v-40 l35 -30 l35 30 v40 h70 v100 Z" fill={C.paper2} stroke={C.ink} strokeWidth={LINE.thin} />
-        {[[-40, -90], [30, -120], [130, -140], [230, -150], [330, -120]].map(([dx, dy], i) => <circle key={i} cx={dx} cy={dy} r={14} fill={C.ink} />)}
+        {[[-40, -90], [30, -120], [130, -140], [230, -150], [330, -120]].map(([dx, dy], i) => <circle key={i} cx={dx} cy={dy} r={16} fill={C.gold} stroke={C.ink} strokeWidth={3} />)}
       </g>
       <Label x={180} y={380} size="value">r</Label>
       <Label x={240} y={380}>資本が毎年生む割合</Label>
-      <Label x={180} y={820} size="note" color={C.ink2}>利子・配当・家賃 ÷ 資本の額（国全体の平均）</Label>
+      <Label x={180} y={770} size="note" color={C.ink2}>利子・配当・家賃 ÷ 資本の額（国全体の平均）</Label>
       {/* g：国の所得の棒が1年でのびる */}
-      <rect x={1020} y={300} width={760} height={560} rx={R.lg} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
+      <rect x={1020} y={300} width={760} height={500} rx={R.lg} fill={C.white} stroke={C.teal} strokeWidth={LINE.base} />
       <Label x={1060} y={380} size="value">g</Label>
       <Label x={1120} y={380}>国の所得が1年でのびる割合</Label>
-      {Array.from({ length: 30 }, (_, i) => <Figure key={i} kind="other" x={1100 + (i % 15) * 40} y={700 + Math.floor(i / 15) * 70} size={0.8} />)}
-      <rect x={1100} y={500} width={520} height={50} fill={C.rest} />
-      <rect x={1620} y={500} width={40} height={50} fill={C.ink} />
-      <Label x={1060} y={820} size="note" color={C.ink2}>人が増えた分 ＋ 一人あたりが豊かになった分</Label>
+      {Array.from({ length: 30 }, (_, i) => <Figure key={i} kind="other" x={1100 + (i % 15) * 40} y={640 + Math.floor(i / 15) * 60} size={0.8} />)}
+      <rect x={1100} y={500} width={520} height={50} fill={C.tealTint} />
+      <rect x={1620} y={500} width={40} height={50} fill={C.teal} />
+      <Label x={1060} y={770} size="note" color={C.ink2}>人が増えた分 ＋ 一人あたりが豊かになった分</Label>
     </Svg>
     <SourceNote text="Piketty (2014) 第1章・第5章の定義" />
   </AbsoluteFill>
@@ -236,17 +237,17 @@ const History: React.FC<{ after: boolean }> = ({ after }) => {
     vals.slice(1).map((v, i) => `M${x0 + (i + 1) * w} ${Y(vals[i])} V${Y(v)}`).join(" ");
   return (
     <Svg>
-      <rect x={x0 + 5 * w} y={Y(6)} width={w} height={Y(0) - Y(6)} fill={C.paper2} />
+      <rect x={x0 + 5 * w} y={Y(6)} width={w} height={Y(0) - Y(6)} fill={C.debtTint} />
       <Label x={x0 + 5 * w + w / 2} y={Y(6) + 40} anchor="middle" size="note">二つの大戦</Label>
       {[0, 2, 4, 6].map((v) => <g key={v}><line x1={x0} x2={x0 + 7 * w} y1={Y(v)} y2={Y(v)} stroke={C.paper2} strokeWidth={LINE.hair} />
         <Label x={x0 - 20} y={Y(v) + 12} anchor="end" size="note" color={C.ink2}>{v}%</Label></g>)}
       <line x1={x0} x2={x0 + 7 * w} y1={Y(0)} y2={Y(0)} stroke={C.ink} strokeWidth={LINE.thin} />
       {PER.map((p, i) => <Label key={p} x={x0 + i * w + w / 2} y={Y(0) + 44} anchor="middle" size="note" color={C.ink2}>{p}</Label>)}
-      <path d={steps(G)} fill="none" stroke={C.ink2} strokeWidth={LINE.base} strokeLinecap="round" />
-      {after && <path d={steps(R_PRE)} fill="none" stroke={C.ink2} strokeWidth={LINE.thin} strokeDasharray="10 10" />}
-      <path d={steps(after ? R_POST : R_PRE)} fill="none" stroke={C.ink} strokeWidth={LINE.heavy} strokeLinecap="round" />
-      <Label x={x0 + 7 * w + 20} y={Y(after ? 3.2 : 5.3) + 12}>r {after ? "3.2" : "5.3"}%</Label>
-      <Label x={x0 + 7 * w + 20} y={Y(3.78) + (after ? -20 : 12)} color={C.ink2}>g 3.8%</Label>
+      <path d={steps(G)} fill="none" stroke={C.teal} strokeWidth={LINE.heavy} strokeLinecap="round" />
+      {after && <path d={steps(R_PRE)} fill="none" stroke={C.gold} strokeWidth={LINE.thin} strokeDasharray="10 10" />}
+      <path d={steps(after ? R_POST : R_PRE)} fill="none" stroke={C.gold} strokeWidth={LINE.heavy} strokeLinecap="round" />
+      <Label x={x0 + 7 * w + 20} y={Y(after ? 3.2 : 5.3) + 12} color={C.gold} weight={900}>r {after ? "3.2" : "5.3"}%</Label>
+      <Label x={x0 + 7 * w + 20} y={Y(3.78) + (after ? -20 : 12)} color={C.teal}>g 3.8%</Label>
       {after && <><Underline x={x0 + 5 * w} y={Y(1.1) + 54} w={2 * w} /><Label x={x0 + 6 * w} y={Y(1.1) + 58} anchor="middle" weight={900}>二十世紀</Label></>}
     </Svg>
   );
@@ -256,7 +257,7 @@ const P12: React.FC = () => (
     <Heading>r と g の二千年（世界）</Heading>
     <History after={false} />
     <div style={{ position: "absolute", left: 1000, top: 150, width: 560, padding: "16px 24px", background: C.white, border: `4px solid ${C.ink}`, borderRadius: R.md, ...font("label") }}>
-      薄い線が濃い線の上に出たのは、いつ？
+      青緑の g が金色の r の上に出たのは、いつ？
     </div>
     <SourceNote text="Piketty (2014) 図10.9（世界・税引き前。1700年までの r は推定）" />
     <Gosa cues={[[-60, "thinking"]]} size="M" />
@@ -272,7 +273,7 @@ const P13: React.FC = () => (
 const P14: React.FC = () => (
   <AbsoluteFill>
     <Heading>別の研究でも、r ＞ g</Heading>
-    <Dumbbell x={140} y={320} width={1500} rowH={200} max={7} aLabel="g" bLabel="r" format={(v) => `${v.toFixed(1)}%`}
+    <Dumbbell x={140} y={320} width={1500} rowH={200} max={7} color={C.gold} aLabel="g" bLabel="r" format={(v) => `${v.toFixed(1)}%`}
       rows={[{ label: "16か国 1870〜2015年", a: 3.1, b: 6.0 }, { label: "日本 1980〜2015年", a: 2.0, b: 4.2 }]} />
     <SourceNote text="Jordà ほか (2019) QJE。r ＜ g は二つの大戦の時期だけ" />
   </AbsoluteFill>
@@ -296,7 +297,7 @@ const P16: React.FC = () => (
     <Svg>
       {AGES.map(([a, n], i) => {
         const x = 150 + i * 240, cols = 4, sz = 40, gap = 8;
-        const color = i === 0 ? C.ink : i >= 4 ? C.ink2 : C.rest;
+        const color = i === 0 ? C.teal : i >= 4 ? C.gold : C.goldTint;
         return (
           <g key={a}>
             {Array.from({ length: n }, (_, j) => <rect key={j} x={x + (j % cols) * (sz + gap)} y={760 - Math.floor(j / cols) * (sz + gap) - sz} width={sz} height={sz} rx={4} fill={color} />)}
@@ -322,9 +323,9 @@ const P17: React.FC = () => (
       {[...Array(14)].map((_, i) => <Flake key={i} x={1060 + i * 52} y={560 + (1060 + i * 52 - 100) * (340 / 1720) - 12} s={7} />)}
       <Snowball x={860} y={620} core={37} interest={60} snow={160} k={7} />
       <Cat kind="male" x={690} y={690} size={2.6} pose="walk" facing={1} phase={0.3} label="彼" />
-      <Label x={1250} y={300}>白＝降った雪（給料から貯める分）</Label>
-      <Label x={1250} y={370}>黒＝利息（転がって巻きこんだ雪）</Label>
-      <Label x={1250} y={440}>灰＝はじめの額</Label>
+      {[[C.tealTint, "降った雪（給料から貯める分）"], [C.gold, "利息（転がって巻きこんだ雪）"], [C.other, "はじめの額"]].map(([c, t], i) => (
+        <g key={t}><rect x={1250} y={262 + i * 70} width={44} height={44} rx={22} fill={c} stroke={C.ink} strokeWidth={3} /><Label x={1310} y={298 + i * 70}>{t}</Label></g>
+      ))}
     </Svg>
   </AbsoluteFill>
 );
@@ -365,8 +366,9 @@ const P19: React.FC = () => {
       <Svg>
         {HUNDRED.map((a, i) => (a === 0 ? <Snowball key={i} x={pos[i].x} y={pos[i].y} empty k={2.3} /> : <Snowball key={i} x={pos[i].x} y={pos[i].y} core={a} k={k} />))}
         <circle cx={pos[HIM].x} cy={pos[HIM].y} r={20} fill="none" stroke={C.ink} strokeWidth={LINE.thin} />
-        <path d={`M${pos[HIM].x} ${pos[HIM].y - 24} V${pos[HIM].y - 70}`} stroke={C.ink} strokeWidth={LINE.thin} />
-        <Label x={pos[HIM].x} y={pos[HIM].y - 84} anchor="middle">彼（37万円）</Label>
+        
+        <Cat kind="male" x={pos[HIM].x} y={pos[HIM].y - 76} size={1.3} pose="stand" label="彼" />
+        <Label x={pos[HIM].x + 40} y={pos[HIM].y - 84}>彼（37万円）</Label>
         <Label x={140} y={790} color={C.ink2}>点線＝雪玉なし 33人</Label>
         <Label x={800} y={790} color={C.ink2}>1000万円以上：4人</Label>
         <Snowball x={1420} y={776} core={100} k={k} /><Label x={1450} y={790}>＝100万円</Label>
@@ -382,20 +384,20 @@ const P20: React.FC = () => {
   return (
     <AbsoluteFill>
       <SimBackground />
-      <Heading>10年後：増えた分の半分以上が黒の人は？</Heading>
+      <Heading>10年後：増えた分の半分以上が金の人は？</Heading>
       <Svg>
         {balls.map((b, i) => {
           const front = b.interest >= b.snow;
           return (
             <g key={i} transform={front ? "translate(0,-14)" : undefined}>
               <Snowball x={pos[i].x} y={pos[i].y} {...b} k={k} />
-              {front && <circle cx={pos[i].x} cy={pos[i].y} r={rs[i] + 8} fill="none" stroke={C.ink} strokeWidth={LINE.thin} strokeDasharray="8 6" />}
+              {front && <circle cx={pos[i].x} cy={pos[i].y} r={rs[i] + 8} fill="none" stroke={C.gold} strokeWidth={LINE.base} />}
             </g>
           );
         })}
       </Svg>
       <div style={{ position: "absolute", left: 1500, top: 150, ...font("value") }}>13人</div>
-      <div style={{ position: "absolute", left: 96, top: 170, ...font("label", C.ink2) }}>10年目（点線の輪＝前へ出た人）</div>
+      <div style={{ position: "absolute", left: 96, top: 170, ...font("label", C.ink2) }}>10年目（金の輪＝前へ出た人）</div>
       <SourceNote sim prefix="条件：" text="利回り年5%・降る雪は一人年50万円（仮定）" />
     </AbsoluteFill>
   );
@@ -410,17 +412,17 @@ const P21: React.FC = () => (
       {SNOW_STOPS.map(([s, n], i) => (
         <g key={s}>
           <Label x={260 + (i * 1300) / 3} y={620} anchor="middle" size="value">{n}人</Label>
-          <Label x={260 + (i * 1300) / 3} y={680} anchor="middle" size="note" color={C.ink2}>半分以上が黒</Label>
+          <Label x={260 + (i * 1300) / 3} y={680} anchor="middle" size="note" color={C.ink2}>半分以上が金</Label>
         </g>
       ))}
-      <Label x={260} y={800}>どの量でも、多くの人で白が勝つ</Label>
+      <Label x={260} y={800}>どの量でも、多くの人で水色（降った雪）が勝つ</Label>
     </Svg>
     <SourceNote sim prefix="条件：" text="利回り年5%・10年（data/snowball.py）" />
   </AbsoluteFill>
 );
 const P22: React.FC = () => {
   const k = 10.4, r = ballR(689, k);
-  const rows: [string, string, string][] = [[C.other, "はじめの37万円", "37万"], [C.ink, "芯が生んだ利息", "23万"], [C.ink2, "降った雪が生んだ利息", "129万"], [C.white, "降った雪", "500万"]];
+  const rows: [string, string, string][] = [[C.other, "はじめの37万円", "37万"], [C.gold, "芯が生んだ利息", "23万"], [C.goldTint, "降った雪が生んだ利息", "129万"], [C.tealTint, "降った雪", "500万"]];
   return (
     <AbsoluteFill>
       <SimBackground />
@@ -434,7 +436,8 @@ const P22: React.FC = () => {
             <Label x={1780} y={344 + i * 110} anchor="end" weight={900}>{v}</Label>
           </g>
         ))}
-        <Label x={1060} y={800} color={C.ink}>利息の8割以上は、降った雪が生んだ</Label>
+        <Label x={1060} y={790} color={C.ink}>利息の8割以上は、降った雪が生んだ</Label>
+        <Cat kind="male" x={900} y={790} size={2.2} pose="stand" facing={-1} face="surprised" label="彼" />
         <circle cx={560} cy={510} r={r} fill="none" />
       </Svg>
       <SourceNote sim prefix="条件：" text="利回り年5%・毎年50万円（仮定）" />
@@ -453,8 +456,8 @@ const P23: React.FC = () => (
           <Cat kind="other" x={900 + i * 230} y={600 + i * 90} size={1.3} pose="stand" seed={i} label="子" />
         </g>
       ))}
-      <rect x={1500} y={700} width={240} height={140} rx={R.md} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
-      <Label x={1620} y={785} anchor="middle">税</Label>
+      <rect x={1500} y={640} width={240} height={140} rx={R.md} fill={C.debtTint} stroke={C.ink} strokeWidth={LINE.thin} />
+      <Label x={1620} y={725} anchor="middle">税</Label>
       <Label x={140} y={790}>使われる・子に分けられる・税がかかる</Label>
     </Svg>
     <SourceNote text="Mankiw (2015) AER P&P。国の比較では r−g と格差の関係は見えない：Acemoglu & Robinson (2015)" />
@@ -469,12 +472,13 @@ const P24: React.FC = () => {
       <Svg>
         <Snowball x={440} y={530} core={10000} k={k} />
         <Label x={440} y={240} anchor="middle">1億円</Label>
-        <circle cx={1060} cy={460} r={ballR(500, k)} fill="none" stroke={C.ink} strokeWidth={LINE.thin} strokeDasharray="10 8" />
+        <circle cx={1060} cy={460} r={ballR(500, k)} fill={C.goldTint} stroke={C.gold} strokeWidth={LINE.base} strokeDasharray="12 8" />
         <Label x={1060} y={560} anchor="middle">1年で太る分 500万円</Label>
         <Cloud x={1520} y={450} w={330} />
         <Label x={1520} y={560} anchor="middle">二十代の年収 約370万円</Label>
         <Snowball x={1060} y={780} core={37} k={k} />
         <Label x={1100} y={792}>彼の雪玉 37万円</Label>
+        <Cat kind="male" x={990} y={800} size={1.8} pose="stand" facing={1} face="surprised" label="彼" />
       </Svg>
       <SourceNote sim text="利回り年5%（仮定）。年収は20代の平均（国税庁 2025）" />
       <Gosa cues={[[-60, "panic"]]} size="S" />
@@ -490,12 +494,13 @@ const P25: React.FC = () => {
       <Svg>
         <Snowball x={440} y={520} core={10000} interest={1046} k={k} />
         <Label x={440} y={835} anchor="middle">1億1046万円</Label>
-        <rect x={830} y={300} width={300} height={130} rx={R.md} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
+        <rect x={830} y={300} width={300} height={130} rx={R.md} fill={C.goldTint} stroke={C.ink} strokeWidth={LINE.thin} />
         <Label x={980} y={355} anchor="middle">使った分</Label>
         <Label x={980} y={405} anchor="middle" size="note" color={C.ink2}>毎年 約400万円</Label>
         <path d="M720 420 L820 380" stroke={C.ink} strokeWidth={LINE.thin} />
         <Snowball x={1450} y={700} core={37} interest={152} snow={500} k={k} />
         <Label x={1450} y={820} anchor="middle">彼 689万円</Label>
+        <Cat kind="male" x={1580} y={760} size={2} pose="stand" facing={-1} face="sad" label="彼" />
         <path d={`M760 700 H1360`} stroke={C.ink} strokeWidth={LINE.thin} markerEnd="url(#arr)" />
         <defs><marker id="arr" markerWidth={12} markerHeight={12} refX={10} refY={6} orient="auto"><path d="M0 0 L12 6 L0 12 Z" fill={C.ink} /></marker></defs>
         <Label x={1060} y={680} anchor="middle" weight={900}>差 約1億円</Label>
@@ -506,12 +511,12 @@ const P25: React.FC = () => {
 };
 
 // ================= 第3章 =================
-const GroupGrid: React.FC<{ x: number; on: number; label: string; sub: string }> = ({ x, on, label, sub }) => (
+const GroupGrid: React.FC<{ x: number; on: number; label: string; sub: string; color: string }> = ({ x, on, label, sub, color }) => (
   <g>
     {Array.from({ length: 100 }, (_, i) => (
-      <Figure key={i} kind="other" color={i < on ? C.ink : C.otherTint} x={x + (i % 10) * 34} y={300 + Math.floor(i / 10) * 52} size={0.75} />
+      <Figure key={i} kind="other" color={i < on ? color : C.otherTint} x={x + (i % 10) * 34} y={300 + Math.floor(i / 10) * 52} size={0.75} />
     ))}
-    <Label x={x + 150} y={880} anchor="middle" size="value">{on}人</Label>
+    <Label x={x + 150} y={880} anchor="middle" size="value" color={color}>{on}人</Label>
     <Label x={x + 150} y={930} anchor="middle" size="note" color={C.ink2}>{sub}</Label>
     <Label x={x + 150} y={250} anchor="middle">{label}</Label>
   </g>
@@ -519,9 +524,9 @@ const GroupGrid: React.FC<{ x: number; on: number; label: string; sub: string }>
 const P26: React.FC = () => (
   <AbsoluteFill>
     <Svg>
-      <GroupGrid x={150} on={25} label="投資信託を持つ" sub="単身二十代（J-FLEC 2025）" />
-      <GroupGrid x={790} on={15} label="1年で転職して入る" sub="働く百人（雇用動向調査 2025）" />
-      <GroupGrid x={1430} on={1} label="自分で始めた事業" sub="働く百人（就業構造基本調査）" />
+      <GroupGrid x={150} on={25} label="投資信託を持つ" sub="単身二十代（J-FLEC 2025）" color={C.gold} />
+      <GroupGrid x={790} on={15} label="1年で転職して入る" sub="働く百人（雇用動向調査 2025）" color={C.teal} />
+      <GroupGrid x={1430} on={1} label="自分で始めた事業" sub="働く百人（就業構造基本調査）" color={C.debt} />
     </Svg>
     <div style={{ position: "absolute", left: 96, top: 56, ...font("question") }}>実際の二十代は？</div>
     <ChapterDots current={3} />
@@ -531,13 +536,13 @@ const VillageTile: React.FC<{ v: VillageKind; i: number; children?: React.ReactN
   const x = 96 + (i % 3) * 590, y = 190 + Math.floor(i / 3) * 380;
   return (
     <g>
-      <rect x={x} y={y} width={560} height={350} rx={R.lg} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
+      <rect x={x} y={y} width={560} height={350} rx={R.lg} fill={C.white} stroke={VILLAGE_COLOR[v]} strokeWidth={LINE.base} />
       <VillageIcon kind={v} x={x + 110} y={y + 130} s={1.2} />
       <Label x={x + 110} y={y + 260} anchor="middle" size="value">{v}</Label>
       {Array.from({ length: 100 }, (_, j) => {
         const fx = x + 250 + (j % 10) * 28, fy = y + 50 + Math.floor(j / 10) * 29;
         return balls
-          ? <circle key={j} cx={fx} cy={fy} r={4 + ((j * 37 + i * 11) % 9)} fill={C.white} stroke={C.ink} strokeWidth={2} />
+          ? <circle key={j} cx={fx} cy={fy} r={4 + ((j * 37 + i * 11) % 9)} fill={(j * 37 + i * 11) % 9 > 5 ? C.gold : C.tealTint} stroke={C.ink} strokeWidth={2} />
           : <Figure key={j} kind="other" x={fx} y={fy + 10} size={0.45} />;
       })}
       {children}
@@ -556,7 +561,7 @@ const P28: React.FC = () => (
     <Heading>先に、仮定</Heading>
     <Svg>
       {/* くじ箱：過去の年の札を引く */}
-      <rect x={1180} y={480} width={420} height={320} rx={R.md} fill={C.white} stroke={C.ink} strokeWidth={LINE.base} />
+      <rect x={1180} y={480} width={420} height={280} rx={R.md} fill={C.goldTint} stroke={C.ink} strokeWidth={LINE.base} />
       <rect x={1330} y={480} width={120} height={20} fill={C.ink} />
       {[["1973年", 1200, 330, -12], ["1989年", 1390, 270, 6], ["2008年", 1560, 360, 14]].map(([t, x, y, a]) => (
         <g key={t as string} transform={`translate(${x},${y}) rotate(${a})`}>
@@ -599,7 +604,7 @@ const RangeRows: React.FC<{
   const yEnd = y0 + (rows.length - 1) * step;
   return (
     <Svg>
-      {dom[0] < 0 && <rect x={X(dom[0])} y={y0 - 60} width={X(0) - X(dom[0])} height={yEnd - y0 + 100} fill={C.paper2} />}
+      {dom[0] < 0 && <rect x={X(dom[0])} y={y0 - 60} width={X(0) - X(dom[0])} height={yEnd - y0 + 100} fill={C.debtTint} opacity={0.5} />}
       {ticks.map((t) => <g key={t}><line x1={X(t)} x2={X(t)} y1={y0 - 60} y2={yEnd + 40} stroke={t === 0 ? C.ink2 : C.paper2} strokeWidth={LINE.hair} strokeDasharray={t === 0 ? "8 8" : undefined} />
         <Label x={X(t)} y={yEnd + 84} anchor="middle" size="note" color={C.ink2}>{t === 0 ? "0円" : man(t)}</Label></g>)}
       {loCol && <Label x={1780} y={y0 - 70} anchor="end" size="note" color={C.ink2}>下の1割</Label>}
@@ -612,11 +617,11 @@ const RangeRows: React.FC<{
             {on && <>
               {g && <><line x1={X(g.lo)} x2={X(g.hi)} y1={y + 30} y2={y + 30} stroke={C.ink2} strokeWidth={LINE.thin} strokeDasharray="10 8" />
                 <circle cx={X(g.mid)} cy={y + 30} r={9} fill={C.bg} stroke={C.ink2} strokeWidth={3} /></>}
-              <line x1={X(r.lo)} x2={X(r.hi)} y1={y} y2={y} stroke={C.ink2} strokeWidth={LINE.heavy} strokeLinecap="round" data-qa="mark" />
-              {r.lo < 0 && <line x1={X(r.lo)} x2={X(0)} y1={y} y2={y} stroke={C.ink} strokeWidth={LINE.heavy} strokeLinecap="round" />}
+              <line x1={X(r.lo)} x2={X(r.hi)} y1={y} y2={y} stroke={VILLAGE_COLOR[r.v] ?? C.ink2} strokeWidth={LINE.heavy} strokeLinecap="round" data-qa="mark" />
+              {r.lo < 0 && <line x1={X(r.lo)} x2={X(Math.min(0, r.hi))} y1={y} y2={y} stroke={C.debt} strokeWidth={LINE.heavy} strokeLinecap="round" />}
               <circle cx={X(r.mid)} cy={y} r={14} fill={C.ink} stroke={C.white} strokeWidth={3} />
               <text x={X(r.mid)} y={y - 26} textAnchor="middle" style={font("note", C.ink)} fontWeight={700}>{man(r.mid)}</text>
-              {loCol && <>{mark.includes(r.v) && <Underline x={1620} y={y + 6} w={170} />}<text x={1780} y={y + 14} textAnchor="end" style={font("label", C.ink)}>{man(r.lo)}</text></>}
+              {loCol && <>{mark.includes(r.v) && <rect x={1610} y={y - 32} width={185} height={60} rx={10} fill={C.debtTint} stroke={C.debt} strokeWidth={4} />}<text x={1780} y={y + 14} textAnchor="end" style={font("label", r.lo < 0 ? C.debt : C.ink)}>{man(r.lo)}</text></>}
             </>}
           </g>
         );
@@ -648,16 +653,16 @@ const P32: React.FC = () => {
         {[0, 250, 500, 750, 1000].map((t) => <g key={t}><line x1={X(t)} x2={X(t)} y1={230} y2={790} stroke={C.paper2} strokeWidth={LINE.hair} />
           <Label x={X(t)} y={826} anchor="middle" size="note" color={C.ink2}>{t === 0 ? "0円" : man(t)}</Label></g>)}
         <circle cx={1100} cy={202} r={12} fill={C.bg} stroke={C.ink} strokeWidth={3} /><Label x={1124} y={214} size="note" color={C.ink2}>真ん中</Label>
-        <circle cx={1300} cy={202} r={12} fill={C.ink} /><Label x={1324} y={214} size="note" color={C.ink2}>上位1割</Label>
+        <circle cx={1300} cy={202} r={12} fill={C.teal} /><Label x={1324} y={214} size="note" color={C.ink2}>上位1割</Label>
         {INCOME.map((r, i) => {
           const y = 270 + i * 94, hot = r.v === "稼ぐ力" || r.v === "起業";
           return (
             <g key={r.v}>
               <VillageIcon kind={r.v as VillageKind} x={150} y={y} s={0.6} />
               <text x={410} y={y + 14} textAnchor="end" style={font("label")}>{r.v}</text>
-              <line x1={X(r.mid)} x2={X(r.hi)} y1={y} y2={y} stroke={hot ? C.ink : C.rest} strokeWidth={LINE.base} />
+              <line x1={X(r.mid)} x2={X(r.hi)} y1={y} y2={y} stroke={hot ? C.teal : C.tealTint} strokeWidth={LINE.heavy} strokeLinecap="round" />
               <circle cx={X(r.mid)} cy={y} r={12} fill={C.bg} stroke={C.ink} strokeWidth={3} />
-              <circle cx={X(r.hi)} cy={y} r={14} fill={C.ink} />
+              <circle cx={X(r.hi)} cy={y} r={14} fill={C.teal} stroke={C.ink} strokeWidth={3} />
               <text x={X(r.hi) + 28} y={y + 12} style={font("note", C.ink)} fontWeight={700}>{man(r.hi)}</text>
             </g>
           );
@@ -671,7 +676,7 @@ const Shops: React.FC<{ x: number; open: number; label: string; sub: string }> =
     {Array.from({ length: 100 }, (_, i) => {
       const sx = x + (i % 10) * 64, sy = 200 + Math.floor(i / 10) * 54, o = i < open;
       return <g key={i}><rect x={sx} y={sy + 14} width={44} height={32} fill={o ? C.white : C.paper2} stroke={o ? C.ink : C.rest} strokeWidth={2} />
-        <rect x={sx - 4} y={sy} width={52} height={16} fill={o ? C.ink : C.rest} /></g>;
+        <rect x={sx - 4} y={sy} width={52} height={16} fill={o ? C.debt : C.rest} /></g>;
     })}
     <Label x={x + 300} y={790} anchor="middle" size="value">{label}</Label>
     <Label x={x + 300} y={840} anchor="middle" size="note" color={C.ink2}>{sub}</Label>
@@ -699,7 +704,7 @@ const P34: React.FC = () => (
           <Label x={300 + i * 600} y={650} anchor="middle" size="note" color={C.ink2}>真ん中の人の資産</Label>
         </g>
       ))}
-      {[0, 1, 2].map((i) => <g key={i}><Figure kind="other" x={300 + i * 120} y={790} size={2} pose="walk" facing={1} /><DebtBall x={340 + i * 120} y={802} r={18} from={{ x: 315 + i * 120, y: 760 }} /></g>)}
+      {[0, 1, 2].map((i) => <g key={i}><Cat kind="other" x={290 + i * 130} y={800} size={1.6} pose="down" face="sad" seed={i} label="やめた人" /><DebtBall x={345 + i * 130} y={790} r={20} from={{ x: 310 + i * 130, y: 770 }} /></g>)}
       <Label x={720} y={760} size="note" color={C.ink2}>アメリカの研究：早めにやめた人は、会社員に戻っても</Label>
       <Label x={720} y={800} size="note" color={C.ink2}>給料が下がらなかった（日本のデータはない）</Label>
     </Svg>
@@ -779,10 +784,11 @@ const P40: React.FC = () => {
         <line x1={X(26)} x2={X(136)} y1={600} y2={600} stroke={C.ink} strokeWidth={LINE.base} />
         {[26, 46, 66, 86, 106, 126].map((a) => <g key={a}><line x1={X(a)} x2={X(a)} y1={585} y2={615} stroke={C.ink} strokeWidth={LINE.thin} />
           <Label x={X(a)} y={665} anchor="middle" size="note" color={C.ink2}>{a}歳</Label></g>)}
-        <path d={`M${X(26)} 520 H${X(69)}`} stroke={C.ink2} strokeWidth={LINE.heavy} strokeLinecap="round" />
-        <Label x={X(69) + 20} y={532} color={C.ink2}>毎年50万円足すと 43年</Label>
-        <path d={`M${X(26)} 450 H${X(135)}`} stroke={C.ink} strokeWidth={LINE.heavy} strokeLinecap="round" />
-        <circle cx={X(135)} cy={450} r={16} fill={C.ink} />
+        <path d={`M${X(26)} 520 H${X(69)}`} stroke={C.teal} strokeWidth={LINE.heavy} strokeLinecap="round" />
+        <Label x={X(69) + 20} y={532} color={C.teal}>毎年50万円足すと 43年</Label>
+        <path d={`M${X(26)} 450 H${X(135)}`} stroke={C.gold} strokeWidth={LINE.heavy} strokeLinecap="round" />
+        <circle cx={X(135)} cy={450} r={16} fill={C.gold} stroke={C.ink} strokeWidth={3} />
+        <Cat kind="male" x={X(26)} y={420} size={1.8} pose="stand" facing={1} face="surprised" label="彼" />
         <Label x={X(135)} y={410} anchor="end" size="value">足さないと 109年</Label>
         <Label x={X(26)} y={760}>いまの彼にとって、給料の流れは利息のおよそ200倍</Label>
       </Svg>
@@ -793,10 +799,10 @@ const P40: React.FC = () => {
 const P41: React.FC = () => (
   <AbsoluteFill>
     <Svg>
-      <rect x={200} y={420} width={40} height={40} fill={C.ink} />
+      <rect x={200} y={420} width={40} height={40} fill={C.gold} stroke={C.ink} strokeWidth={3} />
       <Label x={220} y={530} anchor="middle" size="note" color={C.ink2}>1年の利息</Label>
       <Label x={220} y={575} anchor="middle" size="note" color={C.ink2}>約1.9万円</Label>
-      {Array.from({ length: 200 }, (_, i) => <rect key={i} x={460 + (i % 25) * 52} y={260 + Math.floor(i / 25) * 52} width={44} height={44} fill={C.white} stroke={C.ink2} strokeWidth={2} />)}
+      {Array.from({ length: 200 }, (_, i) => <rect key={i} x={460 + (i % 25) * 52} y={260 + Math.floor(i / 25) * 52} width={44} height={44} fill={C.teal} stroke={C.white} strokeWidth={2} />)}
       <Label x={1110} y={760} anchor="middle">1年の給料 約370万円 ＝ 200マス</Label>
     </Svg>
     <div style={{ position: "absolute", left: 96, top: 56, ...font("question") }}>1マス 対 200マス</div>
@@ -808,14 +814,14 @@ const P42: React.FC = () => (
     <Svg>
       {[["1", "給料か資産か、の二択がずれている", "二十代の多くは、資産の芯まで降った雪"], ["2", "利回りの平均が高い置き場所ほど、真ん中も幅も広がる", "下の端を崩したのは、借金で一つに賭けた暮らし方"], ["3", "いちばん大きな財産は、通帳の外", ""]].map(([n, t, s], i) => (
         <g key={n} opacity={i === 2 ? 0.35 : 1}>
-          <rect x={96} y={220 + i * 230} width={1500} height={200} rx={R.lg} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
+          <rect x={96} y={220 + i * 230} width={1500} height={200} rx={R.lg} fill={[C.tealTint, C.goldTint, C.white][i]} stroke={C.ink} strokeWidth={LINE.thin} />
           <Label x={150} y={320 + i * 230} size="value">{n}</Label>
           <Label x={240} y={300 + i * 230}>{t}</Label>
           {s && <Label x={240} y={360 + i * 230} size="note" color={C.ink2}>{s}</Label>}
         </g>
       ))}
       <Snowball x={1700} y={320} core={37} interest={152} snow={500} k={3} />
-      <g transform="translate(1700,550)"><line x1={-90} x2={90} y1={-20} y2={-20} stroke={C.ink2} strokeWidth={LINE.heavy} strokeLinecap="round" /><line x1={-90} x2={-20} y1={20} y2={20} stroke={C.ink} strokeWidth={LINE.heavy} strokeLinecap="round" /><DebtBall x={-90} y={60} r={20} /></g>
+      <g transform="translate(1700,550)"><line x1={-90} x2={90} y1={-20} y2={-20} stroke={C.gold} strokeWidth={LINE.heavy} strokeLinecap="round" /><line x1={-90} x2={-20} y1={20} y2={20} stroke={C.ink} strokeWidth={LINE.heavy} strokeLinecap="round" /><DebtBall x={-90} y={60} r={20} /></g>
     </Svg>
   </AbsoluteFill>
 );
