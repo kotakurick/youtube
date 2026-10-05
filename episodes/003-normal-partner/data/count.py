@@ -288,6 +288,36 @@ def main():
                 phi = (pab - pa * pb) / math.sqrt(pa * (1 - pa) * pb * (1 - pb))
                 print(f"| {lab} | {a} | {b} | {pb:.1%} | {pab / pa:.1%} | {phi:.2f} |")
     print()
+
+    print("## 7. 身長と年収に弱い相関があったら（見積もり。二変量正規分布で、年収500万円以上の人のうち170cm以上の割合）\n")
+    print("身長は就業構造基本調査にないので、相関の強さを仮定して見積もる。研究（research-academic.md）の効果の大きさ（1cmで時給約0.7%、1インチで年収1.4%）は、相関にすると0.1前後の弱さ。Judge & Cable の β＝.26 は上限の目安。\n")
+    print("| 相関 | 年収500万円以上の人のうち170cm以上 |")
+    print("|---:|---:|")
+    import random
+    rng = random.Random(1)
+    p_inc = men.count(inc=inc_ge(500)) / men.total()
+    p_h = health_share(kenko, "男性", ("身長", 170, "以上"), (men.total(AGES[0]), men.total(AGES[1])))
+    def ppf(p):
+        lo, hi = -10.0, 10.0
+        for _ in range(80):
+            mid = (lo + hi) / 2
+            if 0.5 * (1 + math.erf(mid / math.sqrt(2))) < p:
+                lo = mid
+            else:
+                hi = mid
+        return (lo + hi) / 2
+    a, b = ppf(1 - p_inc), ppf(1 - p_h)
+    for rho in (0.0, 0.1, 0.2, 0.26):
+        both = inc = 0
+        for _ in range(200_000):
+            x = rng.gauss(0, 1)
+            if x <= a:
+                continue
+            inc += 1
+            if rho * x + math.sqrt(1 - rho * rho) * rng.gauss(0, 1) > b:
+                both += 1
+        print(f"| {rho} | {both / inc:.1%} |")
+    print()
     print("## 4. 同じ5条件で、満たす数ごとの人数（100人中）\n")
     print("| 満たす数 | 0個 | 1個 | 2個 | 3個 | 4個 | 5個 |")
     print("|---|---:|---:|---:|---:|---:|---:|")
