@@ -75,3 +75,17 @@ export const checkBoxes = (
   }
   return out;
 };
+
+/** 色が墨・灰に近いか（彩度が低い）。rgb は 0〜255 */
+const neutral = ([r, g, b]: [number, number, number]) => Math.max(r, g, b) - Math.min(r, g, b) < 48;
+
+/**
+ * 比べる線（同じグラフの折れ線2〜4本）が、墨・灰の濃淡だけで描き分けられていないか（2026-10-06 オーナー「黒系だとわかりにくい」）。
+ * 1本だけ目立たせて残りを灰にする形（注目の1本＋背景）は、線が5本以上のときだけ許す。
+ */
+export const checkSeriesColors = (groups: { box: QABox; rgb: [number, number, number] }[][]): QAIssue[] =>
+  groups.filter((g) => g.length >= 2 && g.length <= 4 && g.every((s) => neutral(s.rgb))).map((g) => ({
+    level: "warn" as const, rule: "series-color",
+    message: `比べる線が墨・灰の濃淡だけで見分けにくい（意味の色を付ける）：${g.map((s) => `「${s.box.label}」`).join("と")}`,
+    boxes: g.map((s) => s.box),
+  }));

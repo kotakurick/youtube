@@ -2,7 +2,7 @@
 // qa.ts の決まりで問題を探す。問題のある箱を赤（直すもの）と橙（確かめるもの）の枠で囲み、結果を "QA:" で始まる1行で書き出す。
 import React, { useEffect, useState } from "react";
 import { continueRender, delayRender, getInputProps, useCurrentFrame, useVideoConfig } from "remotion";
-import { checkBoxes, QABox, QAIssue, QAKind } from "./qa";
+import { checkBoxes, checkSeriesColors, QABox, QAIssue, QAKind } from "./qa";
 
 export const qaEnabled = () => {
   try { return Boolean((getInputProps() as { qa?: boolean }).qa); } catch { return false; }
@@ -82,6 +82,17 @@ export const QAOverlay: React.FC = () => {
       const related = (a: QABox, b: QABox) => els[a.id].contains(els[b.id]) || els[b.id].contains(els[a.id]);
       const vertical = height > width;
       const found = checkBoxes(boxes, related, { w: width, h: height, unsafeBottom: vertical ? 0 : 80, fontScale: width < 1900 && !vertical ? width / 1920 : 1 });
+      // 折れ線（data-qa-label が「線：」で始まる polyline）を、グラフ（svg）ごとにまとめて色を調べる
+      const groups = new Map<Element, { box: QABox; rgb: [number, number, number] }[]>();
+      boxes.forEach((b, i) => {
+        const el = els[i];
+        if (el.tagName.toLowerCase() !== "polyline" || !b.label.startsWith("線：")) return;
+        const m = getComputedStyle(el).stroke.match(/\d+(\.\d+)?/g);
+        const svg = (el as SVGElement).ownerSVGElement;
+        if (!m || !svg) return;
+        groups.set(svg, [...(groups.get(svg) ?? []), { box: b, rgb: [Number(m[0]), Number(m[1]), Number(m[2])] }]);
+      });
+      found.push(...checkSeriesColors([...groups.values()]));
       setIssues(found);
       console.debug("QA:" + JSON.stringify({ frame, issues: found.map((f) => ({ level: f.level, rule: f.rule, message: f.message })) }));
       requestAnimationFrame(() => continueRender(handle));

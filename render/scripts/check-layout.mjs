@@ -9,9 +9,11 @@ import path from "path";
 import { bundle } from "@remotion/bundler";
 import { openBrowser, renderStill, selectComposition } from "@remotion/renderer";
 import { webpackOverride } from "../webpack-override.mjs";
+import { checkUnmerged } from "./unmerged.mjs";
 
 const args = process.argv.slice(2);
 const id = args.find((a) => !a.startsWith("--"));
+checkUnmerged(id); // ほかのブランチに合流していない作業がないか（2026-10-06）
 if (!id) { console.error("使い方：npm run check -- <動画のid>（例：demo）"); process.exit(2); }
 const every = Number(args[args.indexOf("--every") + 1]) || 0;
 const outDir = path.join("out", "qa", id);
