@@ -10,7 +10,7 @@ export const SimBackground: React.FC<{ step?: number }> = ({ step = 40 }) => {
     <svg width={width} height={height}>
       <defs>
         <pattern id="sim-grid" width={step} height={step} patternUnits="userSpaceOnUse">
-          <path d={`M${step} 0 H0 V${step}`} fill="none" stroke={C.paper2} strokeWidth={LINE.hair} />
+          <path d={`M${step} 0 H0 V${step}`} fill="none" stroke="#E8E1D2" strokeWidth={2} />
         </pattern>
       </defs>
       <rect width={width} height={height} fill="url(#sim-grid)" />

@@ -106,6 +106,8 @@ export const Figure: React.FC<{
           <circle cx={0} cy={-20} r={36} fill="none" stroke={C.ink} strokeWidth={LINE.thin} />
         </>
       )}
+      {/* 足元の影（床に立っている感じを出す） */}
+      <ellipse cx={0} cy={5} rx={pose === "sit" ? 18 : 15} ry={3.2} fill={C.shadow} />
       <g fill={fill}>
         {age === "child" ? (
           // 子ども：大人の0.68倍。頭は少し大きめ（足元はそのまま）
@@ -119,6 +121,19 @@ export const Figure: React.FC<{
           </g>
         ) : <Posed kind={kind} pose={pose} facing={facing} phase={phase} fill={fill} />}
       </g>
+      {/* 顔：大きく描くとき（物語の場面）だけ、目を2つ。向きと姿勢で目の位置が動く */}
+      {size >= 2.4 && age === "adult" && (() => {
+        const headY = pose === "sit" || pose === "phone" ? -34 : pose === "headInHands" ? -29 : pose === "walk" ? -37 : -36;
+        if (pose === "headInHands") return null;
+        const down = pose === "phone" ? 2.5 : 0;
+        const ex = 3 * facing;
+        return (
+          <g fill={C.ink}>
+            <ellipse cx={ex - 3.4} cy={headY - 0.5 + down} rx={1.25} ry={1.6} />
+            <ellipse cx={ex + 3.4} cy={headY - 0.5 + down} rx={1.25} ry={1.6} />
+          </g>
+        );
+      })()}
       {highlight && label && (
         <g transform="translate(0,-70)" data-qa-allow="figure">
           <rect x={-label.length * 11 - 14} y={-22} width={label.length * 22 + 28} height={40} rx={20} fill={C.ink} />

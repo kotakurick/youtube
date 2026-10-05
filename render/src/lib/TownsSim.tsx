@@ -147,12 +147,12 @@ export const Town: React.FC<{
           const nx = rings[(i + 1) % rings.length];
           return (
             <g key={i}>
-              <line x1={r.cx} y1={r.cy} x2={nx.cx} y2={nx.cy} stroke={C.rest} strokeWidth={LINE.thin} strokeDasharray="2 12" strokeLinecap="round" />
-              <ellipse cx={r.cx} cy={r.cy + 2 * size} rx={ringRx(size)} ry={ringRy(size)} fill={C.paper2} />
+              <line x1={r.cx} y1={r.cy} x2={nx.cx} y2={nx.cy} stroke={C.ink2} strokeWidth={LINE.thin} strokeDasharray="3 13" strokeLinecap="round" />
+              <ellipse cx={r.cx} cy={r.cy + 2 * size} rx={ringRx(size)} ry={ringRy(size)} fill={C.paper2} stroke={C.rest} strokeWidth={LINE.hair} />
             </g>
           );
         })}
-        {!noPairs && <rect x={pairs.x - 24} y={pairs.y - 16} width={pairs.w + 24} height={pairs.h + 16} rx={R.lg} fill={C.paper2} opacity={0.6} />}
+        {!noPairs && <rect x={pairs.x - 24} y={pairs.y - 16} width={pairs.w + 24} height={pairs.h + 16} rx={R.lg} fill={C.white} stroke={C.rest} strokeWidth={LINE.hair} />}
         {/* 引き合わせの線（紹介の町） */}
         {ev > 0 && month?.intros?.map(([p, q, ok], k) => {
           const a = home[p], b = home[q];

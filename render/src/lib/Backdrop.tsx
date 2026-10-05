@@ -1,4 +1,5 @@
-// 背景（物語の冒頭の情景）。墨2（ink2）の細い線と紙色2（paper2）の面だけで描き、データの色（男女・注目）と混ざらない。
+// 背景（物語の冒頭の情景）。壁（wall）・床（floor）の面と、墨・墨2の線で描き、データの色（男女・注目）と混ざらない。
+// 2026-10-05 見直し：線だけで薄く見えたので、部屋と職場は壁と床に色を敷き、家具を足した。
 // 部屋・駅のホーム・夜の街・職場の机。variant で窓の数・建物の高さなどが変わるので、毎回の構図を変えられる。
 // 人物（Figure・Crowd）と小道具（Props）は別に置く。floor は床（人の足元）の高さ。
 import React from "react";
@@ -14,23 +15,44 @@ export const WALL_FREE = { x1: 0.45, x2: 0.7 } as const;
 const st = { stroke: C.ink2, strokeWidth: LINE.thin, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
 const thin = { ...st, strokeWidth: LINE.hair };
 
-export const Backdrop: React.FC<{ kind: BackdropKind; floor?: number; variant?: number }> = ({ kind, floor = 880, variant = 0 }) => {
+export const Backdrop: React.FC<{ kind: BackdropKind; floor?: number; variant?: number; night?: boolean }> = ({ kind, floor = 880, variant = 0, night = false }) => {
   const { width: W, height: H } = useVideoConfig();
   const r = rng(variant * 31 + kind.length);
   const pick = (a: number, b: number) => a + r() * (b - a);
   let body: React.ReactNode = null;
   if (kind === "room") {
-    // 窓は片側、扉は反対側。真ん中（横 45〜70%）の壁は空けておく（時計・カレンダー用。WALL_FREE）
+    // 壁と床に色を敷き、窓（夜は空の色と月）・カーテン・扉・額・観葉植物で部屋らしくする（2026-10-05 見直し）。
+    // 真ん中（横 45〜70%）の壁は空けておく（時計・カレンダー用。WALL_FREE）
     const flip = variant % 2 === 1;
     const X = (x: number, w: number) => (flip ? W - x - w : x);
-    const ww = pick(260, 380), wx = X(pick(0.08, 0.2) * W, ww), dx = X(W - 330 - pick(0, 80), 190);
+    const ww = pick(280, 380), wx = X(pick(0.08, 0.16) * W, ww), dx = X(W - 330 - pick(0, 80), 190);
+    const wy = floor - 580, wh = 300;
+    const px = X(pick(0.22, 0.3) * W, 60);
     body = (
       <>
-        <line x1={0} x2={W} y1={floor - 6} y2={floor - 6} {...st} />
-        <line x1={0} x2={W} y1={floor - 30} y2={floor - 30} {...thin} />
-        <rect x={wx} y={floor - 560} width={ww} height={300} rx={R.sm} fill={C.paper2} {...st} />
-        <path d={`M${wx + ww / 2} ${floor - 560} V${floor - 260} M${wx} ${floor - 410} H${wx + ww}`} {...thin} />
-        <rect x={dx} y={floor - 470} width={190} height={440} rx={R.sm} fill="none" {...st} />
+        <rect x={0} y={0} width={W} height={floor} fill={C.wall} />
+        <rect x={0} y={floor} width={W} height={H - floor} fill={C.floor} />
+        <rect x={0} y={floor - 26} width={W} height={26} fill={C.white} />
+        <line x1={0} x2={W} y1={floor - 26} y2={floor - 26} {...thin} />
+        <line x1={0} x2={W} y1={floor} y2={floor} {...st} stroke={C.ink} />
+        {/* 窓 */}
+        <rect x={wx} y={wy} width={ww} height={wh} rx={R.sm} fill={night ? C.night : "#CFE0EE"} {...st} stroke={C.ink} />
+        {night && <circle cx={wx + ww * 0.72} cy={wy + 80} r={26} fill={C.wall} />}
+        {night && [0.2, 0.4, 0.55].map((f, i) => <circle key={i} cx={wx + ww * f} cy={wy + 50 + i * 38} r={3} fill={C.wall} />)}
+        <path d={`M${wx + ww / 2} ${wy} V${wy + wh} M${wx} ${wy + wh / 2} H${wx + ww}`} {...st} stroke={C.ink} />
+        {/* カーテン（両側） */}
+        <path d={`M${wx - 30} ${wy - 24} h70 q-14 ${wh * 0.5} 6 ${wh + 40} h-76 z`} fill={C.paper2} {...thin} />
+        <path d={`M${wx + ww + 30} ${wy - 24} h-70 q14 ${wh * 0.5} -6 ${wh + 40} h76 z`} fill={C.paper2} {...thin} />
+        <line x1={wx - 50} x2={wx + ww + 50} y1={wy - 24} y2={wy - 24} {...st} stroke={C.ink} />
+        {/* 扉 */}
+        <rect x={dx} y={floor - 470} width={190} height={444} rx={R.sm} fill={C.paper2} {...st} stroke={C.ink} />
+        <rect x={dx + 24} y={floor - 440} width={142} height={170} rx={6} fill="none" {...thin} />
+        <circle cx={dx + 160} cy={floor - 240} r={8} fill={C.ink} />
+        {/* 観葉植物（床に置く） */}
+        <g transform={`translate(${px},${floor})`}>
+          <path d="M-26 -60 h52 l-8 60 h-36 z" fill={C.paper2} {...st} stroke={C.ink} />
+          {[-1, 0, 1].map((k) => <ellipse key={k} cx={k * 22} cy={-96 - (k === 0 ? 20 : 0)} rx={18} ry={44} transform={`rotate(${k * 24} ${k * 22} ${-96})`} fill={C.rest} />)}
+        </g>
       </>
     );
   } else if (kind === "station") {
@@ -129,6 +151,9 @@ export const Backdrop: React.FC<{ kind: BackdropKind; floor?: number; variant?: 
     const X = (x: number, w: number) => (flip ? W - x - w : x);
     body = (
       <>
+        <rect x={0} y={0} width={W} height={floor} fill={C.wall} />
+        <rect x={0} y={floor} width={W} height={H - floor} fill={C.floor} />
+        <line x1={0} x2={W} y1={floor} y2={floor} {...st} stroke={C.ink} />
         <line x1={0} x2={W} y1={floor - 6} y2={floor - 6} {...st} />
         <rect x={X(W - 620, 440)} y={floor - 640} width={440} height={320} rx={4} fill={C.paper2} {...st} />
         {Array.from({ length: 7 }, (_, i) => <line key={i} x1={X(W - 620, 440)} x2={X(W - 620, 440) + 440} y1={floor - 600 + i * 40} y2={floor - 600 + i * 40} {...thin} />)}

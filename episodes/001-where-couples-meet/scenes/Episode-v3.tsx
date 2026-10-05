@@ -187,6 +187,36 @@ const NightRoom: React.FC<{ kind: "male" | "female"; label: string; hearts?: num
   );
 };
 
+/** 冒頭の夜の部屋（割った画面の片側。幅960）。壁・床・夜の窓・ベッドかソファ */
+const NightRoomBg: React.FC<{ side: "left" | "right" }> = ({ side }) => {
+  const floor = 800;
+  const win = side === "left" ? { x: 40, w: 300 } : { x: 40, w: 240 };
+  return (
+    <g data-qa="bg">
+      <rect x={0} y={0} width={1920} height={floor} fill={C.wall} />
+      <rect x={0} y={floor} width={1920} height={280} fill={C.floor} />
+      <line x1={0} x2={1920} y1={floor} y2={floor} stroke={C.ink} strokeWidth={LINE.thin} />
+      <rect x={win.x} y={side === "left" ? 230 : 80} width={win.w} height={220} rx={R.sm} fill={C.night} stroke={C.ink} strokeWidth={LINE.thin} />
+      <circle cx={win.x + win.w * 0.7} cy={(side === "left" ? 230 : 80) + 70} r={22} fill={C.wall} />
+      <path d={`M${win.x + win.w / 2} ${side === "left" ? 230 : 80} v220`} stroke={C.ink} strokeWidth={LINE.thin} />
+      {side === "left" ? (
+        // ベッド（後ろ）
+        <g>
+          <rect x={60} y={660} width={420} height={140} rx={R.md} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
+          <rect x={60} y={600} width={40} height={200} rx={8} fill={C.paper2} stroke={C.ink} strokeWidth={LINE.thin} />
+          <rect x={110} y={630} width={120} height={50} rx={20} fill={C.paper2} stroke={C.ink} strokeWidth={LINE.hair} />
+        </g>
+      ) : (
+        // ソファ（後ろ）
+        <g>
+          <rect x={60} y={620} width={420} height={110} rx={R.md} fill={C.paper2} stroke={C.ink} strokeWidth={LINE.thin} />
+          <rect x={40} y={700} width={460} height={100} rx={R.md} fill={C.paper2} stroke={C.ink} strokeWidth={LINE.thin} />
+        </g>
+      )}
+    </g>
+  );
+};
+
 /** 冒頭：左に彼（スワイプし続ける）、右に彼女（通知が積もる）。画面を左右に割る */
 const SplitNight: React.FC<{ herFrom: number; think: number; himText: number; got: number; sent: number }> = ({ herFrom, think, himText, got, sent }) => {
   const frame = useCurrentFrame();
@@ -196,8 +226,8 @@ const SplitNight: React.FC<{ herFrom: number; think: number; himText: number; go
       {/* 左：彼の部屋（夜） */}
       <div style={{ position: "absolute", left: 0, top: 0, width: split, height: 1080, overflow: "hidden", background: C.bg }}>
         <Svg>
-          <rect x={0} y={0} width={1920} height={1080} fill={C.paper2} opacity={0.5} />
-          <Clock x={150} y={150} r={46} hour={23} minute={0} />
+          <NightRoomBg side="left" />
+          <Clock x={430} y={130} r={46} hour={23} minute={0} />
           <Figure kind="male" x={300} y={800} size={5} pose="phone" />
           <text x={300} y={540} textAnchor="middle" style={font("label")}>彼（32）</text>
           <SwipeDeck x={700} y={440} h={500} every={16} start={20} kind="female" count={false} />
@@ -215,6 +245,7 @@ const SplitNight: React.FC<{ herFrom: number; think: number; himText: number; go
       {/* 右：彼女の部屋（夜）。画面が割れて入ってくる */}
       {frame >= herFrom && <div style={{ position: "absolute", left: split, top: 0, width: 1920 - split, height: 1080, overflow: "hidden", background: C.bg, borderLeft: `${LINE.base}px solid ${C.ink}` }}>
         <svg width={960} height={1080} style={{ position: "absolute", left: 0, top: 0 }}>
+          <NightRoomBg side="right" />
           <Figure kind="female" x={260} y={800} size={5} pose="phone" />
           <text x={260} y={540} textAnchor="middle" style={font("label")}>彼女（30）</text>
           <NotifStack x={640} y={460} h={560} every={14} start={herFrom + 20} max={15} from="male" />
@@ -428,26 +459,35 @@ const Ch3Card: React.FC = () => <ChapterCard no={3} title="犯人は誰か" />;
 const Ch4Card: React.FC = () => <ChapterCard no={4} title="紹介は、なぜ少なくなったのか" />;
 const Ch5Card: React.FC = () => <ChapterCard no={5} title="うまくいく人は、何をしていたか" />;
 
-/** 飲み会の席：世話焼きの先輩が、ふたりを引き合わせる */
+/** 飲み会の席：世話焼きの先輩が、ふたりを引き合わせる。夜の部屋、吊りランプ、テーブルの上に皿とグラス */
 const Party: React.FC<{ say: number; meet: number }> = ({ say, meet }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const s = 3.4, floor = 800;
+  const s = 4, floor = 820;
   const lean = interpolate(frame - meet, [0, 30], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: EASE });
   const pop = sp("pop", frame - meet - 30, fps);
+  const top = floor + tableTop(s);
   return (
     <>
-      <Backdrop kind="room" floor={floor} variant={6} />
+      <Backdrop kind="room" floor={floor} variant={6} night />
       <Svg>
-        <Figure kind="other" x={960} y={floor - 10} size={3.6} />
-        <Table x={960} y={floor} size={s} w={120} />
-        <Cup x={860} y={floor + tableTop(s)} size={s} />
-        <Cup x={1060} y={floor + tableTop(s)} size={s} steam={false} />
-        <Figure kind="male" x={620 + 60 * lean} y={floor} size={s} pose="sit" facing={1} />
-        <Figure kind="female" x={1300 - 60 * lean} y={floor} size={s} pose="sit" facing={-1} />
-        <text x={960} y={floor - 230} textAnchor="middle" style={font("label", C.ink2)}>世話焼きの先輩</text>
-        <Bubble x={1080} y={300} text="この人、いいよ" tail={[1000, 620]} start={say} />
-        {pop > 0.01 && <Heart x={960} y={floor - 170} r={40 * pop} fill={C.female} />}
+        {/* 吊りランプと、その下の明かり */}
+        <ellipse cx={960} cy={top - 10} rx={420} ry={60} fill={C.white} opacity={0.5} />
+        <line x1={960} y1={0} x2={960} y2={250} stroke={C.ink} strokeWidth={LINE.thin} />
+        <path d="M900 250 h120 l40 70 h-200 z" fill={C.ink} />
+        <ellipse cx={960} cy={322} rx={60} ry={10} fill={C.wall} />
+        {/* 先輩はテーブルの奥に座る（テーブルより先に描く） */}
+        <Figure kind="other" x={960} y={floor - 8} size={s} pose="sit" />
+        <text x={905} y={floor - 192} textAnchor="end" style={font("label", C.ink2)}>世話焼きの先輩</text>
+        <Table x={960} y={floor} size={s} w={150} />
+        {/* 皿とグラス */}
+        {[780, 1140].map((x) => <ellipse key={x} cx={x} cy={top - 6} rx={48} ry={10} fill={C.white} stroke={C.ink} strokeWidth={LINE.hair} />)}
+        <Cup x={880} y={top} size={s} steam={false} />
+        <Cup x={1050} y={top} size={s} steam={false} />
+        <Figure kind="male" x={560 + 70 * lean} y={floor} size={s} pose="sit" facing={1} />
+        <Figure kind="female" x={1360 - 70 * lean} y={floor} size={s} pose="sit" facing={-1} />
+        <Bubble x={1020} y={floor - 400} text="この人、いいよ" tail={[985, floor - 205]} start={say} />
+        {pop > 0.01 && <Heart x={960} y={top - 120} r={42 * pop} fill={C.female} />}
       </Svg>
     </>
   );
