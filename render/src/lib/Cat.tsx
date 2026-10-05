@@ -1,7 +1,8 @@
-// 物語の主人公（猫のサブキャラ）。2026-10-05 オーナー決定：素案A（ベーシック）、目と口はゴサと同じ形。
+// 物語の主人公（猫のサブキャラ）。2026-10-05 オーナー決定：素案F（トラ柄）、目と口はゴサと同じ形。
 // 群衆（シミュレーション・データの人数）は人型の Figure のまま。寄って描く物語の場面だけ、この猫を使う。
 // 決まり（docs/brand.md「物語の主人公」）：
-//   - 形：丸い頭・とがった耳（内側は淡い色）・洋なし形の胴・丸い足先・くるんと巻いた尾。線は描かず、べた塗り。
+//   - 形：丸い頭・大きめのとがった耳（内側は淡い色）・洋なし形の胴・丸い足先・くるんと巻いた尾。線は描かず、べた塗り。
+//   - 模様：額に3本・胴の両脇に1本ずつのしま（同じ色の濃い色）、墨の細いひげ2本ずつ（ゴサのひげと違い、端に横棒を付けない）。
 //   - 色：男性＝C.male、女性＝C.female、その他（世話役など）＝C.other。墨（ゴサの色）は使わない。
 //   - 目と口：ゴサと同じ（白目に小さい墨の黒目、細い ω の口、鼻なし）。3〜5秒ごとにまばたき。
 //   - 大きさは Figure と同じ物差し（size 1 で高さ約50px）。原点＝足元の中心。
@@ -53,7 +54,7 @@ export const Cat: React.FC<{
   // 耳：落ち込むと外へ倒れる
   const ear = (side: 1 | -1) => {
     const ex = side * RX * 0.62 + fx * 0.5, ey = hy - RY * 0.55;
-    const w = RX * 0.34, h = RY * 0.7;
+    const w = RX * 0.34, h = RY * 0.95;
     const tilt = down ? side * 20 : face === "surprised" ? -side * 4 : 0;
     const tip = [ex + side * w * 0.45, ey - h];
     return (
@@ -120,7 +121,19 @@ export const Cat: React.FC<{
       <path d={`M ${-0.45 * BW} ${-BH} C ${-1.0 * BW} ${-0.55 * BH} ${-1.05 * BW} 0 ${-0.6 * BW} 0 L ${0.6 * BW} 0 C ${1.05 * BW} 0 ${1.0 * BW} ${-0.55 * BH} ${0.45 * BW} ${-BH} Z`} fill={fill} />
       {feet}
       {ear(-1)}{ear(1)}
+      {/* 胴のしま */}
+      <g stroke={p.dark} strokeWidth={7} strokeLinecap="round">
+        {[-1, 1].map((k) => <path key={k} d={`M ${k * BW * 0.75} ${-BH * 0.6} L ${k * BW * 0.35} ${-BH * 0.55}`} />)}
+      </g>
       <ellipse cx={fx * 0.3} cy={hy} rx={RX} ry={RY} fill={fill} />
+      {/* 額のしま */}
+      <g stroke={p.dark} strokeWidth={7} strokeLinecap="round">
+        {[-1, 0, 1].map((k) => <path key={k} d={`M ${fx * 0.3 + k * 16} ${hy - RY * 0.95} L ${fx * 0.3 + k * 13} ${hy - RY * 0.6}`} />)}
+      </g>
+      {/* ひげ（墨の細い線。ゴサと違い端に横棒なし） */}
+      <g stroke={C.ink} strokeWidth={3} strokeLinecap="round">
+        {[-1, 1].flatMap((k) => [0, 1].map((j) => <line key={`${k}${j}`} x1={fx + k * RX * 0.62} y1={my - 6 + j * 10 + (down ? 6 : 0)} x2={fx + k * RX * 1.05} y2={my - 12 + j * 18 + (down ? 14 : 0)} />))}
+      </g>
       {eye(-1)}{eye(1)}
       {mouth}
       {paws}

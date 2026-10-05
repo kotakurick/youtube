@@ -13,7 +13,7 @@ const T: React.FC<{ x: number; y: number; t: string }> = ({ x, y, t }) =>
 export const CatPoses: React.FC = () => (
   <AbsoluteFill style={{ background: C.bg }}>
     <svg width={1920} height={1080}>
-      <text x={40} y={60} fontFamily={FONT} fontSize={36} fontWeight={900} fill={C.ink}>猫の主人公（案A）　ポーズと表情</text>
+      <text x={40} y={60} fontFamily={FONT} fontSize={36} fontWeight={900} fill={C.ink}>猫の主人公（案F・トラ柄）　ポーズと表情</text>
       {POSES.map((p, i) => (
         <g key={p}><Cat kind={i % 2 ? "female" : "male"} x={200 + i * 300} y={440} size={5} pose={p} phase={0.25} face={p === "down" ? "sad" : "normal"} seed={i * 7} /><T x={200 + i * 300} y={490} t={p} /></g>
       ))}
