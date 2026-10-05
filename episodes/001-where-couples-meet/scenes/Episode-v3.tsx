@@ -27,6 +27,7 @@ import { C, EASE, font, LINE, R, sp, Z } from "@lib/theme";
 import type { EpisodeDef } from "@lib/Episode";
 import timing from "../timing-v3.json";
 import { Bubble, NotifStack, OfficeYears, SwipeDeck } from "@lib/StoryAnim";
+import { BigCount, Chip as Tag_, Choices, Facts as Rules, Note } from "@lib/Labels";
 
 // ---------- シミュレーション（種22。sim-v2.md） ----------
 const SEED = 22;
@@ -61,51 +62,6 @@ const useCue = () => {
 
 const Beat: React.FC<{ from: number; to: number; children: React.ReactNode }> = ({ from, to, children }) =>
   to > from ? <Sequence from={from} durationInFrames={to - from}>{children}</Sequence> : null;
-
-/** 墨の札（見出し・条件） */
-const Tag_: React.FC<{ x: number; y: number; text: string; start?: number; light?: boolean }> = ({ x, y, text, start = 0, light }) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const t = sp("enter", frame - start, fps);
-  return (
-    <div style={{ position: "absolute", left: x, top: y, opacity: t, transform: `translateY(${(1 - t) * 16}px)`, whiteSpace: "nowrap",
-      ...font("label", light ? C.ink : C.white), background: light ? C.paper2 : C.ink, borderRadius: R.sm, padding: "4px 16px" }}>{text}</div>
-  );
-};
-
-/** 箇条の札（ルールの説明）。1行ずつ入る */
-const Rules: React.FC<{ x: number; y: number; items: string[]; gap?: number; start?: number; every?: number }> = ({ x, y, items, gap = 18, start = 0, every = 20 }) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  return (
-    <div style={{ position: "absolute", left: x, top: y, display: "flex", flexDirection: "column", gap }}>
-      {items.map((it, k) => {
-        const t = sp("enter", frame - start - k * every, fps);
-        return <div key={k} style={{ ...font("label"), opacity: t, transform: `translateX(${(1 - t) * -20}px)`, whiteSpace: "nowrap",
-          background: C.white, border: `${LINE.thin}px solid ${C.ink}`, borderRadius: R.md, padding: "8px 20px" }}>{it}</div>;
-      })}
-    </div>
-  );
-};
-
-/** 大きな数字＋単位（墨の下線つき） */
-const BigCount: React.FC<{ x: number; y: number; value: number; unit: string; label?: string; start?: number; from?: number }> = (
-  { x, y, value, unit, label, start = 0, from = 0 },
-) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const p = interpolate(frame - start, [0, 36], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: EASE });
-  const pop = sp("pop", frame - start - 36, fps);
-  if (frame < start) return null;
-  return (
-    <div style={{ position: "absolute", left: x, top: y, whiteSpace: "nowrap" }}>
-      {label && <div style={font("label", C.ink2)}>{label}</div>}
-      <div style={{ ...font("hero"), lineHeight: 1, display: "inline-block", borderBottom: `10px solid rgba(29,35,51,${pop})`, paddingBottom: 6 }}>
-        {Math.round(from + (value - from) * p)}<span style={{ fontSize: 96 }}>{unit}</span>
-      </div>
-    </div>
-  );
-};
 
 /** 吹き出し（考えていること）。tail は吹き出しのしっぽの先 */
 const Thought: React.FC<{ x: number; y: number; text: string; tail: [number, number]; start?: number }> = ({ x, y, text, tail, start = 0 }) => {
@@ -411,8 +367,8 @@ const QuizSetup: React.FC = () => {
         <ScoreIdea />
       </Beat>
       <Beat from={left} to={right}>
-        <Town result={INTRO} box={{ ...half }} at={0} title="紹介の町" split={1.0} />
-        <Rules x={1260} y={260} start={60} every={50} items={["知り合いの輪の中だけ", "世話役が月にひと組", "「この人いいよ」", "保証があるので", "少し下でも会う"]} />
+        <Town result={INTRO} box={{ ...half }} at={0} title="紹介の町" split={1.0} ringsIn={10} />
+        <Rules x={1260} y={260} start={60} every={50} items={["知り合いの輪の\n中だけで出会う", "世話役が月に\nひと組を引き合わせる", "「この人いいよ」の\n保証があるので、\n少し下でも会う"]} />
       </Beat>
       <Beat from={right} to={end + 30}>
         <Town result={APP} box={{ ...half }} at={0} title="アプリの町" split={1.0} />
@@ -437,19 +393,13 @@ const QuizAsk: React.FC = () => {
         <div style={{ display: "inline-block", background: C.ink, borderRadius: R.md, padding: "4px 20px", ...font("label", C.white) }}>予想タイム</div>
         <div style={{ ...font("question"), marginTop: 10 }}>1年後、アプリの町のカップルは、紹介の町の何倍？</div>
       </div>
-      {/* ふたつの町を小さく左に、選択肢を右に */}
-      <div style={{ position: "absolute", left: 0, top: 0, width: 1920, height: 1080, transformOrigin: "0 0", transform: "translate(43px,110px) scale(0.55)" }}>
-        <Town result={INTRO} box={{ x: 96, y: 290, w: 820, h: 540 }} at={0} size={0.8} split={1.0} />
-        <Town result={APP} box={{ x: 1000, y: 290, w: 820, h: 540 }} at={0} size={0.8} split={1.0} />
-      </div>
-      <Tag_ x={96} y={250} text="紹介の町" />
-      <Tag_ x={593} y={250} text="アプリの町" />
+      {/* ふたつの町を大きく左右に、選択肢を下に横1列（2026-10-05 オーナー「画像が小さい・端にある」） */}
+      <Town result={INTRO} box={{ x: 96, y: 206, w: 820, h: 540 }} at={0} size={0.8} split={1.0} title="紹介の町" />
+      <Town result={APP} box={{ x: 1004, y: 206, w: 820, h: 540 }} at={0} size={0.8} split={1.0} title="アプリの町" />
       <Beat from={find("Aは", 200)} to={end + 30}>
-        <Rules x={1120} y={250} gap={14} every={14} items={["A　3倍以上", "B　2倍くらい", "C　ほとんど同じ", "D　紹介の町より少ない"]} />
+        <Choices x={96} y={758} items={["3倍以上", "2倍くらい", "ほとんど同じ", "紹介の町より少ない"]} />
       </Beat>
       <SourceNote sim />
-      <Gosa cues={[[20, "thinking"]]} size="S" x={1740} foot={820} sfx={false} />
-      <Beat from={0} to={end + 30}><></></Beat>
     </>
   );
 };
@@ -506,7 +456,7 @@ const Ch1: React.FC = () => {
       <Beat from={pull} to={end + 30}>
         <Camera keys={[[0, { x: 400, y: 420, scale: 2.4 }], [10, { x: 960, y: 540, scale: 1 }]]} dur={50}>
           <SimBackground />
-          <Town result={INTRO} box={STAGE} at={0} title="紹介の町" split={1.0} />
+          <Town result={INTRO} box={STAGE} at={0} title="紹介の町" split={1.0} ringsIn={0} />
         </Camera>
       </Beat>
       <ChapterDots current={1} />
@@ -938,7 +888,7 @@ const Ch3Vouch: React.FC = () => {
         <Tag_ x={96} y={80} text="仮定を変えると：基準の上がり方が半分なら" />
         <PairPanel result={INTRO} x={96} y={200} title="紹介の町" dur={1} />
         <PairPanel result={HALF_RAISE} x={560} y={200} title="アプリの町（半分）" from={17} focus />
-        <Beat from={tool - caveat} to={end + 30 - caveat}><Rules x={1080} y={360} items={["勝ち負けを決めるのは", "基準がどれだけ動くか"]} gap={24} /></Beat>
+        <Beat from={tool - caveat} to={end + 30 - caveat}><Note x={1080} y={360} text={"勝ち負けを決めるのは、\n基準がどれだけ動くか"} /></Beat>
       </Beat>
       <SimNote />
       <ChapterDots current={3} />
@@ -1035,7 +985,7 @@ const Ch4Office: React.FC = () => {
           { year: "2010年代", seated: 0.7 },
           { year: "いま", seated: 0.5, note: "人の入れ替わり、在宅勤務" },
         ]} />
-        <Beat from={back} to={nako}><Rules x={96} y={480} items={["夫婦の3組に1組は", "職場で出会った", "（1992年 35.0%）"]} gap={12} /></Beat>
+        <Beat from={back} to={nako}><Note x={96} y={460} text={"夫婦の3組に1組は、\n職場で出会った"} sub="1992年 35.0%" /></Beat>
         <SourceNote text="社人研「出生動向基本調査」。机の人数はイメージ" />
       </Beat>
       <Beat from={nako} to={trip}>
@@ -1061,7 +1011,7 @@ const Ch4Office: React.FC = () => {
       </Beat>
       <Beat from={love} to={reveal}>
         <OfficeYears start={-1000} per={90} years={[{ year: "いま", seated: 0.5 }]} />
-        <Rules x={96} y={480} gap={12} items={["職場の恋愛を", "「したくない」人は", "何割？"]} />
+        <Note x={96} y={480} question text={"職場の恋愛を\n「したくない」人は、何割？"} />
       </Beat>
       <Beat from={reveal} to={nobody}>
         <Tag_ x={96} y={80} text="職場恋愛を「したくない」（20人あたり）" />
@@ -1073,7 +1023,7 @@ const Ch4Office: React.FC = () => {
       </Beat>
       <Beat from={nobody} to={end + 30}>
         <OfficeYears start={-1000} per={90} years={[{ year: "いま", seated: 0.5 }]} />
-        <Rules x={96} y={480} gap={16} items={["理由はひとつではない", "働き方と、人との距離が", "同じ時期に大きく変わった"]} />
+        <Note x={96} y={360} text={"理由はひとつではない。\nただ、働き方と\n人との距離が、\n同じ時期に大きく変わった"} />
       </Beat>
       <ChapterDots current={4} total={5} />
     </>

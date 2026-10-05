@@ -1,6 +1,6 @@
 // 「紹介の町」と「アプリの町」の描画。計算は sim/towns.ts（純粋な関数）で、ここは結果を群衆の動きにするだけ。
 //   Town       … 町を1か月ずつ動かす。左が町、右が「ペア」の置き場。ペアになった2人が右へ歩いて並ぶ。
-//                紹介の町は知り合いの輪（薄い円）と、引き合わせの線（成立＝墨の実線、不成立＝点線）。
+//                紹介の町は知り合いの輪（薄い円。見出しに凡例）と、引き合わせの線（成立した組だけ墨の太線＋ハート。2026-10-05）。
 //                アプリの町は全員がばらばらに立ち、いいねのハートが送った人から受けた人へ飛ぶ。
 //   HeartRows  … アプリの町の人を、受け取ったいいねの多い順に男女2列に並べ直し、頭の上にハートを積む（ハートの山）。
 //   PairPanel  … 100人を10×10に並べ、ペアになった人だけ色を付ける（「もしも」の比べ合い）。
@@ -104,7 +104,9 @@ export const Town: React.FC<{
   result: TownResult; box: Box; size?: number; start?: number; fpm?: number; upto?: number; at?: number;
   title?: string; tags?: Tag[]; events?: boolean; maxHearts?: number; split?: number; dimSingles?: boolean;
   compact?: boolean; // 見出しに「何か月目」を出さない（2つの町を並べるとき）
-}> = ({ result, box, size = 1.05, start = 0, fpm = 75, upto = 12, at, title, tags = [], events = true, maxHearts = 40, split = 0.66, dimSingles = false, compact = false }) => {
+  legend?: boolean;   // 紹介の町の見出しに「〇＝知り合いの輪」の凡例を出す（2026-10-05 オーナー「うすい丸ってなんだっけ」）
+  ringsIn?: number;   // このフレームから知り合いの輪を1つずつ描き入れる（町を初めて見せる場面で使う。なければ最初からある）
+}> = ({ result, box, size = 1.05, start = 0, fpm = 75, upto = 12, at, title, tags = [], events = true, maxHearts = 40, split = 0.66, dimSingles = false, compact = false, legend = true, ringsIn }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const head = 104; // 見出し（町の名前・ペアの数）。追う人の輪が見出しにかからない高さ
@@ -137,6 +139,10 @@ export const Town: React.FC<{
       <div style={{ position: "absolute", left: box.x, top: box.y, display: "flex", gap: 24, alignItems: "center", whiteSpace: "nowrap" }}>
         {title && <span style={{ ...font("label", C.white), background: C.ink, borderRadius: R.sm, padding: "2px 16px" }}>{title}</span>}
         {m > 0 && !compact && <span style={font("value")}>{m}か月目</span>}
+        {legend && rings.length > 0 && <span style={{ display: "flex", alignItems: "center", gap: 10, ...font("label", C.ink2) }}>
+          <svg width={64} height={36}><ellipse cx={32} cy={18} rx={28} ry={14} fill={C.paper2} stroke={C.rest} strokeWidth={LINE.hair} /></svg>
+          知り合いの輪
+        </span>}
       </div>
       {!noPairs && <div style={{ position: "absolute", left: pairs.x, top: box.y, whiteSpace: "nowrap", ...font("value") }}>
         ペア {pairsNow}<span style={font("label")}>組</span>
@@ -145,26 +151,28 @@ export const Town: React.FC<{
         {/* 知り合いの輪（紹介の町） */}
         {rings.map((r, i) => {
           const nx = rings[(i + 1) % rings.length];
+          // 隣の輪とをつなぐ点線は、すぐ横か真下に並んでいる輪どうしだけ（段をまたぐ斜めの長い線は描かない。2026-10-05 オーナー「線がゴチャゴチャ」）
+          const near = Math.abs(nx.cx - r.cx) < ringRx(size) * 3 && (Math.abs(nx.cy - r.cy) < 4 || Math.abs(nx.cx - r.cx) < 4);
+          const rt = ringsIn === undefined ? 1 : sp("enter", frame - ringsIn - i * 4, fps);
           return (
-            <g key={i}>
-              <line x1={r.cx} y1={r.cy} x2={nx.cx} y2={nx.cy} stroke={C.ink2} strokeWidth={LINE.thin} strokeDasharray="3 13" strokeLinecap="round" />
+            <g key={i} opacity={rt} transform={`translate(${r.cx} ${r.cy}) scale(${0.6 + 0.4 * rt}) translate(${-r.cx} ${-r.cy})`}>
+              {near && <line x1={r.cx} y1={r.cy} x2={nx.cx} y2={nx.cy} stroke={C.ink2} strokeWidth={LINE.thin} strokeDasharray="3 13" strokeLinecap="round" />}
               <ellipse cx={r.cx} cy={r.cy + 2 * size} rx={ringRx(size)} ry={ringRy(size)} fill={C.paper2} stroke={C.rest} strokeWidth={LINE.hair} />
             </g>
           );
         })}
         {!noPairs && <rect x={pairs.x - 24} y={pairs.y - 16} width={pairs.w + 24} height={pairs.h + 16} rx={R.lg} fill={C.white} stroke={C.rest} strokeWidth={LINE.hair} />}
-        {/* 引き合わせの線（紹介の町） */}
-        {ev > 0 && month?.intros?.map(([p, q, ok], k) => {
+        {/* 引き合わせの線（紹介の町）。うまくいった組だけを太い墨の線で（断られた組は描かない。2026-10-05 オーナー「線がゴチャゴチャ」） */}
+        {ev > 0 && month?.intros?.filter(([, , ok]) => ok).map(([p, q], k) => {
           const a = home[p], b = home[q];
-          const mx = (a.x + b.x) / 2, my = Math.min(a.y, b.y) - 70 * size;
-          const len = Math.hypot(b.x - a.x, b.y - a.y) + 140;
-          const t = Math.max(0, Math.min(1, ev * 1.4 - (k % 5) * 0.08));
+          const mx = (a.x + b.x) / 2, my = Math.min(a.y, b.y) - 90 * size;
+          const len = Math.hypot(b.x - a.x, b.y - a.y) + 180;
+          const t = Math.max(0, Math.min(1, ev * 1.4 - (k % 5) * 0.1));
           return (
             <g key={k} opacity={evFade}>
-              <path d={`M${a.x} ${a.y - 30 * size} Q${mx} ${my} ${b.x} ${b.y - 30 * size}`} fill="none"
-                stroke={ok ? C.ink : C.ink2} strokeWidth={ok ? LINE.thin : LINE.hair + 1} strokeDasharray={ok ? `${len * t} ${len}` : "6 8"}
-                opacity={ok ? 1 : t * 0.8} strokeLinecap="round" />
-              {ok && t > 0.95 && <Heart x={mx} y={(my + (a.y + b.y) / 2 - 30 * size) / 2} r={11} fill={C.ink} />}
+              <path d={`M${a.x} ${a.y - 34 * size} Q${mx} ${my} ${b.x} ${b.y - 34 * size}`} fill="none"
+                stroke={C.ink} strokeWidth={LINE.base} strokeDasharray={`${len * t} ${len}`} strokeLinecap="round" />
+              {t > 0.95 && <Heart x={mx} y={(my + (a.y + b.y) / 2 - 34 * size) / 2} r={14} fill={C.ink} stroke={C.white} />}
             </g>
           );
         })}
@@ -230,8 +238,9 @@ export const HeartRows: React.FC<{
       })}
       {lines && la > 0 && lines.to.map((q, k) => {
         const a = pos[lines.from], b = pos[q];
-        return <path key={k} d={`M${a.x} ${a.y + 12} Q${(a.x + b.x) / 2} ${(a.y + b.y) / 2 + 40} ${b.x} ${b.y - FOOT.top * size - 6}`} fill="none"
-          stroke={kindColor(result.residents[lines.from].kind)} strokeWidth={LINE.thin} strokeDasharray="10 8" opacity={la} />;
+        // 墨の線（ハートの色と重ならないように）。名札（足元+66）の下から出す。2026-10-05 オーナー「赤い線が下の赤と被る」
+        return <path key={k} d={`M${a.x} ${a.y + 84} Q${(a.x + b.x) / 2} ${(a.y + b.y) / 2 + 60} ${b.x} ${b.y - FOOT.top * size - 6}`} fill="none"
+          stroke={C.ink} strokeWidth={LINE.thin} strokeDasharray="10 8" opacity={la} />;
       })}
       <Crowd people={people} start={start} size={size} />
       {tags.map((t) => (
