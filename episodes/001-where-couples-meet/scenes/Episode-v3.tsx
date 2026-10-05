@@ -12,6 +12,7 @@ import { ChapterCard, ChapterDots } from "@lib/Chapter";
 import { Crowd, Person } from "@lib/Crowd";
 import { EndScreen } from "@lib/EndScreen";
 import { Figure } from "@lib/Figure";
+import { Cat } from "@lib/Cat";
 import { Gosa } from "@lib/Gosa";
 import { FOOT, hundred, scatter } from "@lib/layout";
 import { LineChart } from "@lib/LineChart";
@@ -142,13 +143,14 @@ const Introduced: React.FC<{ noTag?: boolean }> = ({ noTag }) => {
   const s = 3.2, floor = 820;
   const scene = (x: number, me: "male" | "female", tag: string, by: string) => (
     <g>
+      {/* 引き合わせた人はテーブルの奥（テーブルより先に描く） */}
+      <Cat kind="other" x={x} y={floor - 6} size={3.6} pose="sit" seed={8} />
       <Table x={x} y={floor} size={s} w={70} />
       <Cup x={x - 40} y={floor + tableTop(s)} size={s} />
-      <Figure kind={me} x={x - 150} y={floor} size={s} pose="sit" facing={1} />
-      <Figure kind={me === "male" ? "female" : "male"} x={x + 150} y={floor} size={s} pose="sit" facing={-1} />
-      <Figure kind="other" x={x} y={floor - 230} size={2} />
-      <text x={x - 150} y={floor - 200} textAnchor="middle" style={font("label")}>{tag}</text>
-      <text x={x} y={floor - 340} textAnchor="middle" style={font("label", C.ink2)}>{by}</text>
+      <Cat kind={me} x={x - 160} y={floor} size={4} pose="sit" facing={1} face="happy" />
+      <Cat kind={me === "male" ? "female" : "male"} x={x + 160} y={floor} size={4} pose="sit" facing={-1} face="happy" seed={3} />
+      <text x={x - 160} y={floor - 230} textAnchor="middle" style={font("label")}>{tag}</text>
+      <text x={x} y={floor - 310} textAnchor="middle" style={font("label", C.ink2)}>{by}</text>
     </g>
   );
   return (
@@ -228,7 +230,7 @@ const SplitNight: React.FC<{ herFrom: number; think: number; himText: number; go
         <Svg>
           <NightRoomBg side="left" />
           <Clock x={430} y={130} r={46} hour={23} minute={0} />
-          <Figure kind="male" x={300} y={800} size={5} pose="phone" />
+          <Cat kind="male" x={300} y={800} size={4.4} pose="phone" face={frame >= himText && frame < herFrom ? "sad" : "normal"} />
           <text x={300} y={540} textAnchor="middle" style={font("label")}>彼（32）</text>
           <SwipeDeck x={700} y={440} h={500} every={16} start={20} kind="female" count={false} />
         </Svg>
@@ -246,7 +248,7 @@ const SplitNight: React.FC<{ herFrom: number; think: number; himText: number; go
       {frame >= herFrom && <div style={{ position: "absolute", left: split, top: 0, width: 1920 - split, height: 1080, overflow: "hidden", background: C.bg, borderLeft: `${LINE.base}px solid ${C.ink}` }}>
         <svg width={960} height={1080} style={{ position: "absolute", left: 0, top: 0 }}>
           <NightRoomBg side="right" />
-          <Figure kind="female" x={260} y={800} size={5} pose="phone" />
+          <Cat kind="female" x={260} y={800} size={4.4} pose="phone" face={frame >= think ? "think" : "normal"} seed={5} />
           <text x={260} y={540} textAnchor="middle" style={font("label")}>彼女（30）</text>
           <NotifStack x={640} y={460} h={560} every={14} start={herFrom + 20} max={15} from="male" />
           <Bubble x={40} y={60} text="もっといい人が、いるかも" tail={[260, 560]} start={think} role="label" />
@@ -272,8 +274,8 @@ const Opening: React.FC = () => {
       </Beat>
       <Beat from={both} to={near}>
         <Svg>
-          <Figure kind="male" x={620} y={760} size={5} pose="phone" highlight={false} />
-          <Figure kind="female" x={1300} y={760} size={5} pose="phone" highlight={false} />
+          <Cat kind="male" x={620} y={760} size={4.4} pose="phone" face="sad" />
+          <Cat kind="female" x={1300} y={760} size={4.4} pose="phone" face="think" seed={5} />
           <text x={620} y={480} textAnchor="middle" style={font("sub")}>選ばれない彼</text>
           <text x={1300} y={480} textAnchor="middle" style={font("sub")}>選べない彼女</text>
         </Svg>
@@ -463,7 +465,7 @@ const Ch5Card: React.FC = () => <ChapterCard no={5} title="うまくいく人は
 const Party: React.FC<{ say: number; meet: number }> = ({ say, meet }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const s = 4, floor = 820;
+  const s = 4, cs = 5.2, floor = 820; // cs：猫の大きさ（テーブルから頭が出るように）
   const lean = interpolate(frame - meet, [0, 30], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: EASE });
   const pop = sp("pop", frame - meet - 30, fps);
   const top = floor + tableTop(s);
@@ -477,16 +479,16 @@ const Party: React.FC<{ say: number; meet: number }> = ({ say, meet }) => {
         <path d="M900 250 h120 l40 70 h-200 z" fill={C.ink} />
         <ellipse cx={960} cy={322} rx={60} ry={10} fill={C.wall} />
         {/* 先輩はテーブルの奥に座る（テーブルより先に描く） */}
-        <Figure kind="other" x={960} y={floor - 8} size={s} pose="sit" />
-        <text x={905} y={floor - 192} textAnchor="end" style={font("label", C.ink2)}>世話焼きの先輩</text>
+        <Cat kind="other" x={960} y={floor - 8} size={cs} pose="sit" face={frame >= say ? "happy" : "normal"} />
+        <text x={930} y={floor - 300} textAnchor="end" style={font("label", C.ink2)}>世話焼きの先輩</text>
         <Table x={960} y={floor} size={s} w={150} />
         {/* 皿とグラス */}
         {[780, 1140].map((x) => <ellipse key={x} cx={x} cy={top - 6} rx={48} ry={10} fill={C.white} stroke={C.ink} strokeWidth={LINE.hair} />)}
         <Cup x={880} y={top} size={s} steam={false} />
         <Cup x={1050} y={top} size={s} steam={false} />
-        <Figure kind="male" x={560 + 70 * lean} y={floor} size={s} pose="sit" facing={1} />
-        <Figure kind="female" x={1360 - 70 * lean} y={floor} size={s} pose="sit" facing={-1} />
-        <Bubble x={1020} y={floor - 400} text="この人、いいよ" tail={[985, floor - 205]} start={say} />
+        <Cat kind="male" x={640 + 60 * lean} y={floor} size={cs} pose="sit" facing={1} face={pop > 0.5 ? "happy" : frame >= say ? "surprised" : "normal"} seed={2} />
+        <Cat kind="female" x={1280 - 60 * lean} y={floor} size={cs} pose="sit" facing={-1} face={pop > 0.5 ? "happy" : "normal"} seed={6} />
+        <Bubble x={1060} y={floor - 460} text="この人、いいよ" tail={[990, floor - 275]} start={say} />
         {pop > 0.01 && <Heart x={960} y={top - 120} r={42 * pop} fill={C.female} />}
       </Svg>
     </>

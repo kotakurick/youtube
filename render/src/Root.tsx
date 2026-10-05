@@ -15,6 +15,7 @@ import { demoShort } from "./demo/short";
 import { demoDraft, demoNarrated } from "./demo/demo-narrated/episode";
 import { GosaSheet } from "./demo/GosaSheet";
 import { CatSheet } from "./demo/CatSheet";
+import { CatPoses } from "./demo/CatPoses";
 import { BackdropSheet, PoseSheet } from "./demo/partsStory";
 import { Banner, BANNER } from "./channel/Banner";
 
@@ -27,7 +28,7 @@ const comps = [...episodes.map((ep) => ({ ep, w: W, h: H })), ...shorts.map((ep)
   .map(({ ep, w, h }) => ({ ep, w, h, Comp: withFont(() => <Episode ep={ep} />) }));
 // どの動画・静止画も、フォントを読み込んでから描く（FontGate.tsx）
 const GosaSheetF = withFont(GosaSheet), PoseSheetF = withFont(PoseSheet), BackdropSheetF = withFont(BackdropSheet);
-const CatSheetF = withFont(CatSheet);
+const CatSheetF = withFont(CatSheet), CatPosesF = withFont(CatPoses);
 const ThumbnailF = withFont(Thumbnail);
 const BannerF = withFont(Banner);
 
@@ -40,6 +41,7 @@ export const Root: React.FC = () => (
     <Still id="gosa-sheet" component={GosaSheetF} width={W} height={H} />
     <Still id="pose-sheet" component={PoseSheetF} width={W} height={H} />
     <Still id="cat-sheet" component={CatSheetF} width={W} height={H} />
+    <Still id="cat-poses" component={CatPosesF} width={W} height={H} />
     <Still id="backdrop-sheet" component={BackdropSheetF} width={W} height={H} />
     <Still id="channel-banner" component={BannerF} width={BANNER.w} height={BANNER.h} />
     {episodes.filter((ep) => ep.thumb).flatMap((ep) => [
