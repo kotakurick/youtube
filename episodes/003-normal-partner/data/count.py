@@ -199,6 +199,19 @@ def main():
             print(f"| {lab}・{ml} | {w:,.0f} | {cnt(500) / w:.1%} | {cnt(400) / w:.1%} | {cnt(300) / w:.1%} |")
     print()
 
+    print("## 0b. 未婚でない人（既婚・離死別）と比べる（有業者。総数から未婚を引いた）\n")
+    print("| | 年齢 | 未婚でない有業者 | 年収500万円以上 | 未婚の有業者 | 年収500万円以上 |")
+    print("|---|---|---:|---:|---:|---:|")
+    for sex, lab in (("1_男", "男性"), ("2_女", "女性")):
+        for ages, al in ((AGES, "25〜34歳"), ((AGES[0],), "25〜29歳"), ((AGES[1],), "30〜34歳")):
+            a = Pool(t40, t118, sex, "0_総数", ages)
+            u = Pool(t40, t118, sex, "1_うち未婚", ages)
+            c = lambda p: sum(num(r["0_総数"]) for r in p.w if r["従業上の地位・雇用形態"] == "0_総数" and inc_ge(500)(r["所得"]))
+            wm = a.workers() - u.workers()
+            cm = c(a) - c(u)
+            print(f"| {lab} | {al} | {wm:,.0f} | {cm / wm:.1%} | {u.workers():,.0f} | {c(u) / u.workers():.1%} |")
+    print()
+
     print("## 1. 女性がよく聞く「普通の男性」（25〜34歳の未婚男性）\n")
     for lo in (500, 400, 300):
         run(f"年収{lo}万円以上の線", men, "男性", [
