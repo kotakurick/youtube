@@ -33,7 +33,7 @@ spec = importlib.util.spec_from_file_location("lint_script", REPO / "scripts" / 
 lint = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(lint)
 
-GAP = 0.25        # 文と文の間（秒）
+GAP = 0.5         # 文と文の間（秒）。0.25 では詰まって聞こえた（2026-10-05 オーナー「文と文の間はもっと長く」）
 TAIL = 0.6        # 場面の最後の余韻（秒）
 SUB_MAX = 24      # 字幕1枚の字数（1行。縦長のショートは --vertical で16字）
 SECTION_IDS = {
@@ -83,7 +83,7 @@ def parse(script: Path) -> list[dict]:
 
 
 # 台本に書く声への指示（docs/script-style.md）。〔間〕は文のあとの無音、それ以外の〔…〕は語り方のタグ
-PAUSES = {"間・短": 0.6, "間": 1.0, "間・長": 1.5}  # 文の終わりから次の文までの秒数（指示がなければ GAP）
+PAUSES = {"間・短": 1.0, "間": 1.5, "間・長": 2.2}  # 文の終わりから次の文までの秒数（指示がなければ GAP）
 
 
 def split_sentences(lines: list[str]) -> list[tuple[str, str]]:
@@ -117,8 +117,18 @@ def with_tag(text: str, tag: str | None, v: dict | None) -> str:
 PARTICLES = ("は", "が", "を", "に", "で", "と", "も", "へ", "や", "の", "から", "まで", "より", "けど", "ので")
 
 
+BREAK = "｜"  # 台本の中で「字幕をここで切る」印（読み上げない。docs/script-style.md の7章）
+KANA = re.compile(r"[ぁ-ゖ]")
+
+
 def subtitle_parts(s: str, limit: int = SUB_MAX) -> list[str]:
-    """字幕は1行（横長24字・縦長16字）。長い文は、読点 → 助詞のあと の順に、真ん中に近い所で分ける。"""
+    """字幕は1行（横長24字・縦長16字）。長い文は、台本の｜ → 読点 → 助詞のあと の順に、真ん中に近い所で分ける。
+    助詞で切るのは、助詞の前が漢字・カタカナ・数字・閉じかっこのときだけ（「ひと｜つ」「ふたり｜とも」のような語の途中で切らない）。"""
+    if BREAK in s:
+        marks = [p for p in s.split(BREAK) if p]
+        if all(len(p) <= limit for p in marks):
+            return marks
+        return [x for p in marks for x in subtitle_parts(p, limit)]
     if len(s) <= limit:
         return [s]
     lo, hi, mid = len(s) - limit, limit, len(s) / 2  # 前も後ろも limit 以下になる範囲で切る
@@ -129,7 +139,8 @@ def subtitle_parts(s: str, limit: int = SUB_MAX) -> list[str]:
             inside.add(i + 1)
     rng = [i for i in range(max(1, lo), min(len(s) - 1, hi) + 1) if i not in inside]
     commas = [i for i in rng if s[i - 1] == "、"]
-    parts = [i for i in rng if any(s[:i].endswith(p) for p in PARTICLES) and s[i] not in "、。？！"]
+    parts = [i for i in rng if s[i] not in "、。？！」" and any(
+        s[:i].endswith(p) and i - len(p) > 0 and not KANA.match(s[i - len(p) - 1]) for p in PARTICLES)]
     for cands in (commas, parts):
         if cands:
             cut = min(cands, key=lambda i: abs(i - mid))
@@ -181,10 +192,14 @@ def main():
     ap.add_argument("episode", type=Path, help="episodes/<回> のフォルダ")
     ap.add_argument("--voice", required=True, help="engines.json の声の名前、または silent（仮の無音）")
     ap.add_argument("--vertical", action="store_true", help="縦長のショート（字幕を1行16字で区切る）")
+    ap.add_argument("--script", default=None, help="台本のファイル名（既定は script.md）。script-v2.md なら timing-v2.json・subtitles-v2.srt を書き、音声は <回>-v2 に置く")
     a = ap.parse_args()
     ep = a.episode.resolve()
-    ep_id = ep.name
-    scenes = parse(ep / ("short.md" if a.vertical else "script.md"))
+    name = a.script or ("short.md" if a.vertical else "script.md")
+    m = re.fullmatch(r"script(-[A-Za-z0-9]+)?\.md", name)
+    suffix = m.group(1) or "" if m else ""
+    ep_id = ep.name + suffix  # 台本の版ごとに音声の置き場を分ける（render の動画の id と同じ）
+    scenes = parse(ep / name)
     cfg = tts.load_cfg()
     v = None if a.voice == "silent" else tts.find_voice(cfg, a.voice)
     data = tts.DATA / "episodes" / ep_id
@@ -208,7 +223,7 @@ def main():
                     parts.append(sil)
                     t += wav_seconds(sil) + GAP
                 continue
-            spoken = with_tag(tts.apply_yomi(s), tag, v)  # 読み間違いを直した文で音声を作る（字幕は元の表記）
+            spoken = with_tag(tts.apply_yomi(s.replace(BREAK, "")), tag, v)  # 読み間違いを直した文で音声を作る（字幕は元の表記）
             key = hashlib.sha1(f"{a.voice}\n{spoken}".encode()).hexdigest()[:16]
             wav = cache / f"{key}.wav"
             if not wav.exists():
@@ -235,12 +250,13 @@ def main():
     text = json.dumps(timing, ensure_ascii=False, indent=1)
     # 字幕の1枚は1行にまとめて読みやすくする
     text = re.sub(r'\[\n\s+([\d.]+),\n\s+([\d.]+),\n\s+(".*?")\n\s+\]', r"[\1, \2, \3]", text)
-    (ep / ("timing-short.json" if a.vertical else "timing.json")).write_text(text + "\n", encoding="utf-8")
-    write_srt(out_scenes, ep / ("subtitles-short.srt" if a.vertical else "subtitles.srt"))
+    timing_name = "timing-short.json" if a.vertical else f"timing{suffix}.json"
+    (ep / timing_name).write_text(text + "\n", encoding="utf-8")
+    write_srt(out_scenes, ep / ("subtitles-short.srt" if a.vertical else f"subtitles{suffix}.srt"))
     total = sum(s["seconds"] or 0 for s in out_scenes)
     cost = "" if v is None else f"、今回作った分 {paid_chars}字・約{tts.cost_usd(v['engine'], 'あ' * paid_chars, cfg['pricing']) * cfg['jpy_per_usd']:.0f}円"
     print(f"\n{len(out_scenes)}場面、合計 {int(total // 60)}分{total % 60:.0f}秒{cost}")
-    print(f"→ {ep / 'timing.json'}（音声は {audio_dir}）")
+    print(f"→ {ep / timing_name}（音声は {audio_dir}）")
     if a.voice == "silent":
         print("※ 仮の無音です。声が決まったら --voice を変えて作り直すと、尺と字幕も声に合わせて変わります。")
 

@@ -10,7 +10,8 @@
     "master": "node scripts/master.mjs",
     "check": "npm run sync && node scripts/check-layout.mjs",
     "bgm": "node scripts/check-bgm.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "storyboard": "npm run sync && node scripts/storyboard.mjs"
   },
   "dependencies": {
     "@remotion/bundler": "4.0.357",

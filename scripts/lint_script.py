@@ -82,7 +82,7 @@ def strip_sources(s: str) -> str:
 
 
 def strip_tags(s: str) -> str:
-    return VOICE_TAG.sub("", strip_sources(s))
+    return VOICE_TAG.sub("", strip_sources(s)).replace("｜", "")  # ｜は字幕を切る印（読み上げない）
 
 
 def sentences(lines: list[tuple[int, str]]) -> list[tuple[int, str]]:

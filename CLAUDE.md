@@ -98,7 +98,9 @@ python bench/analyze.py --out research/benchmark/summary.md
 scripts/new_episode.sh where-couples-meet          # 新しい回を作る → episodes/001-where-couples-meet/
 cd render && npm run studio                         # 動画をブラウザで確認（Remotion Studio）
 python tts/narrate.py episodes/<回> --voice silent  # 台本から仮の尺と字幕（声が決まったら --voice を変える）
+python tts/narrate.py episodes/<回> --voice silent --script script-v2.md  # 台本の版違い（timing-v2.json を書く。動画の id は <回>-v2）
 cd render && npm run check -- <回のid>               # 画面のチェック（直すものを0に）
+cd render && npm run storyboard -- <回のid>          # 静止画の絵コンテ（場面ごとに2〜3枚。クラウドでも動く）→ render/out/storyboard/
 cd render && npm run bgm                             # BGM を測り、曲ごとの音量をそろえる（曲を置いた・替えたとき）
 cd render && npm run render -- <回のid> out/<回>.mp4  # 動画を書き出す
 ```
