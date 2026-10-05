@@ -36,7 +36,27 @@ const Cats: React.FC<{ night: boolean }> = ({ night }) => {
   );
 };
 
+// 試作 S4（2026-10-06）：考えすぎる葦のサムネイル116本の分析から、原則だけを借りる（見た目の丸写しはしない）。
+// 暗い地・画面の半分を占める特大の文字（1つの強い名詞句）・感情の見える顔の寄り。「パラドックス」の型は使わない。
+const Trap: React.FC = () => (
+  <AbsoluteFill style={{ background: `radial-gradient(ellipse at 50% 70%, #3A1A22 0%, ${C.ink} 70%)` }}>
+    <svg width={W} height={H} style={{ position: "absolute" }}>
+      {/* 2匹の顔の寄り（画面の下から大きくのぞく）。同じ大きさ・同じ明るさ */}
+      <Cat kind="male" x={230} y={H + 120} size={8.5} pose="phone" face="sad" label="彼" />
+      <Cat kind="female" x={1050} y={H + 120} size={8.5} pose="phone" face="think" seed={5} label="彼女" />
+      {[[1130, 120], [1200, 200], [1080, 210], [1180, 60]].map(([x, y], i) => <Heart key={i} x={x} y={y} r={30} fill={C.male} stroke={C.bg} />)}
+    </svg>
+    <div style={{ position: "absolute", left: 0, right: 0, top: 70, textAlign: "center", fontFamily: FONT, fontWeight: 900, fontSize: 64,
+      color: C.bg, letterSpacing: 2 }}>マッチングアプリ</div>
+    <div style={{ position: "absolute", left: 0, right: 0, top: 130, textAlign: "center", fontFamily: FONT, fontWeight: 900, fontSize: 250, lineHeight: 1,
+      color: "#E8402F", WebkitTextStroke: `8px ${C.bg}`, paintOrder: "stroke fill", textShadow: "0 10px 0 rgba(0,0,0,.6)" }}>
+      出会い<span style={{ fontSize: 140, color: C.bg, WebkitTextStroke: "0" }}>の</span>罠
+    </div>
+  </AbsoluteFill>
+);
+
 export default [
+  { id: "001-where-couples-meet-v3-thumb-trap", component: Trap },
   { id: "001-where-couples-meet-v3-thumb-cats", component: () => <Cats night={false} /> },
   { id: "001-where-couples-meet-v3-thumb-cats-night", component: () => <Cats night /> },
 ];
