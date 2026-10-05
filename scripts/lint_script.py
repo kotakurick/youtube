@@ -9,6 +9,11 @@
       「#」で始まる見出し、「>」で始まるメモ、「※」で始まる注、<!-- --> のコメント、``` で囲んだ部分
     数字を出す文には [S1] のように sources.csv の id を付ける（読み上げ用テキストでは消える）。
 
+面白さの仕掛け（docs/script-style.md の11章）:
+    置いた所に <!-- 仕掛け: 先回り --> のように印を書く（読み上げない）。10分以上の台本では、
+    必須の仕掛け（先回り・比喩・回収・ミクロ・締め）の印がないとエラー。比喩は名前を付け、同じ名前で回収する
+    （<!-- 仕掛け: 比喩 ケーキ --> … <!-- 仕掛け: 回収 ケーキ -->）。健康・お金の回は <!-- 仕掛け: ミクロ なし --> と書く。
+
 結果:
     エラー（直してから進む）と注意（読んで判断する）を行番号つきで出す。エラーが1つでもあれば終了コード1。
 """
@@ -93,6 +98,63 @@ def sentences(lines: list[tuple[int, str]]) -> list[tuple[int, str]]:
             if s:
                 out.append((no, s))
     return out
+
+
+TRICK = re.compile(r"<!--\s*仕掛け[:：]\s*(\S+)(?:\s+([^>]*?))?\s*-->")
+TRICK_REQUIRED = {"先回り": "見る人の予想を言葉にしてから裏切る所", "比喩": "身近な物への置き換え", "回収": "比喩を締めでもう一度使う所",
+                  "ミクロ": "1人ひとりの戦い方を比べて見せる所", "締め": "最後の短い逆説の一文"}
+CHAPTER = re.compile(r"^##\s*第\s*\d+\s*章")
+
+
+def tricks(text: str, long: bool) -> tuple[list, list]:
+    """面白さの仕掛けの印を調べる（docs/script-style.md の11章）。(エラー, 注意) を返す。"""
+    errors, notes = [], []
+    found: dict[str, list[tuple[int, str]]] = {}
+    chapter, chapter_metaphors = None, {}
+    for i, raw in enumerate(text.splitlines(), 1):
+        line = raw.strip()
+        if line.startswith("## "):
+            chapter = line[3:].strip()
+        for m in TRICK.finditer(line):
+            kind, name = m.group(1), (m.group(2) or "").strip()
+            found.setdefault(kind, []).append((i, name))
+            if kind == "比喩":
+                chapter_metaphors.setdefault(chapter, []).append(i)
+    for kind, why in TRICK_REQUIRED.items():
+        if kind not in found:
+            (errors if long else notes).append((0, f"仕掛け「{kind}」の印がない（{why}。<!-- 仕掛け: {kind} --> を置く）"))
+    for no, name in found.get("比喩", []):
+        if not name:
+            notes.append((no, "比喩に名前がない（<!-- 仕掛け: 比喩 ケーキ --> のように書き、同じ名前で回収する）"))
+        elif name not in {n for _, n in found.get("回収", [])}:
+            errors.append((no, f"比喩「{name}」を回収していない（締めで <!-- 仕掛け: 回収 {name} --> を置いて、もう一度使う）"))
+    for ch, nos in chapter_metaphors.items():
+        if len(nos) > 1:
+            notes.append((nos[1], f"「{ch}」に比喩が{len(nos)}つ（章に1つまで）"))
+    return errors, notes
+
+
+def chapter_ends(text: str) -> list[tuple[int, str, str]]:
+    """第N章の最後の読み上げ文を (行番号, 章, 文) で返す。章の最後は次への問いにする（11章）。"""
+    out, chapter, last = [], None, None
+    for no, line in narration_with_headings(text):
+        if line.startswith("## "):
+            if chapter and last:
+                out.append((last[0], chapter, last[1]))
+            chapter, last = (line[3:].strip() if CHAPTER.match(line) else None), None
+        elif chapter:
+            ss = [x for x in re.split(r"(?<=[。？?])", strip_tags(line)) if x.strip()]
+            if ss:
+                last = (no, ss[-1].strip())
+    if chapter and last:
+        out.append((last[0], chapter, last[1]))
+    return out
+
+
+def narration_with_headings(text: str) -> list[tuple[int, str]]:
+    """読み上げる行と、## の見出しの行を (行番号, 本文) で返す。"""
+    heads = {i: raw.strip() for i, raw in enumerate(text.splitlines(), 1) if raw.strip().startswith("## ")}
+    return sorted([(i, h) for i, h in heads.items()] + narration(text))
 
 
 def numbers(s: str) -> list[str]:
@@ -188,6 +250,15 @@ def main():
     last = sents[-1][1]
     if re.search(QUESTION, last):
         notes.append((sents[-1][0], "最後の文が問いかけ。締めは教訓（一般化）で終える"))
+
+    # 面白さの仕掛け（11章）
+    raw_text = a.script.read_text(encoding="utf-8")
+    e2, n2 = tricks(raw_text, long=minutes >= 10)
+    errors += e2
+    notes += n2
+    for no, ch, s_last in chapter_ends(raw_text):
+        if not re.search(QUESTION, re.sub(r"[。」』）)]+$", "", s_last)):
+            notes.append((no, f"「{ch}」の最後の文が問いになっていない。次の章への問いで終える：{s_last[:30]}"))
 
     # 出力
     print(f"{a.script}：{chars:,}字、読み上げ約{minutes:.1f}分、数字{len(all_nums)}個（1分に{per_min:.1f}個）、{len(sents)}文")
