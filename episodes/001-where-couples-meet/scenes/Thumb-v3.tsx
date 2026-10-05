@@ -6,6 +6,7 @@ import React from "react";
 import { AbsoluteFill } from "remotion";
 import { Cat } from "@lib/Cat";
 import { Figure } from "@lib/Figure";
+import { MAN_SLUMP, Silhouette, WOMAN_PHONE } from "@lib/Silhouette";
 import { Heart } from "@lib/TownsSim";
 import { scatter } from "@lib/layout";
 import { C, FONT, FONT_SERIF, LINE, R } from "@lib/theme";
@@ -206,7 +207,54 @@ const VoiceHim: React.FC = () => {
   );
 };
 
+// S7（2026-10-06 オーナーの方針：シルエットは比較的リアル・人は白・背景ははっきり2色（縦に割らなくてよい）。
+// 「流し見で何の話か分からない」→ 上に主題「マッチングアプリ」、左右に対立する2つの立場を大きく）
+const DUO = { blue: ["#0A2A6B", "#2F6FDE"], red: ["#5A1A08", C.female] } as const;
+// 彼女へ流れ込むハート：青の側から境目をまたいで、彼女のスマホへ（タイトルの「仕組み」を絵で）
+const flow: [number, number, number][] = [
+  [470, 600, 20], [560, 560, 22], [640, 530, 24], [720, 505, 22], [800, 470, 26],
+  [870, 380, 24], [900, 300, 22], [1130, 300, 26], [1200, 360, 22], [1110, 380, 28], [1230, 270, 20], [1170, 450, 24],
+  [1240, 430, 22], [1100, 470, 20], [1190, 530, 26], [1250, 590, 20], [880, 560, 22], [850, 470, 20], [1140, 610, 22],
+  [1080, 560, 18], [930, 640, 20], [1230, 650, 18],
+];
+const Duo: React.FC = () => (
+  <AbsoluteFill style={{ background: DUO.red[0] }}>
+    <svg width={W} height={H} style={{ position: "absolute" }}>
+      <defs>
+        <linearGradient id="duoB" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stopColor={DUO.blue[1]} /><stop offset="100%" stopColor={DUO.blue[0]} /></linearGradient>
+        <linearGradient id="duoR" x1="1" y1="1" x2="0" y2="0"><stop offset="0%" stopColor={DUO.red[1]} /><stop offset="100%" stopColor={DUO.red[0]} /></linearGradient>
+        <radialGradient id="duoGlow"><stop offset="0%" stopColor="#FFFFFF" stopOpacity={0.5} /><stop offset="100%" stopColor="#FFFFFF" stopOpacity={0} /></radialGradient>
+        {/* 人の立体感：左上から光が当たり、右下へ少し暗くなる白 */}
+        <linearGradient id="silShade" gradientUnits="userSpaceOnUse" x1="-160" y1="-1000" x2="200" y2="-300"><stop offset="0%" stopColor="#FFFFFF" /><stop offset="60%" stopColor="#F1F3F7" /><stop offset="100%" stopColor="#C9CFDB" /></linearGradient>
+        <filter id="silDrop" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="6" dy="10" stdDeviation="8" floodColor="#000" floodOpacity="0.45" /></filter>
+      </defs>
+      {/* 背景：斜めに2色 */}
+      <rect x={0} y={0} width={W} height={H} fill="url(#duoR)" />
+      <polygon points={`0,0 ${W * 0.56},0 ${W * 0.44},${H} 0,${H}`} fill="url(#duoB)" />
+      <line x1={W * 0.56} y1={0} x2={W * 0.44} y2={H} stroke="#FFFFFF" strokeWidth={6} />
+      {/* 彼：うつむいてスマホを見る。届いたハートは1つ（スマホの上で光る） */}
+      <circle cx={262} cy={520} r={160} fill="url(#duoGlow)" />
+      <g filter="url(#silDrop)"><Silhouette j={MAN_SLUMP} x={260} y={H + 340} size={0.82} color="url(#silShade)" gap="rgba(10,20,60,.85)" /></g>
+      <rect x={246} y={530} width={34} height={50} rx={7} fill="#11131A" />
+      <Heart x={410} y={420} r={40} fill={C.white} stroke="none" />
+      {/* 彼女：片手を額に、スマホにハートが流れ込む */}
+      <circle cx={1012} cy={470} r={160} fill="url(#duoGlow)" />
+      <g filter="url(#silDrop)"><Silhouette j={WOMAN_PHONE} x={1000} y={H + 340} size={0.82} color="url(#silShade)" gap="rgba(60,10,0,.85)" /></g>
+      <rect x={996} y={462} width={32} height={50} rx={7} fill="#11131A" />
+      {flow.map(([hx, hy, r], i) => <Heart key={i} x={hx} y={hy} r={r} fill={C.white} stroke="none" />)}
+    </svg>
+    <div style={{ position: "absolute", left: 0, right: 0, top: 14, textAlign: "center" }}>
+      <span style={{ fontFamily: FONT_SERIF, fontWeight: 900, fontSize: 80, color: C.ink, background: C.white, padding: "0 28px", borderRadius: 8 }}>マッチングアプリ</span>
+    </div>
+    {([["選ばれない", 30, "flex-start"], ["選べない", 680, "flex-end"]] as const).map(([t, left, align]) => (
+      <div key={t} style={{ position: "absolute", left, width: 570, top: 128, display: "flex", justifyContent: align, fontFamily: FONT_SERIF, fontWeight: 900,
+        fontSize: 108, whiteSpace: "nowrap", color: C.white, filter: "drop-shadow(0 6px 8px rgba(0,0,0,.55))" }}>{t}</div>
+    ))}
+  </AbsoluteFill>
+);
+
 export default [
+  { id: "001-where-couples-meet-v3-thumb-duo", component: Duo },
   { id: "001-where-couples-meet-v3-thumb-voice2", component: VoiceHim },
   { id: "001-where-couples-meet-v3-thumb-voice-him", component: () => <Voice quote={["何がいけない", "んだろう"]} /> },
   { id: "001-where-couples-meet-v3-thumb-voice-her", component: () => <Voice quote={["もっといい人が", "いるかもしれない"]} /> },

@@ -7,7 +7,7 @@
 
 ## サムネイル案
 
-**候補（2026-10-06）**：`001-where-couples-meet-v3-thumb-voice2`（`scenes/Thumb-v3.tsx` の VoiceHim）。黒い夜の線画、左上に明朝体「何がいけない／んだろう」、ベッドの端で頭を抱える彼（青）と届いた白いハート1つ、右上の窓に彼女（橙）と15のハート。プロのYouTuber役のレビューで 5→6→7点（`review/thumbnail-r1〜r3.md`）。オーナーの決定待ち。
+**候補（2026-10-06）**：`001-where-couples-meet-v3-thumb-duo`（`scenes/Thumb-v3.tsx` の Duo）。斜めに青と赤（橙）の2色、上に「マッチングアプリ」、左「選ばれない」右「選べない」、白いシルエットの男女（`render/src/lib/Silhouette.tsx`）、ハートは彼に1つ・彼女へ青の側から流れ込む。オーナーの方針（リアルなシルエット・人は白・背景は2色）。レビュー `review/thumbnail-d1.md`（6点→直しを入れた）。前の案 voice2（心の声）は「流し見で何の話か分からない」で見送り。
 
 ## 概要欄
 
