@@ -17,3 +17,5 @@
   - 元の研究：WSU の発表 https://news.wsu.edu/press-release/2026/02/05/hug-your-boo-more-affection-not-equal-amounts-strengthens-romantic-ties/ （Communication Studies 掲載、米国の異性カップル141組）
   - → themes.csv 121
   - オーナー「なんか微妙なのかね？類似研究を集めてメタ的に扱うとどうなるの？」→ 類似研究を確認して 121 に追記（似ている度の研究、ラブランゲージの総説、反対側として家事の不公平感）
+- オーナー「信用性がある論文を前提に大規模調査をして、長く続く2人についてテーマ考えたいね」
+  - → 根拠の研究を research/lasting-couples.md にまとめ、themes.csv 122〜125 を追加（121 も同じまとまり）
