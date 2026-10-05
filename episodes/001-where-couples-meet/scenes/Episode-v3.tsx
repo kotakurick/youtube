@@ -11,7 +11,6 @@ import { ChannelTag } from "@lib/Cards";
 import { SignOff } from "@lib/SignOff";
 import { ChapterCard, ChapterDots } from "@lib/Chapter";
 import { Crowd, Person } from "@lib/Crowd";
-import { EndScreen } from "@lib/EndScreen";
 import { Figure } from "@lib/Figure";
 import { Cat } from "@lib/Cat";
 import { Gosa } from "@lib/Gosa";
@@ -1284,7 +1283,8 @@ const Lesson: React.FC = () => {
   );
 };
 
-const End: React.FC = () => <EndScreen lesson={"誰も間違っていないのに、\n出口だけが\n狭くなっていく。"} />;
+// 終了画面は締めの夜の続き（2026-10-05 オーナー「次の1本・再生リストはここで出してよい」）
+const End: React.FC = () => <SignOff end />;
 
 const episode: EpisodeDef = {
   id: "001-where-couples-meet-v3",

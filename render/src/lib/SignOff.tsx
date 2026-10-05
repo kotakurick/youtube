@@ -3,13 +3,17 @@
 //   0〜40f   紙の地の丘にゴサが立ち、上に100個の点（1つ＝1人）が1つずつ数えられて10×10に並ぶ。ゴサはひげで点を指して数える
 //   40〜80f  丘のてっぺんから夜が丸く広がり（景色が変わる）、点は散らばって星になる。ゴサは驚き、一文が出ると笑う
 //   70f〜    夜空の真ん中に締めの一文、その下にチャンネル名。星はゆっくりまたたく
-// 台本では〔字幕なし〕を付けて読む（tts/narrate.py）。場面の側は <SignOff /> を置くだけ。
+//   end      終了画面（20秒）：同じ夜のまま、一文・チャンネル名・ゴサが左へ寄り、右に YouTube の終了画面の枠（次の1本・再生リスト）が出る
+//            （2026-10-05 オーナー「次の1本・再生リストはここで出してよい」）。枠は YouTube Studio で要素を重ねる場所の目印
+// 台本では〔字幕なし〕を付けて読む（tts/narrate.py）。場面の側は教訓のあとに <SignOff />、終了画面に <SignOff end /> を置くだけ。
 import React, { useMemo } from "react";
 import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { Gosa } from "./Gosa";
 import { rng } from "./random";
 import { Sfx } from "./Sfx";
-import { C, CHANNEL_NAME, EASE, font, sp } from "./theme";
+import { C, CHANNEL_NAME, EASE, font, LINE, R, sp } from "./theme";
+
+export const SIGN_OFF_END_FRAMES = 600; // 終了画面は20秒
 
 export const SIGN_OFF = "数えてみると、景色が変わりました。";
 
@@ -24,9 +28,13 @@ const mixHex = (a: string, b: string, t: number) => {
   return `rgb(${[0, 1, 2].map((i) => Math.round(p(a, i) + (p(b, i) - p(a, i)) * t)).join(",")})`;
 };
 
-export const SignOff: React.FC<{ start?: number }> = ({ start = 0 }) => {
-  const frame = useCurrentFrame() - start;
+export const SignOff: React.FC<{ start?: number; end?: boolean }> = ({ start = 0, end = false }) => {
+  const raw = useCurrentFrame();
+  const frame = end ? raw + 300 : raw - start; // 終了画面では、締めの動きが終わった夜から始める
   const { fps } = useVideoConfig();
+  const lay = end ? sp("move", raw - 8, fps) : 0; // 左へ寄る（0→1）
+  const slots = end ? sp("enter", raw - 24, fps) : 0;
+  const cx = 960 - 420 * lay, sc = 1 - 0.3 * lay; // 一文とゴサの中心・一文の大きさ
   const clamp = { extrapolateLeft: "clamp" as const, extrapolateRight: "clamp" as const };
 
   // 100個の点：はじめは10×10（数える）、あとで星の位置へ。文字の帯（y 400〜600 の真ん中）は避ける
@@ -73,16 +81,23 @@ export const SignOff: React.FC<{ start?: number }> = ({ start = 0 }) => {
           夜になったら白い体（dark）に替える。夜は丘のてっぺん（ゴサの足元）から広がるので、替わる瞬間は見えない */}
       {frame < 44
         ? <Gosa cues={[[0, "point"]]} size={150} x={960} foot={HILL_TOP + 46} sfx={false} reachTo={{ x: 900, y: 420 }} />
-        : <Gosa cues={[[-60, "point"], [44, "surprised"], [76, "happy"]]} size={150} x={960} foot={HILL_TOP + 46} dark sfx={false} />}
+        : <Gosa cues={end ? [[-60, "happy"]] : [[-60, "point"], [44, "surprised"], [76, "happy"]]} size={150} x={cx} foot={HILL_TOP + 46 + 18 * lay} dark sfx={false} />}
       {/* 締めの一文とチャンネル名 */}
-      <div style={{ position: "absolute", left: 0, right: 0, top: 380, textAlign: "center", opacity: text, transform: `translateY(${(1 - text) * 24}px)` }}>
+      <div style={{ position: "absolute", left: cx - 960, width: 1920, top: 380 - 40 * lay, textAlign: "center", opacity: text,
+        transform: `translateY(${(1 - text) * 24}px) scale(${sc})` }}>
         <div style={{ ...font("question", STAR), whiteSpace: "nowrap" }}>{SIGN_OFF}</div>
       </div>
-      <div style={{ position: "absolute", left: 0, right: 0, top: 480, textAlign: "center", opacity: name }}>
+      <div style={{ position: "absolute", left: cx - 960, width: 1920, top: 480 - 44 * lay, textAlign: "center", opacity: name }}>
         <span style={{ ...font("label", C.paper2), fontWeight: 900 }}>{CHANNEL_NAME}</span>
       </div>
-      <Sfx name="tick" at={start + 2} volume={0.3} />
-      <Sfx name="flip" at={start + 42} volume={0.4} />
+      {/* 終了画面の枠（YouTube の要素がこの上に乗る） */}
+      {end && [[120, "次の1本"], [560, "再生リスト"]].map(([y, label]) => (
+        <div key={label} style={{ position: "absolute", left: 1080, top: y as number, width: 704, height: 396, boxSizing: "border-box", opacity: slots,
+          transform: `translateX(${(1 - slots) * 40}px)`, border: `${LINE.thin}px dashed ${C.rest}`, borderRadius: R.md, background: "rgba(43,51,80,0.6)",
+          display: "flex", alignItems: "center", justifyContent: "center", ...font("label", C.rest) }}>{label}</div>
+      ))}
+      {!end && <Sfx name="tick" at={start + 2} volume={0.3} />}
+      {!end && <Sfx name="flip" at={start + 42} volume={0.4} />}
     </AbsoluteFill>
   );
 };
