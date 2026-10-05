@@ -33,7 +33,7 @@ const Today: React.FC = () => (
 );
 
 const episode: EpisodeDef = {
-  id: "003-marriage-forty-dip",            // フォルダ名と同じにする（英数字とハイフン）
+  id: "004-marriage-forty-dip",            // フォルダ名と同じにする（英数字とハイフン）
   title: "（タイトル）",
   // draft: true のうちは、部品のない場面が仮の画面（場面名と字幕）になる。全部そろったら外す
   scenes: fromTiming(timing as Timing, { opening: Opening, today: Today }, { draft: true }),

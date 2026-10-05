@@ -1,23 +1,23 @@
-# 003-marriage-forty-dip
+# 004-marriage-forty-dip
 
-テーマ: themes.csv の 127「夫婦の満足度は40歳ごろに底を打つ。それは相手のせいか、年齢のせいか」（2026-10-05 オーナー決定。経緯は `themes/memo.md`・`docs/decisions.md`）
+テーマ: themes.csv の 127「40代から、妻だけが冷めていく」（はじめの案は「夫婦の満足度は40歳ごろに底を打つ。それは相手のせいか、年齢のせいか」）（2026-10-05 オーナー決定。経緯は `themes/memo.md`・`docs/decisions.md`）
 
 ## 進行状況
 
 人の工程（★）は飛ばさない。チェックを付けたら日付も書く。
 
-- [x] 1. テーマ・データ収集（クラウド、2026-10-05 第1版）→ `sources.csv`、`research.md`（まとめ）。**クラウドから一次資料を開けず、数字はすべて検索の要約から**。切り口の見直し案（夫婦の谷は夫と妻で10年ずれている）を `research.md` に書いた
-- [ ] ★ テーマと切り口の承認（オーナー）：テーマは 2026-10-05 承認。切り口は `research.md` の案1・案2から選ぶ
+- [x] 1. テーマ・データ収集（クラウド、2026-10-05 第1版）→ `sources.csv`、`research.md`（まとめ）。2026-10-05 環境のネットワークを広げて一次資料で読み直し（`verify-japan.md`・`verify-papers.md`）、sources.csv を原文の値に直した。オーナーの照合（★）は未
+- [x] ★ テーマと切り口の承認（オーナー 2026-10-05 「A」：40代から、妻だけが冷めていく。`research.md` の第2版の案A）
 - [ ] 2. 企画カードと構成案（クラウド）→ `outline.md`（一番上の企画カードを先に埋める。埋まったら `review-rival` に見せて、負けている所を構成で直す → `review/rival-outline.md`）
 - [ ] 3. 台本（クラウド）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。5役のレビュー → `review/`）
 - [ ] ★ 一次資料との照合（オーナー）→ `sources.csv` の「照合」欄をすべて埋める
 - [ ] ★ 台本レビュー（オーナー）→ `review/owner.md`（Claude が読みやすい形にまとめて渡す。オーナーの指摘は Claude が書き写して台本に反映し、直した／直さなかったを1行ずつ書く）
 - [ ] 4. 絵コンテ（クラウド）：`scenes/Storyboard.tsx` に場面を描き（秒数と動きも）、`cd render && npm run storyboard -- <回のid>` で一覧と `storyboard.md` を作る（直すもの0、⚠ の場面は割り方を決める）→ 3役（`review-animator`・`review-illustrator`・`review-designer`）に見せて `review/storyboard-summary.md` にまとめて直す → ★ オーナーが確認
 - [ ] 5. 場面のコード（クラウド）→ `scenes/Episode.tsx`（`Episode.example.tsx` を名前を変えて使う。部品は `render/src/lib`、動きは `useNarration()` で読み上げに合わせる）
-- [ ] 6. 仮通し（クラウド）：`python tts/narrate.py episodes/003-marriage-forty-dip --voice silent` で仮の尺と字幕（`timing.json`）を作り、部品のない場面は仮の画面（draft）で13〜18分を通して、テンポ・章の長さ・考える場面の位置を直す
-- [ ] 7. 音声合成（ローカル）：`python tts/narrate.py episodes/003-marriage-forty-dip --voice eleven-yui`（文ごとに作り、尺・字幕・`subtitles.srt` も自動で声に合う。同じ文は作り直さない）
+- [ ] 6. 仮通し（クラウド）：`python tts/narrate.py episodes/004-marriage-forty-dip --voice silent` で仮の尺と字幕（`timing.json`）を作り、部品のない場面は仮の画面（draft）で13〜18分を通して、テンポ・章の長さ・考える場面の位置を直す
+- [ ] 7. 音声合成（ローカル）：`python tts/narrate.py episodes/004-marriage-forty-dip --voice eleven-yui`（文ごとに作り、尺・字幕・`subtitles.srt` も自動で声に合う。同じ文は作り直さない）
 - [ ] 8. 書き出し・BGM・音量（ローカル）：`npm run render`、`npm run master`（BGM は `npm run bgm` で測ってそろえたもの）
-- [ ] 9. 画面のチェック：`cd render && npm run check -- 003-marriage-forty-dip` の「直すもの」を0にし、「確かめるもの」は画像を見て判断する（重なり・28px未満の文字・はみ出し。結果は `render/out/qa/003-marriage-forty-dip/`）。縦型ショートも同じ
+- [ ] 9. 画面のチェック：`cd render && npm run check -- 004-marriage-forty-dip` の「直すもの」を0にし、「確かめるもの」は画像を見て判断する（重なり・28px未満の文字・はみ出し。結果は `render/out/qa/004-marriage-forty-dip/`）。縦型ショートも同じ
 - [ ] ★ 1.25倍速で通し確認（オーナー）
 - [ ] ★ サムネイルとタイトルの最終決定（オーナー）→ `meta.md`
 - [ ] ★ 公開（オーナー。URL: ）
@@ -60,4 +60,4 @@
 
 ## 大きいファイルの保存先（Gitの外）
 
-`$YT_DATA_DIR/episodes/003-marriage-forty-dip/`（audio/ と render/）
+`$YT_DATA_DIR/episodes/004-marriage-forty-dip/`（audio/ と render/）
