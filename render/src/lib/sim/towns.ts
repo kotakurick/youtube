@@ -36,7 +36,10 @@ export type TownOptions = {
   raise: number;       // アプリ：受け取ったいいねが倍になるごとに基準が上がる幅
   browse: number;      // アプリ：1か月に見るプロフィールの数
   likes: Record<Sex, number>; // アプリ：1か月に送るいいねの上限
+  /** アプリ：1人だけやり方を変える（「もしも彼だけが〜したら」）。住人の id → その人だけの値 */
+  personal?: Record<number, Personal>;
 };
+export type Personal = { aim?: number; raise?: number; reply?: number; likes?: number; browse?: number };
 
 export const DEFAULTS: TownOptions = {
   months: 12, noise: 0.6, vouchNoise: 0.25, tolerance: 0.15, perCircle: 1,
@@ -134,9 +137,10 @@ export const simulateApp = (rs: Resident[], o: Partial<TownOptions> = {}, seed =
     const likes: [number, number][] = [];
     const got = new Map<number, number[]>();
     for (const p of singles) {
-      const pool = shuffle(singles.filter((q) => q.kind !== p.kind), seed * 131 + m * 17 + p.id).slice(0, opt.browse);
+      const me = opt.personal?.[p.id] ?? {};
+      const pool = shuffle(singles.filter((q) => q.kind !== p.kind), seed * 131 + m * 17 + p.id).slice(0, me.browse ?? opt.browse);
       // 見た順に、自分より aim 上に見える人へ送る（上限まで）。いちばん上の人だけを選ぶわけではない
-      const sent = pool.filter((q) => view(p, q) >= p.score + opt.aim).slice(0, opt.likes[p.kind]);
+      const sent = pool.filter((q) => view(p, q) >= p.score + (me.aim ?? opt.aim)).slice(0, me.likes ?? opt.likes[p.kind]);
       for (const q of sent) { likes.push([p.id, q.id]); got.set(q.id, [...(got.get(q.id) ?? []), p.id]); }
     }
     // 受けた人は、自分の基準（自分より reply 下まで）に届く相手にだけ返す。いいねを多く受け取ってきた人ほど基準が上がる
@@ -144,7 +148,8 @@ export const simulateApp = (rs: Resident[], o: Partial<TownOptions> = {}, seed =
     for (const q of singles) {
       const from = got.get(q.id) ?? [];
       seen.set(q.id, (seen.get(q.id) ?? 0) + from.length);
-      const bar = q.score - opt.reply + opt.raise * Math.log2(1 + seen.get(q.id)!);
+      const mq = opt.personal?.[q.id] ?? {};
+      const bar = q.score - (mq.reply ?? opt.reply) + (mq.raise ?? opt.raise) * Math.log2(1 + seen.get(q.id)!);
       for (const pid of from) {
         const p = rs[pid];
         if (view(q, p) >= bar) matches.push(p.kind === "male" ? [p.id, q.id] : [q.id, p.id]);
