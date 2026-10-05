@@ -10,6 +10,7 @@ tools: Read, Glob, Grep, Write
 - **データで語る棒人間**：シミュレーションと絵が強い（理想の世界から原因を1つずつ足す、途中に数え方の発見）。物語・ミクロ・締めが弱い。うちの「なぜ×100人シミュレーション」の型にいちばん近いので、見た目や構成がまねに見えないかも確かめる。褒めるのが仕事ではありません。負けている所をはっきり書いてください。
 
 ## 読むもの
+- 先に `docs/owner-feedback.md`（オーナーの指摘集）。同じ型の指摘が出そうな所がないかも確かめ、見つけたら指摘に入れる（2026-10-06）
 1. `research/benchmark/teardown/kangaesugiruashi-net-love.md` と `research/benchmark/teardown/datastickfigure-matching-sim.md`（2つの相手の作り方の分解。強い所と弱い所）
 2. `docs/script-style.md` の11章（面白さの仕掛け）と8章（心の動き）
 3. `episodes/<回>/outline.md`（一番上の企画カード）。台本の段階なら `script.md` も

@@ -58,6 +58,34 @@ QUESTION = r"(か|[?？])$"
 NOUN_STOP = r"[一-龥ァ-ヶー0-9]$"
 STAT = r"%|割|倍|万|億|人に\d人"   # 統計らしい数字の目印
 
+# 声が読み間違えやすい漢字（2026-10-06 オーナー「側をそばと読む」）。tts/yomi.tsv に読みがなければ知らせる。
+# 読みは文脈で変わるので、一括では直さず、語ごとに yomi.tsv に足す（例：「女性の側」→「女性のがわ」）
+AMBIGUOUS = ["側", "他", "何人", "一日", "上手", "下手", "市場", "大分", "心中", "最中", "目下", "生物", "方々"]
+ROOT = Path(__file__).resolve().parent.parent
+
+
+def load_tsv(path: Path, key: str) -> list[dict]:
+    import csv
+    if not path.exists():
+        return []
+    with path.open(encoding="utf-8-sig", newline="") as f:
+        return [r for r in csv.DictReader(f, delimiter="\t") if r.get(key)]
+
+
+def unread(s: str, yomi: list[str]) -> list[str]:
+    """読み間違えやすい漢字のうち、yomi.tsv の表記に含まれていないもの"""
+    covered = [False] * len(s)
+    for w in yomi:
+        for m in re.finditer(re.escape(w), s):
+            for i in range(m.start(), m.end()):
+                covered[i] = True
+    out = []
+    for w in AMBIGUOUS:
+        for m in re.finditer(re.escape(w), s):
+            if not all(covered[m.start():m.end()]):
+                out.append(w)
+    return out
+
 
 def narration(text: str) -> list[tuple[int, str]]:
     """読み上げる行だけを (行番号, 本文) で返す。"""
@@ -226,6 +254,17 @@ def main():
     else:
         for no, s in plain:
             notes.append((no, f"です・ます調でない：{s[:30]}"))
+
+    # 言い換えの辞書（scripts/wording.tsv。オーナーの指摘から足していく）と、読み間違えやすい漢字（tts/yomi.tsv）
+    wording = load_tsv(ROOT / "scripts" / "wording.tsv", "表記")
+    yomi = [r["表記"] for r in load_tsv(ROOT / "tts" / "yomi.tsv", "表記")]
+    for no, t in lines:
+        t2 = strip_tags(t)
+        for r in wording:
+            if r["表記"] in t2:
+                errors.append((no, f"言い換える：「{r['表記']}」→「{r['言い換え']}」（{r['理由']}）"))
+        for w in dict.fromkeys(unread(t2, yomi)):
+            notes.append((no, f"読み間違えやすい「{w}」：声で聞いて確かめ、違えば tts/yomi.tsv に語ごとに読みを足す"))
 
     # 言葉
     for no, t in lines:

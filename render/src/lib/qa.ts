@@ -6,7 +6,7 @@
 // 親子（入れ子）の関係にあるもの同士は調べない（カードの中の文字、スマホの画面の中の数字など）。
 
 export type QAKind = "text" | "figure" | "gosa" | "mark" | "prop" | "sub";
-export type QABox = { id: number; kind: QAKind; x: number; y: number; w: number; h: number; allow: string[]; label: string; fontPx?: number };
+export type QABox = { id: number; kind: QAKind; x: number; y: number; w: number; h: number; allow: string[]; label: string; fontPx?: number; context?: string }; // context：文字のまわり（親の要素）の文字全部
 export type QAIssue = { level: "error" | "warn"; rule: string; message: string; boxes: QABox[] };
 
 /** 重なってはいけない組み合わせ（どちらの順でも同じ）。ない組み合わせは調べない */
@@ -32,6 +32,11 @@ export const MIN_FONT_PX = 28;   // これより小さい文字は作らない�
 /** 字幕の帯の上に空ける間（px）。帯のすぐ上に出典や文字があると、字幕とくっついて読みにくい（2026-10-05 オーナー） */
 export const SUB_GAP = 28;
 const MIN_OVERLAP = 4;           // 4px 未満の接触は見逃す（線の太さの誤差）
+/** 上下に並んだ文字の間に空ける間（px）。これより近いと詰まって見える（2026-10-06 オーナー「文字の間隔が限りなく近い」） */
+export const TEXT_GAP = 16;
+/** 大きな数字（この大きさ以上）には単位を付ける（2026-10-06 オーナー「約73 では何か分からない。73% と書く」） */
+const BIG_NUMBER_PX = 56;
+const UNIT = /[%％倍人組件歳年月日円万億割位回個分秒点枚通位]/;
 
 const inter = (a: QABox, b: QABox) => {
   const w = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
@@ -63,6 +68,10 @@ export const checkBoxes = (
       out.push({ level: rule.level, rule: key, message: near ? `字幕の帯に近すぎます（上に${SUB_GAP}px空ける）：「${a.label}」と「${b.label}」` : `${rule.why}：「${a.label}」と「${b.label}」`, boxes: [a, b] });
     }
     if (a.kind === "text") {
+      // 単位のない大きな数字（目盛りのような小さな数字は見ない。単位が隣の文字に分かれていれば、まわりの文字で見る）
+      if (/^約?[\d.,]+$/.test(a.label) && (a.fontPx ?? 0) >= BIG_NUMBER_PX * canvas.fontScale && !UNIT.test(a.context ?? "")) {
+        out.push({ level: "warn", rule: "unit", message: `大きな数字に単位がない（%・人・組 などを付ける）：「${a.label}」`, boxes: [a] });
+      }
       if (a.fontPx !== undefined && a.fontPx < MIN_FONT_PX * canvas.fontScale - 0.5) {
         out.push({ level: "error", rule: "font", message: `文字が小さすぎます（${a.fontPx.toFixed(0)}px、${MIN_FONT_PX}px 以上）：「${a.label}」`, boxes: [a] });
       }
@@ -89,3 +98,29 @@ export const checkSeriesColors = (groups: { box: QABox; rgb: [number, number, nu
     message: `比べる線が墨・灰の濃淡だけで見分けにくい（意味の色を付ける）：${g.map((s) => `「${s.box.label}」`).join("と")}`,
     boxes: g.map((s) => s.box),
   }));
+
+/**
+ * 上下に並んだ文字が近すぎないか。横に重なっていて、上下の間が TEXT_GAP 未満の組を「確かめる」にする。
+ * 同じ札・同じ表の行の中（親子）は related で除く。
+ */
+export const checkTextGaps = (boxes: QABox[], related: (a: QABox, b: QABox) => boolean, scale = 1): QAIssue[] => {
+  const t = boxes.filter((b) => b.kind === "text");
+  const out: QAIssue[] = [];
+  for (let i = 0; i < t.length; i++) for (let j = i + 1; j < t.length; j++) {
+    const [a, b] = t[i].y <= t[j].y ? [t[i], t[j]] : [t[j], t[i]];
+    const wide = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
+    const gap = b.y - (a.y + a.h);
+    if (wide < 40 || gap < 0 || gap >= TEXT_GAP * scale || related(a, b)) continue;
+    out.push({ level: "warn", rule: "gap", message: `文字の上下が近すぎます（${gap.toFixed(0)}px、${TEXT_GAP}px 以上空ける）：「${a.label}」と「${b.label}」`, boxes: [a, b] });
+  }
+  return out;
+};
+
+/** 「模式図」と書いた画面に、数字（%・倍など）がひとつもないか（2026-10-06 オーナー「パーセントの数字はスライドに入れよう」） */
+export const checkSchematic = (boxes: QABox[]): QAIssue[] => {
+  const texts = boxes.filter((b) => b.kind === "text");
+  const note = texts.find((b) => (b.context ?? b.label).includes("模式図"));
+  if (!note) return [];
+  const hasNumber = texts.some((b) => /\d+(\.\d+)?\s*[%％倍]/.test(b.context ?? b.label));
+  return hasNumber ? [] : [{ level: "warn", rule: "schematic", message: "模式図に数字がない。論文の数字（%・倍など）を画面に入れる", boxes: [note] }];
+};

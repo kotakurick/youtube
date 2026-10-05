@@ -17,7 +17,7 @@ AIっぽい言い回しの直し方は yomiyasu（https://github.com/nanaism/yom
 ## 手順
 
 0. **構成の段階（台本を書く前）**：`outline.md` の一番上の企画カード（痛み・逆説の一文・この動画だけの数字・日本の数字・絵で分かる瞬間・ミクロ）が埋まっているか確かめる。空があれば台本に進まない。埋まったら、書いた会話とは別のサブエージェント `review-rival` に構成案を見せ（`review/rival-outline.md`）、負けている項目を構成で直してから台本を書く。
-1. `docs/script-style.md` と、その回の `outline.md`・`sources.csv` を読む。
+1. `docs/script-style.md`、`docs/owner-feedback.md`（オーナーの指摘集。過去と同じ型の指摘を先回りで直す）と、その回の `outline.md`・`sources.csv` を読む。
 2. `python scripts/lint_script.py episodes/<回>/script.md` を実行する。
 3. エラーをすべて直す。注意は1つずつ読み、直すか残すかを決める（物語の中の数字、調査の正式名など、残してよいものもある）。
 4. チェッカーでは分からない所を、通して読んで直す。
