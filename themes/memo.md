@@ -21,3 +21,4 @@
   - → 根拠の研究を research/lasting-couples.md にまとめ、themes.csv 122〜125 を追加（121 も同じまとまり）
 - オーナー「動画20分くらいで作れて面白いテーマでまとめて」
   - → 121〜125 を1本にまとめた構成案 docs/concepts/2026-10-05-lasting-couples.md、themes.csv 126。標準構成の上限に合わせて約18分で組んだ
+- オーナー「戦略的にチャンネルを伸ばしたいぜ！」→ 最初の20本を企画の強さで採点し並べ直す案（docs/concepts/2026-10-05-first20-order.md）→ 「その並びでOK、126も入れて反映して」で first20.md と decisions.md に反映
