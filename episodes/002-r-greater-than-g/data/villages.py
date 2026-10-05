@@ -16,9 +16,11 @@
 - 積立の村：日本株（配当込みTOPIX）の実質の対数リターン。基本は 1971〜2025年（平均5.0%・標準偏差23.4%）。比べる用に 1990〜2025年（平均1.3%・標準偏差23%）。
   新NISA の積立の多くは全世界株・米国株とみられ、日本株とは別物（research-villages.md B-3 の注意）。
 - 預金の村：実質の利回り 平均−0.3%・標準偏差1.5%（1994〜2025年の実績）。
-- 起業の村：25歳で、500万円を借りて始める。毎年の廃業の確率は、5年後に85%が残る値（日本の調査。高めに出る）。
+- 起業の村：25歳で、500万円を借りて始める。事業そのものの価値（売れば値がつく分）は数えない（資産が低めに出る）。毎年の廃業の確率は、5年後に85%が残る値（日本の調査。高めに出る）。
   比べる用にアメリカ（5年後に50%）。残った人の月の稼ぎは公庫の5年目の分布から1人ずつ引く。
-  やめたら同じ順位で会社員に戻る（給料が下がらない。アメリカの研究）。借金が残る割合は半分（つまみ。日本のデータなし）。
+  稼ぎが月20万円未満の人は、毎年さらに3割の確率でやめる（稼げない人ほど早くやめる。アメリカの研究で、起業の約半分は2年以内に終わる。割合は仮定）。
+  借金は事業の稼ぎから7年で返す（毎年 500÷7 万円）。やめたら同じ順位で会社員に戻る（給料が下がらない。アメリカの研究）。
+  やめたときに残っている借金は、半分の人に残る（つまみ。日本のデータなし）。
 - 不動産の村：25歳で、首都圏の新築の投資用ワンルーム（平均3,703万円）を、頭金100万円・金利3%・35年のローンで買う（金利は公的な統計なし）。
   表面利回り4.5%（新築の公的な数字なし）、経費は家賃の2割、空室は年ごとに5%の確率で1年空く（つまみ）。
   買った直後に価値が15%下がり（新築の上乗せ分）、その後は築年で毎年1%目減りし、相場の動きが加わる。
@@ -32,7 +34,7 @@
 import math
 import random
 
-YEARS, PEOPLE, WORLDS, SEED = 20, 100, 2000, 7
+YEARS, PEOPLE, WORLDS, SEED = 20, 100, 6000, 7   # 世界は WORLDS÷10＝600回（相場のくじ）。1つの世界に各村100人
 SAVE = 0.10
 # 年齢の帯ごとの所定内給与の分位（千円、2025年、男女計）：p10, p25, p50, p75, p90
 WAGE = {
@@ -89,10 +91,10 @@ def market(rng, stock):
     }
 
 
-def run(village, rng, mk, opt):
+def run(village, rng, mk, opt, fixed_u=None):
     out = []
-    for _ in range(PEOPLE):
-        u = rng.random()
+    for _ in range(PEOPLE if fixed_u is None else 1):
+        u = rng.random() if fixed_u is None else fixed_u
         factor, assets, invested, debt = 1.0, 0.0, 0.0, 0.0
         biz_alive, biz_income = village == "起業", 0.0
         if village == "起業":
@@ -113,16 +115,23 @@ def run(village, rng, mk, opt):
             if village == "起業":
                 if biz_alive:
                     income = biz_income
-                    if rng.random() < opt["biz_hazard"]:
+                    repay = min(debt, 500.0 / 7)
+                    debt -= repay
+                    hz = opt["biz_hazard"] + (0.3 if biz_income < 240 else 0.0)
+                    if rng.random() < hz:
                         biz_alive = False
                         if rng.random() < opt["debt_left"]:
-                            assets -= debt     # 借金が残る
+                            assets -= debt     # 残っていた借金が自分に残る
                         debt = 0.0
                 else:
                     factor = job_change(rng, age, factor, rate_x)
+                    income = quantile(age, u) * factor * 12 / 10
             else:
                 factor = job_change(rng, age, factor, rate_x)
+                income = quantile(age, u) * factor * 12 / 10
             save = income * SAVE
+            if village == "起業" and biz_alive:
+                save -= repay            # 借金の返済は貯金から（事業の稼ぎの1割を超える分も）
             r = mk["stock"][y] if village in ("積立", "両方") else mk["deposit"][y]
             if village == "不動産":
                 rent = 3703.0 * 0.045 * (0 if rng.random() < opt["vacancy"] else 1) * 0.8
@@ -133,8 +142,8 @@ def run(village, rng, mk, opt):
                 prop_value *= (1 + opt["prop"][y]) * 0.99
             assets = assets * (1 + r) + save
             invested += income * SAVE
-        net = assets + prop_value - loan
-        out.append((net, invested, wage))
+        net = assets + prop_value - loan - (debt if village == "起業" else 0.0)
+        out.append((net, invested, income))
     return out
 
 
@@ -150,6 +159,7 @@ def pct(xs, q):
 def simulate(stock=(0.050, 0.234), biz_hazard=1 - 0.85 ** 0.2, debt_left=0.5, vacancy=0.05, prop="flat", label=""):
     rng = random.Random(SEED)
     res = {v: [] for v in ("預金", "積立", "稼ぐ力", "起業", "不動産", "両方")}
+    him = {v: [] for v in res}
     for _ in range(WORLDS // 10):
         mk = market(rng, stock)
         if prop == "tokyo":
@@ -161,14 +171,16 @@ def simulate(stock=(0.050, 0.234), biz_hazard=1 - 0.85 ** 0.2, debt_left=0.5, va
         opt = {"biz_hazard": biz_hazard, "debt_left": debt_left, "vacancy": vacancy, "prop": p}
         for v in res:
             res[v] += run(v, rng, mk, opt)
+            him[v] += run(v, rng, mk, opt, fixed_u=0.5)
     print(f"\n## {label}")
-    print("| 村 | 45歳の資産 下位1割 | 真ん中 | 上位1割 | 貯めた額より減った人 | 44歳の年収 真ん中 | 上位1割 |")
-    print("|---|---:|---:|---:|---:|---:|---:|")
+    print("| 村 | 45歳の資産 下位1割 | 真ん中 | 上位1割 | 幅（上位1割−下位1割） | 貯めた額より減った人 | 44歳の年収 真ん中 | 上位1割 | 真ん中の順位の彼：資産の真ん中 | 彼：下位1割 | 彼：上位1割 |")
+    print("|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|")
     for v, xs in res.items():
         nets = [n for n, _, _ in xs]
         lost = sum(1 for n, inv, _ in xs if n < inv) / len(xs)
         wages = [w for _, _, w in xs]
-        print(f"| {v} | {pct(nets, .1):,.0f} | {pct(nets, .5):,.0f} | {pct(nets, .9):,.0f} | {lost:.0%} | {pct(wages, .5):,.0f} | {pct(wages, .9):,.0f} |")
+        h = [n for n, _, _ in him[v]]
+        print(f"| {v} | {pct(nets, .1):,.0f} | {pct(nets, .5):,.0f} | {pct(nets, .9):,.0f} | {pct(nets, .9) - pct(nets, .1):,.0f} | {lost:.0%} | {pct(wages, .5):,.0f} | {pct(wages, .9):,.0f} | {pct(h, .5):,.0f} | {pct(h, .1):,.0f} | {pct(h, .9):,.0f} |")
 
 
 if __name__ == "__main__":
@@ -178,3 +190,5 @@ if __name__ == "__main__":
     simulate(biz_hazard=1 - 0.50 ** 0.2, label="起業の存続をアメリカ並み（5年で半分）にした場合")
     simulate(prop="1990", label="物件の相場を1990年型（15年下がる）にした場合")
     simulate(vacancy=0.15, label="ワンルームの空室を年15%にした場合")
+    simulate(debt_left=0.0, label="起業：やめても借金が残らない場合（つまみを左いっぱい）")
+    simulate(debt_left=1.0, label="起業：やめた人の全員に借金が残る場合（つまみを右いっぱい）")
