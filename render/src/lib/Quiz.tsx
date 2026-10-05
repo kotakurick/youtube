@@ -43,7 +43,7 @@ export const Quiz: React.FC<{ question: string; choices: string[]; answer?: numb
               <div style={{ width: 64, height: 64, borderRadius: 32, background: right ? C.ink : C.white, flex: "none",
                 display: "flex", alignItems: "center", justifyContent: "center", ...font("label", right ? C.white : C.ink), fontWeight: 900 }}>{KEYS[i]}</div>
               <div style={{ ...font("value"), position: "relative" }}>
-                {right && <div style={{ position: "absolute", left: 0, right: 0, bottom: 6, height: 18, background: C.marker, borderRadius: 4 }} />}
+                {right && <div style={{ position: "absolute", left: 0, right: 0, bottom: -6, height: 8, background: C.ink, borderRadius: 4 }} />}
                 <span style={{ position: "relative" }}>{c}</span>
               </div>
             </div>

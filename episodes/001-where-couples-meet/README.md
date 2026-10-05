@@ -2,7 +2,40 @@
 
 テーマ: themes.csv の 2「夫婦はどこで出会っているのか。見合いからアプリまでの変化」（first20.md の2番）。タイトル案：夫婦の出会い、アプリはまだ◯位だった
 
-## 進行状況
+## v2（なぜ×100人のシミュレーション。2026-10-05〜）
+
+試作（第6稿）が「全く面白くない」と判定されたので、同じテーマを新しい型で作り直している（`docs/decisions.md` 2026-10-05）。第6稿のファイル（`script.md`・`scenes/Episode.tsx`・`timing.json`）はそのまま残してある。
+
+| もの | ファイル |
+|---|---|
+| 構成案 | `outline-v2.md` |
+| 仕組みの根拠 | `research-mechanism.md` |
+| シミュレーション（仮定・結果・種を変えた確かめ） | `sim-v2.md`、コードは `render/src/lib/sim/towns.ts`・`render/src/lib/TownsSim.tsx` |
+| 台本 | `script-v2.md`（lint のエラー0、数字は1分に3.3個） |
+| 尺と字幕（仮の無音） | `timing-v2.json`・`subtitles-v2.srt`（約11分32秒） |
+| 場面のコード | `scenes/Episode-v2.tsx`（動画の id は `001-where-couples-meet-v2`） |
+| 絵コンテ | `cd render && npm run storyboard -- 001-where-couples-meet-v2` → `render/out/storyboard/001-where-couples-meet-v2/index.html`（直すもの0。`--every 5` で場面の中を5秒ごとにも撮れる） |
+
+- [x] 構成案 v2（2026-10-05）
+- [x] シミュレーションを作り、結果の組数を決める（2026-10-05。紹介の町27組・アプリの町17組）
+- [x] 台本 v2 初稿（2026-10-05）。`python scripts/lint_script.py episodes/001-where-couples-meet/script-v2.md`、`python scripts/check_sources.py episodes/001-where-couples-meet script-v2.md` を通した
+- [x] 静止画の絵コンテ（2026-10-05、クラウドで作成）
+- [x] 論文のグラフィック2つ（Bruch & Newman・Pronk & Denissen の模式図）と「1人だけやり方を変えたら」の場面（me）を足す（2026-10-05 オーナー「その形でOK、入れて」）
+- [ ] ★ 絵コンテと台本をオーナーが確認
+- [ ] 台本のレビュー（review-facts → review-flow・review-depth → review-policy）と推敲
+- [ ] ★ 一次資料との照合（S11〜S13 は新しい出典。S12 Hinge は紹介記事なので一次を探す。論文のサイトはクラウドから開けなかったので、S11 の「約25%」「1504通」、S13 の「約27%」「最初の十数枚で急」は特に照合する。論文の図は模式図として描いた）
+- [ ] 音声（ローカル）：`python tts/narrate.py episodes/001-where-couples-meet --voice eleven-yui --script script-v2.md`
+- [ ] 動画の書き出し（ローカル）：`cd render && npm run render -- 001-where-couples-meet-v2 out/001-v2.mp4`
+
+### オーナーに確かめてほしいこと（v2）
+
+1. **長さが約11分半**（標準は13〜18分）。論文の図と「1人だけ変えたら」を足して伸びた。
+2. **3つの仕組みの3つ目を変えた**。構成案では「保証がない」をアプリの町の3つ目の仕組みにしていたが、根拠が弱い（research-mechanism.md の4）ので、台本ではアプリの町の仕組みを2つ（少し上を狙う・基準が上がる）にし、「保証」は紹介の町の強みとして第3章で抜いてみせた（抜くと紹介の町は13組に減る）。
+3. **結果は仮定しだい**と声でも言っている（基準の上がり方が半分なら、アプリの町が34組で勝つ）。言い切りを弱めすぎていないか。
+4. 冒頭の数字：彼は「ひと月で8件送って1件届いた」、彼女は「ひと月で15件届いた」。シミュレーションの2人の1か月目の数字に合わせた。
+5. 教訓の場面で、彼女は「友人の紹介」、彼は「職場の知り合いの紹介」とした（シミュレーションでは輪の世話役。どの輪かは区別していない）。
+
+## 進行状況（第6稿まで）
 
 人の工程（★）は飛ばさない。チェックを付けたら日付も書く。
 

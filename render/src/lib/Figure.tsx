@@ -109,6 +109,8 @@ export const Figure: React.FC<{
           <circle cx={0} cy={-20} r={36} fill="none" stroke={C.ink} strokeWidth={LINE.thin} />
         </>
       )}
+      {/* 足元の影（床に立っている感じを出す） */}
+      <ellipse cx={0} cy={5} rx={pose === "sit" ? 18 : 15} ry={3.2} fill={C.shadow} />
       <g fill={fill}>
         {age === "child" ? (
           // 子ども：大人の0.68倍。頭は少し大きめ（足元はそのまま）

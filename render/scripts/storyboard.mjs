@@ -1,77 +1,100 @@
-// 絵コンテを書き出す。場面（<回>-sb-<key>）を1枚ずつ最後のコマで書き出し、画面のチェック（src/lib/qa.ts）もかけてから、
-// 4列の一覧（<回>-storyboard）を作る。
-//   npm run storyboard -- <回のid>                例：npm run storyboard -- 002-r-greater-than-g
-//   npm run storyboard -- <回のid> out/sb.png     一覧の置き場所を変える（既定は out/<回>-storyboard.png）
-// 結果：一覧の画像、場面ごとの秒数と動きの表（episodes/<回>/storyboard.md）、
-//       out/qa/<回>-storyboard.md（場面ごとの「直すもの」「確かめるもの」）。直すものがあれば終了コード1。
+// 静止画の絵コンテ。動画を書き出す前に、場面ごとに2〜3枚の静止画を作って、重なりや違和感を確かめる（2026-10-05）。
+//   npm run storyboard -- <動画のid>                 例：npm run storyboard -- 001-where-couples-meet-v2
+//   npm run storyboard -- <動画のid> --only ch2,ch3   場面をしぼる
+//   npm run storyboard -- <動画のid> --every 5        場面の中を5秒ごとにも撮る（区切りの多い場面を全部見るとき）
+// 場面ごとに、長さの 20%・55%・90% のコマ（章の扉など声のない短い場面は真ん中の1枚）を書き出す。
+// 同時に画面のチェック（src/lib/qa.ts の決まり：重なり・28px未満の文字・はみ出し）も行い、結果を一覧に書く。
+// 結果：out/storyboard/<id>/ に PNG（半分の大きさ）と index.html（一覧。字幕と時刻つき）、report.md。
+// クラウドでも動く（音声・BGM がなくても描ける。フォントは初回にダウンロード）。
+//
+// 場面のコードを書く前の絵コンテ（episodes/<回>/scenes/Storyboard.tsx がある回）は、storyboard-panels.mjs に回す：
+// 場面の一覧の画像と、秒数・動きの表（episodes/<回>/storyboard.md）を作る。コードのあとの絵コンテを撮るときは --scenes を付ける。
 import fs from "fs";
 import path from "path";
+const panelDef = path.resolve("..", "episodes", process.argv.slice(2).find((a) => !a.startsWith("--")) ?? "_", "scenes", "Storyboard.tsx");
+if (fs.existsSync(panelDef) && !process.argv.includes("--scenes")) {
+  await import("./storyboard-panels.mjs");
+  process.exit(process.exitCode ?? 0);
+}
 import { bundle } from "@remotion/bundler";
-import { getCompositions, openBrowser, renderStill, selectComposition } from "@remotion/renderer";
+import { openBrowser, renderStill, selectComposition } from "@remotion/renderer";
 import { webpackOverride } from "../webpack-override.mjs";
 
-const args = process.argv.slice(2).filter((a) => !a.startsWith("--"));
-const [id, outArg] = args;
-if (!id) { console.error("使い方：npm run storyboard -- <回のid>"); process.exit(2); }
-const out = outArg ?? path.join("out", `${id}-storyboard.png`);
+const args = process.argv.slice(2);
+const id = args.find((a) => !a.startsWith("--"));
+if (!id) { console.error("使い方：npm run storyboard -- <動画のid>"); process.exit(2); }
+const only = args.includes("--only") ? args[args.indexOf("--only") + 1].split(",") : null;
+const every = args.includes("--every") ? Number(args[args.indexOf("--every") + 1]) : 0;
+const outDir = path.join("out", "storyboard", id);
+fs.rmSync(outDir, { recursive: true, force: true });
+fs.mkdirSync(outDir, { recursive: true });
+
 const pw = "/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell";
 const browserExecutable = fs.existsSync(pw) ? pw : null;
-const imgDir = path.join("public", "sb", id);
-fs.rmSync(imgDir, { recursive: true, force: true });
-fs.mkdirSync(imgDir, { recursive: true });
 
-const pack = () => bundle({ entryPoint: path.resolve("src/index.ts"), webpackOverride, publicDir: path.resolve("public") });
-console.log("準備中…");
-let serveUrl = await pack();
-const browser = await openBrowser("chrome", { browserExecutable, logLevel: "error" });
+console.log("準備中（まとめて読み込む）…");
+const serveUrl = await bundle({ entryPoint: path.resolve("src/index.ts"), webpackOverride, publicDir: path.resolve("public") });
 const inputProps = { qa: true };
-const prefix = `${id}-sb-`;
-const comps = (await getCompositions(serveUrl, { inputProps, browserExecutable, puppeteerInstance: browser, logLevel: "error" }))
-  .filter((c) => c.id.startsWith(prefix));
-if (!comps.length) { console.error(`場面が見つからない：episodes/${id}/scenes/Storyboard.tsx`); process.exit(2); }
+const composition = await selectComposition({ serveUrl, id, inputProps, browserExecutable, logLevel: "error" });
+const browser = await openBrowser("chrome", { browserExecutable, logLevel: "error" });
+const fps = composition.fps;
 
-const report = [`# 絵コンテの画面チェック：${id}`, ""];
-let errors = 0;
-for (const composition of comps) {
-  const key = composition.id.slice(prefix.length);
-  const frame = composition.durationInFrames - 1;
-  const logs = [];
-  await renderStill({ composition, serveUrl, frame, output: path.join(imgDir, `${key}.png`), inputProps, puppeteerInstance: browser,
-    onBrowserLog: (l) => { if (l.text.startsWith("QA:")) logs.push(l.text); }, logLevel: "error" });
-  const issues = logs.map((t) => JSON.parse(t.slice(3))).find((q) => q.frame === frame)?.issues ?? [];
-  const e = issues.filter((i) => i.level === "error").length, w = issues.length - e;
-  errors += e;
-  console.log(`  場面 ${key}  ${e ? `直す ${e}` : ""}${w ? ` 確かめる ${w}` : ""}${!e && !w ? "OK" : ""}`);
-  if (issues.length) report.push(`## 場面 ${key}`, "", ...issues.map((i, k) => `${k + 1}. ${i.level === "error" ? "【直す】" : "【確かめる】"}${i.message}`), "");
-}
+let logs = [];
+const onBrowserLog = (l) => { if (l.text.startsWith("QA")) logs.push(l.text); };
+const shoot = async (frame, name) => {
+  logs = [];
+  const output = path.join(outDir, name);
+  await renderStill({ composition, serveUrl, frame, output, inputProps, puppeteerInstance: browser, onBrowserLog, scale: 0.5,
+    timeoutInMilliseconds: 120000, logLevel: "error" });
+  const qa = logs.map((t) => t.startsWith("QA:") ? JSON.parse(t.slice(3)) : null).filter(Boolean).find((q) => q.frame === frame);
+  const scenes = logs.find((t) => t.startsWith("QA_SCENES:"));
+  return { issues: qa?.issues ?? [], scenes: scenes ? JSON.parse(scenes.slice(10)) : null };
+};
 
-// 場面の画像がそろったので、もう一度まとめ直して一覧を作る（public の中身はまとめるときに写される）
-serveUrl = await pack();
-const sheet = await selectComposition({ serveUrl, id: `${id}-storyboard`, browserExecutable, puppeteerInstance: browser, logLevel: "error" });
-fs.mkdirSync(path.dirname(out), { recursive: true });
-await renderStill({ composition: sheet, serveUrl, output: out, puppeteerInstance: browser, logLevel: "error" });
-// 秒数と動きの表（オーナーが読む。リポジトリに入れる）
-const meta = sheet.props.meta;
-if (meta) {
-  const total = meta.panels.reduce((a, p) => a + p.sec, 0);
-  const mmss = (t) => `${Math.floor(t / 60)}:${String(Math.round(t % 60)).padStart(2, "0")}`;
-  let t = 0;
-  const rows = meta.panels.map((p, i) => {
-    const r = `| ${String(i + 1).padStart(2, "0")} | ${mmss(t)} | ${p.sec || "—"} | ${p.title} | ${p.move.replace(/\|/g, "／").replace(/\n/g, "<br>")} |`;
-    t += p.sec;
-    return r;
-  });
-  const md = [
-    `# 絵コンテ：${meta.title}`, "",
-    `場面 ${meta.panels.length}、合計 約${mmss(total)}（秒数は台本の文字数からの見積もり。声を作ると変わる）。`,
-    "一覧の画像は動き終わりの姿。動きはこの表で読む。書き出し：\`cd render && npm run storyboard -- " + id + "\`", "",
-    "| # | 始まり | 秒 | 場面 | 動き |", "|---:|---:|---:|---|---|", ...rows, "",
-  ].join("\n");
-  const epDir = path.join("..", "episodes", id);
-  if (fs.existsSync(epDir)) fs.writeFileSync(path.join(epDir, "storyboard.md"), md);
+const first = await shoot(0, "_first.png");
+fs.rmSync(path.join(outDir, "_first.png"));
+if (!first.scenes) { console.error("場面の区切りが取れませんでした（Episode でない動画？）"); process.exit(2); }
+// 字幕（どのコマで何を読んでいるか）は timing を Episode から取れないので、episodes/<回>/timing*.json から探す
+const subsOf = (() => {
+  const ep = id.replace(/-v\d+$/, ""), suffix = id.slice(ep.length);
+  const f = path.resolve("..", "episodes", ep, `timing${suffix}.json`);
+  if (!fs.existsSync(f)) return () => "";
+  const t = JSON.parse(fs.readFileSync(f, "utf8"));
+  return (sceneId, sec) => t.scenes.find((s) => s.id === sceneId)?.lines.find(([a, b]) => sec >= a && sec < b)?.[2] ?? "";
+})();
+const mmss = (f) => `${Math.floor(f / fps / 60)}:${String(Math.floor((f / fps) % 60)).padStart(2, "0")}`;
+
+const shots = [];
+let n = 0;
+for (const s of first.scenes) {
+  if (only && !only.some((o) => s.id.startsWith(o))) continue;
+  const ratios = s.len < 4 * fps ? [0.5] : every ? [] : [0.2, 0.55, 0.9];
+  const frames = ratios.map((r) => s.from + Math.min(s.len - 1, Math.floor(s.len * r)));
+  if (every && s.len >= 4 * fps) for (let f = s.from + Math.round(every * fps / 2); f < s.from + s.len; f += Math.round(every * fps)) frames.push(f);
+  for (const frame of frames) {
+    const name = `${String(++n).padStart(3, "0")}-${s.id}-${mmss(frame).replace(":", "m")}.png`;
+    const { issues } = await shoot(frame, name);
+    const sub = subsOf(s.id, (frame - s.from) / fps);
+    shots.push({ frame, scene: s.id, name, issues, sub });
+    const e = issues.filter((i) => i.level === "error").length, w = issues.length - e;
+    process.stdout.write(`  ${mmss(frame)} ${s.id.padEnd(12)} ${name}  ${e ? `直す ${e}` : ""}${w ? ` 確かめる ${w}` : ""}${!e && !w ? "OK" : ""}\n`);
+  }
 }
 await browser.close({ silent: true });
-fs.mkdirSync(path.join("out", "qa"), { recursive: true });
-fs.writeFileSync(path.join("out", "qa", `${id}-storyboard.md`), report.join("\n") + (errors ? "" : "直すものはなし。\n"));
-console.log(`一覧：${out}　チェック：out/qa/${id}-storyboard.md（直すもの ${errors}件）`);
-process.exit(errors ? 1 : 0);
+
+const esc = (t) => t.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[c]);
+const html = `<!doctype html><meta charset="utf-8"><title>絵コンテ ${id}</title>
+<style>body{font-family:sans-serif;background:#F5F2EA;color:#1D2333;margin:24px}h1{font-size:22px}
+.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(480px,1fr));gap:20px}
+figure{margin:0;background:#fff;border-radius:12px;padding:10px}img{width:100%;border-radius:6px;display:block}
+figcaption{font-size:14px;margin-top:6px;line-height:1.5}.e{color:#c0392b}.w{color:#b9770e}</style>
+<h1>絵コンテ：${id}（${shots.length}枚）</h1><div class="g">
+${shots.map((s) => `<figure><img src="${s.name}" loading="lazy"><figcaption><b>${mmss(s.frame)}　${s.scene}</b>　${esc(s.sub)}
+${s.issues.map((i) => `<div class="${i.level === "error" ? "e" : "w"}">${i.level === "error" ? "【直す】" : "【確かめる】"}${esc(i.message)}</div>`).join("")}</figcaption></figure>`).join("\n")}
+</div>`;
+fs.writeFileSync(path.join(outDir, "index.html"), html);
+const errors = shots.flatMap((s) => s.issues.filter((i) => i.level === "error").map((i) => ({ ...i, s })));
+const warns = shots.flatMap((s) => s.issues.filter((i) => i.level !== "error").map((i) => ({ ...i, s })));
+fs.writeFileSync(path.join(outDir, "report.md"), [`# 絵コンテのチェック：${id}`, "", `${shots.length}枚。直すもの ${errors.length}件、確かめるもの ${warns.length}件。`, "",
+  ...[...errors, ...warns].map((i) => `- ${mmss(i.s.frame)} ${i.s.scene}（${i.s.name}）${i.level === "error" ? "【直す】" : "【確かめる】"}${i.message}`)].join("\n") + "\n");
+console.log(`\n${shots.length}枚 → ${outDir}/index.html（直すもの ${errors.length}件、確かめるもの ${warns.length}件）`);

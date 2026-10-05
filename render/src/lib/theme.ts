@@ -4,19 +4,26 @@ import { Easing, spring, SpringConfig, staticFile, useVideoConfig } from "remoti
 
 export const C = {
   bg: "#F5F2EA",      // paper：背景
-  paper2: "#EBE6D9",  // 面・帯・方眼の地
+  paper2: "#E2D9C8",  // 面・帯・方眼の地（2026-10-05 #EBE6D9 → 濃く。紙色との差が小さく、スマホで見えなかった）
   ink: "#1D2333",     // 文字・ゴサ・軸・性別と関係ない「注目の値」
-  ink2: "#5B6070",    // 補足の文字（opacity で薄くしない）
+  ink2: "#4A5063",    // 補足の文字（opacity で薄くしない。2026-10-05 少し濃く）
   male: "#2F6FDE",
   female: "#D9541E",
-  maleTint: "#B9CBE6",   // 話の対象外の人（男性）
-  femaleTint: "#EDC3AD", // 話の対象外の人（女性）
+  maleTint: "#A3BCE8",   // 話の対象外の人（男性。2026-10-05 薄すぎたので濃く）
+  femaleTint: "#F0B293", // 話の対象外の人（女性。2026-10-05 薄すぎたので濃く）
   other: "#8C877E",   // その他・無回答（読ませる棒にも使える濃さ）
-  otherTint: "#D8D3C8",
-  rest: "#CFC9BC",    // 背景の固まり・注目しない棒
-  marker: "#FFD23F",  // 蛍光ペン。文字や数字の下に敷くだけ（データの塗りには使わない）
+  otherTint: "#C8C0B1",
+  rest: "#B4AC9C",    // 背景の固まり・注目しない棒・点線（2026-10-05 濃く）
+  marker: "#FFD23F",  // 蛍光ペン。紙色の地では見えにくい（2026-10-05 オーナー）ので、新しい場面では使わない。強調は墨の下線・枠で。アイコン・バナーの黄はそのまま
   white: "#FFFFFF",
+  wall: "#EEE6D6",    // 物語の場面の壁（2026-10-05）
+  floor: "#D9CCB3",   // 物語の場面の床
+  night: "#2B3350",   // 夜の窓
+  shadow: "rgba(29,35,51,0.14)", // 人や家具の足元の影
 } as const;
+
+/** チャンネル名（画面に出すときはここから。チャンネル名の右上の札・章の扉） */
+export const CHANNEL_NAME = "吾輩は数える猫である";
 
 export const W = 1920;
 export const H = 1080;
@@ -37,7 +44,7 @@ export const Z: Zones = {
   header: { x: 96, y: 56, w: 1300, h: 120 },         // 問い（左寄せ、2行まで）
   stage: { x: 96, y: 200, w: 1728, h: 680 },          // 主役の絵（ゴサがいるときは右端 1520 まで）
   stageWithGosa: { x: 96, y: 200, w: 1424, h: 680 },
-  noteY: 884,                                          // 出典（グラフの左下）
+  noteY: 844,                                          // 出典（グラフの左下）。字幕の帯（y920）との間を空ける（2026-10-05 884→844）
   dock: { x: 1690, foot: 880 },                        // ゴサの足元（右下に固定）
   sub: { y: 920, h: 80, w: 1440 },                     // 字幕
 };
@@ -67,7 +74,7 @@ export const T = {
 } as const satisfies Record<string, readonly [number, number]>;
 
 /** 線の太さ：目盛り／軸・縁取り／誤差棒・指し示し・折れ線（ゴサのひげ M と同じ）／印 */
-export const LINE = { hair: 2, thin: 4, base: 7, heavy: 14 } as const;
+export const LINE = { hair: 3, thin: 5, base: 7, heavy: 14 } as const; // 2026-10-05 細い線を太く（2→3、4→5）
 /** 角の丸み：棒の上の角・人型の胴／字幕・札／カード */
 export const R = { sm: 8, md: 16, lg: 28 } as const;
 

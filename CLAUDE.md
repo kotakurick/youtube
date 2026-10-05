@@ -27,7 +27,7 @@ AIで制作する日本向けYouTubeチャンネル「吾輩は数える猫で�
 ## 作り方の基準（ベンチマーク分析から。2026-10-04）
 
 - 画面を止めない：場面転換は10〜20秒ごと。グラフや文字だけの画面を30秒以上続けない。
-- 人物の絵柄はチャンネル内で1つに固定する（一般的な人型でよい。他チャンネルの見た目の丸写しはしない）。
+- 人物の絵柄はチャンネル内で1つに固定する：群衆は人型1つ、物語の場面の登場人物は猫1種類（`render/src/lib/Cat.tsx`。2026-10-05）。他チャンネルの見た目の丸写しはしない。
 - 読み上げは1分390〜400字前後。長い間を作らない。
 - データは身近な数字（公的統計・民間調査）で驚かせ、論文は裏付けに回す。出典は画面に出す。
 - 締めは答えを出したあと「教訓」（だから世の中はこう見える、という一般化）で終える。答えだけ・問いかけ・登録の呼びかけで締めない。
@@ -40,6 +40,7 @@ AIで制作する日本向けYouTubeチャンネル「吾輩は数える猫で�
 - サムネイルは様式を1つ決めて毎回守る。大きな文字2〜3かたまり、主題は1つ、数字は入れても1つ。作り込みだけでは伸びない。
 - 最初の20本は恋愛・結婚に絞る（2026-10-04 オーナー決定。伸びたチャンネルは最初の20本の分野がほぼ1つ）。例外は「時事の枠」：話題のテーマは分野の外でも5本に1本くらい出してよい（2026-10-05）。お金・健康の回は助言せず、示唆（データから言えること、読み方ごとの過去のリスクとリターン）を明確に出す。1本目から質の最低ラインを守る（1本だけ当たっても続かない）。
 - 標準構成は3章・13〜18分（データの量で決め、引き延ばさない。物語 → 答え合わせカード → 予想 → 3章 → 判定 → 教訓）。第3章は「別の角度で確かめる章」（もしも・数え直し・反対の証拠）。物語の主人公は番号で呼ばない。動きのばねは3種類、群衆が並び直してグラフになる。詳細は `docs/decisions.md`（2026-10-04）と `docs/concepts/2026-10-04-brand-consult.md`。
+- 部品は資産として貯める（2026-10-05）：要る表現がなければ回の中ではなく `render/src/lib/` に部品として作り、`docs/parts.md` の一覧に足す。
 - 画面の重なりは仕組みで防ぐ：部品は描いたものに印（data-qa）を付け、書き出す前に `cd render && npm run check -- <回のid>` で「直すもの」を0にする（重なり・28px未満の文字・はみ出し。決まりは `render/src/lib/qa.ts`）。新しい部品を作ったら印を付ける。
 - 面白さは仕組みで作る（2026-10-05）：構成の前に `outline.md` の企画カード（痛み・逆説・この動画だけの数字・日本の数字・絵で分かる瞬間・ミクロ）を埋め、`review-rival`（考えすぎる葦ならどう作るか、と比べる役）に見せる。台本には仕掛け（先回り・比喩と回収・ミクロ・締めの一文）を置き、印を付ける。ミクロ（個人の戦い方）はデータかシミュレーションで比べた結果として見せ、勧めない。健康・お金の回は出さない。詳細は `docs/script-style.md` の11章。
 - 台本の書き方は `docs/script-style.md`。書いたら `python scripts/lint_script.py <script.md>` を通し、`.claude/skills/script-review` の手順で推敲する。
@@ -101,8 +102,9 @@ python bench/analyze.py --out research/benchmark/summary.md
 scripts/new_episode.sh where-couples-meet          # 新しい回を作る → episodes/001-where-couples-meet/
 cd render && npm run studio                         # 動画をブラウザで確認（Remotion Studio）
 python tts/narrate.py episodes/<回> --voice silent  # 台本から仮の尺と字幕（声が決まったら --voice を変える）
-cd render && npm run storyboard -- <回のid>          # 絵コンテの一覧（場面は episodes/<回>/scenes/Storyboard.tsx）
+python tts/narrate.py episodes/<回> --voice silent --script script-v2.md  # 台本の版違い（timing-v2.json を書く。動画の id は <回>-v2）
 cd render && npm run check -- <回のid>               # 画面のチェック（直すものを0に）
+cd render && npm run storyboard -- <回のid>          # 静止画の絵コンテ。場面のコードの前は episodes/<回>/scenes/Storyboard.tsx の一覧と秒数・動きの表、コードのあとは場面ごとに2〜3枚（--scenes）→ render/out/
 cd render && npm run bgm                             # BGM を測り、曲ごとの音量をそろえる（曲を置いた・替えたとき）
 cd render && npm run render -- <回のid> out/<回>.mp4  # 動画を書き出す
 ```

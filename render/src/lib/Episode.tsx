@@ -99,7 +99,8 @@ export const Episode: React.FC<{ ep: EpisodeDef }> = ({ ep }) => {
           </Series.Sequence>
         ))}
       </Series>
-      {(ep.bgm ?? []).map((b) => {
+      {/* 曲が手元にない（クラウドで静止画だけ作るとき）は、BGM なしで描く */}
+      {(ep.bgm ?? []).filter((b) => hasFile(`bgm/${b.file}`)).map((b) => {
         const a = startOf(b.from), z = startOf(b.to ?? b.from);
         const len = z.f + z.len - a.f;
         const g = gainOf(b.file);
