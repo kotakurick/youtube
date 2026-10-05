@@ -12,9 +12,9 @@
 - [x] 3. 台本（クラウド、2026-10-05 第4稿。5役のレビュー済み）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。5役のレビュー → `review/`）
 - [ ] ★ 一次資料との照合（オーナー）→ `sources.csv` の「照合」欄をすべて埋める。**2026-10-05 オーナー判断で後回し**（「出典は飛ばしてつぎいこう」）。省略はしない：音声を作る前（7の前）に必ず行う
 - [x] ★ 台本レビュー（オーナー 2026-10-05 第4稿に「おもろい！」）→ `review/owner.md`（Claude が読みやすい形にまとめて渡す。オーナーの指摘は Claude が書き写して台本に反映し、直した／直さなかったを1行ずつ書く）
-- [ ] 4. 絵コンテ（クラウド、2026-10-05 第2版・45場面。3役の見直しを反映。物語の主人公は猫、締めのひと言つき。画面のチェックの直すもの0）：`scenes/Storyboard.tsx`（絵の部品は render/src/lib の Snowball・Village・Money・Bedroom）、秒数と動きの表は `storyboard.md`。`cd render && npm run storyboard -- 002-r-greater-than-g` → ★ オーナーが確認
-- [ ] 5. 場面のコード（クラウド）→ `scenes/Episode.tsx`（`Episode.example.tsx` を名前を変えて使う。部品は `render/src/lib`、動きは `useNarration()` で読み上げに合わせる）
-- [ ] 6. 仮通し（クラウド）：`python tts/narrate.py episodes/002-r-greater-than-g --voice silent` で仮の尺と字幕（`timing.json`）を作り、部品のない場面は仮の画面（draft）で13〜18分を通して、テンポ・章の長さ・考える場面の位置を直す
+- [x] 4. 絵コンテ（クラウド、2026-10-05 第2版・45場面。3役の見直しを反映。物語の主人公は猫、締めのひと言つき。画面のチェックの直すもの0）：`scenes/Storyboard.tsx`（絵の部品は render/src/lib の Snowball・Village・Money・Bedroom）、秒数と動きの表は `storyboard.md`。`cd render && npm run storyboard -- 002-r-greater-than-g` → ★ オーナーが確認　★オーナー確認済み（2026-10-05「絵コンテおーけー！」）
+- [x] 5. 場面のコード（クラウド、2026-10-05 第1版）→ `scenes/Episode.tsx`。絵は `scenes/Storyboard.tsx` の場面を使い、区切り（Beat）を読み上げの語に合わせた。静止画の確認：`cd render && npm run storyboard -- 002-r-greater-than-g --scenes`（102枚、直すもの0）
+- [x] 6. 仮通し（クラウド、2026-10-05）：無音の仮の尺で36場面・約16分20秒（文の間0.5秒を含む）。`timing.json` を作り直した。声を作ると尺は変わる
 - [ ] 7. 音声合成（ローカル）：`python tts/narrate.py episodes/002-r-greater-than-g --voice eleven-yui`（文ごとに作り、尺・字幕・`subtitles.srt` も自動で声に合う。同じ文は作り直さない）
 - [ ] 8. 書き出し・BGM・音量（ローカル）：`npm run render`、`npm run master`（BGM は `npm run bgm` で測ってそろえたもの）
 - [ ] 9. 画面のチェック：`cd render && npm run check -- 002-r-greater-than-g` の「直すもの」を0にし、「確かめるもの」は画像を見て判断する（重なり・28px未満の文字・はみ出し。結果は `render/out/qa/002-r-greater-than-g/`）。縦型ショートも同じ
