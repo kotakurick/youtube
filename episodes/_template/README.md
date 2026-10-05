@@ -6,20 +6,26 @@
 
 人の工程（★）は飛ばさない。チェックを付けたら日付も書く。
 
-- [ ] 1. テーマ・データ収集 → `sources.csv`、`data/`
+- [ ] 1. テーマ・データ収集（クラウド）→ `sources.csv`、`data/`
 - [ ] ★ テーマと切り口の承認（オーナー）
-- [ ] 2. 構成案 → `outline.md`（一番上の企画カードを先に埋める。埋まったら `review-rival` に見せて、負けている所を構成で直す → `review/rival-outline.md`）
-- [ ] 3. 台本 → `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲）
+- [ ] 2. 企画カードと構成案（クラウド）→ `outline.md`（一番上の企画カードを先に埋める。埋まったら `review-rival` に見せて、負けている所を構成で直す → `review/rival-outline.md`）
+- [ ] 3. 台本（クラウド）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。5役のレビュー → `review/`）
 - [ ] ★ 一次資料との照合（オーナー）→ `sources.csv` の「照合」欄をすべて埋める
-- [ ] 4. 仮通し：`python tts/narrate.py episodes/{{EPISODE}} --voice silent` で仮の尺と字幕（`timing.json`）を作り、部品なしの仮の場面（draft）で18分を通して見て、テンポ・章の長さ・考える場面の位置を直す
-- [ ] 5. シーンのコード → `scenes/Episode.tsx`（`Episode.example.tsx` を名前を変えて使う。部品は `render/src/lib`、動きは `useNarration()` で読み上げに合わせる）
-- [ ] 6. 音声合成：`python tts/narrate.py episodes/{{EPISODE}} --voice <声>`（文ごとに作り、尺・字幕・`subtitles.srt` も自動で声に合う。同じ文は作り直さない）
-- [ ] 7. 合成・字幕・レンダリング
-- [ ] 8. 画面のチェック：`cd render && npm run check -- {{EPISODE}}` の「直すもの」を0にし、「確かめるもの」は画像を見て判断する（重なり・28px未満の文字・はみ出し。結果は `render/out/qa/{{EPISODE}}/`）。縦型ショートも同じ
+- [ ] ★ 台本レビュー（オーナー）→ `review/owner.md`（Claude が読みやすい形にまとめて渡す。オーナーの指摘は Claude が書き写して台本に反映し、直した／直さなかったを1行ずつ書く）
+- [ ] 4. 絵コンテ（クラウド）：`npm run still` で場面ごとの静止画を作る → ★ オーナーが確認（見た目は音声・動画にする前に決める）
+- [ ] 5. 場面のコード（クラウド）→ `scenes/Episode.tsx`（`Episode.example.tsx` を名前を変えて使う。部品は `render/src/lib`、動きは `useNarration()` で読み上げに合わせる）
+- [ ] 6. 仮通し（クラウド）：`python tts/narrate.py episodes/{{EPISODE}} --voice silent` で仮の尺と字幕（`timing.json`）を作り、部品のない場面は仮の画面（draft）で13〜18分を通して、テンポ・章の長さ・考える場面の位置を直す
+- [ ] 7. 音声合成（ローカル）：`python tts/narrate.py episodes/{{EPISODE}} --voice eleven-yui`（文ごとに作り、尺・字幕・`subtitles.srt` も自動で声に合う。同じ文は作り直さない）
+- [ ] 8. 書き出し・BGM・音量（ローカル）：`npm run render`、`npm run master`（BGM は `npm run bgm` で測ってそろえたもの）
+- [ ] 9. 画面のチェック：`cd render && npm run check -- {{EPISODE}}` の「直すもの」を0にし、「確かめるもの」は画像を見て判断する（重なり・28px未満の文字・はみ出し。結果は `render/out/qa/{{EPISODE}}/`）。縦型ショートも同じ
 - [ ] ★ 1.25倍速で通し確認（オーナー）
 - [ ] ★ サムネイルとタイトルの最終決定（オーナー）→ `meta.md`
-- [ ] 公開（URL: ）
-- [ ] 10. Shorts の切り出し
+- [ ] ★ 公開（オーナー。URL: ）
+- [ ] 公開後の確認：広告の制限（黄色アイコン）がないか、透かしが出ているか
+- [ ] 10. 振り返り（公開7日後と28日後）→ `retro.md`（数字と、離れた所・見返された所を記録し、学んだことを決まりかレビュー役に1行足す）
+- [ ] 11. Shorts の切り出し（3本目から。構成はクラウド、書き出しはローカル）
+
+全体の流れと担当は `docs/process.md`。
 
 ## 質の最低ライン（公開前）
 
