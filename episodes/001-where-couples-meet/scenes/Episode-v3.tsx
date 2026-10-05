@@ -430,7 +430,7 @@ const QuizAsk: React.FC = () => {
   return (
     <>
       <SimBackground />
-      <div style={{ position: "absolute", left: Z.header.x, top: 40, opacity: t }}>
+      <div style={{ position: "absolute", left: Z.header.x, top: 20, opacity: t }}>
         <div style={{ display: "inline-block", background: C.ink, borderRadius: R.md, padding: "4px 20px", ...font("label", C.white) }}>予想タイム</div>
         <div style={{ ...font("question"), marginTop: 10 }}>1年後、アプリの町のカップルは、紹介の町の何倍？</div>
       </div>
@@ -759,7 +759,7 @@ const BruchLadder: React.FC = () => {
         const y = yOf(0.7 - i * 0.4);
         return (
           <g key={i} opacity={t}>
-            <text x={1000} y={y - 30} style={font("label", C.ink2)}>{label}</text>
+            <text x={1000} y={y - 44} style={font("label", C.ink2)}>{label}</text>
             <rect x={1000} y={y} width={10 * pct * t} height={44} rx={22} fill={i === 0 ? C.male : C.rest} />
             <text x={1000 + 10 * pct + 24} y={y + 36} style={font("value", i === 0 ? C.ink : C.ink2)}>{note}</text>
           </g>

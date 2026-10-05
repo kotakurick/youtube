@@ -65,7 +65,7 @@ const collect = (): { boxes: QABox[]; els: Element[] } => {
       x0 = Math.min(x0, line.left); x1 = Math.max(x1, line.right); y0 = Math.min(y0, top); y1 = Math.max(y1, top + h);
     }
     if (x0 === Infinity) continue;
-    push(el, "text", new DOMRect(x0, y0, x1 - x0, y1 - y0), short(text), fs, (el.parentElement ?? el).textContent ?? text);
+    push(el, "text", new DOMRect(x0, y0, x1 - x0, y1 - y0), short(text), fs, el.textContent ?? text); // 文字の要素の中だけ（「27<span>組</span>」のように単位が子の要素でも拾う。外まで見ると、ほかの札の「枚」などを単位と取り違える）
   }
   return { boxes, els };
 };
