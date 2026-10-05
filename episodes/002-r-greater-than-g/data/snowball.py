@@ -39,3 +39,32 @@ big = 10000
 for y in range(1, 11):
     big += big * R * 0.2
 print(f"1億円の人：利息は年 {10000*R:.0f}万円（20代の平均年収 約371万円より多い）。利息の2割だけ足して8割を使っても、10年後 {big:.0f}万円（年1%で増える）")
+
+
+# ---- レビュー（depth・rival・facts）を受けた追加の計算 ----
+def split(a0, snow=SNOW, r=R, years=YEARS):
+    """10年の利息を「はじめの雪玉が生んだ分」と「途中で降った雪が生んだ分」に分ける"""
+    base = a0 * ((1 + r) ** years - 1)          # はじめの雪玉だけを転がした利息
+    a, i, s = grow(a0, snow, r, years)
+    return base, i - base
+
+
+b, f = split(37)
+print(f"37万円の人の10年の利息 {b+f:.0f}万円のうち、はじめの37万円が生んだ分 {b:.0f}万円、途中で降った雪が生んだ分 {f:.0f}万円（{f/(b+f):.0%}）")
+# 分かれ目：10年で増えた分の半分以上が利息になる、はじめの雪玉の額
+lo, hi = 0.0, 5000.0
+for _ in range(60):
+    mid = (lo + hi) / 2
+    a, i, s = grow(mid)
+    lo, hi = (mid, hi) if i < s else (lo, mid)
+print(f"分かれ目（10年で利息＞降った雪になる、はじめの雪玉）：約{hi:.0f}万円。1年なら利息＝降る雪になる額 {SNOW/R:.0f}万円")
+# 境目ちょうどの人の数え方で変わる（facts の指摘）：分かれ目より上の人数を、階級の下端・上端で数える
+for snow in (20, 30, 50, 100):
+    n = sum(1 for p in people if grow(p, snow)[1] > grow(p, snow)[2])
+    print(f"  降る雪 年{snow}万円 → 利息が半分以上の人 {n}人")
+# 大きな雪玉と彼を並べる：1億円で利息の8割を毎年使う／彼は37万円で毎年50万円
+big, me = 10000.0, 37.0
+for y in range(10):
+    big += big * R * 0.2
+    me += me * R + SNOW
+print(f"10年後：1億円の人 {big:.0f}万円（毎年 利息の8割、約{10000*R*0.8:.0f}万円を使っても）、彼 {me:.0f}万円")
