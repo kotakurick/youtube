@@ -150,6 +150,9 @@ def bonus_months_from_census(year, age_band):
 BASIC_2025_HONSOKU = [(1320000, 950000), (23500000, 580000), (INF, 0)]
 
 CPI_2025_PER_1995 = 1.167
+# 購入頻度階級別指数（総務省 CPI 年報 2025 第13表。2020年=100。research-perception.md の2-1）
+FREQ_INDEX = {"全体（持家の帰属家賃を除く総合）": (95.5, 114.0), "よく買う物（年15回以上）": (84.7, 121.2),
+              "めったに買わない物（年0.5回未満）": (121.4, 109.3)}
 DEFLATOR_2025_PER_1995 = 1.086  # 家計最終消費支出デフレーター 2025年÷1995年（内閣府 国民経済計算。research-papers-thinktank.md）  # 消費者物価指数 総合 2025年平均÷1995年平均（research-macro.md）
 
 
@@ -279,6 +282,18 @@ def main():
         b = takehome(g25, bm25, age, 2025)["takehome"]
         lines.append(f"| {band} | {(b / a - 1) * 100:+.0f}% | {(b / (a * CPI_2025_PER_1995) - 1) * 100:+.0f}% | "
                      f"{(b / (a * DEFLATOR_2025_PER_1995) - 1) * 100:+.0f}% |")
+
+    lines += ["", "## 10. 父（1995年の38歳前後）の手取りを、3つの値札で今のお金に直す", "",
+              "男性35〜39歳の平均。父の手取りに、物価の上がり方（2025年÷1995年）をかけて、彼（2025年）の手取りと比べる。", "",
+              "| 物差し | 倍率 | 父の手取り（今のお金） | 彼の手取り | 差 |", "|---|---|---|---|---|"]
+    bm95, g95 = bonus_months_from_census(1995, "35-39")
+    bm25, g25 = bonus_months_from_census(2025, "35-39")
+    a = takehome(g95, bm95, 37, 1995)["takehome"]
+    b = takehome(g25, bm25, 37, 2025)["takehome"]
+    lines.append(f"| 円のまま | 1.00 | {man(a)} | {man(b)} | {(b / a - 1) * 100:+.0f}% |")
+    for name, (v95, v25) in FREQ_INDEX.items():
+        r = v25 / v95
+        lines.append(f"| {name} | {r:.2f} | {man(a * r)} | {man(b)} | {(b / (a * r) - 1) * 100:+.0f}% |")
 
     with open(os.path.join(HERE, "takehome_result.md"), "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(lines) + "\n")
