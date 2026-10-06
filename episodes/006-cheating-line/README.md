@@ -1,12 +1,12 @@
 # 006-cheating-line
 
-テーマ: （themes/themes.csv の no とタイトル案）
+テーマ: 130 どこからが浮気？ 2人の線がぴったり合う確率（浮気の線引きの男女差）
 
 ## 進行状況
 
 人の工程（★）は飛ばさない。チェックを付けたら日付も書く。
 
-- [ ] 1. テーマ・データ収集（クラウド）→ `sources.csv`、`data/`
+- [x] 1. テーマ・データ収集（2026-10-06）（クラウド）→ `sources.csv`、`data/`
 - [ ] ★ テーマと切り口の承認（オーナー）
 - [ ] 2. 企画カードと構成案（クラウド）→ `outline.md`（一番上の企画カードを先に埋める。埋まったら `review-rival` に見せて、負けている所を構成で直す → `review/rival-outline.md`）
 - [ ] 3. 台本（クラウド）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。5役のレビュー → `review/`）
