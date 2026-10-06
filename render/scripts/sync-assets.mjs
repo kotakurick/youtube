@@ -2,6 +2,7 @@
 //  - ゴサの SVG：assets/characters/gosa/svg → public/gosa
 //  - フォント：Noto Sans JP → public/fonts（無ければダウンロード）
 //  - 各回の音声：$YT_DATA_DIR/episodes/<回>/audio → public/episodes/<回>/audio（あれば）
+//  - 各回のサムネイルの人物画像：$YT_DATA_DIR/episodes/<回>/thumb → public/episodes/<回>/thumb（あれば）
 //  - BGM：$YT_DATA_DIR/bgm → public/bgm（YouTube オーディオライブラリから落とした曲。あれば）
 //  - 効果音：scripts/make-sfx.mjs で作る → public/sfx
 import fs from "fs";
@@ -29,6 +30,8 @@ const epRoot = path.join(dataDir, "episodes");
 if (fs.existsSync(epRoot)) {
   for (const ep of fs.readdirSync(epRoot)) {
     n += copyDir(path.join(epRoot, ep, "audio"), path.join(pub, "episodes", ep, "audio"));
+    // サムネイルの人物画像（画像生成AIで作ったもの。サムネイルだけに使ってよい。2026-10-06）
+    n += copyDir(path.join(epRoot, ep, "thumb"), path.join(pub, "episodes", ep, "thumb"));
   }
 }
 n += copyDir(path.join(dataDir, "bgm"), path.join(pub, "bgm"));
