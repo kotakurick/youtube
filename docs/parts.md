@@ -63,7 +63,7 @@
 |---|---|---|
 | Town / HeartRows / PairPanel | TownsSim.tsx | 紹介の町とアプリの町（1本目）。紹介の町は見出しに「知り合いの輪」の凡例、`ringsIn` で輪を描き入れる。引き合わせの線は成立した組だけ |
 | MatchingSim / MatchingCompare | MatchingSim.tsx | マッチングのシミュレーション |
-| CohortRace | CohortRace.tsx | 年齢ごとの割合で進める100人の競争 |
+| CohortRace | CohortRace.tsx | 年齢ごとの割合で進める100人の競争。`mode="leave"` で起きた人（別れた夫婦など）が列から抜けて点線の跡が残り、上に「残った○人のうち、○○ ○人（○%）」（`focus`・`focusName`。並べ方は `cols`・`dx`・`dy`）。人ごとに割合を変えるのは `sim/cohort.ts` の `cohortBy`（4本目） |
 | FilterSteps | FilterSteps.tsx | 条件を重ねて100人が減る |
 | SimSpread | SimSpread.tsx | シミュレーションのばらつき |
 | Slider | Slider.tsx | 「もしも」の条件のつまみ |
@@ -100,10 +100,11 @@
 | 部品 | ファイル | 使う所 |
 |---|---|---|
 | ChapterCard / ChapterDots | Chapter.tsx | 章の扉と位置の点 |
-| Quiz | Quiz.tsx | 予想タイム（問いと選択肢を全面で） |
-| Verdict | Verdict.tsx | 答え合わせ（〇△×）。証拠の文は `\n` で手で改行できる |
+| Quiz | Quiz.tsx | 予想タイム（問いと選択肢を全面で）。読み上げに合わせる `choiceAt`・`ringAt`・`revealAt`、引っかけの揺れ `nudge`、ゴサの足元 `gosaFoot`（4本目） |
+| Verdict | Verdict.tsx | 答え合わせ（〇△×）。証拠の文は `\n` で手で改行できる。読み上げに合わせる `chipAt`・`hitAt`（4本目） |
 | Cards | Cards.tsx | チャンネル名・今日の答え合わせ・中間の確認・登録の一言 |
 | Camera | Camera.tsx | 寄り・引き・横移動 |
+| Beat / Enter / EnterG / Wipe / ramp / useCue | Motion.tsx | 場面の中の区切りと出し方：区切り（Beat）、ばねで出す（Enter は HTML、EnterG は SVG の中）、左→右・下→上にぬぐって見せる（Wipe）、0→1 の補間（ramp）、読み上げの語の時刻（useCue。見つからなければ予備の値）（4本目） |
 | Counter / Bracket | Counter.tsx・Bracket.tsx | 人数の数え上げ・まとまりの括弧 |
 | SignOff | SignOff.tsx | 毎回の締めのひと言のアニメーション（丘の猫2匹・100個の点が星になる）。教訓のあと、終了画面の前 |
 | EndScreen | EndScreen.tsx | 終了画面 |

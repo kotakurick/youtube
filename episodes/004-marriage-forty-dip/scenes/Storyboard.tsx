@@ -15,6 +15,7 @@ import { MidCheck, TodayCard } from "@lib/Cards";
 import { CAR, CarFront, Navi, Signal } from "@lib/Car";
 import { Cat, CatFace, CatLabel } from "@lib/Cat";
 import { ChapterDots } from "@lib/Chapter";
+import { CohortRace } from "@lib/CohortRace";
 import { couples, CouplePairs, PeopleRows } from "@lib/CouplePairs";
 import { DayCol, DayStack } from "@lib/DayStack";
 import { Figure } from "@lib/Figure";
@@ -32,36 +33,38 @@ import { SourceNote } from "@lib/SourceNote";
 import type { Panel, StoryboardDef } from "@lib/Storyboard";
 import { Bubble, Thought } from "@lib/StoryAnim";
 import { Verdict } from "@lib/Verdict";
+import { shuffle } from "@lib/random";
+import { cohortBy } from "@lib/sim/cohort";
 import { C, font, LINE, R } from "@lib/theme";
 
 // ---- この回の配置の道具（絵の部品は render/src/lib） ----
-const Svg: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+export const Svg: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <svg width={1920} height={1080} style={{ position: "absolute", left: 0, top: 0 }}>{children}</svg>
 );
-const Label: React.FC<{
+export const Label: React.FC<{
   x: number; y: number; children: React.ReactNode; size?: "label" | "value" | "question" | "body" | "note" | "hero";
   color?: string; anchor?: "start" | "middle" | "end"; weight?: number;
 }> = ({ x, y, children, size = "label", color = C.ink, anchor = "start", weight }) => (
   <text x={x} y={y} textAnchor={anchor} style={{ ...font(size, color), ...(weight ? { fontWeight: weight } : {}) }}>{children}</text>
 );
 /** 見出し（左上の決まった位置。1行に収める） */
-const Heading: React.FC<{ children: React.ReactNode; w?: number }> = ({ children, w = 1640 }) => (
+export const Heading: React.FC<{ children: React.ReactNode; w?: number }> = ({ children, w = 1640 }) => (
   <div style={{ position: "absolute", left: 96, top: 56, width: w, ...font("question"), lineHeight: 1.2 }}>{children}</div>
 );
 /** 見出しの下の条件（ink2 の1行） */
-const SubHead: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+export const SubHead: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div style={{ position: "absolute", left: 96, top: 168, ...font("label", C.ink2), whiteSpace: "nowrap" }}>{children}</div>
 );
 /** 墨の札（HTML、左上を x,y に） */
-const Card: React.FC<{ x: number; y: number; w?: number; h?: number; children: React.ReactNode; border?: string; bg?: string }> = ({ x, y, w, h, children, border = C.ink, bg = C.white }) => (
+export const Card: React.FC<{ x: number; y: number; w?: number; h?: number; children: React.ReactNode; border?: string; bg?: string }> = ({ x, y, w, h, children, border = C.ink, bg = C.white }) => (
   <div style={{ position: "absolute", left: x, top: y, width: w, height: h, padding: "18px 28px", background: bg, border: `${LINE.thin}px solid ${border}`, borderRadius: R.md, ...font("label"), lineHeight: 1.4, boxSizing: "border-box" }}>{children}</div>
 );
 /** 黒地の小札（「土曜の夕方」「仮説」など） */
-const Chip: React.FC<{ x: number; y: number; children: React.ReactNode }> = ({ x, y, children }) => (
+export const Chip: React.FC<{ x: number; y: number; children: React.ReactNode }> = ({ x, y, children }) => (
   <div style={{ position: "absolute", left: x, top: y, background: C.ink, borderRadius: R.sm, padding: "4px 18px", ...font("label", C.white), whiteSpace: "nowrap" }}>{children}</div>
 );
 
-const SRC = {
+export const SRC = {
   nfrj: "NFRJ18（日本家族社会学会、2019年調査）図から読み取り。年齢の違う人を同じ年に調べたもの",
   nfrjSupport: "NFRJ18 第一次報告書 図8（2019年調査）図から読み取り。年齢の違う人を同じ年に調べたもの",
   nsfj7: "国立社会保障・人口問題研究所『第7回全国家庭動向調査』2022年（妻が回答）。集計表から計算",
@@ -70,7 +73,7 @@ const SRC = {
 
 // ================= 車の中（冒頭と教訓で同じ車） =================
 // 向き（Cat の turn）：妻は窓の外（画面の右）＝turn 0.7、夫は前＝turn 0（黒目だけ少し上）。締め（61）は夫が助手席へ 0.8、妻が顔を戻す −0.6、2匹を30pxずつ寄せる。
-const CarScene: React.FC<{
+export const CarScene: React.FC<{
   signal?: Signal; time?: number; wifeFace?: CatFace; husbandFace?: CatFace; wifeTurn?: number; husbandTurn?: number; inward?: number;
   names?: boolean; kids?: boolean; children?: React.ReactNode;
 }> = ({ signal = "red", time = 0, wifeFace = "normal", husbandFace = "normal", wifeTurn = 0.7, husbandTurn = 0, inward = 0, names = false, kids = true, children }) => (
@@ -92,24 +95,24 @@ const CarScene: React.FC<{
   </Svg>
 );
 /** カメラの寄り（絵コンテでは止めた1コマ。本編では前のショットから寄る） */
-const CamShot: React.FC<{ shot: Shot; children: React.ReactNode }> = ({ shot, children }) => <Camera keys={[[0, shot]]}>{children}</Camera>;
+export const CamShot: React.FC<{ shot: Shot; children: React.ReactNode }> = ({ shot, children }) => <Camera keys={[[0, shot]]}>{children}</Camera>;
 
 // ---- 第1章の線（S7c：28〜72歳、5歳ごと。横軸は25〜75歳の11区分、データは30〜70歳の9区分） ----
-const AGE_TICKS = ["", "30歳", "35", "40", "45", "50", "55", "60", "65", "70", ""];
-const AGE_XS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-const SAT_HUSBAND = [93.5, 95.0, 89.4, 87.2, 89.2, 93.3, 87.9, 84.5, 89.4];
-const SAT_WIFE = [93.5, 86.7, 84.7, 76.9, 76.8, 77.0, 76.9, 78.2, 73.6];
-const satSeries: GLSeries[] = [
+export const AGE_TICKS = ["", "30歳", "35", "40", "45", "50", "55", "60", "65", "70", ""];
+export const AGE_XS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+export const SAT_HUSBAND = [93.5, 95.0, 89.4, 87.2, 89.2, 93.3, 87.9, 84.5, 89.4];
+export const SAT_WIFE = [93.5, 86.7, 84.7, 76.9, 76.8, 77.0, 76.9, 78.2, 73.6];
+export const satSeries: GLSeries[] = [
   { label: "夫", color: C.male, values: SAT_HUSBAND, xs: AGE_XS },
   { label: "妻", color: C.female, values: SAT_WIFE, xs: AGE_XS },
 ];
 // 妻だけの別の調査（S14。聞き方が違うのでつながない・墨の灰の輪）。25〜29・40〜44・45〜49・50〜54・60〜64歳
-const NSFJ_WIFE: GLSeries = { label: "妻だけの調査", color: C.ink2, ghost: true, values: [93.9, 79.0, 75.5, 77.8, 74.7], xs: [0.4, 3.4, 4.4, 5.4, 7.4] };
+export const NSFJ_WIFE: GLSeries = { label: "妻だけの調査", color: C.ink2, ghost: true, values: [93.9, 79.0, 75.5, 77.8, 74.7], xs: [0.4, 3.4, 4.4, 5.4, 7.4] };
 /** 二本の線のグラフの枠（11〜13・27・37 で同じ。5歳ぶん 125px） */
-const CH = { x: 300, y: 250, width: 1250, height: 470 };
-const AxisTitle: React.FC<{ text?: string }> = ({ text = "満足している割合" }) => <Label x={96} y={214} color={C.ink2}>{text}</Label>;
+export const CH = { x: 300, y: 250, width: 1250, height: 470 };
+export const AxisTitle: React.FC<{ text?: string }> = ({ text = "満足している割合" }) => <Label x={96} y={214} color={C.ink2}>{text}</Label>;
 /** 夫の輪・妻の点の凡例（グラフの外の右上） */
-const LegendHW: React.FC<{ x?: number; y?: number }> = ({ x = 1330, y = 214 }) => (
+export const LegendHW: React.FC<{ x?: number; y?: number }> = ({ x = 1330, y = 214 }) => (
   <g>
     <circle cx={x} cy={y - 14} r={17} fill="none" stroke={C.male} strokeWidth={LINE.base} />
     <Label x={x + 30} y={y} color={C.male}>夫</Label>
@@ -120,11 +123,11 @@ const LegendHW: React.FC<{ x?: number; y?: number }> = ({ x = 1330, y = 214 }) =
 
 // ---- 時間（S9c：共働き・末子の年齢別。分／日） ----
 // 家事など＝家事＋介護・看護＋買い物（塗り）、育児（水玉）、仕事・通勤（斜線）。どれもその人の色
-const TIME = {
+export const TIME = {
   husband: { pre: { work: 493, chores: 52, care: 63 }, post: { work: 491, chores: 46, care: 15 } },
   wife: { pre: { work: 241, chores: 189, care: 204 }, post: { work: 297, chores: 236, care: 40 } },
 };
-const dayCol = (who: "husband" | "wife", when: "pre" | "post", title: string, sub: string, focus: string[] = []): DayCol => {
+export const dayCol = (who: "husband" | "wife", when: "pre" | "post", title: string, sub: string, focus: string[] = []): DayCol => {
   const t = TIME[who][when];
   const main = who === "husband" ? C.male : C.female;
   return {
@@ -137,16 +140,16 @@ const dayCol = (who: "husband" | "wife", when: "pre" | "post", title: string, su
   };
 };
 // 柱の位置：夫（上がる前 x100・小学生 x440）、妻（x1000・x1340）。右の余白 x1824 を超えない
-const DAY = { x: 100, base: 710, k: 0.72, colW: 230, gap: [110, 330, 110, 0] };
-const DAY2 = { ...DAY, gap: [110 + 230 + 330] }; // 「上がる前」の2本だけ（4本のときと同じ位置）
-const dayY = (who: "husband" | "wife", when: "pre" | "post", seg: "work" | "chores" | "care") => {
+export const DAY = { x: 100, base: 710, k: 0.72, colW: 230, gap: [110, 330, 110, 0] };
+export const DAY2 = { ...DAY, gap: [110 + 230 + 330] }; // 「上がる前」の2本だけ（4本のときと同じ位置）
+export const dayY = (who: "husband" | "wife", when: "pre" | "post", seg: "work" | "chores" | "care") => {
   const t = TIME[who][when];
   const below = seg === "work" ? 0 : seg === "chores" ? t.work : t.work + t.chores;
   return DAY.base - (below + t[seg] / 2) * DAY.k;
 };
-const Leader: React.FC<{ x1: number; y1: number; x2: number; y2: number }> = (p) => <path d={`M${p.x1} ${p.y1} L${p.x2} ${p.y2}`} stroke={C.ink} strokeWidth={LINE.hair} fill="none" />;
+export const Leader: React.FC<{ x1: number; y1: number; x2: number; y2: number }> = (p) => <path d={`M${p.x1} ${p.y1} L${p.x2} ${p.y2}`} stroke={C.ink} strokeWidth={LINE.hair} fill="none" />;
 /** 塗りの凡例（一日の柱で最初に一度だけ） */
-const FillLegend: React.FC<{ x: number; y: number }> = ({ x, y }) => (
+export const FillLegend: React.FC<{ x: number; y: number }> = ({ x, y }) => (
   <g>
     <FillDefs colors={[C.ink2]} />
     {([["solid", "家事など"], ["dots", "育児"], ["hatch", "仕事・通勤"]] as const).map(([k, t], i) => (
@@ -157,59 +160,59 @@ const FillLegend: React.FC<{ x: number; y: number }> = ({ x, y }) => (
 );
 
 // ---- 天秤（S9c：末子10〜14歳。家事・育児・買い物＝家事関連 夫39分・妻263分、仕事・通勤 夫507分・妻285分） ----
-const chores = (who: "husband" | "wife", text = true): Weight => who === "husband"
+export const chores = (who: "husband" | "wife", text = true): Weight => who === "husband"
   ? { label: "夫の家事など", value: 39, color: C.male, text: text ? "家事など\n39分" : undefined }
   : { label: "妻の家事など", value: 263, color: C.female, text: text ? "家事など\n4時間23分" : undefined };
-const work = (who: "husband" | "wife", text?: string): Weight => ({ label: who === "husband" ? "夫の仕事" : "妻の仕事", value: who === "husband" ? 507 : 285,
+export const work = (who: "husband" | "wife", text?: string): Weight => ({ label: who === "husband" ? "夫の仕事" : "妻の仕事", value: who === "husband" ? 507 : 285,
   color: who === "husband" ? C.male : C.female, fill: "hatch", text });
-const veiled = (who: "husband" | "wife"): Weight => ({ ...work(who), veiled: true });
-const BAL = { x: 960, y: 330 };
-const BalanceAt: React.FC<{ left: Weight[]; right: Weight[]; tilt?: number; moving?: boolean; from?: number; names?: boolean }> = ({ left, right, tilt, moving, from, names = true }) => (
+export const veiled = (who: "husband" | "wife"): Weight => ({ ...work(who), veiled: true });
+export const BAL = { x: 960, y: 330 };
+export const BalanceAt: React.FC<{ left: Weight[]; right: Weight[]; tilt?: number; moving?: boolean; from?: number; names?: boolean }> = ({ left, right, tilt, moving, from, names = true }) => (
   <Balance x={BAL.x} y={BAL.y} left={left} right={right} tilt={tilt} moving={moving} from={from}
     leftName={names ? "夫" : undefined} rightName={names ? "妻" : undefined} leftColor={C.male} rightColor={C.female} />
 );
 /** 小さな天秤（何ものっていない。札の絵・予告に）。文字は入れない */
-const MiniBalance: React.FC<{ x: number; y: number; s: number }> = ({ x, y, s }) => (
+export const MiniBalance: React.FC<{ x: number; y: number; s: number }> = ({ x, y, s }) => (
   <g transform={`translate(${x},${y}) scale(${s}) translate(${-BAL.x},${-BAL.y})`}><Balance x={BAL.x} y={BAL.y} left={[]} right={[]} tilt={0} /></g>
 );
 
 // ================= 冒頭の物語（車。カメラで 引き → 夫 → 妻 → カーナビ → 引き の5カット） =================
-const S01: React.FC = () => (
+export const S01: React.FC = () => (
   <AbsoluteFill>
     <CarScene signal="red" names />
     <Chip x={96} y={56}>土曜の夕方</Chip>
   </AbsoluteFill>
 );
-const S02: React.FC = () => (
+export const S02: React.FC = () => (
   <AbsoluteFill>
     <CamShot shot={{ x: 690, y: 440, scale: 1.7 }}><CarScene signal="red" /></CamShot>
     <Svg><Bubble x={600} y={340} w={800} text="来週は、水曜の帰りが遅い。金曜は出張" tail={[905, 490]} role="label" /></Svg>
   </AbsoluteFill>
 );
-const S03: React.FC = () => (
+export const S03: React.FC = () => (
   <AbsoluteFill>
     <CamShot shot={{ x: 1150, y: 440, scale: 1.7 }}><CarScene signal="red" /></CamShot>
     <Svg><Bubble x={1150} y={350} text="うん" tail={[1110, 498]} role="label" /></Svg>
   </AbsoluteFill>
 );
-const S04: React.FC = () => (
+export const S04: React.FC = () => (
   <AbsoluteFill>
     <CamShot shot={{ x: 920, y: 560, scale: 1.3 }}><CarScene signal="red" /></CamShot>
     <Svg><Navi x={96} y={300} w={480} lines={["到着まで", "あと20分"]} from={{ x: 960, y: 596 }} /></Svg>
     <Chip x={96} y={56}>共働き 15年</Chip>
   </AbsoluteFill>
 );
-const S05: React.FC = () => (
+export const S05: React.FC = () => (
   <AbsoluteFill>
     <CarScene signal="green">
       <Thought x={430} y={240} text="うちはうまくいっている" toward={[650, 412]} />
     </CarScene>
   </AbsoluteFill>
 );
-const RowsLabel: React.FC<{ y: number; top: string; bottom: string; color?: string }> = ({ y, top, bottom, color = C.ink }) => (
+export const RowsLabel: React.FC<{ y: number; top: string; bottom: string; color?: string }> = ({ y, top, bottom, color = C.ink }) => (
   <><Label x={96} y={y} color={color}>{top}</Label><Label x={96} y={y + 50} color={C.ink2}>{bottom}</Label></>
 );
-const S06: React.FC = () => (
+export const S06: React.FC = () => (
   <AbsoluteFill>
     <Heading>夫婦の関係に満足していない妻</Heading>
     <Svg>
@@ -225,7 +228,7 @@ const S06: React.FC = () => (
     <SourceNote text={`${SRC.nfrj}（28〜32歳・43〜47歳）`} />
   </AbsoluteFill>
 );
-const S07: React.FC = () => (
+export const S07: React.FC = () => (
   <AbsoluteFill>
     <Heading>では、同じ年ごろの夫は？</Heading>
     <Svg>
@@ -243,9 +246,9 @@ const S07: React.FC = () => (
 );
 
 // ================= 今日の答え合わせ・予想タイム・順番 =================
-const S08: React.FC = () => <AbsoluteFill><TodayCard claim="夫婦は、二人いっしょに冷めていく" /><Gosa cues={[[-60, "thinking"]]} size="M" /></AbsoluteFill>;
+export const S08: React.FC = () => <AbsoluteFill><TodayCard claim="夫婦は、二人いっしょに冷めていく" /><Gosa cues={[[-60, "thinking"]]} size="M" /></AbsoluteFill>;
 /** 予想の条件：量を表さない札（同じ形の札を横に並べるだけ。高さで答えをにおわせない） */
-const TwoTags: React.FC<{ x: number }> = ({ x }) => (
+export const TwoTags: React.FC<{ x: number }> = ({ x }) => (
   <g>
     {["家事・育児", "仕事・通勤"].map((t, i) => (
       <g key={t}>
@@ -256,7 +259,7 @@ const TwoTags: React.FC<{ x: number }> = ({ x }) => (
     <Label x={x} y={482} anchor="middle" size="value" color={C.ink2}>＋</Label>
   </g>
 );
-const S09: React.FC = () => (
+export const S09: React.FC = () => (
   <AbsoluteFill>
     <Heading w={1728}>予想タイム：共働き、末っ子が高学年〜中学生</Heading>
     <Svg>
@@ -270,13 +273,13 @@ const S09: React.FC = () => (
     </Svg>
   </AbsoluteFill>
 );
-const S10: React.FC = () => (
+export const S10: React.FC = () => (
   <AbsoluteFill>
     <Quiz question="家事・育児＋仕事・通勤、長いのは？" choices={["夫が1時間以上", "ほぼ同じ", "妻が1時間以上", "妻が3時間以上"]} />
     <SourceNote prefix="" text="共働き・末っ子が10〜14歳の夫婦（答えは最後の答え合わせで）" />
   </AbsoluteFill>
 );
-const S11: React.FC = () => {
+export const S11: React.FC = () => {
   const cards: [string, string, React.ReactNode][] = [
     ["1", "夫と妻の満足を年齢ごとに", <g key="a"><polyline points="-110,-40 -40,-44 30,-30 110,-32" fill="none" stroke={C.male} strokeWidth={10} strokeLinecap="round" /><polyline points="-110,-40 -40,-10 30,20 110,24" fill="none" stroke={C.female} strokeWidth={10} strokeLinecap="round" /></g>],
     ["2", "妻の満足が下がる時期", <g key="b">{[0, 1, 2, 3, 4].map((i) => <g key={i}><rect x={-130 + i * 54} y={-70} width={40} height={140} fill={C.female} /><rect x={-130 + i * 54} y={-70 + (i < 3 ? 20 : 40)} width={40} height={140 - (i < 3 ? 20 : 40)} fill={C.femaleTint} /></g>)}</g>],
@@ -303,8 +306,8 @@ const S11: React.FC = () => {
 };
 
 // ================= 第1章 =================
-const ANSWERS = ["かなり\n満足", "どちらかといえば\n満足", "どちらかといえば\n不満", "かなり\n不満"];
-const S12: React.FC = () => (
+export const ANSWERS = ["かなり\n満足", "どちらかといえば\n満足", "どちらかといえば\n不満", "かなり\n不満"];
+export const S12: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={1} />
     <Heading>夫婦の関係全体に、満足していますか</Heading>
@@ -329,7 +332,7 @@ const S12: React.FC = () => (
     <SourceNote text="日本家族社会学会『第4回 家族についての全国調査（NFRJ18）』2019年調査" />
   </AbsoluteFill>
 );
-const S13: React.FC = () => (
+export const S13: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={1} />
     <Heading>夫婦の関係に満足している人の割合</Heading>
@@ -342,7 +345,7 @@ const S13: React.FC = () => (
     <SourceNote text={SRC.nfrj} />
   </AbsoluteFill>
 );
-const S14: React.FC = () => (
+export const S14: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={1} />
     <Heading>三十代の後半から、妻の線が下がる</Heading>
@@ -354,7 +357,7 @@ const S14: React.FC = () => (
     <SourceNote text={SRC.nfrj} />
   </AbsoluteFill>
 );
-const S15: React.FC = () => (
+export const S15: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={1} />
     <Heading>あなたの家の二本の線は、いま？</Heading>
@@ -368,7 +371,7 @@ const S15: React.FC = () => (
     <SourceNote text={SRC.nfrj} />
   </AbsoluteFill>
 );
-const S16: React.FC = () => (
+export const S16: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={1} />
     <Heading>別の調査でも、同じ形</Heading>
@@ -381,35 +384,31 @@ const S16: React.FC = () => (
     <SourceNote text="NFRJ18（2019年）・第7回全国家庭動向調査（2022年、妻のみ。75歳以上は80.6%）。どちらも横断データ" />
   </AbsoluteFill>
 );
-/** 説明のための図：不満の大きい夫婦が途中で抜けると、上の年代は高めに出る（人数は例） */
-const S17: React.FC = () => {
-  const stage = (x: number, dark: number, n = 8) => <CouplePairs x={x} y={470} items={Array.from({ length: n }, (_, i) => ({ husband: i < dark, wife: i < dark }))} cols={4} size={1.15} gap={14} row={80} />;
-  return (
-    <AbsoluteFill>
-      <ChapterDots current={1} />
-      <Heading>上の年代の数字には、くせがある</Heading>
-      <SubHead>不満の大きい夫婦は、途中で別れて、調査に出てこない</SubHead>
-      <Svg>
-        <line x1={200} x2={1700} y1={620} y2={620} stroke={C.ink} strokeWidth={LINE.base} strokeLinecap="round" />
-        <path d="M1690 600 L1720 620 L1690 640" fill="none" stroke={C.ink} strokeWidth={LINE.base} strokeLinejoin="round" />
-        {[["30代", 380], ["40代", 960], ["60代〜", 1540]].map(([t, x]) => <Label key={t as string} x={x as number} y={680} anchor="middle" color={C.ink2}>{t}</Label>)}
-        {stage(230, 1)}
-        {stage(810, 3)}
-        {stage(1390, 1, 6)}
-        {/* 抜けていく2組（点線の矢印で枠の外へ） */}
-        <path d="M1210 560 Q1290 640 1300 760" fill="none" stroke={C.ink2} strokeWidth={LINE.thin} strokeDasharray="12 10" />
-        <path d="M1284 744 L1300 772 L1318 746" fill="none" stroke={C.ink2} strokeWidth={LINE.thin} strokeLinejoin="round" />
-        <CouplePairs x={1330} y={800} items={[{ husband: true, wife: true }, { husband: true, wife: true }]} cols={2} size={1.15} gap={14} />
-        <Label x={1530} y={790}>別れて、</Label>
-        <Label x={1530} y={836}>数に入らない</Label>
-        <Label x={1540} y={300} anchor="middle" color={C.ink2}>残った夫婦は</Label>
-        <Label x={1540} y={350} anchor="middle" color={C.ink2}>満足が高めに出る</Label>
-      </Svg>
-      <SourceNote prefix="" text="説明のための図（組の数は例）。Bühler ほか（2021）の注意" />
-    </AbsoluteFill>
-  );
-};
-const S18: React.FC = () => (
+/** 説明のための図：不満の大きい夫婦が途中で別れて抜けると、残った夫婦の満足は高めに出る（人数は例。共通部品 CohortRace の leave）。
+ *  妻100人（満足していない23人）を45歳から20年進める。別れる割合は例：満足していない人 年2.2%、満足している人 年0.3%（種2）。
+ *  結果：別れた12人、残った88人のうち満足していない16人（18%）。誰の気持ちも変わっていないのに、23%→18%に見える。 */
+export const DROP_FOCUS = (() => { const idx = shuffle(Array.from({ length: 100 }, (_, i) => i), 42).slice(0, 23); return Array.from({ length: 100 }, (_, i) => idx.includes(i)); })();
+export const DROP = { focus: DROP_FOCUS, events: cohortBy(100, 45, 20, (i) => (DROP_FOCUS[i] ? 0.022 : 0.003), 2), years: 20 };
+export const DropRace: React.FC<{ perYear?: number; start?: number }> = ({ perYear = 9, start = 0 }) => (
+  <CohortRace x={96} y={250} kinds={Array(100).fill("female")} years={DROP.years} perYear={perYear} start={start} mode="leave"
+    verb="別れて抜けた" focusName="満足していない" cols={20} dx={56} dy={80} size={1.1}
+    groups={[{ label: "40代半ばの妻 100人（例）", startAge: 45, events: DROP.events, focus: DROP.focus }]} />
+);
+export const S17: React.FC = () => (
+  <AbsoluteFill>
+    <SimBackground />
+    <ChapterDots current={1} />
+    <Heading>上の年代の数字には、くせがある</Heading>
+    <SubHead>不満の大きい夫婦は、途中で別れて、調査に出てこない</SubHead>
+    <DropRace />
+    <Svg>
+      <Label x={1276} y={730} color={C.ink2}>はじめは 23人（23%）</Label>
+      <Label x={1276} y={790} color={C.ink2}>誰の気持ちも変わらない</Label>
+    </Svg>
+    <SourceNote sim prefix="" text="説明の図（人数は例）。Bühler ほか（2021）の注意" />
+  </AbsoluteFill>
+);
+export const S18: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={1} />
     <Heading>それでも、妻の線は上がってこない</Heading>
@@ -420,7 +419,7 @@ const S18: React.FC = () => (
     <SourceNote text="NFRJ18（2019年）・第7回全国家庭動向調査（2022年）。どちらも横断データ" />
   </AbsoluteFill>
 );
-const S19: React.FC = () => (
+export const S19: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={1} />
     <Heading>40代の夫婦を百組：満足していない人は</Heading>
@@ -438,7 +437,7 @@ const S19: React.FC = () => (
     <SourceNote text={`${SRC.nfrj}（43〜47歳。100−満足の割合）`} />
   </AbsoluteFill>
 );
-const S20: React.FC = () => {
+export const S20: React.FC = () => {
   const all = couples(100, 13, 10);
   const rowB = all.slice(13, 23).map((c) => ({ ...c, mark: true }));
   return (
@@ -461,7 +460,7 @@ const S20: React.FC = () => {
     </AbsoluteFill>
   );
 };
-const S21: React.FC = () => (
+export const S21: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={1} />
     <Heading>少なくとも十組に一組は、こういう家</Heading>
@@ -479,7 +478,7 @@ const S21: React.FC = () => (
     <SourceNote text="NFRJ18 の割合から計算：23人 − 13人 ＝ 少なくとも10組（無関係に組むなら約20組）" />
   </AbsoluteFill>
 );
-const S22: React.FC = () => (
+export const S22: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={1} />
     <Heading>理由は、家事？</Heading>
@@ -491,7 +490,7 @@ const S22: React.FC = () => (
     </Svg>
   </AbsoluteFill>
 );
-const S23: React.FC = () => {
+export const S23: React.FC = () => {
   const X = (age: number) => 200 + age * 75; // 1年 75px（等間隔）
   return (
     <AbsoluteFill>
@@ -516,14 +515,14 @@ const S23: React.FC = () => {
 };
 
 // ================= 第2章 =================
-const S24: React.FC = () => (
+export const S24: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={2} />
     <Quiz title="クイズ" question="満足と答える妻が少ないのは？" choices={["小学校に上がる前", "小学生〜高校生"]} />
     <Svg><Label x={96} y={276} color={C.ink2}>末っ子の年齢で比べる</Label></Svg>
   </AbsoluteFill>
 );
-const S25: React.FC = () => (
+export const S25: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={2} />
     <Heading>答えは B：学校に通う時期のほうが低い</Heading>
@@ -540,7 +539,7 @@ const S25: React.FC = () => (
     <SourceNote text="国立社会保障・人口問題研究所『全国家庭動向調査』第7回（2022）・第6回（2018、柱の横の線）。妻が回答、集計表から計算" />
   </AbsoluteFill>
 );
-const S26: React.FC = () => (
+export const S26: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={2} />
     <Heading>小学校に上がると、一日の中身はどう変わる？</Heading>
@@ -551,7 +550,7 @@ const S26: React.FC = () => (
     <SourceNote text={`${SRC.time}。末っ子6歳未満`} />
   </AbsoluteFill>
 );
-const S27: React.FC = () => (
+export const S27: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={2} />
     <Heading>育児が減り、合計は二人とも約1時間短く</Heading>
@@ -569,7 +568,7 @@ const S27: React.FC = () => (
     <SourceNote text={`${SRC.time}。末っ子6歳未満 → 6〜9歳`} />
   </AbsoluteFill>
 );
-const S28: React.FC = () => (
+export const S28: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={2} />
     <Heading>変わるのは中身：妻の家事と仕事が増える</Heading>
@@ -589,7 +588,7 @@ const S28: React.FC = () => (
   </AbsoluteFill>
 );
 /** 一緒に → 一人で（猫の場面。第2章の仮説の中身） */
-const S29: React.FC = () => (
+export const S29: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={2} />
     <Heading>一緒にやることが減り、一人でやることが増える</Heading>
@@ -614,7 +613,7 @@ const S29: React.FC = () => (
     <SourceNote text={`${SRC.time}から考えた図（仮説）`} />
   </AbsoluteFill>
 );
-const S30: React.FC = () => (
+export const S30: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={2} />
     <Heading>夫の育児に満足している妻（末っ子の年齢別）</Heading>
@@ -627,7 +626,7 @@ const S30: React.FC = () => (
     <SourceNote text={`${SRC.nsfj7.replace("。集計表から計算", "")}。妻50歳未満・18歳未満の子と同居`} />
   </AbsoluteFill>
 );
-const S31: React.FC = () => (
+export const S31: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={2} />
     <Heading>いまの数字から考えられる仮説</Heading>
@@ -651,12 +650,12 @@ const S31: React.FC = () => (
     </Svg>
   </AbsoluteFill>
 );
-const MEAN: GLSeries[] = [
+export const MEAN: GLSeries[] = [
   { label: "夫", color: C.male, values: [3.41, 3.17, 3.26] },
   { label: "妻", color: C.female, values: [3.31, 2.86, 2.93] },
 ];
-const MEAN_FRAME = { x: 360, y: 250, width: 1000, height: 440, ticks: ["結婚0〜9年", "20〜29年", "40年以上"], domain: [1, 4] as [number, number], yTicks: [1, 2, 3, 4], yFormat: (v: number) => `${v}点` };
-const S32: React.FC = () => (
+export const MEAN_FRAME = { x: 360, y: 250, width: 1000, height: 440, ticks: ["結婚0〜9年", "20〜29年", "40年以上"], domain: [1, 4] as [number, number], yTicks: [1, 2, 3, 4], yFormat: (v: number) => `${v}点` };
+export const S32: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={2} />
     <Heading>満足の度合い（4点満点の平均）：夫も下がる</Heading>
@@ -668,7 +667,7 @@ const S32: React.FC = () => (
     <SourceNote text="稲葉昭英（2021）NFRJ18 第2次報告書（初婚を続けている夫婦、2,137人）。図の線から読み取り。間の年数は省いている" />
   </AbsoluteFill>
 );
-const S33: React.FC = () => (
+export const S33: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={2} />
     <Heading>妻の下がり方は大きい。でも差ははっきりしない</Heading>
@@ -683,7 +682,7 @@ const S33: React.FC = () => (
     <SourceNote text="稲葉昭英（2021）NFRJ18 第2次報告書（初婚を続けている夫婦、2,137人）。男女の差は有意でない" />
   </AbsoluteFill>
 );
-const S34: React.FC = () => (
+export const S34: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={2} />
     <Heading>海外：226の調査・約10万人をまとめると</Heading>
@@ -707,7 +706,7 @@ const S34: React.FC = () => (
     <SourceNote text="Jackson, Miller, Oka, Henry（2014）Journal of Marriage and Family 76（要旨）。欧米が中心。淡い色＝満足、濃い色＝満足していない" />
   </AbsoluteFill>
 );
-const S35: React.FC = () => (
+export const S35: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={2} />
     <MidCheck text="冷めるのは二人とも。不満は妻に多く出る" />
@@ -721,7 +720,7 @@ const S35: React.FC = () => (
 );
 
 // ================= 第3章 =================
-const S36: React.FC = () => (
+export const S36: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={3} />
     <Heading>天秤に、まず家事・育児・買い物</Heading>
@@ -730,7 +729,7 @@ const S36: React.FC = () => (
     <SourceNote text={SRC.time} />
   </AbsoluteFill>
 );
-const S37: React.FC = () => (
+export const S37: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={3} />
     <Heading>夫が受け持つ家事の割合</Heading>
@@ -746,7 +745,7 @@ const S37: React.FC = () => (
     <SourceNote text={`${SRC.time}。表の値から計算`} />
   </AbsoluteFill>
 );
-const S38: React.FC = () => (
+export const S38: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={3} />
     <Heading>相手の家事に満足している人（40代半ば）</Heading>
@@ -760,7 +759,7 @@ const S38: React.FC = () => (
     <SourceNote text={`${SRC.nfrj}（43〜47歳）`} />
   </AbsoluteFill>
 );
-const S39: React.FC = () => (
+export const S39: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={3} />
     <Heading>でも、まだのせていないもの：仕事と通勤</Heading>
@@ -769,7 +768,7 @@ const S39: React.FC = () => (
     <SourceNote text={`${SRC.time}。仕事の分銅の重さは答え合わせで`} />
   </AbsoluteFill>
 );
-const S40: React.FC = () => (
+export const S40: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={3} />
     <Heading w={1728}>あなたの家なら、どちらの皿が重くなりそう？</Heading>
@@ -777,13 +776,13 @@ const S40: React.FC = () => (
     <SourceNote text={`${SRC.time}。止まる位置は答え合わせで`} />
   </AbsoluteFill>
 );
-const Cell: React.FC<{ x: number; y: number; on?: boolean; text: string; hidden?: boolean }> = ({ x, y, on, text, hidden }) => (
+export const Cell: React.FC<{ x: number; y: number; on?: boolean; text: string; hidden?: boolean }> = ({ x, y, on, text, hidden }) => (
   <g>
     <rect x={x} y={y} width={440} height={120} rx={R.md} fill={hidden ? "none" : on ? C.ink : C.paper2} stroke={C.ink} strokeWidth={LINE.thin} strokeDasharray={hidden ? "12 10" : undefined} />
     <Label x={x + 220} y={y + (hidden ? 84 : 74)} anchor="middle" size={hidden ? "value" : "label"} color={hidden ? C.ink2 : on ? C.white : C.ink} weight={on ? 900 : 700}>{hidden ? "？" : text}</Label>
   </g>
 );
-const Table3: React.FC<{ showSupport: boolean }> = ({ showSupport }) => (
+export const Table3: React.FC<{ showSupport: boolean }> = ({ showSupport }) => (
   <Svg>
     <Label x={760} y={290} anchor="middle" color={C.male} weight={900}>夫（277人）</Label>
     <Label x={1260} y={290} anchor="middle" color={C.female} weight={900}>妻（322人）</Label>
@@ -797,7 +796,7 @@ const Table3: React.FC<{ showSupport: boolean }> = ({ showSupport }) => (
     <Cell x={1040} y={490} on text="はっきり結びつく" hidden={!showSupport} />
   </Svg>
 );
-const S41: React.FC = () => (
+export const S41: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={3} />
     <Heading>満足と一緒に動くのは？</Heading>
@@ -806,8 +805,8 @@ const S41: React.FC = () => (
     <SourceNote text="永瀬圭（2021）NFRJ18 第2次報告書。相関" />
   </AbsoluteFill>
 );
-const SUPPORTS: [string, React.FC<{ x: number; y: number; s?: number }>][] = [["悩みを聞く", Ear], ["努力を認める", Hanamaru], ["助言をくれる", Bulb]];
-const S42: React.FC = () => (
+export const SUPPORTS: [string, React.FC<{ x: number; y: number; s?: number }>][] = [["悩みを聞く", Ear], ["努力を認める", Hanamaru], ["助言をくれる", Bulb]];
+export const S42: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={3} />
     <Heading>はっきり結びついていたのは、心の支え</Heading>
@@ -827,7 +826,7 @@ const S42: React.FC = () => (
     <SourceNote text="永瀬圭（2021）NFRJ18 第2次報告書。妻を調べた末盛慶（1999）も同じ向き。相関" />
   </AbsoluteFill>
 );
-const S43: React.FC = () => (
+export const S43: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={3} />
     <Heading>同じ量でも、期待との差で受け取り方が変わる</Heading>
@@ -850,7 +849,7 @@ const S43: React.FC = () => (
     <SourceNote text="李基平（2008）家族社会学研究 20(1)。1994年の妻886人。図は説明のための例（量は同じに描いた）" />
   </AbsoluteFill>
 );
-const S44: React.FC = () => (
+export const S44: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={3} />
     <Heading>期待との差を入れると、家事の量との結びつきは</Heading>
@@ -872,7 +871,7 @@ const S44: React.FC = () => (
     <SourceNote text="李基平（2008）家族社会学研究 20(1)。1994年の妻886人。相関" />
   </AbsoluteFill>
 );
-const S45: React.FC = () => (
+export const S45: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={3} />
     <Heading>支えは、量より「合っていたか」</Heading>
@@ -897,9 +896,9 @@ const S45: React.FC = () => (
     <SourceNote text="Maisel & Gable（2009）Psychological Science。米国の同居カップル67組の日記（要旨）" />
   </AbsoluteFill>
 );
-const SUP_WIFE = [98, 88, 85, 78, 72, 76, 78, 76, 72];
-const SUP_HUSBAND = [90, 90, 89, 86, 85, 91, 83, 87, 85];
-const S46: React.FC = () => (
+export const SUP_WIFE = [98, 88, 85, 78, 72, 76, 78, 76, 72];
+export const SUP_HUSBAND = [90, 90, 89, 86, 85, 91, 83, 87, 85];
+export const S46: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={3} />
     <Heading>「配偶者は悩みを聞いてくれる」と答えた人</Heading>
@@ -916,7 +915,7 @@ const S46: React.FC = () => (
     <SourceNote text={SRC.nfrjSupport} />
   </AbsoluteFill>
 );
-const S47: React.FC = () => (
+export const S47: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={3} />
     <Heading>どちらが先かは、分からない</Heading>
@@ -938,7 +937,7 @@ const S47: React.FC = () => (
 );
 
 // ================= 答え合わせ =================
-const S48: React.FC = () => (
+export const S48: React.FC = () => (
   <AbsoluteFill>
     <Heading>天秤が止まる：差は 2分</Heading>
     <Svg>
@@ -952,8 +951,8 @@ const S48: React.FC = () => (
     <SourceNote text={`${SRC.time}。末っ子10〜14歳`} />
   </AbsoluteFill>
 );
-const hm = (m: number): [string, string] => [`${Math.floor(m / 60)}時間`, `${m % 60}分`];
-const S49: React.FC = () => {
+export const hm = (m: number): [string, string] => [`${Math.floor(m / 60)}時間`, `${m % 60}分`];
+export const S49: React.FC = () => {
   const rows = [{ label: "6歳未満", h: 608, w: 634 }, { label: "6〜9歳", h: 552, w: 573 }, { label: "10〜14歳", h: 546, w: 548 }, { label: "15〜17歳", h: 529, w: 570 }];
   const base = 720, k = 380 / 700, bw = 124;
   return (
@@ -987,7 +986,7 @@ const S49: React.FC = () => {
     </AbsoluteFill>
   );
 };
-const S50: React.FC = () => (
+export const S50: React.FC = () => (
   <AbsoluteFill>
     <Heading>時間の長さでは、谷は説明できない</Heading>
     <SubHead>変わったのは、長さではなく中身（第2章）</SubHead>
@@ -999,13 +998,13 @@ const S50: React.FC = () => (
     <SourceNote text={SRC.time} />
   </AbsoluteFill>
 );
-const S51: React.FC = () => (
+export const S51: React.FC = () => (
   <AbsoluteFill>
     <Verdict claim="夫婦は、二人いっしょに冷めていく" mark="△"
       reason={["満足の点数の平均は、\n夫も妻も下がる", "満足していない人は、\n30代後半から妻に多い", "家事＋仕事の時間は、\nほぼ同じ（差2分）"]} />
   </AbsoluteFill>
 );
-const S52: React.FC = () => (
+export const S52: React.FC = () => (
   <AbsoluteFill>
     <Heading>分けるもの1：年齢ではなく、家族の時期</Heading>
     <Svg>
@@ -1019,7 +1018,7 @@ const S52: React.FC = () => (
   </AbsoluteFill>
 );
 /** ベンチの夫婦（44 の2カット） */
-const BenchCats: React.FC<{ look: boolean }> = ({ look }) => (
+export const BenchCats: React.FC<{ look: boolean }> = ({ look }) => (
   <g>
     <rect x={180} y={300} width={300} height={260} fill={C.wall} stroke={C.ink2} strokeWidth={LINE.thin} />
     <path d="M160 300 L330 210 L500 300" fill={C.paper2} stroke={C.ink2} strokeWidth={LINE.thin} strokeLinejoin="round" />
@@ -1031,7 +1030,7 @@ const BenchCats: React.FC<{ look: boolean }> = ({ look }) => (
     <Cat kind="female" x={840} y={762} size={4} pose="sit" face={look ? "smile" : "normal"} turn={look ? -0.6 : 0} label="妻" seed={2} />
   </g>
 );
-const S53: React.FC = () => (
+export const S53: React.FC = () => (
   <AbsoluteFill>
     <Heading>子が家を出たあと（米国・女性を18年追跡）</Heading>
     <Svg>
@@ -1042,7 +1041,7 @@ const S53: React.FC = () => (
     <SourceNote text="Gorchoff, John, Helson（2008）Psychological Science 19(11)。中年の女性（要旨）" />
   </AbsoluteFill>
 );
-const S54: React.FC = () => (
+export const S54: React.FC = () => (
   <AbsoluteFill>
     <Heading>子が家を出たあと（米国・女性を18年追跡）</Heading>
     <Svg><BenchCats look /></Svg>
@@ -1051,7 +1050,7 @@ const S54: React.FC = () => (
     <SourceNote text="Gorchoff, John, Helson（2008）Psychological Science 19(11)。中年の女性（要旨）" />
   </AbsoluteFill>
 );
-const S55: React.FC = () => (
+export const S55: React.FC = () => (
   <AbsoluteFill>
     <Heading>満足を分けていたもの</Heading>
     <Card x={140} y={240} w={800} h={500}><b>1　家族の時期</b><br />谷は、末っ子が小学校に上がって<br />から、家を出るまで<br /><span style={{ color: C.ink2 }}>家を出たあとに戻るかは、<br />国や調査で分かれる</span></Card>
@@ -1065,14 +1064,14 @@ const S55: React.FC = () => (
 );
 
 // ================= 教訓 =================
-const S56: React.FC = () => (
+export const S56: React.FC = () => (
   <AbsoluteFill>
     <CarScene signal="none" time={1}>
       <Navi x={96} y={330} lines={["到着まで", "あと5分"]} from={{ x: CAR.navi.x - 70, y: CAR.navi.y }} />
     </CarScene>
   </AbsoluteFill>
 );
-const S57: React.FC = () => (
+export const S57: React.FC = () => (
   <AbsoluteFill>
     <Svg>
       <g transform="translate(40,150) scale(0.6)"><BalanceAt left={[chores("husband", false), work("husband")]} right={[chores("wife", false), work("wife")]} /></g>
@@ -1083,7 +1082,7 @@ const S57: React.FC = () => (
     <SourceNote text="総務省『社会生活基本調査』2021年（末っ子10〜14歳）・NFRJ18（2019年）" />
   </AbsoluteFill>
 );
-const Stopwatch: React.FC<{ x: number; y: number; icon?: React.ReactNode }> = ({ x, y, icon }) => (
+export const Stopwatch: React.FC<{ x: number; y: number; icon?: React.ReactNode }> = ({ x, y, icon }) => (
   <g data-qa="prop" data-qa-label="時計">
     <circle cx={x} cy={y} r={90} fill={C.white} stroke={C.ink} strokeWidth={LINE.base} />
     <rect x={x - 16} y={y - 124} width={32} height={30} fill={C.ink} />
@@ -1091,10 +1090,10 @@ const Stopwatch: React.FC<{ x: number; y: number; icon?: React.ReactNode }> = ({
     {icon}
   </g>
 );
-const Coin: React.FC<{ x: number; y: number }> = ({ x, y }) => (
+export const Coin: React.FC<{ x: number; y: number }> = ({ x, y }) => (
   <g data-qa="prop" data-qa-label="硬貨"><circle cx={x} cy={y} r={90} fill={C.paper2} stroke={C.ink} strokeWidth={LINE.base} /><text x={x} y={y + 30} textAnchor="middle" style={font("value")}>円</text></g>
 );
-const S58: React.FC = () => (
+export const S58: React.FC = () => (
   <AbsoluteFill>
     <Heading>私たちは、数えやすいものから数える</Heading>
     <Svg>
@@ -1106,7 +1105,7 @@ const S58: React.FC = () => (
     </Svg>
   </AbsoluteFill>
 );
-const S59: React.FC = () => (
+export const S59: React.FC = () => (
   <AbsoluteFill>
     <Svg>
       <Bubble x={200} y={470} w={700} text="俺のほうが、長く働いている" tail={[480, 610]} role="label" />
@@ -1118,7 +1117,7 @@ const S59: React.FC = () => (
     </Svg>
   </AbsoluteFill>
 );
-const S60: React.FC = () => (
+export const S60: React.FC = () => (
   <AbsoluteFill>
     <CarScene signal="none" time={1}>
       <Navi x={96} y={330} lines={["到着まで", "あと5分"]} from={{ x: CAR.navi.x - 70, y: CAR.navi.y }} />
@@ -1126,7 +1125,7 @@ const S60: React.FC = () => (
     </CarScene>
   </AbsoluteFill>
 );
-const S61: React.FC = () => (
+export const S61: React.FC = () => (
   <AbsoluteFill>
     <CarScene signal="red" time={1} husbandTurn={0.8} wifeTurn={-0.6} wifeFace="smile" inward={30}>
       <Bubble x={560} y={290} text="今日、疲れた？" tail={[735, 420]} role="sub" />
@@ -1134,7 +1133,7 @@ const S61: React.FC = () => (
     </CarScene>
   </AbsoluteFill>
 );
-const S62: React.FC = () => (
+export const S62: React.FC = () => (
   <AbsoluteFill>
     <Svg>
       <BalanceAt left={[chores("husband", false), work("husband")]} right={[chores("wife", false), work("wife")]} names={false} />
@@ -1144,9 +1143,9 @@ const S62: React.FC = () => (
     </Svg>
   </AbsoluteFill>
 );
-const S63: React.FC = () => <AbsoluteFill><SignOff /></AbsoluteFill>;
+export const S63: React.FC = () => <AbsoluteFill><SignOff /></AbsoluteFill>;
 
-const panels: Panel[] = [
+export const panels: Panel[] = [
   { key: "01", title: "冒頭：交差点の赤信号（引き）", C: S01, sec: 9.4, lines: "土曜の夕方です。", move: "夕方の空から車の正面へ寄る（日は半分ビルに沈んでいる）。信号が赤に変わる（光がふくらむ）。後ろの席で息子（ボール）と娘（ランドセル）が眠る（寝息で肩が上下）。名札は1.5秒だけ" },
   { key: "02", title: "冒頭：夫に寄る・来週の段取り", C: S02, sec: 8.2, lines: "ハンドルを握った夫が", move: "カメラが運転席の夫に寄る（1.7倍）。夫は前を向いたまま（黒目だけ少し上の信号へ）。吹き出しが頭のすぐ上に出る" },
   { key: "03", title: "冒頭：妻に寄る・「うん」", C: S03, sec: 4.7, lines: "助手席の妻は", move: "カメラが助手席へ横に移る。妻は顔を窓（画面の右）へ向けたまま。窓の外の景色が少し横に流れる。小さな吹き出し「うん」" },
@@ -1163,7 +1162,7 @@ const panels: Panel[] = [
   { key: "14", title: "第1章：妻の線が下がる", C: S14, sec: 13.8, lines: "ところが三十代の後半から", move: "二本の線が左から右へ同じ速さで伸びる。35歳を過ぎて妻の線だけ大きく下がる。45歳に 87.2%（夫）・76.9%（妻）" },
   { key: "15", title: "第1章：あなたの家は（考える場面）", C: S15, sec: 11.7, lines: "三十代の後半から四十代の人は", move: "カメラが35〜45歳の帯へ少し寄る。帯が敷かれ、点線の「あなた？」の目印が帯の中を左右に1往復。3秒止める" },
   { key: "16", title: "第1章：別の調査でも同じ形", C: S16, sec: 8.8, lines: "妻だけに聞いた、四千人を超える", move: "カメラが引いて全体へ。墨の灰の輪（妻だけの別の調査。つながない）が5つ落ちてくる。「上の年代」の帯が右に敷かれる" },
-  { key: "17", title: "第1章：上の年代のくせ（説明のための図）", C: S17, sec: 11.1, lines: "不満の大きい夫婦は、途中で別れて", move: "年齢の軸の上を夫婦の組が左から右へ進む。40代から60代へ移るとき、濃い（不満の大きい）2組が列から下へ抜け、枠の外へ。残った組の濃い組が減って見える。「説明のための図（組の数は例）」" },
+  { key: "17", title: "第1章：上の年代のくせ（説明の図・CohortRace）", C: S17, sec: 11.1, lines: "不満の大きい夫婦は、途中で別れて", move: "方眼の地（説明の図・人数は例）。40代半ばの妻100人（満足していない23人が濃い）が1年ずつ進み（右に「○年目」）、別れた人が下へ落ちて列から抜け、点線の跡が残る。濃い人ほど抜けやすい。上の数が「残った○人のうち、満足していない○人（○%）」と23%→18%へ変わる。20年目で止める" },
   { key: "18", title: "第1章：それでも妻の線は4人に3人", C: S18, sec: 5.8, lines: "それでも妻の線は", move: "グラフに戻り、妻の線の上の年代に「4人に3人ほど」" },
   { key: "19", title: "第1章：百組の妻と夫", C: S19, sec: 16.8, lines: "では、一つの家の中では", move: "グラフの線が人に分かれて、妻100人・夫100人の2列に並び直す（夫の列は07の点線の枠に入って埋まる）。満足していない妻23人・夫13人が濃くなり、右に「差10人」の括弧" },
   { key: "20", title: "第1章：組にすると10組あまる（シミュレーション）", C: S20, sec: 11.3, lines: "満足していない夫13人が", move: "方眼の地。夫13人が濃い妻の隣へ歩いて13組（4秒）。残った濃い妻10人の隣へ、淡い夫が歩いてくる（4秒）。10組の床に墨のふち（3秒）。77組は下で一斉に組む" },
@@ -1212,5 +1211,5 @@ const panels: Panel[] = [
   { key: "63", title: "締めのひと言（毎回同じ）", C: S63, sec: 5, lines: "数えてみると、景色が変わりました。", move: "共通のアニメーション（SignOff）。字幕なし" },
 ];
 
-const storyboard: StoryboardDef = { id: "004-marriage-forty-dip", title: "40代、夫婦の満足は二本に分かれる（第2版）", panels };
+export const storyboard: StoryboardDef = { id: "004-marriage-forty-dip", title: "40代、夫婦の満足は二本に分かれる（第2版）", panels };
 export default storyboard;

@@ -26,12 +26,15 @@ const MarkShape: React.FC<{ mark: Mark; t: number }> = ({ mark, t }) => {
 };
 
 // 証拠の文は \n で手で改行できる（語の途中で折れないように。2026-10-06 追加。\n のない文は今までと同じ）
-export const Verdict: React.FC<{ claim: string; mark: Mark; reason: string[]; start?: number }> = ({ claim, mark, reason, start = 0 }) => {
+// 読み上げに合わせるとき（4本目で足した。2026-10-06）：chipAt＝証拠ごとに出るフレーム、hitAt＝印を打つフレーム（start からの数え）。省くと今までどおり
+export const Verdict: React.FC<{ claim: string; mark: Mark; reason: string[]; start?: number; chipAt?: number[]; hitAt?: number }> = (
+  { claim, mark, reason, start = 0, chipAt, hitAt }) => {
   if (reason.length > 3) throw new Error("Verdict: 証拠は3つまでにしてください。");
   const frame = useCurrentFrame() - start;
   const { fps, width: VW, height: VH } = useVideoConfig();
   const Z = useZ();
-  const { chips, roll, hit } = VERDICT_TIMING;
+  const chips = chipAt ?? VERDICT_TIMING.chips;
+  const hit = hitAt ?? VERDICT_TIMING.hit, roll = hit - (VERDICT_TIMING.hit - VERDICT_TIMING.roll);
   // 横長：証拠｜印｜ゴサ の3列。縦長（ショート）：証拠を上、印とゴサを下に並べる
   const L = Z.vertical
     ? { chips: { left: 32, top: 150, width: Z.stage.w - 64 }, mark: { x: 300, y: 1110, k: 0.7 }, word: { left: 100, top: 1210 },
