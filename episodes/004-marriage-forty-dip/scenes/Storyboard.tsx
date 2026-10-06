@@ -140,7 +140,7 @@ export const dayCol = (who: "husband" | "wife", when: "pre" | "post", title: str
   };
 };
 // 柱の位置：夫（上がる前 x100・小学生 x440）、妻（x1000・x1340）。右の余白 x1824 を超えない
-export const DAY = { x: 100, base: 710, k: 0.72, colW: 230, gap: [110, 330, 110, 0] };
+export const DAY = { x: 100, base: 700, k: 0.72, colW: 230, gap: [110, 330, 110, 0] };
 export const DAY2 = { ...DAY, gap: [110 + 230 + 330] }; // 「上がる前」の2本だけ（4本のときと同じ位置）
 export const dayY = (who: "husband" | "wife", when: "pre" | "post", seg: "work" | "chores" | "care") => {
   const t = TIME[who][when];
@@ -975,8 +975,8 @@ export const S49: React.FC = () => {
                   </g>
                 );
               })}
-              <Label x={cx} y={760} anchor="middle">{r.label}</Label>
-              <Label x={cx} y={820} anchor="middle" weight={900}>{`差 ${r.w - r.h}分`}</Label>
+              <Label x={cx} y={756} anchor="middle">{r.label}</Label>
+              <Label x={cx} y={814} anchor="middle" weight={900}>{`差 ${r.w - r.h}分`}</Label>
             </g>
           );
         })}
