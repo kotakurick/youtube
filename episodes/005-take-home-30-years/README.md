@@ -2,15 +2,16 @@
 
 テーマ: themes.csv の129「30年前の同い年と、手取りで比べると（額面と手取りの30年）」。時事の枠（経済）。2026-10-06 オーナー承認（002 r > g の代わり）
 
-引き継ぎ：データは `data/research-wage.md`（額面）・`data/research-rules.md`（保険料率と税制）・`data/research-macro.md`（物価・家計・給付）。手取りは `python episodes/005-take-home-30-years/data/takehome.py` が `data/takehome_result.md` を書く。構成案は第3版（論文・シンクタンク・OECD の追加調査を反映。`data/research-papers-*.md`）。いまはオーナーの切り口の確認待ち（`outline.md` の最後の「オーナーに確認したいこと」）。台本には進まない。
+引き継ぎ：データは `data/research-wage.md`（額面）・`data/research-rules.md`（保険料率と税制）・`data/research-macro.md`（物価・家計・給付）。手取りは `python episodes/005-take-home-30-years/data/takehome.py` が `data/takehome_result.md` を書く。構成案は第3版（論文・シンクタンク・OECD の追加調査を反映。`data/research-papers-*.md`）。台本は第1稿（`script.md`、lint のエラー0）。5役のレビュー中。
 
 ## 進行状況
 
 人の工程（★）は飛ばさない。チェックを付けたら日付も書く。
 
 - [x] 1. テーマ・データ収集（クラウド、2026-10-06）→ `sources.csv`、`data/`
-- [ ] ★ テーマと切り口の承認（オーナー）
-- [x] 2. 企画カードと構成案（クラウド、2026-10-06 第2版。オーナーの切り口の確認待ち）→ `outline.md`（一番上の企画カードを先に埋める。埋まったら `review-rival` に見せて、負けている所を構成で直す → `review/rival-outline.md`）
+
+- [x] ★ テーマと切り口の承認（オーナー、2026-10-06「6はない上で台本化して」。1〜5は Claude の推奨で仮に進めた）
+- [x] 2. 企画カードと構成案（クラウド、2026-10-06 第3版）→ `outline.md`（一番上の企画カードを先に埋める。埋まったら `review-rival` に見せて、負けている所を構成で直す → `review/rival-outline.md`）
 - [ ] 3. 台本（クラウド）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。5役のレビュー → `review/`）
 - [ ] ★ 一次資料との照合（オーナー）→ `sources.csv` の「照合」欄をすべて埋める
 - [ ] ★ 台本レビュー（オーナー）→ `review/owner.md`（Claude が読みやすい形にまとめて渡す。オーナーの指摘は Claude が書き写して台本に反映し、直した／直さなかったを1行ずつ書く）
