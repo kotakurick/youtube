@@ -53,6 +53,7 @@
 ```bash
 python tts/narrate.py episodes/001-xxx --voice silent    # 仮の無音で尺と字幕だけ決める（声が決まる前の仮通し）
 python tts/narrate.py episodes/001-xxx --voice aivis-1   # 本番の声で作る
+python tts/preview.py episodes/001-xxx                    # 作った音声を、スマホで聞く mp3（通し・章ごと）と1文ずつの早見表にまとめる → _local/episodes/<回>/preview/
 ```
 
 - 台本の「## 見出し」が場面。細かく分けるときは `<!-- 場面: ch1-crowd -->`、声のない場面は `<!-- 場面: ch2-card 2.8秒 -->`。
