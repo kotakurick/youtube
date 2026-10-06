@@ -146,7 +146,11 @@ def bonus_months_from_census(year, age_band):
     raise KeyError((year, age_band))
 
 
-CPI_2025_PER_1995 = 1.167  # 消費者物価指数 総合 2025年平均÷1995年平均（research-macro.md）
+# 2年間だけの上乗せ（令和7・8年分）を除いた基礎控除（本則。合計所得132万円以下は95万円、2,350万円以下は58万円）
+BASIC_2025_HONSOKU = [(1320000, 950000), (23500000, 580000), (INF, 0)]
+
+CPI_2025_PER_1995 = 1.167
+DEFLATOR_2025_PER_1995 = 1.086  # 家計最終消費支出デフレーター 2025年÷1995年（内閣府 国民経済計算。research-papers-thinktank.md）  # 消費者物価指数 総合 2025年平均÷1995年平均（research-macro.md）
 
 
 def man(x):
@@ -249,6 +253,32 @@ def main():
         t95 = (g95 + a["pension"] + a["health"]) * CPI_2025_PER_1995
         t25 = g25 + b["pension"] + b["health"] + b["care"]
         lines.append(f"| {band} | {man(t95)} | {man(t25)} | {(t25 / t95 - 1) * 100:+.0f}% |")
+
+    global BASIC_2025
+    lines += ["", "## 8. 基礎控除の2年間だけの上乗せを除くと（はしごの税の段）", "",
+              "| 額面・年齢 | 税の段（上乗せあり） | 税の段（本則） | 手取り2025（本則） |", "|---|---|---|---|"]
+    for gross, age, band in ((4000000, 38, "35-39"), (5000000, 38, "35-39"), (5000000, 45, "45-49"), (6000000, 38, "35-39")):
+        bm, _ = bonus_months_from_census(2025, band)
+        with_top = ladder(gross, bm, age)
+        saved, BASIC_2025 = BASIC_2025, BASIC_2025_HONSOKU
+        try:
+            honsoku = ladder(gross, bm, age)
+        finally:
+            BASIC_2025 = saved
+        lines.append(f"| {man(gross)}・{age} | {(with_top[-1][1] - with_top[-2][1]) / 10000:+.1f} | "
+                     f"{(honsoku[-1][1] - honsoku[-2][1]) / 10000:+.1f} | {man(honsoku[-1][1])} |")
+
+    lines += ["", f"## 9. 物価の物差しを替えると（CPI {CPI_2025_PER_1995}倍／家計最終消費支出デフレーター {DEFLATOR_2025_PER_1995}倍）", "",
+              "30年前の同い年の手取り（4章）を、2つの物差しで今の物価に直した差。", "",
+              "| 年齢 | 名目の差 | CPIで直す | デフレーターで直す |", "|---|---|---|---|"]
+    for age, band in ((22, "20-24"), (27, "25-29"), (32, "30-34"), (37, "35-39"), (42, "40-44"),
+                      (47, "45-49"), (52, "50-54"), (57, "55-59")):
+        bm95, g95 = bonus_months_from_census(1995, band)
+        bm25, g25 = bonus_months_from_census(2025, band)
+        a = takehome(g95, bm95, age, 1995)["takehome"]
+        b = takehome(g25, bm25, age, 2025)["takehome"]
+        lines.append(f"| {band} | {(b / a - 1) * 100:+.0f}% | {(b / (a * CPI_2025_PER_1995) - 1) * 100:+.0f}% | "
+                     f"{(b / (a * DEFLATOR_2025_PER_1995) - 1) * 100:+.0f}% |")
 
     with open(os.path.join(HERE, "takehome_result.md"), "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(lines) + "\n")
