@@ -4,7 +4,7 @@
 // lines はその場面の最初の文。動き（move）は本編で付ける動き。key は一覧の番号と同じ（01〜。並べた順に自動で付く）。
 // 色の決まり（この回）：男女の色だけ（男性＝male、女性＝female）。人の濃い色＝その答えを選んだ人・残った組、淡い色＝そうでない人・消えた組。
 //   性別でない区分（結婚の満足度など）は墨の濃さで分け、どの場面でも「あまり幸せでない＝墨（ink）」「まあ幸せ＝墨2（ink2）」「とても幸せ＝灰（rest）」。
-//   「線がそろった組」に金を使うかはオーナーの判断待ち（第2版では墨の枠）。
+//   金（C.gold）＝「線がそろった組・残った組」（2026-10-06 オーナー「OK。背景がうすいベージュなので目立てばいい」）。床を金で塗り、金の太い枠。食い違いは墨の枠。
 // 左右：男性が左、女性が右（居間・組・グラフ・猫）。上下：重い行動が上（階段・横棒）。
 // 物語の場面（居間・ドラマ・せりふ）は猫、データの人数は人型。同じ場面に混ぜない。テレビの中の人物は猫の形の影（壁の色）、ドラマの登場人物は灰の猫。
 // 地図の比喩：ひとりの線＝1枚の地図の国境線（BorderMap）。どの地図にも同じ行動の目印。線の右（アウト）をその人の色で淡く塗る。
@@ -453,7 +453,7 @@ export const S23: React.FC = () => (
 // ---- はしご：100組（10×10）を32の行動でふるう。右に「線」の帯 ----
 const Ladder: React.FC<{ step: 1 | 2 | 3 }> = ({ step }) => {
   const steps = ["全員が同じ線", "男女で1本ずつ（多数決）", "ひとりひとりの線"];
-  const items: Couple[] = Array.from({ length: 100 }, (_, i) => (step < 3 || i === 37 ? { husband: true, wife: true, mark: step === 3 } : { husband: false, wife: false }));
+  const items: Couple[] = Array.from({ length: 100 }, (_, i) => (step < 3 || i === 37 ? { husband: true, wife: true, gold: true, goldFrame: step === 3 } : { husband: false, wife: false }));
   return (
     <>
       <SimBackground />
@@ -472,7 +472,7 @@ const Ladder: React.FC<{ step: 1 | 2 | 3 }> = ({ step }) => {
         {step === 3 && Array.from({ length: 24 }, (_, k) => (
           <line key={k} x1={1300} y1={340 + ((k * 37) % 330)} x2={1740} y2={330 + ((k * 53) % 340)} stroke={k % 2 ? C.male : C.female} strokeWidth={LINE.hair} />
         ))}
-        <rect x={160} y={760} width={1620} height={64} rx={R.md} fill={C.ink} />
+        <rect x={160} y={760} width={1620} height={64} rx={R.md} fill={C.ink} stroke={C.gold} strokeWidth={LINE.base} />
         <text x={970} y={805} textAnchor="middle" style={font("label", C.white)}>
           {step < 3 ? "残った組：100組" : "残った組：100組に1組もない（平均0.6組＝約170組に1組）"}
         </text>
@@ -505,7 +505,7 @@ export const S28: React.FC = () => {
           const x = 260 + i * 500, h = v * 260;
           return (
             <g key={t}>
-              <rect data-qa="mark" data-qa-label={t} x={x} y={720 - h} width={220} height={h} rx={R.sm} fill={i === 2 ? C.ink : C.rest} />
+              <rect data-qa="mark" data-qa-label={t} x={x} y={720 - h} width={220} height={h} rx={R.sm} fill={i === 2 ? C.gold : C.goldTint} stroke={C.gold} strokeWidth={LINE.thin} />
               <text x={x + 110} y={700 - h} textAnchor="middle" style={font("value")}>{s}</text>
               <text x={x + 110} y={780} textAnchor="middle" style={font("note")} fontWeight={700}>{t}</text>
             </g>
@@ -727,7 +727,7 @@ export const S43: React.FC = () => (
   <AbsoluteFill>
     <Heading>掛け算より、500倍ほど多くそろう</Heading>
     <Svg>
-      <LogRuler x={260} y={420} width={1400} pins={[{ n: 170, label: "実際：約170組に1組", strong: true }, { n: 87000, label: "掛け算：約9万組に1組", color: C.ink2 }]}
+      <LogRuler x={260} y={420} width={1400} pins={[{ n: 170, label: "実際：約170組に1組", strong: true, color: C.gold }, { n: 87000, label: "掛け算：約9万組に1組", color: C.ink2 }]}
         span={{ from: 170, to: 87000, text: "約500倍" }} />
       <Label x={960} y={790} anchor="middle" size="label">厳しい人は、だいたいどの行動にも厳しい（ひとりの線には筋が通っている）</Label>
     </Svg>

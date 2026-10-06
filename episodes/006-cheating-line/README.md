@@ -9,6 +9,7 @@
 
 - 2026-10-06：本人の言う理由（S19）を入れる。比べる相手は日本の同じ会社の数字（S22）にし、男女別の理由は両方を同じ形で出す。切り口（男女の差より1人ひとりの差、第3章は線を越える側）で台本に進む（オーナー「すすんでおけ」）。
 - 2026-10-06：台本（第2稿・推敲後）を承認（オーナー「おもろいよ！つぎいこ」）。ドラマの彼の台詞「男はそういうもんでしょ」は男のまま。「男子学生」「男友達」もそのまま。尺は仮通しで12分45秒。
+- 2026-10-06：一次資料の照合は問題なし（オーナー）。絵コンテ第2版を確認（オーナー「問題なし」）。「線がそろった組・残った組」に金を使う（オーナー「OK。背景がうすいベージュのため目立てばいい」）→ 組の床を金で塗り、1組だけ目立たせるときは金の太い枠。
 
 ## 進行状況
 
@@ -18,9 +19,9 @@
 - [x] ★ テーマと切り口の承認（オーナー。2026-10-06）
 - [x] 2. 企画カードと構成案（クラウド。2026-10-06 第5稿。ライバル役2回）→ `outline.md`（一番上の企画カードを先に埋める。埋まったら `review-rival` に見せて、負けている所を構成で直す → `review/rival-outline.md`）
 - [x] 3. 台本（クラウド。2026-10-06 第2稿。5役のレビューで直した → `review/README.md`）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。5役のレビュー → `review/`）
-- [ ] ★ 一次資料との照合（オーナー）→ `sources.csv` の「照合」欄をすべて埋める
+- [x] ★ 一次資料との照合（オーナー。2026-10-06）→ `sources.csv` の「照合」欄をすべて埋める
 - [x] ★ 台本レビュー（オーナー。2026-10-06）→ `review/owner.md`（Claude が読みやすい形にまとめて渡す。オーナーの指摘は Claude が書き写して台本に反映し、直した／直さなかったを1行ずつ書く）
-- [ ] 4. 絵コンテ（クラウド。2026-10-06 第1版、3役に見せる）：`scenes/Storyboard.tsx` に場面を描き（秒数と動きも）、`cd render && npm run storyboard -- <回のid>` で一覧と `storyboard.md` を作る（直すもの0、⚠ の場面は割り方を決める）→ 3役（`review-animator`・`review-illustrator`・`review-designer`）に見せて `review/storyboard-summary.md` にまとめて直す → ★ オーナーが確認
+- [x] 4. 絵コンテ（クラウド。2026-10-06 第2版、3役の見直し済み、オーナー確認済み）：`scenes/Storyboard.tsx` に場面を描き（秒数と動きも）、`cd render && npm run storyboard -- <回のid>` で一覧と `storyboard.md` を作る（直すもの0、⚠ の場面は割り方を決める）→ 3役（`review-animator`・`review-illustrator`・`review-designer`）に見せて `review/storyboard-summary.md` にまとめて直す → ★ オーナーが確認
 - [ ] 5. 場面のコード（クラウド）→ `scenes/Episode.tsx`（`Episode.example.tsx` を名前を変えて使う。部品は `render/src/lib`、動きは `useNarration()` で読み上げに合わせる）
 - [ ] 6. 仮通し（クラウド）：`python tts/narrate.py episodes/006-cheating-line --voice silent` で仮の尺と字幕（`timing.json`）を作り、部品のない場面は仮の画面（draft）で13〜18分を通して、テンポ・章の長さ・考える場面の位置を直す
 - [ ] 7. 音声合成（ローカル）：`python tts/narrate.py episodes/006-cheating-line --voice eleven-yui`（文ごとに作り、尺・字幕・`subtitles.srt` も自動で声に合う。同じ文は作り直さない）
