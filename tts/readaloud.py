@@ -120,6 +120,7 @@ button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid
   </div>
   <div class="row">
     <button id="copy" type="button">印の番号をコピー</button>
+    <button id="all" type="button">全文をコピー</button>
     <span class="msg" id="msg">印 0 文</span>
   </div>
 </div>
@@ -135,7 +136,7 @@ const msg = document.getElementById("msg"), playBtn = document.getElementById("p
 function save() { try { localStorage.setItem(KEY, JSON.stringify([...cut])); } catch (e) {} }
 function paint() { els.forEach(e => e.classList.toggle("cut", cut.has(e.dataset.n))); msg.textContent = "印 " + cut.size + " 文"; }
 function loadVoices() {
-  if (!synth) { voiceSel.hidden = true; msg.textContent = "このブラウザは読み上げに対応していません。Edge の「音声で読み上げる」を使ってください"; return; }
+  if (!synth) { voiceSel.hidden = true; return; }
   voices = synth.getVoices().filter(v => v.lang && v.lang.toLowerCase().startsWith("ja"));
   const best = voices.findIndex(v => /Nanami|Natural|Online|Kyoko|O-ren|Google/.test(v.name));
   voiceSel.innerHTML = voices.map((v, i) => `<option value="${i}">${v.name}</option>`).join("") || "<option>日本語の声が見つかりません</option>";
@@ -143,15 +144,24 @@ function loadVoices() {
 }
 if (synth) { loadVoices(); synth.onvoiceschanged = loadVoices; }
 function mark(i) { els.forEach(e => e.classList.remove("now")); if (els[i]) { els[i].classList.add("now"); els[i].scrollIntoView({ block: "center", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); } }
+function say(t) { msg.textContent = t; }
 function speak() {
   if (!playing || idx >= DATA.length) { stop(); return; }
   const u = new SpeechSynthesisUtterance(DATA[idx][1]);
   u.lang = "ja-JP"; u.rate = parseFloat(document.getElementById("rate").value);
   if (voices[+voiceSel.value]) u.voice = voices[+voiceSel.value];
   u.onend = () => { if (playing) { idx++; speak(); } };
+  u.onerror = ev => { if (playing && ev.error !== "interrupted" && ev.error !== "canceled") { stop(); say("読み上げが止まりました（" + ev.error + "）。Edge か Safari・Chrome で開くか、「全文をコピー」を使ってください"); } };
   mark(idx); synth.speak(u);
 }
-function start(i) { if (!synth) return; synth.cancel(); idx = i; playing = true; playBtn.textContent = "■ 止める"; speak(); }
+const NO_SPEECH = "ここでは読み上げが使えません。リンクを Edge・Safari・Chrome で開くか、「全文をコピー」でほかの読み上げに貼ってください";
+function start(i) {
+  if (!synth || typeof SpeechSynthesisUtterance === "undefined") { say(NO_SPEECH); return; }
+  if (synth.speaking || synth.pending) synth.cancel();  // 何も読んでいないときに cancel すると、iPhone で最初の1文が消えることがある
+  idx = i; playing = true; playBtn.textContent = "■ 止める"; say("読んでいます：" + DATA[i][0]);
+  speak();
+  setTimeout(() => { if (playing && !synth.speaking && !synth.pending) { stop(); say(NO_SPEECH); } }, 2500);
+}
 function stop() { playing = false; if (synth) synth.cancel(); playBtn.textContent = "▶ 再生"; }
 playBtn.addEventListener("click", () => playing ? stop() : start(idx));
 document.getElementById("rate").addEventListener("change", () => { if (playing) start(idx); });
@@ -161,6 +171,11 @@ els.forEach((e, i) => {
     if (ev.target.closest(".n")) { const n = e.dataset.n; cut.has(n) ? cut.delete(n) : cut.add(n); save(); paint(); return; }
     start(i);
   });
+});
+document.getElementById("all").addEventListener("click", async () => {
+  const text = els.map(e => e.querySelector(".t").textContent).join("\n");
+  try { await navigator.clipboard.writeText(text); say("全文をコピーしました（" + els.length + "文）"); }
+  catch (e) { say("コピーできませんでした。ページの文を長押しして選んでください"); }
 });
 document.getElementById("copy").addEventListener("click", async () => {
   const list = els.filter(e => cut.has(e.dataset.n)).map(e => e.dataset.n + " " + e.querySelector(".t").textContent.slice(0, 15));
