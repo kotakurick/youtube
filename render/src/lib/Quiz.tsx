@@ -9,16 +9,20 @@ import { C, font, LINE, R, sp, useZ } from "./theme";
 export const QUIZ_TIMING = { choices: 12, ring: 45, ringLen: 90, reveal: 45 + 90 + 6 } as const;
 const KEYS = ["A", "B", "C", "D"];
 
-export const Quiz: React.FC<{ question: string; choices: string[]; answer?: number; reveal?: boolean; start?: number; title?: string }> = (
-  { question, choices, answer, reveal = false, start = 0, title = "予想タイム" },
+// 読み上げに合わせるとき（4本目で足した。2026-10-06）：choiceAt＝選択肢ごとに出るフレーム、ringAt＝3秒の輪を始めるフレーム、
+// revealAt＝答えを塗るフレーム、gosaFoot＝ゴサの足元（字幕の帯から離すとき）、nudge＝[選択肢, フレーム] でその選択肢を小さく揺らす（引っかけ）。どれも start からの数え。省くと今までどおり
+export const Quiz: React.FC<{ question: string; choices: string[]; answer?: number; reveal?: boolean; start?: number; title?: string;
+  choiceAt?: number[]; ringAt?: number; revealAt?: number; nudge?: [number, number]; gosaFoot?: number }> = (
+  { question, choices, answer, reveal = false, start = 0, title = "予想タイム", choiceAt, ringAt, revealAt: revealAtProp, nudge, gosaFoot },
 ) => {
   if (choices.length < 2 || choices.length > 4) throw new Error("Quiz: 選択肢は2〜4つにしてください。");
   if (reveal && answer === undefined) throw new Error("Quiz: reveal するときは answer（答えの番号）が要ります。");
   const frame = useCurrentFrame() - start;
   const { fps } = useVideoConfig();
   const Z = useZ();
-  const { ring, ringLen } = QUIZ_TIMING;
-  const revealAt = QUIZ_TIMING.reveal;
+  const { ringLen } = QUIZ_TIMING;
+  const ring = ringAt ?? QUIZ_TIMING.ring;
+  const revealAt = revealAtProp ?? (ringAt !== undefined ? ringAt + ringLen + 6 : QUIZ_TIMING.reveal);
   const head = sp("enter", frame, fps);
   const left = interpolate(frame - ring, [0, ringLen], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const shown = reveal && frame >= revealAt;
@@ -33,13 +37,14 @@ export const Quiz: React.FC<{ question: string; choices: string[]; answer?: numb
       </div>
       <div style={{ position: "absolute", left: box.x, top: box.y + (Z.vertical ? 140 : 110), width: box.w, display: "flex", flexWrap: "wrap", gap: 32 }}>
         {choices.map((c, i) => {
-          const t = sp("enter", frame - QUIZ_TIMING.choices - i * 6, fps);
+          const t = sp("enter", frame - (choiceAt?.[i] ?? QUIZ_TIMING.choices + i * 6), fps);
+          const wob = nudge && nudge[0] === i ? Math.sin((frame - nudge[1]) / 2) * 6 * interpolate(frame - nudge[1], [0, 20], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) * (frame >= nudge[1] ? 1 : 0) : 0;
           const right = shown && i === answer;
           const dim = shown && i !== answer;
           return (
             <div key={i} style={{ width: cw, boxSizing: "border-box", display: "flex", alignItems: "center", gap: 24, padding: "22px 28px",
               background: right ? C.white : C.paper2, border: `${LINE.thin}px solid ${right ? C.ink : "transparent"}`, borderRadius: R.lg,
-              opacity: t * (dim ? 0.45 : 1), transform: `translateY(${(1 - t) * 20}px) scale(${right ? 1.04 : 1})` }}>
+              opacity: t * (dim ? 0.45 : 1), transform: `translate(${wob}px,${(1 - t) * 20}px) scale(${right ? 1.04 : 1})` }}>
               <div style={{ width: 64, height: 64, borderRadius: 32, background: right ? C.ink : C.white, flex: "none",
                 display: "flex", alignItems: "center", justifyContent: "center", ...font("label", right ? C.white : C.ink), fontWeight: 900 }}>{KEYS[i]}</div>
               <div style={{ ...font("value"), position: "relative" }}>
@@ -60,7 +65,7 @@ export const Quiz: React.FC<{ question: string; choices: string[]; answer?: numb
         </svg>
       )}
       {[0, 1, 2].map((k) => <Sfx key={k} name="tick" at={start + ring + k * 30} volume={0.4} />)}
-      <Gosa cues={reveal ? [[start + 4, "thinking"], [start + revealAt, "idea"]] : [[start + 4, "thinking"]]} size={Z.vertical ? "S" : "M"} sfx={false} />
+      <Gosa cues={reveal ? [[start + 4, "thinking"], [start + revealAt, "idea"]] : [[start + 4, "thinking"]]} size={Z.vertical ? "S" : "M"} foot={gosaFoot} sfx={false} />
     </>
   );
 };

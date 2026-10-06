@@ -81,7 +81,7 @@ def main():
     used = set()
     for no, line in lint.narration(script.read_text(encoding="utf-8")):
         line = unicodedata.normalize("NFKC", line)
-        tags = re.findall(r"\[(S\d+(?:[,，]\s*S?\d+)*)\]", line)
+        tags = re.findall(r"\[(S\d+[a-z]?(?:[,，]\s*S?\d+[a-z]?)*)\]", line)
         tag_ids = [("S" + t.lstrip("S")) for g in tags for t in re.split(r"[,，]\s*", g)]
         for t in tag_ids:
             used.add(t)

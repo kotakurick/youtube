@@ -47,7 +47,7 @@ AIで制作する日本向けYouTubeチャンネル「吾輩は数える猫で�
 - 部品は資産として貯める（2026-10-05）：要る表現がなければ回の中ではなく `render/src/lib/` に部品として作り、`docs/parts.md` の一覧に足す。
 - 画面の重なりは仕組みで防ぐ：部品は描いたものに印（data-qa）を付け、書き出す前に `cd render && npm run check -- <回のid>` で「直すもの」を0にする（重なり・28px未満の文字・はみ出し。決まりは `render/src/lib/qa.ts`）。新しい部品を作ったら印を付ける。
 - 面白さは仕組みで作る（2026-10-05）：構成の前に `outline.md` の企画カード（痛み・逆説・この動画だけの数字・日本の数字・絵で分かる瞬間・ミクロ）を埋め、`review-rival`（考えすぎる葦ならどう作るか、と比べる役）に見せる。台本には仕掛け（先回り・比喩と回収・ミクロ・締めの一文）を置き、印を付ける。ミクロ（個人の戦い方）はデータかシミュレーションで比べた結果として見せ、勧めない。健康・お金の回は出さない。詳細は `docs/script-style.md` の11章。
-- 台本の書き方は `docs/script-style.md`。書いたら `python scripts/lint_script.py <script.md>` を通し、`.claude/skills/script-review` の手順で推敲する。
+- 台本の書き方は `docs/script-style.md`。書いたら `python scripts/lint_script.py <script.md>` を通し、`.claude/skills/script-review` の手順で推敲する。レビューは5役 → 直した稿をもう一度 → 最後に日本語役 `review-japanese`（耳だけで分かるか。2026-10-06）。発見には「なぜ」（裏付けか仮説）を置く。
 - 詳細と根拠は `research/benchmark/report.md`、`research/benchmark/compare/report.md`（「追加の4つの分析」）。
 - ブランドの決まり（約束・部品の名前・標準構成・ゴサ・見た目・音・サムネイル）は `docs/brand.md`（2026-10-04 決定）。数字はコードの `render/src/lib/theme.ts` が正本。
 
