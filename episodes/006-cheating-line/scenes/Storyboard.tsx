@@ -451,9 +451,11 @@ export const S23: React.FC = () => (
   </AbsoluteFill>
 );
 // ---- はしご：100組（10×10）を32の行動でふるう。右に「線」の帯 ----
-const Ladder: React.FC<{ step: 1 | 2 | 3 }> = ({ step }) => {
+/** remain：3段目で、まだ消えていない組の数（動画で 100→0 と数え下げる。絵コンテは 0）。37番の組は最後まで残る */
+export const Ladder: React.FC<{ step: 1 | 2 | 3; remain?: number }> = ({ step, remain = 0 }) => {
   const steps = ["全員が同じ線", "男女で1本ずつ（多数決）", "ひとりひとりの線"];
-  const items: Couple[] = Array.from({ length: 100 }, (_, i) => (step < 3 || i === 37 ? { husband: true, wife: true, gold: true, goldFrame: step === 3 } : { husband: false, wife: false }));
+  const items: Couple[] = Array.from({ length: 100 }, (_, i) => (step < 3 || i === 37 ? { husband: true, wife: true, gold: true, goldFrame: step === 3 && remain === 0 }
+    : i < remain ? { husband: true, wife: true, gold: true } : { husband: false, wife: false }));
   return (
     <>
       <SimBackground />
@@ -474,7 +476,7 @@ const Ladder: React.FC<{ step: 1 | 2 | 3 }> = ({ step }) => {
         ))}
         <rect x={160} y={760} width={1620} height={64} rx={R.md} fill={C.ink} stroke={C.gold} strokeWidth={LINE.base} />
         <text x={970} y={805} textAnchor="middle" style={font("label", C.white)}>
-          {step < 3 ? "残った組：100組" : "残った組：100組に1組もない（平均0.6組＝約170組に1組）"}
+          {step < 3 ? "残った組：100組" : remain > 0 ? `残った組：${remain + 1}組` : "残った組：100組に1組もない（平均0.6組＝約170組に1組）"}
         </text>
       </Svg>
       <SourceNote sim text="Kulibert & Thompson 2019 の公開データから計算" />
