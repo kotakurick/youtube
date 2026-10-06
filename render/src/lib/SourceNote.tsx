@@ -1,11 +1,11 @@
 // 出典（グラフの左下、NOTE の区画。グラフと一緒に出て一緒に消える）。28px 以上、色は ink2。
-// 書き方：「総務省『国勢調査』(2020)」。シミュレーションの場面は sim を付けて、実データと見分ける。
+// 書き方：「総務省『国勢調査』(2020)」。シミュレーションの場面は sim を付けて、実データと見分ける。仮定の断り書きなど出典でない文は prefix=""（または prefix="条件："）。
 import React from "react";
 import { useCurrentFrame, useVideoConfig } from "remotion";
 import { C, font, R, sp, useZ } from "./theme";
 
-export const SourceNote: React.FC<{ text?: string; sim?: boolean; x?: number; y?: number; start?: number }> = (
-  { text, sim = false, x, y, start = 0 },
+export const SourceNote: React.FC<{ text?: string; sim?: boolean; x?: number; y?: number; start?: number; prefix?: string }> = (
+  { text, sim = false, x, y, start = 0, prefix = "出典：" },
 ) => {
   const Z = useZ();
   const frame = useCurrentFrame();
@@ -19,7 +19,7 @@ export const SourceNote: React.FC<{ text?: string; sim?: boolean; x?: number; y?
           シミュレーション（条件は概要欄）
         </span>
       )}
-      {text && <span style={{ ...font("note", C.ink2), lineHeight: 1.05 }}>出典：{text}</span>}
+      {text && <span style={{ ...font("note", C.ink2), lineHeight: 1.05 }}>{prefix}{text}</span>}
     </div>
   );
 };

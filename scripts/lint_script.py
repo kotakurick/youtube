@@ -9,6 +9,11 @@
       「#」で始まる見出し、「>」で始まるメモ、「※」で始まる注、<!-- --> のコメント、``` で囲んだ部分
     数字を出す文には [S1] のように sources.csv の id を付ける（読み上げ用テキストでは消える）。
 
+面白さの仕掛け（docs/script-style.md の11章）:
+    置いた所に <!-- 仕掛け: 先回り --> のように印を書く（読み上げない）。10分以上の台本では、
+    必須の仕掛け（先回り・比喩・回収・ミクロ・締め）の印がないとエラー。比喩は名前を付け、同じ名前で回収する
+    （<!-- 仕掛け: 比喩 ケーキ --> … <!-- 仕掛け: 回収 ケーキ -->）。健康・お金の回はミクロの代わりに <!-- 仕掛け: 示唆 --> を置く。
+
 結果:
     エラー（直してから進む）と注意（読んで判断する）を行番号つきで出す。エラーが1つでもあれば終了コード1。
 """
@@ -53,6 +58,34 @@ QUESTION = r"(か|[?？])$"
 NOUN_STOP = r"[一-龥ァ-ヶー0-9]$"
 STAT = r"%|割|倍|万|億|人に\d人"   # 統計らしい数字の目印
 
+# 声が読み間違えやすい漢字（2026-10-06 オーナー「側をそばと読む」）。tts/yomi.tsv に読みがなければ知らせる。
+# 読みは文脈で変わるので、一括では直さず、語ごとに yomi.tsv に足す（例：「女性の側」→「女性のがわ」）
+AMBIGUOUS = ["側", "他", "何人", "一日", "上手", "下手", "市場", "大分", "心中", "最中", "目下", "生物", "方々"]
+ROOT = Path(__file__).resolve().parent.parent
+
+
+def load_tsv(path: Path, key: str) -> list[dict]:
+    import csv
+    if not path.exists():
+        return []
+    with path.open(encoding="utf-8-sig", newline="") as f:
+        return [r for r in csv.DictReader(f, delimiter="\t") if r.get(key)]
+
+
+def unread(s: str, yomi: list[str]) -> list[str]:
+    """読み間違えやすい漢字のうち、yomi.tsv の表記に含まれていないもの"""
+    covered = [False] * len(s)
+    for w in yomi:
+        for m in re.finditer(re.escape(w), s):
+            for i in range(m.start(), m.end()):
+                covered[i] = True
+    out = []
+    for w in AMBIGUOUS:
+        for m in re.finditer(re.escape(w), s):
+            if not all(covered[m.start():m.end()]):
+                out.append(w)
+    return out
+
 
 def narration(text: str) -> list[tuple[int, str]]:
     """読み上げる行だけを (行番号, 本文) で返す。"""
@@ -82,7 +115,7 @@ def strip_sources(s: str) -> str:
 
 
 def strip_tags(s: str) -> str:
-    return VOICE_TAG.sub("", strip_sources(s))
+    return VOICE_TAG.sub("", strip_sources(s)).replace("｜", "")  # ｜は字幕を切る印（読み上げない）
 
 
 def sentences(lines: list[tuple[int, str]]) -> list[tuple[int, str]]:
@@ -93,6 +126,65 @@ def sentences(lines: list[tuple[int, str]]) -> list[tuple[int, str]]:
             if s:
                 out.append((no, s))
     return out
+
+
+TRICK = re.compile(r"<!--\s*仕掛け[:：]\s*(\S+)(?:\s+([^>]*?))?\s*-->")
+TRICK_REQUIRED = {"先回り": "見る人の予想を言葉にしてから裏切る所", "比喩": "身近な物への置き換え", "回収": "比喩を締めでもう一度使う所",
+                  "ミクロ": "1人ひとりの戦い方を比べて見せる所", "締め": "最後の短い逆説の一文"}
+CHAPTER = re.compile(r"^##\s*第\s*\d+\s*章")
+
+
+def tricks(text: str, long: bool) -> tuple[list, list]:
+    """面白さの仕掛けの印を調べる（docs/script-style.md の11章）。(エラー, 注意) を返す。"""
+    errors, notes = [], []
+    found: dict[str, list[tuple[int, str]]] = {}
+    chapter, chapter_metaphors = None, {}
+    for i, raw in enumerate(text.splitlines(), 1):
+        line = raw.strip()
+        if line.startswith("## "):
+            chapter = line[3:].strip()
+        for m in TRICK.finditer(line):
+            kind, name = m.group(1), (m.group(2) or "").strip()
+            found.setdefault(kind, []).append((i, name))
+            if kind == "比喩":
+                chapter_metaphors.setdefault(chapter, []).append(i)
+    if "示唆" in found:   # 健康・お金の回は、ミクロの代わりに示唆を置く（11章）
+        found.setdefault("ミクロ", found["示唆"])
+    for kind, why in TRICK_REQUIRED.items():
+        if kind not in found:
+            (errors if long else notes).append((0, f"仕掛け「{kind}」の印がない（{why}。<!-- 仕掛け: {kind} --> を置く）"))
+    for no, name in found.get("比喩", []):
+        if not name:
+            notes.append((no, "比喩に名前がない（<!-- 仕掛け: 比喩 ケーキ --> のように書き、同じ名前で回収する）"))
+        elif name not in {n for _, n in found.get("回収", [])}:
+            errors.append((no, f"比喩「{name}」を回収していない（締めで <!-- 仕掛け: 回収 {name} --> を置いて、もう一度使う）"))
+    for ch, nos in chapter_metaphors.items():
+        if len(nos) > 1:
+            notes.append((nos[1], f"「{ch}」に比喩が{len(nos)}つ（章に1つまで）"))
+    return errors, notes
+
+
+def chapter_ends(text: str) -> list[tuple[int, str, str]]:
+    """第N章の最後の読み上げ文を (行番号, 章, 文) で返す。章の最後は次への問いにする（11章）。"""
+    out, chapter, last = [], None, None
+    for no, line in narration_with_headings(text):
+        if line.startswith("## "):
+            if chapter and last:
+                out.append((last[0], chapter, last[1]))
+            chapter, last = (line[3:].strip() if CHAPTER.match(line) else None), None
+        elif chapter:
+            ss = [x for x in re.split(r"(?<=[。？?])", strip_tags(line)) if x.strip()]
+            if ss:
+                last = (no, ss[-1].strip())
+    if chapter and last:
+        out.append((last[0], chapter, last[1]))
+    return out
+
+
+def narration_with_headings(text: str) -> list[tuple[int, str]]:
+    """読み上げる行と、## の見出しの行を (行番号, 本文) で返す。"""
+    heads = {i: raw.strip() for i, raw in enumerate(text.splitlines(), 1) if raw.strip().startswith("## ")}
+    return sorted([(i, h) for i, h in heads.items()] + narration(text))
 
 
 def numbers(s: str) -> list[str]:
@@ -145,6 +237,8 @@ def main():
         length = len(s)
         if length > SENT_MAX:
             notes.append((no, f"文が{length}字（{SENT_MAX}字まで）：{s[:30]}…"))
+        if s.startswith("では、"):  # eleven-yui が「では、では」と2回読むことがある（2026-10-06。docs/script-style.md の7章）
+            errors.append((no, f"文の頭の「では、」は声が2回読むことがある。前置きなしで始めるか「それなら、」などにする：{s[:30]}"))
         if s.count("、") > COMMA_MAX:
             notes.append((no, f"読点が{s.count('、')}個（{COMMA_MAX}個まで）"))
         m = re.search(r"[一-龥]{%d,}" % KANJI_RUN, s)
@@ -160,6 +254,17 @@ def main():
     else:
         for no, s in plain:
             notes.append((no, f"です・ます調でない：{s[:30]}"))
+
+    # 言い換えの辞書（scripts/wording.tsv。オーナーの指摘から足していく）と、読み間違えやすい漢字（tts/yomi.tsv）
+    wording = load_tsv(ROOT / "scripts" / "wording.tsv", "表記")
+    yomi = [r["表記"] for r in load_tsv(ROOT / "tts" / "yomi.tsv", "表記")]
+    for no, t in lines:
+        t2 = strip_tags(t)
+        for r in wording:
+            if r["表記"] in t2:
+                errors.append((no, f"言い換える：「{r['表記']}」→「{r['言い換え']}」（{r['理由']}）"))
+        for w in dict.fromkeys(unread(t2, yomi)):
+            notes.append((no, f"読み間違えやすい「{w}」：声で聞いて確かめ、違えば tts/yomi.tsv に語ごとに読みを足す"))
 
     # 言葉
     for no, t in lines:
@@ -188,6 +293,15 @@ def main():
     last = sents[-1][1]
     if re.search(QUESTION, last):
         notes.append((sents[-1][0], "最後の文が問いかけ。締めは教訓（一般化）で終える"))
+
+    # 面白さの仕掛け（11章）
+    raw_text = a.script.read_text(encoding="utf-8")
+    e2, n2 = tricks(raw_text, long=minutes >= 10)
+    errors += e2
+    notes += n2
+    for no, ch, s_last in chapter_ends(raw_text):
+        if not re.search(QUESTION, re.sub(r"[。」』）)]+$", "", s_last)):
+            notes.append((no, f"「{ch}」の最後の文が問いになっていない。次の章への問いで終える：{s_last[:30]}"))
 
     # 出力
     print(f"{a.script}：{chars:,}字、読み上げ約{minutes:.1f}分、数字{len(all_nums)}個（1分に{per_min:.1f}個）、{len(sents)}文")

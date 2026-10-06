@@ -1,6 +1,6 @@
 // 縦棒グラフ。棒は上の角だけ丸く、底は平らで 4px の基準線に乗せる。値は棒の上に直接書く（目盛りの線は使わない）。
 // 注目の1本（focus）は墨か性別の色・64px、ほかは rest の色・40px。注目の値には誤差棒（95%の範囲）を付けられる。
-// 伸びと数え上げは同じ曲線（EASE）。伸び終わると注目の値が 1.06→1 倍に戻り、下に蛍光ペンが引かれる。
+// 伸びと数え上げは同じ曲線（EASE）。伸び終わると注目の値が 1.06→1 倍に戻り、下に墨の線が引かれる（蛍光ペンの黄は見えにくいので使わない。2026-10-06）。
 import React from "react";
 import { interpolate, useCurrentFrame } from "remotion";
 import { C, EASE, font, LINE, R, T } from "./theme";
@@ -59,7 +59,7 @@ export const BarChart: React.FC<BarChartProps> = (props) => {
                 {b.err!.map((e) => <line key={e} x1={g.cx - LINE.base * 2} x2={g.cx + LINE.base * 2} y1={base - e * g.scale} y2={base - e * g.scale} />)}
               </g>
             ))}
-            {b.focus && <rect x={g.cx - tw / 2} y={ty - 22} width={tw * done} height={22} rx={4} fill={C.marker} />}
+            {b.focus && <rect x={g.cx - tw / 2} y={ty + 6} width={tw * done} height={8} rx={4} fill={C.ink} />}
             <text x={g.cx} y={ty} textAnchor="middle" style={font(role, b.focus ? C.ink : C.ink2)} opacity={Math.min(1, p * 3)}
               transform={`translate(${g.cx},${ty}) scale(${pop}) translate(${-g.cx},${-ty})`}>{label}</text>
             <text x={g.cx} y={base + 56} textAnchor="middle" style={font("label")}>{b.label}</text>

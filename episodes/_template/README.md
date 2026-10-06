@@ -6,20 +6,26 @@
 
 人の工程（★）は飛ばさない。チェックを付けたら日付も書く。
 
-- [ ] 1. テーマ・データ収集 → `sources.csv`、`data/`
+- [ ] 1. テーマ・データ収集（クラウド）→ `sources.csv`、`data/`
 - [ ] ★ テーマと切り口の承認（オーナー）
-- [ ] 2. 構成案 → `outline.md`
-- [ ] 3. 台本 → `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲）
+- [ ] 2. 企画カードと構成案（クラウド）→ `outline.md`（一番上の企画カードを先に埋める。埋まったら `review-rival` に見せて、負けている所を構成で直す → `review/rival-outline.md`）
+- [ ] 3. 台本（クラウド）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。5役のレビュー → `review/`）
 - [ ] ★ 一次資料との照合（オーナー）→ `sources.csv` の「照合」欄をすべて埋める
-- [ ] 4. 仮通し：`python tts/narrate.py episodes/{{EPISODE}} --voice silent` で仮の尺と字幕（`timing.json`）を作り、部品なしの仮の場面（draft）で18分を通して見て、テンポ・章の長さ・考える場面の位置を直す
-- [ ] 5. シーンのコード → `scenes/Episode.tsx`（`Episode.example.tsx` を名前を変えて使う。部品は `render/src/lib`、動きは `useNarration()` で読み上げに合わせる）
-- [ ] 6. 音声合成：`python tts/narrate.py episodes/{{EPISODE}} --voice <声>`（文ごとに作り、尺・字幕・`subtitles.srt` も自動で声に合う。同じ文は作り直さない）
-- [ ] 7. 合成・字幕・レンダリング
-- [ ] 8. 画面のチェック：`cd render && npm run check -- {{EPISODE}}` の「直すもの」を0にし、「確かめるもの」は画像を見て判断する（重なり・28px未満の文字・はみ出し。結果は `render/out/qa/{{EPISODE}}/`）。縦型ショートも同じ
+- [ ] ★ 台本レビュー（オーナー）→ `review/owner.md`（Claude が読みやすい形にまとめて渡す。オーナーの指摘は Claude が書き写して台本に反映し、直した／直さなかったを1行ずつ書く）
+- [ ] 4. 絵コンテ（クラウド）：`scenes/Storyboard.tsx` に場面を描き（秒数と動きも）、`cd render && npm run storyboard -- <回のid>` で一覧と `storyboard.md` を作る（直すもの0、⚠ の場面は割り方を決める）→ 3役（`review-animator`・`review-illustrator`・`review-designer`）に見せて `review/storyboard-summary.md` にまとめて直す → ★ オーナーが確認
+- [ ] 5. 場面のコード（クラウド）→ `scenes/Episode.tsx`（`Episode.example.tsx` を名前を変えて使う。部品は `render/src/lib`、動きは `useNarration()` で読み上げに合わせる）
+- [ ] 6. 仮通し（クラウド）：`python tts/narrate.py episodes/{{EPISODE}} --voice silent` で仮の尺と字幕（`timing.json`）を作り、部品のない場面は仮の画面（draft）で13〜18分を通して、テンポ・章の長さ・考える場面の位置を直す
+- [ ] 7. 音声合成（ローカル）：`python tts/narrate.py episodes/{{EPISODE}} --voice eleven-yui`（文ごとに作り、尺・字幕・`subtitles.srt` も自動で声に合う。同じ文は作り直さない）
+- [ ] 8. 書き出し・BGM・音量（ローカル）：`npm run render`、`npm run master`（BGM は `npm run bgm` で測ってそろえたもの）
+- [ ] 9. 画面のチェック：`cd render && npm run check -- {{EPISODE}}` の「直すもの」を0にし、「確かめるもの」は画像を見て判断する（重なり・28px未満の文字・はみ出し。結果は `render/out/qa/{{EPISODE}}/`）。縦型ショートも同じ
 - [ ] ★ 1.25倍速で通し確認（オーナー）
 - [ ] ★ サムネイルとタイトルの最終決定（オーナー）→ `meta.md`
-- [ ] 公開（URL: ）
-- [ ] 10. Shorts の切り出し
+- [ ] ★ 公開（オーナー。URL: ）
+- [ ] 公開後の確認：広告の制限（黄色アイコン）がないか、透かしが出ているか
+- [ ] 10. 振り返り（公開7日後と28日後）→ `retro.md`（数字と、離れた所・見返された所を記録し、学んだことを決まりかレビュー役に1行足す）
+- [ ] 11. Shorts の切り出し（3本目から。構成はクラウド、書き出しはローカル）
+
+全体の流れと担当は `docs/process.md`。
 
 ## 質の最低ライン（公開前）
 
@@ -37,6 +43,8 @@
 - [ ] 読み上げる数字が1分に4〜5個まで。丸めて言い（約3割、4人に1人）、細かい値は画面に出している
 - [ ] 冒頭が物語（1人の人物・情景・歴史の一場面）から入っている。数字を並べて始めていない
 - [ ] 締めは答えのあとに「教訓」で終えている。答えだけ・問いかけ・登録の呼びかけで締めていない
+- [ ] 企画カードが埋まっている（痛み・逆説の一文・この動画だけの数字・日本の数字・絵で分かる瞬間・ミクロ）。`review-rival` で「負け」が残っていない
+- [ ] 面白さの仕掛け（先回り・比喩と回収・ミクロ・締めの一文）が台本にある（`lint_script.py` のエラーが0）
 - [ ] 結論を数字の範囲内ではっきり言っている（助言はしていない）
 
 ## ポリシー確認（公開前）

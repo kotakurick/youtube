@@ -2,6 +2,7 @@
 
 使い方:
     python scripts/check_sources.py episodes/<回>
+    python scripts/check_sources.py episodes/<回> script-v2.md   # 台本のファイル名が script.md でないとき
 
 確かめること:
     エラー（直してから進む）
@@ -61,10 +62,10 @@ def near(spoken: float, value: float) -> bool:
 
 
 def main():
-    if len(sys.argv) != 2:
+    if len(sys.argv) not in (2, 3):
         sys.exit(__doc__)
     ep = Path(sys.argv[1])
-    script, src = ep / "script.md", ep / "sources.csv"
+    script, src = ep / (sys.argv[2] if len(sys.argv) == 3 else "script.md"), ep / "sources.csv"
     with src.open(encoding="utf-8-sig", newline="") as f:
         rows = list(csv.DictReader(f))
     errors, notes, doubles = [], [], []

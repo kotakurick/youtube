@@ -31,7 +31,7 @@ export type EpisodeDef = {
 
 export const episodeFrames = (ep: EpisodeDef) => ep.scenes.reduce((a, s) => a + sec(s.seconds), 0);
 
-const VOL = { underVoice: 0.11, alone: 0.3 }; // 0.11 ≒ -19dB
+const VOL = { underVoice: 0.14, alone: 0.3 }; // 0.14 ≒ -17dB（2026-10-06 オーナー「BGM を若干上げたい」で 0.11 → 0.14）
 
 /** BGM の音量をフレームごとに決める（場面の切れ目で 10f かけて変える） */
 const useBgmVolume = (ep: EpisodeDef) => useMemo(() => {
@@ -99,7 +99,8 @@ export const Episode: React.FC<{ ep: EpisodeDef }> = ({ ep }) => {
           </Series.Sequence>
         ))}
       </Series>
-      {(ep.bgm ?? []).map((b) => {
+      {/* 曲が手元にない（クラウドで静止画だけ作るとき）は、BGM なしで描く */}
+      {(ep.bgm ?? []).filter((b) => hasFile(`bgm/${b.file}`)).map((b) => {
         const a = startOf(b.from), z = startOf(b.to ?? b.from);
         const len = z.f + z.len - a.f;
         const g = gainOf(b.file);

@@ -25,7 +25,9 @@ npm run still -- gosa-sheet out/gosa.png         # ゴサの表情一覧（確�
 npm run still -- pose-sheet out/pose.png         # 姿勢と小道具の一覧
 npm run still -- backdrop-sheet out/bg.png       # 背景の一覧
 npm run master -- out/001.mp4                    # 音量を -14 LUFS にそろえる → out/001.master.mp4
+npm run storyboard -- 002-r-greater-than-g       # 絵コンテ：場面を1枚ずつ書き出してチェックし、4列の一覧に → out/<回>-storyboard.png
 npm run check -- demo                            # 画面のチェック（重なり・小さい文字・はみ出し）→ out/qa/demo/
+npm run storyboard -- 001-where-couples-meet-v2  # 静止画の絵コンテ（場面ごとに2〜3枚＋画面のチェック）→ out/storyboard/<id>/index.html
 npm run typecheck                                # 書き間違いの確認
 ```
 
@@ -58,6 +60,7 @@ render/
     Camera.tsx      カメラ（寄り・引き・横移動、ゆっくり寄る drift）
     Counter.tsx     人数カウンター
     Quiz.tsx        予想タイム・クイズ（選択肢4つまで、3秒の輪、答えが光る）
+    TownsSim.tsx    紹介の町とアプリの町（Town：1か月ずつ動かす／HeartRows：いいねの山／PairPanel：100人のうちペアの人だけ色）。計算は sim/towns.ts
     NormalRange.tsx ふつうの幅（自分に当てはめる。幅は誤差棒、指が動いて「あなた」で止まる）
     LookupTable.tsx 自分に当てはめる表（3×3まで、指が行→列→マスとたどる）
     Slider.tsx      もしもの条件のつまみ
