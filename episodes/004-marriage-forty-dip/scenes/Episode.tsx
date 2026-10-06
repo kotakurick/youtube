@@ -194,7 +194,7 @@ const Ch1: React.FC = () => {
   const line = find("満足と答えた人の割合を", 660), but = find("ところが三十代", 1107), forty = find("四十代の半ばでは", 1254);
   const you = find("三十代の後半から四十代の人は", 1521), other = find("妻だけに聞いた", 1873), kuse = find("ただ、上の年代", 2024);
   const leave = find("不満の大きい夫婦", 2135), high = find("だから上の年代ほど", 2287), still = find("それでも妻の線", 2471);
-  const home = find("では、一つの家", 2645), w23 = find("満足していない妻は23人", 2885), h13 = find("満足していない夫は13人", 2971), diff = find("10人多い", 3055);
+  const home = find("一つの家の中では", 2645), w23 = find("満足していない妻は23人", 2885), h13 = find("満足していない夫は13人", 2971), diff = find("10人多い", 3055);
   const pair = find("満足していない夫13人が", 3138), rest = find("それでも、満足していない妻が", 3308), left = find("余った10人", 3423);
   const house = find("だから少なくとも", 3543), chores_ = find("ここまで聞くと", 3989), wifeT = find("夫が家事をしない", 4132), husT = find("あるいは男性なら", 4242);
   const ch3 = find("その答えは、第3章", 4408), when = find("その前に", 4500);
@@ -378,8 +378,8 @@ const Ch2: React.FC = () => {
   const pre = find("上がる前は、満足は8割", 633), y2018 = find("四年前", 1079), why = find("なぜ、手がかかる", 1208);
   const care = find("小学校に上がると、育児", 1658), change = find("変わるのは、長さより", 1975), only = find("その家事を、夫は", 2349);
   const alone = find("夫婦で一緒にやっていた", 2464), q = find("妻たちに", 2634), same = find("第1章で見た", 3034), hypo = find("夫婦で一緒にやることが減り", 3200);
-  const car = find("冒頭の車の二人", 3586), hus = find("では、夫は下がって", 3702), wifeDown = find("下がり方は、妻", 4263), abroad = find("海外には", 4539);
-  const normal = find("ふつうの夫婦では", 4695), counsel = find("妻のほうがはっきり低く", 4856), sum = find("ここまでを、まとめます", 5270), what = find("では、何が妻の", 5611);
+  const car = find("冒頭の車の二人", 3586), hus = find("それなら、夫は下がって", 3702), wifeDown = find("下がり方は、妻", 4263), abroad = find("海外には", 4539);
+  const normal = find("ふつうの夫婦では", 4695), counsel = find("妻のほうがはっきり低く", 4856), sum = find("ここまでを、まとめます", 5270), what = find("何が、妻の満足", 5611);
   return (
     <>
       {/* S24：クイズ（2択）。輪のあとの「夜泣き」で A が小さく揺れ、「答えは、B」で B が塗られる */}
@@ -555,11 +555,11 @@ const Ch3: React.FC = () => {
   const husW = find("夫は、一日におよそ40分", 530), wifeW = find("妻は、4時間", 614), share = find("夫が受け持つ家事の割合は", 772);
   const ask = find("第1章の三千人", 1259), h83 = find("妻の家事に満足と答える夫", 1483), w66 = find("夫の家事に満足と答える妻", 1598), yahari = find("ここまでなら", 1723);
   const notYet = find("でも、この天秤には", 1829), husBag = find("夫の皿に、仕事の分銅", 2028), train = find("朝の電車", 2147), wifeBag = find("妻の皿にも", 2263);
-  const moves = find("天秤が、ゆっくり", 2385), yours = find("あなたの家なら", 2473), split = find("では、満足している人", 2695), cond = find("年齢や収入", 3025);
+  const moves = find("天秤が、ゆっくり", 2385), yours = find("あなたの家なら", 2473), split = find("それなら、満足している人", 2695), cond = find("年齢や収入", 3025);
   const res = find("すると、夫婦の家事", 3150), sup = find("はっきり差が出たのは", 3356), three = find("悩みを聞いてくれる、努力", 3512), why = find("なぜ家事の量より", 3802);
   const expect = find("期待どおりだったかどうか", 4314), work_ = find("とくに外で働く", 4492), abroad = find("海外の研究にも", 4850);
   const fit = find("家事も心の支えも", 5328), back = find("最初の三千人の調査に戻ります", 5563), overlay = find("第1章の満足の線と", 6217);
-  const order = find("ただし、どちらが先", 6305), bal = find("では、仕事の分銅", 6732);
+  const order = find("ただし、どちらが先", 6305), bal = find("仕事の分銅をのせた天秤は", 6732);
   return (
     <>
       {/* S36：天秤。夫の家事の分銅（細い）が先、妻の分銅でドンと傾く */}
@@ -759,7 +759,7 @@ const Listen46: React.FC<{ overlay: number }> = ({ overlay }) => {
 const VerdictScene: React.FC = () => {
   const { find, end } = useCue();
   const load = find("天秤に、仕事と通勤", 140), h = find("夫は、一日9時間", 245), w = find("妻は、9時間", 320), diff = find("差は、2分", 400), b = find("答えは、Bの", 456);
-  const other = find("ほかの時期も", 530), notTime = find("家事と仕事を足した時間の長さ", 1238), claim = find("では、今日の説", 1610);
+  const other = find("ほかの時期も", 530), notTime = find("家事と仕事を足した時間の長さ", 1238), claim = find("続いて、今日の説", 1610);
   const r1 = find("満足の点数の平均は", 1790), r2 = find("でも、満足していないと答える", 1910), hit = find("判定は、三角", 2094), split = find("満足を分けているものも", 2412);
   const us = find("子どもが家を出たあとについては", 3039), reason = find("上がった理由は", 3430), enjoy = find("一緒にいる時間を", 3591), japan = find("日本では", 3867);
   const second = find("二つ目は", 4143), still = find("それでも、どの時期", 783), outside = find("外で長く", 908);
