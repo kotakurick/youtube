@@ -21,8 +21,9 @@ export const LogRuler: React.FC<{ x: number; y: number; width: number; pins: Rul
           <text x={X(t)} y={y + 64} textAnchor="middle" style={font("note", C.ink2)}>{`${name(t)}組に1組`}</text>
         </g>
       ))}
-      <text x={x - 20} y={y - 40} style={font("note", C.ink2)}>よく起きる</text>
-      <text x={x + width + 20} y={y - 40} textAnchor="end" style={font("note", C.ink2)}>まれ</text>
+      {/* 両端の言葉は、ものさしの左右の外に（ピンと重ねない。2026-10-06） */}
+      <text x={x - 36} y={y + 10} textAnchor="end" style={font("note", C.ink2)}>よく起きる</text>
+      <text x={x + width + 36} y={y + 10} style={font("note", C.ink2)}>まれ</text>
       {span && (
         <g>
           <path d={`M${X(span.from)},${y + 96} v16 H${X(span.to)} v-16`} fill="none" stroke={C.ink} strokeWidth={LINE.base} />
