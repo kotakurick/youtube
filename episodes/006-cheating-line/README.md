@@ -19,7 +19,7 @@
 - [x] 3. 台本（クラウド。2026-10-06 第2稿。5役のレビューで直した → `review/README.md`）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。5役のレビュー → `review/`）
 - [ ] ★ 一次資料との照合（オーナー）→ `sources.csv` の「照合」欄をすべて埋める
 - [ ] ★ 台本レビュー（オーナー）→ `review/owner.md`（Claude が読みやすい形にまとめて渡す。オーナーの指摘は Claude が書き写して台本に反映し、直した／直さなかったを1行ずつ書く）
-- [ ] 4. 絵コンテ（クラウド）：`scenes/Storyboard.tsx` に場面を描き（秒数と動きも）、`cd render && npm run storyboard -- <回のid>` で一覧と `storyboard.md` を作る（直すもの0、⚠ の場面は割り方を決める）→ 3役（`review-animator`・`review-illustrator`・`review-designer`）に見せて `review/storyboard-summary.md` にまとめて直す → ★ オーナーが確認
+- [ ] 4. 絵コンテ（クラウド。2026-10-06 第1版、3役に見せる）：`scenes/Storyboard.tsx` に場面を描き（秒数と動きも）、`cd render && npm run storyboard -- <回のid>` で一覧と `storyboard.md` を作る（直すもの0、⚠ の場面は割り方を決める）→ 3役（`review-animator`・`review-illustrator`・`review-designer`）に見せて `review/storyboard-summary.md` にまとめて直す → ★ オーナーが確認
 - [ ] 5. 場面のコード（クラウド）→ `scenes/Episode.tsx`（`Episode.example.tsx` を名前を変えて使う。部品は `render/src/lib`、動きは `useNarration()` で読み上げに合わせる）
 - [ ] 6. 仮通し（クラウド）：`python tts/narrate.py episodes/006-cheating-line --voice silent` で仮の尺と字幕（`timing.json`）を作り、部品のない場面は仮の画面（draft）で13〜18分を通して、テンポ・章の長さ・考える場面の位置を直す
 - [ ] 7. 音声合成（ローカル）：`python tts/narrate.py episodes/006-cheating-line --voice eleven-yui`（文ごとに作り、尺・字幕・`subtitles.srt` も自動で声に合う。同じ文は作り直さない）
