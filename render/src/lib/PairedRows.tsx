@@ -36,7 +36,10 @@ export const PairedRows: React.FC<{
               <g key={b.k}>
                 <rect data-qa="mark" data-qa-label={`${b.k}：${r.label}`} x={barX} y={ry + b.dy} width={Math.max(2, (b.v / max) * barW * p)} height={bh}
                   rx={R.sm / 2} fill={b.c} />
-                <text x={barX + (b.v / max) * barW * p + 10} y={ry + b.dy + bh - 3} style={font("note", b.c)} fontWeight={700}>{format(b.v)}</text>
+                {/* 男女が同じ値のときは、値を1つだけ（2本の棒の間に墨で）書く。上下に同じ数字が並ぶと詰まって見えるため（2026-10-06） */}
+                {r.male === r.female
+                  ? b.k === "女性" && <text x={barX + (b.v / max) * barW * p + 10} y={ry + rowH / 2 + 8} style={font("note", C.ink)} fontWeight={700}>{`両方 ${format(b.v)}`}</text>
+                  : <text x={barX + (b.v / max) * barW * p + 10} y={ry + b.dy + bh - 3} style={font("note", b.c)} fontWeight={700}>{format(b.v)}</text>}
               </g>
             ))}
             {r.mark && <text x={x + width - 10} y={ry + rowH / 2 + 8} textAnchor="end" style={font("label", C.ink)}>{r.mark}</text>}

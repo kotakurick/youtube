@@ -180,7 +180,7 @@ export const S08: React.FC = () => (
 // ================= 今日の答え合わせ・予想タイム・順番 =================
 const QUIZ_Q = "32の行動すべてがそろう確率は？";
 const QUIZ_C = ["2組に1組", "10組に1組", "200組に1組ほど", "10万組に1組"];
-export const S09: React.FC = () => <AbsoluteFill><TodayCard claim="浮気の線のずれは、男女の違い" /><Gosa cues={[[-60, "thinking"]]} size="M" /></AbsoluteFill>;
+export const S09: React.FC = () => <AbsoluteFill><TodayCard claim="浮気の線のずれは、男女の違い" /><Gosa cues={[[-60, "thinking"]]} size="M" foot={850} /></AbsoluteFill>;
 export const S10: React.FC = () => (
   <AbsoluteFill>
     <Heading>予想の前に：使うデータ</Heading>
@@ -193,7 +193,7 @@ export const S10: React.FC = () => (
 );
 export const S11: React.FC = () => (
   <AbsoluteFill>
-    <Quiz question={QUIZ_Q} choices={QUIZ_C} />
+    <Quiz question={QUIZ_Q} choices={QUIZ_C} gosaFoot={850} />
     <SourceNote prefix="" text="B＝男女の差の分だけずれる、D＝ひとつずつの確率の掛け算（答えは最後の答え合わせで）" />
   </AbsoluteFill>
 );
@@ -203,7 +203,7 @@ export const S11b: React.FC = () => (
     <Svg>
       <LogRuler x={200} y={560} width={1200} pins={[{ n: 2, label: "A" }, { n: 10, label: "B" }, { n: 200, label: "C" }, { n: 100000, label: "D" }]} />
     </Svg>
-    <Gosa cues={[[-60, "thinking"]]} size="M" />
+    <Gosa cues={[[-60, "thinking"]]} size="M" foot={850} />
   </AbsoluteFill>
 );
 export const S12: React.FC = () => {
@@ -248,7 +248,7 @@ const Stairs: React.FC<{ lineAt?: number; law?: boolean; people?: { i: number; c
         const x = 320 + i * 44, y = rowY(i);
         return (
           <g key={t}>
-            <rect data-qa="mark" data-qa-label={`段：${t}`} x={x} y={y} width={820} height={44} rx={R.sm} fill={C.paper2} stroke={C.ink2} strokeWidth={LINE.hair} />
+            <rect data-qa="mark" data-qa-label={`段：${t}`} x={x} y={y} width={700} height={44} rx={R.sm} fill={C.paper2} stroke={C.ink2} strokeWidth={LINE.hair} />
             <text data-qa-allow="mark" x={x + 20} y={y + 33} style={font("note", C.ink)} fontWeight={700}>{t}</text>
           </g>
         );
@@ -256,13 +256,13 @@ const Stairs: React.FC<{ lineAt?: number; law?: boolean; people?: { i: number; c
       <Label x={300} y={rowY(12) + 34} anchor="end" color={C.ink2}>重い</Label>
       <Label x={300} y={rowY(0) + 34} anchor="end" color={C.ink2}>軽い</Label>
       {lineAt !== undefined && <>
-        <line x1={260} y1={rowY(lineAt) - 3} x2={1760} y2={rowY(lineAt) - 3} stroke={C.ink} strokeWidth={LINE.base} strokeDasharray="22 14" />
-        <Label x={1760} y={rowY(lineAt) - 20} anchor="end" size="value">あなたの線は？</Label>
+        <line x1={260} y1={rowY(lineAt) - 3} x2={1840} y2={rowY(lineAt) - 3} stroke={C.ink} strokeWidth={LINE.base} strokeDasharray="22 14" />
+        <Label x={1840} y={rowY(lineAt) - 14} anchor="end" size="label" weight={900}>あなたの線は？</Label>
       </>}
-      {people.map((p, k) => <line key={k} x1={1220 + k * 26} y1={rowY(p.i) - 3} x2={1220 + k * 26 + 20} y2={rowY(p.i) - 3} stroke={p.color} strokeWidth={LINE.heavy} strokeLinecap="round" />)}
+      {people.map((p, k) => <line key={k} x1={1590 + k * 30} y1={rowY(p.i) - 3} x2={1590 + k * 30 + 22} y2={rowY(p.i) - 3} stroke={p.color} strokeWidth={LINE.heavy} strokeLinecap="round" />)}
       {law && <>
-        <line x1={260} y1={rowY(12) - 3} x2={1760} y2={rowY(12) - 3} stroke={C.ink} strokeWidth={LINE.heavy} />
-        <Label x={1760} y={rowY(12) - 22} anchor="end" weight={900}>法律の「不貞」</Label>
+        <line x1={260} y1={rowY(12) - 3} x2={1840} y2={rowY(12) - 3} stroke={C.ink} strokeWidth={LINE.heavy} />
+        <Label x={1840} y={rowY(12) - 22} anchor="end" weight={900}>法律の「不貞」</Label>
       </>}
     </g>
   );
@@ -287,7 +287,7 @@ export const S15: React.FC = () => (
   <AbsoluteFill>
     <Heading>2千人の調査：差が最大は「気持ち」</Heading>
     <PairedRows x={96} y={270} width={1728} rowH={70} labelW={520} max={100}
-      rows={[{ label: "性行為", male: 82.6, female: 85.9 }, { label: "キス（男女とも73%）", male: 72.5, female: 72.5, focus: true },
+      rows={[{ label: "性行為", male: 82.6, female: 85.9 }, { label: "キス", male: 72.5, female: 72.5, focus: true },
         { label: "手をつなぐ", male: 54.5, female: 59.4 }, { label: "デート", male: 49.0, female: 66.9 },
         { label: "気持ちが動いたら", male: 38.8, female: 71.3, focus: true }, { label: "ふたりきりで食事", male: 29.4, female: 39.2 },
         { label: "連絡をとる", male: 10.8, female: 24.6 }]} />
@@ -412,7 +412,7 @@ export const S19: React.FC = () => (
 const Q20 = "「体の大事なところに触れる」で、割れやすいのは？";
 export const S20: React.FC = () => (
   <AbsoluteFill>
-    <Quiz title="クイズ" question={Q20} choices={["男性どうし", "女性どうし"]} />
+    <Quiz title="クイズ" question={Q20} choices={["男性どうし", "女性どうし"]} gosaFoot={850} />
     <ChapterDots current={2} />
   </AbsoluteFill>
 );
@@ -595,7 +595,7 @@ const Q34 = "米国の18〜29歳。浮気の経験が多いのは？";
 const C34 = ["男性がずっと多い", "男性が少し多い", "ほぼ同じ", "女性が多い"];
 export const S34: React.FC = () => (
   <AbsoluteFill>
-    <Quiz title="クイズ" question={Q34} choices={C34} />
+    <Quiz title="クイズ" question={Q34} choices={C34} gosaFoot={850} />
     <SourceNote prefix="" text="結婚したことがある人" />
     <ChapterDots current={3} />
   </AbsoluteFill>
@@ -646,11 +646,11 @@ export const S37: React.FC = () => {
           return (
             <g key={t}>
               {Array.from({ length: n[gi] }, (_, i) => <Figure key={i} kind="other" color={c} x={x0 + (i % 10) * 50} y={340 + Math.floor(i / 10) * 74} size={1.3} />)}
-              <text x={x0} y={760} style={font("label")} fontWeight={900}>{`${t}　${n[gi]}人`}</text>
+              <text x={x0} y={726} style={font("label")} fontWeight={900}>{`${t}　${n[gi]}人`}</text>
             </g>
           );
         })}
-        <path d={`M140,772 v14 H1190 v-14`} fill="none" stroke={C.ink} strokeWidth={LINE.base} />
+        <path d={`M140,750 v14 H1190 v-14`} fill="none" stroke={C.ink} strokeWidth={LINE.base} />
         <Label x={665} y={812} anchor="middle" size="label" weight={900}>9割は「幸せ」と答えていた</Label>
       </Svg>
       <SourceNote text={SRC.gssMarried} />
@@ -721,7 +721,7 @@ export const S41: React.FC = () => (
 );
 export const S42: React.FC = () => (
   <AbsoluteFill>
-    <Quiz question={QUIZ_Q} choices={QUIZ_C} answer={2} reveal />
+    <Quiz question={QUIZ_Q} choices={QUIZ_C} answer={2} reveal gosaFoot={850} />
     <SourceNote prefix="" text="正確には約170組に1組（0.59%）。米国の公開データ、他人どうしを組ませた値" />
   </AbsoluteFill>
 );
