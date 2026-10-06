@@ -100,3 +100,12 @@ export const Cup: React.FC<{ x: number; y: number; size?: number; steam?: boolea
     {steam && <path d="M-6 -46 Q-10 -54 -6 -62 M6 -46 Q2 -54 6 -62" fill="none" {...line} {...ns} strokeWidth={LINE.hair + 1} stroke={C.ink2} />}
   </g>
 );
+
+/** ベンチ（人物の単位。座面の高さ9＝座る姿勢と同じ。背もたれと脚つき。2026-10-06 4本目で追加）。w は座面の幅。猫より先に描く */
+export const Bench: React.FC<{ x: number; y: number; size?: number; w?: number }> = ({ x, y, size = 1, w = 120 }) => (
+  <g data-qa="prop" data-qa-label="ベンチ" transform={`translate(${x},${y}) scale(${size})`}>
+    <rect x={-w / 2} y={-34} width={w} height={14} rx={3} fill={C.paper2} {...line} {...ns} />
+    <rect x={-w / 2} y={-11} width={w} height={5} rx={2} fill={C.floor} {...line} {...ns} />
+    <path d={`M${-w / 2 + 8} -6 V5 M${w / 2 - 8} -6 V5 M${-w / 2 + 14} -20 V-11 M${w / 2 - 14} -20 V-11`} {...line} {...ns} />
+  </g>
+);

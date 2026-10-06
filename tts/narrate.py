@@ -101,7 +101,7 @@ def split_sentences(lines: list[str]) -> list[tuple[str, str]]:
                 else:
                     out.append(("tag", name))
                 continue
-            out += [("s", s.strip()) for s in re.split(r"(?<=[。？?！!])", tok) if s.strip()]
+            out += [("s", s.strip()) for s in re.split(r"(?<=[。？?！!])(?![」』）)])", tok) if s.strip()]
     return out
 
 
