@@ -43,6 +43,7 @@
 | BarChart | BarChart.tsx | 縦棒 |
 | PairedBars | PairedBars.tsx | 男女2本ずつの縦棒（`names` で「夫」「妻」） |
 | PairedRows | PairedRows.tsx | 男女2本ずつの横棒（項目が10〜13個と多いとき）。focus で項目名を墨の太字＋下線（6本目） |
+| LogRuler | LogRuler.tsx | 対数のものさし。「2組に1組」〜「10万組に1組」のように桁の違う確率をピンで並べ、括弧で何倍かを見せる（6本目） |
 | GenderLines | GenderLines.tsx | 夫と妻（男女）の割合の線。縦軸0〜100%固定（平均点は `domain` で尺度の端から端）。別の調査を白抜きの点で重ねる（つながない）・帯（見出しは中の下にも）・途中まで描く・重なる点を輪で見せる `ring`・比べ用の細い線 `thin`（4本目） |
 | PercentColumns | PercentColumns.tsx | 100%の柱（満足＝淡い・満足でない＝濃い など）。括り・別の年の値（柱の左右の短い線）。値の置き場所 `valuePos`（柱の中／下の段のすぐ上／柱の上）（4本目） |
 | DayStack | DayStack.tsx | 一日の時間の中身の積み上げ柱（高さ＝分）。前→後を帯でつなぎ、中身の入れ替わりを見せる。内訳はその人の色1つで塗り・水玉・斜線（`fill`。濃い・淡いを使わない）（4本目） |
