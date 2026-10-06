@@ -13,7 +13,7 @@ for sc in t['scenes']:
 end = off
 p = os.path.join(d, 'scenes', 'Storyboard.tsx')
 src = open(p, encoding='utf-8').read()
-pat = re.compile(r'(\{ key: "(\w+)", title: "[^"]*", C: S\w+, sec: )([\d.]+)(, lines: ")([^"]*)(")')
+pat = re.compile(r'(\{ (?:key: "\w+", )?title: "([^"]*)", C: S\w+, sec: )([\d.]+)(, lines: ")([^"]*)(")')
 ms = list(pat.finditer(src))
 norm = lambda s: re.sub(r'〔[^〕]*〕|[「」？?！。、\s]', '', s)
 starts, i = [], 0

@@ -14,7 +14,7 @@ export const Tv: React.FC<{ x: number; y: number; size?: number; scene?: "dinner
   const k = size;
   const w = 150 * k, h = 86 * k, standH = 34 * k, legH = 18 * k;
   const top = -standH - legH - h;
-  const scr = scene === "blank" ? C.ink : night ? "#3A4566" : C.white;
+  const scr = scene === "blank" ? C.ink : night ? C.night : C.white;
   return (
     <g data-qa="prop" data-qa-label="テレビ" transform={`translate(${x},${y})`}>
       {/* 台 */}
@@ -26,13 +26,15 @@ export const Tv: React.FC<{ x: number; y: number; size?: number; scene?: "dinner
       <rect x={-w / 2 + 6 * k} y={top + 6 * k} width={w - 12 * k} height={h - 12 * k} rx={4} fill={scr} />
       {scene === "dinner" && (
         <g transform={`translate(0,${top + h - 14 * k})`}>
-          {/* 食卓と、向かい合うふたり（人影。色はつけない） */}
-          <rect x={-34 * k} y={-16 * k} width={68 * k} height={6 * k} rx={2} fill={C.wall} />
-          <circle cx={-44 * k} cy={-40 * k} r={9 * k} fill={C.wall} />
-          <rect x={-54 * k} y={-30 * k} width={20 * k} height={24 * k} rx={6 * k} fill={C.wall} />
-          <circle cx={44 * k} cy={-40 * k} r={9 * k} fill={C.wall} />
-          <rect x={34 * k} y={-30 * k} width={20 * k} height={24 * k} rx={6 * k} fill={C.wall} />
-          <circle cx={0} cy={-58 * k} r={5 * k} fill="#FFE7A3" />
+          {/* 食卓と、向かい合うふたり（猫の形の影。色は壁の色で、主人公の猫と区別する。2026-10-06 第2版） */}
+          <rect x={-34 * k} y={-18 * k} width={68 * k} height={6 * k} rx={2} fill={C.wall} />
+          {[-44, 44].map((cx) => (
+            <g key={cx}>
+              <circle cx={cx * k} cy={-40 * k} r={9 * k} fill={C.wall} />
+              <path d={`M${(cx - 8) * k},${-46 * k} l${3 * k},${-9 * k} l${4 * k},${6 * k} Z M${(cx + 8) * k},${-46 * k} l${-3 * k},${-9 * k} l${-4 * k},${6 * k} Z`} fill={C.wall} />
+              <rect x={(cx - 10) * k} y={-32 * k} width={20 * k} height={24 * k} rx={8 * k} fill={C.wall} />
+            </g>
+          ))}
         </g>
       )}
     </g>
