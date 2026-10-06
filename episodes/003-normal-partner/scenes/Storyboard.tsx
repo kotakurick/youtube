@@ -11,6 +11,7 @@ import { ChapterDots } from "@lib/Chapter";
 import { TodayCard } from "@lib/Cards";
 import { Cat } from "@lib/Cat";
 import { Dumbbell } from "@lib/Dumbbell";
+import { EndScreen } from "@lib/EndScreen";
 import { Figure, Kind } from "@lib/Figure";
 import { Gosa } from "@lib/Gosa";
 import { Table } from "@lib/Props";
@@ -463,6 +464,8 @@ const P30c: React.FC = () => (
   </AbsoluteFill>
 );
 const P31: React.FC = () => <AbsoluteFill><SignOff /></AbsoluteFill>;
+// 終了画面（共通の部品。ゴサと教訓の1行、次の1本・再生リストの枠。20秒、ナレーションなし）
+const P32: React.FC = () => <AbsoluteFill><EndScreen lesson={"相手の数を数えるとき、\n相手の側のふるいを\n数え忘れている。"} /></AbsoluteFill>;
 
 const panels: Panel[] = [
   { key: "01", title: "冒頭：午前1時の部屋", C: P01, sec: 9, move: "暗い部屋。スマホの光だけが彼女の顔を照らす。低いテーブルの前" },
@@ -502,6 +505,7 @@ const panels: Panel[] = [
   { key: "30b", title: "教訓：二つの画面", C: P30b, sec: 9, move: "彼女の画面と相手の画面が向かい合う。相手の画面の欄が点線から実線に" },
   { key: "30c", title: "締めの一文", C: P30c, sec: 9, move: "二枚のふるいの下で2匹が向き合う。締めの一文" },
   { key: "31", title: "締めのひと言（毎回同じ）", C: P31, sec: 7, move: "共通のアニメーション（SignOff）。字幕なし" },
+  { key: "32", title: "終了画面（共通）", C: P32, sec: 20, move: "共通の終了画面（EndScreen）：ゴサと教訓の1行。右に次の1本・再生リストの枠（YouTube Studio で要素を重ねる）。ナレーションなし、BGMだけ" },
 ];
 
 const storyboard: StoryboardDef = { id: "003-normal-partner", title: "「普通の相手」の数（第2版）", panels };
