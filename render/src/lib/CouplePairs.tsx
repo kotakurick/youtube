@@ -7,7 +7,8 @@ import React from "react";
 import { Figure } from "./Figure";
 import { C, CROWD_SIZE, LINE, R } from "./theme";
 
-export type Couple = { wife: boolean; husband: boolean; mark?: boolean }; // true＝注目（濃い色）。mark＝組の床を墨の線でふち取る（声で言う組）
+export type Couple = { wife: boolean; husband: boolean; mark?: boolean; gold?: boolean; goldFrame?: boolean }; // true＝注目（濃い色）。mark＝組の床を墨の線でふち取る（声で言う組）。
+// gold＝「そろった組」：床を金で塗る。goldFrame＝さらに金の太い枠で囲む（1組だけ目立たせるとき。たくさんの組に付けると枠がつながる）（6本目。紙色の地で目立つよう、枠は LINE.base。2026-10-06 オーナー「目立てばいい」）
 
 /** 組の並べ方：最初に bothOn 組（二人とも注目）、次に wifeOnly 組、husbandOnly 組、残りは二人とも淡い */
 export const couples = (n: number, bothOn: number, wifeOnly: number, husbandOnly = 0): Couple[] =>
@@ -35,7 +36,9 @@ export const CouplePairs: React.FC<{ x: number; y: number; items: Couple[]; cols
         const fw = inner * 2 + 8;
         return (
           <g key={i}>
-            <rect data-qa="bg" x={px - inner / 2 - 4} y={py - 3} width={fw} height={12} rx={R.sm / 2} fill={C.paper2}
+            {c.goldFrame && <rect data-qa="bg" x={px - inner / 2 - 10} y={py - 50 * size - 8} width={fw + 12} height={50 * size + 26} rx={R.sm}
+              fill="none" stroke={C.gold} strokeWidth={LINE.base} />}
+            <rect data-qa="bg" x={px - inner / 2 - 4} y={py - 3} width={fw} height={c.gold ? 14 : 12} rx={R.sm / 2} fill={c.gold ? C.gold : C.paper2}
               stroke={c.mark ? C.ink : "none"} strokeWidth={LINE.hair} />
             <Figure kind="male" x={px} y={py} size={size} dim={!c.husband} />
             <Figure kind="female" x={px + inner} y={py} size={size} dim={!c.wife} />
