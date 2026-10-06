@@ -2,12 +2,19 @@
 // 1本の柱＝1人の1日の「家事・育児・仕事…」の合計。高さ＝分（面積＝量。1つの場面の中は同じ物差し k）。縦軸は0から。
 // 柱を並べ、同じ人の「前 → 後」を links で結ぶと、区分ごとの増減が帯の傾きで見える（中身の入れ替わり）。
 // 区分の文字は、高さが足りれば柱の中、足りなければ柱の右に出す。focus の区分だけ墨の太い枠（声で言う区分）。
-// 色は呼ぶ側が決める（男女の回：育児＝性別の濃い色、家事＝性別の淡い色、仕事・通勤＝otherTint）。
-// 印：区分の四角は data-qa="mark"。
+// 色は呼ぶ側が決める。2026-10-06 第2版（絵コンテの3役の見直し）：内訳は濃い・淡いで分けない（その回の「濃い＝満足でない」と読み違える）。
+//   その人の色1つで、塗りの種類（fill：solid 塗り／hatch 斜線／dots 水玉。Fills.tsx）で分ける。仕事を灰（対象外の色）にしない。
+//   例（4本目）：家事など＝塗り、育児＝水玉、仕事・通勤＝斜線。凡例は最初に出す場面で一度だけ。
+//   細い区分の名前は out で柱の右に出し、墨の細い引き出し線でつなぐ。
+// 印：区分の四角は data-qa="mark"。区分の中の文字は四角に重なってよい（data-qa-allow="mark"）。
 import React from "react";
+import { FillDefs, fillOf, FillKind, textHalo } from "./Fills";
 import { C, font, LINE, R } from "./theme";
 
-export type DaySeg = { key: string; label: string; min: number; color: string; focus?: boolean; textColor?: string };
+export type DaySeg = { key: string; label: string; min: number; color: string; focus?: boolean; textColor?: string;
+  fill?: FillKind;      // 塗りの種類（既定 solid）
+  out?: boolean;        // 名前と分を柱の右に出す（細い区分）
+};
 export type DayCol = { title: string; sub?: string; segs: DaySeg[]; titleColor?: string; total?: string };
 
 const fmt = (m: number) => (m >= 60 ? `${Math.floor(m / 60)}時間${m % 60 ? `${m % 60}分` : ""}` : `${m}分`);
@@ -25,8 +32,10 @@ export const DayStack: React.FC<{
     let acc = 0;
     return c.segs.map((s) => { const h = s.min * k; const g = { y0: base - acc - h, y1: base - acc, h }; acc += h; return g; });
   });
+  const pats = Array.from(new Set(cols.flatMap((c) => c.segs.filter((s) => s.fill && s.fill !== "solid").map((s) => s.color))));
   return (
     <g>
+      {pats.length > 0 && <FillDefs colors={pats} />}
       {/* 前と後をつなぐ帯（同じ区分どうし） */}
       {links.map(([a, b], li) => cols[a].segs.map((s, si) => {
         const j = cols[b].segs.findIndex((t) => t.key === s.key);
@@ -43,15 +52,24 @@ export const DayStack: React.FC<{
           <g key={ci}>
             {c.segs.map((s, si) => {
               const g = geo[ci][si];
-              const inside = g.h >= (showMinutes ? 104 : 50);
+              const inside = !s.out && g.h >= (showMinutes ? 104 : 50);
+              const solid = !s.fill || s.fill === "solid";
+              const ts = { ...font("label", s.textColor ?? (solid ? C.white : C.ink)), ...(solid ? {} : textHalo) };
+              const ox = xs[ci] + colW + 56, oy = g.y0 + g.h / 2;
               return (
                 <g key={s.key}>
-                  <rect data-qa="mark" data-qa-label={`${c.title}：${s.label}`} x={xs[ci]} y={g.y0} width={colW} height={Math.max(2, g.h)} fill={s.color}
-                    stroke={s.focus ? C.ink : C.white} strokeWidth={s.focus ? LINE.base : 2} rx={si === c.segs.length - 1 ? R.sm : 0} />
+                  <rect data-qa="mark" data-qa-label={`${c.title}：${s.label}`} x={xs[ci]} y={g.y0} width={colW} height={Math.max(2, g.h)} fill={fillOf(s.fill, s.color)}
+                    stroke={s.focus ? C.ink : solid ? C.white : s.color} strokeWidth={s.focus ? LINE.base : solid ? 2 : LINE.hair} rx={si === c.segs.length - 1 ? R.sm : 0} />
                   {inside && (
                     <>
-                      <text x={xs[ci] + colW / 2} y={g.y0 + g.h / 2 + (showMinutes ? -6 : 14)} textAnchor="middle" style={font("label", s.textColor ?? C.ink)}>{s.label}</text>
-                      {showMinutes && <text x={xs[ci] + colW / 2} y={g.y0 + g.h / 2 + 44} textAnchor="middle" style={font("label", s.textColor ?? C.ink)}>{fmt(s.min)}</text>}
+                      <text data-qa-allow="mark" x={xs[ci] + colW / 2} y={g.y0 + g.h / 2 + (showMinutes ? -6 : 14)} textAnchor="middle" style={ts}>{s.label}</text>
+                      {showMinutes && <text data-qa-allow="mark" x={xs[ci] + colW / 2} y={g.y0 + g.h / 2 + 44} textAnchor="middle" style={ts}>{fmt(s.min)}</text>}
+                    </>
+                  )}
+                  {s.out && (
+                    <>
+                      <path d={`M${xs[ci] + colW + 6} ${oy} H${ox - 12}`} stroke={C.ink} strokeWidth={LINE.hair} />
+                      <text x={ox} y={oy + 14} style={font("label")}>{s.label} {fmt(s.min)}</text>
                     </>
                   )}
                 </g>

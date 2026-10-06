@@ -12,7 +12,11 @@ import { C, FONT } from "./theme";
 
 export type CatKind = "male" | "female" | "other";
 export type CatPose = "stand" | "sit" | "phone" | "walk" | "down";
-export type CatFace = "normal" | "happy" | "sad" | "surprised" | "think" | "sleep"; // sleep：眠っている（閉じた目・ωの口。2026-10-06 4本目の車の後ろの席の子で足した）
+export type CatFace = "normal" | "happy" | "sad" | "surprised" | "think" | "sleep" | "smile";
+// sleep：眠っている（閉じた目・ωの口。2026-10-06 4本目の車の後ろの席の子で足した）
+// smile：少し笑う（happy の目＋小さいωの口。happy の口は大きすぎる。2026-10-06 4本目の絵コンテ第2版）
+// 注意（2026-10-06 4本目の絵コンテの見直し）：think（半分閉じた目＋横一文字の口）は、人に向けるとジト目・不機嫌に読める。
+//   男女の対立を扱う回では人に向けて使わない。「考えている・すれ違っている」は normal の目で黒目を下か外へ（look）、「言い分を言う」は黒目を上へ。
 
 const PAL: Record<CatKind, { main: string; dark: string; inner: string }> = {
   male: { main: C.male, dark: "#1E4C9E", inner: "#D6E2F7" },
@@ -35,30 +39,34 @@ export const Cat: React.FC<{
   kind: CatKind; x: number; y: number; size?: number;
   pose?: CatPose; face?: CatFace;
   facing?: -1 | 0 | 1;  // 左右に少し向く（2匹で向き合うとき）
+  turn?: number;        // 顔を横へ向ける（-1〜1。正＝画面の右）。facing の7pxでは大きな猫の向きが見えないとき（2026-10-06 追加。0 なら今までと同じ絵）
   look?: [number, number]; // 黒目の向き（-1〜1）
   phase?: number;       // 歩く足の位置（0〜1）
   label?: string;       // QA 用の名前
   seed?: number;        // まばたきをずらす
-}> = ({ kind, x, y, size = 1, pose = "stand", face = "normal", facing = 0, look, phase = 0, label, seed = 0 }) => {
+}> = ({ kind, x, y, size = 1, pose = "stand", face = "normal", facing = 0, turn = 0, look, phase = 0, label, seed = 0 }) => {
   const frame = useCurrentFrame();
   const p = PAL[kind];
   const fill = p.main;
   const f = facing;
   const down = pose === "down";
   const hy = HY + (pose === "phone" ? 6 : down ? 16 : 0);
-  const fx = f * 7; // 顔のずれ
+  const tn = Math.max(-1, Math.min(1, turn)), at = Math.abs(tn);
+  const fx = f * 7 + tn * RX * 0.35; // 顔のずれ（turn で顔の部品を向く側へ寄せる）
   const bob = pose === "walk" ? -Math.abs(Math.sin(phase * Math.PI * 2)) * 6 : 0;
   const eyesKind = face === "normal" && blinking(frame, seed + Math.round(x)) ? "blink" : face;
-  const [lx, ly] = look ?? (pose === "phone" ? [0, 0.8] : down ? [0, 0.6] : [f * 0.6, 0]);
+  const [lx, ly] = look ?? (pose === "phone" ? [0, 0.8] : down ? [0, 0.6] : tn ? [tn, 0] : [f * 0.6, 0]);
 
   // 耳：落ち込むと外へ倒れる
   const ear = (side: 1 | -1) => {
     const ex = side * RX * 0.62 + fx * 0.5, ey = hy - RY * 0.55;
     const w = RX * 0.34, h = RY * 0.95;
-    const tilt = down ? side * 20 : face === "surprised" ? -side * 4 : 0;
+    const tilt = (down ? side * 20 : face === "surprised" ? -side * 4 : 0) + (tn && Math.sign(tn) === side ? side * 8 * at : 0);
     const tip = [ex + side * w * 0.45, ey - h];
+    // turn：向く側の耳を少し大きく外へ、反対の耳を少し小さく
+    const es = !tn ? 1 : Math.sign(tn) === side ? 1 + 0.08 * at : 1 - 0.1 * at;
     return (
-      <g key={side} transform={`rotate(${tilt} ${ex} ${ey})`}>
+      <g key={side} transform={`rotate(${tilt} ${ex} ${ey})${es !== 1 ? ` translate(${ex} ${ey}) scale(${es}) translate(${-ex} ${-ey})` : ""}`}>
         <path d={`M ${ex - w} ${ey + 8} L ${tip[0]} ${tip[1]} L ${ex + w} ${ey + 8} Z`} fill={fill} stroke={fill} strokeWidth={4} strokeLinejoin="round" />
         <path d={`M ${ex - w * 0.5} ${ey} L ${tip[0] - side * 2} ${tip[1] + h * 0.35} L ${ex + w * 0.5} ${ey} Z`} fill={p.inner} />
       </g>
@@ -66,11 +74,11 @@ export const Cat: React.FC<{
   };
 
   // 目（ゴサの Eyes と同じ比率）
-  const ey = hy - 4 * K, ex = 11 * K;
+  const ey = hy - 4 * K, ex = 11 * K * (1 - 0.2 * at); // 横を向くと目の間が少し狭まる
   const eye = (side: 1 | -1) => {
     const cx = side * ex + fx;
     switch (eyesKind) {
-      case "happy": return <path key={side} d={`M ${cx - 7 * K} ${ey + 2 * K} q ${7 * K} ${-8 * K} ${14 * K} 0`} fill="none" stroke={C.white} strokeWidth={3.6 * K} strokeLinecap="round" />;
+      case "happy": case "smile": return <path key={side} d={`M ${cx - 7 * K} ${ey + 2 * K} q ${7 * K} ${-8 * K} ${14 * K} 0`} fill="none" stroke={C.white} strokeWidth={3.6 * K} strokeLinecap="round" />;
       case "sleep": return <path key={side} d={`M ${cx - 7 * K} ${ey} q ${7 * K} ${6 * K} ${14 * K} 0`} fill="none" stroke={C.white} strokeWidth={3.2 * K} strokeLinecap="round" />;
       case "blink": return <path key={side} d={`M ${cx - 6.5 * K} ${ey} h ${13 * K}`} stroke={C.white} strokeWidth={3.6 * K} strokeLinecap="round" />;
       case "surprised": return <g key={side}><circle cx={cx} cy={ey - 2 * K} r={9.5 * K} fill={C.white} /><circle cx={cx} cy={ey - 2 * K} r={3.5 * K} fill={C.ink} /></g>;
@@ -126,6 +134,7 @@ export const Cat: React.FC<{
       <g stroke={p.dark} strokeWidth={7} strokeLinecap="round">
         {[-1, 1].map((k) => <path key={k} d={`M ${k * BW * 0.75} ${-BH * 0.6} L ${k * BW * 0.35} ${-BH * 0.55}`} />)}
       </g>
+      <g transform={tn ? `rotate(${tn * 4} 0 ${hy})` : undefined}>
       <ellipse cx={fx * 0.3} cy={hy} rx={RX} ry={RY} fill={fill} />
       {/* 額のしま */}
       <g stroke={p.dark} strokeWidth={7} strokeLinecap="round">
@@ -137,6 +146,7 @@ export const Cat: React.FC<{
       </g>
       {eye(-1)}{eye(1)}
       {mouth}
+      </g>
       {paws}
     </g>
   );

@@ -3,11 +3,16 @@
 // 線の色は性別の色（male・female）。ほかの調査の点（ghost）は白抜きの点で重ねる。upTo で途中の区分まで描く（線が伸びる途中の姿）。
 // callouts で決めた点に値を書く（声で言う数字だけ）。band で区分の範囲に帯を敷く（「あなたの年ごろ」など）。
 // 印：線と点は data-qa="mark"。値の文字は点の上か下（above）に置く。
+// 2026-10-06 第2版（絵コンテの3役の見直し）：
+//   - 値は100%の線より上に出さない（100%を超えた値に見える）。上に置くと線の外に出るときは dx・dy で点の横・下へ。
+//   - 2本が同じ点で重なるときは、片方を ring（太い輪）にして、中にもう片方の点が入る形で見せる（片方が隠れない）。
+//   - 別の調査の点（ghost）は、つながない・別の色（墨の灰）にする（聞き方が違う値を同じ線の仲間に見せない）。
+//   - 帯の見出しは labelAt="bottom" で帯の中の下に（上に置くと値の文字とぶつかる）。
 import React from "react";
 import { C, font, LINE, R } from "./theme";
 
-export type GLSeries = { label: string; color: string; values: (number | null)[]; xs?: number[]; ghost?: boolean; dashed?: boolean }; // xs：区分の番号（小数可）。省くと 0,1,2…
-export type GLCallout = { s: number; i: number; text: string; above?: boolean; dx?: number; color?: string };
+export type GLSeries = { label: string; color: string; values: (number | null)[]; xs?: number[]; ghost?: boolean; dashed?: boolean; ring?: boolean; thin?: boolean }; // xs：区分の番号（小数可）。省くと 0,1,2…。thin：細い線（重ねる比べ用）
+export type GLCallout = { s: number; i: number; text: string; above?: boolean; dx?: number; dy?: number; anchor?: "start" | "middle" | "end"; color?: string };
 
 export const GenderLines: React.FC<{
   x: number; y: number; width: number; height: number;
@@ -15,7 +20,7 @@ export const GenderLines: React.FC<{
   series: GLSeries[];
   upTo?: number;                   // この区分まで描く（0始まり、含む）
   callouts?: GLCallout[];
-  band?: { from: number; to: number; label?: string };
+  band?: { from: number; to: number; label?: string; labelAt?: "top" | "bottom" };
   axisTitle?: string;              // 横軸の題（右下）
   endLabels?: boolean;             // 線の右端に名前（夫・妻）
   domain?: [number, number];       // 縦軸（既定 0〜100%。平均点などは尺度の端から端まで：例 [1, 4]）
@@ -30,7 +35,8 @@ export const GenderLines: React.FC<{
       {band && (
         <g>
           <rect x={X(band.from) - 30} y={y} width={X(band.to) - X(band.from) + 60} height={height} rx={R.md} fill={C.paper2} />
-          {band.label && <text x={(X(band.from) + X(band.to)) / 2} y={y - 18} textAnchor="middle" style={font("label")}>{band.label}</text>}
+          {band.label && <text x={(X(band.from) + X(band.to)) / 2} y={band.labelAt === "bottom" ? y + height - 28 : y - 18} textAnchor="middle"
+            style={font("label", band.labelAt === "bottom" ? C.ink2 : C.ink)}>{band.label}</text>}
         </g>
       )}
       {/* 目盛り（既定は 0・50・100%） */}
@@ -50,11 +56,11 @@ export const GenderLines: React.FC<{
           <g key={si}>
             {!s.ghost && pts.length > 1 && (
               <polyline data-qa="mark" data-qa-label={`線：${s.label}`} points={pts.map(([i, v]) => `${X(i)},${Y(v)}`).join(" ")} fill="none"
-                stroke={s.color} strokeWidth={LINE.base} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={s.dashed ? "14 12" : undefined} />
+                stroke={s.color} strokeWidth={s.thin ? LINE.thin : LINE.base} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={s.dashed ? "14 12" : undefined} />
             )}
-            {pts.map(([i, v]) => (
-              <circle key={i} data-qa="mark" data-qa-label={`点：${s.label}`} cx={X(i)} cy={Y(v)} r={s.ghost ? 12 : 10}
-                fill={s.ghost ? C.white : s.color} stroke={s.color} strokeWidth={s.ghost ? 5 : 0} />
+            {!s.thin && pts.map(([i, v]) => (
+              <circle key={i} data-qa="mark" data-qa-label={`点：${s.label}`} cx={X(i)} cy={Y(v)} r={s.ring ? 19 : s.ghost ? 12 : 10}
+                fill={s.ghost ? C.white : s.ring ? "none" : s.color} stroke={s.color} strokeWidth={s.ring ? LINE.base : s.ghost ? 5 : 0} />
             ))}
             {endLabels && !s.ghost && <text x={X(ei) + 28} y={Y(ev) + 14} style={font("label", s.color)}>{s.label}</text>}
           </g>
@@ -66,7 +72,7 @@ export const GenderLines: React.FC<{
         if (v === null || xi > last) return null;
         const above = c.above ?? true;
         return (
-          <text key={k} x={X(xi) + (c.dx ?? 0)} y={above ? Y(v) - 30 : Y(v) + 62} textAnchor="middle" style={font("label", c.color ?? series[c.s].color)}>{c.text}</text>
+          <text key={k} x={X(xi) + (c.dx ?? 0)} y={(above ? Y(v) - 30 : Y(v) + 62) + (c.dy ?? 0)} textAnchor={c.anchor ?? "middle"} style={font("label", c.color ?? series[c.s].color)}>{c.text}</text>
         );
       })}
     </g>

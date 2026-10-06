@@ -25,6 +25,7 @@ const MarkShape: React.FC<{ mark: Mark; t: number }> = ({ mark, t }) => {
   );
 };
 
+// 証拠の文は \n で手で改行できる（語の途中で折れないように。2026-10-06 追加。\n のない文は今までと同じ）
 export const Verdict: React.FC<{ claim: string; mark: Mark; reason: string[]; start?: number }> = ({ claim, mark, reason, start = 0 }) => {
   if (reason.length > 3) throw new Error("Verdict: 証拠は3つまでにしてください。");
   const frame = useCurrentFrame() - start;
@@ -54,7 +55,7 @@ export const Verdict: React.FC<{ claim: string; mark: Mark; reason: string[]; st
           {reason.map((r, i) => {
             const t = sp("enter", frame - (chips[i] ?? chips[2]), fps);
             return (
-              <div key={i} style={{ ...font("body"), lineHeight: 1.35, background: C.paper2, borderRadius: R.md, padding: "16px 24px",
+              <div key={i} style={{ ...font("body"), lineHeight: 1.35, whiteSpace: "pre-line", background: C.paper2, borderRadius: R.md, padding: "16px 24px",
                 opacity: t, transform: `translateX(${(1 - t) * -24}px)` }}>{r}</div>
             );
           })}
