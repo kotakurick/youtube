@@ -13,3 +13,12 @@ export const cohort = (n: number, startAge: number, years: number, rateAt: (age:
 
 /** y 年目までに起きた人数 */
 export const doneBy = (events: (number | null)[], y: number) => events.filter((e) => e !== null && e <= y).length;
+
+/** 人ごとに割合を変えて進める（例：満足していない夫婦は別れやすい）。rateOf(i, 年齢) */
+export const cohortBy = (n: number, startAge: number, years: number, rateOf: (i: number, age: number) => number, seed = 1): (number | null)[] => {
+  const r = rng(seed);
+  return Array.from({ length: n }, (_, i) => {
+    for (let y = 0; y < years; y++) if (r() < rateOf(i, startAge + y)) return y;
+    return null;
+  });
+};

@@ -54,7 +54,7 @@ await renderStill({ composition: sheet, serveUrl, output: out, puppeteerInstance
 const meta = sheet.props.meta;
 if (meta) {
   const total = meta.panels.reduce((a, p) => a + p.sec, 0);
-  const mmss = (t) => `${Math.floor(t / 60)}:${String(Math.round(t % 60)).padStart(2, "0")}`;
+  const mmss = (t) => { const s = Math.round(t); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
   let t = 0;
   // 30秒を超えて同じ画面が続く場面に印（CLAUDE.md「画面を止めない」。2026-10-05 オーナー決定で自動の警告に）
   const LONG_SEC = 30;

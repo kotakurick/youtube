@@ -8,7 +8,8 @@ import { C, EASE, font, LINE, R } from "./theme";
 export const PairedBars: React.FC<{
   rows: { label: string; male: number; female: number }[]; max?: number; x: number; y: number; width: number; height: number;
   format?: (v: number) => string; start?: number;
-}> = ({ rows, max, x, y, width, height, format = (v) => `${Math.round(v)}%`, start = 0 }) => {
+  names?: [string, string]; // 凡例の名前（既定「男性」「女性」。夫婦の回は「夫」「妻」。2026-10-06）
+}> = ({ rows, max, x, y, width, height, format = (v) => `${Math.round(v)}%`, start = 0, names = ["男性", "女性"] }) => {
   const frame = useCurrentFrame() - start;
   const { width: VW, height: VH } = useVideoConfig();
   const top = max ?? Math.max(...rows.flatMap((r) => [r.male, r.female]));
@@ -37,8 +38,10 @@ export const PairedBars: React.FC<{
       })}
       <line x1={x} x2={x + width} y1={base} y2={base} stroke={C.ink} strokeWidth={LINE.thin} strokeLinecap="round" />
       <g transform={`translate(${x},${y - 60})`}>
-        <Figure kind="male" x={14} y={10} size={0.9} /><text x={36} y={6} style={font("label", C.male)}>男性</text>
-        <Figure kind="female" x={164} y={10} size={0.9} /><text x={186} y={6} style={font("label", C.female)}>女性</text>
+        <Figure kind="male" x={14} y={10} size={0.9} /><text x={36} y={6} style={font("label", C.male)}>{names[0]}</text>
+        {/* 2つ目の凡例は1つ目の名前の長さに合わせて右へ（「男性どうし」のように長い名前で重なったので。2026-10-06） */}
+        <Figure kind="female" x={Math.max(164, 36 + names[0].length * 40 + 50)} y={10} size={0.9} />
+        <text x={Math.max(186, 58 + names[0].length * 40 + 50)} y={6} style={font("label", C.female)}>{names[1]}</text>
       </g>
     </svg>
   );
