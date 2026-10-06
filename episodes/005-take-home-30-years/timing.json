@@ -1,7 +1,0 @@
-{
- "voice": "silent",
- "scenes": [
-  {"id": "opening", "seconds": 5, "audio": null, "lines": [[0.0, 4.4, "（python tts/narrate.py で作り直す）"]]},
-  {"id": "today", "seconds": 3, "audio": null, "lines": []}
- ]
-}
