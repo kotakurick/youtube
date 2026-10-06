@@ -1,0 +1,784 @@
+﻿year,series,sex,education,age,kimatte,shoteinai,bonus,annual_est,workers_10,source
+1995,旧推計,女,大学・大学院,20-24,217.3,204.6,452.6,3060.2,14919.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,女,大学・大学院,25-29,254.8,234.6,980.1,4037.7,20734.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,女,大学・大学院,30-34,302.2,282.8,1166.0,4792.4,8741.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,女,大学・大学院,35-39,340.8,323.5,1297.2,5386.8,5253.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,女,大学・大学院,40-44,365.6,352.3,1476.2,5863.4,3399.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,女,大学・大学院,45-49,402.4,389.4,1651.6,6480.4,2669.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,女,大学・大学院,50-54,436.4,425.3,1927.5,7164.3,1340.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,女,大学・大学院,55-59,465.7,458.1,2276.2,7864.6,900.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,女,大学・大学院,計,283.2,266.6,1013.2,4411.6,58491.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,女,学歴計,20-24,190.1,179.2,542.4,2823.6,182298.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,女,学歴計,25-29,220.3,205.8,768.9,3412.5,127883.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,女,学歴計,30-34,238.4,224.4,822.6,3683.4,65988.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,女,学歴計,35-39,240.1,227.2,821.0,3702.2,56598.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,女,学歴計,40-44,236.6,225.2,794.5,3633.7,71891.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,女,学歴計,45-49,233.1,222.8,746.8,3544.0,84369.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,女,学歴計,50-54,229.6,220.5,726.8,3482.0,71133.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,女,学歴計,55-59,220.4,211.8,665.3,3310.1,52449.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,女,学歴計,計,217.5,206.2,684.2,3294.2,764136.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男,大学・大学院,20-24,234.3,211.5,395.7,3207.3,31855.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男,大学・大学院,25-29,290.6,255.2,1057.7,4544.9,89375.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男,大学・大学院,30-34,361.5,323.4,1429.3,5767.3,83019.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男,大学・大学院,35-39,423.5,392.4,1752.4,6834.4,74253.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男,大学・大学院,40-44,479.3,460.8,2164.5,7916.1,62805.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男,大学・大学院,45-49,547.3,535.3,2656.2,9223.8,56102.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男,大学・大学院,50-54,603.6,595.8,3008.0,10251.2,33090.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男,大学・大学院,55-59,590.3,582.8,2830.9,9914.5,19469.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男,大学・大学院,計,417.4,392.1,1770.1,6778.9,460212.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男,学歴計,20-24,227.7,199.7,523.6,3256.0,173427.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男,学歴計,25-29,280.7,245.2,869.6,4238.0,228845.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男,学歴計,30-34,334.1,296.1,1130.2,5139.4,212308.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男,学歴計,35-39,378.0,342.4,1352.0,5888.0,192862.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男,学歴計,40-44,410.6,378.9,1549.4,6476.6,212718.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男,学歴計,45-49,441.5,411.7,1729.5,7027.5,232373.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男,学歴計,50-54,453.9,423.7,1774.1,7220.9,187524.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男,学歴計,55-59,413.9,386.0,1497.2,6464.0,136597.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男,学歴計,計,361.3,330.0,1264.2,5599.8,1680074.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男女計,学歴計,20-24,208.4,189.2,533.3,3034.1,355725.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男女計,学歴計,25-29,259.0,231.1,833.5,3941.5,356728.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男女計,学歴計,30-34,311.4,279.1,1057.2,4794.0,278295.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男女計,学歴計,35-39,346.7,316.2,1231.5,5391.9,249460.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男女計,学歴計,40-44,366.7,340.1,1358.7,5759.1,284609.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男女計,学歴計,45-49,386.0,361.4,1467.8,6099.8,316742.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男女計,学歴計,50-54,392.2,367.8,1486.1,6192.5,258657.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男女計,学歴計,55-59,360.2,337.7,1266.4,5588.8,189047.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+1995,旧推計,男女計,学歴計,計,316.4,291.3,1082.9,4879.7,2444209.0,JILPT 0101w.csv（厚労省 賃金構造基本統計調査 公表値の転載） https://www.jil.go.jp/kokunai/statistics/dbdata/wage/zip/0101w.zip
+2000,旧推計,女,大学・大学院,20-24,220.3,205.6,377.2,3020.8,18391,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,女,大学・大学院,25-29,253.8,231.7,800.6,3846.2,27358,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,女,大学・大学院,30-34,321.1,293.8,1130,4983.2,13225,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,女,大学・大学院,35-39,360.8,339.8,1286.1,5615.7,7325,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,女,大学・大学院,40-44,400.6,385.3,1404.2,6211.4,5132,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,女,大学・大学院,45-49,413.3,396.9,1532.6,6492.2,3624,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,女,大学・大学院,50-54,423.1,413.8,1699.8,6777.0,2836,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,女,大学・大学院,55-59,491.3,480,2159.9,8055.5,1301,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,女,大学・大学院,計,295.4,275.8,940.6,4485.4,79876,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,女,学歴計,20-24,199.7,185.8,450.4,2846.8,119958,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,女,学歴計,25-29,227.5,210.4,695.2,3425.2,134341,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,女,学歴計,30-34,254.7,236.3,793.5,3849.9,76316,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,女,学歴計,35-39,262.8,245.9,831.8,3985.4,56917,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,女,学歴計,40-44,259.9,244.8,813.3,3932.1,57281,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,女,学歴計,45-49,252.5,238.9,773.4,3803.4,70194,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,女,学歴計,50-54,248.6,236.6,738.4,3721.6,74964,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,女,学歴計,55-59,238,227.4,675,3531,53017,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,女,学歴計,計,235.1,220.6,677,3498.2,680350,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男,大学・大学院,20-24,240.9,216.8,348.2,3239.0,29666,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男,大学・大学院,25-29,290.4,254.7,873.6,4358.4,90653,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男,大学・大学院,30-34,371.6,328.7,1316,5775.2,87255,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男,大学・大学院,35-39,439.1,403.2,1689.7,6958.9,79609,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男,大学・大学院,40-44,483.5,460.7,1951.7,7753.7,70130,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男,大学・大学院,45-49,528.8,514.2,2182.1,8527.7,55939,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男,大学・大学院,50-54,587,576.6,2542.5,9586.5,48307,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男,大学・大学院,55-59,572.9,564.1,2407.9,9282.7,24308,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男,大学・大学院,計,425.7,398.1,1604.2,6712.6,496100,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男,学歴計,20-24,232.9,202.9,438.5,3233.3,123186,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男,学歴計,25-29,281,244,746,4118,237644,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男,学歴計,30-34,340,297.4,1009.1,5089.1,219749,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男,学歴計,35-39,388.9,348.8,1278.3,5945.1,200633,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男,学歴計,40-44,419.2,385.6,1432.1,6462.5,183661,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男,学歴計,45-49,441.5,410.7,1533.5,6831.5,194717,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男,学歴計,50-54,457.6,428.1,1597.3,7088.5,206513,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男,学歴計,55-59,424.7,396.8,1395.6,6492.0,149808,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男,学歴計,計,370.3,336.8,1162.4,5606.0,1600895,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男女計,学歴計,20-24,216.5,194.4,444.3,3042.3,243144,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男女計,学歴計,25-29,261.7,231.9,727.6,3868.0,371985,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男女計,学歴計,30-34,318,281.7,953.5,4769.5,296065,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男女計,学歴計,35-39,361,326,1179.6,5511.6,257550,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男女計,学歴計,40-44,381.3,352.2,1285,5860.6,240943,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男女計,学歴計,45-49,391.4,365.2,1332.1,6028.9,264911,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男女計,学歴計,50-54,402,377.1,1368.6,6192.6,281477,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男女計,学歴計,55-59,375.9,352.5,1207.2,5718.0,202826,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2000,旧推計,男女計,学歴計,計,330,302.2,1017.7,4977.7,2281245,e-Stat 平成12年 第1表 産業計 statInfId=000001256993 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256993&fileKind=0
+2005,旧推計,女,大学・大学院,20-24,221.6,204.4,321.8,2981.0,20477,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,女,大学・大学院,25-29,257.8,231.9,676.2,3769.8,38280,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,女,大学・大学院,30-34,304.1,279.3,839.9,4489.1,21677,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,女,大学・大学院,35-39,366.7,335.4,1130.1,5530.5,13425,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,女,大学・大学院,40-44,398.3,371.5,1237.7,6017.3,8161,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,女,大学・大学院,45-49,389.7,372.3,1208.3,5884.7,6470,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,女,大学・大学院,50-54,406.9,394.4,1359.6,6242.4,4051,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,女,大学・大学院,55-59,408.4,398.4,1434.5,6335.3,2885,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,女,大学・大学院,計,301,277.7,817,4429,116626,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,女,学歴計,20-24,200.8,185.1,331.4,2741.0,87762,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,女,学歴計,25-29,231.2,210.6,548,3322.4,119499,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,女,学歴計,30-34,249.3,230.4,618.1,3609.7,98693,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,女,学歴計,35-39,265.6,245.9,694.4,3881.6,74809,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,女,学歴計,40-44,262.8,245.3,681.5,3835.1,67488,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,女,学歴計,45-49,256.1,240.4,656.8,3730.0,65476,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,女,学歴計,50-54,243.1,230.3,615,3532.2,67328,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,女,学歴計,55-59,236.7,225.7,583.4,3423.8,61798,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,女,学歴計,計,239,222.5,566.4,3434.4,678850,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男,大学・大学院,20-24,239.9,213.8,293.2,3172.0,25562,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男,大学・大学院,25-29,294.7,254.8,776.9,4313.3,78183,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男,大学・大学院,30-34,362.9,319.7,1111.2,5466.0,92291,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男,大学・大学院,35-39,446,401.9,1541.6,6893.6,86751,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男,大学・大学院,40-44,500.6,471.6,1882.1,7889.3,80035,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男,大学・大学院,45-49,530,511.7,2006.6,8366.6,67012,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男,大学・大学院,50-54,552.8,539.6,2038.1,8671.7,50523,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男,大学・大学院,55-59,550,540.1,1984.1,8584.1,43637,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男,大学・大学院,計,437.3,407.1,1482.2,6729.8,539893,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男,学歴計,20-24,227.1,197.3,332.1,3057.3,90887,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男,学歴計,25-29,277.9,239.3,630.6,3965.4,182768,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男,学歴計,30-34,329.4,287.3,868.2,4821.0,230897,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男,学歴計,35-39,388,343.5,1141,5797,207800,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男,学歴計,40-44,430,392.6,1371.6,6531.6,188190,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男,学歴計,45-49,446.6,416.1,1448.4,6807.6,164934,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男,学歴計,50-54,447.7,418.2,1405.5,6777.9,169366,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男,学歴計,55-59,425.7,399.9,1273.1,6381.5,177178,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男,学歴計,計,372.1,337.8,1057.8,5523.0,1507694,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男女計,学歴計,20-24,214.2,191.3,331.8,2902.2,178649,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男女計,学歴計,25-29,259.4,228,597.9,3710.7,302267,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男女計,学歴計,30-34,305.4,270.3,793.3,4458.1,329590,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男女計,学歴計,35-39,355.6,317.6,1022.8,5290.0,282609,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男女計,学歴計,40-44,385.9,353.7,1189.5,5820.3,255678,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男女計,学歴計,45-49,392.5,366.1,1223.5,5933.5,230410,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男女計,学歴計,50-54,389.5,364.8,1180.6,5854.6,236694,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男女計,学歴計,55-59,376.8,354.9,1094.7,5616.3,238976,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2005,旧推計,男女計,学歴計,計,330.8,302,905.2,4874.8,2186544,e-Stat 平成17年 第1表 産業計 statInfId=000001256328 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000001256328&fileKind=0
+2010,旧推計,女,大学・大学院,20-24,226.9,210.3,346.6,3069.4,21641,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,女,大学・大学院,25-29,257.8,234.8,638.5,3732.1,38410,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,女,大学・大学院,30-34,289.6,266.9,735.2,4210.4,23259,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,女,大学・大学院,35-39,329.6,307,852.5,4807.7,15324,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,女,大学・大学院,40-44,368.4,345.6,1086.7,5507.5,9446,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,女,大学・大学院,45-49,388.8,372.4,1095.1,5760.7,7529,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,女,大学・大学院,50-54,397.9,381.3,1158.2,5933.0,5768,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,女,大学・大学院,55-59,390.2,380.1,1240.8,5923.2,3307,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,女,大学・大学院,計,295.2,274.7,742.5,4284.9,126482,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,女,学歴計,20-24,204.4,189.5,339.9,2792.7,76033,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,女,学歴計,25-29,234.1,215,510.8,3320.0,96631,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,女,学歴計,30-34,249.3,230.7,554.4,3546.0,80095,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,女,学歴計,35-39,259.6,241.9,597.5,3712.7,80464,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,女,学歴計,40-44,264.6,247.6,639.9,3815.1,69275,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,女,学歴計,45-49,265.5,249.1,635.8,3821.8,65879,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,女,学歴計,50-54,260,245.4,623.4,3743.4,58865,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,女,学歴計,55-59,243,231.3,556.2,3472.2,54928,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,女,学歴計,計,243.6,227.6,536.2,3459.4,627435,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男,大学・大学院,20-24,241.8,218.2,329.2,3230.8,25979,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男,大学・大学院,25-29,289.5,252.8,717.8,4191.8,70627,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男,大学・大学院,30-34,349,309.9,946.8,5134.8,74059,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男,大学・大学院,35-39,411.1,373.5,1194.6,6127.8,79406,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男,大学・大学院,40-44,483.4,454.3,1612.4,7413.2,68906,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男,大学・大学院,45-49,525.7,507.7,1787,8095.4,61146,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男,大学・大学院,50-54,537.4,523.8,1796.9,8245.7,52151,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男,大学・大学院,55-59,523.3,512.4,1616.8,7896.4,40040,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男,大学・大学院,計,422.5,395.3,1262.4,6332.4,497509,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男,学歴計,20-24,229.2,199.8,370.9,3121.3,83754,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男,学歴計,25-29,272.4,236.8,581.9,3850.7,149239,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男,学歴計,30-34,317.3,278.4,736.3,4543.9,176503,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男,学歴計,35-39,361.4,322,899.8,5236.6,204990,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男,学歴計,40-44,407.1,370.5,1108.8,5994.0,179679,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男,学歴計,45-49,439.3,409.2,1279.5,6551.1,155558,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男,学歴計,50-54,443.7,417.2,1282.3,6606.7,140451,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男,学歴計,55-59,416.1,392.2,1126.1,6119.3,138675,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男,学歴計,計,360,328.3,910.2,5230.2,1344384,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男女計,大学・大学院,20-24,235,214.6,337.1,3157.1,47620,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男女計,大学・大学院,25-29,278.3,246.5,689.9,4029.5,109037,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男女計,大学・大学院,30-34,334.8,299.6,896.2,4913.8,97318,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男女計,大学・大学院,35-39,397.9,362.7,1139.2,5914.0,94730,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男女計,大学・大学院,40-44,469.5,441.2,1549.1,7183.1,78351,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男女計,大学・大学院,45-49,510.7,492.9,1711.1,7839.5,68675,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男女計,大学・大学院,50-54,523.5,509.6,1733.3,8015.3,57919,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男女計,大学・大学院,55-59,513.2,502.3,1588.1,7746.5,43347,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男女計,大学・大学院,計,396.7,370.9,1157,5917.4,623991,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男女計,学歴計,20-24,217.4,194.9,356.1,2964.9,159787,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男女計,学歴計,25-29,257.3,228.2,554,3641.6,245870,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男女計,学歴計,30-34,296.1,263.5,679.5,4232.7,256599,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男女計,学歴計,35-39,332.7,299.4,814.6,4807.0,285454,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男女計,学歴計,40-44,367.4,336.3,978.4,5387.2,248954,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男女計,学歴計,45-49,387.6,361.6,1088,5739.2,221438,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男女計,学歴計,50-54,389.5,366.4,1087.7,5761.7,199316,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男女計,学歴計,55-59,367,346.5,964.4,5368.4,193603,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,旧推計,男女計,学歴計,計,323,296.2,791.2,4667.2,1971819,e-Stat 平成22年 第1表（産業計・産業別） statInfId=000008278863 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000008278863&fileKind=0
+2010,新推計(R2方式の遡及),女,大学・大学院,20-24,227.3,211.1,331.5,3059.1,27158,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),女,大学・大学院,25-29,257.4,235.1,618.9,3707.7,48363,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),女,大学・大学院,30-34,289,266.4,710.3,4178.3,29642,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),女,大学・大学院,35-39,327.3,304.6,818.2,4745.8,19288,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),女,大学・大学院,40-44,364,341.9,1047.2,5415.2,11782,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),女,大学・大学院,45-49,387.5,371.4,1071.1,5721.1,9455,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),女,大学・大学院,50-54,392.1,376.2,1097.1,5802.3,7358,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),女,大学・大学院,55-59,383.9,374.1,1190.6,5797.4,3988,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),女,大学・大学院,計,293.7,273.5,714.9,4239.3,159244,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),女,学歴計,20-24,203.9,189.4,320.9,2767.7,95479,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),女,学歴計,25-29,233.5,215,489.6,3291.6,121658,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),女,学歴計,30-34,249.4,231,537.8,3530.6,100417,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),女,学歴計,35-39,258.5,241,578.8,3680.8,99977,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),女,学歴計,40-44,263.2,246.5,618.3,3776.7,85522,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),女,学歴計,45-49,265.3,249.1,623.4,3807.0,80649,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),女,学歴計,50-54,258.4,244.2,602,3702.8,72239,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),女,学歴計,55-59,241,229.6,536.4,3428.4,67133,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),女,学歴計,計,242.5,226.8,516.2,3426.2,780790,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男,大学・大学院,20-24,241.2,218.4,320.9,3215.3,32648,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男,大学・大学院,25-29,288.3,252.8,698.8,4158.4,89177,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男,大学・大学院,30-34,346.3,308.8,916.9,5072.5,95271,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男,大学・大学院,35-39,408.3,371.9,1164,6063.6,99859,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男,大学・大学院,40-44,478.5,450.3,1570.8,7312.8,84469,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男,大学・大学院,45-49,521.8,504.7,1743.8,8005.4,75501,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男,大学・大学院,50-54,532.2,518.7,1750.4,8136.8,64396,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男,大学・大学院,55-59,518.9,508,1567.2,7794.0,49339,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男,大学・大学院,計,417.8,391.4,1221.6,6235.2,622408,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男,学歴計,20-24,228.2,200.1,350.9,3089.3,106388,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男,学歴計,25-29,271.7,237.5,559,3819.4,191134,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男,学歴計,30-34,316.5,279.1,709.7,4507.7,226957,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男,学歴計,35-39,359.6,321.6,870.3,5185.5,260534,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男,学歴計,40-44,403.2,367.8,1065.2,5903.6,226390,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男,学歴計,45-49,435.5,406.6,1234.2,6460.2,194402,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男,学歴計,50-54,438.6,412.9,1228.9,6492.1,175160,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男,学歴計,55-59,411.4,388.2,1071.7,6008.5,172891,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男,学歴計,計,356.7,326.1,870.9,5151.3,1702227,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男女計,大学・大学院,20-24,234.9,215.1,325.7,3144.5,59806,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男女計,大学・大学院,25-29,277.4,246.5,670.7,3999.5,137541,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男女計,大学・大学院,30-34,332.7,298.7,867.9,4860.3,124913,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男女計,大学・大学院,35-39,395.2,361,1108,5850.4,119147,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男女計,大学・大学院,40-44,464.5,437,1506.7,7080.7,96251,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男女計,大学・大学院,45-49,506.8,489.8,1668.9,7750.5,84956,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男女計,大学・大学院,50-54,517.8,504.1,1683.4,7897.0,71753,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男女計,大学・大学院,55-59,508.8,498,1539,7644.6,53327,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男女計,大学・大学院,計,392.5,367.4,1118.3,5828.3,781652,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男女計,学歴計,20-24,216.8,195.1,336.7,2938.3,201867,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男女計,学歴計,25-29,256.9,228.8,532,3614.8,312792,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男女計,学歴計,30-34,295.9,264.4,656.9,4207.7,327374,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男女計,学歴計,35-39,331.5,299.3,789.5,4767.5,360511,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男女計,学歴計,40-44,364.8,334.5,942.7,5320.3,311912,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男女計,学歴計,45-49,385.6,360.4,1055.1,5682.3,275051,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男女計,学歴計,50-54,386,363.7,1045.8,5677.8,247399,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男女計,学歴計,55-59,363.7,343.8,922,5286.4,240025,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2010,新推計(R2方式の遡及),男女計,学歴計,計,320.8,294.9,759.4,4609.0,2483017,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成22年 表番号1 statInfId=000032111802 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032111802&fileKind=4
+2015,旧推計,女,大学・大学院,20-24,233,214.9,314.2,3110.2,28553,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,女,大学・大学院,25-29,264.1,239,702.1,3871.3,47949,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,女,大学・大学院,30-34,296.6,271.4,817.3,4376.5,34359,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,女,大学・大学院,35-39,322.6,300.3,916,4787.2,25446,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,女,大学・大学院,40-44,370.9,350.3,1047.1,5497.9,19738,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,女,大学・大学院,45-49,401.1,380.9,1310.6,6123.8,14647,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,女,大学・大学院,50-54,417.1,399.4,1362.7,6367.9,9537,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,女,大学・大学院,55-59,390,375.6,1125.8,5805.8,6726,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,女,大学・大学院,計,309.6,287.8,831.3,4546.5,191135,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,女,学歴計,20-24,213.3,196.6,323.8,2883.4,80304,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,女,学歴計,25-29,242.9,221.5,572.2,3487.0,102015,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,女,学歴計,30-34,258.5,238.4,620.5,3722.5,87303,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,女,学歴計,35-39,267.4,249,659.3,3868.1,89488,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,女,学歴計,40-44,281.3,262.6,717.4,4093.0,100301,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,女,学歴計,45-49,284.7,266.6,744.8,4161.2,90967,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,女,学歴計,50-54,283.4,266.8,740.7,4141.5,76401,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,女,学歴計,55-59,269.5,255.1,683.6,3917.6,61818,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,女,学歴計,計,259.6,242,611.9,3727.1,747930,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男,大学・大学院,20-24,247.1,222.1,306.5,3271.7,29812,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男,大学・大学院,25-29,301.4,260.3,810.8,4427.6,76076,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男,大学・大学院,30-34,359.8,313.7,1083.2,5400.8,82549,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男,大学・大学院,35-39,415,372.4,1320.3,6300.3,84281,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男,大学・大学院,40-44,463.6,431.4,1603.3,7166.5,85390,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男,大学・大学院,45-49,533.8,507,2034.5,8440.1,77976,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男,大学・大学院,50-54,563.1,544.1,2180.8,8938.0,65747,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男,大学・大学院,55-59,537.6,521.8,1897.7,8348.9,53925,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男,大学・大学院,計,433.8,402.5,1432.1,6637.7,594277,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男,学歴計,20-24,236.3,205,390.9,3226.5,86019,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男,学歴計,25-29,283.7,243.4,687.6,4092.0,150342,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男,学歴計,30-34,326.3,282.6,849.1,4764.7,173161,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男,学歴計,35-39,364.7,321.2,993.8,5370.2,197327,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男,学歴計,40-44,400.2,359.8,1167.2,5969.6,224940,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男,学歴計,45-49,442.3,405.7,1388.8,6696.4,196726,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男,学歴計,50-54,461.2,430.1,1510.1,7044.5,165454,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男,学歴計,55-59,438.2,411.7,1347,6605.4,143899,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男,学歴計,計,370.3,335.1,1033.4,5477.0,1492720,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男女計,大学・大学院,20-24,240.2,218.6,310.2,3192.6,58365,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男女計,大学・大学院,25-29,287,252.1,768.8,4212.8,124025,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男女計,大学・大学院,30-34,341.2,301.3,1005,5099.4,116909,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男女計,大学・大学院,35-39,393.6,355.7,1226.5,5949.7,109727,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男女計,大学・大学院,40-44,446.2,416.2,1498.9,6853.3,105129,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男女計,大学・大学院,45-49,512.9,487,1920,8074.8,92623,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男女計,大学・大学院,50-54,544.6,525.8,2077.2,8612.4,75284,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男女計,大学・大学院,55-59,521.2,505.6,1812.1,8066.5,60651,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男女計,大学・大学院,計,403.6,374.6,1285.9,6129.1,785412,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男女計,学歴計,20-24,225.2,201,358.5,3060.9,166323,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男女計,学歴計,25-29,267.2,234.5,641,3847.4,252357,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男女計,学歴計,30-34,303.5,267.8,772.5,4414.5,260464,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男女計,学歴計,35-39,334.3,298.6,889.5,4901.1,286816,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男女計,学歴計,40-44,363.6,329.8,1028.5,5391.7,325240,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男女計,学歴計,45-49,392.5,361.7,1185.2,5895.2,287693,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男女計,学歴計,50-54,405,378.5,1267,6127,241855,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男女計,学歴計,55-59,387.5,364.6,1147.7,5797.7,205718,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,旧推計,男女計,学歴計,計,333.3,304,892.7,4892.3,2240650,e-Stat 平成27年 第1表（産業計・産業別） statInfId=000028996409 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000028996409&fileKind=0
+2015,新推計(R2方式の遡及),女,大学・大学院,20-24,233.1,214.9,311.4,3108.6,35428,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),女,大学・大学院,25-29,263.8,238.8,688.3,3853.9,59840,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),女,大学・大学院,30-34,296.3,271.2,797.1,4352.7,42645,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),女,大学・大学院,35-39,322.7,299.8,909.2,4781.6,31381,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),女,大学・大学院,40-44,368.7,348,1033.3,5457.7,24451,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),女,大学・大学院,45-49,399.5,379,1295.1,6089.1,17960,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),女,大学・大学院,50-54,414.4,396.3,1355.7,6328.5,11449,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),女,大学・大学院,55-59,385.1,370.3,1104.1,5725.3,8218,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),女,大学・大学院,計,308.2,286.3,815.8,4514.2,236377,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),女,学歴計,20-24,213.3,196.5,313.7,2873.3,98542,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),女,学歴計,25-29,243.1,221.5,557.3,3474.5,125808,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),女,学歴計,30-34,258.7,238.7,605.7,3710.1,106333,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),女,学歴計,35-39,267.6,248.9,650.2,3861.4,108770,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),女,学歴計,40-44,281.3,262.7,708.9,4084.5,121180,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),女,学歴計,45-49,284.8,266.7,734.8,4152.4,109487,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),女,学歴計,50-54,282.9,266.5,728.1,4122.9,91228,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),女,学歴計,55-59,269.2,254.8,673.9,3904.3,73258,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),女,学歴計,計,259.3,241.7,599.2,3710.8,906665,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男,大学・大学院,20-24,247.3,222.7,299.3,3266.9,37245,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男,大学・大学院,25-29,301.6,260.7,801.5,4420.7,95065,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男,大学・大学院,30-34,359.8,313.9,1068.3,5385.9,102680,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男,大学・大学院,35-39,412.9,370.8,1291.6,6246.4,105215,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男,大学・大学院,40-44,461.7,429.8,1570.4,7110.8,105972,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男,大学・大学院,45-49,530.6,504.1,2016.3,8383.5,95207,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男,大学・大学院,50-54,559.3,540.4,2150.1,8861.7,80347,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男,大学・大学院,55-59,535.7,520.2,1880.8,8309.2,65725,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男,大学・大学院,計,430.9,399.8,1405,6575.8,734411,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男,学歴計,20-24,236.4,205.3,376.1,3212.9,105308,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男,学歴計,25-29,284,244.1,674.3,4082.3,185720,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男,学歴計,30-34,326.7,283.3,834.4,4754.8,214118,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男,学歴計,35-39,363.9,320.8,969.9,5336.7,245744,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男,学歴計,40-44,399.3,359.3,1141.4,5933.0,278275,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男,学歴計,45-49,439.8,403.3,1357.9,6635.5,241714,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男,学歴計,50-54,458.2,427.3,1477.4,6975.8,201963,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男,学歴計,55-59,436.3,410,1318.4,6554.0,174710,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男,学歴計,計,368.9,334,1008.9,5435.7,1837154,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男女計,大学・大学院,20-24,240.4,218.9,305.2,3190.0,72673,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男女計,大学・大学院,25-29,287,252.2,757.8,4201.8,154905,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男女計,大学・大学院,30-34,341.2,301.4,988.7,5083.1,145325,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男女計,大学・大学院,35-39,392.2,354.5,1203.7,5910.1,136596,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男女計,大学・大学院,40-44,444.3,414.5,1469.7,6801.3,130423,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男女計,大学・大学院,45-49,509.8,484.2,1901.8,8019.4,113167,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男女計,大学・大学院,50-54,541.2,522.4,2051,8545.4,91795,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男女計,大学・大学院,55-59,519,503.5,1794.4,8022.4,73943,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男女計,大学・大学院,計,401,372.1,1261.5,6073.5,970787,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男女計,学歴計,20-24,225.2,201.1,346,3048.4,203850,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男女計,学歴計,25-29,267.5,235,627.1,3837.1,311528,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男女計,学歴計,30-34,304.1,268.5,758.5,4407.7,320451,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男女計,学歴計,35-39,334.3,298.8,871.8,4883.4,354514,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男女計,学歴計,40-44,363.5,330,1010.2,5372.2,399455,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男女計,学歴計,45-49,391.5,360.7,1163.7,5861.7,351201,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男女計,学歴計,50-54,403.6,377.3,1244.3,6087.5,293190,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男女計,学歴計,55-59,386.9,364.1,1128,5770.8,247968,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2015,新推計(R2方式の遡及),男女計,学歴計,計,332.7,303.5,873.5,4865.9,2743819,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 平成27年 表番号1 statInfId=000032110750 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110750&fileKind=4
+2019,旧推計,女,大学・大学院,20-24,243.4,224.8,356.7,3277.5,29343,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,女,大学・大学院,25-29,275.8,249.9,766.3,4075.9,49895,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,女,大学・大学院,30-34,305.8,280.4,879.6,4549.2,35106,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,女,大学・大学院,35-39,326.4,303.8,971.3,4888.1,27483,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,女,大学・大学院,40-44,360.7,339.6,1115.3,5443.7,23978,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,女,大学・大学院,45-49,381,359.7,1208.4,5780.4,19265,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,女,大学・大学院,50-54,418.3,399.2,1356.7,6376.3,13423,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,女,大学・大学院,55-59,409.2,391.2,1289.1,6199.5,8544,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,女,大学・大学院,計,318.6,296.4,897.2,4720.4,213028,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,女,学歴計,20-24,225.5,208.1,358.3,3064.3,79063,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,女,学歴計,25-29,255.2,232.9,613.1,3675.5,97777,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,女,学歴計,30-34,267.8,247.4,657.9,3871.5,81328,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,女,学歴計,35-39,274.6,256.2,692.2,3987.4,79665,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,女,学歴計,40-44,286.8,268.6,753.2,4194.8,96866,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,女,学歴計,45-49,290.5,271.6,785.5,4271.5,107654,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,女,学歴計,50-54,293.3,275.8,784.2,4303.8,90132,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,女,学歴計,55-59,282.6,266.8,732.9,4124.1,71246,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,女,学歴計,計,269,251,652.1,3880.1,773120,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男,大学・大学院,20-24,255.5,229.2,346.9,3412.9,30614,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男,大学・大学院,25-29,309.5,266.4,874,4588.0,74100,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男,大学・大学院,30-34,370.3,321.8,1185.8,5629.4,75413,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男,大学・大学院,35-39,420.9,376.6,1429.3,6480.1,77188,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男,大学・大学院,40-44,465.5,429.5,1663,7249.0,78550,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男,大学・大学院,45-49,504.2,475.8,1942.6,7993.0,78789,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男,大学・大学院,50-54,558.1,535.2,2328.5,9025.7,67176,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男,大学・大学院,55-59,541.2,522.9,2170.9,8665.3,53871,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男,大学・大学院,計,433.5,400.5,1512.6,6714.6,582990,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男,学歴計,20-24,245.5,213.4,430.9,3376.9,87240,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男,学歴計,25-29,293.9,251.6,755,4281.8,139332,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男,学歴計,30-34,336.6,290.8,946.6,4985.8,155977,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男,学歴計,35-39,373.6,328.4,1090,5573.2,169263,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男,学歴計,40-44,402.5,360.1,1233.2,6063.2,193842,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男,学歴計,45-49,429.4,390.5,1395.9,6548.7,210688,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男,学歴計,50-54,458.5,423.7,1586.1,7088.1,175294,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男,学歴計,55-59,446.1,416.6,1518.7,6871.9,144693,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男,学歴計,計,374.9,338,1110.9,5609.7,1444762,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男女計,大学・大学院,20-24,249.6,227,351.7,3346.9,59957,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男女計,大学・大学院,25-29,295.9,259.7,830.7,4381.5,123994,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男女計,大学・大学院,30-34,349.8,308.7,1088.6,5286.2,110519,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男女計,大学・大学院,35-39,396.1,357.5,1309.1,6062.3,104671,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男女計,大学・大学院,40-44,441,408.5,1534.9,6826.9,102528,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男女計,大学・大学院,45-49,480,453,1798.4,7558.4,98053,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男女計,大学・大学院,50-54,534.8,512.5,2166.7,8584.3,80599,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男女計,大学・大学院,55-59,523.2,504.8,2050.2,8328.6,62415,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男女計,大学・大学院,計,402.8,372.6,1347.9,6181.5,796018,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男女計,学歴計,20-24,236,210.9,396.4,3228.4,166303,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男女計,学歴計,25-29,277.9,243.9,696.4,4031.2,237109,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男女計,学歴計,30-34,313,275.9,847.6,4603.6,237305,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男女計,学歴計,35-39,341.9,305.3,962.7,5065.5,248928,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男女計,学歴計,40-44,364,329.6,1073.3,5441.3,290709,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男女計,学歴計,45-49,382.4,350.3,1189.5,5778.3,318342,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男女計,学歴計,50-54,402.4,373.5,1313.8,6142.6,265426,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男女計,学歴計,55-59,392.1,367.1,1259.4,5964.6,215939,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,旧推計,男女計,学歴計,計,338,307.7,950.9,5006.9,2217882,e-Stat 令和元年 第1表（産業計・産業別） statInfId=000031919751 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000031919751&fileKind=0
+2019,新推計(R2方式の遡及),女,大学・大学院,20-24,242.9,224.9,341.6,3256.4,39189,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),女,大学・大学院,25-29,274.4,249.3,747,4039.8,66647,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),女,大学・大学院,30-34,303.8,279.3,860.2,4505.8,47496,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),女,大学・大学院,35-39,325.3,303.4,950.2,4853.8,36700,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),女,大学・大学院,40-44,357.8,336.7,1094.5,5388.1,32357,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),女,大学・大学院,45-49,378.6,358,1172.9,5716.1,25780,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),女,大学・大学院,50-54,415.2,396.4,1315.2,6297.6,17798,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),女,大学・大学院,55-59,405.5,388,1229.8,6095.8,11412,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),女,大学・大学院,計,316.5,294.9,872.3,4670.3,285123,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),女,学歴計,20-24,225.1,208.2,342,3043.2,105770,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),女,学歴計,25-29,253.9,232.3,594.2,3641.0,130950,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),女,学歴計,30-34,266.9,246.9,637.5,3840.3,109782,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),女,学歴計,35-39,273.7,255.6,672.4,3956.8,106535,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),女,学歴計,40-44,285.5,267.5,733.3,4159.3,128632,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),女,学歴計,45-49,288.6,270,756.1,4219.3,143326,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),女,学歴計,50-54,290.8,273.6,752.6,4242.2,119286,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),女,学歴計,55-59,280.4,264.8,702.7,4067.5,94004,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),女,学歴計,計,267.4,249.8,628.1,3836.9,1031282,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男,大学・大学院,20-24,255.4,229.7,343.7,3408.5,41089,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男,大学・大学院,25-29,307.8,266,857.7,4551.3,97947,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男,大学・大学院,30-34,367.7,320.5,1162.8,5575.2,99977,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男,大学・大学院,35-39,417.2,374.4,1388.5,6394.9,102985,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男,大学・大学院,40-44,461.7,426.5,1611.6,7152.0,104963,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男,大学・大学院,45-49,500,472,1889.5,7889.5,105475,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男,大学・大学院,50-54,550.5,527.9,2250,8856.0,87403,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男,大学・大学院,55-59,535.5,517.3,2099.7,8525.7,71110,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男,大学・大学院,計,429.2,396.9,1468,6618.4,773213,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男,学歴計,20-24,245.3,214.1,412.5,3356.1,115407,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男,学歴計,25-29,292.6,251.6,731.1,4242.3,184561,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男,学歴計,30-34,334.7,290.3,919.6,4936.0,207694,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男,学歴計,35-39,371.1,327.4,1051.7,5504.9,227535,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男,学歴計,40-44,399.8,358.5,1190.5,5988.1,260327,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男,学歴計,45-49,426.3,388.3,1348.5,6464.1,283157,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男,学歴計,50-54,453.2,418.8,1523.2,6961.6,231879,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男,学歴計,55-59,441.3,412.2,1457.6,6753.2,191777,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男,学歴計,計,372.1,336.1,1070.1,5535.3,1929597,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男女計,大学・大学院,20-24,249.3,227.4,342.6,3334.2,80278,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男女計,大学・大学院,25-29,294.3,259.3,812.9,4344.5,164594,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男女計,大学・大学院,30-34,347.2,307.2,1065.3,5231.7,147472,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男女計,大学・大学院,35-39,393.1,355.8,1273.3,5990.5,139686,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男女計,大学・大学院,40-44,437.2,405.3,1489.7,6736.1,137320,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男女計,大学・大学院,45-49,476.1,449.6,1748.7,7461.9,131255,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男女計,大学・大学院,50-54,527.6,505.6,2091.8,8423.0,105201,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男女計,大学・大学院,55-59,517.5,499.4,1979.4,8189.4,82522,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男女計,大学・大学院,計,398.9,369.4,1307.5,6094.3,1058336,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男女計,学歴計,20-24,235.7,211.3,378.8,3207.2,221177,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男女計,学歴計,25-29,276.5,243.6,674.3,3992.3,315512,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男女計,学歴計,30-34,311.3,275.3,822,4557.6,317476,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男女計,学歴計,35-39,340,304.5,930.8,5010.8,334069,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男女計,学歴計,40-44,362,328.4,1039.3,5383.3,388958,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男女計,学歴計,45-49,380,348.6,1149.4,5709.4,426483,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男女計,学歴計,50-54,398,369.5,1261.4,6037.4,351164,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男女計,学歴計,55-59,388.4,363.7,1209.3,5870.1,285781,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2019,新推計(R2方式の遡及),男女計,学歴計,計,335.6,306,916.1,4943.3,2960880,e-Stat 【参考掲載】令和2年と同じ推計方法による集計 令和元年 表番号1 statInfId=000032110590 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032110590&fileKind=4
+2020,新推計,女,大学,20-24,240.2,226.5,341.1,3223.5,34118,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学,25-29,269.1,249.4,744.9,3974.1,56209,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学,30-34,296.6,275.3,835,4394.2,37599,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学,35-39,318,298.2,953.1,4769.1,30629,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学,40-44,336.6,320.3,970.2,5009.4,26972,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学,45-49,357.4,340.9,1117.1,5405.9,21880,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学,50-54,399.4,382,1280.9,6073.7,14988,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学,55-59,393.7,381.3,1186.2,5910.6,9862,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学,計,306,288.3,838.8,4510.8,238181,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学・大学院,20-24,240.3,226.6,338.9,3222.5,34411,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学・大学院,25-29,270.8,250.8,750.6,4000.2,59642,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学・大学院,30-34,300.6,279.5,846.9,4454.1,40382,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学・大学院,35-39,324.9,304.5,983.3,4882.1,33825,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学・大学院,40-44,347.9,331.6,1031.2,5206.0,29532,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学・大学院,45-49,371.1,354.8,1171.3,5624.5,23972,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学・大学院,50-54,413.9,397.5,1357.0,6323.8,16434,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学・大学院,55-59,407.2,395.1,1286.0,6172.4,10840,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学・大学院,計,314.0,296.3,878.4,4646.4,255805,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学院,20-24,253.4,243.3,86.7,3127.5,293,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学院,25-29,299.2,274.4,843.2,4433.6,3433,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学院,30-34,354.2,336.4,1008.1,5258.5,2783,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学院,35-39,390.5,364.7,1272.5,5958.5,3196,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学院,40-44,467.5,450.3,1674.4,7284.4,2560,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学院,45-49,514.8,500.1,1738,7915.6,2092,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学院,50-54,564.7,558,2146.2,8922.6,1446,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学院,55-59,543.3,534.5,2292.7,8812.3,978,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,大学院,計,422.2,404.3,1414.2,6480.6,17624,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,学歴計,20-24,222.2,209.2,342.1,3008.5,100469,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,学歴計,25-29,250.5,233.4,592.8,3598.8,124342,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,学歴計,30-34,263.1,246.8,620.8,3778.0,100061,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,学歴計,35-39,273.8,258.5,688.3,3973.9,100583,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,学歴計,40-44,282.7,268.3,724.6,4117.0,118068,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,学歴計,45-49,286,271.1,760.2,4192.2,139989,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,学歴計,50-54,288.9,274.7,744,4210.8,121061,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,学歴計,55-59,283.1,271.1,706.8,4104.0,94408,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,女,学歴計,計,265.9,251.8,628.4,3819.2,989373,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学,20-24,248.7,229.1,356.3,3340.7,36886,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学,25-29,297.2,266.2,838.5,4404.9,77503,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学,30-34,348.1,313.9,1057.7,5234.9,75248,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学,35-39,399.6,365.2,1308.3,6103.5,76594,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学,40-44,443.6,416.4,1552.9,6876.1,80794,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学,45-49,484.3,461.5,1774.8,7586.4,84105,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学,50-54,546.4,526.6,2133.3,8690.1,71813,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学,55-59,531.3,516.5,1980.5,8356.1,57603,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学,計,416.8,391.9,1377.7,6379.3,613399,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学・大学院,20-24,249.0,229.9,346.4,3334.4,38176,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学・大学院,25-29,300.7,268.6,859.9,4468.3,91206,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学・大学院,30-34,353.4,317.5,1108.3,5349.1,88677,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学・大学院,35-39,411.6,375.6,1394.9,6334.1,89851,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学・大学院,40-44,455.1,427.4,1646.0,7107.2,93221,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学・大学院,45-49,495.5,472.7,1859.2,7805.2,94867,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学・大学院,50-54,556.0,536.8,2211.1,8883.1,79125,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学・大学院,55-59,549.3,534.6,2076.8,8668.4,63403,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学・大学院,計,426.2,400.6,1446.3,6560.7,696133,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学院,20-24,257.2,252.3,63.9,3150.3,1290,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学院,25-29,320.2,282,981.1,4823.5,13703,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学院,30-34,383.1,337.8,1391.6,5988.8,13429,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学院,35-39,481.2,435.9,1895.2,7669.6,13257,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学院,40-44,529.5,498.9,2251.1,8605.1,12427,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学院,45-49,582.7,560.3,2519,9511.4,10762,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学院,50-54,650.3,636.5,2974.7,10778.3,7312,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学院,55-59,728.5,714.9,3033.1,11775.1,5800,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,大学院,計,496.3,465.2,1954.9,7910.5,82734,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,学歴計,20-24,237.1,214.6,411,3256.2,109795,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,学歴計,25-29,282.3,252.6,716.1,4103.7,176466,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,学歴計,30-34,322.3,289.2,888.7,4756.3,186083,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,学歴計,35-39,362.8,328.3,1057.8,5411.4,203183,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,学歴計,40-44,392.5,360.7,1193.3,5903.3,235073,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,学歴計,45-49,418.9,387.9,1331.1,6357.9,263490,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,学歴計,50-54,446.6,419.6,1480.4,6839.6,219248,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,学歴計,55-59,443,420.1,1445.7,6761.7,178635,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男,学歴計,計,366.6,338.8,1060.3,5459.5,1775651,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学,20-24,244.6,227.8,349,3284.2,71004,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学,25-29,285.4,259.1,799.2,4224.0,133712,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学,30-34,330.9,301.1,983.5,4954.3,112848,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学,35-39,376.3,346.1,1206.8,5722.4,107223,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学,40-44,416.8,392.3,1407.1,6408.7,107767,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学,45-49,458.1,436.6,1639,7136.2,105986,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学,50-54,521,501.6,1986.1,8238.1,86801,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学,55-59,511.1,496.7,1864.4,7997.6,67465,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学,計,385.8,362.9,1227,5856.6,851580,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学・大学院,20-24,244.9,228.3,342.9,3281.7,72586,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学・大学院,25-29,288.9,261.5,816.7,4283.5,150848,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学・大学院,30-34,336.8,305.7,1026.5,5068.1,129061,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学・大学院,35-39,387.9,356.2,1282.3,5937.1,123676,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学・大学院,40-44,429.3,404.3,1498.1,6649.7,122754,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学・大学院,45-49,470.4,448.9,1720.4,7365.2,118840,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学・大学院,50-54,531.6,512.8,2064.2,8443.4,95559,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学・大学院,55-59,528.5,514.2,1961.3,8303.3,74243,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学・大学院,計,396.1,372.6,1293.7,6046.9,951938,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学院,20-24,256.5,250.6,68.1,3146.1,1582,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学院,25-29,316,280.5,953.5,4745.5,17136,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学院,30-34,378.1,337.6,1325.8,5863.0,16213,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学院,35-39,463.6,422.1,1774.2,7337.4,16453,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学院,40-44,518.9,490.6,2152.6,8379.4,14987,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学院,45-49,571.6,550.5,2391.9,9251.1,12854,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学院,50-54,636.2,623.5,2838,10472.4,8758,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学院,55-59,701.8,688.9,2926.3,11347.9,6778,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,大学院,計,483.3,454.5,1860,7659.6,100358,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,学歴計,20-24,230,212,378.1,3138.1,210264,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,学歴計,25-29,269.2,244.6,665.1,3895.5,300808,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,学歴計,30-34,301.6,274.4,795,4414.2,286144,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,学歴計,35-39,333.3,305.2,935.4,4935.0,303766,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,学歴計,40-44,355.8,329.8,1036.6,5306.2,353141,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,学歴計,45-49,372.8,347.4,1133.1,5606.7,403479,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,学歴計,50-54,390.5,368,1218.5,5904.5,340309,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,学歴計,55-59,387.7,368.6,1190.2,5842.6,273043,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2020,新推計,男女計,学歴計,計,330.6,307.7,905.7,4872.9,2765023,e-Stat 令和2年 表番号1（産業計・産業別） statInfId=000032069350 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032069350&fileKind=0
+2024,新推計,女,大学,20-24,268.9,250.2,375.3,3602.1,37256,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学,25-29,304.4,276.7,762.4,4415.2,66786,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学,30-34,324.4,300,818.3,4711.1,45666,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学,35-39,353.2,331.3,964.5,5202.9,34286,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学,40-44,360.9,338.9,1102.5,5433.3,31218,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学,45-49,388.9,365.7,1183.1,5849.9,30533,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学,50-54,403.8,381.4,1290.1,6135.7,22073,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学,55-59,424.1,403.7,1319.1,6408.3,12468,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学,計,338.3,315.1,891.9,4951.5,289472,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学・大学院,20-24,269.1,250.5,371.7,3600.9,37673,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学・大学院,25-29,305.9,277.7,773.3,4444.1,70601,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学・大学院,30-34,327.6,302.9,846.9,4778.1,48741,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学・大学院,35-39,359.4,337.1,1003.7,5316.5,37312,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学・大学院,40-44,372.1,349.9,1167.6,5632.8,34701,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学・大学院,45-49,398.4,375.7,1251.2,6032.0,33461,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学・大学院,50-54,414.9,392.8,1355.6,6334.4,24013,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学・大学院,55-59,437.1,417.2,1390.9,6636.1,13661,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学・大学院,計,345.6,322.3,938.2,5085.4,310589,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学院,20-24,291.1,278,54,3547.2,417,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学院,25-29,332.2,296.1,964.3,4950.7,3815,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学院,30-34,374.9,345.3,1271.7,5770.5,3075,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学院,35-39,429.6,403.2,1447.9,6603.1,3026,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学院,40-44,472.1,448.5,1750.7,7415.9,3483,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学院,45-49,497.6,479.9,1961.9,7933.1,2928,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学院,50-54,540.7,522.7,2101,8589.4,1940,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学院,55-59,572.4,558.2,2141.6,9010.4,1193,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,大学院,計,445,420.9,1573.1,6913.1,21117,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,学歴計,20-24,248.9,230.6,356.2,3343.0,104299,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,学歴計,25-29,281.6,258.1,602.4,3981.6,142298,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,学歴計,30-34,292.2,271.6,642.3,4148.7,108121,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,学歴計,35-39,302.3,284.3,706.9,4334.5,103292,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,学歴計,40-44,306.5,288.4,770.6,4448.6,115444,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,学歴計,45-49,317.3,298,821.6,4629.2,144638,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,学歴計,50-54,314.5,295.4,807.2,4581.2,145603,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,学歴計,55-59,311.2,294,774.2,4508.6,112933,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,女,学歴計,計,293.9,275.3,667.6,4194.4,1088918,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学,20-24,275.5,251.5,368.9,3674.9,38504,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学,25-29,332.2,290.3,884.8,4871.2,74590,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学,30-34,383.4,340.5,1085.6,5686.4,74985,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学,35-39,435.5,392.8,1387.9,6613.9,73202,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学,40-44,471,433,1597.7,7249.7,78425,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学,45-49,523.9,493.3,1838.3,8125.1,83737,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学,50-54,546.8,521.6,1992.3,8553.9,81520,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学,55-59,574,549.6,2151.5,9039.5,68876,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学,計,450.2,417.7,1433.1,6835.5,641800,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学・大学院,20-24,276.3,252.7,358.4,3674.0,39827,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学・大学院,25-29,337.5,294.1,911.8,4961.8,87263,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学・大学院,30-34,394.3,349.6,1171.5,5903.1,89380,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学・大学院,35-39,448.7,403.6,1500.2,6884.6,87563,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学・大学院,40-44,490.5,450.9,1747.8,7633.8,93698,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学・大学院,45-49,540.4,510.7,1973.0,8457.8,97326,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学・大学院,50-54,562.1,537.3,2099.0,8844.2,91816,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学・大学院,55-59,588.6,564.9,2255.7,9318.9,76904,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学・大学院,計,463.7,430.2,1533.8,7098.2,737961,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学院,20-24,300.5,288.8,53.2,3659.2,1323,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学院,25-29,368.8,316.3,1070.5,5496.1,12673,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学院,30-34,451.3,397.1,1618.8,7034.4,14395,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学院,35-39,515.9,458.5,2072.8,8263.6,14361,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学院,40-44,590.9,543,2518.3,9609.1,15273,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学院,45-49,642.2,618,2803,10509.4,13589,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学院,50-54,683.5,661.6,2944.1,11146.1,10296,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学院,55-59,714.3,696,3149.9,11721.5,8028,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,大学院,計,553.5,513.7,2206.1,8848.1,96161,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,学歴計,20-24,262.4,234.2,435.1,3583.9,110824,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,学歴計,25-29,315.2,274.7,755.1,4537.5,172845,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,学歴計,30-34,358.7,316.3,944,5248.4,179824,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,学歴計,35-39,396.3,352.3,1142.2,5897.8,193987,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,学歴計,40-44,426.3,385.5,1293.1,6408.7,214038,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,学歴計,45-49,453.3,416,1398.1,6837.7,249248,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,学歴計,50-54,463.5,428.2,1479.4,7041.4,258377,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,学歴計,55-59,476,444.1,1530.1,7242.1,212325,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男,学歴計,計,398.6,363.1,1124.9,5908.1,1836227,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学,20-24,272.2,250.8,372.1,3638.5,75760,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学,25-29,319.1,283.9,827,4656.2,141376,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学,30-34,361,325.2,984.4,5316.4,120651,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学,35-39,409.2,373.2,1252.8,6163.2,107488,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学,40-44,439.7,406.2,1456.7,6733.1,109643,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学,45-49,487.8,459.2,1663.2,7516.8,114271,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学,50-54,516.3,491.7,1842.7,8038.3,103593,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学,55-59,551,527.2,2024,8636,81344,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学,計,415.4,385.8,1264.8,6249.6,931273,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学・大学院,20-24,272.8,251.6,364.9,3638.5,77499,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学・大学院,25-29,323.4,286.8,849.9,4730.7,157864,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学・大学院,30-34,370.7,333.1,1056.9,5505.3,138121,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学・大学院,35-39,422.0,383.7,1351.8,6415.8,124876,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学・大学院,40-44,458.6,423.6,1591.0,7094.2,128400,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学・大学院,45-49,504.1,476.2,1788.3,7837.5,130788,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学・大学院,50-54,531.6,507.3,1944.9,8324.1,115829,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学・大学院,55-59,565.8,542.6,2125.4,8915.0,90565,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学・大学院,計,428.7,398.2,1357.3,6501.7,1048551,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学院,20-24,298.2,286.2,53.4,3631.8,1739,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学院,25-29,360.3,311.6,1045.9,5369.5,16488,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学院,30-34,437.9,388,1557.7,6812.5,17470,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学院,35-39,500.9,448.9,1964,7974.8,17388,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学院,40-44,568.8,525.5,2375.8,9201.4,18757,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学院,45-49,616.5,593.5,2653.9,10051.9,16517,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学院,50-54,660.9,639.6,2810.5,10741.3,12236,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学院,55-59,696,678.2,3019.5,11371.5,9221,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,大学院,計,534,497,2092.1,8500.1,117278,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,学歴計,20-24,255.9,232.5,396.8,3467.6,215123,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,学歴計,25-29,300,267.2,686.2,4286.2,315142,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,学歴計,30-34,333.7,299.5,830.7,4835.1,287945,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,学歴計,35-39,363.7,328.7,991,5355.4,297279,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,学歴計,40-44,384.3,351.4,1110,5721.6,329482,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,学歴計,45-49,403.4,372.7,1186.4,6027.2,393887,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,学歴計,50-54,409.8,380.4,1237.1,6154.7,403980,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,学歴計,55-59,418.8,392,1267.7,6293.3,325257,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2024,新推計,男女計,学歴計,計,359.6,330.4,954.7,5269.9,2925146,e-Stat 令和6年 表番号1（産業計・産業別） statInfId=000040247773 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040247773&fileKind=4
+2025,新推計,女,大学,20-24,281.5,260.4,384.3,3762.3,36381,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学,25-29,315.7,286.9,795.6,4584.0,66540,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学,30-34,337.8,311.5,906.5,4960.1,47349,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学,35-39,353.9,332.4,1023.8,5270.6,34378,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学,40-44,387.6,363.7,1171,5822.2,33501,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学,45-49,396.4,373.8,1212,5968.8,30171,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学,50-54,406.6,386.3,1424.5,6303.7,25228,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学,55-59,436.4,416.2,1566.4,6803.2,16295,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学,計,351.1,327.4,973.3,5186.5,300367,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学・大学院,20-24,281.7,260.7,381.0,3761.4,36831,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学・大学院,25-29,317.9,288.6,802.4,4617.2,70602,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学・大学院,30-34,341.0,314.3,924.4,5016.4,50196,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学・大学院,35-39,360.1,338.2,1058.8,5380.0,37296,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学・大学院,40-44,395.2,371.1,1216.5,5958.9,36086,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学・大学院,45-49,408.6,385.6,1255.6,6158.8,33199,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学・大学院,50-54,419.1,399.3,1466.1,6495.3,27096,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学・大学院,55-59,448.2,428.8,1596.2,6974.6,17649,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学・大学院,計,358.2,334.4,1006.3,5304.7,320639,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学院,20-24,300.3,288,110.8,3714.4,450,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学院,25-29,353.8,317.1,913.4,5159.0,4062,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学院,30-34,394.1,361.3,1222.4,5951.6,2847,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学院,35-39,433.4,406.7,1471.2,6672.0,2918,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学院,40-44,494.2,466.7,1805.6,7736.0,2585,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学院,45-49,529.9,503.2,1690.2,8049.0,3028,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学院,50-54,587.2,574.7,2028.1,9074.5,1868,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学院,55-59,590.6,580.6,1955.1,9042.3,1354,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,大学院,計,464,438.2,1494.6,7062.6,20272,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,学歴計,20-24,258.3,239.6,370.8,3470.4,97385,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,学歴計,25-29,293,268.8,647.3,4163.3,138099,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,学歴計,30-34,304.9,283.2,703.5,4362.3,108959,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,学歴計,35-39,310.7,292.4,756.9,4485.3,98773,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,学歴計,40-44,322.8,303.6,822.2,4695.8,115415,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,学歴計,45-49,324.9,305.7,829.7,4728.5,138454,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,学歴計,50-54,324.1,305.4,863.5,4752.7,151692,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,学歴計,55-59,323,305.7,855.6,4731.6,117395,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,女,学歴計,計,304.7,285.9,714.3,4370.7,1085374,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学,20-24,293.8,267.4,395.9,3921.5,36051,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学,25-29,348.2,305.1,905.4,5083.8,72930,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学,30-34,405.5,358.9,1212.5,6078.5,72963,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学,35-39,450.4,405.9,1445.2,6850.0,72411,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学,40-44,491.9,452.8,1729.3,7632.1,75116,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学,45-49,522.1,491.4,1904.5,8169.7,77086,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学,50-54,554.3,528.8,2254.7,8906.3,80730,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学,55-59,580.7,556.3,2318.1,9286.5,67543,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学,計,463.3,429.6,1542,7101.6,623022,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学・大学院,20-24,294.5,268.8,381.6,3915.6,37524,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学・大学院,25-29,354.4,310.3,939.6,5192.4,85223,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学・大学院,30-34,415.2,367.3,1284.4,6266.8,85564,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学・大学院,35-39,463.1,417.3,1530.3,7087.5,85609,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学・大学院,40-44,510.4,471.2,1876.0,8000.8,89141,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学・大学院,45-49,543.9,513.5,2063.7,8590.5,90083,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学・大学院,50-54,569.9,544.6,2337.5,9176.3,91674,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学・大学院,55-59,594.7,571.0,2400.5,9536.9,75769,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学・大学院,計,477.3,443.2,1636.4,7364.0,715435,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学院,20-24,312.1,302,32.4,3777.6,1473,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学院,25-29,391,341,1142.3,5834.3,12293,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学院,30-34,471.6,416.2,1700.9,7360.1,12601,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学院,35-39,532.5,479.8,1997,8387.0,13198,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学院,40-44,609.3,569.7,2662,9973.6,14025,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学院,45-49,673.1,644.4,3007.8,11085.0,12997,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学院,50-54,684.6,660.9,2948.5,11163.7,10944,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学院,55-59,709.6,691.9,3077.2,11592.4,8226,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,大学院,計,572,534.8,2272.5,9136.5,92413,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,学歴計,20-24,274.7,245.7,449.9,3746.3,106591,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,学歴計,25-29,329,288,791.6,4739.6,171420,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,学歴計,30-34,375.1,330.4,1012.8,5514.0,175627,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,学歴計,35-39,411.9,366.2,1200.8,6143.6,185832,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,学歴計,40-44,440.3,398.2,1359.4,6643.0,207264,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,学歴計,45-49,459.4,420.7,1456.8,6969.6,233623,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,学歴計,50-54,473.6,437.5,1580.7,7263.9,260173,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,学歴計,55-59,478.6,445.6,1589.6,7332.8,214930,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男,学歴計,計,410,373.4,1187,6107,1806997,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学,20-24,287.6,263.9,390.1,3841.3,72432,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学,25-29,332.7,296.4,853,4845.4,139471,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学,30-34,378.8,340.3,1092,5637.6,120312,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学,35-39,419.4,382.2,1309.6,6342.4,106788,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学,40-44,459.7,425.3,1557.1,7073.5,108617,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学,45-49,486.7,458.4,1709.7,7550.1,107257,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学,50-54,519.1,494.9,2057,8286.2,105958,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学,55-59,552.7,529.1,2172,8804.4,83838,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学,計,426.8,396.3,1357,6478.6,923389,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学・大学院,20-24,288.2,264.8,381.3,3839.7,74356,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学・大学院,25-29,337.8,300.5,877.4,4931.0,155826,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学・大学院,30-34,387.7,347.8,1151.2,5803.6,135759,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学・大学院,35-39,431.9,393.3,1387.3,6570.1,122904,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学・大学院,40-44,477.2,442.3,1686.0,7412.4,125227,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学・大学院,45-49,507.4,479.1,1846.1,7934.9,123281,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学・大学院,50-54,535.4,511.4,2138.7,8563.5,118770,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学・大学院,55-59,567.1,544.2,2248.6,9053.8,93417,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学・大学院,計,440.5,409.5,1441.4,6727.4,1036074,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学院,20-24,309.3,298.8,50.8,3762.4,1924,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学院,25-29,381.7,335,1085.5,5665.9,16355,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学院,30-34,457.3,406.1,1612.7,7100.3,15447,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学院,35-39,514.5,466.6,1901.8,8075.8,16116,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学院,40-44,591.4,553.7,2528.7,9625.5,16610,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学院,45-49,646,617.8,2758.9,10510.9,16024,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学院,50-54,670.4,648.3,2814.3,10859.1,12812,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学院,55-59,692.8,676.2,2918.6,11232.2,9579,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,大学院,計,552.6,517.4,2132.6,8763.8,112685,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,学歴計,20-24,266.8,242.8,412.1,3613.7,203976,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,学歴計,25-29,312.9,279.4,727.2,4482.0,309519,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,学歴計,30-34,348.2,312.3,894.4,5072.8,284586,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,学歴計,35-39,376.7,340.6,1046.7,5567.1,284606,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,学歴計,40-44,398.3,364.3,1167.2,5946.8,322678,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,学歴計,45-49,409.4,377.9,1223.4,6136.2,372077,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,学歴計,50-54,418.5,388.8,1316.5,6338.5,411864,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,学歴計,55-59,423.6,396.2,1330.3,6413.5,332325,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
+2025,新推計,男女計,学歴計,計,370.5,340.6,1009.6,5455.6,2892371,e-Stat 令和7年 表番号1（産業計・産業別） statInfId=000040420843 https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040420843&fileKind=4
