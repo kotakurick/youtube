@@ -11,6 +11,15 @@
 - 2026-10-06：台本（第2稿・推敲後）を承認（オーナー「おもろいよ！つぎいこ」）。ドラマの彼の台詞「男はそういうもんでしょ」は男のまま。「男子学生」「男友達」もそのまま。尺は仮通しで12分45秒。
 - 2026-10-06：一次資料の照合は問題なし（オーナー）。絵コンテ第2版を確認（オーナー「問題なし」）。「線がそろった組・残った組」に金を使う（オーナー「OK。背景がうすいベージュのため目立てばいい」）→ 組の床を金で塗り、1組だけ目立たせるときは金の太い枠。
 
+## ローカルへの引き継ぎ（2026-10-06、クラウドから）
+
+- 本線に入れたもの：この回のフォルダ全部と、部品（`render/src/lib/` の BorderMap・LogRuler・Living・PairedRows、CouplePairs の gold、PairedBars・PairedRows の直し）。
+- 声を作ったら、尺と字幕が声に合わせて変わる。場面の切り替えは読み上げの語で決めているので、声のあとに必ず
+  `python -I episodes/006-cheating-line/data/check_cues.py`（切り替えの語がすべて字幕の1行の中にあるか）と
+  `cd render && npm run check -- 006-cheating-line --every 10`（直すもの0）を通す。語が字幕の2行にまたがると、場面が5秒早く切り替わる。
+- BGM は未定（1本の動画で1曲。`docs/brand.md`）。オーナーに確かめる。
+- タイトル・サムネイルは未定（`meta.md`）。
+
 ## 進行状況
 
 人の工程（★）は飛ばさない。チェックを付けたら日付も書く。
@@ -22,8 +31,8 @@
 - [x] ★ 一次資料との照合（オーナー。2026-10-06）→ `sources.csv` の「照合」欄をすべて埋める
 - [x] ★ 台本レビュー（オーナー。2026-10-06）→ `review/owner.md`（Claude が読みやすい形にまとめて渡す。オーナーの指摘は Claude が書き写して台本に反映し、直した／直さなかったを1行ずつ書く）
 - [x] 4. 絵コンテ（クラウド。2026-10-06 第2版、3役の見直し済み、オーナー確認済み）：`scenes/Storyboard.tsx` に場面を描き（秒数と動きも）、`cd render && npm run storyboard -- <回のid>` で一覧と `storyboard.md` を作る（直すもの0、⚠ の場面は割り方を決める）→ 3役（`review-animator`・`review-illustrator`・`review-designer`）に見せて `review/storyboard-summary.md` にまとめて直す → ★ オーナーが確認
-- [ ] 5. 場面のコード（クラウド。2026-10-06 第1版：絵コンテの場面を読み上げの語で切り替え、はしごの数え下げ。細かい動きは仮通しのあと）→ `scenes/Episode.tsx`（`Episode.example.tsx` を名前を変えて使う。部品は `render/src/lib`、動きは `useNarration()` で読み上げに合わせる）
-- [ ] 6. 仮通し（クラウド）：`python tts/narrate.py episodes/006-cheating-line --voice silent` で仮の尺と字幕（`timing.json`）を作り、部品のない場面は仮の画面（draft）で13〜18分を通して、テンポ・章の長さ・考える場面の位置を直す
+- [x] 5. 場面のコード（クラウド。2026-10-06 第1版：絵コンテの場面を読み上げの語で切り替え、はしごの数え下げ）→ `scenes/Episode.tsx`（`Episode.example.tsx` を名前を変えて使う。部品は `render/src/lib`、動きは `useNarration()` で読み上げに合わせる）
+- [x] 6. 仮通し（クラウド。2026-10-06：無音・半分の解像度で書き出し、オーナーに送った。12分45秒＋終了画面）：`python tts/narrate.py episodes/006-cheating-line --voice silent` で仮の尺と字幕（`timing.json`）を作り、部品のない場面は仮の画面（draft）で13〜18分を通して、テンポ・章の長さ・考える場面の位置を直す
 - [ ] 7. 音声合成（ローカル）：`python tts/narrate.py episodes/006-cheating-line --voice eleven-yui`（文ごとに作り、尺・字幕・`subtitles.srt` も自動で声に合う。同じ文は作り直さない）
 - [ ] 8. 書き出し・BGM・音量（ローカル）：`npm run render`、`npm run master`（BGM は `npm run bgm` で測ってそろえたもの）
 - [ ] 9. 画面のチェック：`cd render && npm run check -- 006-cheating-line` の「直すもの」を0にし、「確かめるもの」は画像を見て判断する（重なり・28px未満の文字・はみ出し。結果は `render/out/qa/006-cheating-line/`）。縦型ショートも同じ
