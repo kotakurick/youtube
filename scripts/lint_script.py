@@ -78,7 +78,7 @@ def narration(text: str) -> list[tuple[int, str]]:
     return out
 
 
-SOURCE_TAG = re.compile(r"\[S\d+(?:[,，]\s*S?\d+)*\]")
+SOURCE_TAG = re.compile(r"\[S\d+[a-z]?(?:[,，]\s*S?\d+[a-z]?)*\]")
 VOICE_TAG = re.compile(r"〔[^〕]*〕")  # 声への指示（〔間〕〔間・長〕〔thoughtful〕など）。読み上げない
 
 
