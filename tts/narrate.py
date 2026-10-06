@@ -190,6 +190,49 @@ def write_srt(scenes: list[dict], out: Path) -> None:
     out.write_text("\n".join(rows), encoding="utf-8")
 
 
+def suspicious_lines(rows: list[tuple[str, float]], ratio: float = 1.3, extra: float = 0.5) -> list[tuple[int, float]]:
+    """[(読む文, 秒)] から、長さの割に音声が長すぎる文を探す（同じ言葉を2回読んだ・言い直した疑い）。
+    1本の中の全部の文で「秒 ＝ a ＋ b×字数 ＋ c×読点の数」を当てはめ、予想より ratio 倍以上かつ extra 秒以上長い文を返す。
+    2026-10-06：「では、一年後。」が「では、では、一年後。」になっていた（予想の1.36倍・＋0.6秒。ほかの文は数字の多い文で1.25倍まで）。
+    長い文の頭の1語の繰り返しは差が小さく、ここでは見つからない（台本の側で防ぐ：lint_script.py）。戻り値は [(rows の番号, 予想の何倍か)]"""
+    if len(rows) < 20:
+        return []
+    feats = [(1.0, len(re.sub(r"[、。？！?!「」（）・\s]", "", y)), y.count("、")) for y, _ in rows]
+    ys = [d for _, d in rows]
+    # 正規方程式（3×3）を解く
+    m = [[sum(f[i] * f[j] for f in feats) for j in range(3)] + [sum(f[i] * y for f, y in zip(feats, ys))] for i in range(3)]
+    for i in range(3):
+        if abs(m[i][i]) < 1e-9:
+            return []
+        m[i] = [x / m[i][i] for x in m[i]]
+        for j in range(3):
+            if j != i:
+                m[j] = [x - m[j][i] * z for x, z in zip(m[j], m[i])]
+    co = [m[i][3] for i in range(3)]
+    out = []
+    for k, (f, d) in enumerate(zip(feats, ys)):
+        pred = co[0] + co[1] * f[1] + co[2] * f[2]
+        if pred > 0 and d / pred >= ratio and d - pred >= extra:
+            out.append((k, d / pred))
+    return out
+
+
+def report_suspicious(log: list, out_scenes: list[dict]) -> None:
+    starts, acc = [], 0.0
+    for sc in out_scenes:
+        starts.append(acc)
+        acc += sc["seconds"] or 0
+    hits = suspicious_lines([(y, d) for _, _, _, y, d in log])
+    if not hits:
+        return
+    print("\n聞いて確かめる文（長さの割に音声が長い。同じ言葉を2回読んでいないか）：")
+    for k, r in hits:
+        i, t, s, _, d = log[k]
+        at = starts[i] + t
+        print(f"  {int(at // 60)}:{int(at % 60):02d}  {out_scenes[i]['id']:<12} {d:4.1f}秒（予想の{r:.2f}倍）  {s}")
+    print("  2回読んでいたら、台本の言い方を変えて作り直す（同じ文のままだとキャッシュの音声が使われる）")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("episode", type=Path, help="episodes/<回> のフォルダ")
@@ -210,6 +253,7 @@ def main():
     audio_dir = data / "audio"
     paid_chars = 0
     out_scenes = []
+    spoken_log = []  # [(場面の番号, 場面の中の秒, 文, 読む文, 秒)]：長すぎる文を探す（suspicious_lines）
     for sc in scenes:
         if not sc["lines"]:  # 声のない場面
             out_scenes.append({"id": sc["id"], "seconds": sc["seconds"], "audio": None, "lines": []})
@@ -239,6 +283,7 @@ def main():
                     tts.synthesize(spoken, v, wav)
                     paid_chars += len(spoken)
             dur = wav_seconds(wav)
+            spoken_log.append((len(out_scenes), t, s.replace(BREAK, ""), tts.apply_yomi(s.replace(BREAK, "")), dur))
             subs = [] if nosub else subtitle_parts(s, 16 if a.vertical else SUB_MAX)
             nosub = False
             total = sum(len(x) for x in subs) or 1
@@ -264,6 +309,8 @@ def main():
     cost = "" if v is None else f"、今回作った分 {paid_chars}字・約{tts.cost_usd(v['engine'], 'あ' * paid_chars, cfg['pricing']) * cfg['jpy_per_usd']:.0f}円"
     print(f"\n{len(out_scenes)}場面、合計 {int(total // 60)}分{total % 60:.0f}秒{cost}")
     print(f"→ {ep / timing_name}（音声は {audio_dir}）")
+    if v is not None:
+        report_suspicious(spoken_log, out_scenes)
     if a.voice == "silent":
         print("※ 仮の無音です。声が決まったら --voice を変えて作り直すと、尺と字幕も声に合わせて変わります。")
 

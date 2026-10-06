@@ -2,7 +2,7 @@
 // qa.ts の決まりで問題を探す。問題のある箱を赤（直すもの）と橙（確かめるもの）の枠で囲み、結果を "QA:" で始まる1行で書き出す。
 import React, { useEffect, useState } from "react";
 import { continueRender, delayRender, getInputProps, useCurrentFrame, useVideoConfig } from "remotion";
-import { checkBoxes, QABox, QAIssue, QAKind } from "./qa";
+import { checkBoxes, checkSchematic, checkSeriesColors, checkTextGaps, QABox, QAIssue, QAKind } from "./qa";
 
 export const qaEnabled = () => {
   try { return Boolean((getInputProps() as { qa?: boolean }).qa); } catch { return false; }
@@ -25,12 +25,12 @@ const collect = (): { boxes: QABox[]; els: Element[] } => {
   const root = document.body;
   const boxes: QABox[] = [];
   const els: Element[] = [];
-  const push = (el: Element, kind: QAKind, r: DOMRect, label: string, fontPx?: number) => {
+  const push = (el: Element, kind: QAKind, r: DOMRect, label: string, fontPx?: number, context?: string) => {
     if (r.width < 1 || r.height < 1) return;
     // 重なってよい相手は、自分と親の印をすべて合わせる（例：寄りの画面の中の、名札つきの人型）
     const allow: string[] = [];
     for (let e: Element | null = el; e; e = e.parentElement) allow.push(...(e.getAttribute("data-qa-allow") ?? "").split(/\s+/).filter(Boolean));
-    boxes.push({ id: boxes.length, kind, x: r.left, y: r.top, w: r.width, h: r.height, allow, label, fontPx });
+    boxes.push({ id: boxes.length, kind, x: r.left, y: r.top, w: r.width, h: r.height, allow, label, fontPx, context });
     els.push(el);
   };
   // 印の付いた部品
@@ -65,7 +65,7 @@ const collect = (): { boxes: QABox[]; els: Element[] } => {
       x0 = Math.min(x0, line.left); x1 = Math.max(x1, line.right); y0 = Math.min(y0, top); y1 = Math.max(y1, top + h);
     }
     if (x0 === Infinity) continue;
-    push(el, "text", new DOMRect(x0, y0, x1 - x0, y1 - y0), short(text), fs);
+    push(el, "text", new DOMRect(x0, y0, x1 - x0, y1 - y0), short(text), fs, el.textContent ?? text); // 文字の要素の中だけ（「27<span>組</span>」のように単位が子の要素でも拾う。外まで見ると、ほかの札の「枚」などを単位と取り違える）
   }
   return { boxes, els };
 };
@@ -82,6 +82,18 @@ export const QAOverlay: React.FC = () => {
       const related = (a: QABox, b: QABox) => els[a.id].contains(els[b.id]) || els[b.id].contains(els[a.id]);
       const vertical = height > width;
       const found = checkBoxes(boxes, related, { w: width, h: height, unsafeBottom: vertical ? 0 : 80, fontScale: width < 1900 && !vertical ? width / 1920 : 1 });
+      // 折れ線（data-qa-label が「線：」で始まる polyline）を、グラフ（svg）ごとにまとめて色を調べる
+      const groups = new Map<Element, { box: QABox; rgb: [number, number, number] }[]>();
+      boxes.forEach((b, i) => {
+        const el = els[i];
+        if (el.tagName.toLowerCase() !== "polyline" || !b.label.startsWith("線：")) return;
+        const m = getComputedStyle(el).stroke.match(/\d+(\.\d+)?/g);
+        const svg = (el as SVGElement).ownerSVGElement;
+        if (!m || !svg) return;
+        groups.set(svg, [...(groups.get(svg) ?? []), { box: b, rgb: [Number(m[0]), Number(m[1]), Number(m[2])] }]);
+      });
+      found.push(...checkSeriesColors([...groups.values()]));
+      found.push(...checkTextGaps(boxes, related, width < 1900 && !vertical ? width / 1920 : 1), ...checkSchematic(boxes));
       setIssues(found);
       console.debug("QA:" + JSON.stringify({ frame, issues: found.map((f) => ({ level: f.level, rule: f.rule, message: f.message })) }));
       requestAnimationFrame(() => continueRender(handle));

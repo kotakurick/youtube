@@ -34,9 +34,13 @@ if (fs.existsSync(epRoot)) {
 n += copyDir(path.join(dataDir, "bgm"), path.join(pub, "bgm"));
 n += makeSfx(path.join(pub, "sfx"));
 // フォント（無ければ一度だけダウンロード。約9.6MB、SIL Open Font License）
-const fontPath = path.join(pub, "fonts", "NotoSansJP.ttf");
+// 明朝体（Noto Serif JP）はサムネイルの文字に使う（2026-10-06 オーナー「文字は明朝体がよい」）
+for (const [file, url] of [
+  ["NotoSansJP.ttf", "https://raw.githubusercontent.com/google/fonts/main/ofl/notosansjp/NotoSansJP%5Bwght%5D.ttf"],
+  ["NotoSerifJP.ttf", "https://raw.githubusercontent.com/google/fonts/main/ofl/notoserifjp/NotoSerifJP%5Bwght%5D.ttf"],
+]) {
+const fontPath = path.join(pub, "fonts", file);
 if (!fs.existsSync(fontPath)) {
-  const url = "https://raw.githubusercontent.com/google/fonts/main/ofl/notosansjp/NotoSansJP%5Bwght%5D.ttf";
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -47,5 +51,6 @@ if (!fs.existsSync(fontPath)) {
     console.error(`フォントを取得できませんでした（${e.message}）。${url} を手で ${fontPath} に置いてください。`);
     process.exit(1);
   }
+}
 }
 console.log(`素材を ${n} 件そろえました → ${pub}`);

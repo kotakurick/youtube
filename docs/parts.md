@@ -65,6 +65,7 @@
 | MatchingSim / MatchingCompare | MatchingSim.tsx | マッチングのシミュレーション |
 | CohortRace | CohortRace.tsx | 年齢ごとの割合で進める100人の競争。`mode="leave"` で起きた人（別れた夫婦など）が列から抜けて点線の跡が残り、上に「残った○人のうち、○○ ○人（○%）」（`focus`・`focusName`。並べ方は `cols`・`dx`・`dy`）。人ごとに割合を変えるのは `sim/cohort.ts` の `cohortBy`（4本目） |
 | FilterSteps | FilterSteps.tsx | 条件を重ねて100人が減る |
+| ConditionGrid | ConditionGrid.tsx | 条件の盤（2×2）。仮定を2つ動かした4つの町で、どちらが勝つかを横棒で比べる（条件で答えが変わる回） |
 | SimSpread | SimSpread.tsx | シミュレーションのばらつき |
 | Slider | Slider.tsx | 「もしも」の条件のつまみ |
 | SimBackground | SimBackground.tsx | シミュレーションの場面の方眼 |
@@ -106,6 +107,6 @@
 | Camera | Camera.tsx | 寄り・引き・横移動 |
 | Beat / Enter / EnterG / Wipe / ramp / useCue | Motion.tsx | 場面の中の区切りと出し方：区切り（Beat）、ばねで出す（Enter は HTML、EnterG は SVG の中）、左→右・下→上にぬぐって見せる（Wipe）、0→1 の補間（ramp）、読み上げの語の時刻（useCue。見つからなければ予備の値）（4本目） |
 | Counter / Bracket | Counter.tsx・Bracket.tsx | 人数の数え上げ・まとまりの括弧 |
-| SignOff | SignOff.tsx | 毎回の締めのひと言のアニメーション（丘の猫2匹・100個の点が星になる）。教訓のあと、終了画面の前 |
-| EndScreen | EndScreen.tsx | 終了画面 |
+| SignOff | SignOff.tsx | 毎回の締めのひと言のアニメーション（丘の上のゴサが100個の点を数え、点が星になる）。教訓のあとに `<SignOff />`、終了画面に `<SignOff end />`（同じ夜のまま右に次の1本・再生リストの枠） |
+| EndScreen | EndScreen.tsx | 古い終了画面（紙の地）。新しい回は `<SignOff end />` を使う |
 | Thumbnail | Thumbnail.tsx | サムネイル |
