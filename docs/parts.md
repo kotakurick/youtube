@@ -18,7 +18,7 @@
 |---|---|---|
 | Figure | Figure.tsx | 群衆の1人（人型）。男女は色と胴の形。姿勢5つ。名札は文字40px固定、1人の寄りでは `ring={false}`（2026-10-05）。顔は描かない（2026-10-05 オーナー「目玉はいらない」） |
 | Crowd | Crowd.tsx | 群衆（100人＝1人1%）。出発点→到着点へばねで移る |
-| Cat | Cat.tsx | 物語の場面の登場人物（猫・トラ柄）。ポーズ5つ・表情5つ。見本 `cat-poses` |
+| Cat | Cat.tsx | 物語の場面の登場人物（猫・トラ柄）。ポーズ5つ・表情6つ（2026-10-06 眠る `sleep` を足した）。見本 `cat-poses` |
 | Gosa | Gosa.tsx | 案内役ゴサ。右下に固定、表情11種 |
 
 ## 文字の札
@@ -40,7 +40,10 @@
 | 部品 | ファイル | 使う所 |
 |---|---|---|
 | BarChart | BarChart.tsx | 縦棒 |
-| PairedBars | PairedBars.tsx | 男女2本ずつの縦棒 |
+| PairedBars | PairedBars.tsx | 男女2本ずつの縦棒（`names` で「夫」「妻」） |
+| GenderLines | GenderLines.tsx | 夫と妻（男女）の割合の線。縦軸0〜100%固定（平均点は `domain` で尺度の端から端）。別の調査を白抜きの点で重ねる・帯・途中まで描く（4本目） |
+| PercentColumns | PercentColumns.tsx | 100%の柱（満足＝淡い・満足でない＝濃い など）。括り・別の年の点線（4本目） |
+| DayStack | DayStack.tsx | 一日の時間の中身の積み上げ柱（高さ＝分）。前→後を帯でつなぎ、中身の入れ替わりを見せる（4本目） |
 | BothSides | BothSides.tsx | 男女を左右対称に比べる（もう一方の側のデータ） |
 | LineChart | LineChart.tsx | 推移の折れ線 |
 | StackedTrend | StackedTrend.tsx | 構成比の推移（100%積み上げ） |
@@ -74,6 +77,9 @@
 | NotifStack | StoryAnim.tsx | いいねの通知が積もる |
 | OfficeYears | StoryAnim.tsx | 職場の机が年ごとに空いていく |
 | DayReplay | DayReplay.tsx | 日ごとの再現（日めくり） |
+| CarFront / Navi / TrafficSignal | Car.tsx | 車の中を前から（右ハンドル：運転席は画面の左、後ろの席の子は前の席のあいだ）。信号（赤・青）、カーナビの大きな画面。猫は `CAR` の座標に置く（4本目の冒頭と教訓） |
+| Balance | Balance.tsx | 天秤。おもりは横幅一定・高さ＝量（面積＝量）。傾きは量の差から、`tilt`＋`moving` で動いている途中（止まる位置を見せない）（4本目） |
+| CouplePairs / PeopleRows | CouplePairs.tsx | 夫婦の組の並び（1組＝妻と夫と床）と、組にする前の性別ごとの列。注目は濃い色（4本目の引き算） |
 | Bedroom | Bedroom.tsx | 夜のワンルーム（ベッド・時計1時10分・月の窓）。窓に雪・雲・床の光を出せる。冒頭と締めで同じ部屋に（2本目） |
 
 ## お金の比喩（2本目 r > g で作った）

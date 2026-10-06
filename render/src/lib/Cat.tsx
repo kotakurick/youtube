@@ -12,7 +12,7 @@ import { C, FONT } from "./theme";
 
 export type CatKind = "male" | "female" | "other";
 export type CatPose = "stand" | "sit" | "phone" | "walk" | "down";
-export type CatFace = "normal" | "happy" | "sad" | "surprised" | "think";
+export type CatFace = "normal" | "happy" | "sad" | "surprised" | "think" | "sleep"; // sleep：眠っている（閉じた目・ωの口。2026-10-06 4本目の車の後ろの席の子で足した）
 
 const PAL: Record<CatKind, { main: string; dark: string; inner: string }> = {
   male: { main: C.male, dark: "#1E4C9E", inner: "#D6E2F7" },
@@ -71,6 +71,7 @@ export const Cat: React.FC<{
     const cx = side * ex + fx;
     switch (eyesKind) {
       case "happy": return <path key={side} d={`M ${cx - 7 * K} ${ey + 2 * K} q ${7 * K} ${-8 * K} ${14 * K} 0`} fill="none" stroke={C.white} strokeWidth={3.6 * K} strokeLinecap="round" />;
+      case "sleep": return <path key={side} d={`M ${cx - 7 * K} ${ey} q ${7 * K} ${6 * K} ${14 * K} 0`} fill="none" stroke={C.white} strokeWidth={3.2 * K} strokeLinecap="round" />;
       case "blink": return <path key={side} d={`M ${cx - 6.5 * K} ${ey} h ${13 * K}`} stroke={C.white} strokeWidth={3.6 * K} strokeLinecap="round" />;
       case "surprised": return <g key={side}><circle cx={cx} cy={ey - 2 * K} r={9.5 * K} fill={C.white} /><circle cx={cx} cy={ey - 2 * K} r={3.5 * K} fill={C.ink} /></g>;
       case "sad": return <g key={side}><circle cx={cx} cy={ey + 2 * K} r={6.5 * K} fill={C.white} /><circle cx={cx + lx * 2 * K} cy={ey + 4 * K + ly * 1.5 * K} r={3.2 * K} fill={C.ink} />
