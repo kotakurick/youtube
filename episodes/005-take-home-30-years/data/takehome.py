@@ -93,6 +93,48 @@ def takehome(gross, bonus_months, age, year, special_cut=False, health_bonus_199
     }
 
 
+def ladder(gross, bm, age):
+    """1995年の制度から、厚生年金 → 健康保険 → 介護保険 → 雇用保険 → 税 の順に2025年の制度へ置き換える。"""
+    monthly = gross / (12 + bm)
+    bonus = monthly * bm
+    p95 = monthly * 12 * 0.0825 + bonus * 0.005
+    h95 = monthly * 12 * 0.041 + bonus * 0.004
+    p25, h25 = gross * 0.0915, gross * 0.050
+    c25 = gross * 0.00795 if 40 <= age <= 64 else 0.0
+    e95, e25 = gross * 0.004, gross * 0.0055
+    b95, b25 = takehome(gross, bm, age, 1995), takehome(gross, bm, age, 2025)
+
+
+    steps = [("1995年の制度", p95, h95, 0.0, e95, 1995),
+             ("厚生年金を今の率に（月給8.25→9.15%、賞与にも同じ率）", p25, h95, 0.0, e95, 1995),
+             ("健康保険を今の率に（4.1→5.0%、賞与にも同じ率）", p25, h25, 0.0, e95, 1995),
+             ("介護保険を足す（40歳以上 0.8%）", p25, h25, c25, e95, 1995),
+             ("雇用保険を今の率に（0.4→0.55%）", p25, h25, c25, e25, 1995),
+             ("所得税・住民税を今の制度に", p25, h25, c25, e25, 2025)]
+    out = []
+    for label, p, h, c, e, ty in steps:
+        social = p + h + c + e
+        out.append((label, gross - social - _tax_only(gross, social, ty)))
+    assert abs(out[0][1] - b95["takehome"]) < 1 and abs(out[-1][1] - b25["takehome"]) < 1
+    return out
+
+
+def _tax_only(gross, social, year):
+    """保険料を与えたときの所得税＋住民税（takehome と同じ式）。"""
+    shotoku = kyuyo_shotoku(gross, year)
+    if year == 1995:
+        it = progressive(max(shotoku - social - 380000, 0), [(3300000, 0.10), (9000000, 0.20), (18000000, 0.30),
+                                                             (30000000, 0.40), (INF, 0.50)])
+        rt = progressive(max(shotoku - social - 330000, 0), [(2000000, 0.05), (7000000, 0.10), (INF, 0.15)]) + 2700
+        return it + rt
+    basic = next(a for upper, a in BASIC_2025 if shotoku <= upper)
+    it = progressive(max(shotoku - social - basic, 0), [(1950000, 0.05), (3300000, 0.10), (6950000, 0.20),
+                                                        (9000000, 0.23), (18000000, 0.33), (40000000, 0.40),
+                                                        (INF, 0.45)]) * 1.021
+    rt = max(shotoku - social - 430000, 0) * 0.10 - 2500 + 5000
+    return it + rt
+
+
 # 男性・学歴計の賞与の月数（賃金構造基本統計調査 2025年：年間賞与 ÷ きまって支給する現金給与額。wage_by_age.csv）
 def bonus_months_from_census(year, age_band):
     path = os.path.join(HERE, "wage_by_age.csv")
@@ -175,7 +217,7 @@ def main():
               "1995年の健康保険の賞与の会社負担は0.4%と仮定。", "",
               "| 年齢 | 会社が払う総額1995 | 会社が払う総額2025 | 総額の差 | 額面の差 | 手取りの差 | 手取り÷総額1995 | 手取り÷総額2025 |",
               "|---|---|---|---|---|---|---|---|"]
-    for age, band in ((27, "25-29"), (32, "30-34"), (47, "45-49"), (52, "50-54")):
+    for age, band in ((27, "25-29"), (32, "30-34"), (37, "35-39"), (47, "45-49"), (52, "50-54")):
         bm95, g95 = bonus_months_from_census(1995, band)
         bm25, g25 = bonus_months_from_census(2025, band)
         a = takehome(g95, bm95, age, 1995)
@@ -184,6 +226,29 @@ def main():
         t25 = g25 + b["pension"] + b["health"] + b["care"]
         lines.append(f"| {band} | {man(t95)} | {man(t25)} | {(t25 / t95 - 1) * 100:+.0f}% | {(g25 / g95 - 1) * 100:+.0f}% | "
                      f"{(b['takehome'] / a['takehome'] - 1) * 100:+.0f}% | {a['takehome'] / t95 * 100:.0f}% | {b['takehome'] / t25 * 100:.0f}% |")
+
+    lines += ["", "## 6. はしご：1995年の制度から、1つずつ2025年の制度に置き換える", "",
+              "額面は同じ（2025年の同じ年齢の男性の賞与の月数）。上から順に置き換えた手取りと、その段で動いた額。", ""]
+    for gross, age, band in ((5000000, 45, "45-49"), (5000000, 38, "35-39"), (5000000, 30, "30-34")):
+        bm, _ = bonus_months_from_census(2025, band)
+        lines += [f"### 額面{man(gross)}万円・{age}歳（賞与{bm:.1f}か月）", "", "| 段 | 手取り | この段の差 |", "|---|---|---|"]
+        prev = None
+        for label, d in ladder(gross, bm, age):
+            diff = "" if prev is None else f"{(d - prev) / 10000:+.1f}"
+            lines.append(f"| {label} | {man(d)} | {diff} |")
+            prev = d
+        lines.append("")
+
+    lines += ["## 7. 会社が払う総額を物価で直すと", "",
+              "| 年齢 | 総額1995（2025年の物価） | 総額2025 | 差 |", "|---|---|---|---|"]
+    for age, band in ((27, "25-29"), (32, "30-34"), (37, "35-39"), (47, "45-49"), (52, "50-54")):
+        bm95, g95 = bonus_months_from_census(1995, band)
+        bm25, g25 = bonus_months_from_census(2025, band)
+        a = takehome(g95, bm95, age, 1995)
+        b = takehome(g25, bm25, age, 2025)
+        t95 = (g95 + a["pension"] + a["health"]) * CPI_2025_PER_1995
+        t25 = g25 + b["pension"] + b["health"] + b["care"]
+        lines.append(f"| {band} | {man(t95)} | {man(t25)} | {(t25 / t95 - 1) * 100:+.0f}% |")
 
     with open(os.path.join(HERE, "takehome_result.md"), "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(lines) + "\n")
