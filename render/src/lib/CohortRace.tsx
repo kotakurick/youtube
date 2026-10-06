@@ -58,8 +58,8 @@ export const CohortRace: React.FC<{
             {!leave && <div style={{ ...font("value"), whiteSpace: "nowrap" }}>{verb} {left}{unit}
               {yr >= 0 && <span style={{ ...font("note", C.ink2), marginLeft: 12 }}>いま{g.startAge + yr}歳</span>}</div>}
             {leave && <div style={{ ...font("label"), whiteSpace: "nowrap", marginTop: 8 }}>
-              {verb} <b style={{ ...font("value") }}>{left}</b>{unit}　残った {remain.length}{unit}のうち、{focusName}
-              <b style={{ ...font("value") }}> {k}</b>{unit}（{Math.round((k / Math.max(1, remain.length)) * 100)}%）</div>}
+              {verb} <b style={{ ...font("value") }}>{left}<span style={font("label")}>{unit}</span></b>　残った {remain.length}{unit}のうち、{focusName}
+              <b style={{ ...font("value") }}> {k}<span style={font("label")}>{unit}</span></b>（{Math.round((k / Math.max(1, remain.length)) * 100)}%）</div>}
           </div>
         );
       })}

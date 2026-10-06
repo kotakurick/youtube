@@ -200,7 +200,7 @@ export const Thought: React.FC<{ x: number; y: number; text: string; toward: [nu
   const fs = role === "sub" ? 54 : 40;
   const lines = text.split("\n");
   const headH = head ? 52 : 0;
-  const w = wIn ?? Math.max(...lines.map((l) => l.length)) * fs + 64, h = lines.length * fs * 1.35 + 34 + headH;
+  const w = wIn ?? Math.max(...lines.map((l) => l.length)) * fs + 64, h = lines.length * fs * 1.45 + 34 + headH; // 行の送り 1.45（文字の上下を16px以上空ける。2026-10-06）
   // 札のふちから toward へ、丸を3つ（大→小）
   const cx = Math.max(x + 40, Math.min(x + w - 40, toward[0])), cy = toward[1] < y ? y : y + h;
   const dots = [0.25, 0.6, 0.9].map((k, i) => ({ x: cx + (toward[0] - cx) * k, y: cy + (toward[1] - cy) * k, r: [16, 10, 6][i] }));
@@ -211,7 +211,7 @@ export const Thought: React.FC<{ x: number; y: number; text: string; toward: [nu
       <rect x={x} y={y} width={w} height={h} rx={Math.min(h / 2, R.lg + 12)} fill={C.white} stroke={color} strokeWidth={LINE.thin} strokeDasharray={dash} />
       {head && <text x={x + 32} y={y + 50} style={font("label", C.ink2)}>{head}</text>}
       {lines.map((l, i) => (
-        <text key={i} x={x + w / 2} y={y + 17 + headH + fs * 1.35 * i + fs * 1.0} textAnchor="middle" style={font(role)}>{l}</text>
+        <text key={i} x={x + w / 2} y={y + 17 + headH + fs * 1.45 * i + fs * 1.0} textAnchor="middle" style={font(role)}>{l}</text>
       ))}
     </g>
   );

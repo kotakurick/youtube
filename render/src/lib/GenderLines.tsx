@@ -7,6 +7,8 @@
 //   - 値は100%の線より上に出さない（100%を超えた値に見える）。上に置くと線の外に出るときは dx・dy で点の横・下へ。
 //   - 2本が同じ点で重なるときは、片方を ring（太い輪）にして、中にもう片方の点が入る形で見せる（片方が隠れない）。
 //   - 別の調査の点（ghost）は、つながない・別の色（墨の灰）にする（聞き方が違う値を同じ線の仲間に見せない）。
+//   - 横軸の区分の名前は、縦軸のいちばん下の目盛り（「0%」「1点」）と上下16px以上空ける（+74）。
+//   - 線の右端の名前（夫・妻）は、近いときは上下に押し広げる（58px以上の送り）。2026-10-06
 //   - 帯の見出しは labelAt="bottom" で帯の中の下に（上に置くと値の文字とぶつかる）。
 import React from "react";
 import { C, font, LINE, R } from "./theme";
@@ -30,6 +32,16 @@ export const GenderLines: React.FC<{
   const X = (i: number) => x + (n === 1 ? width / 2 : (i / (n - 1)) * width);
   const Y = (v: number) => y + height - ((v - domain[0]) / (domain[1] - domain[0])) * height;
   const last = upTo ?? n - 1;
+  // 線の右端の名前の高さ：近すぎる組は上下に押し広げる（文字の上下を16px以上。40px の文字で58px送り）
+  const ends = series.map((s, si) => {
+    const pts = s.values.map((v, i) => [s.xs?.[i] ?? i, v] as const).filter(([i, v]) => v !== null && i <= last) as [number, number][];
+    return !endLabels || s.ghost || !s.label || !pts.length ? null : { si, y: Y(pts[pts.length - 1][1]) + 14 };
+  }).filter((e): e is { si: number; y: number } => e !== null).sort((a, b) => a.y - b.y);
+  for (let k = 1; k < ends.length; k++) {
+    const need = 58 - (ends[k].y - ends[k - 1].y);
+    if (need > 0) { ends[k].y += need / 2; for (let j = k - 1; j >= 0 && ends[j + 1].y - ends[j].y < 58; j--) ends[j].y = ends[j + 1].y - 58; }
+  }
+  const endY = new Map(ends.map((e) => [e.si, e.y]));
   return (
     <g>
       {band && (
@@ -46,12 +58,12 @@ export const GenderLines: React.FC<{
           <text x={x - 50} y={Y(v) + 14} textAnchor="end" style={font("label", C.ink2)}>{yFormat(v)}</text>
         </g>
       ))}
-      {ticks.map((t, i) => <text key={i} x={X(i)} y={y + height + 58} textAnchor="middle" style={font("label", C.ink2)}>{t}</text>)}
-      {axisTitle && <text x={x + width + 20} y={y + height + 104} textAnchor="end" style={font("note", C.ink2)}>{axisTitle}</text>}
+      {ticks.map((t, i) => <text key={i} x={X(i)} y={y + height + 74} textAnchor="middle" style={font("label", C.ink2)}>{t}</text>)}
+      {axisTitle && <text x={x + width + 20} y={y + height + 120} textAnchor="end" style={font("note", C.ink2)}>{axisTitle}</text>}
       {series.map((s, si) => {
         const pts = s.values.map((v, i) => [s.xs?.[i] ?? i, v] as const).filter(([i, v]) => v !== null && i <= last) as [number, number][];
         if (!pts.length) return null;
-        const [ei, ev] = pts[pts.length - 1];
+        const [ei] = pts[pts.length - 1];
         return (
           <g key={si}>
             {!s.ghost && pts.length > 1 && (
@@ -62,7 +74,7 @@ export const GenderLines: React.FC<{
               <circle key={i} data-qa="mark" data-qa-label={`点：${s.label}`} cx={X(i)} cy={Y(v)} r={s.ring ? 19 : s.ghost ? 12 : 10}
                 fill={s.ghost ? C.white : s.ring ? "none" : s.color} stroke={s.color} strokeWidth={s.ring ? LINE.base : s.ghost ? 5 : 0} />
             ))}
-            {endLabels && !s.ghost && <text x={X(ei) + 28} y={Y(ev) + 14} style={font("label", s.color)}>{s.label}</text>}
+            {endY.has(si) && <text x={X(ei) + 28} y={endY.get(si)} style={font("label", s.color)}>{s.label}</text>}
           </g>
         );
       })}

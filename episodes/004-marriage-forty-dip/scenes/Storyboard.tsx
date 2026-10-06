@@ -110,9 +110,9 @@ export const satSeries: GLSeries[] = [
 export const NSFJ_WIFE: GLSeries = { label: "妻だけの調査", color: C.ink2, ghost: true, values: [93.9, 79.0, 75.5, 77.8, 74.7], xs: [0.4, 3.4, 4.4, 5.4, 7.4] };
 /** 二本の線のグラフの枠（11〜13・27・37 で同じ。5歳ぶん 125px） */
 export const CH = { x: 300, y: 250, width: 1250, height: 470 };
-export const AxisTitle: React.FC<{ text?: string }> = ({ text = "満足している割合" }) => <Label x={96} y={214} color={C.ink2}>{text}</Label>;
+export const AxisTitle: React.FC<{ text?: string }> = ({ text = "満足している割合" }) => <Label x={96} y={200} color={C.ink2}>{text}</Label>; // 100%の目盛り（y264）と上下16px以上
 /** 夫の輪・妻の点の凡例（グラフの外の右上） */
-export const LegendHW: React.FC<{ x?: number; y?: number }> = ({ x = 1330, y = 214 }) => (
+export const LegendHW: React.FC<{ x?: number; y?: number }> = ({ x = 1330, y = 200 }) => (
   <g>
     <circle cx={x} cy={y - 14} r={17} fill="none" stroke={C.male} strokeWidth={LINE.base} />
     <Label x={x + 30} y={y} color={C.male}>夫</Label>
@@ -166,7 +166,7 @@ export const chores = (who: "husband" | "wife", text = true): Weight => who === 
 export const work = (who: "husband" | "wife", text?: string): Weight => ({ label: who === "husband" ? "夫の仕事" : "妻の仕事", value: who === "husband" ? 507 : 285,
   color: who === "husband" ? C.male : C.female, fill: "hatch", text });
 export const veiled = (who: "husband" | "wife"): Weight => ({ ...work(who), veiled: true });
-export const BAL = { x: 960, y: 330 };
+export const BAL = { x: 960, y: 320 }; // 妻の皿が下がっても皿の名前が出典と16px以上離れる高さ
 export const BalanceAt: React.FC<{ left: Weight[]; right: Weight[]; tilt?: number; moving?: boolean; from?: number; names?: boolean }> = ({ left, right, tilt, moving, from, names = true }) => (
   <Balance x={BAL.x} y={BAL.y} left={left} right={right} tilt={tilt} moving={moving} from={from}
     leftName={names ? "夫" : undefined} rightName={names ? "妻" : undefined} leftColor={C.male} rightColor={C.female} />
@@ -210,7 +210,7 @@ export const S05: React.FC = () => (
   </AbsoluteFill>
 );
 export const RowsLabel: React.FC<{ y: number; top: string; bottom: string; color?: string }> = ({ y, top, bottom, color = C.ink }) => (
-  <><Label x={96} y={y} color={color}>{top}</Label><Label x={96} y={y + 50} color={C.ink2}>{bottom}</Label></>
+  <><Label x={96} y={y} color={color}>{top}</Label><Label x={96} y={y + 60} color={C.ink2}>{bottom}</Label></>
 );
 export const S06: React.FC = () => (
   <AbsoluteFill>
@@ -219,11 +219,11 @@ export const S06: React.FC = () => (
       <RowsLabel y={380} top="30歳前後の妻" bottom="100人" />
       <PeopleRows x={380} y={290} kind="female" on={7} dy={68} />
       <Label x={1500} y={400} size="value" color={C.female}>6.5%</Label>
-      <Label x={1500} y={450}>15人に1人</Label>
+      <Label x={1500} y={462}>15人に1人</Label>
       <RowsLabel y={670} top="40代半ばの妻" bottom="100人" />
       <PeopleRows x={380} y={580} kind="female" on={23} dy={68} />
       <Label x={1500} y={690} size="value" color={C.female}>23.1%</Label>
-      <Label x={1500} y={740}>4人に1人近く</Label>
+      <Label x={1500} y={752}>4人に1人近く</Label>
     </Svg>
     <SourceNote text={`${SRC.nfrj}（28〜32歳・43〜47歳）`} />
   </AbsoluteFill>
@@ -235,8 +235,8 @@ export const S07: React.FC = () => (
       <RowsLabel y={380} top="40代半ばの妻" bottom="100人" />
       <PeopleRows x={380} y={290} kind="female" on={23} dy={68} />
       <Label x={1500} y={380}>満足していない</Label>
-      <Label x={1500} y={430} color={C.female} weight={900}>23人</Label>
-      <Label x={1500} y={500} color={C.ink2}>満足 77人</Label>
+      <Label x={1500} y={440} color={C.female} weight={900}>23人</Label>
+      <Label x={1500} y={510} color={C.ink2}>満足 77人</Label>
       <RowsLabel y={670} top="40代半ばの夫" bottom="100人" color={C.male} />
       <rect x={360} y={530} width={1120} height={280} rx={R.lg} fill="none" stroke={C.male} strokeWidth={LINE.thin} strokeDasharray="16 12" />
       <Label x={920} y={740} anchor="middle" size="hero" color={C.male}>？</Label>
@@ -294,7 +294,7 @@ export const S11: React.FC = () => {
           return (
             <g key={n}>
               <rect x={x} y={250} width={520} height={520} rx={R.lg} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
-              <Label x={x + 40} y={330} size="value">{n}</Label>
+              <Label x={x + 40} y={330} size="value">{`第${n}章`}</Label>
               <g transform={`translate(${x + 260},${500})`}>{icon}</g>
               <Label x={x + 260} y={710} anchor="middle">{t}</Label>
             </g>
@@ -318,7 +318,7 @@ export const S12: React.FC = () => (
         return (
           <g key={i}>
             <rect x={x} y={360} width={380} height={200} rx={R.md} fill={sat ? C.white : C.paper2} stroke={C.ink} strokeWidth={LINE.thin} />
-            {a.split("\n").map((l, k) => <Label key={k} x={x + 190} y={430 + k * 52} anchor="middle">{l}</Label>)}
+            {a.split("\n").map((l, k) => <Label key={k} x={x + 190} y={424 + k * 58} anchor="middle">{l}</Label>)}
             {/* 色の約束の見本：満足＝淡い色、満足でない＝濃い色（夫・妻の半分ずつ） */}
             <rect data-qa="mark" data-qa-label="色の見本" x={x + 110} y={514} width={80} height={26} fill={sat ? C.maleTint : C.male} />
             <rect data-qa="mark" data-qa-label="色の見本" x={x + 190} y={514} width={80} height={26} fill={sat ? C.femaleTint : C.female} />
@@ -402,8 +402,8 @@ export const S17: React.FC = () => (
     <SubHead>不満の大きい夫婦は、途中で別れて、調査に出てこない</SubHead>
     <DropRace />
     <Svg>
-      <Label x={1276} y={730} color={C.ink2}>はじめは 23人（23%）</Label>
-      <Label x={1276} y={790} color={C.ink2}>誰の気持ちも変わらない</Label>
+      <Label x={1276} y={750} color={C.ink2}>はじめは 23人（23%）</Label>
+      <Label x={1276} y={810} color={C.ink2}>誰の気持ちも変わらない</Label>
     </Svg>
     <SourceNote sim prefix="" text="説明の図（人数は例）。Bühler ほか（2021）の注意" />
   </AbsoluteFill>
@@ -432,7 +432,7 @@ export const S19: React.FC = () => (
       <Label x={1500} y={690} size="value" color={C.male}>13人</Label>
       <path d="M1660 370 h30 V670 h-30" fill="none" stroke={C.ink} strokeWidth={LINE.thin} />
       <Label x={1710} y={500} weight={900}>差</Label>
-      <Label x={1710} y={550} weight={900}>10人</Label>
+      <Label x={1710} y={560} weight={900}>10人</Label>
     </Svg>
     <SourceNote text={`${SRC.nfrj}（43〜47歳。100−満足の割合）`} />
   </AbsoluteFill>
@@ -446,15 +446,15 @@ export const S20: React.FC = () => {
       <ChapterDots current={1} />
       <Heading w={1728}>満足していない夫が全員、そういう妻と組んでも</Heading>
       <Svg>
-        <Label x={96} y={300}>二人とも満足していない</Label>
-        <Label x={96} y={346} weight={900}>13組</Label>
+        <Label x={96} y={290}>二人とも満足していない</Label>
+        <Label x={96} y={350} weight={900}>13組</Label>
         <CouplePairs x={600} y={340} items={all.slice(0, 13)} cols={13} gap={16} />
-        <Label x={96} y={420} color={C.female}>妻だけ満足していない</Label>
-        <Label x={96} y={466} color={C.female} weight={900}>10組</Label>
+        <Label x={96} y={412} color={C.female}>妻だけ満足していない</Label>
+        <Label x={96} y={472} color={C.female} weight={900}>10組</Label>
         <CouplePairs x={600} y={460} items={rowB} cols={13} gap={16} />
         <CouplePairs x={150} y={560} items={all.slice(23)} cols={20} size={1.15} gap={12} row={70} />
-        <Label x={1530} y={758} color={C.ink2}>残りの77組は、</Label>
-        <Label x={1530} y={804} color={C.ink2}>二人とも満足</Label>
+        <Label x={1530} y={750} color={C.ink2}>残りの77組は、</Label>
+        <Label x={1530} y={810} color={C.ink2}>二人とも満足</Label>
       </Svg>
       <SourceNote sim prefix="条件：" text="満足していない夫が全員、満足していない妻と組むとき（NFRJ18 の割合から計算）" />
     </AbsoluteFill>
@@ -508,7 +508,7 @@ export const S23: React.FC = () => {
         <Label x={X(9)} y={440} anchor="middle" size="value">？</Label>
         <MiniBalance x={1690} y={250} s={0.2} />
         <Label x={1660} y={420} anchor="middle" color={C.ink2}>家事か仕事かは</Label>
-        <Label x={1660} y={470} anchor="middle" color={C.ink2}>第3章で</Label>
+        <Label x={1660} y={480} anchor="middle" color={C.ink2}>第3章で</Label>
       </Svg>
     </AbsoluteFill>
   );
@@ -560,10 +560,10 @@ export const S27: React.FC = () => (
         dayCol("wife", "pre", "妻", "上がる前", ["care"]), dayCol("wife", "post", "妻", "小学生", ["care"])]} />
       <Leader x1={676} y1={dayY("husband", "post", "care")} x2={716} y2={420} />
       <Label x={724} y={420} color={C.ink2}>夫の育児</Label>
-      <Label x={724} y={470} color={C.ink2}>63分→15分</Label>
+      <Label x={724} y={480} color={C.ink2}>63分→15分</Label>
       <Leader x1={1576} y1={dayY("wife", "post", "care")} x2={1606} y2={300} />
       <Label x={1614} y={300} color={C.ink2}>妻の育児</Label>
-      <Label x={1614} y={350} color={C.ink2}>204分→40分</Label>
+      <Label x={1614} y={360} color={C.ink2}>204分→40分</Label>
     </Svg>
     <SourceNote text={`${SRC.time}。末っ子6歳未満 → 6〜9歳`} />
   </AbsoluteFill>
@@ -578,11 +578,11 @@ export const S28: React.FC = () => (
         dayCol("wife", "pre", "妻", "上がる前"), dayCol("wife", "post", "妻", "小学生", ["chores", "work"])]} />
       <Leader x1={676} y1={dayY("husband", "post", "chores")} x2={716} y2={430} />
       <Label x={724} y={440} color={C.ink2}>夫の家事など</Label>
-      <Label x={724} y={490} color={C.ink2}>52分→46分</Label>
+      <Label x={724} y={500} color={C.ink2}>52分→46分</Label>
       <Label x={1600} y={420} color={C.female} weight={900}>家事など</Label>
-      <Label x={1600} y={470} color={C.female} weight={900}>＋47分</Label>
+      <Label x={1600} y={480} color={C.female} weight={900}>＋47分</Label>
       <Label x={1600} y={610} color={C.female} weight={900}>仕事・通勤</Label>
-      <Label x={1600} y={660} color={C.female} weight={900}>＋56分</Label>
+      <Label x={1600} y={670} color={C.female} weight={900}>＋56分</Label>
     </Svg>
     <SourceNote text={`${SRC.time}。育児は、上がる前は夫が約4分の1（63分÷267分）`} />
   </AbsoluteFill>
@@ -662,7 +662,7 @@ export const S32: React.FC = () => (
     <Svg>
       <GenderLines {...MEAN_FRAME} series={[MEAN[0]]} callouts={[{ s: 0, i: 1, text: "−0.24", dy: -20 }]} />
       <Label x={1460} y={420} color={C.ink2}>底は、結婚して</Label>
-      <Label x={1460} y={470} color={C.ink2}>20年を過ぎるころ</Label>
+      <Label x={1460} y={480} color={C.ink2}>20年を過ぎるころ</Label>
     </Svg>
     <SourceNote text="稲葉昭英（2021）NFRJ18 第2次報告書（初婚を続けている夫婦、2,137人）。図の線から読み取り。間の年数は省いている" />
   </AbsoluteFill>
@@ -676,8 +676,8 @@ export const S33: React.FC = () => (
       {/* 20〜29年の2点のあいだの括弧（どの差の話か） */}
       <path d="M906 384 h18 V408 h-18" fill="none" stroke={C.ink} strokeWidth={LINE.thin} strokeDasharray="6 6" />
       <Label x={1460} y={420} color={C.ink2}>夫と妻の差は、</Label>
-      <Label x={1460} y={470} color={C.ink2}>この人数では</Label>
-      <Label x={1460} y={520} color={C.ink2}>はっきりしない</Label>
+      <Label x={1460} y={480} color={C.ink2}>この人数では</Label>
+      <Label x={1460} y={540} color={C.ink2}>はっきりしない</Label>
     </Svg>
     <SourceNote text="稲葉昭英（2021）NFRJ18 第2次報告書（初婚を続けている夫婦、2,137人）。男女の差は有意でない" />
   </AbsoluteFill>
@@ -739,8 +739,8 @@ export const S37: React.FC = () => (
         upperName="妻" lowerName="夫" />
       <Label x={1440} y={708} color={C.ink2}>末っ子の年齢</Label>
       <Label x={1560} y={460}>4分の1近く</Label>
-      <Label x={1560} y={510}>→ 8分の1ほど</Label>
-      <Label x={1430} y={226} color={C.ink2}>100%</Label>
+      <Label x={1560} y={520}>→ 8分の1ほど</Label>
+      <Label x={1430} y={214} color={C.ink2}>100%</Label>
     </Svg>
     <SourceNote text={`${SRC.time}。表の値から計算`} />
   </AbsoluteFill>
@@ -786,11 +786,11 @@ export const Table3: React.FC<{ showSupport: boolean }> = ({ showSupport }) => (
   <Svg>
     <Label x={760} y={290} anchor="middle" color={C.male} weight={900}>夫（277人）</Label>
     <Label x={1260} y={290} anchor="middle" color={C.female} weight={900}>妻（322人）</Label>
-    <Label x={120} y={384}>夫が受け持つ</Label>
+    <Label x={120} y={374}>夫が受け持つ</Label>
     <Label x={120} y={434}>家事の割合</Label>
     <Cell x={540} y={330} text="はっきりしない" />
     <Cell x={1040} y={330} text="はっきりしない" />
-    <Label x={120} y={544}>相手からの</Label>
+    <Label x={120} y={534}>相手からの</Label>
     <Label x={120} y={594}>心の支え</Label>
     <Cell x={540} y={490} on text="はっきり結びつく" hidden={!showSupport} />
     <Cell x={1040} y={490} on text="はっきり結びつく" hidden={!showSupport} />
@@ -942,8 +942,8 @@ export const S48: React.FC = () => (
     <Heading>天秤が止まる：差は 2分</Heading>
     <Svg>
       <BalanceAt left={[chores("husband"), work("husband", "仕事・通勤\n8時間27分")]} right={[chores("wife"), work("wife", "仕事・通勤\n4時間45分")]} />
-      <Label x={BAL.x - 560} y={BAL.y + 476} anchor="middle" size="value" color={C.male}>9時間6分</Label>
-      <Label x={BAL.x + 560} y={BAL.y + 476} anchor="middle" size="value" color={C.female}>9時間8分</Label>
+      <Label x={BAL.x - 560} y={BAL.y + 490} anchor="middle" size="value" color={C.male}>9時間6分</Label>
+      <Label x={BAL.x + 560} y={BAL.y + 490} anchor="middle" size="value" color={C.female}>9時間8分</Label>
     </Svg>
     <div style={{ position: "absolute", right: 96, top: 56, whiteSpace: "nowrap", display: "flex", alignItems: "center", gap: 14, background: C.ink, borderRadius: R.md, padding: "8px 22px", ...font("label", C.white) }}>
       予想の答え B ほぼ同じ
@@ -969,14 +969,14 @@ export const S49: React.FC = () => {
                 return (
                   <g key={n}>
                     <rect data-qa="mark" data-qa-label={`${n}：${r.label}`} x={cx + dx} y={base - h} width={bw} height={h} rx={R.sm / 2} fill={c} />
-                    <Label x={cx + dx + bw / 2} y={base - h - 60} anchor="middle">{a}</Label>
+                    <Label x={cx + dx + bw / 2} y={base - h - 76} anchor="middle">{a}</Label>
                     <Label x={cx + dx + bw / 2} y={base - h - 16} anchor="middle">{b}</Label>
                     <text data-qa-allow="mark" x={cx + dx + bw / 2} y={base - 24} textAnchor="middle" style={font("label", C.white)}>{n}</text>
                   </g>
                 );
               })}
-              <Label x={cx} y={770} anchor="middle">{r.label}</Label>
-              <Label x={cx} y={820} anchor="middle" weight={900}>差 {r.w - r.h}分</Label>
+              <Label x={cx} y={760} anchor="middle">{r.label}</Label>
+              <Label x={cx} y={820} anchor="middle" weight={900}>{`差 ${r.w - r.h}分`}</Label>
             </g>
           );
         })}
@@ -1076,8 +1076,8 @@ export const S57: React.FC = () => (
     <Svg>
       <g transform="translate(40,150) scale(0.6)"><BalanceAt left={[chores("husband", false), work("husband")]} right={[chores("wife", false), work("wife")]} /></g>
       <GenderLines x={1240} y={260} width={500} height={400} ticks={["", "30", "", "", "", "50", "", "", "", "70", ""]} series={satSeries} yTicks={[0, 100]} />
-      <Label x={616} y={790} anchor="middle">天秤は、ほぼつり合う</Label>
-      <Label x={1490} y={790} anchor="middle">満足の線は、二本に分かれる</Label>
+      <Label x={616} y={800} anchor="middle">天秤は、ほぼつり合う</Label>
+      <Label x={1490} y={800} anchor="middle">満足の線は、二本に分かれる</Label>
     </Svg>
     <SourceNote text="総務省『社会生活基本調査』2021年（末っ子10〜14歳）・NFRJ18（2019年）" />
   </AbsoluteFill>
@@ -1101,7 +1101,7 @@ export const S58: React.FC = () => (
       <Stopwatch x={960} y={480} icon={<Briefcase x={940} y={512} s={0.6} />} />
       <Coin x={1500} y={480} />
       {["家事の分数", "働いた時間", "年収"].map((t, i) => <Label key={t} x={420 + i * 540} y={680} anchor="middle" weight={900}>{t}</Label>)}
-      <Label x={960} y={790} anchor="middle" color={C.ink2}>比べやすく、言い返しやすい</Label>
+      <Label x={960} y={800} anchor="middle" color={C.ink2}>比べやすく、言い返しやすい</Label>
     </Svg>
   </AbsoluteFill>
 );

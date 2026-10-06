@@ -85,8 +85,8 @@ const Opening: React.FC = () => {
           <RowsLabel y={380} top="40代半ばの妻" bottom="100人" />
           <PeopleRows x={380} y={290} kind="female" on={23} dy={68} />
           <Label x={1500} y={380}>満足していない</Label>
-          <Label x={1500} y={430} color={C.female} weight={900}>23人</Label>
-          <EnterG at={20}><Label x={1500} y={500} color={C.ink2}>満足 77人</Label></EnterG>
+          <Label x={1500} y={440} color={C.female} weight={900}>23人</Label>
+          <EnterG at={20}><Label x={1500} y={510} color={C.ink2}>満足 77人</Label></EnterG>
           <EnterG at={q - also}>
             <RowsLabel y={670} top="40代半ばの夫" bottom="100人" color={C.male} />
             <rect x={360} y={530} width={1120} height={280} rx={R.lg} fill="none" stroke={C.male} strokeWidth={LINE.thin} strokeDasharray="16 12" />
@@ -108,9 +108,9 @@ const Crowd06: React.FC<{ top: number; bottom: number }> = ({ top, bottom }) => 
       <Heading>夫婦の関係に満足していない妻</Heading>
       <Svg>
         <EnterG><RowsLabel y={380} top="30歳前後の妻" bottom="100人" /><PeopleRows x={380} y={290} kind="female" on={a} dy={68} /></EnterG>
-        {frame >= top && <><Label x={1500} y={400} size="value" color={C.female}>{(6.5 * a / 7).toFixed(1)}%</Label><Label x={1500} y={450}>15人に1人</Label></>}
+        {frame >= top && <><Label x={1500} y={400} size="value" color={C.female}>{(6.5 * a / 7).toFixed(1)}%</Label><Label x={1500} y={462}>15人に1人</Label></>}
         <EnterG at={top + 45}><RowsLabel y={670} top="40代半ばの妻" bottom="100人" /><PeopleRows x={380} y={580} kind="female" on={b} dy={68} /></EnterG>
-        {frame >= bottom && <><Label x={1500} y={690} size="value" color={C.female}>{(23.1 * b / 23).toFixed(1)}%</Label><Label x={1500} y={740}>4人に1人近く</Label></>}
+        {frame >= bottom && <><Label x={1500} y={690} size="value" color={C.female}>{(23.1 * b / 23).toFixed(1)}%</Label><Label x={1500} y={752}>4人に1人近く</Label></>}
       </Svg>
       <SourceNote text={`${SRC.nfrj}（28〜32歳・43〜47歳）`} />
     </>
@@ -176,7 +176,7 @@ const Order11: React.FC<{ at: number[] }> = ({ at }) => {
           return (
             <EnterG key={n} at={at[i]} dx={-30} dy={0}>
               <rect x={x} y={250} width={520} height={520} rx={R.lg} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
-              <Label x={x + 40} y={330} size="value">{n}</Label>
+              <Label x={x + 40} y={330} size="value">{`第${n}章`}</Label>
               <g transform={`translate(${x + 260},${500})`}>{icon}</g>
               <Label x={x + 260} y={710} anchor="middle">{t}</Label>
             </EnterG>
@@ -239,7 +239,7 @@ const Answers12: React.FC<{ four: number; sat: number; dis: number; two: number 
         return (
           <EnterG key={i} at={Math.min(four, 75) + i * 12}>
             <rect x={x} y={360} width={380} height={200} rx={R.md} fill={s ? C.white : C.paper2} stroke={C.ink} strokeWidth={LINE.thin} />
-            {a.split("\n").map((l, k) => <Label key={k} x={x + 190} y={430 + k * 52} anchor="middle">{l}</Label>)}
+            {a.split("\n").map((l, k) => <Label key={k} x={x + 190} y={424 + k * 58} anchor="middle">{l}</Label>)}
             <EnterG at={two - Math.min(four, 75) - i * 12 + 20}>
               <rect data-qa="mark" data-qa-label="色の見本" x={x + 110} y={514} width={80} height={26} fill={s ? C.maleTint : C.male} />
               <rect data-qa="mark" data-qa-label="色の見本" x={x + 190} y={514} width={80} height={26} fill={s ? C.femaleTint : C.female} />
@@ -278,7 +278,7 @@ const You15: React.FC = () => {
     <>
     <ChapterDots current={1} />
     <SourceNote text={SRC.nfrj} />
-    <Camera dur={40} keys={[[0, WIDE], [1, { x: 960, y: 520, scale: 1.06 }]]}>
+    <Camera dur={40} keys={[[0, WIDE], [1, { x: 960, y: 540, scale: 1.06 }]]}>
       <Heading>あなたの家の二本の線は、いま？</Heading>
       <Svg>
         <AxisTitle />
@@ -298,8 +298,8 @@ const Drop17: React.FC<{ start: number; note: number }> = ({ start, note }) => (
     <SubHead>不満の大きい夫婦は、途中で別れて、調査に出てこない</SubHead>
     <DropRace start={start} perYear={14} />
     <Svg>
-      <Label x={1276} y={730} color={C.ink2}>はじめは 23人（23%）</Label>
-      <EnterG at={note}><Label x={1276} y={790} color={C.ink2}>誰の気持ちも変わらない</Label></EnterG>
+      <Label x={1276} y={750} color={C.ink2}>はじめは 23人（23%）</Label>
+      <EnterG at={note}><Label x={1276} y={810} color={C.ink2}>誰の気持ちも変わらない</Label></EnterG>
     </Svg>
     <SourceNote sim prefix="" text="説明の図（人数は例）。Bühler ほか（2021）の注意" />
   </>
@@ -319,7 +319,7 @@ const Hundred19: React.FC<{ w: number; h: number; d: number }> = ({ w, h, d }) =
         <EnterG at={d}>
           <path d="M1660 370 h30 V670 h-30" fill="none" stroke={C.ink} strokeWidth={LINE.thin} />
           <Label x={1710} y={500} weight={900}>差</Label>
-          <Label x={1710} y={550} weight={900}>10人</Label>
+          <Label x={1710} y={560} weight={900}>10人</Label>
         </EnterG>
       </Svg>
       <SourceNote text={`${SRC.nfrj}（43〜47歳。100−満足の割合）`} />
@@ -337,19 +337,19 @@ const Pairs20: React.FC<{ rest: number; mark: number }> = ({ rest, mark }) => {
       <Heading w={1728}>満足していない夫が全員、そういう妻と組んでも</Heading>
       <Svg>
         <EnterG at={10} dx={-40} dy={0}>
-          <Label x={96} y={300}>二人とも満足していない</Label>
-          <Label x={96} y={346} weight={900}>13組</Label>
+          <Label x={96} y={290}>二人とも満足していない</Label>
+          <Label x={96} y={350} weight={900}>13組</Label>
           <CouplePairs x={600} y={340} items={ALL.slice(0, 13)} cols={13} gap={16} />
         </EnterG>
         <EnterG at={rest} dx={-40} dy={0}>
-          <Label x={96} y={420} color={C.female}>妻だけ満足していない</Label>
-          <Label x={96} y={466} color={C.female} weight={900}>10組</Label>
+          <Label x={96} y={412} color={C.female}>妻だけ満足していない</Label>
+          <Label x={96} y={472} color={C.female} weight={900}>10組</Label>
           <CouplePairs x={600} y={460} items={rowB} cols={13} gap={16} />
         </EnterG>
         <EnterG at={0}>
           <CouplePairs x={150} y={560} items={ALL.slice(23)} cols={20} size={1.15} gap={12} row={70} />
-          <Label x={1530} y={758} color={C.ink2}>残りの77組は、</Label>
-          <Label x={1530} y={804} color={C.ink2}>二人とも満足</Label>
+          <Label x={1530} y={750} color={C.ink2}>残りの77組は、</Label>
+          <Label x={1530} y={810} color={C.ink2}>二人とも満足</Label>
         </EnterG>
       </Svg>
       <SourceNote sim prefix="条件：" text="満足していない夫が全員、満足していない妻と組むとき（NFRJ18 の割合から計算）" />
@@ -487,7 +487,7 @@ const Mean32: React.FC = () => {
         <GenderLines {...MEAN_FRAME} series={[MEAN[0]]} upTo={upTo} callouts={upTo >= 1 ? [{ s: 0, i: 1, text: "−0.24", dy: -20 }] : []} />
         <EnterG at={120}>
           <Label x={1460} y={420} color={C.ink2}>底は、結婚して</Label>
-          <Label x={1460} y={470} color={C.ink2}>20年を過ぎるころ</Label>
+          <Label x={1460} y={480} color={C.ink2}>20年を過ぎるころ</Label>
         </EnterG>
       </Svg>
       <SourceNote text="稲葉昭英（2021）NFRJ18 第2次報告書（初婚を続けている夫婦、2,137人）。図の線から読み取り。間の年数は省いている" />
@@ -809,8 +809,8 @@ const Stop48: React.FC<{ load: number; h: number; w: number; diff: number; b: nu
       <Svg>
         <Balance x={BAL.x} y={BAL.y} left={L} right={Rr} tilt={tilt} moving={!opened || t < 1} from={opened ? 4 : 10}
           leftName="夫" rightName="妻" leftColor={C.male} rightColor={C.female} />
-        {frame >= h && <PopG at={h}><Label x={BAL.x - 560} y={BAL.y + 476} anchor="middle" size="value" color={C.male}>9時間6分</Label></PopG>}
-        {frame >= w && <PopG at={w}><Label x={BAL.x + 560} y={BAL.y + 476} anchor="middle" size="value" color={C.female}>9時間8分</Label></PopG>}
+        {frame >= h && <PopG at={h}><Label x={BAL.x - 560} y={BAL.y + 490} anchor="middle" size="value" color={C.male}>9時間6分</Label></PopG>}
+        {frame >= w && <PopG at={w}><Label x={BAL.x + 560} y={BAL.y + 490} anchor="middle" size="value" color={C.female}>9時間8分</Label></PopG>}
       </Svg>
       <Enter at={b} dy={0}>
         <div style={{ position: "absolute", right: 96, top: 56, whiteSpace: "nowrap", background: C.ink, borderRadius: R.md, padding: "8px 22px", ...font("label", C.white) }}>
@@ -919,10 +919,10 @@ const Count58: React.FC<{ at: number }> = ({ at }) => {
         <EnterG at={at + 25}><Stopwatch x={960} y={480} icon={<Briefcase x={940} y={512} s={0.6} />} /></EnterG>
         <EnterG at={at + 50}><Coin x={1500} y={480} /></EnterG>
         {/* それぞれの下で数字が数え上がって止まる（数えやすい、を動きで。値は第3章の妻の家事 263分・夫の家事＋仕事 約9時間。年収は数字を出さない） */}
-        {frame >= at && <><Label x={420} y={680} anchor="middle" weight={900}>家事の分数</Label><Label x={420} y={730} anchor="middle" color={C.ink2}>{n(263, 0)}分</Label></>}
-        {frame >= at + 25 && <><Label x={960} y={680} anchor="middle" weight={900}>働いた時間</Label><Label x={960} y={730} anchor="middle" color={C.ink2}>{n(9, 1)}時間</Label></>}
+        {frame >= at && <><Label x={420} y={680} anchor="middle" weight={900}>家事の分数</Label><Label x={420} y={740} anchor="middle" color={C.ink2}>{n(263, 0)}分</Label></>}
+        {frame >= at + 25 && <><Label x={960} y={680} anchor="middle" weight={900}>働いた時間</Label><Label x={960} y={740} anchor="middle" color={C.ink2}>{n(9, 1)}時間</Label></>}
         {frame >= at + 50 && <Label x={1500} y={680} anchor="middle" weight={900}>年収</Label>}
-        <EnterG at={at + 120}><Label x={960} y={790} anchor="middle" color={C.ink2}>比べやすく、言い返しやすい</Label></EnterG>
+        <EnterG at={at + 120}><Label x={960} y={800} anchor="middle" color={C.ink2}>比べやすく、言い返しやすい</Label></EnterG>
       </Svg>
     </>
   );

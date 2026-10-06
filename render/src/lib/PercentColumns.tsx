@@ -5,6 +5,7 @@
 // 印：柱の四角は data-qa="mark"。柱の中に書く値は柱に重なってよい（data-qa-allow="mark"）。
 // 2026-10-06 第2版（絵コンテの3役の見直し）：値は「その値が示す段」のそばに置く。
 //   valuePos="inside"：下の区分の中（境目の16px下）／"aboveLower"：下の区分のすぐ上（上の区分の中、白の文字。下の区分が細いとき）／"top"：柱の上。
+//   柱の名前と sub（「8割を超える」など）は文字の上下を16px以上空ける（2026-10-06）。
 //   大きい値（64px）は柱の幅を超えないように colW を190前後にする。別の年の値は柱の左右の外の短い線（柱の中の値を横切らない）。
 import React from "react";
 import { C, font, LINE, R } from "./theme";
@@ -39,7 +40,7 @@ export const PercentColumns: React.FC<{
             y={pos === "inside" ? Y(c.value) + (c.big ? 66 : 48) : pos === "aboveLower" ? Y(c.value) - 16 : y - 20}
             textAnchor="middle" style={font(c.big ? "value" : "label", valueColor ?? (pos === "aboveLower" ? C.white : C.ink))}>{c.text ?? format(c.value)}</text>
           <text x={cx(i)} y={y + height + 48} textAnchor="middle" style={font("label", C.ink2)}>{c.label}</text>
-          {c.sub && <text x={cx(i)} y={y + height + 86} textAnchor="middle" style={font("note", C.ink2)}>{c.sub}</text>}
+          {c.sub && <text x={cx(i)} y={y + height + 100} textAnchor="middle" style={font("note", C.ink2)}>{c.sub}</text>}
         </g>
       ))}
       {groups.map((g, k) => (

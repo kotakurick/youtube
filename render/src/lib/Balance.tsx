@@ -9,6 +9,7 @@
 //   - 動いている途中（moving）は、前の角度の梁を淡く残し（from）、下がっていく側の皿の外に下向きの曲がった矢印、針の先に「？」。
 //   - 中身を隠す分銅（veiled）：量に関係なく同じ大きさの「？」の袋。答え合わせの前に高さで答えが見えないようにする。
 //   - 量り忘れの分銅（dashed）：点線の形だけ（中は塗らない）。mark で中に「？」など。
+//   - 札の2行（「家事など」と「39分」）は60px送り（文字の上下を16px以上空ける。2026-10-06）。
 //   - 細い線は縮めても細くならない（vector-effect: non-scaling-stroke）。小さい版は <g transform="scale()"> で縮めて使う。
 import React from "react";
 import { FillDefs, fillOf, FillKind, textHalo } from "./Fills";
@@ -32,6 +33,8 @@ export const tiltOf = (left: number, right: number, max = 10) => {
   return Math.max(-max, Math.min(max, ((right - left) / sum) * 40));
 };
 
+/** 札の2行（見出しと値）の行の送り。40px の文字の上下を16px以上空ける（qa.ts の TEXT_GAP。2026-10-06） */
+const LINE_PITCH = 60;
 const sum = (ws: Weight[]) => ws.reduce((a, w) => a + w.value, 0);
 const NS = { vectorEffect: "non-scaling-stroke" } as const;
 
@@ -59,7 +62,7 @@ const Stack: React.FC<{ x: number; y: number; ws: Weight[]; k: number; side: -1 
         acc += h;
         if (w.veiled) return <Sack key={i} x={x} top={top} h={h} label={w.label} />;
         const lines = (w.text ?? "").split("\n");
-        const inside = h >= lines.length * 48 + 16;
+        const inside = h >= (lines.length - 1) * LINE_PITCH + 56;
         const last = i === ws.length - 1;
         const solid = !w.fill || w.fill === "solid";
         // 横に出すときは天秤の内側（柱の側）へ。外側は画面の端に近い
@@ -79,9 +82,9 @@ const Stack: React.FC<{ x: number; y: number; ws: Weight[]; k: number; side: -1 
               strokeDasharray={w.dashed ? "16 12" : undefined} {...NS} />
             {w.dashed && w.mark && <text data-qa-allow="mark" x={x} y={top + h / 2 + 22} textAnchor="middle" style={font("value", C.ink2)}>{w.mark}</text>}
             {w.text && lines.map((l, kk) => (inside
-              ? <text key={kk} data-qa-allow="mark" x={x} y={top + h / 2 + 14 + (kk - (lines.length - 1) / 2) * 48} textAnchor="middle"
+              ? <text key={kk} data-qa-allow="mark" x={x} y={top + h / 2 + 14 + (kk - (lines.length - 1) / 2) * LINE_PITCH} textAnchor="middle"
                 style={{ ...font("label", tc), ...(solid ? {} : textHalo) }}>{l}</text>
-              : <text key={kk} x={sx} y={top + h / 2 + 14 + (kk - (lines.length - 1) / 2) * 48} textAnchor={side > 0 ? "end" : "start"} style={font("label")}>{l}</text>))}
+              : <text key={kk} x={sx} y={top + h / 2 + 14 + (kk - (lines.length - 1) / 2) * LINE_PITCH} textAnchor={side > 0 ? "end" : "start"} style={font("label")}>{l}</text>))}
           </g>
         );
       })}

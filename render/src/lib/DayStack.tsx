@@ -6,6 +6,7 @@
 //   その人の色1つで、塗りの種類（fill：solid 塗り／hatch 斜線／dots 水玉。Fills.tsx）で分ける。仕事を灰（対象外の色）にしない。
 //   例（4本目）：家事など＝塗り、育児＝水玉、仕事・通勤＝斜線。凡例は最初に出す場面で一度だけ。
 //   細い区分の名前は out で柱の右に出し、墨の細い引き出し線でつなぐ。
+// 文字の上下は16px以上空ける（区分の名前と分は60px送り、柱の名前と sub は58px送り。2026-10-06）。
 // 印：区分の四角は data-qa="mark"。区分の中の文字は四角に重なってよい（data-qa-allow="mark"）。
 import React from "react";
 import { FillDefs, fillOf, FillKind, textHalo } from "./Fills";
@@ -52,7 +53,7 @@ export const DayStack: React.FC<{
           <g key={ci}>
             {c.segs.map((s, si) => {
               const g = geo[ci][si];
-              const inside = !s.out && g.h >= (showMinutes ? 104 : 50);
+              const inside = !s.out && g.h >= (showMinutes ? 110 : 50);
               const solid = !s.fill || s.fill === "solid";
               const ts = { ...font("label", s.textColor ?? (solid ? C.white : C.ink)), ...(solid ? {} : textHalo) };
               const ox = xs[ci] + colW + 56, oy = g.y0 + g.h / 2;
@@ -62,8 +63,8 @@ export const DayStack: React.FC<{
                     stroke={s.focus ? C.ink : solid ? C.white : s.color} strokeWidth={s.focus ? LINE.base : solid ? 2 : LINE.hair} rx={si === c.segs.length - 1 ? R.sm : 0} />
                   {inside && (
                     <>
-                      <text data-qa-allow="mark" x={xs[ci] + colW / 2} y={g.y0 + g.h / 2 + (showMinutes ? -6 : 14)} textAnchor="middle" style={ts}>{s.label}</text>
-                      {showMinutes && <text data-qa-allow="mark" x={xs[ci] + colW / 2} y={g.y0 + g.h / 2 + 44} textAnchor="middle" style={ts}>{fmt(s.min)}</text>}
+                      <text data-qa-allow="mark" x={xs[ci] + colW / 2} y={g.y0 + g.h / 2 + (showMinutes ? -14 : 14)} textAnchor="middle" style={ts}>{s.label}</text>
+                      {showMinutes && <text data-qa-allow="mark" x={xs[ci] + colW / 2} y={g.y0 + g.h / 2 + 46} textAnchor="middle" style={ts}>{fmt(s.min)}</text>}
                     </>
                   )}
                   {s.out && (
@@ -77,7 +78,7 @@ export const DayStack: React.FC<{
             })}
             <text x={xs[ci] + colW / 2} y={top - 22} textAnchor="middle" style={font("label")}>{c.total ?? fmt(total)}</text>
             <text x={xs[ci] + colW / 2} y={base + 50} textAnchor="middle" style={font("label", c.titleColor ?? C.ink)}>{c.title}</text>
-            {c.sub && <text x={xs[ci] + colW / 2} y={base + 96} textAnchor="middle" style={font("label", C.ink2)}>{c.sub}</text>}
+            {c.sub && <text x={xs[ci] + colW / 2} y={base + 108} textAnchor="middle" style={font("label", C.ink2)}>{c.sub}</text>}
           </g>
         );
       })}
