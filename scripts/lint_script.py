@@ -106,7 +106,7 @@ def narration(text: str) -> list[tuple[int, str]]:
     return out
 
 
-SOURCE_TAG = re.compile(r"\[S\d+(?:[,，]\s*S?\d+)*\]")
+SOURCE_TAG = re.compile(r"\[S\d+[a-z]?(?:[,，]\s*S?\d+[a-z]?)*\]")
 VOICE_TAG = re.compile(r"〔[^〕]*〕")  # 声への指示（〔間〕〔間・長〕〔thoughtful〕など）。読み上げない
 
 
@@ -121,7 +121,7 @@ def strip_tags(s: str) -> str:
 def sentences(lines: list[tuple[int, str]]) -> list[tuple[int, str]]:
     out = []
     for no, line in lines:
-        for s in re.split(r"(?<=[。？?])", strip_tags(line)):
+        for s in re.split(r"(?<=[。？?])(?![」』）)])", strip_tags(line)):
             s = s.strip()
             if s:
                 out.append((no, s))
@@ -173,7 +173,7 @@ def chapter_ends(text: str) -> list[tuple[int, str, str]]:
                 out.append((last[0], chapter, last[1]))
             chapter, last = (line[3:].strip() if CHAPTER.match(line) else None), None
         elif chapter:
-            ss = [x for x in re.split(r"(?<=[。？?])", strip_tags(line)) if x.strip()]
+            ss = [x for x in re.split(r"(?<=[。？?])(?![」』）)])", strip_tags(line)) if x.strip()]
             if ss:
                 last = (no, ss[-1].strip())
     if chapter and last:

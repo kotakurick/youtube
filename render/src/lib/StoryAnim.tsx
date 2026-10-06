@@ -2,6 +2,7 @@
 //   SwipeDeck   … スマホの中のプロフィールのカードが、次々と右（いいね）・左（見送り）へ飛ぶ
 //   NotifStack  … スマホの上に「いいねが届きました」の通知が積もり、数が増えていく
 //   Bubble      … 吹き出し（セリフ）。しっぽは話す人の頭へ
+//   Thought     … 考え中の吹き出し（思っていること・言っていないこと）。しっぽの代わりに小さな丸3つ（2026-10-06 4本目で追加）
 //   OfficeYears … 職場の早回し：年が進むにつれて、机の島から人が減り、宴会の札が消える
 // どれも data-qa の印を付ける（画面のチェックで重なりを調べる）。色は theme.ts の C だけ。
 import React from "react";
@@ -116,16 +117,17 @@ export const NotifStack: React.FC<{ x: number; y: number; h?: number; every?: nu
 };
 
 /** 吹き出し（左上を x,y に置く）。tail は話す人の口のあたり（画面の座標） */
-export const Bubble: React.FC<{ x: number; y: number; text: string; tail: [number, number]; start?: number; role?: "sub" | "label" }> = (
-  { x, y, text, tail, start = 0, role = "sub" },
+// w：幅をそろえるとき（2つの言い分を同じ大きさで並べる。2026-10-06 追加。省くと文字数から）
+export const Bubble: React.FC<{ x: number; y: number; text: string; tail: [number, number]; start?: number; role?: "sub" | "label"; w?: number }> = (
+  { x, y, text, tail, start = 0, role = "sub", w: wIn },
 ) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = sp("enter", frame - start, fps);
   if (frame < start) return null;
   const fs = role === "sub" ? 54 : 40;
-  const w = text.length * fs + 64, h = fs + 40;
-  const bx = x + w * 0.3;
+  const w = wIn ?? text.length * fs + 64, h = fs + 40;
+  const bx = wIn ? Math.max(x + 40, Math.min(x + w - 40, tail[0])) : x + w * 0.3; // 幅を決めたときは、しっぽの根元を話す人の真上へ
   return (
     <g opacity={t} transform={`translate(0,${(1 - t) * 12})`}>
       <path d={`M${bx - 24} ${y + h - 4} L${tail[0]} ${tail[1]} L${bx + 24} ${y + h - 4} Z`} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} strokeLinejoin="round" />
@@ -179,5 +181,38 @@ export const OfficeYears: React.FC<{
       <div style={{ position: "absolute", left: 96, top: 200, ...font("value"), fontSize: 120, lineHeight: 1, whiteSpace: "nowrap" }}>{cur.year}</div>
       {cur.note && <div style={{ position: "absolute", left: 96, top: 350, ...font("label", C.ink2), opacity: u, whiteSpace: "nowrap" }}>{cur.note}</div>}
     </>
+  );
+};
+
+/**
+ * 考え中の吹き出し（思っていること・言っていないこと）。角丸の札＋しっぽの代わりに直径 32・20・12 の丸を3つ、toward（頭の上の点）へ並べる。
+ * 話す吹き出し（Bubble）と形で分ける：Bubble＝声に出した言葉、Thought＝心の中・言えていないこと（2026-10-06 4本目「40代、夫婦の満足」）。
+ * 丸の列は 80px 以内にする（頭のすぐ上に置く。顔に重ねない）。text は \n で改行。dashed で点線（中身が数えられないもの）。color で枠の色。
+ */
+export const Thought: React.FC<{ x: number; y: number; text: string; toward: [number, number]; w?: number; start?: number; role?: "sub" | "label";
+  dashed?: boolean; color?: string; head?: string }> = (
+  { x, y, text, toward, w: wIn, start = 0, role = "label", dashed = false, color = C.ink, head },
+) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const t = sp("enter", frame - start, fps);
+  if (frame < start) return null;
+  const fs = role === "sub" ? 54 : 40;
+  const lines = text.split("\n");
+  const headH = head ? 52 : 0;
+  const w = wIn ?? Math.max(...lines.map((l) => l.length)) * fs + 64, h = lines.length * fs * 1.45 + 34 + headH; // 行の送り 1.45（文字の上下を16px以上空ける。2026-10-06）
+  // 札のふちから toward へ、丸を3つ（大→小）
+  const cx = Math.max(x + 40, Math.min(x + w - 40, toward[0])), cy = toward[1] < y ? y : y + h;
+  const dots = [0.25, 0.6, 0.9].map((k, i) => ({ x: cx + (toward[0] - cx) * k, y: cy + (toward[1] - cy) * k, r: [16, 10, 6][i] }));
+  const dash = dashed ? "12 10" : undefined;
+  return (
+    <g opacity={t} transform={`translate(0,${(1 - t) * 12})`}>
+      {dots.map((d, i) => <circle key={i} cx={d.x} cy={d.y} r={d.r} fill={C.white} stroke={color} strokeWidth={LINE.hair} strokeDasharray={dashed ? "6 5" : undefined} />)}
+      <rect x={x} y={y} width={w} height={h} rx={Math.min(h / 2, R.lg + 12)} fill={C.white} stroke={color} strokeWidth={LINE.thin} strokeDasharray={dash} />
+      {head && <text x={x + 32} y={y + 50} style={font("label", C.ink2)}>{head}</text>}
+      {lines.map((l, i) => (
+        <text key={i} x={x + w / 2} y={y + 17 + headH + fs * 1.45 * i + fs * 1.0} textAnchor="middle" style={font(role)}>{l}</text>
+      ))}
+    </g>
   );
 };
