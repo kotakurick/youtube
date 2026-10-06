@@ -86,7 +86,7 @@ scripts/     共通スクリプト（paths.sh、new_episode.sh）
 
 動画の作り方の流れと、工程ごとの担当（オーナーの★を含む）は `docs/process.md`。
 
-- **クラウドのセッション**：ネタ選び、構成案、台本、スマホで聞く仮の音声（`tts/preview.py`。`docs/process.md` の8b）、シミュレーションのコード、静止画の絵コンテ（`npm run storyboard`）。PCを閉じていても進む。GitHub にあるものだけで作業する。
+- **クラウドのセッション**：ネタ選び、構成案、台本、スマホで聞く仮の音声（まず無料の `tts/readaloud.py`、Yui で聞くときは `tts/preview.py`。`docs/process.md` の8b）、シミュレーションのコード、静止画の絵コンテ（`npm run storyboard`）。PCを閉じていても進む。GitHub にあるものだけで作業する。
 - **ローカル（オーナーのPC）**：音声の生成（API キーは PC の環境変数）、動画の書き出し・音量の調整（`_local/` の音声と BGM を使う）、動画をオーナーに送る。
 - クラウドには Claude のメモ（memory）がないので、引き継ぐことは必ずリポジトリ（`docs/`、各回の `README.md`）に書く。
 - **使用量を抑える仕組み**（2026-10-06）：会話が30万トークンを超えると自動で要約される（`.claude/settings.json` の `autoCompactWindow`）。要約で細かい経緯は消えるので、工程の区切り（構成案・台本・絵コンテ・コードができたとき）ごとに、各回の `README.md` に「いまどこまで・次に何をする・未決のこと」を書いておく。レビュー役（`.claude/agents/review-*`）は Sonnet で動く。
@@ -117,6 +117,7 @@ python bench/analyze.py --out research/benchmark/summary.md
 scripts/new_episode.sh where-couples-meet          # 新しい回を作る → episodes/001-where-couples-meet/
 cd render && npm run studio                         # 動画をブラウザで確認（Remotion Studio）
 python tts/narrate.py episodes/<回> --voice silent  # 台本から仮の尺と字幕（声が決まったら --voice を変える）
+python tts/readaloud.py episodes/<回>                # 無料の読み上げページ（スマホの声。文に「いらない」の印）→ Artifact で公開
 python tts/preview.py episodes/<回>                  # 作った音声を、スマホで聞く mp3（通し・章ごと）と早見表にまとめる
 python tts/narrate.py episodes/<回> --voice silent --script script-v2.md  # 台本の版違い（timing-v2.json を書く。動画の id は <回>-v2）
 cd render && npm run check -- <回のid>               # 画面のチェック（直すものを0に）

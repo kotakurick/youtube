@@ -53,6 +53,7 @@
 ```bash
 python tts/narrate.py episodes/001-xxx --voice silent    # 仮の無音で尺と字幕だけ決める（声が決まる前の仮通し）
 python tts/narrate.py episodes/001-xxx --voice aivis-1   # 本番の声で作る
+python tts/readaloud.py episodes/001-xxx                  # 無料の読み上げページ（スマホの声。文に「いらない」の印を付けられる）
 python tts/preview.py episodes/001-xxx                    # 作った音声を、スマホで聞く mp3（通し・章ごと）と1文ずつの早見表にまとめる → _local/episodes/<回>/preview/
 ```
 
