@@ -8,7 +8,9 @@
 出力（Git の外）: $YT_DATA_DIR/episodes/<回>/preview/読み上げ.html
     クラウドの Claude がこれを Artifact として公開し、リンクをオーナーに渡す（docs/process.md の8b）。
     ページの中身：章ごとの文に番号（2-14 なら上から2つ目の見出しの14文目）。再生ボタン・速さ・タップした文から再生。
-    番号をタップすると「いらない」の印が付き、印の番号をまとめてコピーしてチャットに貼れる。
+    番号をタップすると、その文に「いらない」「言い換え」（新しい言い方か指示）「メモ」を付けられる。
+    Artifact を capabilities={"db": {}} で公開すると、指示は db の notes に入り、Claude が ArtifactData で読める
+    （doc の id は s<番号>、中身は n・kind（cut/say/memo）・text・sentence・order・at）。db がない所では端末に保存し、「指示をコピー」で貼る。
     台本の印（〔間〕・[S1]・場面の印・｜）は消し、読みは tts/yomi.tsv で直した文を声に渡す（画面は元の表記）。
 """
 import argparse
@@ -58,8 +60,8 @@ def page(title: str, chs: list[dict]) -> str:
     for ci, c in enumerate(chs, 1):
         body.append(f'<section class="ch" id="c{ci}"><h2>{html.escape(c["name"])}</h2>')
         for si, (shown, _) in enumerate(c["sentences"], 1):
-            body.append(f'<p class="s" data-n="{ci}-{si}"><button class="n" type="button" aria-label="{ci}-{si} に印">{ci}-{si}</button>'
-                        f'<span class="t">{html.escape(shown)}</span></p>')
+            body.append(f'<p class="s" data-n="{ci}-{si}"><button class="n" type="button" aria-label="{ci}-{si} に指示">{ci}-{si}</button>'
+                        f'<span class="t">{html.escape(shown)}</span><span class="note" hidden></span></p>')
         body.append("</section>")
     speak = [[f"{ci}-{si}", spoken] for ci, c in enumerate(chs, 1) for si, (_, spoken) in enumerate(c["sentences"], 1)]
     nav = "".join(f'<a href="#c{ci}">{html.escape(c["name"])}</a>' for ci, c in enumerate(chs, 1))
@@ -94,7 +96,17 @@ h2 { font-size: 1.05rem; margin: 0 0 8px; padding-bottom: 4px; border-bottom: 1p
 .s.now { background: var(--now); }
 .n { font: inherit; font-size: .78rem; color: var(--sub); background: none; border: 1px solid var(--line); border-radius: 6px; height: 2em; margin-top: .25em; font-variant-numeric: tabular-nums; cursor: pointer; }
 .s.cut .t { text-decoration: line-through; color: var(--sub); }
-.s.cut .n { border-color: var(--cut); color: var(--cut); font-weight: 700; }
+.s.has .n { border-color: var(--cut); color: var(--cut); font-weight: 700; }
+.s .note { grid-column: 2; margin: 0; font-size: .92rem; color: var(--cut); }
+.sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 2; background: var(--bar); border-top: 2px solid var(--cut);
+  padding: 14px 16px calc(14px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 10px; box-shadow: 0 -6px 24px rgb(0 0 0 / .18); }
+.sheet[hidden] { display: none; }
+.sheet > * { max-width: 40rem; margin: 0 auto; width: 100%; }
+.sheet p { margin: 0; font-size: .9rem; color: var(--sub); }
+.sheet textarea { font: inherit; font-size: 1rem; min-height: 5.5em; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); resize: vertical; box-sizing: border-box; }
+.sheet button { font: inherit; font-size: .95rem; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); }
+.sheet button[aria-pressed="true"] { background: var(--cut); border-color: var(--cut); color: var(--btn-fg); }
+.sheet .main { background: var(--btn); color: var(--btn-fg); border-color: var(--btn); }
 .bar { position: fixed; left: 0; right: 0; bottom: 0; background: var(--bar); border-top: 1px solid var(--line);
   padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 8px; }
 .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; max-width: 40rem; margin: 0 auto; width: 100%; }
@@ -107,7 +119,7 @@ button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid
 <main>
   <header>
     <h1>{{TITLE}}</h1>
-    <p class="info">{{INFO}}。文をタップするとそこから読みます。番号をタップすると「いらない」の印。</p>
+    <p class="info">{{INFO}}。文をタップするとそこから読みます。番号をタップすると、その文に「いらない」「言い換え」「メモ」を付けられます。</p>
   </header>
   <nav>{{NAV}}</nav>
   {{BODY}}
@@ -119,22 +131,87 @@ button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid
     <select id="voice" aria-label="声"></select>
   </div>
   <div class="row">
-    <button id="copy" type="button">印の番号をコピー</button>
+    <button id="copy" type="button">指示をコピー</button>
     <button id="all" type="button">全文をコピー</button>
-    <span class="msg" id="msg">印 0 文</span>
+    <span class="msg" id="msg">指示 0 件</span>
   </div>
+</div>
+<div class="sheet" id="sheet" hidden>
+  <p id="sheet-title"></p>
+  <div class="row"><button type="button" data-kind="cut">いらない</button><button type="button" data-kind="say">言い換え</button><button type="button" data-kind="memo">メモ</button></div>
+  <textarea id="sheet-text" aria-label="指示の中身"></textarea>
+  <div class="row"><button class="main" id="sheet-save" type="button">保存</button><button id="sheet-close" type="button">閉じる</button><button id="sheet-del" type="button">この指示を消す</button></div>
 </div>
 <script>
 const DATA = {{DATA}};
-const KEY = "cut:" + {{KEY}};
+const KEY = "notes:" + {{KEY}};
+const KINDS = { cut: "いらない", say: "言い換え", memo: "メモ" };
 const els = [...document.querySelectorAll(".s")];
+const byN = Object.fromEntries(els.map((e, i) => [e.dataset.n, i]));
 const synth = window.speechSynthesis;
-let idx = 0, playing = false, voices = [];
-let cut = new Set();
-try { cut = new Set(JSON.parse(localStorage.getItem(KEY) || "[]")); } catch (e) {}
+let idx = 0, playing = false, voices = [], notes = {}, db = null, open = null;
 const msg = document.getElementById("msg"), playBtn = document.getElementById("play"), voiceSel = document.getElementById("voice");
-function save() { try { localStorage.setItem(KEY, JSON.stringify([...cut])); } catch (e) {} }
-function paint() { els.forEach(e => e.classList.toggle("cut", cut.has(e.dataset.n))); msg.textContent = "印 " + cut.size + " 文"; }
+const sheet = document.getElementById("sheet"), sheetTitle = document.getElementById("sheet-title"), sheetText = document.getElementById("sheet-text");
+function say(t) { msg.textContent = t; }
+try { notes = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) {}
+function keepLocal() { try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} }
+function count() { return Object.keys(notes).length; }
+function where() { return db ? "Claude に届いています" : "この端末だけに保存（「指示をコピー」で貼ってください）"; }
+function paint() {
+  els.forEach(e => {
+    const n = notes[e.dataset.n];
+    e.classList.toggle("cut", !!n && n.kind === "cut");
+    e.classList.toggle("has", !!n);
+    const box = e.querySelector(".note");
+    box.hidden = !n || (n.kind === "cut" && !n.text);
+    if (n) box.textContent = (n.kind === "say" ? "→ " : KINDS[n.kind] + "：") + (n.text || "");
+  });
+  say("指示 " + count() + " 件・" + where());
+}
+// ---- 指示の保存（db があれば Claude が読める。なければこの端末だけ） ----
+async function put(n, body) {
+  if (body) notes[n] = body; else delete notes[n];
+  keepLocal(); paint();
+  if (!db) return;
+  try { body ? await db.collection("notes").doc("s" + n).set(body) : await db.collection("notes").doc("s" + n).delete(); }
+  catch (e) { say("保存できませんでした（" + (e.code || e.message) + "）。「指示をコピー」で貼ってください"); }
+}
+(async () => {
+  try { db = await window.claude?.use?.("db"); } catch (e) { db = null; }
+  if (!db) { paint(); return; }
+  db.collection("notes").onSnapshot(snap => {
+    notes = {};
+    snap.docs.forEach(d => { const b = d.data(); if (b && b.n) notes[b.n] = b; });
+    keepLocal(); paint();
+  }, () => { db = null; paint(); });
+})();
+// ---- 指示を書く枠 ----
+let kind = "cut";
+function setKind(k) {
+  kind = k;
+  document.querySelectorAll("[data-kind]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.kind === k)));
+  sheetText.placeholder = k === "say" ? "新しい言い方、または「もっと短く」などの指示" : k === "memo" ? "気づいたこと（例：ここで数字が多すぎる）" : "理由があれば（なくてよい）";
+  if (k === "say" && !sheetText.value && open) sheetText.value = els[byN[open]].querySelector(".t").textContent;
+}
+function openSheet(n) {
+  stop(); open = n;
+  const cur = notes[n];
+  sheetTitle.textContent = n + "　" + els[byN[n]].querySelector(".t").textContent;
+  sheetText.value = cur ? (cur.text || "") : "";
+  setKind(cur ? cur.kind : "cut");
+  document.getElementById("sheet-del").hidden = !cur;
+  sheet.hidden = false; sheetText.focus({ preventScroll: true });
+}
+function closeSheet() { sheet.hidden = true; open = null; }
+document.querySelectorAll("[data-kind]").forEach(b => b.addEventListener("click", () => setKind(b.dataset.kind)));
+document.getElementById("sheet-save").addEventListener("click", () => {
+  const n = open, e = els[byN[n]];
+  put(n, { n, kind, text: sheetText.value.trim(), sentence: e.querySelector(".t").textContent, order: byN[n], at: new Date().toISOString() });
+  closeSheet();
+});
+document.getElementById("sheet-del").addEventListener("click", () => { put(open, null); closeSheet(); });
+document.getElementById("sheet-close").addEventListener("click", closeSheet);
+// ---- 読み上げ ----
 function loadVoices() {
   if (!synth) { voiceSel.hidden = true; return; }
   voices = synth.getVoices().filter(v => v.lang && v.lang.toLowerCase().startsWith("ja"));
@@ -144,17 +221,16 @@ function loadVoices() {
 }
 if (synth) { loadVoices(); synth.onvoiceschanged = loadVoices; }
 function mark(i) { els.forEach(e => e.classList.remove("now")); if (els[i]) { els[i].classList.add("now"); els[i].scrollIntoView({ block: "center", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); } }
-function say(t) { msg.textContent = t; }
 function speak() {
   if (!playing || idx >= DATA.length) { stop(); return; }
   const u = new SpeechSynthesisUtterance(DATA[idx][1]);
   u.lang = "ja-JP"; u.rate = parseFloat(document.getElementById("rate").value);
   if (voices[+voiceSel.value]) u.voice = voices[+voiceSel.value];
   u.onend = () => { if (playing) { idx++; speak(); } };
-  u.onerror = ev => { if (playing && ev.error !== "interrupted" && ev.error !== "canceled") { stop(); say("読み上げが止まりました（" + ev.error + "）。Edge か Safari・Chrome で開くか、「全文をコピー」を使ってください"); } };
+  u.onerror = ev => { if (playing && ev.error !== "interrupted" && ev.error !== "canceled") { stop(); say("読み上げが止まりました（" + ev.error + "）。スマホのブラウザで開くか、「全文をコピー」を使ってください"); } };
   mark(idx); synth.speak(u);
 }
-const NO_SPEECH = "ここでは読み上げが使えません。リンクを Edge・Safari・Chrome で開くか、「全文をコピー」でほかの読み上げに貼ってください";
+const NO_SPEECH = "ここでは読み上げが使えません。リンクをスマホのブラウザ（Edge・Safari）で開いてください";
 function start(i) {
   if (!synth || typeof SpeechSynthesisUtterance === "undefined") { say(NO_SPEECH); return; }
   if (synth.speaking || synth.pending) synth.cancel();  // 何も読んでいないときに cancel すると、iPhone で最初の1文が消えることがある
@@ -162,27 +238,22 @@ function start(i) {
   speak();
   setTimeout(() => { if (playing && !synth.speaking && !synth.pending) { stop(); say(NO_SPEECH); } }, 2500);
 }
-function stop() { playing = false; if (synth) synth.cancel(); playBtn.textContent = "▶ 再生"; }
-playBtn.addEventListener("click", () => playing ? stop() : start(idx));
+function stop() { if (playing) { playing = false; if (synth) synth.cancel(); } playBtn.textContent = "▶ 再生"; }
+playBtn.addEventListener("click", () => playing ? (stop(), paint()) : start(idx));
 document.getElementById("rate").addEventListener("change", () => { if (playing) start(idx); });
 voiceSel.addEventListener("change", () => { if (playing) start(idx); });
-els.forEach((e, i) => {
-  e.addEventListener("click", ev => {
-    if (ev.target.closest(".n")) { const n = e.dataset.n; cut.has(n) ? cut.delete(n) : cut.add(n); save(); paint(); return; }
-    start(i);
-  });
-});
-document.getElementById("all").addEventListener("click", async () => {
-  const text = els.map(e => e.querySelector(".t").textContent).join("\n");
-  try { await navigator.clipboard.writeText(text); say("全文をコピーしました（" + els.length + "文）"); }
+els.forEach((e, i) => e.addEventListener("click", ev => { if (ev.target.closest(".n")) { openSheet(e.dataset.n); return; } start(i); }));
+// ---- コピー ----
+async function copy(text, ok) {
+  try { await navigator.clipboard.writeText(text); say(ok); }
   catch (e) { say("コピーできませんでした。ページの文を長押しして選んでください"); }
+}
+document.getElementById("copy").addEventListener("click", () => {
+  const list = Object.values(notes).sort((a, b) => a.order - b.order)
+    .map(x => `${x.n}【${KINDS[x.kind]}】${x.sentence.slice(0, 20)}${x.text ? "\n  → " + x.text : ""}`);
+  copy("台本への指示：\n" + (list.join("\n") || "（なし）"), "コピーしました。チャットに貼ってください");
 });
-document.getElementById("copy").addEventListener("click", async () => {
-  const list = els.filter(e => cut.has(e.dataset.n)).map(e => e.dataset.n + " " + e.querySelector(".t").textContent.slice(0, 15));
-  const text = "いらない：\n" + (list.join("\n") || "（なし）");
-  try { await navigator.clipboard.writeText(text); msg.textContent = "コピーしました。チャットに貼ってください"; }
-  catch (e) { msg.textContent = "コピーできませんでした：" + list.map(x => x.split(" ")[0]).join(", "); }
-});
+document.getElementById("all").addEventListener("click", () => copy(els.map(e => e.querySelector(".t").textContent).join("\n"), "全文をコピーしました（" + els.length + "文）"));
 paint();
 </script>
 """

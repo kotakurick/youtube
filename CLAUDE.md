@@ -117,7 +117,7 @@ python bench/analyze.py --out research/benchmark/summary.md
 scripts/new_episode.sh where-couples-meet          # 新しい回を作る → episodes/001-where-couples-meet/
 cd render && npm run studio                         # 動画をブラウザで確認（Remotion Studio）
 python tts/narrate.py episodes/<回> --voice silent  # 台本から仮の尺と字幕（声が決まったら --voice を変える）
-python tts/readaloud.py episodes/<回>                # 無料の読み上げページ（スマホの声。文に「いらない」の印）→ Artifact で公開
+python tts/readaloud.py episodes/<回>                # 無料の読み上げページ（スマホの声。文に「いらない」「言い換え」「メモ」）→ Artifact で db 付きで公開、指示は ArtifactData で notes を読む
 python tts/preview.py episodes/<回>                  # 作った音声を、スマホで聞く mp3（通し・章ごと）と早見表にまとめる
 python tts/narrate.py episodes/<回> --voice silent --script script-v2.md  # 台本の版違い（timing-v2.json を書く。動画の id は <回>-v2）
 cd render && npm run check -- <回のid>               # 画面のチェック（直すものを0に）
