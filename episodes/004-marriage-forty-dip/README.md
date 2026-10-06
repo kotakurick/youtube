@@ -10,8 +10,8 @@
 - [x] ★ テーマと切り口の承認（オーナー 2026-10-05 「A」：40代から、妻だけが冷めていく。`research.md` の第2版の案A）
 - [x] 2. 企画カードと構成案（クラウド、2026-10-05 第2版。ライバル役の判定を反映。`research-micro.md` でミクロのデータを足した）→ `outline.md`（一番上の企画カードを先に埋める。埋まったら `review-rival` に見せて、負けている所を構成で直す → `review/rival-outline.md`）
 - [x] 3. 台本（クラウド、2026-10-06 第2稿。5役のレビュー済み、仮通しで約14分。対応は `review/README.md`）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。5役のレビュー → `review/`）
-- [ ] ★ 一次資料との照合（オーナー）→ `sources.csv` の「照合」欄をすべて埋める
-- [ ] ★ 台本レビュー（オーナー）→ `review/owner.md`（Claude が読みやすい形にまとめて渡す。オーナーの指摘は Claude が書き写して台本に反映し、直した／直さなかったを1行ずつ書く）
+- [ ] ★ 一次資料との照合（オーナー）→ `sources.csv` の「照合」欄をすべて埋める。**音声を作る前（7の前）に必ず行う**。図から読んだ値（S7c・S17）と、こちらで計算した値（S9c・S14・S23）を優先して確かめる
+- [x] ★ 台本レビュー（オーナー 2026-10-06：冒頭を小説家クオリティで書き直し、耳で分かりにくい所、締めに救い、発見に「なぜ」を求め、第5稿に「いいね。すきだよ。内容。」）→ `review/owner.md`（Claude が読みやすい形にまとめて渡す。オーナーの指摘は Claude が書き写して台本に反映し、直した／直さなかったを1行ずつ書く）
 - [ ] 4. 絵コンテ（クラウド）：`scenes/Storyboard.tsx` に場面を描き（秒数と動きも）、`cd render && npm run storyboard -- <回のid>` で一覧と `storyboard.md` を作る（直すもの0、⚠ の場面は割り方を決める）→ 3役（`review-animator`・`review-illustrator`・`review-designer`）に見せて `review/storyboard-summary.md` にまとめて直す → ★ オーナーが確認
 - [ ] 5. 場面のコード（クラウド）→ `scenes/Episode.tsx`（`Episode.example.tsx` を名前を変えて使う。部品は `render/src/lib`、動きは `useNarration()` で読み上げに合わせる）
 - [ ] 6. 仮通し（クラウド）：`python tts/narrate.py episodes/004-marriage-forty-dip --voice silent` で仮の尺と字幕（`timing.json`）を作り、部品のない場面は仮の画面（draft）で13〜18分を通して、テンポ・章の長さ・考える場面の位置を直す
