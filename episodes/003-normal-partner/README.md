@@ -2,12 +2,11 @@
 
 テーマ: themes.csv の 111「「普通の相手」の条件を全部重ねると、何人残るか」（first20.md の4番、何%側）。タイトル案（型B）：「普通の相手」の条件を全部重ねると、残るのは100人に◯人
 
-## いまの状態（2026-10-05）
+## いまの状態（2026-10-06）
 
-- 台本 第2稿まで（`script.md`。5役のレビューを反映、`review/README.md`）。次は ★オーナーの台本レビューと、一次資料との照合。
-- 数字は `data/count.py` → `data/count_result.md`（★未照合。`sources.csv` の S1〜S7）。
-- 未確認：米空軍の操縦士の原典（S7。DTIC が機械からの取得を断る）。確かめられなければ使わない。
-- 見送り：第3章を2017年の就業構造基本調査で数え直す案（同じ形の表をすぐ見つけられなかった）。
+- 台本 第4稿（`script.md`。第2稿はオーナーに「全然おもしろくない」と言われ、切り口から作り直した。6役のレビューを反映、`review/README.md`）。次は ★オーナーの台本レビューと、一次資料との照合。
+- 数字：日本の統計は `data/count.py` → `data/count_result.md`、論文は `research-academic.md`（★未照合。`sources.csv` の S1〜S14）。
+- 構成案は `outline.md` の第3版（台本 第4稿で変えた所は `review/README.md`）。
 
 ## 進行状況
 
@@ -16,7 +15,7 @@
 - [x] 1. テーマ・データ収集（クラウド、2026-10-05）→ `research.md`、`sources.csv`、`data/`（`count.py` で数える）
 - [x] ★ テーマと切り口の承認（オーナー 2026-10-05「おけすすんで」）
 - [x] 2. 企画カードと構成案（クラウド、2026-10-05 第2版。ライバル役の判定は `review/rival-outline.md`）→ `outline.md`（一番上の企画カードを先に埋める。埋まったら `review-rival` に見せて、負けている所を構成で直す → `review/rival-outline.md`）
-- [x] 3. 台本（クラウド、2026-10-05 第2稿。5役のレビュー済み、`review/README.md`。約9.3分）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。5役のレビュー → `review/`）
+- [x] 3. 台本（クラウド、2026-10-06 第4稿。6役のレビュー済み、`review/README.md`。約10.4分）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。5役のレビュー → `review/`）
 - [ ] ★ 一次資料との照合（オーナー）→ `sources.csv` の「照合」欄をすべて埋める
 - [ ] ★ 台本レビュー（オーナー）→ `review/owner.md`（Claude が読みやすい形にまとめて渡す。オーナーの指摘は Claude が書き写して台本に反映し、直した／直さなかったを1行ずつ書く）
 - [ ] 4. 絵コンテ（クラウド）：`scenes/Storyboard.tsx` に場面を描き（秒数と動きも）、`cd render && npm run storyboard -- <回のid>` で一覧と `storyboard.md` を作る（直すもの0、⚠ の場面は割り方を決める）→ 3役（`review-animator`・`review-illustrator`・`review-designer`）に見せて `review/storyboard-summary.md` にまとめて直す → ★ オーナーが確認
