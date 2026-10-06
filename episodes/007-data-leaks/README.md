@@ -18,9 +18,9 @@
 人の工程（★）は飛ばさない。チェックを付けたら日付も書く。
 
 - [x] 1. テーマ・データ収集（クラウド）→ `sources.csv`、`data/`（2026-10-06）
-- [ ] ★ テーマと切り口の承認（オーナー）
-- [ ] 2. 企画カードと構成案（2026-10-06 第2版。ライバル役の判定 `review/rival-outline.md` で直した。オーナーの確認待ち）（クラウド）→ `outline.md`（一番上の企画カードを先に埋める。埋まったら `review-rival` に見せて、負けている所を構成で直す → `review/rival-outline.md`）
-- [ ] 3. 台本（クラウド）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。5役のレビュー → 直した稿をもう一度見せる → 最後に日本語役 `review-japanese` → `review/`）
+- [x] ★ テーマと切り口の承認（オーナー。2026-10-06）
+- [x] 2. 企画カードと構成案（2026-10-06 第2版。ライバル役の判定 `review/rival-outline.md` で直した。オーナー「それでOK、台本に進んで」）（クラウド）→ `outline.md`（一番上の企画カードを先に埋める。埋まったら `review-rival` に見せて、負けている所を構成で直す → `review/rival-outline.md`）
+- [x] 3. 台本（クラウド。2026-10-06 第3稿・改。5役 → 3役の再確認 → 日本語役まで。`review/README.md`）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。5役のレビュー → 直した稿をもう一度見せる → 最後に日本語役 `review-japanese` → `review/`）
 - [ ] ★ 一次資料との照合（オーナー）→ `sources.csv` の「照合」欄をすべて埋める
 - [ ] ★ 台本レビュー（オーナー）→ `review/owner.md`（Claude が読みやすい形にまとめて渡す。オーナーの指摘は Claude が書き写して台本に反映し、直した／直さなかったを1行ずつ書く）
 - [ ] 4. 絵コンテ（クラウド）：`scenes/Storyboard.tsx` に場面を描き（秒数と動きも）、`cd render && npm run storyboard -- <回のid>` で一覧と `storyboard.md` を作る（直すもの0、⚠ の場面は割り方を決める）→ 3役（`review-animator`・`review-illustrator`・`review-designer`）に見せて `review/storyboard-summary.md` にまとめて直す → ★ オーナーが確認
