@@ -12,6 +12,8 @@
 
 引き継ぎはすべてリポジトリで行う（クラウドには Claude のメモがない）。各回の進み具合は `episodes/<回>/README.md`。
 
+本線への合流：決まりの変更はすぐ、各回の作業は 12（音声）の前にローカルへ渡すとき（`CLAUDE.md` の「ブランチの決まり」）。
+
 ## 流れ
 
 | # | 工程 | 担当 | 中身・道具 | 出てくるもの |
@@ -27,7 +29,7 @@
 | 9 | 絵コンテ | クラウド＋絵コンテの3役 → ★オーナーが確認 | `episodes/<回>/scenes/Storyboard.tsx` に場面を描き（秒数 sec と動き move も書く）、`cd render && npm run storyboard -- <回のid>` で一覧と表（30秒を超える場面に ⚠）を作る。**第1版をアニメーター `review-animator`・イラストレーター `review-illustrator`・デザイナー `review-designer` に見せ**、まとめ（`review/storyboard-summary.md`）で直してからオーナーへ。色はその回の意味の色 | 一覧の画像、`storyboard.md`、`review/storyboard-*.md` |
 | 10 | 場面のコード | クラウド | シミュレーションも含む | `scenes/Episode.tsx` |
 | 11 | 仮通し | クラウド | 無音の仮の尺と字幕で13〜18分を通し、テンポを直す | `timing.json` |
-| 12 | 音声 | ローカル | ElevenLabs の Yui（`--voice eleven-yui`） | `_local/episodes/<回>/audio/` |
+| 12 | 音声 | ローカル | 先にクラウドの作業を本線に合流させる。ElevenLabs の Yui（`--voice eleven-yui`） | `_local/episodes/<回>/audio/` |
 | 13 | 書き出し・BGM・音量 | ローカル | `npm run render`、`npm run master` | 動画ファイル |
 | 14 | 画面のチェック | 自動 | `npm run check` の「直すもの」を0に | `render/out/qa/<回>/` |
 | 15 | 通しで見る | ★オーナー | 1.25倍速 | |

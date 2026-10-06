@@ -11,7 +11,6 @@ import { ChapterDots } from "@lib/Chapter";
 import { TodayCard } from "@lib/Cards";
 import { Cat } from "@lib/Cat";
 import { Dumbbell } from "@lib/Dumbbell";
-import { EndScreen } from "@lib/EndScreen";
 import { Figure, Kind } from "@lib/Figure";
 import { Gosa } from "@lib/Gosa";
 import { Table } from "@lib/Props";
@@ -164,12 +163,12 @@ const P12: React.FC = () => (
     <SourceNote text="就業構造基本調査2022 第40表・第118表から当チャンネルが集計（年収500万円以上の人のうち大卒以上80.1%、全体49.3%）" />
   </AbsoluteFill>
 );
-const CUTS = [{ at: 10, label: "大学", on: true }, { at: 17, label: "年収500万円", on: true }];
+const CUTS = [{ at: 10, label: "大学 49%", on: true }, { at: 17, label: "年収500万円 13%", on: true }];
 const P13: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={1} />
     <Heading>同じ物差しの上の条件は、重ねても減らない</Heading>
-    <Svg><TwoRulers x={120} y={220} xCuts={CUTS} yCut={{ at: 3, label: "170cm", on: false }} /></Svg>
+    <Svg><TwoRulers x={100} y={220} dx={54} xCuts={CUTS} yCut={{ at: 3, label: "170cm 約60%", on: false }} /></Svg>
     <SourceNote text="模式図（横＝お金の物差しの順、縦＝身長の順）" prefix="" />
   </AbsoluteFill>
 );
@@ -177,7 +176,7 @@ const P13b: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={1} />
     <Heading>別の物差しの条件は、掛け算で減る</Heading>
-    <Svg><TwoRulers x={120} y={220} xCuts={CUTS} yCut={{ at: 3, label: "170cm", on: true }} /></Svg>
+    <Svg><TwoRulers x={100} y={220} dx={54} xCuts={CUTS} yCut={{ at: 3, label: "170cm 約60%", on: true }} /></Svg>
     <SourceNote text="模式図。身長と給料の関係は弱い（慶應義塾大学 PDRC DP2009-010）。身長は見積もり" prefix="" />
   </AbsoluteFill>
 );
@@ -248,9 +247,9 @@ const P17: React.FC = () => {
           );
         })}
         <Label x={1580} y={400} color={C.ink2}>掛け算</Label>
-        <Label x={1580} y={470} size="value">約5%</Label>
+        <Label x={1580} y={490} size="value">約5%</Label>
         <Label x={1580} y={600} color={C.ink2}>実際</Label>
-        <Label x={1580} y={670} size="value">13%</Label>
+        <Label x={1580} y={690} size="value">13%</Label>
       </Svg>
       <SourceNote text="鈴木・八代（2025）表2（条件1つだけの女性の希望率）。掛け算（約5.2%）は当チャンネルの計算" />
     </AbsoluteFill>
@@ -352,8 +351,8 @@ const P24: React.FC = () => (
     <Svg>
       <rect x={140} y={230} width={760} height={500} rx={R.lg} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
       <Label x={180} y={300} weight={900}>会う前のアンケート</Label>
-      <Figure kind="male" x={330} y={540} size={2.4} /><Label x={330} y={610} anchor="middle">見た目を</Label><Label x={330} y={660} anchor="middle">重く見る</Label>
-      <Figure kind="female" x={690} y={540} size={2.4} /><Label x={690} y={610} anchor="middle">稼ぐ見込みを</Label><Label x={690} y={660} anchor="middle">重く見る</Label>
+      <Figure kind="male" x={330} y={540} size={2.4} /><Label x={330} y={610} anchor="middle">見た目を</Label><Label x={330} y={672} anchor="middle">重く見る</Label>
+      <Figure kind="female" x={690} y={540} size={2.4} /><Label x={690} y={610} anchor="middle">稼ぐ見込みを</Label><Label x={690} y={672} anchor="middle">重く見る</Label>
       <rect x={1020} y={230} width={760} height={500} rx={R.lg} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
       <Label x={1060} y={300} weight={900}>スピードデートで会ったとき</Label>
       <Figure kind="male" x={1210} y={540} size={2.4} /><Figure kind="female" x={1570} y={540} size={2.4} />
@@ -418,7 +417,7 @@ const P28: React.FC = () => (
       <Label x={1540} y={420} color={C.ink2}>どれか一つは</Label>
       <Label x={1540} y={480} color={C.ink2}>外れてよい</Label>
       <Label x={1540} y={600} size="note" color={C.ink2}>大事な条件が</Label>
-      <Label x={1540} y={640} size="note" color={C.ink2}>外れた組も入る</Label>
+      <Label x={1540} y={650} size="note" color={C.ink2}>外れた組も入る</Label>
     </Svg>
     <SourceNote text="鈴木・八代（2025）表5（お互いに満たし合う男女 3.8%→18.8%）、脚注5" />
   </AbsoluteFill>
@@ -438,7 +437,7 @@ const P29: React.FC = () => (
 const P30a: React.FC = () => (
   <AbsoluteFill>
     <Heading>同じ物差しは減らず、別の物差しは掛け算</Heading>
-    <Svg><TwoRulers x={120} y={220} xCuts={CUTS} yCut={{ at: 3, label: "170cm", on: true }} /></Svg>
+    <Svg><TwoRulers x={100} y={220} dx={54} xCuts={CUTS} yCut={{ at: 3, label: "170cm 約60%", on: true }} /></Svg>
   </AbsoluteFill>
 );
 const P30b: React.FC = () => (
@@ -464,8 +463,8 @@ const P30c: React.FC = () => (
   </AbsoluteFill>
 );
 const P31: React.FC = () => <AbsoluteFill><SignOff /></AbsoluteFill>;
-// 終了画面（共通の部品。ゴサと教訓の1行、次の1本・再生リストの枠。20秒、ナレーションなし）
-const P32: React.FC = () => <AbsoluteFill><EndScreen lesson={"相手の数を数えるとき、\n相手の側のふるいを\n数え忘れている。"} /></AbsoluteFill>;
+// 終了画面（共通の部品 SignOff の end。同じ夜のまま一文とゴサが左へ寄り、右に次の1本・再生リストの枠。20秒、ナレーションなし）
+const P32: React.FC = () => <AbsoluteFill><SignOff end /></AbsoluteFill>;
 
 const panels: Panel[] = [
   { key: "01", title: "冒頭：午前1時の部屋", C: P01, sec: 9, move: "暗い部屋。スマホの光だけが彼女の顔を照らす。低いテーブルの前" },
@@ -505,7 +504,7 @@ const panels: Panel[] = [
   { key: "30b", title: "教訓：二つの画面", C: P30b, sec: 9, move: "彼女の画面と相手の画面が向かい合う。相手の画面の欄が点線から実線に" },
   { key: "30c", title: "締めの一文", C: P30c, sec: 9, move: "二枚のふるいの下で2匹が向き合う。締めの一文" },
   { key: "31", title: "締めのひと言（毎回同じ）", C: P31, sec: 7, move: "共通のアニメーション（SignOff）。字幕なし" },
-  { key: "32", title: "終了画面（共通）", C: P32, sec: 20, move: "共通の終了画面（EndScreen）：ゴサと教訓の1行。右に次の1本・再生リストの枠（YouTube Studio で要素を重ねる）。ナレーションなし、BGMだけ" },
+  { key: "32", title: "終了画面（共通）", C: P32, sec: 20, move: "共通の終了画面（SignOff end）：同じ夜のまま一文とゴサが左へ寄り、右に次の1本・再生リストの枠（YouTube Studio で要素を重ねる）。ナレーションなし、BGMだけ" },
 ];
 
 const storyboard: StoryboardDef = { id: "003-normal-partner", title: "「普通の相手」の数（第2版）", panels };

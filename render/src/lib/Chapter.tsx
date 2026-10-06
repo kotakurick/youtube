@@ -18,11 +18,11 @@ export const ChapterCard: React.FC<{ no: number; title: string }> = ({ no, title
   return (
     <AbsoluteFill style={{ background: C.ink, transform: `translateX(${inX + outX}px)` }}>
       {/* チャンネル名（左上。2026-10-05 オーナー「章のところにチャンネル名をのせてもいいかも」） */}
-      <div style={{ position: "absolute", left: 220, top: 260, opacity: t, display: "flex", alignItems: "center", gap: 20, ...font("label", C.paper2), fontWeight: 900 }}>
+      <div style={{ position: "absolute", left: 220, top: 180, opacity: t, display: "flex", alignItems: "center", gap: 20, ...font("label", C.paper2), fontWeight: 900 }}>
         <span>{CHANNEL_NAME}</span>
         <span style={{ width: 120, height: LINE.hair, background: C.paper2 }} />
       </div>
-      <div style={{ position: "absolute", left: 220, top: 380, opacity: t, transform: `translateX(${(1 - t) * -40}px)` }}>
+      <div style={{ position: "absolute", left: 220, top: 300, opacity: t, transform: `translateX(${(1 - t) * -40}px)` }}>
         <div style={{ ...font("label", C.paper2) }}>第{no}章</div>
         <div style={{ ...font("chapter", C.white), marginTop: 12 }}>{title}</div>
       </div>

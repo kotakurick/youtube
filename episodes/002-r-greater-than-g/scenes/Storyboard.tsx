@@ -41,12 +41,12 @@ export const Heading: React.FC<{ children: React.ReactNode }> = ({ children }) =
   <div style={{ position: "absolute", left: 96, top: 56, width: 1500, ...font("question") }}>{children}</div>
 );
 
-const man = (v: number) => `${v < 0 ? "−" : ""}${Math.abs(v).toLocaleString()}万`;
+export const man = (v: number) => `${v < 0 ? "−" : ""}${Math.abs(v).toLocaleString()}万`;
 /** 墨の下線（蛍光ペンの黄色は見えにくいので新しい場面では使わない。2026-10-05） */
-const Underline: React.FC<{ x: number; y: number; w: number }> = ({ x, y, w }) => <rect x={x} y={y + 10} width={w} height={6} rx={3} fill={C.ink} />;
+export const Underline: React.FC<{ x: number; y: number; w: number }> = ({ x, y, w }) => <rect x={x} y={y + 10} width={w} height={6} rx={3} fill={C.ink} />;
 
 // ================= 冒頭 =================
-const P01: React.FC = () => (
+export const P01: React.FC = () => (
   <AbsoluteFill>
     <Svg>
       <Bedroom />
@@ -55,7 +55,7 @@ const P01: React.FC = () => (
     </Svg>
   </AbsoluteFill>
 );
-const P02: React.FC = () => (
+export const P02: React.FC = () => (
   <AbsoluteFill>
     <Svg>
       <Phone x={560} y={500} h={680} screen="blank" />
@@ -70,7 +70,7 @@ const P02: React.FC = () => (
     <SourceNote text="単身20代の金融資産の中央値（J-FLEC 2025。日常用の預金を除く）" />
   </AbsoluteFill>
 );
-const P03: React.FC = () => (
+export const P03: React.FC = () => (
   <AbsoluteFill>
     <Heading>給料で買えるもの：4年で約5%減</Heading>
     <Svg>
@@ -91,7 +91,7 @@ const P03: React.FC = () => (
   </AbsoluteFill>
 );
 // 日経平均：sources.csv の3つの時点だけを結ぶ（間の上下は描かない）
-const P04: React.FC = () => {
+export const P04: React.FC = () => {
   const X = (y: number) => 260 + ((y - 1989) / (2024.2 - 1989)) * 1300, Y = (v: number) => 860 - (v / 40000) * 560;
   return (
     <AbsoluteFill>
@@ -110,11 +110,11 @@ const P04: React.FC = () => {
     </AbsoluteFill>
   );
 };
-const P05: React.FC = () => (
+export const P05: React.FC = () => (
   <AbsoluteFill>
     <Svg>
       <Phone x={1240} y={500} h={720} screen="blank" />
-      <Cat kind="male" x={500} y={860} size={4.6} pose="down" face="sad" label="彼" />
+      <Cat kind="male" x={500} y={820} size={4.6} pose="down" face="sad" label="彼" />
     </Svg>
     <div data-qa-allow="prop" style={{ position: "absolute", left: 1090, top: 260, width: 300, ...font("label"), lineHeight: 1.35 }}>
       r ＞ g。資本が増える速さは、働いて稼ぐ速さを上回る。だから、給料より資産
@@ -124,7 +124,7 @@ const P05: React.FC = () => (
     </div>
   </AbsoluteFill>
 );
-const P06: React.FC = () => (
+export const P06: React.FC = () => (
   <AbsoluteFill>
     <div style={{ position: "absolute", left: 96, top: 120, width: 620, padding: "28px 32px", background: C.white, border: `4px solid ${C.ink2}`, borderRadius: R.lg }}>
       <div style={{ ...font("note", C.ink2) }}>流れてきた投稿</div>
@@ -142,10 +142,10 @@ const P06: React.FC = () => (
   </AbsoluteFill>
 );
 const ROADS: [VillageKind, string][] = [["預金", "預金"], ["積立", "投資"], ["稼ぐ力", "転職"], ["起業", "起業"]];
-const P07: React.FC = () => (
+export const P07: React.FC = () => (
   <AbsoluteFill>
     <Svg>
-      <Cat kind="male" x={960} y={900} size={3.6} pose="stand" face="think" label="彼" />
+      <Cat kind="male" x={960} y={840} size={3.4} pose="stand" face="think" label="彼" />
       {ROADS.map(([k, t], i) => {
         const x = 300 + i * 440;
         return (
@@ -161,21 +161,21 @@ const P07: React.FC = () => (
     <div style={{ position: "absolute", left: 96, top: 56, ...font("question") }}>二十年後、どうなる？</div>
   </AbsoluteFill>
 );
-const P08: React.FC = () => <AbsoluteFill><TodayCard claim="r＞gだから、働くより資産" /><Gosa cues={[[-60, "thinking"]]} size="M" /></AbsoluteFill>;
-const P09: React.FC = () => (
+export const P08: React.FC = () => <AbsoluteFill><TodayCard claim="r＞gだから、働くより資産" /><Gosa cues={[[-60, "thinking"]]} size="M" /></AbsoluteFill>;
+export const P09: React.FC = () => (
   <AbsoluteFill>
     <Quiz question="37万円を年5%で回すと、利息が年収に追いつくのは？" choices={["10年後", "30年後", "60年後", "100年より先"]} />
     <Svg>
-      <Label x={96} y={760} color={C.ink2}>年収 約370万円</Label>
-      <rect x={420} y={725} width={1100} height={50} fill={C.teal} stroke={C.ink} strokeWidth={LINE.thin} />
-      <Label x={96} y={860} color={C.ink2}>利息 1年目</Label>
-      <rect x={420} y={825} width={1100 * 1.85 / 370} height={50} fill={C.gold} stroke={C.ink} strokeWidth={2} />
-      <Label x={450} y={862} size="note" color={C.ink2}>約1.9万円</Label>
+      <Label x={96} y={675} color={C.ink2}>年収 約370万円</Label>
+      <rect x={420} y={640} width={1100} height={50} fill={C.teal} stroke={C.ink} strokeWidth={LINE.thin} />
+      <Label x={96} y={765} color={C.ink2}>利息 1年目</Label>
+      <rect x={420} y={730} width={1100 * 1.85 / 370} height={50} fill={C.gold} stroke={C.ink} strokeWidth={2} />
+      <Label x={450} y={767} size="note" color={C.ink2}>約1.9万円</Label>
     </Svg>
-    <SourceNote text="年収は20代の平均（国税庁 民間給与実態統計調査 2025）" y={930} />
+    <SourceNote text="年収は20代の平均（国税庁 民間給与実態統計調査 2025）" />
   </AbsoluteFill>
 );
-const P10: React.FC = () => {
+export const P10: React.FC = () => {
   const cards: [string, string, React.ReactNode][] = [
     ["1", "この式は本当か", <g key="a"><polyline points="-90,30 -30,10 30,14 90,-6" fill="none" stroke={C.gold} strokeWidth={10} /><polyline points="-90,60 -30,58 30,40 90,20" fill="none" stroke={C.teal} strokeWidth={10} /></g>],
     ["2", "誰の財布の話か", <g key="b"><Snowball x={0} y={20} core={37} interest={40} snow={200} k={3.5} /></g>],
@@ -202,7 +202,7 @@ const P10: React.FC = () => {
 };
 
 // ================= 第1章 =================
-const P11: React.FC = () => (
+export const P11: React.FC = () => (
   <AbsoluteFill>
     <Heading>r と g：二つの文字の意味</Heading>
     <Svg>
@@ -234,8 +234,13 @@ const PER = ["0〜1000", "1000〜1500", "1500〜1700", "1700〜1820", "1820〜19
 const R_PRE = [4.5, 4.5, 4.5, 5.1, 5.0, 5.1, 5.3];
 const R_POST = [4.5, 4.5, 4.5, 5.1, 5.0, 1.1, 3.2];
 const G = [0.01, 0.14, 0.2, 0.53, 1.49, 1.81, 3.78];
-const History: React.FC<{ after: boolean }> = ({ after }) => {
+/** 二千年の r と g。draw＝線を左から描いた割合（0〜1）、gDraw＝g の線（既定は draw と同じ）、sink＝二十世紀の r が税と戦争の損で沈む割合（0〜1） */
+export const History: React.FC<{ after: boolean; draw?: number; gDraw?: number; sink?: number }> = ({ after, draw = 1, gDraw, sink }) => {
   const x0 = 200, w = 180, Y = (v: number) => 770 - (v / 6) * 470;
+  const k = sink ?? (after ? 1 : 0);
+  const R_NOW = R_PRE.map((v, i) => v + (R_POST[i] - v) * k);
+  const clip = (d: number) => <clipPath id={`hist-${Math.round(d * 1000)}`}><rect x={0} y={0} width={x0 + 7 * w * d + 4} height={1080} /></clipPath>;
+  const gd = gDraw ?? draw;
   const steps = (vals: number[]) => vals.map((v, i) => `M${x0 + i * w} ${Y(v)} H${x0 + (i + 1) * w}`).join(" ") + " " +
     vals.slice(1).map((v, i) => `M${x0 + (i + 1) * w} ${Y(vals[i])} V${Y(v)}`).join(" ");
   return (
@@ -246,16 +251,17 @@ const History: React.FC<{ after: boolean }> = ({ after }) => {
         <Label x={x0 - 20} y={Y(v) + 12} anchor="end" size="note" color={C.ink2}>{v}%</Label></g>)}
       <line x1={x0} x2={x0 + 7 * w} y1={Y(0)} y2={Y(0)} stroke={C.ink} strokeWidth={LINE.thin} />
       {PER.map((p, i) => <Label key={p} x={x0 + i * w + w / 2} y={Y(0) + 44} anchor="middle" size="note" color={C.ink2}>{p}</Label>)}
-      <path d={steps(G)} fill="none" stroke={C.teal} strokeWidth={LINE.heavy} strokeLinecap="round" />
-      {after && <path d={steps(R_PRE)} fill="none" stroke={C.gold} strokeWidth={LINE.thin} strokeDasharray="10 10" />}
-      <path d={steps(after ? R_POST : R_PRE)} fill="none" stroke={C.gold} strokeWidth={LINE.heavy} strokeLinecap="round" />
-      <Label x={x0 + 7 * w + 20} y={Y(after ? 3.2 : 5.3) + 12} color={C.gold} weight={900}>r {after ? "3.2" : "5.3"}%</Label>
-      <Label x={x0 + 7 * w + 20} y={Y(3.78) + (after ? -20 : 12)} color={C.teal}>g 3.8%</Label>
-      {after && <><Underline x={x0 + 5 * w} y={Y(1.1) + 54} w={2 * w} /><Label x={x0 + 6 * w} y={Y(1.1) + 58} anchor="middle" weight={900}>二十世紀</Label></>}
+      <defs>{clip(draw)}{clip(gd)}</defs>
+      <path d={steps(G)} fill="none" stroke={C.teal} strokeWidth={LINE.heavy} strokeLinecap="round" clipPath={`url(#hist-${Math.round(gd * 1000)})`} />
+      {k > 0 && <path d={steps(R_PRE)} fill="none" stroke={C.gold} strokeWidth={LINE.thin} strokeDasharray="10 10" />}
+      <path d={steps(R_NOW)} fill="none" stroke={C.gold} strokeWidth={LINE.heavy} strokeLinecap="round" clipPath={`url(#hist-${Math.round(draw * 1000)})`} />
+      {draw >= 1 && <Label x={x0 + 7 * w + 20} y={Y(R_NOW[6]) + 12} color={C.gold} weight={900}>r {R_NOW[6].toFixed(1)}%</Label>}
+      {gd >= 1 && <Label x={x0 + 7 * w + 20} y={Y(3.78) + (k > 0.5 ? -20 : 12)} color={C.teal}>g 3.8%</Label>}
+      {k >= 1 && <><Underline x={x0 + 5 * w} y={Y(1.1) + 54} w={2 * w} /><Label x={x0 + 6 * w} y={Y(1.1) + 58} anchor="middle" weight={900}>二十世紀</Label></>}
     </Svg>
   );
 };
-const P12: React.FC = () => (
+export const P12: React.FC = () => (
   <AbsoluteFill>
     <Heading>r と g の二千年（世界）</Heading>
     <History after={false} />
@@ -266,14 +272,14 @@ const P12: React.FC = () => (
     <Gosa cues={[[-60, "thinking"]]} size="M" />
   </AbsoluteFill>
 );
-const P13: React.FC = () => (
+export const P13: React.FC = () => (
   <AbsoluteFill>
     <Heading>税と戦争の損を引くと、r が潜る</Heading>
     <History after />
     <SourceNote text="Piketty (2014) 図10.10（税と資本の損失を引いた r。点線は引く前）" />
   </AbsoluteFill>
 );
-const P14: React.FC = () => (
+export const P14: React.FC = () => (
   <AbsoluteFill>
     <Heading>別の研究でも、r ＞ g</Heading>
     <Dumbbell x={140} y={320} width={1500} rowH={200} max={7} color={C.gold} aLabel="g" bLabel="r" format={(v) => `${v.toFixed(1)}%`}
@@ -281,7 +287,7 @@ const P14: React.FC = () => (
     <SourceNote text="Jordà ほか (2019) QJE。r ＜ g は二つの大戦の時期だけ" />
   </AbsoluteFill>
 );
-const P15: React.FC = () => (
+export const P15: React.FC = () => (
   <AbsoluteFill>
     <Svg>
       <rect x={300} y={380} width={420} height={240} rx={R.md} fill="none" stroke={C.ink} strokeWidth={LINE.base} strokeDasharray="24 16" />
@@ -293,8 +299,8 @@ const P15: React.FC = () => (
 );
 
 // ================= 第2章 =================
-const AGES: [string, number][] = [["30歳未満", 1], ["30代", 5], ["40代", 12], ["50代", 18], ["60代", 26], ["70代", 23], ["80歳以上", 14]];
-const P16: React.FC = () => (
+export const AGES: [string, number][] = [["30歳未満", 1], ["30代", 5], ["40代", 12], ["50代", 18], ["60代", 26], ["70代", 23], ["80歳以上", 14]];
+export const P16: React.FC = () => (
   <AbsoluteFill>
     <Heading>家計の金融資産：100マスのうち、どの年代？</Heading>
     <Svg>
@@ -316,7 +322,7 @@ const P16: React.FC = () => (
     <ChapterDots current={2} />
   </AbsoluteFill>
 );
-const P17: React.FC = () => (
+export const P17: React.FC = () => (
   <AbsoluteFill>
     <Svg>
       <Cloud x={860} y={170} w={560} label="給料" />
@@ -334,10 +340,10 @@ const P17: React.FC = () => (
 );
 // 単身20代の金融資産を百人に（J-FLEC 2025。無回答3人は中央値37万円に。階級は真ん中の値で描く）
 const BRACKETS: [number, number][] = [[33, 0], [25, 50], [10, 150], [7, 250], [6, 350], [3, 450], [6, 600], [3, 850], [2, 1250], [1, 1750], [1, 3000], [3, 37]];
-const HUNDRED = BRACKETS.flatMap(([n, a]) => Array.from({ length: n }, () => a)).sort((a, b) => a - b);
-const HIM = HUNDRED.indexOf(37) + 1;
+export const HUNDRED = BRACKETS.flatMap(([n, a]) => Array.from({ length: n }, () => a)).sort((a, b) => a - b);
+export const HIM = HUNDRED.indexOf(37) + 1;
 /** 左から小さい順に、地面の上に並べる（行の幅で折り返す） */
-const flow = (rs: number[], x0: number, x1: number, y0: number, gap = 8) => {
+export const flow = (rs: number[], x0: number, x1: number, y0: number, gap = 8) => {
   const out: { x: number; y: number }[] = [];
   let x = x0, rowTop = y0, rowMax = 0, row: number[] = [];
   const close = () => { const base = rowTop + rowMax * 2; for (const i of row) out[i].y = base - rs[i]; rowTop = base + 40; rowMax = 0; row = []; };
@@ -348,7 +354,7 @@ const flow = (rs: number[], x0: number, x1: number, y0: number, gap = 8) => {
   close();
   return out;
 };
-const P18: React.FC = () => (
+export const P18: React.FC = () => (
   <AbsoluteFill>
     <SimBackground />
     <Heading>全員が同じ雪玉の町（10年後）</Heading>
@@ -361,7 +367,7 @@ const P18: React.FC = () => (
     <div style={{ position: "absolute", left: 96, top: 900, ...font("label") }}>r ＞ g でも、差は生まれない</div>
   </AbsoluteFill>
 );
-const P19: React.FC = () => {
+export const P19: React.FC = () => {
   const k = 1.15, rs = HUNDRED.map((a) => (a === 0 ? 7 : ballR(a, k))), pos = flow(rs, 140, 1780, 330, 10);
   return (
     <AbsoluteFill>
@@ -381,8 +387,8 @@ const P19: React.FC = () => {
   );
 };
 // 10年後（利回り5%、毎年50万円）：総額＝はじめ×1.05^10＋628.9万（snowball.py と同じ）
-const grow = (a: number) => { const total = a * Math.pow(1.05, 10) + 628.9; return { core: a, snow: 500, interest: total - a - 500 }; };
-const P20: React.FC = () => {
+export const grow = (a: number) => { const total = a * Math.pow(1.05, 10) + 628.9; return { core: a, snow: 500, interest: total - a - 500 }; };
+export const P20: React.FC = () => {
   const k = 0.88, balls = HUNDRED.map(grow), rs = balls.map((b) => ballR(b.core + b.interest + b.snow, k)), pos = flow(rs, 140, 1780, 290, 8);
   return (
     <AbsoluteFill>
@@ -405,8 +411,8 @@ const P20: React.FC = () => {
     </AbsoluteFill>
   );
 };
-const SNOW_STOPS: [string, number][] = [["20万", 29], ["30万", 16], ["50万", 13], ["100万", 4]];
-const P21: React.FC = () => (
+export const SNOW_STOPS: [string, number][] = [["20万", 29], ["30万", 16], ["50万", 13], ["100万", 4]];
+export const P21: React.FC = () => (
   <AbsoluteFill>
     <SimBackground />
     <Heading>降る雪の量を変えると</Heading>
@@ -423,7 +429,7 @@ const P21: React.FC = () => (
     <SourceNote sim prefix="条件：" text="利回り年5%・10年（data/snowball.py）" />
   </AbsoluteFill>
 );
-const P22: React.FC = () => {
+export const P22: React.FC = () => {
   const k = 10.4, r = ballR(689, k);
   const rows: [string, string, string][] = [[C.other, "はじめの37万円", "37万"], [C.gold, "芯が生んだ利息", "23万"], [C.goldTint, "降った雪が生んだ利息", "129万"], [C.tealTint, "降った雪", "500万"]];
   return (
@@ -447,7 +453,7 @@ const P22: React.FC = () => {
     </AbsoluteFill>
   );
 };
-const P23: React.FC = () => (
+export const P23: React.FC = () => (
   <AbsoluteFill>
     <Heading>批判：財産は r ほどには増えない</Heading>
     <Svg>
@@ -466,7 +472,7 @@ const P23: React.FC = () => (
     <SourceNote text="Mankiw (2015) AER P&P。国の比較では r−g と格差の関係は見えない：Acemoglu & Robinson (2015)" />
   </AbsoluteFill>
 );
-const P24: React.FC = () => {
+export const P24: React.FC = () => {
   const k = 2.6;
   return (
     <AbsoluteFill>
@@ -488,7 +494,7 @@ const P24: React.FC = () => {
     </AbsoluteFill>
   );
 };
-const P25: React.FC = () => {
+export const P25: React.FC = () => {
   const k = 2.6;
   return (
     <AbsoluteFill>
@@ -514,17 +520,17 @@ const P25: React.FC = () => {
 };
 
 // ================= 第3章 =================
-const GroupGrid: React.FC<{ x: number; on: number; label: string; sub: string; color: string }> = ({ x, on, label, sub, color }) => (
+export const GroupGrid: React.FC<{ x: number; on: number; label: string; sub: string; color: string }> = ({ x, on, label, sub, color }) => (
   <g>
     {Array.from({ length: 100 }, (_, i) => (
-      <Figure key={i} kind="other" color={i < on ? color : C.otherTint} x={x + (i % 10) * 34} y={300 + Math.floor(i / 10) * 52} size={0.75} />
+      <Figure key={i} kind="other" color={i < on ? color : C.otherTint} x={x + (i % 10) * 34} y={250 + Math.floor(i / 10) * 50} size={0.75} />
     ))}
-    <Label x={x + 150} y={880} anchor="middle" size="value" color={color}>{on}人</Label>
-    <Label x={x + 150} y={930} anchor="middle" size="note" color={C.ink2}>{sub}</Label>
-    <Label x={x + 150} y={250} anchor="middle">{label}</Label>
+    <Label x={x + 150} y={790} anchor="middle" size="value" color={color}>{on}人</Label>
+    <Label x={x + 150} y={836} anchor="middle" size="note" color={C.ink2}>{sub}</Label>
+    <Label x={x + 150} y={190} anchor="middle">{label}</Label>
   </g>
 );
-const P26: React.FC = () => (
+export const P26: React.FC = () => (
   <AbsoluteFill>
     <Svg>
       <GroupGrid x={150} on={25} label="投資信託を持つ" sub="単身二十代（J-FLEC 2025）" color={C.gold} />
@@ -535,15 +541,15 @@ const P26: React.FC = () => (
     <ChapterDots current={3} />
   </AbsoluteFill>
 );
-const VillageTile: React.FC<{ v: VillageKind; i: number; children?: React.ReactNode; balls?: boolean }> = ({ v, i, children, balls = false }) => {
-  const x = 96 + (i % 3) * 590, y = 190 + Math.floor(i / 3) * 380;
+export const VillageTile: React.FC<{ v: VillageKind; i: number; children?: React.ReactNode; balls?: boolean }> = ({ v, i, children, balls = false }) => {
+  const x = 96 + (i % 3) * 590, y = 170 + Math.floor(i / 3) * 350;
   return (
     <g>
-      <rect x={x} y={y} width={560} height={350} rx={R.lg} fill={C.white} stroke={VILLAGE_COLOR[v]} strokeWidth={LINE.base} />
+      <rect x={x} y={y} width={560} height={320} rx={R.lg} fill={C.white} stroke={VILLAGE_COLOR[v]} strokeWidth={LINE.base} />
       <VillageIcon kind={v} x={x + 110} y={y + 130} s={1.2} />
-      <Label x={x + 110} y={y + 260} anchor="middle" size="value">{v}</Label>
+      <Label x={x + 110} y={y + 250} anchor="middle" size="value">{v}</Label>
       {Array.from({ length: 100 }, (_, j) => {
-        const fx = x + 250 + (j % 10) * 28, fy = y + 50 + Math.floor(j / 10) * 29;
+        const fx = x + 250 + (j % 10) * 28, fy = y + 40 + Math.floor(j / 10) * 26;
         return balls
           ? <circle key={j} cx={fx} cy={fy} r={4 + ((j * 37 + i * 11) % 9)} fill={(j * 37 + i * 11) % 9 > 5 ? C.gold : C.tealTint} stroke={C.ink} strokeWidth={2} />
           : <Figure key={j} kind="other" x={fx} y={fy + 10} size={0.45} />;
@@ -552,13 +558,13 @@ const VillageTile: React.FC<{ v: VillageKind; i: number; children?: React.ReactN
     </g>
   );
 };
-const P27: React.FC = () => (
+export const P27: React.FC = () => (
   <AbsoluteFill>
     <Heading>六つの村（二十五歳の百人ずつ）</Heading>
     <Svg>{VILLAGES.map((v, i) => <VillageTile key={v} v={v} i={i} />)}</Svg>
   </AbsoluteFill>
 );
-const P28: React.FC = () => (
+export const P28: React.FC = () => (
   <AbsoluteFill>
     <SimBackground />
     <Heading>先に、仮定</Heading>
@@ -582,10 +588,10 @@ const P28: React.FC = () => (
     <SourceNote sim prefix="条件：" text="data/villages.py。条件は概要欄" />
   </AbsoluteFill>
 );
-const P29: React.FC = () => (
+export const P29: React.FC = () => (
   <AbsoluteFill>
     <SimBackground />
-    <Svg>{VILLAGES.map((v, i) => <VillageTile key={v} v={v} i={i} balls><Label x={96 + (i % 3) * 590 + 530} y={190 + Math.floor(i / 3) * 380 + 330} anchor="end" size="value" color={C.ink2}>{"ABCDEF"[i]}</Label></VillageTile>)}</Svg>
+    <Svg>{VILLAGES.map((v, i) => <VillageTile key={v} v={v} i={i} balls><Label x={96 + (i % 3) * 590 + 530} y={170 + Math.floor(i / 3) * 350 + 70} anchor="end" size="value" color={C.ink2}>{"ABCDEF"[i]}</Label></VillageTile>)}</Svg>
     <div style={{ position: "absolute", left: 96, top: 56, width: 1400, ...font("label") }}>
       <span style={{ ...font("question") }}>45歳</span>　下の1割の人が、資産をほとんど残せなかった村は？
     </div>
@@ -594,12 +600,12 @@ const P29: React.FC = () => (
 
 // ---- 村の結果（範囲の行）。45歳の資産（実質・万円）：下位1割・真ん中・上位1割（基本の設定。data/villages_result.md） ----
 type Row = { v: string; lo: number; mid: number; hi: number };
-const RES: Row[] = [
+export const RES: Row[] = [
   { v: "預金", lo: 487, mid: 732, hi: 1163 }, { v: "積立", lo: 562, mid: 1291, hi: 3239 }, { v: "稼ぐ力", lo: 485, mid: 758, hi: 1245 },
   { v: "起業", lo: 103, mid: 485, hi: 1454 }, { v: "不動産", lo: -326, mid: 429, hi: 1293 }, { v: "両方", lo: 574, mid: 1338, hi: 3385 },
 ];
-const RES1990: Record<string, Row> = { 積立: { v: "積立", lo: 412, mid: 895, hi: 2097 }, 両方: { v: "両方", lo: 418, mid: 929, hi: 2207 } };
-const RangeRows: React.FC<{
+export const RES1990: Record<string, Row> = { 積立: { v: "積立", lo: 412, mid: 895, hi: 2097 }, 両方: { v: "両方", lo: 418, mid: 929, hi: 2207 } };
+export const RangeRows: React.FC<{
   rows: Row[]; show: number; dom: [number, number]; ticks: number[]; icons?: boolean; ghost?: Record<string, Row>;
   mark?: string[]; loCol?: boolean; y0?: number; step?: number;
 }> = ({ rows, show, dom, ticks, icons = true, ghost = {}, mark = [], loCol = true, y0 = 270, step = 94 }) => {
@@ -632,23 +638,23 @@ const RangeRows: React.FC<{
     </Svg>
   );
 };
-const RowsNote = () => <SourceNote sim prefix="条件：" text="年収の1割を貯める・物件は横ばい ほか（仮定）。線＝下位1割〜上位1割、点＝真ん中" />;
-const P30: React.FC = () => (
+export const RowsNote = () => <SourceNote sim prefix="条件：" text="年収の1割を貯める・物件は横ばい ほか（仮定）。線＝下位1割〜上位1割、点＝真ん中" />;
+export const P30: React.FC = () => (
   <AbsoluteFill><SimBackground /><Heading>45歳の資産：預金の村</Heading>
     <RangeRows rows={RES} show={1} dom={[-500, 3500]} ticks={[0, 1000, 2000, 3000]} /><RowsNote /></AbsoluteFill>
 );
-const P31: React.FC = () => (
+export const P31: React.FC = () => (
   <AbsoluteFill><SimBackground /><Heading>積立の村：真ん中は上がり、幅も広がる</Heading>
     <RangeRows rows={RES} show={2} dom={[-500, 3500]} ticks={[0, 1000, 2000, 3000]} ghost={{ 積立: RES1990.積立 }} />
     <div style={{ position: "absolute", left: 1180, top: 480, ...font("note", C.ink2) }}>点線：日本株が振るわなかった1990年からの幅</div>
     <RowsNote /></AbsoluteFill>
 );
 // 44歳の年収（真ん中・上位1割、万円）
-const INCOME: Row[] = [
+export const INCOME: Row[] = [
   { v: "預金", lo: 419, mid: 419, hi: 738 }, { v: "積立", lo: 417, mid: 417, hi: 732 }, { v: "稼ぐ力", lo: 441, mid: 441, hi: 822 },
   { v: "起業", lo: 442, mid: 442, hi: 899 }, { v: "不動産", lo: 416, mid: 416, hi: 733 }, { v: "両方", lo: 441, mid: 441, hi: 820 },
 ];
-const P32: React.FC = () => {
+export const P32: React.FC = () => {
   const x0 = 460, w = 1050, X = (v: number) => x0 + (v / 1000) * w;
   return (
     <AbsoluteFill><SimBackground /><Heading>稼ぐ力の村：変わったのは年収のほう</Heading>
@@ -674,7 +680,7 @@ const P32: React.FC = () => {
       <SourceNote sim prefix="条件：" text="44歳の年収。転職の成否は過去のデータの幅から（仮定）" /></AbsoluteFill>
   );
 };
-const Shops: React.FC<{ x: number; open: number; label: string; sub: string }> = ({ x, open, label, sub }) => (
+export const Shops: React.FC<{ x: number; open: number; label: string; sub: string }> = ({ x, open, label, sub }) => (
   <g>
     {Array.from({ length: 100 }, (_, i) => {
       const sx = x + (i % 10) * 64, sy = 200 + Math.floor(i / 10) * 54, o = i < open;
@@ -685,7 +691,7 @@ const Shops: React.FC<{ x: number; open: number; label: string; sub: string }> =
     <Label x={x + 300} y={840} anchor="middle" size="note" color={C.ink2}>{sub}</Label>
   </g>
 );
-const P33: React.FC = () => (
+export const P33: React.FC = () => (
   <AbsoluteFill>
     <Heading>起業の村：5年後に残る事業</Heading>
     <Svg>
@@ -695,7 +701,7 @@ const P33: React.FC = () => (
     <SourceNote text="日本政策金融公庫 新規開業パネル調査／米国労働統計局 BED。調べた相手も数え方も違う" />
   </AbsoluteFill>
 );
-const P34: React.FC = () => (
+export const P34: React.FC = () => (
   <AbsoluteFill>
     <SimBackground />
     <Heading>起業の村：やめた人に借金が残る割合</Heading>
@@ -715,7 +721,7 @@ const P34: React.FC = () => (
     <Gosa cues={[[-60, "depends"]]} size="M" />
   </AbsoluteFill>
 );
-const P35: React.FC = () => {
+export const P35: React.FC = () => {
   const k = 0.13, base = 780;
   return (
     <AbsoluteFill>
@@ -736,22 +742,22 @@ const P35: React.FC = () => {
     </AbsoluteFill>
   );
 };
-const MARKETS: Row[] = [
+export const MARKETS: Row[] = [
   { v: "上がり続けた時期", lo: 2165, mid: 3679, hi: 5386 }, { v: "横ばい", lo: -326, mid: 429, hi: 1293 }, { v: "下がり続けた時期", lo: -1760, mid: -1406, hi: -945 },
 ];
-const P36: React.FC = () => (
+export const P36: React.FC = () => (
   <AbsoluteFill><SimBackground /><Heading>同じワンルーム、値段の動きだけ変える</Heading>
     <RangeRows rows={MARKETS} show={3} dom={[-2000, 6000]} ticks={[-2000, 0, 2000, 4000, 6000]} icons={false} y0={340} step={170} />
     <SourceNote sim prefix="条件：" text="不動産の村の45歳の資産。上がる＝東京2008〜25年型、下がる＝15年下がる型" /></AbsoluteFill>
 );
-const P37: React.FC = () => (
+export const P37: React.FC = () => (
   <AbsoluteFill><SimBackground /><Heading>並べると：下の1割を崩したのは、借金</Heading>
     <RangeRows rows={RES} show={6} dom={[-500, 3500]} ticks={[0, 1000, 2000, 3000]} ghost={RES1990} mark={["起業", "不動産"]} />
     <div style={{ position: "absolute", left: 1040, top: 180, ...font("note", C.ink2) }}>点線：株が振るわなかった1990年からの幅</div>
     <RowsNote /></AbsoluteFill>
 );
-const HIM6: [VillageKind, number][] = [["預金", 719], ["積立", 1298], ["稼ぐ力", 746], ["起業", 457], ["不動産", 368], ["両方", 1295]];
-const P38: React.FC = () => (
+export const HIM6: [VillageKind, number][] = [["預金", 719], ["積立", 1298], ["稼ぐ力", 746], ["起業", 457], ["不動産", 368], ["両方", 1295]];
+export const P38: React.FC = () => (
   <AbsoluteFill><SimBackground /><Heading>同じ彼を、六つの村に一人ずつ置くと（45歳）</Heading>
     <Svg>
       {HIM6.map(([v, a], i) => {
@@ -772,12 +778,12 @@ const P38: React.FC = () => (
 );
 
 // ================= 答え合わせ・示唆・教訓 =================
-const P39: React.FC = () => (
+export const P39: React.FC = () => (
   <AbsoluteFill>
     <Verdict claim="r＞gだから、働くより資産" mark="×" reason={["r＞gは歴史のほとんどで本当", "利息を大きく受け取るのは大きな雪玉", "下の人を崩したのは借金"]} />
   </AbsoluteFill>
 );
-const P40: React.FC = () => {
+export const P40: React.FC = () => {
   const X = (age: number) => 140 + ((age - 26) / 110) * 1640;
   return (
     <AbsoluteFill>
@@ -799,7 +805,7 @@ const P40: React.FC = () => {
     </AbsoluteFill>
   );
 };
-const P41: React.FC = () => (
+export const P41: React.FC = () => (
   <AbsoluteFill>
     <Svg>
       <rect x={200} y={420} width={40} height={40} fill={C.gold} stroke={C.ink} strokeWidth={3} />
@@ -811,7 +817,7 @@ const P41: React.FC = () => (
     <div style={{ position: "absolute", left: 96, top: 56, ...font("question") }}>1マス 対 200マス</div>
   </AbsoluteFill>
 );
-const P42: React.FC = () => (
+export const P42: React.FC = () => (
   <AbsoluteFill>
     <Heading>データから言えること</Heading>
     <Svg>
@@ -828,7 +834,7 @@ const P42: React.FC = () => (
     </Svg>
   </AbsoluteFill>
 );
-const P43: React.FC = () => (
+export const P43: React.FC = () => (
   <AbsoluteFill>
     <Svg>
       <Cloud x={900} y={430} w={1500} label="60歳までの給料（正社員） 1億6千万〜2億6千万円" />
@@ -841,17 +847,17 @@ const P43: React.FC = () => (
     <SourceNote text="ユースフル労働統計2025 生涯賃金（学校を出て60歳まで正社員、退職金を除く）。雲と雪玉は面積で比べている" />
   </AbsoluteFill>
 );
-const P44: React.FC = () => (
+export const P44: React.FC = () => (
   <AbsoluteFill>
     <Svg>
       <Bedroom snow cloud moonlight />
       <g transform="translate(500,700) rotate(-80)"><rect x={-14} y={-24} width={28} height={48} rx={6} fill={C.ink} /></g>
-      <Cat kind="male" x={1340} y={BEDROOM.floor + 40} size={4.4} pose="stand" facing={1} look={[0.6, -0.8]} face="normal" label="彼" />
+      <Cat kind="male" x={1340} y={BEDROOM.floor - 10} size={4.4} pose="stand" facing={1} look={[0.6, -0.8]} face="normal" label="彼" />
     </Svg>
   </AbsoluteFill>
 );
 
-const P45: React.FC = () => <AbsoluteFill><SignOff /></AbsoluteFill>;
+export const P45: React.FC = () => <AbsoluteFill><SignOff /></AbsoluteFill>;
 
 const panels: Panel[] = [
   { key: "01", title: "冒頭：夜の部屋", C: P01, sec: 14, move: "暗い窓の部屋を引きで。ベッドの彼の手元のスマホだけが白く光る。時計は1時10分" },

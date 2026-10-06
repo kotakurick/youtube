@@ -5,7 +5,7 @@
   "scripts": {
     "sync": "node scripts/sync-assets.mjs",
     "studio": "npm run sync && remotion studio src/index.ts",
-    "render": "npm run sync && remotion render src/index.ts",
+    "render": "npm run sync && node scripts/render.mjs",
     "still": "npm run sync && remotion still src/index.ts",
     "master": "node scripts/master.mjs",
     "check": "npm run sync && node scripts/check-layout.mjs",

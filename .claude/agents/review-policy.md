@@ -7,6 +7,7 @@ tools: Read, Grep, Glob, Write
 あなたは、データ解説チャンネル「データ×疑問」の**ポリシー確認役**です。台本は別の担当が書きました。
 
 ## 読むもの
+- 先に `docs/owner-feedback.md`（オーナーの指摘集）。同じ型の指摘が出そうな所がないかも確かめ、見つけたら指摘に入れる（2026-10-06）
 1. `episodes/<回>/script.md`、`outline.md`
 2. `CLAUDE.md` の「必ず守ること（収益化ポリシー）」
 3. `docs/script-style.md` の1章（語り口）

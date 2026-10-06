@@ -6,12 +6,13 @@
 import React from "react";
 import { AbsoluteFill, interpolate, Sequence, useCurrentFrame, useVideoConfig } from "remotion";
 import { Backdrop, WALL_FREE } from "@lib/Backdrop";
+import { BarChart } from "@lib/BarChart";
+import { ConditionGrid } from "@lib/ConditionGrid";
 import { Camera } from "@lib/Camera";
 import { ChannelTag } from "@lib/Cards";
 import { SignOff } from "@lib/SignOff";
 import { ChapterCard, ChapterDots } from "@lib/Chapter";
 import { Crowd, Person } from "@lib/Crowd";
-import { EndScreen } from "@lib/EndScreen";
 import { Figure } from "@lib/Figure";
 import { Cat } from "@lib/Cat";
 import { Gosa } from "@lib/Gosa";
@@ -38,7 +39,6 @@ const APP = simulateApp(RS, {}, SEED);
 const NO_AIM = simulateApp(RS, { aim: 0 }, SEED);
 const NO_RAISE = simulateApp(RS, { raise: 0 }, SEED);
 const HALF_RAISE = simulateApp(RS, { raise: 0.1 }, SEED);
-const INTRO_LOW = simulateIntro(RS, { matchmaker: 0.3 }, SEED); // 世話焼きが3割しか動かない紹介の町
 const NO_VOUCH = simulateIntro(RS, { tolerance: 0 }, SEED);
 const RECEIVED = likesReceived(APP);
 const HIM = 6, HER = 35;
@@ -46,9 +46,8 @@ const TAGS: Tag[] = [{ id: HIM, label: "彼（32）" }, { id: HER, label: "彼�
 const HER_SENT = [...new Set(APP.months.flatMap((m) => m.likes!.filter(([p]) => p === HER).map(([, q]) => q)))];
 const sentBy = (id: number) => APP.months.reduce((s, m) => s + m.likes!.filter(([p]) => p === id).length, 0);
 const STAGE = { x: 96, y: 200, w: 1728, h: 620 }; // 下は出典の札（y844）の上まで
-const SIM_NOTE = "仮定の世界。紹介の町の「保証」の仮定は根拠が弱い";
 /** シミュレーションの札＋仮定の断り書き（画面の隅） */
-const SimNote: React.FC = () => <SourceNote sim text={SIM_NOTE} prefix="" />;
+const SimNote: React.FC = () => <SourceNote sim />; // 仮定の注記（「保証」の根拠が弱いこと）は概要欄へ（2026-10-06 オーナー）
 
 // ---------- 共通 ----------
 const Svg: React.FC<{ children: React.ReactNode }> = ({ children }) => (
@@ -382,6 +381,48 @@ const QuizSetup: React.FC = () => {
   );
 };
 
+// 町の条件の一覧（2026-10-06 オーナー「条件を一瞬でよいので提示」「パラメータの納得感が大事」）。予想の前に、主な数字と根拠を並べる
+const RULE_ROWS: [string, string, string, string][] = [
+  ["出会える範囲", "自分の輪と、隣の輪だけ", "全員が全員を見られる", "設定"],
+  ["1か月の動き", "世話焼きが輪ごとに1組を\n引き合わせる", "25人のプロフィールを見て\nいいねを送る", "設定"],
+  ["声をかける相手", "点数の近い人", "自分より少し上だけ", "平均で約25%上の相手に\n連絡していた（米国）"],
+  ["送る数", "—", "男性 月8件・女性 月3件", "最初の連絡の8割は男性"],
+  ["会う・返す基準", "少し下でも会う\n（ずっと変わらない）", "最初はゆるいが、\nいいねが届くほど上がる", "見続けると受け入れが\n約3割下がる（実験）"],
+];
+const QuizRules: React.FC = () => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const cols = [300, 520, 520, 388];
+  const cell = (k: number): React.CSSProperties => ({ width: cols[k], padding: "10px 16px", boxSizing: "border-box", whiteSpace: "pre", lineHeight: 1.25 });
+  return (
+    <>
+      <SimBackground />
+      <Tag_ x={96} y={60} text="ふたつの町の決まり（どちらも同じ100人・12か月）" />
+      <div style={{ position: "absolute", left: 96, top: 160, display: "flex", flexDirection: "column", gap: 10 }}>
+        <div style={{ display: "flex", ...font("label", C.ink2) }}>
+          <div style={cell(0)} />
+          <div style={{ ...cell(1), ...font("label", C.gold), fontWeight: 900 }}>紹介の町</div>
+          <div style={{ ...cell(2), ...font("label", C.teal), fontWeight: 900 }}>アプリの町</div>
+          <div style={{ ...cell(3), ...font("label", C.ink2) }}>根拠</div>
+        </div>
+        {RULE_ROWS.map(([k, a, b, why], i) => {
+          const t = sp("enter", frame - 10 - i * 12, fps);
+          return (
+            <div key={k} style={{ display: "flex", alignItems: "center", minHeight: 104, opacity: t, transform: `translateY(${(1 - t) * 14}px)`,
+              background: C.white, border: `${LINE.hair}px solid ${C.ink}`, borderRadius: R.md }}>
+              <div style={{ ...cell(0), ...font("label", C.ink2) }}>{k}</div>
+              <div style={{ ...cell(1), ...font("label") }}>{a}</div>
+              <div style={{ ...cell(2), ...font("label") }}>{b}</div>
+              <div style={{ ...cell(3), ...font("note", why === "設定" ? C.ink2 : C.ink) }}>{why}</div>
+            </div>
+          );
+        })}
+      </div>
+      <SourceNote sim text="Bruch & Newman (2018)、Pronk & Denissen (2020)" />
+    </>
+  );
+};
+
 const QuizAsk: React.FC = () => {
   const { find, end } = useCue();
   const frame = useCurrentFrame();
@@ -390,7 +431,7 @@ const QuizAsk: React.FC = () => {
   return (
     <>
       <SimBackground />
-      <div style={{ position: "absolute", left: Z.header.x, top: 40, opacity: t }}>
+      <div style={{ position: "absolute", left: Z.header.x, top: 20, opacity: t }}>
         <div style={{ display: "inline-block", background: C.ink, borderRadius: R.md, padding: "4px 20px", ...font("label", C.white) }}>予想タイム</div>
         <div style={{ ...font("question"), marginTop: 10 }}>1年後、アプリの町のカップルは、紹介の町の何倍？</div>
       </div>
@@ -408,7 +449,7 @@ const QuizAsk: React.FC = () => {
 // ---------- 第1章：紹介の町 ----------
 const Ch1Card: React.FC = () => <ChapterCard no={1} title="紹介の町" />;
 const Ch2Card: React.FC = () => <ChapterCard no={2} title="アプリの町" />;
-const Ch3Card: React.FC = () => <ChapterCard no={3} title="犯人は誰か" />;
+const Ch3Card: React.FC = () => <ChapterCard no={3} title="何が差を生んだのか" />;
 const Ch4Card: React.FC = () => <ChapterCard no={4} title="紹介は、なぜ少なくなったのか" />;
 const Ch5Card: React.FC = () => <ChapterCard no={5} title="うまくいく人は、何をしていたか" />;
 
@@ -585,6 +626,8 @@ const Verdict: React.FC = () => {
   const { find, end } = useCue();
   const ans = find("答えは", 300);
   const race = find("ペアの数の動き", 500);
+  const us = find("アメリカの追跡調査", 900);
+  const left = find("差がつくのは、出会えずに", 1300);
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const stamp = sp("pop", frame - ans, fps);
@@ -599,20 +642,35 @@ const Verdict: React.FC = () => {
           <div style={{ position: "absolute", left: 1000 - 16, top: 184, width: 852, height: 652, border: `${LINE.heavy}px solid ${C.ink}`,
             borderRadius: R.lg, transform: `scale(${0.96 + 0.04 * stamp})` }} />
         )}
-        <Beat from={ans} to={race}><Tag_ x={96} y={80} text="答え：D　アプリの町は、紹介の町より少ない" /></Beat>
+        <Beat from={ans} to={race}><Choices x={96} y={72} items={["3倍以上", "2倍くらい", "ほとんど同じ", "紹介の町より少ない"]} answer={3} reveal={0} every={0} /></Beat>{/* 答えだけでなく選択肢も並べる（2026-10-06 オーナー「答えはDと出ても忘れちゃう」） */}
       </Beat>
-      <Beat from={race} to={end + 30}>
+      <Beat from={race} to={us}>
         <Tag_ x={96} y={80} text="ペアの数（累計）。横は何か月目か" />
         <LineChart x={220} y={240} width={1240} height={500} xDomain={[0, 12]} yDomain={[0, 30]} xTicks={[1, 3, 6, 9, 12]}
           format={(v) => `${v}組`} series={[
-            { label: "紹介の町", points: line(INTRO), color: C.ink, focus: true },
-            { label: "アプリの町", points: line(APP), color: C.ink2 },
+            { label: "紹介の町", points: line(INTRO), color: C.gold, focus: true }, // 墨2本では見分けにくい（2026-10-06 オーナー）
+            { label: "アプリの町", points: line(APP), color: C.teal },
           ]} duration={90} />
-        <Beat from={find("アメリカの追跡調査", 900) - race} to={end + 30 - race}>
-          <SourceNote text="Rosenfeld (2017) Sociological Science：ネットで出会ったカップルは結婚への移行が早い（米国の追跡調査）（★未照合）" />
-        </Beat>
+      </Beat>
+      {/* 仮通しで22秒止まっていたので、線のあとを2つに分けた（2026-10-05） */}
+      <Beat from={us} to={left}>
+        <Note x={96} y={300} text={"ネットで出会ったカップルは、\n結婚までが早いくらい"} sub="アメリカの追跡調査" />
+        <Svg>
+          <Cat kind="male" x={1300} y={800} size={4.4} facing={1} face="happy" seed={3} label="ネットで出会ったふたり" />
+          <Cat kind="female" x={1500} y={800} size={4.4} facing={-1} face="happy" seed={7} label="ネットで出会ったふたり" />
+          <Heart x={1400} y={500} r={36} fill={C.ink} />
+        </Svg>
+        <SourceNote text="Rosenfeld (2017) Sociological Science：ネットで出会ったカップルは結婚への移行が早い（米国の追跡調査）" />
+      </Beat>
+      <Beat from={left} to={end + 30}>
+        <SimBackground />
+        <Tag_ x={96} y={80} text="差がつくのは、相手が見つからずに残る人の数" />
+        <Town result={INTRO} box={{ x: 96, y: 200, w: 820, h: 620 }} at={12} title="紹介の町" size={0.8} split={0.66} compact legend={false} dimSingles />
+        <Town result={APP} box={{ x: 1000, y: 200, w: 820, h: 620 }} at={12} title="アプリの町" size={0.8} split={0.66} compact dimSingles />
+        <SimNote />
       </Beat>
       <Beat from={0} to={race}><SimNote /></Beat>
+      <Beat from={race} to={us}><SimNote /></Beat>
       <Gosa cues={[[ans - 6, "surprised"]]} size="S" sfx={false} exit={race} />
     </>
   );
@@ -695,20 +753,20 @@ const BruchLadder: React.FC = () => {
       <text x={x - 160} y={yOf(me) + 12} textAnchor="end" style={font("label")}>自分</text>
       <path d={`M${x + 50} ${yOf(me)} Q${x + 170} ${(yOf(me) + yOf(aim)) / 2} ${x + 50} ${yOf(me) + (yOf(aim) - yOf(me)) * arrow}`} fill="none" stroke={C.ink} strokeWidth={LINE.base} strokeLinecap="round" />
       {arrow > 0.95 && <text x={x + 150} y={(yOf(me) + yOf(aim)) / 2 + 14} style={font("sub")}>平均で約25%上へ</text>}
-      {/* 返事の来やすさ：相手が上であるほど短い棒（模式図）。どの棒にも何の段かを書く */}
-      <text x={1040} y={yOf(0.97)} style={font("label")}>相手が自分より</text>
-      <text x={1400} y={yOf(0.97)} style={font("label")}>返事の来やすさ</text>
-      {[["同じくらい", 1], ["少し上", 0.75], ["かなり上", 0.5], ["ずっと上", 0.28]].map(([label, k], i) => {
-        const t = interpolate(frame, [70 + i * 6, 86 + i * 6], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-        const y = yOf(0.78 - i * 0.16);
+      {/* 男性が送った最初の連絡に返事が来る割合。論文の本文：上の相手からは多くても21%、下の相手からはその2倍以上（2026-10-06） */}
+      <text x={1000} y={yOf(0.97)} style={font("label")}>男性が送った連絡に、返事が来る割合</text>
+      {([["自分より上の女性へ", 21, "多くても21%"], ["自分より下の女性へ", 42, "その2倍以上"]] as const).map(([label, pct, note], i) => {
+        const t = interpolate(frame, [70 + i * 10, 90 + i * 10], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+        const y = yOf(0.7 - i * 0.4);
         return (
           <g key={i} opacity={t}>
-            <text x={1040} y={y + 12} style={font("label", C.ink2)}>{label as string}</text>
-            <rect x={1400} y={y - 18} width={360 * (k as number)} height={36} rx={18} fill={C.ink2} />
+            <text x={1000} y={y - 44} style={font("label", C.ink2)}>{label}</text>
+            <rect x={1000} y={y} width={10 * pct * t} height={44} rx={22} fill={i === 0 ? C.male : C.rest} />
+            <text x={1000 + 10 * pct + 24} y={y + 36} style={font("value", i === 0 ? C.ink : C.ink2)}>{note}</text>
           </g>
         );
       })}
-      <text x={1040} y={bottom + 12} style={font("note", C.ink2)}>模式図（論文の結果をもとに描いたもの。棒の長さは目安）</text>
+      <text x={1000} y={bottom + 12} style={font("note", C.ink2)}>下の相手の棒は「2倍」の長さで描いた（実際はそれ以上）</text>
     </Svg>
   );
 };
@@ -747,17 +805,16 @@ const PronkCurve: React.FC = () => {
     <Svg>
       <line x1={x0} y1={y1} x2={x1} y2={y1} stroke={C.ink} strokeWidth={LINE.thin} />
       <line x1={x0} y1={y0 - 20} x2={x0} y2={y1} stroke={C.ink} strokeWidth={LINE.thin} />
-      <text x={x0 - 20} y={Y(100) + 12} textAnchor="end" style={font("label")}>100</text>
-      <text x={x0 - 20} y={y1 + 12} textAnchor="end" style={font("label", C.ink2)}>50</text>
+      <text x={x0 - 20} y={Y(100) + 12} textAnchor="end" style={font("label")}>100%</text>
+      <text x={x0 - 20} y={y1 + 12} textAnchor="end" style={font("label", C.ink2)}>50%</text>
       <text x={x0} y={y1 + 60} style={font("label", C.ink2)}>見た最初のプロフィール</text>
       <text x={x1} y={y1 + 60} textAnchor="end" style={font("label", C.ink2)}>最後</text>
-      <text x={x0 + 20} y={y0 - 40} style={font("label")}>受け入れる割合（最初を100）</text>
+      <text x={x0 + 20} y={y0 - 40} style={font("label")}>受け入れる割合（最初を100%）</text>
       <path d={d} fill="none" stroke={C.female} strokeWidth={LINE.base} strokeLinecap="round" strokeLinejoin="round" />
       {p > 0.98 && (
         <>
           <circle cx={X(1)} cy={Y(73)} r={10} fill={C.female} />
-          <text x={X(1) + 24} y={Y(73) + 16} style={font("value")}>約73</text>
-          <text x={X(0.3)} y={Y(62)} style={font("label", C.ink2)}>最初の十数枚で急に下がる</text>
+          <text x={X(1) + 24} y={Y(73) + 16} style={font("value")}>73%</text>
         </>
       )}
       <text x={x1} y={y0 - 40} textAnchor="end" style={font("note", C.ink2)}>模式図（論文の結果をもとに描いたもの）</text>
@@ -777,7 +834,7 @@ const Ch3: React.FC = () => {
         <AimUp start={60} />
       </Beat>
       <Beat from={paper} to={most}>
-        <PaperTag title="Bruch & Newman (2018) Science Advances" meta="米国4都市の出会いサイト利用者 約18.7万人（2014年）" />
+        <PaperTag title="Bruch & Newman (2018) Science Advances" meta="米国4都市のマッチングサービス利用者 約18.7万人（2014年）" />
         <BruchLadder />
       </Beat>
       <Beat from={most} to={pile}>
@@ -797,15 +854,30 @@ const Ch3: React.FC = () => {
 const Ch3Raise: React.FC = () => {
   const { find, end } = useCue();
   const nl = find("オランダ", 300);
+  const drop = find("すると、見続けるほど", 500);
+  const hers = find("これが、彼女の側", 900);
   return (
     <>
       <Beat from={0} to={nl}>
         <Tag_ x={96} y={80} text="② 候補が多い人ほど、基準が上がる" />
         <BarRises start={30} />
       </Beat>
-      <Beat from={nl} to={end + 30}>
+      {/* 実験の様子 → 結果の曲線 → 彼女の側（2026-10-05 仮通しで28秒止まっていたので3つに分けた） */}
+      <Beat from={nl} to={drop}>
+        <PaperTag title="Pronk & Denissen (2020)" meta="Social Psychological and Personality Science。オランダの実験（3つの研究）" />
+        <Svg>
+          <Cat kind="female" x={620} y={840} size={4.4} pose="phone" face="think" seed={2} label="実験の参加者" />
+          <SwipeDeck x={1060} y={500} h={520} every={14} start={10} kind="male" count={false} />
+        </Svg>
+      </Beat>
+      <Beat from={drop} to={hers}>
         <PaperTag title="Pronk & Denissen (2020)" meta="Social Psychological and Personality Science。オランダの実験（3つの研究）" />
         <PronkCurve />
+      </Beat>
+      <Beat from={hers} to={end + 30}>
+        <Tag_ x={96} y={80} text="選ばれやすい側（いいねがたくさん届く人。男性でも同じ）" />
+        <Svg><Cat kind="female" x={560} y={840} size={4.4} pose="phone" face="think" seed={6} label="彼女" /></Svg>
+        <Svg><NotifStack x={1100} y={500} h={560} every={10} start={6} max={15} from="male" /></Svg>
       </Beat>
       <ChapterDots current={3} />
     </>
@@ -837,7 +909,7 @@ const Ch3Quiz: React.FC = () => {
   const { find, end } = useCue();
   const first = find("まず、少し上", 400);
   const second = find("次に、基準", 800);
-  const culprit = find("主犯は", 1200);
+  const culprit = find("いちばんの原因は", 1200);
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = sp("enter", frame, fps);
@@ -847,14 +919,14 @@ const Ch3Quiz: React.FC = () => {
       <Beat from={0} to={first}>
         <div style={{ position: "absolute", left: Z.header.x, top: 56, opacity: t }}>
           <div style={{ display: "inline-block", background: C.ink, borderRadius: R.md, padding: "4px 20px", ...font("label", C.white) }}>クイズ</div>
-          <div style={{ ...font("question"), marginTop: 10 }}>ひとつだけ止めるなら、どっち？</div>
+          <div style={{ ...font("question"), marginTop: 10 }}>原因をひとつだけ取り除くなら、どっち？</div>
         </div>
         <Rules x={96} y={330} gap={40} every={30} start={30} items={["① 少し上を狙うのをやめる町", "② 基準が上がらない町"]} />
         <Svg><Figure kind="male" x={1300} y={760} size={4} pose="phone" /><Figure kind="female" x={1560} y={760} size={4} pose="phone" /></Svg>
       </Beat>
       <Beat from={first} to={end + 30}>
-        <Beat from={0} to={culprit - first}><Tag_ x={96} y={80} text="アプリの町で、ひとつだけ止める（1年後のペア）" /></Beat>
-        <Beat from={culprit - first} to={end + 30 - first}><Tag_ x={96} y={80} text="この町の主犯は「基準が動くこと」" /></Beat>
+        <Beat from={0} to={culprit - first}><Tag_ x={96} y={80} text="アプリの町から、原因をひとつだけ取り除く（1年後のペア）" /></Beat>
+        <Beat from={culprit - first} to={end + 30 - first}><Tag_ x={96} y={80} text="いちばんの原因は「基準が動くこと」" /></Beat>
         <PairPanel result={APP} x={96} y={200} title="アプリの町" start={0} dur={1} />
         <PairPanel result={NO_AIM} x={516} y={200} title="① 上を狙わない" start={20} from={17} focus />
         <Beat from={second - first} to={end + 30 - first}>
@@ -870,26 +942,28 @@ const Ch3Quiz: React.FC = () => {
 
 const Ch3Vouch: React.FC = () => {
   const { find, end } = useCue();
-  const cut = find("この保証を抜いて", 300);
-  const tool = find("どちらの町が勝つか", 1200);
-  const caveat = find("ただし", 1000);
+  const caveat = find("ただし", 600);
+  const four = find("組み合わせは4つ", 900);
+  const one = find("保証があって、しかも", 1100);
+  const tool = find("どちらの町が勝つか", 1400);
+  const n = (r: { final: { pairs: unknown[] } }) => r.final.pairs.length;
   return (
     <>
       <SimBackground />
       <Beat from={0} to={caveat}>
-        <Beat from={0} to={tool}><Tag_ x={96} y={80} text="紹介の町から「保証」を抜くと" /></Beat>
-        
+        <Tag_ x={96} y={80} text="紹介の町の強さ：知り合いの「保証」" />
         <PairPanel result={INTRO} x={96} y={200} title="紹介の町" dur={1} />
-        <Beat from={cut} to={caveat}>
-          <PairPanel result={NO_VOUCH} x={560} y={200} title="保証なし" from={27} focus />
-          <PairPanel result={APP} x={1024} y={200} title="アプリの町" dur={1} start={30} />
-        </Beat>
+        <Note x={620} y={300} text={"知り合いが選んだ相手なので、\n少しくらい好みから外れても会う"} />
       </Beat>
+      {/* 仮定を2つ動かした4つの町（2026-10-06 見直し：「半分ならアプリが勝つ」で答えがゆらいで聞こえたので、盤で全体を見せる） */}
       <Beat from={caveat} to={end + 30}>
-        <Tag_ x={96} y={80} text="仮定を変えると：基準の上がり方が半分なら" />
-        <PairPanel result={INTRO} x={96} y={200} title="紹介の町" dur={1} />
-        <PairPanel result={HALF_RAISE} x={560} y={200} title="アプリの町（半分）" from={17} focus />
-        <Beat from={tool - caveat} to={end + 30 - caveat}><Note x={1080} y={360} text={"勝ち負けを決めるのは、\n基準がどれだけ動くか"} /></Beat>
+        <Beat from={0} to={tool - caveat}><Tag_ x={96} y={60} text="仮定をふたつ動かすと（1年後のカップル）" /></Beat>
+        <Beat from={tool - caveat} to={end + 30 - caveat}><Tag_ x={96} y={60} text="勝ち負けを決めるのは、保証と、基準がどれだけ動くか" /></Beat>
+        <ConditionGrid x={96} y={250} w={1728} h={560}
+          rowTitle="紹介の町の保証" rows={["あり", "なし"]} colTitle="アプリの町の基準の上がり方" cols={["いまのまま", "半分"]}
+          cells={[[{ a: n(INTRO), b: n(APP) }, { a: n(INTRO), b: n(HALF_RAISE) }], [{ a: n(NO_VOUCH), b: n(APP) }, { a: n(NO_VOUCH), b: n(HALF_RAISE) }]]}
+          aLabel="紹介の町" bLabel="アプリの町" aColor={C.gold} bColor={C.teal} max={40}
+          reveal={four - caveat} every={14} focus={[0, 0]} focusAt={one - caveat} />
       </Beat>
       <SimNote />
       <ChapterDots current={3} />
@@ -992,7 +1066,7 @@ const Ch4Office: React.FC = () => {
       <Beat from={nako} to={trip}>
         <Tag_ x={96} y={80} text="仲人の役目は、村 → 家 → 会社へ。そして2000年代に消えた" />
         <Matchmakers start={10} />
-        <SourceNote text="阪井裕一郎『仲人の近代』(2021)（★未照合）" />
+        <SourceNote text="阪井裕一郎『仲人の近代』(2021)" />
       </Beat>
       <Beat from={trip} to={nonreg}>
         <Tag_ x={96} y={80} text="社員旅行をする会社（20社あたり）" />
@@ -1008,7 +1082,7 @@ const Ch4Office: React.FC = () => {
         <PeopleOf x={520} y={320} k={3} start={10} />
         <div style={{ position: "absolute", left: 96, top: 440, ...font("label") }}>2025年 36.5%</div>
         <PeopleOf x={520} y={500} k={7} start={30} />
-        <SourceNote text="総務省「労働力調査」（1984年は特別調査、2025年は詳細集計で、調べ方が違う）（★未照合）" />
+        <SourceNote text="総務省「労働力調査」（1984年は特別調査、2025年は詳細集計で、調べ方が違う）" />
       </Beat>
       <Beat from={love} to={reveal}>
         <OfficeYears start={-1000} per={90} years={[{ year: "いま", seated: 0.5 }]} />
@@ -1020,7 +1094,7 @@ const Ch4Office: React.FC = () => {
         <PeopleOf x={520} y={320} k={13} kind="male" start={10} />
         <div style={{ position: "absolute", left: 96, top: 440, ...font("label") }}>女性 75.8%</div>
         <PeopleOf x={520} y={500} k={15} kind="female" start={30} />
-        <SourceNote text="Job総研「仕事と恋愛に関する意識調査」(2022、20〜50代923人、民間Web調査)（★未照合）" />
+        <SourceNote text="Job総研「仕事と恋愛に関する意識調査」(2022、20〜50代923人、民間Web調査)" />
       </Beat>
       <Beat from={nobody} to={end + 30}>
         <OfficeYears start={-1000} per={90} years={[{ year: "いま", seated: 0.5 }]} />
@@ -1032,42 +1106,43 @@ const Ch4Office: React.FC = () => {
 };
 
 /** 人がアプリへ移っていく町（シミュレーション③）。移った割合ごとに、紹介とアプリの2つの町を並べる */
-const MOVE = [0, 0.4, 0.6, 0.8].map((frac) => { // 世話焼きが3割しか動かない町から、人がアプリへ移る
+// 人がアプリへ移るほど、輪が痩せて世話焼きも動かなくなる町（thinning。2026-10-06 見直しで「罠を数字で示す」に作り直した。sim-v2.md）
+const MOVE = [0, 0.2, 0.4, 0.6, 0.8].map((frac) => {
   const men = shuffle(RS.filter((a) => a.kind === "male"), SEED + 5), wom = shuffle(RS.filter((a) => a.kind === "female"), SEED + 6);
   const k = Math.round(50 * frac);
   const app = new Set([...men.slice(0, k), ...wom.slice(0, k)].map((a) => a.id));
   const A = RS.filter((a) => app.has(a.id)), I = RS.filter((a) => !app.has(a.id));
-  const ri = simulateIntro(I, { matchmaker: 0.3 }, SEED), ra = A.length ? simulateApp(A, {}, SEED) : null;
-  return { frac, ri, ra, iRate: Math.round((ri.final.pairs.length * 2 / I.length) * 100), aRate: ra ? Math.round((ra.final.pairs.length * 2 / A.length) * 100) : null };
+  const ri = simulateIntro(I, { thinning: true }, SEED), ra = A.length ? simulateApp(A, {}, SEED) : null;
+  const total = ri.final.pairs.length + (ra?.final.pairs.length ?? 0);
+  return { frac, ri, ra, total, iRate: Math.round((ri.final.pairs.length * 2 / I.length) * 100), aRate: ra ? Math.round((ra.final.pairs.length * 2 / A.length) * 100) : null };
 });
 
 const Ch4Sim: React.FC = () => {
   const { find, end } = useCue();
-  const low = find("ときどきしか", 150);
-  const res = find("27組から17組", 300);
-  const move = find("少しずつ、アプリの町へ", 700);
-  const same = find("3人に1人ほど", 600);
-  const per = Math.max(60, Math.floor((end + 30 - move) / MOVE.length));
+  const move = find("少しずつアプリの町へ", 200);
+  const c20 = find("2割、4割と", 700);
+  const c60 = find("6割が移ると", 1000);
+  const c80 = find("8割が移り終わる", 1400);
   const frame = useCurrentFrame();
-  const k = Math.max(0, Math.min(MOVE.length - 1, Math.floor((frame - move) / per)));
+  // 移した割合は読み上げに合わせて進める（0 → 2割 → 4割 → 6割 → 8割）
+  const steps = [move, c20, Math.round((c20 + c60) / 2), c60, c80];
+  const k = Math.max(0, steps.filter((f) => frame >= f).length - 1);
   const m = MOVE[k];
+  const better = m.aRate !== null && m.aRate > m.iRate;
   return (
     <>
       <SimBackground />
       <Beat from={0} to={move}>
-        <Tag_ x={96} y={80} text="世話焼きが、ときどきしか動かない紹介の町" />
-        <Town result={INTRO_LOW} box={{ x: 96, y: 200, w: 820, h: 620 }} start={low} fpm={Math.max(10, Math.floor((res - low) / 12))} title="紹介の町（世話焼きが3割）" size={0.8} split={0.66} compact legend={false} />
-        <Beat from={res} to={move}>
-          <Town result={APP} box={{ x: 1000, y: 200, w: 820, h: 620 }} at={12} title="アプリの町" size={0.8} split={0.66} compact />
-        </Beat>
-        <Beat from={same} to={move}>
-          <div style={{ position: "absolute", left: 96, top: 130, ...font("label"), whiteSpace: "nowrap" }}>どちらにいても、相手が見つかるのは3人に1人ほど</div>
-        </Beat>
+        <Tag_ x={96} y={36} text="人が集まる場が減ると、紹介の町では" />
+        <Town result={INTRO} box={{ x: 96, y: 200, w: 1728, h: 620 }} at={12} title="紹介の町" />
       </Beat>
       <Beat from={move} to={end + 30}>
-        <Tag_ x={96} y={60} text={`アプリの町へ移った人 ${Math.round(m.frac * 100)}%`} />
-        <div style={{ position: "absolute", left: 96, top: 130, ...font("label"), whiteSpace: "nowrap" }}>{`ペアになれた割合：紹介に残った人 ${m.iRate}%${m.aRate !== null ? `　アプリの人 ${m.aRate}%` : ""}`}</div>
-        <Town result={m.ri} box={{ x: 96, y: 200, w: 820, h: 620 }} at={12} title="紹介の町" size={0.8} split={0.66} compact />
+        <Tag_ x={96} y={36} text={`アプリの町へ移った人 ${Math.round(m.frac * 100)}%（輪から人が抜けるほど、世話焼きも動かなくなる）`} />
+        <div style={{ position: "absolute", left: 96, top: 124, ...font("label"), whiteSpace: "nowrap" }}>
+          ペアになれた割合：紹介に残った人 <span style={{ fontWeight: 900, borderBottom: better ? "none" : `6px solid ${C.ink}` }}>{m.iRate}%</span>
+          {m.aRate !== null && <>　アプリに移った人 <span style={{ fontWeight: 900, borderBottom: better ? `6px solid ${C.ink}` : "none" }}>{m.aRate}%</span></>}
+        </div>
+        <Town result={m.ri} box={{ x: 96, y: 200, w: 820, h: 620 }} at={12} title="紹介の町" size={0.8} split={0.66} compact legend={false} />
         {m.ra && <Town result={m.ra} box={{ x: 1000, y: 200, w: 820, h: 620 }} at={12} title="アプリの町" size={0.8} split={0.66} compact />}
       </Beat>
       <SimNote />
@@ -1076,35 +1151,45 @@ const Ch4Sim: React.FC = () => {
   );
 };
 
-
-
+/** 町全体のカップル：全員が紹介 → 途中（8割が移った） → 全員がアプリ。途中がいちばん少ない */
+const ALL_APP = APP.final.pairs.length;
 const Ch4Trap: React.FC = () => {
   const { find, end } = useCue();
-  const why = find("アプリがなくならないのは", 400);
-  const nobody = find("誰も間違っていないのに", 900);
+  const count = find("町全体のカップルを数えて", 100);
+  const mid = find("8割が移った途中の町", 500);
+  const why = find("アプリがなくならないのは", 700);
+  const each = find("ひとりひとりは、そのとき", 1000);
   const last = MOVE[MOVE.length - 1];
   return (
     <>
       <Beat from={0} to={why}>
         <SimBackground />
-        <Tag_ x={96} y={80} text="ひとりにとっての正解と、町全体の結果" />
-        <div style={{ position: "absolute", left: 96, top: 230, ...font("label") }}>紹介に残った人がペアになれた（8割が移ったあと）</div>
-        <PeopleOf x={140} y={360} k={Math.round(last.iRate / 5)} />
-        <div style={{ position: "absolute", left: 96, top: 420, ...font("label") }}>アプリに移った人がペアになれた</div>
-        <PeopleOf x={140} y={550} k={Math.round((last.aRate ?? 0) / 5)} />
-        <div style={{ position: "absolute", left: 96, top: 610, ...font("label") }}>町全体のカップル</div>
-        <div style={{ position: "absolute", left: 96, top: 660, ...font("value") }}>{`紹介の町が元気だったころ 27組 → みんなが移った町 ${last.ri.final.pairs.length + (last.ra?.final.pairs.length ?? 0)}組`}</div>
+        <Tag_ x={96} y={80} text="町全体のカップル（同じ100人）" />
+        <Beat from={count} to={why}>
+          <Svg>
+            <BarChart bars={[
+              { label: "全員が紹介", value: INTRO.final.pairs.length, color: C.gold },
+              { label: "8割が移った途中", value: last.total, focus: true, color: C.ink },
+              { label: "全員がアプリ", value: ALL_APP, color: C.teal },
+              ]} x={240} y={260} width={1300} height={480} max={30} format={(v) => `${Math.round(v)}組`}
+              start={0} />
+          </Svg>
+          {/* 途中の町は、声で言うまで隠す（BarChart は3本まとめて伸びるので、途中の棒は mid まで紙色の幕で隠す） */}
+          <Beat from={0} to={mid - count}>
+            <div style={{ position: "absolute", left: 240 + 1300 / 3, top: 200, width: 1300 / 3, height: 560, background: C.bg }} />
+          </Beat>
+        </Beat>
         <SimNote />
       </Beat>
-      <Beat from={why} to={nobody}>
+      <Beat from={why} to={each}>
         <SimBackground />
         <WalkingTown />
         <Headline text={"紹介が少なくなった町では、\nアプリがいちばんましな入り口"} />
       </Beat>
-      <Beat from={nobody} to={end + 30}>
+      <Beat from={each} to={end + 30}>
         <SimBackground />
         <WalkingTown />
-        <Headline text={"誰も間違っていないのに、\n町全体の出会いは減っていく"} />
+        <Headline text={"ひとりひとりは、有利なほうを選んだだけ。\nそれでも、町全体の出会いは減った"} />
       </Beat>
       <ChapterDots current={4} total={5} />
     </>
@@ -1129,7 +1214,6 @@ const Ch5Wide: React.FC = () => {
   const same = find("同じくらいに見える人にも", 600);
   const him = find("冒頭の彼も", 800);
   const women = find("真ん中より下の女性でも", 900);
-  const kreager = find("アメリカの出会いサイト", 1100);
   return (
     <>
       <SimBackground />
@@ -1149,27 +1233,11 @@ const Ch5Wide: React.FC = () => {
         <Town result={APP_HIM} box={STAGE} at={12} title="彼（○印）だけが、同じくらいの人にも送ったら" compact tags={[{ id: HIM, label: "" }]} />
         <SimNote />
       </Beat>
-      <Beat from={women} to={kreager}>
+      <Beat from={women} to={end + 30}>
         <Tag_ x={96} y={80} text="真ん中より下の女性でも（1年でペアになれた割合）" />
         <ShareRow y={430} label="そのまま" pct={42} kind="female" start={0} />
         <ShareRow y={680} label="幅を広げる" pct={60} kind="female" start={20} focus />
         <SourceNote sim text="ほかの99人はそのまま、種を20通り変えた平均（仮定の世界）" prefix="" />
-      </Beat>
-      <Beat from={kreager} to={end + 30}>
-        <PaperTag title="Kreager ほか (2014)" meta="米国の出会いサイト6か月・約1.4万人。観察で分かった差" />
-        <Svg>
-          <text x={96} y={330} style={font("label")}>つながりやすさ</text>
-          <text x={96} y={420} style={font("label", C.ink2)}>女性から送った</text>
-          <rect x={480} y={388} width={1000} height={44} rx={22} fill={C.female} />
-          <text x={1500} y={424} style={font("value")}>2倍以上</text>
-          <text x={96} y={520} style={font("label", C.ink2)}>男性から送った</text>
-          <rect x={480} y={488} width={440} height={44} rx={22} fill={C.male} />
-          <text x={96} y={650} style={font("label")}>送った数</text>
-          <text x={96} y={740} style={font("label", C.ink2)}>女性</text>
-          <rect x={480} y={708} width={250} height={44} rx={22} fill={C.female} />
-          <text x={760} y={744} style={font("label", C.ink2)}>男性の4分の1</text>
-        </Svg>
-        <SourceNote text="J. Marriage and Family 76(2)（★未照合）" />
       </Beat>
       <ChapterDots current={5} total={5} />
     </>
@@ -1236,7 +1304,7 @@ const Ch5Again: React.FC = () => {
       <Beat from={sum} to={end + 30}>
         <SimBackground />
         <Rules x={96} y={260} gap={30} every={30} items={["数を増やす → ほとんど変わらない", "狙う幅を広げる", "基準を動かさない", "少し下でも返してみる"]} />
-        <Tag_ x={96} y={80} text="効いたのは、選び方の側を変えること" />
+        <Tag_ x={96} y={80} text="効いたのは、相手の選び方を変えること" />
       </Beat>
       <ChapterDots current={5} total={5} />
     </>
@@ -1284,13 +1352,15 @@ const Lesson: React.FC = () => {
   );
 };
 
-const End: React.FC = () => <EndScreen lesson={"誰も間違っていないのに、\n出口だけが\n狭くなっていく。"} />;
+// 終了画面は締めの夜の続き（2026-10-05 オーナー「次の1本・再生リストはここで出してよい」）
+const End: React.FC = () => <SignOff end />;
 
 const episode: EpisodeDef = {
   id: "001-where-couples-meet-v3",
-  title: "アプリで出会いは増えたのに、なぜ結婚は増えないのか", // 仮。タイトルは meta.md で決める
+  title: "選ばれない人と、選べない人。マッチングアプリでカップルが増えない仕組み", // 2026-10-06 オーナー決定（meta.md）
+  thumb: { lines: ["出会いは増えた", "結ばれない"], count: 34, kinds: "both", gosa: "thinking" }, // サムネイル案 S2（今の様式のまま。review/title-thumb.md）
   scenes: fromTiming(timing as Timing, {
-    opening: Opening, hook: Hook, quiz: QuizSetup, "quiz-ask": QuizAsk,
+    opening: Opening, hook: Hook, quiz: QuizSetup, "quiz-rules": QuizRules, "quiz-ask": QuizAsk,
     "ch1-card": Ch1Card, ch1: Ch1, "ch1-sim": Ch1Sim, "ch1-end": Ch1End,
     "ch2-card": Ch2Card, ch2: Ch2, "ch2-hearts": Ch2Hearts, "ch2-him": Ch2Him, "ch2-her": Ch2Her,
     verdict: Verdict, "ch3-card": Ch3Card, ch3: Ch3, "ch3-raise": Ch3Raise, "ch3-quiz": Ch3Quiz, "ch3-vouch": Ch3Vouch,
@@ -1299,13 +1369,8 @@ const episode: EpisodeDef = {
     lesson: Lesson, end: End,
   }),
   bgm: [
-    { file: "Sizzr - Schwartzy.mp3", from: "opening", to: "hook", startAt: 10 },
-    { file: "Stayin' Lazy - Godmode.mp3", from: "quiz", to: "quiz-ask" },
-    { file: "Jomon Grove - The Mini Vandals.mp3", from: "ch1-card", to: "ch2-her" },
-    { file: "Traversing - Godmode.mp3", from: "verdict" },
-    { file: "Stayin' Lazy - Godmode.mp3", from: "ch3-card", to: "ch3-vouch" },
-    { file: "Jomon Grove - The Mini Vandals.mp3", from: "ch4-card", to: "ch5-again" },
-    { file: "Away - Patrick Patrikios.mp3", from: "lesson", to: "end" },
+    // 1曲を通しで流す（2026-10-06 オーナー「3分目くらいの曲で共通でいい。複数使わなくてもいい」）
+    { file: "Stayin' Lazy - Godmode.mp3", from: "opening", to: "end" },
   ],
 };
 export default episode;

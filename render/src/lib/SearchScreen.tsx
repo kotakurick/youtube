@@ -19,7 +19,7 @@ export const SearchScreen: React.FC<{
 }> = ({ x, y, h = 820, count, unit = "人", title = "条件に合う会員", rows, prev }) => {
   const w = h * 0.62, k = h / 820;
   const left = x - w / 2, top = y - h / 2;
-  const rowH = 76 * k, rowsTop = top + 372 * k;
+  const rowH = 72 * k, rowsTop = top + 400 * k;
   const fs = Math.max(28, 40 * k);
   return (
     <g data-qa="prop" data-qa-label="検索画面">
@@ -30,7 +30,7 @@ export const SearchScreen: React.FC<{
         {typeof count === "number" ? count.toLocaleString() : count}<tspan style={{ fontSize: 56 * k }}>{unit}</tspan>
       </text>
       {prev !== undefined && (
-        <text x={x} y={top + 322 * k} textAnchor="middle" style={{ ...font("note", C.ink2), fontSize: 28 }}>{`${prev.toLocaleString()}${unit}から`}</text>
+        <text x={x} y={top + 348 * k} textAnchor="middle" style={{ ...font("note", C.ink2), fontSize: 28 }}>{`${prev.toLocaleString()}${unit}から`}</text>
       )}
       <line x1={left + 44 * k} x2={left + w - 44 * k} y1={rowsTop - 24 * k} y2={rowsTop - 24 * k} stroke={C.paper2} strokeWidth={LINE.thin} />
       {rows.map((r, i) => {

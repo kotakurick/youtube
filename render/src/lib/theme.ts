@@ -53,7 +53,7 @@ export const Z: Zones = {
   stage: { x: 96, y: 200, w: 1728, h: 680 },          // 主役の絵（ゴサがいるときは右端 1520 まで）
   stageWithGosa: { x: 96, y: 200, w: 1424, h: 680 },
   noteY: 844,                                          // 出典（グラフの左下）。字幕の帯（y920）との間を空ける（2026-10-05 884→844）
-  dock: { x: 1690, foot: 860 },                        // ゴサの足元（右下に固定）。2026-10-06 880→860：字幕の帯の上に28px空ける決まり（qa.ts SUB_GAP）に入っていた（3本目の絵コンテで仮の帯を置いて分かった）
+  dock: { x: 1690, foot: 860 },                        // ゴサの足元（右下に固定）。字幕の帯（y920）の上に28px空けるため 880→860（2026-10-05）
   sub: { y: 920, h: 80, w: 1440 },                     // 字幕
 };
 
@@ -111,11 +111,15 @@ export const CROWD_SIZE = 1.3;
 // 注意：@remotion/fonts の loadFont をファイルの先頭で呼ぶと、書き出しが2分を超えたところで
 // 「フォントの読み込みが終わらない」エラーで止まる（待ちの記録が書き出しの準備で消され、時間切れだけが残るため）。
 export const FONT = "NotoSansJP";
+/** 明朝体。サムネイルの大きな文字に使う（2026-10-06 オーナー「文字は明朝体がよい」） */
+export const FONT_SERIF = "NotoSerifJP";
 let fontPromise: Promise<void> | null = null;
 export const ensureFont = () => (fontPromise ??= (async () => {
-  const f = new FontFace(FONT, `url('${staticFile("fonts/NotoSansJP.ttf")}') format('truetype')`, { weight: "100 900" });
-  await f.load();
-  document.fonts.add(f);
+  for (const [family, file] of [[FONT, "NotoSansJP.ttf"], [FONT_SERIF, "NotoSerifJP.ttf"]]) {
+    const f = new FontFace(family, `url('${staticFile(`fonts/${file}`)}') format('truetype')`, { weight: "100 900" });
+    await f.load();
+    document.fonts.add(f);
+  }
 })());
 
 /** 文字の役割から style を作る（数字は等幅）。HTML の文字は color、SVG の文字は fill で色が付く（両方入れる） */

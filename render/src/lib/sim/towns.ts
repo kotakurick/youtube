@@ -32,6 +32,10 @@ export type TownOptions = {
   tolerance: number;   // 紹介：自分より tolerance 下まで受け入れる
   perCircle: number;   // 紹介：1か月に1つの輪で世話役が引き合わせる組数
   matchmaker: number;  // 紹介：その月に世話役が動く確率（1＝毎月。職場や地域の世話役が減ると下がる）
+  /** 紹介：輪から人が抜けると世話役も動かなくなる（2026-10-06。輪に残っている人の割合 × matchmaker の確率で動く。輪の元の人数は circleSize）。
+   *  根拠：ネットの出会いが友人の紹介を置き換えた（S10 Rosenfeld ほか 2019）。紹介は人が集まる場（飲み会・職場）があってこそ起きる、という仮定 */
+  thinning?: boolean;
+  circleSize?: number;
   aim: number;         // アプリ：自分より aim 上だけにいいね
   reply: number;       // アプリ：いいねを受けたとき、自分より reply 下まで返す（受け取るのが少ないとき）
   raise: number;       // アプリ：受け取ったいいねが倍になるごとに基準が上がる幅
@@ -108,7 +112,8 @@ export const simulateIntro = (rs: Resident[], o: Partial<TownOptions> = {}, seed
     const men: Resident[] = [];
     const act = rng(seed * 4099 + m);
     for (let c = 0; c < nc; c++) {
-      if (act() >= opt.matchmaker) continue; // この月は世話役が動かない
+      const share = opt.thinning ? rs.filter((a) => a.circle === c).length / (opt.circleSize ?? 10) : 1;
+      if (act() >= opt.matchmaker * share) continue; // この月は世話役が動かない（thinning なら、輪に残る人が少ないほど動かない）
       men.push(...shuffle(rs.filter((a) => a.kind === "male" && a.circle === c && !partner.has(a.id)), seed * 31 + m * 101 + c).slice(0, opt.perCircle));
     }
     for (const p of shuffle(men, seed * 37 + m)) {
