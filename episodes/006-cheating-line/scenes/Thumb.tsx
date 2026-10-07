@@ -26,12 +26,14 @@ const ARMS_CROSSED = (hair: "short" | "long", skirt = false): Joints => ({
 });
 
 type Pose = { size: number; y: number; tilt: number };
-const Ground: React.FC<{ big?: boolean; light?: boolean; pose?: Pose }> = ({ big = false, light = false, pose }) => (
+// 明るい地（レビュー r4）：[下端, 上端]
+const BRIGHT = { blue: ["#3C86F5", "#1A55C8"], red: ["#F26A1F", "#C2410C"] };
+const Ground: React.FC<{ big?: boolean; light?: boolean; bright?: boolean; pose?: Pose }> = ({ big = false, light = false, bright = false, pose }) => (
   <svg width={W} height={H} style={{ position: "absolute" }}>
     <defs>
-      <linearGradient id="tB" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stopColor={BLUE[1]} /><stop offset="100%" stopColor={BLUE[0]} /></linearGradient>
-      <linearGradient id="tR" x1="1" y1="1" x2="0" y2="0"><stop offset="0%" stopColor={RED[1]} /><stop offset="100%" stopColor={RED[0]} /></linearGradient>
-      <linearGradient id="tG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={light ? "#E8E8EC" : GRAY[0]} /><stop offset="100%" stopColor={light ? "#B8B8C0" : GRAY[1]} /></linearGradient>
+      <linearGradient id="tB" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stopColor={bright ? BRIGHT.blue[0] : BLUE[1]} /><stop offset="100%" stopColor={bright ? BRIGHT.blue[1] : BLUE[0]} /></linearGradient>
+      <linearGradient id="tR" x1="1" y1="1" x2="0" y2="0"><stop offset="0%" stopColor={bright ? BRIGHT.red[0] : RED[1]} /><stop offset="100%" stopColor={bright ? BRIGHT.red[1] : RED[0]} /></linearGradient>
+      <linearGradient id="tG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={bright ? "#FFFFFF" : light ? "#E8E8EC" : GRAY[0]} /><stop offset="100%" stopColor={bright ? "#C9C9D2" : light ? "#B8B8C0" : GRAY[1]} /></linearGradient>
       <linearGradient id="tShade" gradientUnits="userSpaceOnUse" x1="-160" y1="-1000" x2="200" y2="-300"><stop offset="0%" stopColor="#FFFFFF" /><stop offset="60%" stopColor="#F1F3F7" /><stop offset="100%" stopColor="#C9CFDB" /></linearGradient>
       <filter id="tDrop" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="6" dy="10" stdDeviation="8" floodColor="#000" floodOpacity="0.45" /></filter>
     </defs>
@@ -119,19 +121,19 @@ const SameQ: React.FC = () => {
 
 // 案5の人形版（2026-10-07）：オーナーが画像生成AIで作った白い人形（_local/episodes/006-cheating-line/thumb/。scripts/thumb_key.py で緑を抜き、彼は左右を返して外向きに）。
 const PHOTO = (n: string) => staticFile(`episodes/006-cheating-line/thumb/${n}.png`);
-const DOLL_H = 760, DOLL_TOP = 392;
+const DOLL_H = 990, DOLL_TOP = 365; // レビュー r4：人形を約1.3倍に、頭の上を文字の裏へ少し入れる
 const SameQAI: React.FC = () => {
   const line: React.CSSProperties = { position: "absolute", left: 0, right: 0, textAlign: "center", fontFamily: FONT_SERIF, fontWeight: 900, fontSize: 170,
-    lineHeight: 1.1, whiteSpace: "nowrap", color: C.white, WebkitTextStroke: `12px ${C.ink}`, paintOrder: "stroke fill", filter: "drop-shadow(0 8px 10px rgba(0,0,0,.75))" };
-  const doll = (n: string, cx: number): React.ReactNode => (
+    lineHeight: 1.1, whiteSpace: "nowrap", color: C.white, WebkitTextStroke: `14px ${C.ink}`, paintOrder: "stroke fill", filter: "drop-shadow(0 8px 10px rgba(0,0,0,.75))" };
+  const doll = (n: string, cx: number, rim: string): React.ReactNode => (
     <Img src={PHOTO(n)} style={{ position: "absolute", top: DOLL_TOP, height: DOLL_H, left: cx, transform: "translateX(-50%)",
-      filter: "drop-shadow(8px 12px 14px rgba(0,0,0,.45))" }} />
+      filter: `drop-shadow(0 0 28px ${rim}) drop-shadow(8px 12px 14px rgba(0,0,0,.45))` }} />
   );
   return (
     <AbsoluteFill style={{ background: RED[0] }}>
-      <Ground big light pose={{ size: 0.001, y: H + 2000, tilt: 0 }} />
-      {doll("man", 230)}
-      {doll("woman", 1050)}
+      <Ground big light bright pose={{ size: 0.001, y: H + 2000, tilt: 0 }} />
+      {doll("man", 250, "rgba(90,160,255,.8)")}
+      {doll("woman", 1030, "rgba(255,150,80,.8)")}
       <div style={{ ...line, top: 24 }}>男女で</div>
       <div style={{ ...line, top: 210 }}>基準は<span style={{ color: GOLD }}>同じ</span>？</div>
     </AbsoluteFill>
