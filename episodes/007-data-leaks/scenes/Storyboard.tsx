@@ -20,7 +20,6 @@ import { Cat, CatLabel } from "@lib/Cat";
 import type { CatFace, CatPose } from "@lib/Cat";
 import { ChapterDots } from "@lib/Chapter";
 import { ClaimCards, ClaimIcon, CountPick } from "@lib/Claims";
-import { Figure } from "@lib/Figure";
 import { Gosa } from "@lib/Gosa";
 import { CallDesk, CarIcon, Clipboard, CloudIcon, Envelope, Gavel, Grill, ICChip, IdCard, Ingot, Mug, Office, StockChart, Tool } from "@lib/Icons";
 import { Inbox, InboxMini } from "@lib/Inbox";
@@ -180,7 +179,7 @@ const Kitchen: React.FC<{ face?: CatFace; pose?: CatPose; look?: [number, number
     <KitchenRoom glow={glow} />
     <Svg>
       <Table x={K.tableX} y={K.floor} size={K.size} w={50} />
-      <Cat kind="male" x={K.catX} y={K.floor} size={K.size} pose={pose} face={face} facing={-1} look={look} label="彼" />
+      <Cat kind="plain" x={K.catX} y={K.floor} size={K.size} pose={pose} face={face} facing={-1} look={look} label="彼" />
       {children}
     </Svg>
   </>
@@ -211,7 +210,7 @@ export const S03: React.FC = () => (
       <g clipPath="url(#memo3)">
         <rect data-qa="bg" x={1060} y={160} width={640} height={640} fill={C.bg} />
         <rect data-qa="bg" x={1060} y={720} width={640} height={100} fill={C.paper2} />
-        <Cat kind="male" x={1220} y={740} size={3.4} pose="phone" face="normal" facing={1} look={[1, -0.3]} label="回想の彼" />
+        <Cat kind="plain" x={1220} y={740} size={3.4} pose="phone" face="normal" facing={1} look={[1, -0.3]} label="回想の彼" />
         <IdCard x={1500} y={500} s={2.4} label="免許証" />
         <g data-qa="bg" data-qa-label="フラッシュ">
           {[[-40, -24], [0, 0], [40, 24]].map(([dy, dx], i) => (
@@ -529,7 +528,7 @@ export const S19: React.FC = () => (
   <AbsoluteFill>
     <Heading>延べなので、同じ人が何度も数えられる</Heading>
     <Svg>
-      <Figure kind="other" color={C.ink2} x={520} y={760} size={6} label="1人" />
+      <Cat kind="plain" x={520} y={760} size={6} label="1人" />
       {[[360, 380], [520, 330], [680, 380]].map(([x, y], i) => (
         <g key={i} data-qa="mark" data-qa-label={`しるし${i + 1}`}>
           <circle cx={x} cy={y} r={34} fill={C.teal} />
@@ -564,7 +563,7 @@ const Town: React.FC<{ colored?: boolean }> = ({ colored }) => (
         <Label x={g.x} y={316} size="note" color={C.ink2}>{`使うサービス ${g.use}`}</Label>
         {Array.from({ length: g.n }, (_, i) => {
           const k = i < g.mix[0] ? 0 : i < g.mix[0] + g.mix[1] ? 1 : 2;
-          return <Figure key={i} kind="other" color={colored ? MIX_C[k] : C.ink2} x={g.x + 20 + (i % g.cols) * 50} y={420 + Math.floor(i / g.cols) * 88} size={1.4} />;
+          return <Cat key={i} kind="plain" color={colored ? MIX_C[k] : undefined} x={g.x + 20 + (i % g.cols) * 50} y={420 + Math.floor(i / g.cols) * 88} size={1.4} seed={i} />;
         })}
       </g>
     ))}
@@ -878,7 +877,7 @@ export const S35: React.FC = () => (
 
 // ================= 第3章：盗む側の稼ぎ =================
 export const S36: React.FC = () => {
-  // 20列×5段を、列の順（上から下）に並べる：左の14列＝10代と20代（墨1色）、右の6列＝それ以外（灰）
+  // 20列×5段を、列の順（上から下）に並べる：左の14列＝10代と20代（紫の猫）、右の6列＝それ以外（灰）
   const px = (i: number) => 220 + Math.floor(i / 5) * 62, py = (i: number) => 400 + (i % 5) * 92;
   return (
     <AbsoluteFill>
@@ -886,7 +885,7 @@ export const S36: React.FC = () => {
       <SubHead>去年 248人を100人にすると</SubHead>
       <Svg>
         {Array.from({ length: 100 }, (_, i) => (
-          <Figure key={i} kind="other" color={i < 70 ? C.ink : C.rest} x={px(i)} y={py(i)} size={1.4} />
+          <Cat key={i} kind="plain" color={i < 70 ? undefined : C.rest} x={px(i)} y={py(i)} size={1.4} seed={i} />
         ))}
         <Bracket x1={190} x2={px(69) + 30} y={300} label="約7割（10代 33人・20代 37人）" />
         <Bracket x1={px(70) - 30} x2={px(99) + 30} y={300} label="それ以外 30人" color={C.ink2} />
@@ -909,7 +908,7 @@ export const S37: React.FC = () => (
       <Arrow x1={600} y1={460} x2={1040} y2={460} />
       <Label x={820} y={420} anchor="middle" color={C.ink2}>道具を貸す</Label>
       {Array.from({ length: 6 }, (_, i) => (
-        <Figure key={i} kind="other" color={C.ink2} x={1140 + (i % 3) * 140} y={440 + Math.floor(i / 3) * 160} size={2} />
+        <Cat key={i} kind="plain" x={1140 + (i % 3) * 140} y={440 + Math.floor(i / 3) * 160} size={2} seed={i} />
       ))}
       <Label x={1280} y={720} anchor="middle" weight={900}>借りて攻撃する実行役</Label>
     </Svg>
@@ -932,7 +931,7 @@ export const S38: React.FC = () => (
       <rect data-qa="mark" data-qa-label="凡例：報酬なし" x={1100} y={318} width={40} height={40} rx={6} fill={C.rest} />
       <Label x={1156} y={350}>報酬なし 最大114人</Label>
       {Array.from({ length: 194 }, (_, i) => (
-        <Figure key={i} kind="other" color={i < 114 ? C.rest : C.gold} x={760 + (i % 20) * 54} y={430 + Math.floor(i / 20) * 43} size={0.8} />
+        <Cat key={i} kind="plain" color={i < 114 ? C.rest : C.gold} x={760 + (i % 20) * 54} y={430 + Math.floor(i / 20) * 43} size={0.8} seed={i} />
       ))}
     </Svg>
     <SourceNote text={SRC.doj} />
@@ -944,7 +943,7 @@ export const S39: React.FC = () => (
     <Heading>仕事の多くは、地味で退屈な保守作業</Heading>
     <Svg>
       <Desk x={760} y={760} size={4} w={110} />
-      <Figure kind="other" color={C.ink2} x={600} y={760} size={4} pose="sit" />
+      <Cat kind="plain" x={600} y={760} size={4} pose="sit" />
       <rect x={1080} y={360} width={740} height={220} rx={R.lg} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
       <Label x={1130} y={460} weight={900}>地味で退屈な保守作業</Label>
       <Label x={1130} y={520} size="note" color={C.ink2}>（現場で聞き取った研究）</Label>
