@@ -162,6 +162,9 @@ const episode: EpisodeDef = {
   id: "006-cheating-line",
   title: "どこからが浮気か。男女2人の基準がぴったり合うのは、170組に1組", // 2026-10-07 オーナー決定（meta.md）
   scenes,
-  // BGM は曲を決めてから（ローカルの工程）
+  bgm: [
+    // 1曲を通しで流す（2026-10-07 オーナー：1本目・3本目と同じ曲）
+    { file: "Stayin' Lazy - Godmode.mp3", from: "opening", to: "end" },
+  ],
 };
 export default episode;
