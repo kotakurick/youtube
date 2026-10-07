@@ -76,7 +76,8 @@ STAT = r"%|割|倍|万|億|人に\d人"   # 統計らしい数字の目印
 
 # 声が読み間違えやすい漢字（2026-10-06 オーナー「側をそばと読む」）。tts/yomi.tsv に読みがなければ知らせる。
 # 読みは文脈で変わるので、一括では直さず、語ごとに yomi.tsv に足す（例：「女性の側」→「女性のがわ」）
-AMBIGUOUS = ["側", "他", "何人", "一日", "上手", "下手", "市場", "大分", "心中", "最中", "目下", "生物", "方々"]
+# 「入れ」「入っ」は いれ／はいれ、いっ／はいっ の読み分け（2026-10-07 003 オーナー「考えに入れる」）
+AMBIGUOUS = ["側", "他", "何人", "入れ", "入っ", "一日", "上手", "下手", "市場", "大分", "心中", "最中", "目下", "生物", "方々"]
 ROOT = Path(__file__).resolve().parent.parent
 
 
@@ -166,6 +167,9 @@ def tricks(text: str, long: bool) -> tuple[list, list]:
                 chapter_metaphors.setdefault(chapter, []).append(i)
     if "示唆" in found:   # 健康・お金の回は、ミクロの代わりに示唆を置く（11章）
         found.setdefault("ミクロ", found["示唆"])
+    for no, name in found.get("ミクロ", []):   # オーナーが冗長として外した回は「ミクロ なし（理由）」と書く（2026-10-07 003）
+        if name.startswith("なし"):
+            notes.append((no, f"ミクロを置いていない：{name}"))
     for kind, why in TRICK_REQUIRED.items():
         if kind not in found:
             (errors if long else notes).append((0, f"仕掛け「{kind}」の印がない（{why}。<!-- 仕掛け: {kind} --> を置く）"))
