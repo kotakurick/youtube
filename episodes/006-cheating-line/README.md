@@ -19,7 +19,7 @@
   `python -I episodes/006-cheating-line/data/check_cues.py`（切り替えの語がすべて字幕の1行の中にあるか）と
   `cd render && npm run check -- 006-cheating-line --every 10`（直すもの0）を通す。語が字幕の2行にまたがると、場面が5秒早く切り替わる。
 - BGM は未定（1本の動画で1曲。`docs/brand.md`）。オーナーに確かめる。
-- タイトルは決定。サムネイルは案5（`scenes/Thumb.tsx` の `006-cheating-line-thumb-sameq`）。オーナーが人形の画像を `_local/episodes/006-cheating-line/thumb/` に置いたら、仮のシルエットを画像に差し替え、`review-thumbnail` にもう一度見せる（`meta.md`）。
+- タイトルは決定。サムネイルは `006-cheating-line-thumb-sameq-ai`（人形の画像入り。レビュー7点）。人形の画像はクラウドの `_local/` にしかないので、PCでは元の画像（オーナーが作った2枚）を `_local/episodes/006-cheating-line/thumb/` に置き、`scripts/thumb_key.py` で緑を抜く（彼は `--flip`。`meta.md`）。
 
 ## 進行状況
 

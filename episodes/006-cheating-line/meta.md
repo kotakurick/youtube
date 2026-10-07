@@ -27,6 +27,8 @@
 
 - **使う（2026-10-07 オーナーの案）** 案5 `006-cheating-line-thumb-sameq`「男女で基準は同じ？」（オーナー「どのようにも捉えられるし訴求力ありそう」）。問いの形なので言い過ぎにならず、答えは本編どおり二重（男女の多数派の答えは32問すべて同じ／2人だと170組に1組しか合わない）。タイトルの「基準」と同じ語。
 
+**できあがり（2026-10-07）**：`006-cheating-line-thumb-sameq-ai`（`render/out/thumb006/sameq-ai.png`。`cd render && npx remotion still 006-cheating-line-thumb-sameq-ai out/thumb.png`）。レビュー r4 6.5点 → r5 7.0点（目標に到達）→ r5 の仕上げ（人形を35px上げて腕組みを見せる・2人を中央へ40px）を入れた。競合の見本はクラウドになく、競合の間での比べはまだ。
+
 **人形の画像（2026-10-07 オーナーが作成）**：`_local/episodes/006-cheating-line/thumb/man.png`・`woman.png`（元は `*-src.jpg`）。`scripts/thumb_key.py` で緑を抜き、彼は左右を返して外向きに。人形版は `006-cheating-line-thumb-sameq-ai`。
 
 レビュー r3（`review/thumbnail-r3.md`）：案5 5.5点 → 直し（札をやめて大の文字を2行・「同じ」だけ金・人を大きく・くさびを明るく・2人を外へ8度傾ける）を入れた。見込み6.5〜7点。人形の画像に差し替えてからもう一度見る。

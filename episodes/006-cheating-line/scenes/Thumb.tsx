@@ -121,7 +121,7 @@ const SameQ: React.FC = () => {
 
 // 案5の人形版（2026-10-07）：オーナーが画像生成AIで作った白い人形（_local/episodes/006-cheating-line/thumb/。scripts/thumb_key.py で緑を抜き、彼は左右を返して外向きに）。
 const PHOTO = (n: string) => staticFile(`episodes/006-cheating-line/thumb/${n}.png`);
-const DOLL_H = 990, DOLL_TOP = 365; // レビュー r4：人形を約1.3倍に、頭の上を文字の裏へ少し入れる
+const DOLL_H = 990, DOLL_TOP = 330; // レビュー r4：人形を約1.3倍に、頭の上を文字の裏へ少し入れる
 const SameQAI: React.FC = () => {
   const line: React.CSSProperties = { position: "absolute", left: 0, right: 0, textAlign: "center", fontFamily: FONT_SERIF, fontWeight: 900, fontSize: 170,
     lineHeight: 1.1, whiteSpace: "nowrap", color: C.white, WebkitTextStroke: `14px ${C.ink}`, paintOrder: "stroke fill", filter: "drop-shadow(0 8px 10px rgba(0,0,0,.75))" };
@@ -132,8 +132,8 @@ const SameQAI: React.FC = () => {
   return (
     <AbsoluteFill style={{ background: RED[0] }}>
       <Ground big light bright pose={{ size: 0.001, y: H + 2000, tilt: 0 }} />
-      {doll("man", 250, "rgba(90,160,255,.8)")}
-      {doll("woman", 1030, "rgba(255,150,80,.8)")}
+      {doll("man", 290, "rgba(90,160,255,.8)")}
+      {doll("woman", 990, "rgba(255,150,80,.8)")}
       <div style={{ ...line, top: 24 }}>男女で</div>
       <div style={{ ...line, top: 210 }}>基準は<span style={{ color: GOLD }}>同じ</span>？</div>
     </AbsoluteFill>
