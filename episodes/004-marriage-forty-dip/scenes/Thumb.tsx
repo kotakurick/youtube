@@ -9,8 +9,8 @@ import { C, FONT_SERIF } from "@lib/theme";
 
 const W = 1280, H = 720;
 const SPLIT = { blue: ["#0E2A5C", "#2F6FDE"], red: ["#5C0E14", "#D8261A"] } as const;
-// 2026-10-07 レビュー r1：人を大きく（高さ約300px）、梁を太く、糸は外側の台形にして頭と重ねない
-const BEAM = { y: 360, l: 300, r: 980, t: 22 }, PAN = { y: 680, w: 320 }, HANG = 40;
+// 2026-10-07 レビュー r1・r2：人を大きく（高さ約340px）、梁を太くして上げ、糸は外側の台形にして頭と重ねない
+const BEAM = { y: 330, l: 300, r: 980, t: 22 }, PAN = { y: 686, w: 340 }, HANG = 40;
 const WHITE = "rgba(255,255,255,.95)", YELLOW = "#FFE36A";
 const SHADOW = "drop-shadow(0 8px 8px rgba(0,0,0,.8))";
 
@@ -19,7 +19,7 @@ const Scale: React.FC = () => (
   <g fill={WHITE} stroke={WHITE}>
     <rect x={W / 2 - 10} y={BEAM.y} width={20} height={H - BEAM.y} stroke="none" />
     <rect x={BEAM.l - HANG} y={BEAM.y - BEAM.t / 2} width={BEAM.r - BEAM.l + HANG * 2} height={BEAM.t} rx={BEAM.t / 2} stroke="none" />
-    <circle cx={W / 2} cy={BEAM.y} r={26} stroke="none" />
+    <circle cx={W / 2} cy={BEAM.y} r={20} stroke="none" />
     {[BEAM.l, BEAM.r].map((x) => (
       <g key={x}>
         <line x1={x - HANG} y1={BEAM.y} x2={x - PAN.w / 2} y2={PAN.y} strokeWidth={5} />
@@ -56,22 +56,22 @@ const Duo: React.FC<{ lines: Run[][]; voice?: string }> = ({ lines, voice }) => 
       <rect x={W / 2} y={0} width={W / 2} height={H} fill={`url(#g${SPLIT.red[0]})`} />
       <Scale />
       {/* 夫：背すじを伸ばして正面（うまくいっていると思っている）。妻：肘を抱えて顔を外へそらす（助手席の窓）。同じ白・同じ大きさ */}
-      <Silhouette j={MAN_STAND} x={BEAM.l} y={PAN.y + 4} size={0.31} color={WHITE} />
-      <Silhouette j={WOMAN_HUG} x={BEAM.r} y={PAN.y + 4} size={0.31} color={WHITE} />
+      <Silhouette j={MAN_STAND} x={BEAM.l} y={PAN.y + 4} size={0.34} color={WHITE} />
+      <Silhouette j={WOMAN_HUG} x={BEAM.r} y={PAN.y + 4} size={0.34} color={WHITE} />
     </svg>
     <Big lines={lines} />
     {voice && (
-      <div style={{ position: "absolute", left: 1032, top: 400, fontFamily: FONT_SERIF, fontWeight: 900, fontSize: 80, whiteSpace: "nowrap", color: C.white,
+      <div style={{ position: "absolute", left: 1036, top: 380, fontFamily: FONT_SERIF, fontWeight: 900, fontSize: 110, whiteSpace: "nowrap", color: C.white,
         WebkitTextStroke: `6px ${C.ink}`, paintOrder: "stroke fill", filter: SHADOW }}>{voice}</div>
     )}
   </AbsoluteFill>
 );
 
 // A：時期を伏せる。主語は「妻の不満」にして、本編の数字（不満の妻は15人に1人 → 4人に1人近く）の範囲で言う
-const A: React.FC = () => <Duo lines={[[{ t: "妻の不満が", px: 132, hi: true }], [{ t: "増える時期", px: 132 }]]} voice="うん。" />;
+const A: React.FC = () => <Duo lines={[[{ t: "妻の不満が", px: 120 }], [{ t: "増える", px: 150, hi: true }, { t: "時期", px: 110 }]]} voice="うん" />;
 // B：2分を出す。主語を置かず、2人とも冷める本編の判定と合わせる
 const B: React.FC = () => (
-  <Duo lines={[[{ t: "差は", px: 120 }, { t: "2分", px: 160, hi: true }], [{ t: "なのに", px: 96 }, { t: "冷める", px: 140, hi: true }]]} voice="うん。" />
+  <Duo lines={[[{ t: "差は", px: 120 }, { t: "2分", px: 160, hi: true }], [{ t: "なのに", px: 96 }, { t: "冷める", px: 140, hi: true }]]} voice="うん" />
 );
 
 export default [
