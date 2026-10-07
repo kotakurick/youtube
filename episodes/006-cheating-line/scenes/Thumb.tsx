@@ -86,7 +86,23 @@ const Short: React.FC<{ text: string }> = ({ text }) => (
   </AbsoluteFill>
 );
 
+/** 案4（2026-10-07 オーナー「男性同士でもずれる、ほぼ誰とも合わない、はそりゃそうだ、となる」）：本編でいちばん意外な所。
+ *  男女それぞれの多数決の答えは、32の行動すべてで同じ（Kulibert & Thompson 2019 の公開データ。本編の第2章のはしご2段目）。
+ *  タイトル（2人なら170組に1組）と並べて逆説になる。「一致」だけ金（本編で「そろう」の色） */
+const AllMatch: React.FC = () => (
+  <AbsoluteFill style={{ background: RED[0] }}>
+    <Ground big />
+    <Band text="どこからが浮気？" />
+    <div style={{ position: "absolute", left: 0, right: 0, top: 140, textAlign: "center", fontFamily: FONT_SERIF, fontWeight: 900, fontSize: 160,
+      lineHeight: 1.1, whiteSpace: "nowrap", filter: "drop-shadow(0 8px 10px rgba(0,0,0,.75))" }}>
+      <span style={{ color: C.white }}>男女で全問</span>
+      <span style={{ color: GOLD, WebkitTextStroke: `10px ${C.ink}`, paintOrder: "stroke fill" }}>一致</span>
+    </div>
+  </AbsoluteFill>
+);
+
 export default [
+  { id: "006-cheating-line-thumb-allmatch", component: AllMatch },
   { id: "006-cheating-line-thumb-nobody", component: () => <Short text="ほぼ誰とも合わない" /> },
   { id: "006-cheating-line-thumb-zure", component: () => <Short text="男性どうしもズレる" /> },
   { id: "006-cheating-line-thumb-match", component: Match },
