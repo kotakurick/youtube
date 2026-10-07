@@ -178,8 +178,8 @@ export const S08: React.FC = () => (
 );
 
 // ================= 今日の答え合わせ・予想タイム・順番 =================
-const QUIZ_Q = "32の行動すべてがそろう確率は？";
-const QUIZ_C = ["2組に1組", "10組に1組", "200組に1組ほど", "10万組に1組"];
+const QUIZ_Q = "本当にそろう組は、掛け算の何倍？";
+const QUIZ_C = ["ほぼ同じ", "10倍ほど", "500倍ほど", "1万倍ほど"];
 export const S09: React.FC = () => <AbsoluteFill><TodayCard claim="浮気の線のずれは、男女の違い" /><Gosa cues={[[-60, "thinking"]]} size="M" foot={850} /></AbsoluteFill>;
 export const S10: React.FC = () => (
   <AbsoluteFill>
@@ -194,14 +194,15 @@ export const S10: React.FC = () => (
 export const S11: React.FC = () => (
   <AbsoluteFill>
     <Quiz question={QUIZ_Q} choices={QUIZ_C} gosaFoot={850} />
-    <SourceNote prefix="" text="B＝男女の差の分だけずれる、D＝ひとつずつの確率の掛け算（答えは最後の答え合わせで）" />
+    <SourceNote prefix="" text="A＝答えはひとつずつばらばらに決まる、D＝大事な線はみんなほぼ同じ（答えは最後の答え合わせで）" />
   </AbsoluteFill>
 );
 export const S11b: React.FC = () => (
   <AbsoluteFill>
-    <Heading>{QUIZ_Q}</Heading>
+    <Heading>32の行動を、1つずつ掛け算すると</Heading>
     <Svg>
-      <LogRuler x={230} y={560} width={1140} pins={[{ n: 2, label: "A" }, { n: 10, label: "B" }, { n: 200, label: "C" }, { n: 100000, label: "D" }]} />
+      <LogRuler x={230} y={560} width={1140} pins={[{ n: 87000, label: "掛け算：約9万組に1組", color: C.ink2 }]} />
+      <Label x={700} y={800} anchor="middle" size="label">本当に32の行動すべてでそろう組は、この何倍？</Label>
     </Svg>
     <Gosa cues={[[-60, "thinking"]]} size="M" foot={850} />
   </AbsoluteFill>
@@ -707,7 +708,7 @@ export const S41: React.FC = () => (
 export const S42: React.FC = () => (
   <AbsoluteFill>
     <Quiz question={QUIZ_Q} choices={QUIZ_C} answer={2} reveal gosaFoot={850} />
-    <SourceNote prefix="" text="正確には約170組に1組（0.59%）。米国の公開データ、他人どうしを組ませた値" />
+    <SourceNote prefix="" text="実際は約170組に1組、掛け算は約9万組に1組（米国の公開データ）" />
   </AbsoluteFill>
 );
 export const S43: React.FC = () => (
@@ -716,7 +717,7 @@ export const S43: React.FC = () => (
     <Svg>
       <LogRuler x={260} y={420} width={1400} pins={[{ n: 170, label: "実際：約170組に1組", strong: true, color: C.gold }, { n: 87000, label: "掛け算：約9万組に1組", color: C.ink2 }]}
         span={{ from: 170, to: 87000, text: "約500倍" }} />
-      <Label x={960} y={790} anchor="middle" size="label">厳しい人は、だいたいどの行動にも厳しい（ひとりの線には筋が通っている）</Label>
+      <Label x={960} y={790} anchor="middle" size="label">厳しい人は、だいたいどの行動にも厳しい</Label>
     </Svg>
     <SourceNote text={SRC.osf} />
   </AbsoluteFill>
@@ -747,8 +748,8 @@ const P: Omit<Panel, "key">[] = [
   { title: "問い：ぜんぶそろう確率は？", C: S08, sec: 16.7, lines: "意見が半々に割れている", move: "2枚の地図が左右から出る（同じ目印）。国境線が上から引かれ、アウト側が淡く塗られる" },
   { title: "今日の答え合わせ", C: S09, sec: 7.2, lines: "今日の答え合わせは、この説", move: "共通のカード" },
   { title: "予想の前に：使うデータ", C: S10, sec: 19.0, lines: "予想の前に、使うデータを", move: "条件の札が1つずつ出る。右下に組が6組並ぶ" },
-  { title: "予想タイム（4択）", C: S11, sec: 19.3, lines: "予想してみてください。", move: "共通の予想タイム。B と D には説明の小さな札" },
-  { title: "予想タイム：ものさしに並べる", C: S11b, sec: 13.0, lines: "Cは、200組に1組ほどです", move: "4つの選択肢が対数のものさしの上にピンで立つ（A→D）。ゴサが考える顔。3秒の輪" },
+  { title: "予想の前：掛け算の数", C: S11b, sec: 10.0, lines: "それを32個、掛け算すると", move: "対数のものさしに「掛け算：約9万組に1組」のピンが立つ。下に「この何倍？」。ゴサが考える顔" },
+  { title: "予想タイム（4択：何倍か）", C: S11, sec: 19.3, lines: "予想してみてください。", move: "共通の予想タイム。A と D には説明の小さな札。3秒の輪" },
   { title: "今日の順番", C: S12, sec: 16.9, lines: "今日は、三つの順に", move: "3枚の札が左から並ぶ（階段・地図・線の両側の男女）。最後に1枚目が拡大して第1章の扉へ" },
   { title: "第1章：13の行動の階段、自分の線を引く", C: S13, sec: 29.5, lines: "まず、日本の線です。", move: "第1章の扉 → 段が下から1段ずつ積まれる（重い行動が上）。点線（あなたの線）が上下にゆれて止まる。一時停止を促す間" },
   { title: "13の行動、男女の割合", C: S14, sec: 12.3, lines: "〔間・長〕さきほどの七千人", move: "階段の段がそのまま横棒の行に変わる（上下の順は同じ）。男性→女性の棒が伸びる。全行で女性が長い" },
@@ -778,8 +779,8 @@ const P: Omit<Panel, "key">[] = [
   { title: "まとめ：平均の差はある。それでも", C: S39, sec: 21.0, lines: "平均で見れば、浮気の経験は", move: "第3章の3つの絵が小さくなって並ぶ（男女・満足度・9割）。3枚目の枠が太くなる。最後の2文で今日の説の札が上から下りてくる" },
   { title: "答え合わせ（前半：〇）", C: S40, sec: 13.4, lines: "浮気の線のずれは、男性と", move: "共通の判定。証拠2つ → 〇" },
   { title: "答え合わせ（後半：×）", C: S41, sec: 21.8, lines: "2つ目の証拠。", move: "前の判定が左上に小さく残り、後半の判定。証拠2つ → ×" },
-  { title: "予想の答え：C", C: S42, sec: 9.1, lines: "〔間〕予想タイムの答えです", move: "予想の4択に戻り、C を塗る（選択肢は残す）" },
-  { title: "掛け算の500倍：ひとりの線には筋がある", C: S43, sec: 19.9, lines: "Dは、掛け算で出る数。", move: "予想のものさし（12）に戻る。D のピンが「掛け算」、C の近くに「実際」のピンが立ち、間に括弧「約500倍」" },
+  { title: "予想の答え：C", C: S42, sec: 9.1, lines: "〔間〕そして、予想タイムの答え", move: "予想の4択に戻り、C（500倍ほど）を塗る（選択肢は残す）" },
+  { title: "掛け算の500倍：ひとりの線には筋がある", C: S43, sec: 19.9, lines: "掛け算の数よりずっと多いのは", move: "予想のものさし（12）に戻る。D のピンが「掛け算」、C の近くに「実際」のピンが立ち、間に括弧「約500倍」" },
   { title: "教訓：居間に戻る", C: S44, sec: 22.9, lines: "ドラマを見ていたふたりに", move: "テレビが消えた居間。ふたりは少し寄って、顔を見合わせる。頭の上に小さな地図が1枚ずつ浮かぶ" },
   { title: "締め：2枚の地図", C: S45, sec: 14.3, lines: "ひとりの地図には、ちゃんと", move: "ふたりの地図が重なる。どちらの線もなめらかなまま、平行に離れて重ならない" },
   { title: "締めのひと言（毎回同じ）", C: S46, sec: 5, lines: "数えてみると、景色が変わりました。", move: "共通のアニメーション（SignOff）。字幕なし" },
