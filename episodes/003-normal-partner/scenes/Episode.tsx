@@ -17,7 +17,7 @@ import { Verdict } from "@lib/Verdict";
 import { EASE, sp } from "@lib/theme";
 import timing from "../timing.json";
 import {
-  A01, A02, A03a, A03b, A08, A09, A10, A11a, B01, B02, B03, B04, B05, B06, B07, B08, B09, B10, B11, B13,
+  A01, A02, A03a, A03b, A08, A09, A10, A11a, B01, B02, B02b, B02c, B03, B04, B05, B06, B07, B08, B09, B10, B11, B13,
   C00, C01, C02, C03, C04, C05, C06, C07, C08, C09, C10, C11, C12, C13, D01, D02, D03, D06, D07, D08, D09, D10, D11, D12,
   E01, E03, E05, E07, F01, F02, F03, F04, Heading, Premises, QUIZ_C, QUIZ_Q, QUIZ_T, Screen, Stairs,
 } from "./Storyboard";
@@ -98,11 +98,12 @@ const Today: React.FC = () => <A09 />;
 
 /** 予想タイム：組の作り方 → Aの計算 → 問いと選択肢（答えは答え合わせで） */
 const QuizScene: React.FC = () => {
-  const { at, end } = useAt();
+  const { at, end, frame } = useAt();
   const q = at("Aは、1組"), c = at("Bは、");
+  const pairs = Math.round(32 * prog(frame, at("男性と女性を1人ずつ"), at("そんな組を")));
   return (
     <>
-      <Sequence from={0} durationInFrames={q}><A10 /></Sequence>
+      <Sequence from={0} durationInFrames={q}><A10 n={pairs} ask={frame >= at("お互いが、お互いの")} /></Sequence>
       <Sequence from={q} durationInFrames={c - q}><Enter><A11a /></Enter></Sequence>
       <Sequence from={c} durationInFrames={end + 30 - c}>
         <Quiz question={QUIZ_Q} choices={QUIZ_C} title={QUIZ_T} choiceAt={[0, 0, at("Cは、") - c, at("Dは、") - c]} ringAt={at("答えは、最後") - c} />
@@ -121,7 +122,7 @@ const Roadmap: React.FC = () => {
 const Ch1Card: React.FC = () => <ChapterCard no={1} title="男女が相手に求めるもの" />;
 const Ch2Card: React.FC = () => <ChapterCard no={2} title="1つ目の前提「普通とはまん中」" />;
 const Ch3Card: React.FC = () => <ChapterCard no={3} title="2つ目と3つ目の前提" />;
-const Ch1Survey: React.FC = () => <Cuts cuts={[[B01, 0], [B02, "相手の見た目は"], [B03, "差が大きく"]]} />;
+const Ch1Survey: React.FC = () => <Cuts cuts={[[B01, 0], [B02, "相手の見た目は"], [B02b, "男性は顔"], [B02c, "重く見る人だけ"], [B03, "差が大きく"]]} />;
 const Ch1Quiz: React.FC = () => <Cuts cuts={[[B04, 0], [B05, "男性で増えた"]]} />;
 const Ch1Hypergamy: React.FC = () => <Cuts cuts={[[B06, 0], [B07, "自分より学歴や年収"]]} />;
 const Ch1World: React.FC = () => <Cuts cuts={[[B08, 0], [B09, "計算で試して"]]} />;
@@ -147,9 +148,25 @@ const Ch1Her: React.FC = () => {
 
 // ================= 第2章 =================
 const Ch2: React.FC = () => <C00 />;
-const Ch2Height: React.FC = () => <C01 />;
+/** 身長の山：平均の線 → 山を左から描く → 170cmの線と塗り → 約55% */
+const Ch2Height: React.FC = () => {
+  const { at, frame } = useAt();
+  return <C01 avg={frame >= at("約171センチ")} draw={prog(frame, at("男性を背の高さ"), at("左右がほぼ同じ"))} mid={frame >= at("だから、170")} pct={frame >= at("170センチ以上の人は")} />;
+};
 const Ch2Quiz: React.FC = () => <C02 />;
-const Ch2Income: React.FC = () => <Cuts cuts={[[C03, 0], [C04, "500万円の目盛りは"]]} />;
+/** 年収の山 → 彼女の目盛り（すそ）→ 約150人 → 132人の注 → まん中の印 → 「なぜ」 */
+const Ch2Income: React.FC = () => {
+  const { at, end, frame } = useAt();
+  const s2 = at("500万円の目盛りは");
+  const step = frame >= at("目盛りは、まん中") ? 4 : frame >= at("さっきの132人") ? 3 : frame >= at("500万円以上は約150人") ? 2 : 1;
+  const head = frame >= at("そう感じてしまう") ? "では、なぜ500万円が普通に見えるのか" : undefined;
+  return (
+    <>
+      <Sequence from={0} durationInFrames={s2}><C03 /></Sequence>
+      <Sequence from={s2} durationInFrames={end + 20 - s2}><Enter><C04 step={step} head={head} /></Enter></Sequence>
+    </>
+  );
+};
 const Ch2Married: React.FC = () => (
   <Cuts cuts={[[C05, 0], [C06, "年齢をそろえて"], [C07, "友だちの夫"], [C08, "心理学"], [C09, "もし、心の中"], [C10, "結婚と年収の高さ"],
     [C11, "女性でも、同じように"], [C12, "条件によく挙がる見た目"], [C13, "1つ目の前提は、年収"]]} />
@@ -157,7 +174,15 @@ const Ch2Married: React.FC = () => (
 
 // ================= 第3章 =================
 const Ch3Overlap: React.FC = () => <Cuts cuts={[[D01, 0], [D02, "冒頭の1000人のうち"]]} />;
-const Ch3Survey: React.FC = () => <D03 />;
+/** 約1万人：人が並ぶ → 年齢・年収・仕事の形 → 学歴・身長・体型 → 注を替える */
+const Ch3Survey: React.FC = () => {
+  const { at, frame } = useAt();
+  const cards = frame >= at("学歴と身長") ? 6 : frame >= at("年齢と年収") ? 3 : 0;
+  const note = frame >= at("1000人に置き換えて") ? "ここでも、1000人に置き換えて数える"
+    : frame >= at("研究者は、この人たち") ? "この人たちの中で相手を探すとして、条件を全部満たす相手を数えた"
+    : frame >= at("25歳から49歳") ? "25〜49歳の独身の男女 約1万人" : undefined;
+  return <D03 figs={Math.round(10 * prog(frame, 0, 60))} cards={cards} note={note} />;
+};
 /** 掛け算の階段：条件のチェックが1つずつ入り、人数が下がる。残り4つは続けて */
 const Ch3Multiply: React.FC = () => {
   const { at, frame } = useAt();
@@ -166,7 +191,14 @@ const Ch3Multiply: React.FC = () => {
   return <Stairs n={n} head={n <= 3 ? "女性たちの条件を、1つずつ掛ける" : "6回掛けると、52人"} post={frame >= at("冒頭の投稿の計算は")} />;
 };
 const Ch3Guess: React.FC = () => <Cuts cuts={[[D06, 0], [D07, "年収が高い人は学歴"], [D08, "今度は、男性たち"]]} />;
-const Ch3Turn: React.FC = () => <Cuts cuts={[[D09, 0], [D10, "冒頭のあの人"], [D11, "アメリカの大学院生"], [D12, "研究者は、お互い"]]} />;
+/** スピードデートのコマは、砂時計 → 男性 → 女性の順に出す */
+const D11Steps: React.FC = () => {
+  const { at, frame } = useAt();
+  // Cuts の中の Sequence では frame がコマの始まりから数えるので、場面の時刻に直す
+  const t = frame + at("アメリカの大学院生");
+  return <D11 step={t >= at("女性には") ? 3 : t >= at("男性は、自分より") ? 2 : t >= at("4分話して") ? 1 : 0} />;
+};
+const Ch3Turn: React.FC = () => <Cuts cuts={[[D09, 0], [D10, "冒頭のあの人"], [D11Steps, "アメリカの大学院生"], [D12, "研究者は、お互い"]]} />;
 
 // ================= 答え合わせ =================
 const VerdictScene: React.FC = () => <E01 />;

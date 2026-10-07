@@ -324,13 +324,15 @@ export const A08: React.FC = () => (
 );
 export const A09: React.FC = () => <AbsoluteFill><TodayCard claim="普通の相手は、数%しかいない" /><Gosa cues={[[-60, "thinking"]]} size="M" /></AbsoluteFill>;
 export const S15NOTE = "鈴木・八代（2025）内閣府経済社会総合研究所。2024年3月調査、25〜49歳の独身 男性5,103人・女性4,897人";
-export const A10: React.FC = () => (
+/** n＝並べる組の数（0のときは調査の札）、ask＝問いを出す。本編で組を1つずつ並べる（2026-10-07 仮通しのテンポ） */
+export const A10: React.FC<{ n?: number; ask?: boolean }> = ({ n = 32, ask = true }) => (
   <AbsoluteFill>
     <Heading>男女を1人ずつ組にして、1000組</Heading>
     <Svg>
-      <CouplePairs x={170} y={420} items={couples(32, 0, 0)} cols={16} />
-      <Label x={170} y={620} color={C.ink2}>見本の32組。このような組を、1000組つくる</Label>
-      <Label x={170} y={740} size="value">お互いが、お互いの条件を満たす組は？</Label>
+      {n > 0 ? <CouplePairs x={170} y={420} items={couples(n, 0, 0)} cols={16} />
+        : <Label x={170} y={480} size="value">2024年の調査：独身の男女 約1万人</Label>}
+      {n > 0 && <Label x={170} y={620} color={C.ink2}>見本の32組。このような組を、1000組つくる</Label>}
+      {ask && <Label x={170} y={740} size="value">お互いが、お互いの条件を満たす組は？</Label>}
     </Svg>
     <SourceNote text={S15NOTE} />
   </AbsoluteFill>
@@ -378,6 +380,22 @@ export const Survey: React.FC<{ n: number; head: string }> = ({ n, head }) => (
 );
 export const B01: React.FC = () => <Survey n={1} head="男女とも、いちばん多いのは人柄" />;
 export const B02: React.FC = () => <Survey n={2} head="相手の容姿：男性も女性も約8割" />;
+/** 「男性は顔、女性はお金」の札を重ねる（2026-10-07 仮通しのテンポ） */
+export const B02b: React.FC = () => (
+  <AbsoluteFill>
+    <Survey n={2} head="相手の容姿：男性も女性も約8割" />
+    <Svg><Card x={560} y={600} w={800} dashed head="よく言われること" lines={["男性は顔、女性はお金"]} /></Svg>
+  </AbsoluteFill>
+);
+/** 「重く見る」だけに絞った容姿（S1：男性24.6%・女性18.8%） */
+export const B02c: React.FC = () => (
+  <AbsoluteFill>
+    <ChapterDots current={1} />
+    <Heading>容姿を「重く見る」だけに絞ると</Heading>
+    <BothSides rows={[{ label: "容姿", male: 24.6, female: 18.8 }]} max={100} title="相手の条件として 重く見る" />
+    <SourceNote text={S1NOTE.replace("（重く見る＋考えに入れる）", "（重く見る）")} />
+  </AbsoluteFill>
+);
 export const B03: React.FC = () => <Survey n={3} head="差が大きく出たのは、経済力" />;
 export const B04: React.FC = () => (
   <AbsoluteFill>
@@ -529,28 +547,31 @@ export const B13: React.FC = () => <Screen count={132} prev={299} on={1} mark={0
 
 // ================= 第2章：前提1「普通とはまん中」 =================
 export const C00: React.FC = () => <AbsoluteFill><ChapterDots current={2} /><Heading>1つ目の前提を確かめる</Heading><Premises focus={0} /></AbsoluteFill>;
-export const C01: React.FC = () => {
+/** avg＝平均の線、draw＝山を左から描いた割合、mid＝170cmの線と塗り、pct＝約55%（本編で順に出す。2026-10-07 仮通しのテンポ） */
+export const C01: React.FC<{ avg?: boolean; draw?: number; mid?: boolean; pct?: boolean }> = ({ avg = true, draw = 1, mid = true, pct = true }) => {
   // 20〜30代の男性の身長の山（平均171cm、標準偏差6）。170cm以上を青緑
   const X = (cm: number) => 260 + ((cm - 150) / 40) * 1300, Y = (cm: number) => 720 - 380 * Math.exp(-((cm - 171) ** 2) / (2 * 36));
   const pts = Array.from({ length: 81 }, (_, i) => 150 + i * 0.5);
-  const curve = pts.map((c, i) => `${i ? "L" : "M"}${X(c)} ${Y(c)}`).join(" ");
+  const curve = pts.slice(0, Math.max(2, Math.round(pts.length * draw))).map((c, i) => `${i ? "L" : "M"}${X(c)} ${Y(c)}`).join(" ");
   const right = `M${X(170)} 720 ` + pts.filter((c) => c >= 170).map((c) => `L${X(c)} ${Y(c)}`).join(" ") + ` L${X(190)} 720 Z`;
   return (
     <AbsoluteFill>
       <ChapterDots current={2} />
       <Heading>身長の山：170cmは、ほぼまん中</Heading>
       <Svg>
-        <path data-qa="mark" data-qa-label="170cm以上" data-qa-allow="text" d={right} fill={C.tealTint} />
-        <path data-qa="mark" data-qa-label="身長の山" data-qa-allow="text" d={curve} fill="none" stroke={BODY} strokeWidth={LINE.base} />
+        {mid && <path data-qa="mark" data-qa-label="170cm以上" data-qa-allow="text" d={right} fill={C.tealTint} />}
+        {draw > 0 && <path data-qa="mark" data-qa-label="身長の山" data-qa-allow="text" d={curve} fill="none" stroke={BODY} strokeWidth={LINE.base} />}
         <line x1={X(150)} x2={X(190)} y1={720} y2={720} stroke={C.ink} strokeWidth={LINE.thin} />
         {[150, 160, 170, 180, 190].map((c) => <Label key={c} x={X(c)} y={780} anchor="middle" color={c === 170 ? C.ink : C.ink2}>{`${c}cm`}</Label>)}
-        <line data-qa="mark" data-qa-label="170cm" x1={X(170)} x2={X(170)} y1={300} y2={720} stroke={C.ink} strokeWidth={LINE.base} />
-        <line data-qa="mark" data-qa-label="平均" data-qa-allow="mark" x1={X(171)} x2={X(171)} y1={330} y2={720} stroke={C.ink2} strokeWidth={LINE.thin} strokeDasharray="10 10" />
-        <Label x={X(170) - 24} y={290} anchor="end" color={C.ink2}>170cm</Label>
-        <Label x={X(171) + 24} y={290} color={C.ink2}>平均 約171cm（点線）</Label>
-        <Label x={1400} y={400} weight={900}>170cm以上は</Label>
-        <Label x={1400} y={480} size="value">約55%</Label>
-        <Label x={1400} y={540} weight={900}>半分を少し超える</Label>
+        {mid && <line data-qa="mark" data-qa-label="170cm" x1={X(170)} x2={X(170)} y1={300} y2={720} stroke={C.ink} strokeWidth={LINE.base} />}
+        {avg && <line data-qa="mark" data-qa-label="平均" data-qa-allow="mark" x1={X(171)} x2={X(171)} y1={330} y2={720} stroke={C.ink2} strokeWidth={LINE.thin} strokeDasharray="10 10" />}
+        {mid && <Label x={X(170) - 24} y={290} anchor="end" color={C.ink2}>170cm</Label>}
+        {avg && <Label x={X(171) + 24} y={290} color={C.ink2}>平均 約171cm（点線）</Label>}
+        {pct && <>
+          <Label x={1400} y={400} weight={900}>170cm以上は</Label>
+          <Label x={1400} y={480} size="value">約55%</Label>
+          <Label x={1400} y={540} weight={900}>半分を少し超える</Label>
+        </>}
       </Svg>
       <SourceNote text="国民健康・栄養調査2023。男性20〜39歳の平均と標準偏差から描いた山（170cm以上 約55%）" />
     </AbsoluteFill>
@@ -569,7 +590,8 @@ export const C02: React.FC = () => (
   </AbsoluteFill>
 );
 export const INCOME = [["〜99", 51], ["100", 96], ["200", 229], ["300", 275], ["400", 195], ["500", 87], ["600", 37], ["700", 12], ["800〜", 18]] as const;
-export const Income: React.FC<{ tail?: boolean; head: string }> = ({ tail, head }) => {
+/** step（tail のとき）：1＝目盛りとすそ 2＝約150人 3＝132人の注 4＝まん中の印（本編で順に出す。2026-10-07 仮通しのテンポ） */
+export const Income: React.FC<{ tail?: boolean; head: string; step?: number }> = ({ tail, head, step = 4 }) => {
   const x = 140, w = 1560, slot = w / INCOME.length;
   return (
     <AbsoluteFill>
@@ -582,8 +604,12 @@ export const Income: React.FC<{ tail?: boolean; head: string }> = ({ tail, head 
         {tail && <>
           <line data-qa="mark" data-qa-label="500万円の目盛り" x1={x + slot * 5} x2={x + slot * 5} y1={250} y2={670} stroke={C.ink} strokeWidth={LINE.base} strokeDasharray="14 10" />
           <Label x={x + slot * 5 + 24} y={270} weight={900}>彼女の目盛り（500万円）</Label>
-          <Label x={x + slot * 6.5} y={430} anchor="middle" size="value">約150人</Label>
-          <Label x={x + slot * 5 + 24} y={330} color={C.ink2}>冒頭の132人は、働いていない人も含めた数</Label>
+          {step >= 2 && <Label x={x + slot * 6.5} y={430} anchor="middle" size="value">約150人</Label>}
+          {step >= 3 && <Label x={x + slot * 5 + 24} y={330} color={C.ink2}>冒頭の132人は、働いていない人も含めた数</Label>}
+          {step >= 4 && <>
+            <line data-qa="mark" data-qa-label="まん中の印" x1={x + slot * 3.5} x2={x + slot * 3.5} y1={250} y2={670} stroke={C.ink2} strokeWidth={LINE.thin} strokeDasharray="10 10" />
+            <Label x={x + slot * 3.5} y={232} anchor="middle" color={C.ink2}>まん中（約350万円）</Label>
+          </>}
         </>}
       </Svg>
       <SourceNote text={S2NOTE} />
@@ -591,7 +617,7 @@ export const Income: React.FC<{ tail?: boolean; head: string }> = ({ tail, head 
   );
 };
 export const C03: React.FC = () => <Income head="年収の山：いちばん多いのは300万円台" />;
-export const C04: React.FC = () => <Income tail head="彼女の目盛りは、高いほうのすその上" />;
+export const C04: React.FC<{ step?: number; head?: string }> = ({ step, head = "彼女の目盛りは、高いほうのすその上" }) => <Income tail step={step} head={head} />;
 export const C05: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={2} />
@@ -737,20 +763,21 @@ export const D02: React.FC = () => (
 );
 export const SIX: [string, string][] = [["年齢", C.other], ["年収", MONEY], ["仕事の形", MONEY], ["学歴", MONEY], ["身長", BODY], ["体型", BODY]];
 export const ONE = [52.9, 43.1, 70.0, 78.0, 65.1, 64.0];
-export const D03: React.FC = () => (
+/** figs＝人の数、cards＝条件の札の数、note＝下の注（本編で順に出す。2026-10-07 仮通しのテンポ） */
+export const D03: React.FC<{ figs?: number; cards?: number; note?: string }> = ({ figs = 10, cards = 6, note = "この人たちの中で相手を探すとして、条件を全部満たす相手を数えた" }) => (
   <AbsoluteFill>
     <ChapterDots current={3} />
     <Heading>約1万人が答えた、相手に求める6つの条件</Heading>
     <Svg>
-      {SIX.map(([s, col], i) => (
+      {SIX.slice(0, cards).map(([s, col], i) => (
         <g key={s} data-qa="prop" data-qa-label={s}>
           <rect x={110 + i * 285} y={300} width={260} height={110} rx={R.md} fill={C.white} stroke={col} strokeWidth={LINE.base} />
           <rect x={110 + i * 285} y={300} width={16} height={110} rx={6} fill={col} />
           <Label x={250 + i * 285} y={372} anchor="middle" size="value" fs={52}>{s}</Label>
         </g>
       ))}
-      {Array.from({ length: 10 }, (_, i) => <Figure key={i} kind={i % 2 ? "female" : "male"} x={460 + i * 110} y={680} size={2} />)}
-      <Label x={960} y={790} anchor="middle" color={C.ink2}>この人たちの中で相手を探すとして、条件を全部満たす相手を数えた</Label>
+      {Array.from({ length: figs }, (_, i) => <Figure key={i} kind={i % 2 ? "female" : "male"} x={460 + i * 110} y={680} size={2} />)}
+      {note && <Label x={960} y={790} anchor="middle" color={C.ink2}>{note}</Label>}
     </Svg>
     <SourceNote text={S15NOTE} />
   </AbsoluteFill>
@@ -854,7 +881,8 @@ export const Hourglass: React.FC<{ x: number; y: number }> = ({ x, y }) => (
     <path d={`M${x - 30} ${y + 56} L${x + 30} ${y + 56} L${x} ${y + 26} Z`} fill={MONEY} />
   </g>
 );
-export const D11: React.FC = () => (
+/** step：0＝席だけ 1＝砂時計 2＝男性の結果 3＝女性の結果（本編で順に出す。2026-10-07 仮通しのテンポ） */
+export const D11: React.FC<{ step?: number }> = ({ step = 3 }) => (
   <AbsoluteFill>
     <ChapterDots current={3} />
     <Heading>スピードデート：4分話して「また会いたいか」</Heading>
@@ -866,10 +894,10 @@ export const D11: React.FC = () => (
           <Figure kind="female" x={510 + i * 540} y={560} size={2} pose="sit" facing={-1} />
         </g>
       ))}
-      <Hourglass x={1720} y={300} />
-      <Label x={1720} y={420} anchor="middle" weight={900}>4分</Label>
-      <Label x={160} y={700} weight={900}>男性：自分より野心があると感じた女性を、選びにくい</Label>
-      <Label x={160} y={770}>女性：この傾向は出なかった</Label>
+      {step >= 1 && <><Hourglass x={1720} y={300} />
+      <Label x={1720} y={420} anchor="middle" weight={900}>4分</Label></>}
+      {step >= 2 && <Label x={160} y={700} weight={900}>男性：自分より野心があると感じた女性を、選びにくい</Label>}
+      {step >= 3 && <Label x={160} y={770}>女性：この傾向は出なかった</Label>}
     </Svg>
     <SourceNote text="Fisman ほか（2006）米国の大学院生 約400人。4分の会話での判断で、結婚相手の選び方ではない" />
   </AbsoluteFill>
