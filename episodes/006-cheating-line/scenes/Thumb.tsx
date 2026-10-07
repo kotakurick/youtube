@@ -5,7 +5,7 @@
 // 人は仮にコードのシルエット。オーナーが画像生成AIで作った人形（meta.md の指示文）を _local/episodes/006-cheating-line/thumb/ に置いたら AI 版に差し替える。
 // npx remotion still 006-cheating-line-thumb-match out/thumb-match.png
 import React from "react";
-import { AbsoluteFill } from "remotion";
+import { AbsoluteFill, Img, staticFile } from "remotion";
 import { Joints, Silhouette } from "@lib/Silhouette";
 import { C, FONT_SERIF } from "@lib/theme";
 
@@ -117,7 +117,29 @@ const SameQ: React.FC = () => {
   );
 };
 
+// 案5の人形版（2026-10-07）：オーナーが画像生成AIで作った白い人形（_local/episodes/006-cheating-line/thumb/。scripts/thumb_key.py で緑を抜き、彼は左右を返して外向きに）。
+const PHOTO = (n: string) => staticFile(`episodes/006-cheating-line/thumb/${n}.png`);
+const DOLL_H = 760, DOLL_TOP = 392;
+const SameQAI: React.FC = () => {
+  const line: React.CSSProperties = { position: "absolute", left: 0, right: 0, textAlign: "center", fontFamily: FONT_SERIF, fontWeight: 900, fontSize: 170,
+    lineHeight: 1.1, whiteSpace: "nowrap", color: C.white, WebkitTextStroke: `12px ${C.ink}`, paintOrder: "stroke fill", filter: "drop-shadow(0 8px 10px rgba(0,0,0,.75))" };
+  const doll = (n: string, cx: number): React.ReactNode => (
+    <Img src={PHOTO(n)} style={{ position: "absolute", top: DOLL_TOP, height: DOLL_H, left: cx, transform: "translateX(-50%)",
+      filter: "drop-shadow(8px 12px 14px rgba(0,0,0,.45))" }} />
+  );
+  return (
+    <AbsoluteFill style={{ background: RED[0] }}>
+      <Ground big light pose={{ size: 0.001, y: H + 2000, tilt: 0 }} />
+      {doll("man", 230)}
+      {doll("woman", 1050)}
+      <div style={{ ...line, top: 24 }}>男女で</div>
+      <div style={{ ...line, top: 210 }}>基準は<span style={{ color: GOLD }}>同じ</span>？</div>
+    </AbsoluteFill>
+  );
+};
+
 export default [
+  { id: "006-cheating-line-thumb-sameq-ai", component: SameQAI },
   { id: "006-cheating-line-thumb-sameq", component: SameQ },
   { id: "006-cheating-line-thumb-allmatch", component: AllMatch },
   { id: "006-cheating-line-thumb-nobody", component: () => <Short text="ほぼ誰とも合わない" /> },
