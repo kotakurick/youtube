@@ -18,7 +18,7 @@ import { ChapterDots } from "@lib/Chapter";
 import { Couple, CouplePairs, PeopleRows } from "@lib/CouplePairs";
 import { Figure } from "@lib/Figure";
 import { Gosa } from "@lib/Gosa";
-import { Choices, Facts, Note } from "@lib/Labels";
+import { Facts, Note } from "@lib/Labels";
 import { Sofa, Tv } from "@lib/Living";
 import { LogRuler } from "@lib/LogRuler";
 import { PairedBars } from "@lib/PairedBars";
@@ -201,7 +201,7 @@ export const S11b: React.FC = () => (
   <AbsoluteFill>
     <Heading>{QUIZ_Q}</Heading>
     <Svg>
-      <LogRuler x={200} y={560} width={1200} pins={[{ n: 2, label: "A" }, { n: 10, label: "B" }, { n: 200, label: "C" }, { n: 100000, label: "D" }]} />
+      <LogRuler x={230} y={560} width={1140} pins={[{ n: 2, label: "A" }, { n: 10, label: "B" }, { n: 200, label: "C" }, { n: 100000, label: "D" }]} />
     </Svg>
     <Gosa cues={[[-60, "thinking"]]} size="M" foot={850} />
   </AbsoluteFill>
@@ -409,17 +409,10 @@ export const S19: React.FC = () => (
     <ChapterDots current={2} />
   </AbsoluteFill>
 );
-const Q20 = "「体の大事なところに触れる」で、割れやすいのは？";
-export const S20: React.FC = () => (
-  <AbsoluteFill>
-    <Quiz title="クイズ" question={Q20} choices={["男性どうし", "女性どうし"]} gosaFoot={850} />
-    <ChapterDots current={2} />
-  </AbsoluteFill>
-);
 export const S21: React.FC = () => (
   <AbsoluteFill>
-    <Choices x={96} y={60} items={["男性どうし", "女性どうし"]} answer={0} reveal={0} />
-    <Svg><Label x={720} y={108} color={C.ink2} size="note">クイズの答え：体は男性どうしで割れ、心は逆</Label></Svg>
+    <Heading>割れる行動は、性別で違う</Heading>
+    <SubHead>他人どうしを組ませたとき（体は男性どうし、心は女性どうしで割れやすい）</SubHead>
     <PairedBars x={300} y={330} width={1300} height={380} max={50} names={["男性どうし", "女性どうし"]}
       rows={[{ label: "体の大事なところに触れる", male: 22.4, female: 10.1 }, { label: "心の支えになる", male: 27.1, female: 43.2 }]} />
     <Svg><Label x={1600} y={250} anchor="end" color={C.ink2} size="note">答えが食い違う確率</Label></Svg>
@@ -591,18 +584,10 @@ export const S33: React.FC = () => (
     <ChapterDots current={3} />
   </AbsoluteFill>
 );
-const Q34 = "米国の18〜29歳。浮気の経験が多いのは？";
-const C34 = ["男性がずっと多い", "男性が少し多い", "ほぼ同じ", "女性が多い"];
-export const S34: React.FC = () => (
-  <AbsoluteFill>
-    <Quiz title="クイズ" question={Q34} choices={C34} gosaFoot={850} />
-    <SourceNote prefix="" text="結婚したことがある人" />
-    <ChapterDots current={3} />
-  </AbsoluteFill>
-);
 export const S35: React.FC = () => (
   <AbsoluteFill>
-    <Choices x={96} y={60} items={C34} answer={2} reveal={0} />
+    <Heading>いまの若い世代では、ほぼ同じ</Heading>
+    <SubHead>結婚したことがある18〜29歳（米国）。浮気の経験</SubHead>
     <PairedBars x={620} y={330} width={680} height={380} max={30} rows={[{ label: "18〜29歳", male: 8.2, female: 8.6 }]} />
     <Svg><Label x={1340} y={600} color={C.ink2} size="note">若い人は、結婚している年数がまだ短い</Label></Svg>
     <SourceNote text={SRC.gss} />
@@ -767,28 +752,26 @@ const P: Omit<Panel, "key">[] = [
   { title: "今日の順番", C: S12, sec: 16.9, lines: "今日は、三つの順に", move: "3枚の札が左から並ぶ（階段・地図・線の両側の男女）。最後に1枚目が拡大して第1章の扉へ" },
   { title: "第1章：13の行動の階段、自分の線を引く", C: S13, sec: 29.5, lines: "まず、日本の線です。", move: "第1章の扉 → 段が下から1段ずつ積まれる（重い行動が上）。点線（あなたの線）が上下にゆれて止まる。一時停止を促す間" },
   { title: "13の行動、男女の割合", C: S14, sec: 12.3, lines: "〔間・長〕さきほどの七千人", move: "階段の段がそのまま横棒の行に変わる（上下の順は同じ）。男性→女性の棒が伸びる。全行で女性が長い" },
-  { title: "2千人の調査：気持ちとキス", C: S15, sec: 29.9, lines: "別の会社の、二千人の調査", move: "横棒が出る。「気持ちが動いたら」の行の差に墨の括弧。「キス」は男女同じ長さ。最後の文で全行の女性の棒が少し脈打つ" },
+  { title: "2千人の調査：気持ちとキス", C: S15, sec: 29.9, lines: "別の会社の、2000人の調査", move: "横棒が出る。「気持ちが動いたら」の行の差に墨の括弧。「キス」は男女同じ長さ。最後の文で全行の女性の棒が少し脈打つ" },
   { title: "ひとりひとりの散らばり：平均", C: S16, sec: 15.0, lines: "それなら、ひとりひとりの線は", move: "男女の山が下から出る。平均の印が2つ、少しずれて落ちる（14と16）" },
   { title: "ひとりひとりの散らばり：幅", C: S16b, sec: 15.2, lines: "ところが、同じ男性の中でも", move: "男性の山の下に括弧が伸びる（8〜20個）。平均の差（2つ）と幅（12）を並べて見せる" },
   { title: "先回り：ゆるい男性と厳しい女性？", C: S17, sec: 19.0, lines: "それでも、平均の差を聞くと", move: "2匹の猫に「ゆるい？」「厳しい？」の札 → 札が消えて「？」。問いの札" },
   { title: "第2章：同性どうしでも食い違う", C: S18, sec: 19.2, lines: "さきほどの日本の割合で", move: "第2章の扉 → 男女の組 → 男性どうし → 女性どうしの順に、食い違った組に墨の枠" },
   { title: "あなたと男友達：32のうち9つ", C: S19, sec: 20.6, lines: "仲のいい男友達を", move: "2匹の猫が並ぶ。32のマスが1つずつ開き、食い違ったマスが墨に（9つ）" },
-  { title: "クイズ：体の大事なところに触れる", C: S20, sec: 14.3, lines: "ここで、小さな問題です。", move: "共通のクイズ（2択）。3秒の輪" },
-  { title: "答え：男性どうしは体、女性どうしは心", C: S21, sec: 25.0, lines: "〔間・長〕答えは、男性どうし", move: "選択肢を上に残して A を塗る。体の行の棒（男性どうしが長い）→ 心の行で逆になる" },
+  { title: "割れる行動：男性どうしは体、女性どうしは心", C: S21, sec: 18.0, lines: "ただし、答えが割れる行動は", move: "見出し → 体の行の棒（男性どうしが長い）→ 心の行で逆になる" },
   { title: "「男性は体、女性は心」：1990年代の日本の学生", C: S22, sec: 16.5, lines: "「男性は体の浮気、女性は心", move: "2本の柱の濃い部分が伸びる。男子学生の柱の端に「6割」" },
-  { title: "比喩：自分だけの地図", C: S23, sec: 24.9, lines: "ひとりひとりが、自分だけの", move: "3枚の地図が配られるように落ちてきて（同じ目印）、それぞれ違う位置に国境線が引かれる" },
-  { title: "はしご1：全員が同じ線", C: S24, sec: 14.8, lines: "ここから、百組の男女を", move: "方眼の背景。100組（10×10）が並ぶ。右の帯に1本の線。どの組も消えない" },
-  { title: "はしご2：男女で1本ずつの線", C: S25, sec: 18.6, lines: "次は、男性は男性の多数決", move: "右の帯で線が男性・女性の2本に分かれようとして、ぴったり重なる。「どうなるでしょうか」の間 → 1組も消えない（全組が小さく跳ねる）" },
+  { title: "比喩：自分だけの地図", C: S23, sec: 24.9, lines: "たとえるなら、ひとりひとりが", move: "3枚の地図が配られるように落ちてきて（同じ目印）、それぞれ違う位置に国境線が引かれる" },
+  { title: "はしご1：全員が同じ線", C: S24, sec: 14.8, lines: "ここから、100組の男女を", move: "方眼の背景。100組（10×10）が並ぶ。右の帯に1本の線。どの組も消えない" },
+  { title: "はしご2：男女で1本ずつの線", C: S25, sec: 18.6, lines: "次は、男性は男性の多数決", move: "右の帯で線が男性・女性の2本に分かれようとして、ぴったり重なる。短い間 → 1組も消えない（全組が小さく跳ねる）" },
   { title: "はしご3：ひとりひとりの線", C: S26, sec: 15.0, lines: "最後に、ひとりひとりの", move: "右の帯の線がばらける。組が1組ずつ抜けて淡くなる（残りの数を数え下げる）。最後の1組を光らせ「平均0.6組」" },
   { title: "社会の線は奥に1本", C: S27, sec: 10.6, lines: "ちなみに、法律で「不貞」", move: "階段の右に人ごとの短い線（男女の色）がばらばらの高さに引かれ、最後にいちばん上の段の上に墨の太い線が1本" },
-  { title: "ミクロ：3つ先にそろえたら", C: S28, sec: 19.3, lines: "百組の計算に戻ります。", move: "3本の棒。無作為はわずかに伸びるだけ → 食い違いやすい3つは2倍半に伸びる" },
+  { title: "ミクロ：3つ先にそろえたら", C: S28, sec: 19.3, lines: "もう一度、100組の計算です。", move: "3本の棒。無作為はわずかに伸びるだけ → 食い違いやすい3つは2倍半に伸びる" },
   { title: "食い違いやすい灰色の行動", C: S29, sec: 13.8, lines: "食い違いやすいのは、体の関係", move: "体の関係の行（ほぼ全員が浮気）を先に出し、その上に半々に近い3つの行が出る" },
   { title: "次の問い：線を越える人は？", C: S30, sec: 11.3, lines: "ここまでは、線を引くときの", move: "太い点線の左右に男女が歩いてくる。問いの札" },
   { title: "第3章：ドラマの続き、彼の台詞", C: S31, sec: 17.0, lines: "冒頭のドラマに戻ります。", move: "第3章の扉 → 居間。テレビの中で2匹の影が寄り添う（画面だけ）。彼の吹き出し、彼女はジト目で画面の外へ" },
   { title: "日本：男性 約2割・女性 約1割", C: S32, sec: 19.5, lines: "日本で結婚後に浮気を", move: "男性100人・女性100人が並び、浮気の経験がある人が左上から濃くなる" },
   { title: "昔の60代といまの60代：約3倍 → 1倍半", C: S33, sec: 17.0, lines: "ただ、この差は", move: "左（1990年代）の男女50人ずつが灯る → 右（2010年代）で女性の灯りが増えて差が縮む" },
-  { title: "クイズ：18〜29歳", C: S34, sec: 21.3, lines: "ここで、問題です。", move: "共通のクイズ（4択）" },
-  { title: "答え：ほぼ同じ", C: S35, sec: 12.6, lines: "〔間・長〕答えは、Cの", move: "選択肢を上に残して C を塗る。2本の棒がほぼ同じ高さまで伸びる。条件の注記" },
+  { title: "いまの若い世代：ほぼ同じ", C: S35, sec: 14.0, lines: "いまの若い世代では", move: "見出し → 2本の棒がほぼ同じ高さまで伸びる。条件の注記" },
   { title: "満足度で分けると4倍", C: S36, sec: 19.8, lines: "次に、男女ではなく", move: "3本の棒が左から伸びる（灰・墨2・墨）。右端に「4人に1人」" },
   { title: "数え直し：浮気経験者の9割は「幸せ」", C: S37, sec: 17.8, lines: "〔間〕ところが、浮気をした", move: "前の棒の中から人が出てきて100人に縮み、幸福度ごとに並び直す（左の2群が大きい）。括弧と「9割」" },
   { title: "日本：理由と出会った場所", C: S38, sec: 26.7, lines: "日本の、浮気をしたことがある", move: "理由の棒2本 → 区切り線 → 職場の机の絵と「約4割」" },
