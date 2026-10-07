@@ -43,7 +43,7 @@ export const fromTiming = (timing: Timing, parts: Record<string, React.FC>, opts
 type Narr = { lines: Line[] };
 export const NarrationContext = createContext<Narr>({ lines: [] });
 
-/** いまの場面の読み上げ。at(k)＝k文目（0から）の始まり、find(語)＝その語を含む最初の字幕の始まり（フレーム） */
+/** いまの場面の読み上げ。at(k)＝k枚目の字幕（0から。長い文は2枚に分かれるので、文の数とずれる）の始まり、find(語)＝その語を含む最初の字幕の始まり（フレーム） */
 export const useNarration = () => {
   const { lines } = useContext(NarrationContext);
   return {

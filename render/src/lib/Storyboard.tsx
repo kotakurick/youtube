@@ -26,9 +26,16 @@ export const sbImage = (id: string, key: string) => `sb/${id}/${key}.png`;
 /** 表を作るための中身（関数を除いたもの。Root が一覧の静止画の props に入れ、storyboard.mjs が読む） */
 export const sbMeta = (def: StoryboardDef) => ({ id: def.id, title: def.title,
   panels: def.panels.map(({ key, title, sec, move, lines }) => ({ key, title, sec: sec ?? 0, move: move ?? "", lines: lines ?? "" })) });
-/** 場面1枚：紙の色を敷く（透明だと単体の画像が白く見える） */
+/** 場面1枚：紙の色を敷く（透明だと単体の画像が白く見える）。
+ *  字幕の帯の位置に仮の帯（点線）を置き、data-qa="sub" の印を付ける。絵コンテには字幕がないので、これがないと
+ *  出典や文字が字幕の帯に入っても画面のチェックで見つからない（2026-10-06、3本目の絵コンテで13場面あった。デザイナー役の指摘） */
 export const PanelPaper: React.FC<{ C: React.FC }> = ({ C: Scene }) => (
-  <AbsoluteFill style={{ background: C.bg }}><Scene /></AbsoluteFill>
+  <AbsoluteFill style={{ background: C.bg }}>
+    <Scene />
+    <div data-qa="sub" data-qa-label="字幕の帯（仮）" style={{ position: "absolute", left: (1920 - 1440) / 2, top: 920, width: 1440, height: 80,
+      boxSizing: "border-box", border: `3px dashed ${C.rest}`, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center",
+      ...font("note", C.rest) }}>字幕</div>
+  </AbsoluteFill>
 );
 
 const Cell: React.FC<{ id: string; p: Panel; i: number }> = ({ id, p, i }) => {

@@ -39,7 +39,9 @@ export const PairedBars: React.FC<{
       <line x1={x} x2={x + width} y1={base} y2={base} stroke={C.ink} strokeWidth={LINE.thin} strokeLinecap="round" />
       <g transform={`translate(${x},${y - 60})`}>
         <Figure kind="male" x={14} y={10} size={0.9} /><text x={36} y={6} style={font("label", C.male)}>{names[0]}</text>
-        <Figure kind="female" x={164} y={10} size={0.9} /><text x={186} y={6} style={font("label", C.female)}>{names[1]}</text>
+        {/* 2つ目の凡例は1つ目の名前の長さに合わせて右へ（「男性どうし」のように長い名前で重なったので。2026-10-06） */}
+        <Figure kind="female" x={Math.max(164, 36 + names[0].length * 40 + 50)} y={10} size={0.9} />
+        <text x={Math.max(186, 58 + names[0].length * 40 + 50)} y={6} style={font("label", C.female)}>{names[1]}</text>
       </g>
     </svg>
   );

@@ -47,7 +47,8 @@ AIで制作する日本向けYouTubeチャンネル「吾輩は数える猫で�
 - 部品は資産として貯める（2026-10-05）：要る表現がなければ回の中ではなく `render/src/lib/` に部品として作り、`docs/parts.md` の一覧に足す。
 - 画面の重なりは仕組みで防ぐ：部品は描いたものに印（data-qa）を付け、書き出す前に `cd render && npm run check -- <回のid>` で「直すもの」を0にする（重なり・28px未満の文字・はみ出し。決まりは `render/src/lib/qa.ts`）。新しい部品を作ったら印を付ける。
 - 面白さは仕組みで作る（2026-10-05）：構成の前に `outline.md` の企画カード（痛み・逆説・この動画だけの数字・日本の数字・絵で分かる瞬間・ミクロ）を埋め、`review-rival`（考えすぎる葦ならどう作るか、と比べる役）に見せる。台本には仕掛け（先回り・比喩と回収・ミクロ・締めの一文）を置き、印を付ける。ミクロ（個人の戦い方）はデータかシミュレーションで比べた結果として見せ、勧めない。健康・お金の回は出さない。詳細は `docs/script-style.md` の11章。
-- 台本の書き方は `docs/script-style.md`。書いたら `python scripts/lint_script.py <script.md>` を通し、`.claude/skills/script-review` の手順で推敲する。レビューは5役 → 直した稿をもう一度 → 最後に日本語役 `review-japanese`（耳だけで分かるか。2026-10-06）。発見には「なぜ」（裏付けか仮説）を置く。
+- 納得の作り方（2026-10-05 オーナー）：冒頭の物語は小説の水準（ありきたりな場面にしない）。学術的な学びを1つ以上、主役級で入れる。画面を見ずに聞いても伝わるように書く。シミュレーションより、意外なデータや「分かっていたことが裏付けられる」納得を優先する。詳細は `docs/script-style.md` の12章。
+- 台本の書き方は `docs/script-style.md`。書いたら `python scripts/lint_script.py <script.md>` を通し、`.claude/skills/script-review` の手順で推敲する。レビューは6役（視聴者代表 `review-viewer` を含む） → 直した稿をもう一度 → 最後に日本語役 `review-japanese`（耳だけで分かるか。2026-10-06）。発見には「なぜ」（裏付けか仮説）を置く。
 - 詳細と根拠は `research/benchmark/report.md`、`research/benchmark/compare/report.md`（「追加の4つの分析」）。
 - ブランドの決まり（約束・部品の名前・標準構成・ゴサ・見た目・音・サムネイル）は `docs/brand.md`（2026-10-04 決定）。数字はコードの `render/src/lib/theme.ts` が正本。
 
@@ -85,9 +86,10 @@ scripts/     共通スクリプト（paths.sh、new_episode.sh）
 
 動画の作り方の流れと、工程ごとの担当（オーナーの★を含む）は `docs/process.md`。
 
-- **クラウドのセッション**：ネタ選び、構成案、台本、シミュレーションのコード、静止画の絵コンテ（`npm run storyboard`）。PCを閉じていても進む。GitHub にあるものだけで作業する。
+- **クラウドのセッション**：ネタ選び、構成案、台本、スマホで聞く仮の音声（まず無料の `tts/readaloud.py`、Yui で聞くときは `tts/preview.py`。`docs/process.md` の8b）、シミュレーションのコード、静止画の絵コンテ（`npm run storyboard`）。PCを閉じていても進む。GitHub にあるものだけで作業する。
 - **ローカル（オーナーのPC）**：音声の生成（API キーは PC の環境変数）、動画の書き出し・音量の調整（`_local/` の音声と BGM を使う）、動画をオーナーに送る。
 - クラウドには Claude のメモ（memory）がないので、引き継ぐことは必ずリポジトリ（`docs/`、各回の `README.md`）に書く。
+- **使用量を抑える仕組み**（2026-10-06）：会話が30万トークンを超えると自動で要約される（`.claude/settings.json` の `autoCompactWindow`）。要約で細かい経緯は消えるので、工程の区切り（構成案・台本・絵コンテ・コードができたとき）ごとに、各回の `README.md` に「いまどこまで・次に何をする・未決のこと」を書いておく。レビュー役（`.claude/agents/review-*`）は Sonnet で動く。
 
 ### ブランチ（作業の置き場）の決まり（2026-10-05）
 
@@ -115,6 +117,8 @@ python bench/analyze.py --out research/benchmark/summary.md
 scripts/new_episode.sh where-couples-meet          # 新しい回を作る → episodes/001-where-couples-meet/
 cd render && npm run studio                         # 動画をブラウザで確認（Remotion Studio）
 python tts/narrate.py episodes/<回> --voice silent  # 台本から仮の尺と字幕（声が決まったら --voice を変える）
+python tts/readaloud.py episodes/<回>                # 無料の読み上げページ（スマホの声。文に「いらない」「言い換え」「メモ」）→ Artifact で db 付きで公開、指示は ArtifactData で notes を読む
+python tts/preview.py episodes/<回>                  # 作った音声を、スマホで聞く mp3（通し・章ごと）と早見表にまとめる
 python tts/narrate.py episodes/<回> --voice silent --script script-v2.md  # 台本の版違い（timing-v2.json を書く。動画の id は <回>-v2）
 cd render && npm run check -- <回のid>               # 画面のチェック（直すものを0に）
 cd render && npm run storyboard -- <回のid>          # 静止画の絵コンテ。場面のコードの前は episodes/<回>/scenes/Storyboard.tsx の一覧と秒数・動きの表、コードのあとは場面ごとに2〜3枚（--scenes）→ render/out/
