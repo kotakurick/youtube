@@ -1,6 +1,7 @@
-// 3本目「『普通の相手』の条件を全部満たす人の数」の場面のコード（台本は script.md の第13稿、絵コンテは Storyboard.tsx と storyboard.md の第3版。2026-10-07）。
+// 3本目「『普通の相手』の条件を全部満たす人の数」の場面のコード（台本は script.md の第14稿、絵コンテは Storyboard.tsx と storyboard.md の第3版。2026-10-07）。
 // 絵は絵コンテのコマ（Storyboard.tsx の A01〜F06）をそのまま使い、ここで「いつ出るか・どう動くか」を付ける。
-// 場面の中は「区切り」で10〜20秒ごとにコマを替える。区切りの時刻は読み上げの字幕の番号（useNarration().at）に合わせる。
+// 場面の中は「区切り」で10〜20秒ごとにコマを替える。区切りの時刻は、その語を含む字幕の始まり（useNarration().find）。
+// 字幕の番号では指さない（台本の言い回しを直すと、読点で分かれる字幕の番号がずれるため。2026-10-07）。
 // 動くのは：つまみがすべる・検索画面の人数が数え下がる・100人の色が抜ける・掛け算の階段が1段ずつ・前提の札が1枚ずつ・コマがばねで出る。
 // 数字は sources.csv と data/count_result.md。色は男女の色と物差しの意味の色（お金＝金、身長・体型＝青緑）。
 import React from "react";
@@ -22,12 +23,12 @@ import {
 } from "./Storyboard";
 
 // ---------- 共通 ----------
-type Cut = [React.FC, number]; // [コマ, 何枚目の字幕から]
+type Cut = [React.FC, string | 0]; // [コマ, その語を含む字幕から（0＝場面の始まり）]
 /** コマを字幕の番号で切り替える。最初のコマ以外はばねで出す。story＝物語の場面（ゆっくり寄る） */
 const Cuts: React.FC<{ cuts: Cut[]; story?: boolean }> = ({ cuts, story }) => {
   const n = useNarration();
   const end = n.end() + 20;
-  const from = cuts.map(([, k]) => (k === 0 ? 0 : n.at(k)));
+  const from = cuts.map(([, k]) => (k === 0 ? 0 : n.find(k)));
   return (
     <>
       {cuts.map(([P], i) => {
@@ -50,7 +51,7 @@ const prog = (frame: number, a: number, b: number) =>
   interpolate(frame, [a, Math.max(a + 1, b)], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: EASE });
 const useAt = () => {
   const n = useNarration();
-  return { at: n.at, end: n.end(), frame: useCurrentFrame() };
+  return { at: n.find, end: n.end(), frame: useCurrentFrame() };
 };
 
 /** 検索画面：slideAt でつまみが stop へすべり、checkAt でチェックが入り、dropAt で人数が from → to へ数え下がる（右の100人も一緒に） */
@@ -67,11 +68,11 @@ const ScreenAnim: React.FC<{ from: number; to: number; litFrom: number; litTo: n
 };
 
 // ================= 冒頭 =================
-const Opening: React.FC = () => <><Cuts story cuts={[[A01, 0], [A02, 4]]} /><ChannelTag start={20} /></>;
-const OpeningSns: React.FC = () => <Cuts cuts={[[A03a, 0], [A03b, 4]]} />;
+const Opening: React.FC = () => <><Cuts story cuts={[[A01, 0], [A02, "2回目のお見合い"]]} /><ChannelTag start={20} /></>;
+const OpeningSns: React.FC = () => <Cuts cuts={[[A03a, 0], [A03b, "どれも2人に1人"]]} />;
 const OpeningScreen: React.FC = () => {
   const { at, end } = useAt();
-  const s1 = at(3), s2 = at(9), s3 = at(12), s4 = at(17);
+  const s1 = at("彼女は、"), s2 = at("次に、大学"), s3 = at("最後に、身長"), s4 = at("この59人");
   return (
     <>
       <Sequence from={0} durationInFrames={s1}>
@@ -80,14 +81,14 @@ const OpeningScreen: React.FC = () => {
         </Camera>
       </Sequence>
       <Sequence from={s1} durationInFrames={s2 - s1}>
-        <ScreenAnim from={1000} to={132} litFrom={100} litTo={13} on={1} stop={3} prevStop={0} slideAt={at(4) - s1} checkAt={at(4) - s1} dropAt={at(8) - s1}
+        <ScreenAnim from={1000} to={132} litFrom={100} litTo={13} on={1} stop={3} prevStop={0} slideAt={at("つまみを500万円") - s1} checkAt={at("つまみを500万円") - s1} dropAt={at("132人に落ち") - s1}
           note="少しだけ上のつもり → 132人" />
       </Sequence>
       <Sequence from={s2} durationInFrames={s3 - s2}>
-        <ScreenAnim from={132} to={106} litFrom={13} litTo={11} on={2} stop={3} checkAt={10} dropAt={at(10) - s2} note="大学卒業以上：ほとんど減らない" />
+        <ScreenAnim from={132} to={106} litFrom={13} litTo={11} on={2} stop={3} checkAt={10} dropAt={at("106人") - s2} note="大学卒業以上：ほとんど減らない" />
       </Sequence>
       <Sequence from={s3} durationInFrames={s4 - s3}>
-        <ScreenAnim from={106} to={59} litFrom={11} litTo={6} on={3} stop={3} checkAt={10} dropAt={at(15) - s3} note="身長170cm以上：ちょうど半分ほど" />
+        <ScreenAnim from={106} to={59} litFrom={11} litTo={6} on={3} stop={3} checkAt={10} dropAt={at("59人。") - s3} note="身長170cm以上：ちょうど半分ほど" />
       </Sequence>
       <Sequence from={s4} durationInFrames={end + 20 - s4}><Enter><A08 /></Enter></Sequence>
     </>
@@ -98,13 +99,13 @@ const Today: React.FC = () => <A09 />;
 /** 予想タイム：組の作り方 → Aの計算 → 問いと選択肢（答えは答え合わせで） */
 const QuizScene: React.FC = () => {
   const { at, end } = useAt();
-  const q = at(9), c = at(13);
+  const q = at("Aは、1組"), c = at("Bは、");
   return (
     <>
       <Sequence from={0} durationInFrames={q}><A10 /></Sequence>
       <Sequence from={q} durationInFrames={c - q}><Enter><A11a /></Enter></Sequence>
       <Sequence from={c} durationInFrames={end + 30 - c}>
-        <Quiz question={QUIZ_Q} choices={QUIZ_C} title={QUIZ_T} choiceAt={[0, 0, at(14) - c, at(15) - c]} ringAt={at(16) - c} />
+        <Quiz question={QUIZ_Q} choices={QUIZ_C} title={QUIZ_T} choiceAt={[0, 0, at("Cは、") - c, at("Dは、") - c]} ringAt={at("答えは、最後") - c} />
       </Sequence>
     </>
   );
@@ -112,7 +113,7 @@ const QuizScene: React.FC = () => {
 /** 3つの前提：札が読み上げに合わせて1枚ずつ */
 const Roadmap: React.FC = () => {
   const { at, frame } = useAt();
-  const show = frame >= at(4) ? 3 : frame >= at(3) ? 2 : frame >= at(1) ? 1 : 0;
+  const show = frame >= at("3つ目は") ? 3 : frame >= at("2つ目は") ? 2 : frame >= at("1つ目は") ? 1 : 0;
   return <AbsoluteFill><Heading>投稿の計算に隠れた、3つの前提</Heading><Premises show={show} /></AbsoluteFill>;
 };
 
@@ -120,24 +121,24 @@ const Roadmap: React.FC = () => {
 const Ch1Card: React.FC = () => <ChapterCard no={1} title="男女が相手に求めるもの" />;
 const Ch2Card: React.FC = () => <ChapterCard no={2} title="1つ目の前提「普通とはまん中」" />;
 const Ch3Card: React.FC = () => <ChapterCard no={3} title="2つ目と3つ目の前提" />;
-const Ch1Survey: React.FC = () => <Cuts cuts={[[B01, 0], [B02, 6], [B03, 15]]} />;
-const Ch1Quiz: React.FC = () => <Cuts cuts={[[B04, 0], [B05, 6]]} />;
-const Ch1Hypergamy: React.FC = () => <Cuts cuts={[[B06, 0], [B07, 8]]} />;
-const Ch1World: React.FC = () => <Cuts cuts={[[B08, 0], [B09, 6]]} />;
+const Ch1Survey: React.FC = () => <Cuts cuts={[[B01, 0], [B02, "相手の容姿は"], [B03, "差が大きく"]]} />;
+const Ch1Quiz: React.FC = () => <Cuts cuts={[[B04, 0], [B05, "男性で増えた"]]} />;
+const Ch1Hypergamy: React.FC = () => <Cuts cuts={[[B06, 0], [B07, "自分より学歴や年収"]]} />;
+const Ch1World: React.FC = () => <Cuts cuts={[[B08, 0], [B09, "計算で試して"]]} />;
 const Ch1Census: React.FC = () => <B10 />;
 const Ch1IncomeCouples: React.FC = () => <B11 />;
 /** 彼女の画面に戻る：400万円へすべって299人 → 500万円へすべって132人 → 「普通はどこに」 */
 const Ch1Her: React.FC = () => {
   const { at, end } = useAt();
-  const s2 = at(5), s3 = at(8);
+  const s2 = at("少しだけ上の500万円"), s3 = at("年収の「普通」は");
   return (
     <>
       <Sequence from={0} durationInFrames={s2}>
-        <ScreenAnim from={1000} to={299} litFrom={100} litTo={30} on={1} stop={2} prevStop={0} slideAt={at(4) - 20} checkAt={at(4) - 20} dropAt={at(4)}
+        <ScreenAnim from={1000} to={299} litFrom={100} litTo={30} on={1} stop={2} prevStop={0} slideAt={at("400万円以上なら") - 20} checkAt={at("400万円以上なら") - 20} dropAt={at("400万円以上なら")}
           yen="400万円以上" title="彼女の画面" note="400万円以上なら 299人" />
       </Sequence>
       <Sequence from={s2} durationInFrames={s3 - s2}>
-        <ScreenAnim from={299} to={132} litFrom={30} litTo={13} on={1} stop={3} prevStop={2} slideAt={10} dropAt={at(6) - s2} title="彼女の画面" note="100万円動かしただけで、半分以下" />
+        <ScreenAnim from={299} to={132} litFrom={30} litTo={13} on={1} stop={3} prevStop={2} slideAt={10} dropAt={at("132人になり") - s2} title="彼女の画面" note="100万円動かしただけで、半分以下" />
       </Sequence>
       <Sequence from={s3} durationInFrames={end + 20 - s3}><B13 /></Sequence>
     </>
@@ -148,33 +149,34 @@ const Ch1Her: React.FC = () => {
 const Ch2: React.FC = () => <C00 />;
 const Ch2Height: React.FC = () => <C01 />;
 const Ch2Quiz: React.FC = () => <C02 />;
-const Ch2Income: React.FC = () => <Cuts cuts={[[C03, 0], [C04, 3]]} />;
+const Ch2Income: React.FC = () => <Cuts cuts={[[C03, 0], [C04, "500万円の目盛りは"]]} />;
 const Ch2Married: React.FC = () => (
-  <Cuts cuts={[[C05, 0], [C06, 5], [C07, 7], [C08, 10], [C09, 15], [C10, 19], [C11, 23], [C12, 28], [C13, 35]]} />
+  <Cuts cuts={[[C05, 0], [C06, "年齢をそろえて"], [C07, "友だちの夫"], [C08, "心理学"], [C09, "もし、心の中"], [C10, "結婚と年収の高さ"],
+    [C11, "女性でも、同じように"], [C12, "条件によく挙がる容姿"], [C13, "1つ目の前提は、年収"]]} />
 );
 
 // ================= 第3章 =================
-const Ch3Overlap: React.FC = () => <Cuts cuts={[[D01, 0], [D02, 3]]} />;
+const Ch3Overlap: React.FC = () => <Cuts cuts={[[D01, 0], [D02, "冒頭の1000人のうち"]]} />;
 const Ch3Survey: React.FC = () => <D03 />;
 /** 掛け算の階段：条件のチェックが1つずつ入り、人数が下がる。残り4つは続けて */
 const Ch3Multiply: React.FC = () => {
   const { at, frame } = useAt();
-  const keys: [number, number][] = [[0, 1], [at(3), 2], [at(4), 3], [at(6), 4], [at(6) + 18, 5], [at(6) + 36, 6], [at(7), 7]];
+  const keys: [number, number][] = [[0, 1], [at("年齢の条件"), 2], [at("年収の条件"), 3], [at("4回掛ける"), 4], [at("4回掛ける") + 18, 5], [at("4回掛ける") + 36, 6], [at("4分の1"), 7]];
   const n = keys.filter(([f]) => frame >= f).pop()![1];
-  return <Stairs n={n} head={n <= 3 ? "女性たちの条件を、1つずつ掛ける" : "6回掛けると、52人"} post={frame >= at(8)} />;
+  return <Stairs n={n} head={n <= 3 ? "女性たちの条件を、1つずつ掛ける" : "6回掛けると、52人"} post={frame >= at("冒頭の投稿の計算は")} />;
 };
-const Ch3Guess: React.FC = () => <Cuts cuts={[[D06, 0], [D07, 5], [D08, 8]]} />;
-const Ch3Turn: React.FC = () => <Cuts cuts={[[D09, 0], [D10, 6], [D11, 10], [D12, 18]]} />;
+const Ch3Guess: React.FC = () => <Cuts cuts={[[D06, 0], [D07, "年収が高い人は学歴"], [D08, "今度は、男性たち"]]} />;
+const Ch3Turn: React.FC = () => <Cuts cuts={[[D09, 0], [D10, "冒頭のあの人"], [D11, "アメリカの大学院生"], [D12, "研究者は、お互い"]]} />;
 
 // ================= 答え合わせ =================
 const VerdictScene: React.FC = () => <E01 />;
 const VerdictQuiz: React.FC = () => {
   const { at, end } = useAt();
-  const e3 = at(9);
+  const e3 = at("Dの130");
   return (
     <>
       <Sequence from={0} durationInFrames={e3}>
-        <Quiz question={QUIZ_Q} choices={QUIZ_C} title={QUIZ_T} answer={2} reveal choiceAt={[at(3), at(4), at(5), at(6)]} ringAt={at(6) + 20} revealAt={at(7)} />
+        <Quiz question={QUIZ_Q} choices={QUIZ_C} title={QUIZ_T} answer={2} reveal choiceAt={[0, 0, 0, 0]} ringAt={at("38組でした") - 20} revealAt={at("38組でした")} />
       </Sequence>
       <Sequence from={e3} durationInFrames={end + 20 - e3}><Enter><E03 /></Enter></Sequence>
     </>
@@ -184,15 +186,15 @@ const REASON = ["自分の条件だけで数えると：1000人に133人", "お�
 const RESULTS = ["身長では合っていたが、年収で外れた", "条件を一度にいくつも満たす人が多い", "相手にも条件がある"];
 const VerdictJudge: React.FC = () => {
   const { at, end, frame } = useAt();
-  const s2 = at(4), s3 = at(12), s4 = at(17);
-  const k = frame >= at(14) ? 3 : frame >= s3 ? 1 : 0;
+  const s2 = at("もう一度たどり"), s3 = at("1つ目の前提は、身長"), s4 = at("ただし、38組");
+  const k = frame >= at("2つ目も、3つ目も") ? 3 : frame >= s3 ? 1 : 0;
   return (
     <>
       <Sequence from={0} durationInFrames={s2}>
-        <AbsoluteFill><Verdict claim="普通の相手は、数%しかいない" mark="△" reason={REASON} chipAt={[0, at(2), at(3)]} hitAt={at(3) + 30} /></AbsoluteFill>
+        <AbsoluteFill><Verdict claim="普通の相手は、数%しかいない" mark="△" reason={REASON} chipAt={[0, at("お互いの条件で数えて"), at("初めて数パーセント")]} hitAt={at("初めて数パーセント") + 30} /></AbsoluteFill>
       </Sequence>
-      <Sequence from={s2} durationInFrames={at(8) - s2}><Enter><E05 pairs={false} /></Enter></Sequence>
-      <Sequence from={at(8)} durationInFrames={s3 - at(8)}><E05 /></Sequence>
+      <Sequence from={s2} durationInFrames={at("ここまでは、人の数") - s2}><Enter><E05 pairs={false} /></Enter></Sequence>
+      <Sequence from={at("ここまでは、人の数")} durationInFrames={s3 - at("ここまでは、人の数")}><E05 /></Sequence>
       <Sequence from={s3} durationInFrames={s4 - s3}>
         <Enter><AbsoluteFill><Heading>3つの前提を確かめると</Heading><Premises results={RESULTS.slice(0, k)} /></AbsoluteFill></Enter>
       </Sequence>
@@ -208,7 +210,7 @@ const Lesson: React.FC = () => {
   const sign = end - 8;
   return (
     <>
-      <Cuts cuts={[[F01, 0], [F02, 5], [F03, 8], [F04, 16]]} />
+      <Cuts cuts={[[F01, 0], [F02, "あの目盛りは"], [F03, "そして、目盛りを持って"], [F04, "普通の相手とは"]]} />
       <Sequence from={sign} durationInFrames={400}><SignOff /></Sequence>
     </>
   );
