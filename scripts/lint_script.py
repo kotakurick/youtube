@@ -187,8 +187,22 @@ def narration_with_headings(text: str) -> list[tuple[int, str]]:
     return sorted([(i, h) for i, h in heads.items()] + narration(text))
 
 
-def numbers(s: str) -> list[str]:
-    return re.findall(r"\d+(?:[.,]\d+)*", s)
+# ラベルの数字（年齢・時刻・期間・回・章・年代・西暦、「〇人に1人」の1）は、覚えるデータではないので数えない。
+# 数字は算用数字にそろえて書く（漢字とまぜない。2026-10-07 オーナー指摘）。
+LABEL = re.compile(r"(?:歳|時|か月|ヶ月|カ月|週間|回目|度目|章|代|つ目)|(?<=\d{4})年")
+
+
+def numbers(s: str, labels: bool = False) -> list[str]:
+    """読み上げる数字。labels=False ならラベルの数字を除く。"""
+    out = []
+    for m in re.finditer(r"\d+(?:[.,]\d+)*", s):
+        if not labels:
+            if LABEL.match(s, m.end()) or (len(m.group()) == 4 and s[m.end():m.end() + 1] == "年"):
+                continue
+            if s[max(0, m.start() - 2):m.start()] == "人に" and m.group() == "1":
+                continue
+        out.append(m.group())
+    return out
 
 
 def main():
@@ -219,7 +233,7 @@ def main():
                 notes.append((acc[0][0], f"{acc[0][0]}〜{no}行目の約1分に数字が{k}個"))
             acc = []
     for no, s in sents:
-        for n in numbers(s):
+        for n in numbers(s, labels=True):
             if "." in n:
                 errors.append((no, f"小数を読み上げている（{n}）。丸めて言い、細かい値は画面に出す"))
         if re.search(r"\d", s) and re.search(STAT, s):
