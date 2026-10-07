@@ -78,3 +78,10 @@
 ## 大きいファイルの保存先（Gitの外）
 
 `$YT_DATA_DIR/episodes/007-data-leaks/`（audio/ と render/）
+
+## いまどこまで（2026-10-07 夕方）
+
+- 台本は第6稿・改（script.md。約10.5分・4,130字・lint エラー0）。6役 → 再確認3役 → 小説家役 → 日本語役まで通した。経緯は review/README.md。版：script-v4.md（第4稿）・script-v5.md（第5稿）。
+- 読み上げページ 第6稿：https://claude.ai/artifact/Qjk7zMvwJ9PikDXqu8ZpWW （db 付き。オーナーの指示は ArtifactData で notes を読む）。
+- 次：オーナーが聞いた指示を反映 → ★照合（S1〜S41）→ 絵コンテ。
+- 未決：長さ（約10.5分。標準13〜18分。足すなら特殊詐欺の規模・免許証の画像・6倍の理由。どれも原資料の照合が要る）、題。
