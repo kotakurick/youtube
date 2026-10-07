@@ -101,7 +101,18 @@ const AllMatch: React.FC = () => (
   </AbsoluteFill>
 );
 
+/** 案5（2026-10-07 オーナー「男女で基準は同じ？ は？ どのようにも捉えられるし訴求力ありそう」）：問いの形。
+ *  答えは本編どおり二重（男女の多数派の答えは32問すべて同じ／2人だと170組に1組しか合わない）。タイトルの「基準」と同じ語 */
+const SameQ: React.FC = () => (
+  <AbsoluteFill style={{ background: RED[0] }}>
+    <Ground big />
+    <Band text="どこからが浮気？" />
+    <Big text="男女で基準は同じ？" top={150} size={132} />
+  </AbsoluteFill>
+);
+
 export default [
+  { id: "006-cheating-line-thumb-sameq", component: SameQ },
   { id: "006-cheating-line-thumb-allmatch", component: AllMatch },
   { id: "006-cheating-line-thumb-nobody", component: () => <Short text="ほぼ誰とも合わない" /> },
   { id: "006-cheating-line-thumb-zure", component: () => <Short text="男性どうしもズレる" /> },
