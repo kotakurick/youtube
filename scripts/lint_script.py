@@ -22,6 +22,14 @@
     episodes/<回>/wording.tsv（scripts/wording.tsv と同じ形）に、その回で使わない言い方と呼び名を書くと、
     共通の表と同じくエラーにする。同じものを途中で別の名前で呼ばない・比喩の言葉を字義どおりに使わないため。
 
+数字の表記（2026-10-07 オーナー「漢数字と普通の数字がバラバラ」）:
+    数量（年齢・人数・年数・割合・回数など）は算用数字で書く（30代・100組・3000人・4年前）。単位の前の漢数字はエラー。
+    熟語（一緒・一度・一部・一番・一方・一人ひとり・十分）と「一日」（1日は「ついたち」と読まれる）は漢字のまま。
+    読み上げる数字の数え方：ラベルの数字（30代・40歳・20年・100組・1つ目 のように単位が付くもの）は数えない。
+
+オーナーの日本語の指摘（docs/script-style.md の14章）:
+    機械で見つけられる型は、scripts/wording.tsv（言い換えの辞書）と、下の JA_PATTERNS（注意）に足していく。
+
 結果:
     エラー（直してから進む）と注意（読んで判断する）を行番号つきで出す。エラーが1つでもあれば終了コード1。
 """
@@ -33,8 +41,8 @@ from pathlib import Path
 
 CHARS_PER_MIN = 395          # 読み上げの速さ（1分390〜400字）
 NUM_PER_MIN = 5              # 読み上げる数字は1分に4〜5個まで
-SENT_MAX = 40                # 1文の長さの目安
-COMMA_MAX = 2                # 1文の読点の数
+SENT_MAX = 60                # 1文の長さの目安（2026-10-07 40→60。字幕は narrate.py が読点で分けるので、字幕のために文を短く切らない）
+COMMA_MAX = 3                # 読点の数の目安（2026-10-07 2→3。文を長めにしてよくしたため）
 KANJI_RUN = 8                # 漢字がこれ以上続いたら注意（熟語3つ以上の目安）
 
 # 煽り・助言・見下し（使わない）
@@ -77,6 +85,19 @@ STAT = r"%|割|倍|万|億|人に\d人"   # 統計らしい数字の目印
 # 声が読み間違えやすい漢字（2026-10-06 オーナー「側をそばと読む」）。tts/yomi.tsv に読みがなければ知らせる。
 # 読みは文脈で変わるので、一括では直さず、語ごとに yomi.tsv に足す（例：「女性の側」→「女性のがわ」）
 AMBIGUOUS = ["側", "他", "何人", "一日", "上手", "下手", "市場", "大分", "心中", "最中", "目下", "生物", "方々"]
+# 数字の表記（2026-10-07）
+KANJI_NUM = r"[〇一二三四五六七八九十百千万]+"
+UNIT = r"(代|歳|才|年|組|人|割|分|秒|時間|か月|ヶ月|カ月|月|週|つ|回|倍|章|件|本|個|位|番目|点|円|冊|枚|世帯|か国|カ国|%)"
+KANJI_OK = ["一日", "一人ひとり", "一つひとつ", "十分", "一番", "一度", "一時", "一年中"]
+LABEL_UNIT = r"(代|歳|年|組|章|つ|回|か月|月|週|人の調査)"   # 付くと「ラベル」とみなして数えない（「3000人の調査」は調査の呼び名）
+
+# オーナーの日本語の指摘から、機械で見つけられる型（docs/script-style.md の14章。注意として出す）
+JA_PATTERNS = [
+    (r"(こういう|そういう|ああいう|こんな|そんな)(家|人|夫婦|こと|場合)", "指示語でまとめている。指す中身を言う（2026-10-07 オーナー「こういう家って言葉変」）"),
+    (r"(夫|妻|男性|女性|二本|2本|[0-9]+本)の(線|棒|柱)", "声で図の部品（線・棒・柱）を呼んでいる。中身（満足度など）で呼ぶ（2026-10-07 オーナー「線ではなく満足度」）"),
+    (r"同じ(向き|形|傾向)(でした|です|だった)", "何が同じかを言う（2026-10-07 オーナー「同じ向き、って伝わらない」）"),
+    (r"(夫|妻|男性|女性|人)の満足(が|は|も)(下が|上が|低|高|離れ)", "測った量は「満足度」と呼ぶ（2026-10-07 オーナー「満足 → 満足度」）"),
+]
 ROOT = Path(__file__).resolve().parent.parent
 
 
@@ -203,8 +224,25 @@ def narration_with_headings(text: str) -> list[tuple[int, str]]:
     return sorted([(i, h) for i, h in heads.items()] + narration(text))
 
 
+def ending_kind(s: str, core: str) -> str:
+    """文末の種類。「でした」「ました」「しました」はまとめて「〜た」と数える（どれも過去の言い切りで、続くと単調に聞こえる）。"""
+    if re.search(r"[？?]$", s) or core.endswith("か"):
+        return "問い"
+    if core.endswith("た"):
+        return "〜た"
+    return core[-2:]
+
+
 def numbers(s: str) -> list[str]:
-    return re.findall(r"\d+(?:[.,]\d+)*", s)
+    """読み上げる数字。ラベルの数字（30代・20年・100組・1つ目）は数えない。"""
+    return [m.group(0) for m in re.finditer(r"\d+(?:[.,]\d+)*", s) if not re.match(LABEL_UNIT, s[m.end():])]
+
+
+def kanji_numbers(s: str) -> list[str]:
+    """単位の前の漢数字（算用数字で書くもの）。熟語は除く。"""
+    for w in KANJI_OK:
+        s = s.replace(w, "＿" * len(w))
+    return [m.group(0) for m in re.finditer(r"(?<![0-9０-９])" + KANJI_NUM + UNIT, s)]
 
 
 def main():
@@ -243,6 +281,13 @@ def main():
             if not re.search(r"\[S\d+", src_line):
                 notes.append((no, "統計らしい数字に出典の id（[S1] など）がない（物語の中の数字なら問題なし）"))
 
+    for no, s in sents:
+        for k in dict.fromkeys(kanji_numbers(s)):
+            errors.append((no, f"数量は算用数字で書く：「{k}」（熟語は漢字のまま。docs/script-style.md の14章）"))
+        for pat, why in JA_PATTERNS:
+            for m in re.finditer(pat, s):
+                notes.append((no, f"{why}：「{m.group(0)}」"))
+
     # 文体・文の形
     plain = []
     run, prev_end = 0, None
@@ -260,11 +305,11 @@ def main():
         m = re.search(r"[一-龥]{%d,}" % KANJI_RUN, s)
         if m:
             notes.append((no, f"漢字が続いて聞き取りにくい：{m.group(0)}"))
-        end = core[-2:]
+        end = ending_kind(s, core)
         run = run + 1 if end == prev_end else 1
         prev_end = end
-        if run == 4:
-            notes.append((no, f"同じ文末「{end}」が4回続いている。体言止めか問いかけを混ぜる"))
+        if run == 3:
+            notes.append((no, f"同じ文末「{end}」が3文続いている。体言止め・「〜のです」・2文をつなぐ・言い方を変える（2026-10-07 オーナー「でした。しました。が単調」）"))
     if plain and len(plain) / len(sents) > 0.1:
         errors.append((plain[0][0], f"です・ます調でない文が{len(plain)}文（{len(plain) / len(sents):.0%}）。例：{plain[0][1][:30]}"))
     else:
