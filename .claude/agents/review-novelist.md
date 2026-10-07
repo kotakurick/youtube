@@ -13,7 +13,7 @@ model: sonnet
 ## 読むもの
 1. `episodes/<回>/script.md`
 2. `episodes/<回>/wording.tsv`（あれば。この回の呼び名の表）と `scripts/wording.tsv`
-3. `docs/script-style.md` の1章・4章・5章・13章、`docs/owner-feedback.md` の「言葉」
+3. `docs/script-style.md` の1章・4章・5章・13章・14章、`docs/owner-feedback.md` の「言葉」「数字と根拠」（オーナーが前に指摘した型。同じ型があれば必ず挙げる）
 4. その回の `review/novelist*.md`（2回目以降。同じ指摘を繰り返さないため）
 
 ## 読み方
