@@ -190,9 +190,9 @@ const Order11: React.FC<{ at: number[] }> = ({ at }) => {
 // ================= 第1章（S12〜S23） =================
 const Ch1: React.FC = () => {
   const { find, end } = useCue();
-  const four = find("答えは四つ", 299), sat = find("かなり満足と", 369), dis = find("どちらかといえば不満", 466), two = find("前の二つを", 572);
+  const four = find("選べるのは、次の四つ", 299), sat = find("かなり満足と", 369), dis = find("どちらかといえば不満", 466), two = find("前の二つを", 572);
   const line = find("満足と答えた人の割合を", 660), but = find("ところが三十代", 1107), forty = find("四十代の半ばでは", 1254);
-  const you = find("三十代の後半から四十代の人は", 1521), other = find("妻だけに聞いた", 1873), kuse = find("ただ、上の年代", 2024);
+  const you = find("三十代の後半から四十代なら", 1521), other = find("妻だけに聞いた", 1873), kuse = find("ただ、上の年代", 2024);
   const leave = find("不満の大きい夫婦", 2135), high = find("だから上の年代ほど", 2287), still = find("それでも妻の線", 2471);
   const home = find("一つの家の中では", 2645), w23 = find("満足していない妻は23人", 2885), h13 = find("満足していない夫は13人", 2971), diff = find("10人多い", 3055);
   const pair = find("満足していない夫13人が", 3138), rest = find("それでも、満足していない妻が", 3308), left = find("余った10人", 3423);
@@ -208,7 +208,7 @@ const Ch1: React.FC = () => {
       <Beat from={line} to={but}><Enter><S13 /></Enter></Beat>
       {/* S14：二本の線が左から伸び、35歳を過ぎて妻だけ下がる */}
       <Beat from={but} to={you}><Lines14 callAt={forty - but} /></Beat>
-      {/* S15：35〜45歳の帯。「あなた？」の目印が帯の中を1往復 */}
+      {/* S15：35〜45歳の帯。「あなた」の目印が帯の中を1往復 */}
       <Beat from={you} to={other}><You15 /></Beat>
       {/* S16：別の調査の灰の輪 */}
       <Beat from={other} to={kuse}><Enter dy={0}><S16 /></Enter></Beat>
@@ -279,12 +279,12 @@ const You15: React.FC = () => {
     <ChapterDots current={1} />
     <SourceNote text={SRC.nfrj} />
     <Camera dur={40} keys={[[0, WIDE], [1, { x: 960, y: 540, scale: 1.06 }]]}>
-      <Heading>あなたの家の二本の線は、いま？</Heading>
+      <Heading>三十代後半〜四十代：線が離れていく年ごろ</Heading>
       <Svg>
         <AxisTitle />
         <GenderLines {...CH} ticks={AGE_TICKS} series={satSeries} band={{ from: 2, to: 4, label: "線が離れていく年ごろ", labelAt: "bottom" }} />
         <path d={`M${mx} ${CH.y + 10} V${CH.y + 400}`} stroke={C.ink} strokeWidth={LINE.thin} strokeDasharray="10 10" />
-        <Label x={mx} y={CH.y - 18} anchor="middle" weight={900}>あなた？</Label>
+        <Label x={mx} y={CH.y - 18} anchor="middle" weight={900}>あなた</Label>
       </Svg>
     </Camera>
     </>
@@ -373,25 +373,17 @@ const Think22: React.FC<{ wife: number; hus: number }> = ({ wife, hus }) => (
 
 // ================= 第2章（S24〜S35） =================
 const Ch2: React.FC = () => {
-  const { find, endOf, end } = useCue();
-  const A = find("Aは", 194), B = find("Bは", 282), bEnd = endOf("Bは", 378), night = find("夜泣き", 423), ans = find("答えは、Bです", 582);
-  const pre = find("上がる前は、満足は8割", 633), y2018 = find("四年前", 1079), why = find("なぜ、手がかかる", 1208);
+  const { find, end } = useCue();
+  const y2018 = find("四年前", 1079), why = find("なぜ、手がかかる", 1208);
   const care = find("小学校に上がると、育児", 1658), change = find("変わるのは、長さより", 1975), only = find("その家事を、夫は", 2349);
   const alone = find("夫婦で一緒にやっていた", 2464), q = find("妻たちに", 2634), same = find("第1章で見た", 3034), hypo = find("夫婦で一緒にやることが減り", 3200);
   const car = find("冒頭の車の二人", 3586), hus = find("それなら、夫は下がって", 3702), wifeDown = find("下がり方は、妻", 4263), abroad = find("海外には", 4539);
-  const normal = find("ふつうの夫婦では", 4695), counsel = find("妻のほうがはっきり低く", 4856), sum = find("ここまでを、まとめます", 5270), what = find("何が、妻の満足", 5611);
+  const normal = find("ふつうの夫婦では", 4695), counsel = find("妻のほうがはっきり低く", 4856), sum = find("ここまでを、まとめます", 5270), what = find("次は、妻の満足", 5611);
   return (
     <>
-      {/* S24：クイズ（2択）。輪のあとの「夜泣き」で A が小さく揺れ、「答えは、B」で B が塗られる */}
-      <Beat from={0} to={pre}>
-        <ChapterDots current={2} />
-        <Quiz title="クイズ" question="満足と答える妻が少ないのは？" choices={["小学校に上がる前", "小学生〜高校生"]} answer={1} reveal
-          choiceAt={[A, B]} ringAt={bEnd} revealAt={ans} nudge={[0, night]} gosaFoot={GF} />
-        <Svg><EnterG at={20}><Label x={96} y={276} color={C.ink2}>末っ子の年齢で比べる</Label></EnterG></Svg>
-      </Beat>
-      {/* S25：100%の柱が立つ。2秒あとに2018年の値の短い線 */}
-      <Beat from={pre} to={why}>
-        <Cols25 ghostAt={y2018 - pre} />
+      {/* S25：100%の柱が立つ（答えを先に見せる。章の中のクイズはやめた 2026-10-07）。2018年の値の短い線があとから */}
+      <Beat from={0} to={why}>
+        <Cols25 ghostAt={y2018} />
       </Beat>
       {/* S26〜S28：一日の柱 */}
       <Beat from={why} to={care}><Wipe dir="up" dur={36}><S26 /></Wipe></Beat>
@@ -544,7 +536,7 @@ const Mid35: React.FC<{ ask: number }> = ({ ask }) => (
     <MidCheck text="冷めるのは二人とも。不満は妻に多く出る" />
     <Svg><GenderLines {...CH} ticks={AGE_TICKS} series={satSeries} />
       <EnterG at={ask}><MiniBalance x={1500} y={470} s={0.16} /></EnterG></Svg>
-    <Enter at={ask}><Card x={760} y={500} w={620}>何が妻の満足を下げている？<br />やはり、家事？</Card></Enter>
+    <Enter at={ask}><Card x={760} y={500} w={620}>妻の満足を下げているものは？<br />やはり、家事？</Card></Enter>
     <SourceNote text={SRC.nfrj} />
   </>
 );
@@ -555,7 +547,7 @@ const Ch3: React.FC = () => {
   const husW = find("夫は、一日におよそ40分", 530), wifeW = find("妻は、4時間", 614), share = find("夫が受け持つ家事の割合は", 772);
   const ask = find("第1章の三千人", 1259), h83 = find("妻の家事に満足と答える夫", 1483), w66 = find("夫の家事に満足と答える妻", 1598), yahari = find("ここまでなら", 1723);
   const notYet = find("でも、この天秤には", 1829), husBag = find("夫の皿に、仕事の分銅", 2028), train = find("朝の電車", 2147), wifeBag = find("妻の皿にも", 2263);
-  const moves = find("天秤が、ゆっくり", 2385), yours = find("あなたの家なら", 2473), split = find("それなら、満足している人", 2695), cond = find("年齢や収入", 3025);
+  const moves = find("天秤が、ゆっくり", 2385), yours = find("天秤がどこで止まるか", 2473), split = find("それなら、満足している人", 2695), cond = find("年齢や収入", 3025);
   const res = find("すると、夫婦の家事", 3150), sup = find("はっきり差が出たのは", 3356), three = find("悩みを聞いてくれる、努力", 3512), why = find("なぜ家事の量より", 3802);
   const expect = find("期待どおりだったかどうか", 4314), work_ = find("とくに外で働く", 4492), abroad = find("海外の研究にも", 4850);
   const fit = find("家事も心の支えも", 5328), back = find("最初の三千人の調査に戻ります", 5563), overlay = find("第1章の満足の線と", 6217);
@@ -639,7 +631,7 @@ const Bags39: React.FC<{ hus: number; train: number; wife: number; moves: number
   return (
     <>
       <ChapterDots current={3} />
-      {frame < yours ? <Heading>でも、まだのせていないもの：仕事と通勤</Heading> : <Heading w={1728}>あなたの家なら、どちらの皿が重くなりそう？</Heading>}
+      {frame < yours ? <Heading>でも、まだのせていないもの：仕事と通勤</Heading> : <Heading>どこで止まるかは、答え合わせで</Heading>}
       {frame >= train && frame < wife && <Enter><SubHead>夫の分銅：朝の電車・会議・残業・帰りの電車</SubHead></Enter>}
       <Camera dur={45} keys={[[0, WIDE], [Math.max(1, yours), { x: BAL.x, y: BAL.y + 160, scale: 1.25 }]]}>
         <Svg><BalanceAt left={left} right={right} tilt={tilt} from={10} moving={frame >= moves} /></Svg>
