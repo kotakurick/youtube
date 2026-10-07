@@ -197,7 +197,7 @@ const Ch1: React.FC = () => {
   const home = find("1つの家の中では", 2645), w23 = find("満足していない妻は23人", 2885), h13 = find("満足していない夫は13人", 2971), diff = find("10人多い", 3055);
   const pair = find("満足していない夫13人が", 3138), rest = find("それでも、満足していない妻が", 3308), left = find("余った10人", 3423);
   const house = find("つまり少なくとも", 3543), chores_ = find("ここまで聞くと", 3989), wifeT = find("夫が家事をしない", 4132), husT = find("あるいは夫の立場なら", 4242);
-  const ch3 = find("その答えは、このあと天秤", 4408), when = find("その前に", 4500);
+  const ch3 = find("その答えは、このあと夫婦", 4408), when = find("その前に", 4500);
   return (
     <>
       {/* S12：答えの札4枚 → 括弧「満足として数える」と色の約束 */}
@@ -721,8 +721,8 @@ const VerdictScene: React.FC = () => {
   const { find, end } = useCue();
   const load = find("天秤に、仕事と通勤", 140), h = find("夫が9時間6分", 245), w = find("妻は、9時間", 320), diff = find("差は、2分", 400), b = find("答えは、Bの", 456);
   const other = find("ほかの時期も", 530), notTime = find("ですから、時間の長さでは", 1238), claim = find("続いて、今日の説", 1610);
-  const r1 = find("満足の点数の平均は", 1790), r2 = find("でも、満足していないと答える", 1910), hit = find("2人とも冷めていく、という", 2094), split = find("満足度と一緒に動くものも", 2412);
-  const us = find("子どもが家を出たあとについては", 3039), reason = find("上がった理由は", 3430), enjoy = find("一緒にいる時間を", 3591), japan = find("ただ、年齢ごとに比べた日本", 3867);
+  const r1 = find("満足の点数の平均は", 1790), r2 = find("でも、満足していないと答える", 1910), hit = find("2人とも冷めていく、という", 2094), split = find("満足度の高い低いと重なる", 2412);
+  const us = find("子どもが家を出たあとについては", 3039), reason = find("上がった理由は", 3430), enjoy = find("一緒にいる時間を", 3591), japan = find("ただ、日本の3000人", 3867);
   const second = find("2つ目は", 4143), still = find("それでも、どの時期", 783), outside = find("外で長く", 908);
   const after = find("子どもが家を出たあとの妻", 2708), valley = find("満足度がいちばん低いのは", 2860);
   return (
