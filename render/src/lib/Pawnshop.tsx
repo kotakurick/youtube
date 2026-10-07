@@ -1,11 +1,13 @@
 // 質屋（盗んだ物・情報をお金に換える所）の比喩の部品（7本目「情報漏えい」で作った。2026-10-07）。
 //   - Pawnshop：「質」の看板と暖簾の小さな店。state で 開いている（open）／シャッターが半分（half）／閉まった（closed）を見せる。
+//               第2版（2026-10-07）：開いている＝暖簾・金の縁の看板・金の窓と床の金の光／半分＝シャッター65%・暖簾なし・床の光は小さく
+//               ／閉まった＝店ごと灰・シャッター全部・「閉」の札。お金に換える店なので、開いている店にだけ金を入れる。
 //               下に何を換える質屋かの名札（label）。名札の文字は店の大きさによらず40px（28px 未満にしない）。
 //   - Stall   ：闇の売り場（抽象的な屋台と棚）。実在のサイトの画面に似せない。棚に盗品（Loot）を並べ、値札（tag）を下げる。
 //   - Loot    ：盗品の目印（カード・身分証・名簿・鍵＝パスワード）。情報なので意味の色の青緑（C.teal）で塗る。
 //   - Coins   ：お金に換わった額（積んだ硬貨）。意味の色の金（C.gold）。
 // 決まり：
-//   - 店と屋台は墨の線・紙色・白・壁色だけ（データの色を使わない）。色を持つのは中身（盗品＝青緑、硬貨＝金）だけ。
+//   - 屋台は墨の線・紙色・白だけ。質屋は「換えられる度合い」を金の明かりで見せる（開＞半分＞閉）。盗品＝青緑、硬貨＝金。
 //   - 攻撃の手口は描かない（偽の画面・手順を描かない）。店は「換えられる／換えられない」の状態だけを見せる。
 //   - 原点は地面の中央（x, y）。s は倍率（s=1 で店の幅360・高さ約330）。店の中の文字が28px 未満にならないよう s は 0.6 以上。
 //   - 印：店・屋台は data-qa="prop"、盗品・硬貨も "prop"。名札の文字は prop の外（下。地面から 30*s+50）に置く。
@@ -23,41 +25,49 @@ export const Pawnshop: React.FC<{
 }> = ({ x, y, s = 1, state = "open", label, note, big = false }) => {
   // 形（s=1）：本体 幅360・高さ240、屋根の上に看板
   const W = 360, H = 240, dw = 200, dh = 170;
-  const shutter = state === "closed" ? 1 : state === "half" ? 0.55 : 0;
+  const shutter = state === "closed" ? 1 : state === "half" ? 0.65 : 0;
+  const closed = state === "closed";
   return (
     <g>
       <g data-qa="prop" data-qa-label={`質屋：${label ?? ""}`} transform={`translate(${x},${y}) scale(${s})`}>
-        {/* 本体 */}
-        <rect x={-W / 2} y={-H} width={W} height={H} fill={C.wall} {...st} {...ns} />
+        {/* 床の金の光（開いている＝大きく、半分＝小さく、閉まった＝なし） */}
+        {state === "open" && <path d={`M${-dw / 2} 0 L${-dw / 2 - 70} 30 H${dw / 2 + 70} L${dw / 2} 0 Z`} fill={C.gold} opacity={0.45} />}
+        {state === "half" && <path d={`M${-dw / 2 + 20} 0 L${-dw / 2 - 10} 24 H${dw / 2 + 10} L${dw / 2 - 20} 0 Z`} fill={C.goldTint} />}
+        {/* 本体（閉まった店は灰） */}
+        <rect x={-W / 2} y={-H} width={W} height={H} fill={closed ? C.otherTint : C.wall} {...st} {...ns} />
         {/* 屋根（瓦の帯） */}
-        <path d={`M${-W / 2 - 30} ${-H} L${-W / 2 + 10} ${-H - 46} H${W / 2 - 10} L${W / 2 + 30} ${-H} Z`} fill={C.ink2} {...st} {...ns} />
-        {/* 看板「質」 */}
-        <rect x={-46} y={-H - 128} width={92} height={86} rx={R.sm} fill={C.white} {...st} {...ns} />
-        <text x={0} y={-H - 62} textAnchor="middle" style={{ ...font("value"), fontSize: 60 }}>質</text>
-        {/* 入口 */}
-        <rect x={-dw / 2} y={-dh} width={dw} height={dh} fill={state === "closed" ? C.rest : C.white} {...st} {...ns} />
-        {state !== "closed" && <>
-          {/* 中の帳場（台）と、開いている店の明かり */}
-          <rect x={-dw / 2 + 20} y={-60} width={dw - 40} height={20} fill={C.paper2} stroke={C.ink2} strokeWidth={LINE.hair} {...ns} />
-          <path d={`M${-dw / 2} 0 L${-dw / 2 - 50} 30 H${dw / 2 + 50} L${dw / 2} 0 Z`} fill={C.white} opacity={0.7} />
-        </>}
-        {/* シャッター（上から下りる） */}
+        <path d={`M${-W / 2 - 30} ${-H} L${-W / 2 + 10} ${-H - 46} H${W / 2 - 10} L${W / 2 + 30} ${-H} Z`} fill={closed ? C.other : C.ink2} {...st} {...ns} />
+        {/* 看板「質」（開いている店は金の縁） */}
+        <rect x={-46} y={-H - 128} width={92} height={86} rx={R.sm} fill={closed ? C.rest : C.white} stroke={closed ? C.ink2 : state === "open" ? C.gold : C.ink} strokeWidth={state === "open" ? LINE.base : LINE.thin} {...ns} />
+        <text x={0} y={-H - 62} textAnchor="middle" style={{ ...font("value", closed ? C.ink2 : C.ink), fontSize: 60 }}>質</text>
+        {/* 入口（開いている店の中は明るい金） */}
+        <rect x={-dw / 2} y={-dh} width={dw} height={dh} fill={closed ? C.rest : state === "open" ? C.goldTint : C.white} {...st} {...ns} />
+        {!closed && <rect x={-dw / 2 + 20} y={-60} width={dw - 40} height={20} fill={C.paper2} stroke={C.ink2} strokeWidth={LINE.hair} {...ns} />}
+        {/* シャッター（上から下りる。半分＝65%） */}
         {shutter > 0 && <g>
-          <rect x={-dw / 2} y={-dh} width={dw} height={dh * shutter} fill={C.rest} stroke={C.ink} strokeWidth={LINE.thin} {...ns} />
+          <rect x={-dw / 2} y={-dh} width={dw} height={dh * shutter} fill={closed ? C.other : C.rest} stroke={C.ink} strokeWidth={LINE.thin} {...ns} />
           {Array.from({ length: Math.floor((dh * shutter) / 18) }, (_, i) => (
             <line key={i} x1={-dw / 2 + 6} x2={dw / 2 - 6} y1={-dh + 18 * (i + 1)} y2={-dh + 18 * (i + 1)} stroke={C.ink2} strokeWidth={LINE.hair} {...ns} />
           ))}
-          <rect x={-18} y={-dh + dh * shutter - 10} width={36} height={8} rx={3} fill={C.ink} />
+          {!closed && <rect x={-18} y={-dh + dh * shutter - 10} width={36} height={8} rx={3} fill={C.ink} />}
         </g>}
-        {/* 暖簾（開いている・半分のときだけ。閉まった店はしまう） */}
-        {state !== "closed" && <g>
+        {/* 閉まった店の札「閉」 */}
+        {closed && <g>
+          <path d="M-34 -150 L0 -176 L34 -150" fill="none" stroke={C.ink} strokeWidth={LINE.hair} {...ns} />
+          <rect x={-44} y={-150} width={88} height={84} rx={R.sm} fill={C.white} {...st} {...ns} />
+          <text x={0} y={-90} textAnchor="middle" style={{ ...font("value"), fontSize: 56 }}>閉</text>
+        </g>}
+        {/* 暖簾（開いている店だけ。無地の墨に白い丸） */}
+        {state === "open" && <g>
           {[-1, 0, 1].map((k) => (
-            <rect key={k} x={k * 68 - 32} y={-dh - 4} width={64} height={state === "half" ? 60 : 92} fill={C.ink} />
+            <g key={k}>
+              <rect x={k * 68 - 32} y={-dh - 4} width={64} height={92} fill={C.ink} />
+              <circle cx={k * 68} cy={-dh + 50} r={12} fill={C.white} />
+            </g>
           ))}
-          <text x={0} y={-dh + (state === "half" ? 44 : 60)} textAnchor="middle" style={{ ...font("label", C.white), fontSize: 48 }}>質</text>
         </g>}
-        {/* 窓（左右） */}
-        {[-1, 1].map((k) => <rect key={k} x={k * 140 - 22} y={-H + 40} width={44} height={56} fill={state === "closed" ? C.paper2 : C.white} stroke={C.ink2} strokeWidth={LINE.hair} {...ns} />)}
+        {/* 窓（左右。開いている店は金の明かり） */}
+        {[-1, 1].map((k) => <rect key={k} x={k * 140 - 22} y={-H + 40} width={44} height={56} fill={closed ? C.rest : state === "open" ? C.gold : C.goldTint} stroke={C.ink2} strokeWidth={LINE.hair} {...ns} />)}
       </g>
       {/* 名札は入口の明かり（地面から 30*s 下まで）の下に置く */}
       {label && <text x={x} y={y + 30 * s + 50} textAnchor="middle" style={font("label")} fontWeight={big ? 900 : 700}>{label}</text>}

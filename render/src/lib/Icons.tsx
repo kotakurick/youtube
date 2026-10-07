@@ -5,6 +5,7 @@
 //   Ear（聞く）・Hanamaru（認める）・Bulb（助言）・House（家）・Briefcase（仕事の鞄）
 //   7本目（情報漏えい）で足した：Grill（焼肉の網）・Clipboard（アンケート）・CarIcon（車）・StockChart（株の値動き）・Envelope（おわびのメール）
 //   ・IdCard（免許証）・Office（会社の建物）・Mug（飲み会のジョッキ）・Gavel（裁判）・ICChip（カードのICチップ）・CloudIcon（クラウド）・Tool（道具）
+//   第2版で足した：CallDesk（問い合わせを受ける机とヘッドセット）・Ingot（金と銀の延べ棒。金だけ意味の色の金）
 //   会社名・ロゴ・実在の画面は描かない（一般名の目印だけ）。
 import React from "react";
 import { C, LINE } from "./theme";
@@ -92,9 +93,13 @@ export const Briefcase: React.FC<P> = (p) => (
 
 export const Grill: React.FC<P> = (p) => (
   <Wrap {...p} name="焼肉の網">
-    <path d="M-30 -4 Q0 -14 30 -4 L24 22 H-24 Z" fill={C.paper2} {...st} />
-    <path d="M-32 -6 H32 M-20 -6 V-12 M0 -6 V-14 M20 -6 V-12" fill="none" {...st} />
-    <path d="M-14 -24 Q-10 -32 -14 -38 M2 -24 Q6 -32 2 -38 M18 -24 Q22 -32 18 -38" fill="none" stroke={C.ink2} strokeWidth={3} strokeLinecap="round" />
+    {/* 丸い網（網目3本ずつ）＋肉2枚＋下の炎（第2版：かごに見えたので描き直し。2026-10-07） */}
+    <path d="M-20 30 Q-26 20 -18 12 Q-16 20 -10 22 Q-12 10 -2 2 Q0 14 8 18 Q8 8 16 4 Q22 18 18 30 Z" fill={C.paper2} {...st} strokeWidth={3} />
+    <ellipse cx={0} cy={-6} rx={36} ry={16} fill={C.white} {...st} />
+    <path d="M-18 -19 V7 M0 -22 V10 M18 -19 V7 M-32 -6 H32" stroke={C.ink} strokeWidth={2.5} />
+    <ellipse cx={-12} cy={-9} rx={11} ry={5} fill={C.ink2} transform="rotate(-12 -12 -9)" />
+    <ellipse cx={13} cy={-4} rx={11} ry={5} fill={C.ink2} transform="rotate(10 13 -4)" />
+    <path d="M-12 -28 Q-8 -34 -12 -40 M10 -28 Q14 -34 10 -40" fill="none" stroke={C.ink2} strokeWidth={3} strokeLinecap="round" />
   </Wrap>
 );
 
@@ -180,5 +185,27 @@ export const Tool: React.FC<P> = (p) => (
     <rect x={-32} y={-8} width={64} height={36} rx={6} fill={C.paper2} {...st} />
     <path d="M-12 -8 V-18 H12 V-8" fill="none" {...st} />
     <path d="M-20 10 H20" stroke={C.ink} strokeWidth={3} />
+  </Wrap>
+);
+
+/** 問い合わせを受ける机（ヘッドセットの人型と机。委託先の受付の仕事）。会社の建物（Office）と描き分ける（第2版。2026-10-07） */
+export const CallDesk: React.FC<P> = (p) => (
+  <Wrap {...p} name="問い合わせの机">
+    <circle cx={-6} cy={-26} r={11} fill={C.ink2} />
+    <path d="M-18 -28 Q-18 -42 -6 -42 Q6 -42 6 -28" fill="none" stroke={C.ink} strokeWidth={3} />
+    <rect x={3} y={-31} width={6} height={9} rx={2} fill={C.ink} />
+    <path d="M6 -24 Q10 -16 2 -14" fill="none" stroke={C.ink} strokeWidth={2.5} strokeLinecap="round" />
+    <path d="M-22 6 Q-22 -12 -6 -12 Q10 -12 10 6 Z" fill={C.ink2} />
+    <rect x={14} y={-14} width={22} height={16} rx={2} fill={C.white} {...st} strokeWidth={3} />
+    <rect x={-36} y={6} width={72} height={8} rx={2} fill={C.paper2} {...st} strokeWidth={3} />
+    <path d="M-30 14 V32 M30 14 V32" stroke={C.ink} strokeWidth={3} strokeLinecap="round" />
+  </Wrap>
+);
+
+/** 延べ棒（金＝お金になる物、銀＝灰）。台形の塊。kind="silver" で灰 */
+export const Ingot: React.FC<P & { kind?: "gold" | "silver" }> = ({ kind = "gold", ...p }) => (
+  <Wrap {...p} name={kind === "gold" ? "金の延べ棒" : "銀の延べ棒"}>
+    <path d="M-36 20 L-24 -14 H24 L36 20 Z" fill={kind === "gold" ? C.gold : C.otherTint} {...st} />
+    <path d="M-24 -14 L-18 -22 H18 L24 -14" fill={kind === "gold" ? C.goldTint : C.white} {...st} />
   </Wrap>
 );
