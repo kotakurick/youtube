@@ -25,7 +25,7 @@ export const SplitClaim: React.FC<{
   x: number; y: number; w?: number; name: string; claim: string;
   hit?: string; miss: string; word: string; hitHead?: string; missHead?: string;
 }> = ({ x, y, w = 1728, name, claim, hit, miss, word, hitHead = "当たっていた所", missHead = "外れていた所" }) => {
-  const headH = 170, gap = 36, partH = 230, shift = 36;
+  const headH = 170, gap = 36, partH = 200, shift = 36; // partH 230→200（2026-10-07 判定の言葉が字幕の帯に近すぎた）
   const hitW = hit ? Math.round((w - gap - shift) / 2) : 0;
   return (
     <div style={{ position: "absolute", left: x, top: y, width: w }}>
