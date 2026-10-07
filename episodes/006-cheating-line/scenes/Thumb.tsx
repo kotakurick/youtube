@@ -76,7 +76,19 @@ const NotSex: React.FC = () => (
   </AbsoluteFill>
 );
 
+/** 案3（2026-10-07 オーナー「線がぴったりあうのが、が伝わらん。短く簡潔に」）：「線」を使わず、大きい文字1かたまり。
+ *  nobody：タイトルの数字（170組に1組＝0.59%）を言葉で。zure：逆説（ずれる数は男女の組でも同性どうしでも同じ） */
+const Short: React.FC<{ text: string }> = ({ text }) => (
+  <AbsoluteFill style={{ background: RED[0] }}>
+    <Ground />
+    <Band text="どこからが浮気？" />
+    <Big text={text} top={168} size={136} />
+  </AbsoluteFill>
+);
+
 export default [
+  { id: "006-cheating-line-thumb-nobody", component: () => <Short text="ほぼ誰とも合わない" /> },
+  { id: "006-cheating-line-thumb-zure", component: () => <Short text="男性どうしもズレる" /> },
   { id: "006-cheating-line-thumb-match", component: Match },
   { id: "006-cheating-line-thumb-notsex", component: NotSex },
 ];
