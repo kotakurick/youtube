@@ -32,7 +32,7 @@
 - 台本は第7稿（約13.3分）。オーナーの読み上げの印（第6稿・改3）をすべて反映：満足→満足度、声で「線」と言わない、天秤の比喩を最初に説明、「こういう家」「同じ向き」「判定は三角」をやめた、数量を算用数字に統一、声で紹介する研究を5つ外した（S1・S15・S19・S23・S7b）、短い文をつないだ。対応は `review/owner.md`。
 - 場面のコード（Episode.tsx）は第7稿の言葉に合わせた（合図の不足0・型チェック通過）。外した研究の場面（上の年代のくせ・夫の育児への満足・2018年の線）は外した。絵コンテ（Storyboard.tsx）の秒数（sec）と lines の一部は古い稿のまま。
 - 第7稿はレビュー役にまだ通していない（オーナーの指示どおりの直しのため）。音声の前に日本語役を1回通す。
-- 読み上げページ（第7稿、db 付き）：https://claude.ai/artifact/2yoMt4kGZ1Jv1DveojMd9A （印は ArtifactData で `notes` を読む）。第6稿・改3のページ：https://claude.ai/artifact/3QHw7VyY5GfimE1t67aEof
+- 読み上げページ（第7稿・改、db 付き）：https://claude.ai/artifact/Nah21WZP3oqMfJVBFKv6GZ 。 第7稿：https://claude.ai/artifact/2yoMt4kGZ1Jv1DveojMd9A （印は ArtifactData で `notes` を読む）。第6稿・改3のページ：https://claude.ai/artifact/3QHw7VyY5GfimE1t67aEof
 - 次：オーナーが第7稿を聞いて印を付ける → 直す → 日本語役 → 本線に入れてローカルで音声（7）。
 - オーナーに決めてもらうこと：
   - 夫の描き方が責めて聞こえないか

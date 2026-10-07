@@ -129,7 +129,7 @@ const Today: React.FC = () => (
 const QuizScene: React.FC = () => {
   const { find, endOf, end } = useCue();
   const cond = find("家事や育児", 244), sum = find("その一日の合計", 369), A = find("Aは", 563), B = find("Bは", 650), Cc = find("Cは", 702);
-  const D = find("Dは", 790), dEnd = endOf("Dは", 863), order = find("今日は、3つ", 1005);
+  const D = find("Dは", 790), dEnd = endOf("Dは", 863), order = find("今日見ていくのは", 1005);
   const first = find("まず、夫と妻", 1093), second = find("次に", 1203), last = find("最後に", 1364);
   return (
     <>
@@ -191,7 +191,7 @@ const Order11: React.FC<{ at: number[] }> = ({ at }) => {
 const Ch1: React.FC = () => {
   const { find, end } = useCue();
   const four = find("かなり満足、どちらか", 299), sat = find("かなり満足、", 369), dis = find("どちらかといえば不満", 466), two = find("このうち前の2つ", 572);
-  const line = find("満足と答えた人の割合を", 660), but = find("ところが30代", 1107), forty = find("40代の半ばでは", 1254);
+  const line = find("ここでは満足度と呼んで", 660), but = find("ところが30代", 1107), forty = find("40代の半ばでは", 1254);
   const you = find("30代の後半から40代なら", 1521), other = find("妻だけに聞いた", 1873);
   const still = find("上の年代になっても", 2471);
   const home = find("1つの家の中では", 2645), w23 = find("満足していない妻は23人", 2885), h13 = find("満足していない夫は13人", 2971), diff = find("10人多い", 3055);
