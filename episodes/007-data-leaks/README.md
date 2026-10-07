@@ -29,7 +29,7 @@
 - [x] 3. 台本（クラウド。2026-10-06 第3稿・改。5役 → 3役の再確認 → 日本語役まで。`review/README.md`）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。5役のレビュー → 直した稿をもう一度見せる → 最後に日本語役 `review-japanese` → `review/`）
 - [ ] ★ 一次資料との照合（オーナー）→ `sources.csv` の「照合」欄をすべて埋める
 - [ ] ★ 台本レビュー（オーナー）→ `review/owner.md`（Claude が読みやすい形にまとめて渡す。オーナーの指摘は Claude が書き写して台本に反映し、直した／直さなかったを1行ずつ書く）
-- [ ] 4. 絵コンテ（クラウド）：`scenes/Storyboard.tsx` に場面を描き（秒数と動きも）、`cd render && npm run storyboard -- <回のid>` で一覧と `storyboard.md` を作る（直すもの0、⚠ の場面は割り方を決める）→ 3役（`review-animator`・`review-illustrator`・`review-designer`）に見せて `review/storyboard-summary.md` にまとめて直す → ★ オーナーが確認
+- [x] 4. 絵コンテ（クラウド）：`scenes/Storyboard.tsx` に場面を描き（秒数と動きも）、`cd render && npm run storyboard -- <回のid>` で一覧と `storyboard.md` を作る（直すもの0、⚠ の場面は割り方を決める）→ 3役（`review-animator`・`review-illustrator`・`review-designer`）に見せて `review/storyboard-summary.md` にまとめて直す → ★ オーナーが確認（2026-10-07 第2版・紫の猫でOK）
 - [ ] 5. 場面のコード（クラウド）→ `scenes/Episode.tsx`（`Episode.example.tsx` を名前を変えて使う。部品は `render/src/lib`、動きは `useNarration()` で読み上げに合わせる）
 - [ ] 6. 仮通し（クラウド）：`python tts/narrate.py episodes/007-data-leaks --voice silent` で仮の尺と字幕（`timing.json`）を作り、部品のない場面は仮の画面（draft）で13〜18分を通して、テンポ・章の長さ・考える場面の位置を直す
 - [ ] 7. 音声合成（ローカル）：`python tts/narrate.py episodes/007-data-leaks --voice eleven-yui`（文ごとに作り、尺・字幕・`subtitles.srt` も自動で声に合う。同じ文は作り直さない）
@@ -86,7 +86,7 @@
 - オーナーの指示（4-1「予想の意味が分からない」）を反映：予想を「この四つのうち、本当の話は、いくつあると思いますか」にし、答え合わせを「本当／半分本当／ちがう」でそろえた。答えは「ゼロ（半分本当が二つ、ちがうが二つ）」。読み上げページも同じ URL で更新。
 - 数字の書き方をそろえた（オーナー指示）：本線の決まり（script-style.md 14章）どおり、数量はすべて算用数字（4通・1つ目・2,000万件・1回ぶん）。漢字は熟語（一度・一方）と概数（数千円）だけ。
 - 絵コンテ 第2版（53場面・約12分12秒。チェックの直すもの0）。第1版を3役に見せ、まとめ review/storyboard-summary.md の18項目を反映。答え合わせは記号なし（SplitClaim）。新しい部品：Pawnshop・Inbox（InboxMini）・Claims・SplitClaim、目印いくつか。一覧：render/out/007-data-leaks-storyboard.png（Gitの外。`cd render && npm run storyboard -- 007-data-leaks` で作り直せる）。
-- 人物を紫の猫に（オーナー指示）：灰色の人型（場面19・20・21・36・37・38・39）と主人公を `Cat kind="plain"` にした。意味の色は `color`（0回＝灰、報酬あり＝金など）。決まりは decisions.md（2026-10-07）。紫でよいかはオーナーの確認待ち。
-- 次：★オーナーが絵コンテを確認 → 場面のコード（Episode.tsx）。並行して★照合（S1〜S41）。
+- 人物を紫の猫に（オーナー指示）：灰色の人型（場面19・20・21・36・37・38・39）と主人公を `Cat kind="plain"` にした。意味の色は `color`（0回＝灰、報酬あり＝金など）。決まりは decisions.md（2026-10-07）。紫の色と絵コンテ第2版はオーナーが確認した（2026-10-07「OK」）。
+- 次：場面のコード（Episode.tsx）。並行して★照合（S1〜S41）。
 - 次（前のメモ）：オーナーが聞いた指示を反映 → ★照合（S1〜S41）→ 絵コンテ。
 - 未決：長さ（約10.5分。標準13〜18分。足すなら特殊詐欺の規模・免許証の画像・6倍の理由。どれも原資料の照合が要る）、題。
