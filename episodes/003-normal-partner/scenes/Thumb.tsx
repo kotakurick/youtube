@@ -29,15 +29,15 @@ const Person: React.FC<{ j: Joints; x: number; top: number; size: number; flip?:
 const PHONE_CHEST = (hair: "short" | "long"): Joints => ({
   head: [8, hair === "long" ? -905 : -900], headR: hair === "long" ? [52, 64] : [56, 60], headTilt: 15, neck: [2, -832],
   shoulderL: [-92, -780], shoulderR: [92, -780], hipL: [-68, -478], hipR: [68, -478], waist: hair === "long" ? 0.2 : 0.05,
-  elbowL: [-108, -600], handL: [-22, -655], elbowR: [108, -600], handR: [22, -655],
+  elbowL: [-110, -640], handL: [-22, -705], elbowR: [110, -640], handR: [22, -705],
   kneeL: [-44, -240], footL: [-54, 0], kneeR: [46, -240], footR: [58, 0],
   hair, skirt: hair === "long",
 });
 /** スマホ：画面だけ金に光る（人の座標で、手の位置） */
 const Phone: React.FC = () => (
   <g>
-    <rect x={-34} y={-735} width={68} height={112} rx={10} fill={C.ink} />
-    <rect x={-27} y={-726} width={54} height={94} rx={6} fill={GOLD} />
+    <rect x={-34} y={-780} width={68} height={112} rx={10} fill={C.ink} />
+    <rect x={-27} y={-771} width={54} height={94} rx={6} fill={GOLD} />
   </g>
 );
 
@@ -54,7 +54,7 @@ const Band: React.FC<{ text: string; top?: number }> = ({ text, top = 18 }) => (
 
 /** 案1「普通の人でいい／のに、いない」：冒頭の物語（普通でいいと思って条件を入れたら、59人）。数字なし。2人ともスマホを見て困る */
 // 地は上下の2色（上：紺、下：濃いワイン。レビュー r1：6本目の青×橙と並べて別の回に見えるように。性別の色にはしない）
-const SPLIT = 400, WINE = "#5A1A3E";
+const SPLIT = 360, WINE = "#5A1A3E";
 const Nobody: React.FC = () => (
   <AbsoluteFill style={{ background: NAVY[0] }}>
     <svg width={W} height={H} style={{ position: "absolute" }}>
@@ -62,15 +62,15 @@ const Nobody: React.FC = () => (
       <rect width={W} height={SPLIT} fill="#141C4A" />
       <rect y={SPLIT} width={W} height={H - SPLIT} fill={WINE} />
       {/* まん中に「いない人」の点線の輪郭 */}
-      <g fill="none" stroke="#FFFFFF" strokeWidth={6} strokeDasharray="16 12" opacity={0.85}>
-        <ellipse cx={640} cy={468} rx={50} ry={54} />
-        <path d="M560 720 L568 560 Q572 528 604 520 L676 520 Q708 528 712 560 L720 720" />
+      <g fill="#7A2A52" fillOpacity={0.35} stroke="#FFFFFF" strokeWidth={9} strokeDasharray="18 12">
+        <ellipse cx={640} cy={440} rx={56} ry={60} />
+        <path d="M548 720 L556 552 Q560 516 596 508 L684 508 Q720 516 724 552 L732 720" />
       </g>
-      <Person j={PHONE_CHEST("short")} x={260} top={430} size={0.95}><Phone /></Person>
-      <Person j={PHONE_CHEST("long")} x={1020} top={430} size={0.95} flip><Phone /></Person>
+      <Person j={PHONE_CHEST("short")} x={260} top={400} size={1.0}><Phone /></Person>
+      <Person j={PHONE_CHEST("long")} x={1020} top={400} size={1.0} flip><Phone /></Person>
     </svg>
     <Band text="普通の人でいい" />
-    <div style={{ ...line(170, GOLD), top: 140 }}>のに、いない</div>
+    <div style={{ ...line(170, GOLD), top: 150 }}>のに、いない</div>
   </AbsoluteFill>
 );
 
