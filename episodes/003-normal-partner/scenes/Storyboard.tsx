@@ -62,8 +62,9 @@ export const Card: React.FC<{ x: number; y: number; w: number; lines: string[]; 
   </g>
 );
 /** 2つの100人を左右に並べる（1人＝10人）。上に見出し、下に人数 */
-export const TwoHundreds: React.FC<{ kind: Kind; left: { lit: number; title: string; value: string }; right: { lit: number; title: string; value: string }; y?: number }> = ({ kind, left, right, y = 300 }) => (
+export const TwoHundreds: React.FC<{ kind: Kind; left: { lit: number; title: string; value: string }; right: { lit: number; title: string; value: string }; y?: number }> = ({ kind, left, right, y = 260 }) => (
   <>
+    <Label x={1820} y={y - 30} anchor="end" color={C.ink2} weight={900}>1人＝10人</Label>
     {[left, right].map((s, k) => (
       <g key={k}>
         <Label x={100 + k * 900} y={y - 30} color={C.ink2}>{s.title}</Label>
@@ -104,61 +105,110 @@ export const YenRuler: React.FC<{ x: number; y: number; w: number; min?: number;
     </g>
   );
 };
-/** 投稿の計算の3つの前提。focus の札を墨で縁どり、results に確かめた結果（文で。〇×は出さない） */
+/** 投稿の計算の3つの前提。focus の札を墨で縁どり、results に確かめた結果（文で。〇×は出さない）。
+ *  札の左に前提の絵（①真ん中に印のある物差し ②金と青緑の物差しを直角に組んだ図 ③自分の札を持つ猫と、点線の相手）。C00・C13・D09・E06 でも同じ絵 */
 export const PREMISES = ["① 普通とはまん中（どの条件も半分が残る）", "② 条件どうしは関係なく、ばらばら", "③ 選ぶのは、自分だけ"];
+export const PremiseIcon: React.FC<{ i: number; x: number; cy: number }> = ({ i, x, cy }) => (
+  <g data-qa="mark" data-qa-label={`前提${i + 1}の絵`} data-qa-allow="figure">
+    {i === 0 && <>
+      <rect x={x} y={cy - 25} width={150} height={50} rx={R.sm} fill={C.goldTint} stroke={MONEY} strokeWidth={5} />
+      {[1, 2, 3, 4, 5].map((k) => <line key={k} x1={x + k * 25} x2={x + k * 25} y1={cy - 25} y2={cy - 8} stroke={MONEY} strokeWidth={3} />)}
+      <line x1={x + 75} x2={x + 75} y1={cy - 45} y2={cy + 45} stroke={C.ink} strokeWidth={LINE.base} />
+    </>}
+    {i === 1 && <>
+      <rect x={x} y={cy + 30} width={150} height={20} rx={6} fill={MONEY} />
+      <rect x={x} y={cy - 60} width={20} height={110} rx={6} fill={BODY} />
+      {[[50, -30], [90, 0], [120, -40], [70, 15]].map(([dx, dy], k) => <circle key={k} cx={x + dx} cy={cy + dy} r={9} fill={C.ink} />)}
+    </>}
+    {i === 2 && <>
+      <Cat kind="female" x={x + 40} y={cy + 62} size={2.2} pose="stand" face="normal" facing={1} label="前提3の猫" />
+      <rect x={x + 76} y={cy - 30} width={36} height={46} rx={6} fill={C.white} stroke={C.ink} strokeWidth={4} />
+      <g opacity={0.35}><Cat kind="male" x={x + 140} y={cy + 62} size={2.2} pose="stand" face="normal" facing={-1} label="前提3の相手" /></g>
+    </>}
+  </g>
+);
 export const Premises: React.FC<{ focus?: number; results?: (string | undefined)[]; y?: number }> = ({ focus, results = [], y = 240 }) => (
   <Svg>
     {PREMISES.map((p, i) => {
-      const on = focus === undefined || focus === i;
+      const on = focus === undefined || focus === i, top = y + i * 190, r = results[i];
       return (
-        <g key={p} data-qa="prop" data-qa-label={`前提${i + 1}`}>
-          <rect x={160} y={y + i * 190} width={1500} height={160} rx={R.lg} fill={C.white} stroke={on ? C.ink : C.rest} strokeWidth={focus === i ? LINE.base : LINE.thin} />
-          <Label x={210} y={y + i * 190 + 68} size="value" fs={52} color={on ? C.ink : C.ink2}>{p}</Label>
-          {results[i] && <Label x={260} y={y + i * 190 + 130} color={C.ink2}>{results[i]}</Label>}
+        <g key={p} opacity={on ? 1 : 0.55} data-qa="prop" data-qa-label={`前提${i + 1}`} data-qa-allow="mark figure">
+          <rect x={160} y={top} width={1600} height={160} rx={R.lg} fill={C.white} stroke={on ? C.ink : C.rest} strokeWidth={focus === i ? LINE.base : LINE.thin} />
+          <PremiseIcon i={i} x={200} cy={top + 80} />
+          <Label x={400} y={top + (r ? 70 : 98)} size="value" fs={52} color={on ? C.ink : C.ink2}>{p}</Label>
+          {r && <Label x={440} y={top + 132} color={C.ink2}>{r}</Label>}
         </g>
       );
     })}
   </Svg>
+);
+/** 「模式図」の札（実際の数字ではない図に必ず付ける。2026-10-07 デザイナー役） */
+export const Schematic: React.FC<{ x?: number; y?: number }> = ({ x = 1824, y = 64 }) => (
+  <div data-qa="label" style={{ position: "absolute", right: 1920 - x, top: y, ...font("label", C.ink2), border: `${LINE.thin}px solid ${C.ink2}`, borderRadius: R.sm, padding: "2px 16px" }}>模式図</div>
 );
 export const Big: React.FC<{ x: number; y: number; text: string; sub?: string; fs?: number }> = ({ x, y, text, sub, fs = 150 }) => (
   <g><Label x={x} y={y} size="hero" fs={fs}>{text}</Label>{sub && <Label x={x + 6} y={y + 80} color={C.ink2}>{sub}</Label>}</g>
 );
 
 // ---- 物語の場面 ----
-/** 夜の洗面所：鏡と洗面台、スマホの光だけ。彼女は立って歯ブラシを持ったままスマホを見る */
-export const Washroom: React.FC<{ face?: "normal" | "sad" | "think" | "surprised"; children?: React.ReactNode }> = ({ face = "normal", children }) => (
-  <>
+/** 夜の洗面所（冒頭 A01 と教訓 F01 で同じ構図）。夜は壁を夜の色で塗る（半透明をかぶせると灰色に沈む。2026-10-07 イラストレーター役）。
+ *  左から洗濯機（時刻）・洗面台と鏡（照明は消えている）、右に彼女（大きく）。光はスマホからだけ。brush＝口に歯ブラシ。 */
+export const CAT_X = 1240, CAT_S = 8.5;
+const NIGHT_LINE = C.paper2, DARK = { fill: C.paper2, fillOpacity: 0.16, stroke: NIGHT_LINE, strokeOpacity: 0.55, strokeWidth: LINE.thin };
+export const Washroom: React.FC<{ face?: "normal" | "sad" | "think" | "surprised"; look?: [number, number]; time: string; brush?: boolean; children?: React.ReactNode }> = (
+  { face = "normal", look, time, brush, children },
+) => {
+  const s = CAT_S * (50 / 218), feet = FLOOR + 20, phoneY = feet - 40 * s;
+  return (
     <Svg>
-      <rect data-qa="bg" x={0} y={0} width={1920} height={FLOOR} fill={C.wall} />
-      {Array.from({ length: 12 }, (_, i) => <line key={i} data-qa="bg" x1={0} x2={1920} y1={i * 70} y2={i * 70} stroke={C.paper2} strokeWidth={LINE.hair} />)}
-      <rect data-qa="bg" x={0} y={FLOOR} width={1920} height={1080 - FLOOR} fill={C.floor} />
+      <defs>
+        <radialGradient id="phoneGlow"><stop offset="0%" stopColor={C.white} stopOpacity={0.42} /><stop offset="100%" stopColor={C.white} stopOpacity={0} /></radialGradient>
+      </defs>
       <g data-qa="bg">
-        <rect x={1180} y={170} width={460} height={360} rx={R.lg} fill={C.tealTint} stroke={C.ink} strokeWidth={LINE.thin} />
-        <rect x={1100} y={600} width={620} height={46} rx={R.sm} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
-        <ellipse cx={1410} cy={612} rx={150} ry={20} fill={C.paper2} />
-        <rect x={1130} y={646} width={560} height={FLOOR - 646} fill={C.paper2} stroke={C.ink} strokeWidth={LINE.thin} />
+        <rect x={0} y={0} width={1920} height={FLOOR} fill={C.night} />
+        {Array.from({ length: 16 }, (_, i) => <line key={`v${i}`} x1={i * 120} x2={i * 120} y1={0} y2={FLOOR} stroke={NIGHT_LINE} strokeOpacity={0.12} strokeWidth={2} />)}
+        {Array.from({ length: 7 }, (_, i) => <line key={`h${i}`} x1={0} x2={1920} y1={i * 120} y2={i * 120} stroke={NIGHT_LINE} strokeOpacity={0.12} strokeWidth={2} />)}
+        <rect x={0} y={FLOOR} width={1920} height={1080 - FLOOR} fill={C.floor} />
+        <rect x={0} y={FLOOR} width={1920} height={1080 - FLOOR} fill={C.ink} opacity={0.55} />
+        <rect x={0} y={FLOOR - 16} width={1920} height={16} fill={NIGHT_LINE} opacity={0.25} />
+        {/* 洗濯機と時刻 */}
+        <rect x={110} y={440} width={360} height={FLOOR - 440} rx={R.md} {...DARK} />
+        <rect x={140} y={466} width={300} height={56} rx={R.sm} fill={C.ink} opacity={0.5} />
+        <text x={290} y={506} textAnchor="middle" style={{ ...font("label", NIGHT_LINE), fontSize: 36 }}>{time}</text>
+        <circle cx={290} cy={680} r={105} fill={C.tealTint} fillOpacity={0.12} stroke={NIGHT_LINE} strokeOpacity={0.55} strokeWidth={LINE.thin} />
+        {/* 消えた照明・鏡・洗面台・コップ */}
+        <rect x={600} y={130} width={320} height={18} rx={9} fill={NIGHT_LINE} opacity={0.4} />
+        <rect x={560} y={180} width={400} height={440} rx={R.lg} fill={C.tealTint} fillOpacity={0.12} stroke={NIGHT_LINE} strokeOpacity={0.6} strokeWidth={6} />
+        {[0, 1].map((k) => <line key={k} x1={640 + k * 70} y1={560} x2={800 + k * 70} y2={240} stroke={C.white} strokeOpacity={0.15} strokeWidth={14} />)}
+        <rect x={520} y={680} width={480} height={36} rx={R.sm} {...DARK} fillOpacity={0.3} />
+        <rect x={540} y={716} width={440} height={FLOOR - 716} {...DARK} />
+        <line x1={720} x2={800} y1={766} y2={766} stroke={NIGHT_LINE} strokeOpacity={0.6} strokeWidth={LINE.thin} />
+        <path d="M752 680 L752 624 L800 624" fill="none" stroke={NIGHT_LINE} strokeOpacity={0.6} strokeWidth={14} strokeLinecap="round" />
+        <path d="M880 680 L886 628 L922 628 L928 680 Z" {...DARK} fillOpacity={0.3} />
+        {!brush && <line x1={896} y1={640} x2={918} y2={584} stroke={C.white} strokeOpacity={0.7} strokeWidth={8} strokeLinecap="round" />}
+        {/* スマホの光（下からの光）と壁の影 */}
+        <ellipse cx={CAT_X + 150} cy={feet - 260} rx={150} ry={190} fill={C.ink} opacity={0.25} />
       </g>
-      <rect data-qa="bg" x={0} y={0} width={1920} height={1080} fill={C.night} opacity={0.5} />
-      <circle data-qa="bg" cx={820} cy={480} r={240} fill={C.white} opacity={0.16} />
-      <Cat kind="female" x={820} y={FLOOR + 30} size={5.2} pose="phone" face={face} facing={1} label="彼女" />
+      <Cat kind="female" x={CAT_X} y={feet} size={CAT_S} pose="phone" face={face} look={look} label="彼女" />
+      {brush && <line data-qa="prop" data-qa-label="歯ブラシ" data-qa-allow="figure" x1={CAT_X + 10} y1={feet - 92 * s} x2={CAT_X + 110} y2={feet - 104 * s} stroke={C.white} strokeWidth={12} strokeLinecap="round" />}
+      <circle data-qa="bg" cx={CAT_X} cy={phoneY} r={380} fill="url(#phoneGlow)" />
       {children}
     </Svg>
-  </>
-);
-/** 夜の部屋（教訓）：低いテーブルの前に座る彼女。スマホはテーブルの上 */
-export const Room: React.FC<{ face?: "normal" | "sad" | "think"; children?: React.ReactNode }> = ({ face = "think", children }) => (
-  <>
-    <Backdrop kind="room" floor={FLOOR} variant={5} night />
-    <Svg>
-      <rect data-qa="bg" x={0} y={0} width={1920} height={1080} fill={C.night} opacity={0.55} />
-      <circle data-qa="bg" cx={960} cy={700} r={260} fill={C.white} opacity={0.16} />
-      <Table x={960} y={FLOOR} size={5.2} w={120} />
-      <g transform={`translate(860,${FLOOR - 21 * 5.2 - 6}) rotate(90)`}><rect x={-10} y={-40} width={20} height={80} rx={6} fill={C.ink} /></g>
-      <Cat kind="female" x={1060} y={FLOOR + 30} size={5.4} pose="sit" face={face} facing={-1} label="彼女" />
-      {children}
-    </Svg>
-  </>
-);
+  );
+};
+/** 通知の札（スマホから出た札。下のしっぽがスマホを指す） */
+export const Notice: React.FC<{ head: string; lines: string[]; x?: number; y?: number; w?: number }> = ({ head, lines, x = 1000, y = 150, w = 760 }) => {
+  const h = 70 + lines.length * 60, tip = CAT_X;
+  return (
+    <g data-qa="prop" data-qa-label="通知" data-qa-allow="figure">
+      <path d={`M${tip - 30} ${y + h - 2} L${tip} ${y + h + 60} L${tip + 30} ${y + h - 2}`} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
+      <rect x={x} y={y} width={w} height={h} rx={R.lg} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
+      <rect x={tip - 27} y={y + h - 6} width={54} height={10} fill={C.white} />
+      <Label x={x + 34} y={y + 56} size="note" color={C.ink2}>{head}</Label>
+      {lines.map((l, i) => <Label key={i} x={x + 34} y={y + 70 + i * 60 + 44} size="value" fs={48}>{l}</Label>)}
+    </g>
+  );
+};
 
 // ---- 冒頭の検索画面と年収のつまみ ----
 export const STOPS = ["指定なし", "300万", "400万", "500万", "600万"];
@@ -167,7 +217,7 @@ export const ROWS = (on: number, mark?: number, yen = "500万円以上"): Search
   { label: "大学卒業以上", on: on >= 2, mark: mark === 1, axis: MONEY },
   { label: "身長 170cm以上", on: on >= 3, mark: mark === 2, axis: BODY },
 ];
-export const DISCLAIM = "人数は国の統計の割合を1000人に置き換えた架空のもの（就業構造基本調査2022）。身長は見積もり。右の人型は1人＝10人";
+export const DISCLAIM = "人数は国の統計の割合を1000人に置き換えた架空のもの（就業構造基本調査2022。働いていない人も含む）。身長は見積もり";
 /** 左に検索画面、右上に年収のつまみ（目盛り）、右下に100人（1人＝10人）。note はつまみと100人の間の一行 */
 export const Screen: React.FC<{ count: number; prev?: number; on: number; mark?: number; stop: number; lit: number; note?: string; yen?: string; title?: string }> = (
   { count, prev, on, mark, stop, lit, note, yen, title },
@@ -176,7 +226,9 @@ export const Screen: React.FC<{ count: number; prev?: number; on: number; mark?:
     <Svg>
       <SearchScreen x={400} y={500} h={640} count={count} prev={prev} rows={ROWS(on, mark, yen)} title={title} />
       {note && <Label x={780} y={340} weight={900}>{note}</Label>}
-      <Hundred x={760} y={356} kind="male" lit={first(lit)} dx={52} />
+      <Hundred x={760} y={356} kind="male" lit={first(lit)} dx={46} />
+      <Label x={1700} y={420} weight={900}>1人</Label>
+      <Label x={1700} y={470} weight={900}>＝10人</Label>
     </Svg>
     <Slider label="年収のつまみ" stops={STOPS} keys={[[0, stop]]} x={800} y={200} w={880} />
     <SourceNote text={DISCLAIM} prefix="" />
@@ -186,19 +238,26 @@ export const Screen: React.FC<{ count: number; prev?: number; on: number; mark?:
 // ================= 冒頭 =================
 export const A01: React.FC = () => (
   <AbsoluteFill>
-    <Washroom face="sad"><Card x={1180} y={200} w={600} head="相談所から" lines={["お断りの連絡が届きました"]} /></Washroom>
+    <Washroom face="sad" time="22:10" brush><Notice head="相談所から" lines={["お断りの連絡が届きました"]} /></Washroom>
     <Tag text="会社員（33）　相談所に入って3か月　日曜の夜" />
   </AbsoluteFill>
 );
 export const A02: React.FC = () => (
   <AbsoluteFill>
-    <Backdrop kind="washitsu" floor={FLOOR} variant={1} />
+    <Backdrop kind="room" floor={FLOOR} variant={1} />
     <Svg>
-      <Table x={960} y={FLOOR} size={4} w={70} />
-      <Cat kind="female" x={780} y={FLOOR + 10} size={4} pose="sit" face="happy" facing={1} label="彼女" />
-      <Cat kind="male" x={1140} y={FLOOR + 10} size={4} pose="sit" face="happy" facing={-1} label="2回目の人" />
-      <line data-qa="mark" data-qa-allow="figure" x1={640} x2={1280} y1={catTop(FLOOR + 10, 4) + 40} y2={catTop(FLOOR + 10, 4) + 40} stroke={BODY} strokeWidth={LINE.thin} strokeDasharray="14 10" />
-      <Card x={1250} y={190} w={580} lines={["背は彼女と同じ 160cmくらい", "担当の人「一度だけ」"]} />
+      <rect data-qa="bg" x={0} y={0} width={1920} height={1080} fill={C.bg} opacity={0.22} />{/* 回想：背景を淡く */}
+      {/* 相談所のラウンジ：丸テーブルと湯のみ */}
+      <g data-qa="prop" data-qa-label="丸テーブル" data-qa-allow="figure">
+        <rect x={953} y={FLOOR - 230} width={14} height={230} fill={C.ink2} />
+        <ellipse cx={960} cy={FLOOR - 230} rx={170} ry={30} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
+        {[900, 1020].map((x) => <rect key={x} x={x - 18} y={FLOOR - 280} width={36} height={44} rx={6} fill={C.paper2} stroke={C.ink} strokeWidth={4} />)}
+      </g>
+      <Cat kind="female" x={700} y={FLOOR + 10} size={4.8} pose="sit" face="happy" facing={1} label="彼女" />
+      <Cat kind="male" x={1220} y={FLOOR + 10} size={4.8} pose="sit" face="happy" facing={-1} label="2回目の人" />
+      <line data-qa="mark" data-qa-allow="figure" x1={540} x2={1380} y1={catTop(FLOOR + 10, 4.8)} y2={catTop(FLOOR + 10, 4.8)} stroke={BODY} strokeWidth={LINE.thin} strokeDasharray="14 10" />
+      <Card x={240} y={150} w={620} lines={["背は彼女と同じ 160cmくらい"]} />
+      <Card x={1060} y={150} w={620} lines={["担当の人「一度だけ」"]} />
     </Svg>
     <Tag text="2回目のお見合い（回想）" />
   </AbsoluteFill>
@@ -207,13 +266,13 @@ export const A03a: React.FC = () => (
   <AbsoluteFill>
     <Svg>
       <g data-qa="prop" data-qa-label="架空の投稿">
-        <rect x={360} y={170} width={1200} height={600} rx={R.lg} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
-        <circle cx={440} cy={250} r={36} fill={C.paper2} />
-        <Label x={500} y={264} color={C.ink2}>架空の投稿</Label>
-        <Label x={420} y={390} size="value">「普通の人でいい」が、いちばん難しい。</Label>
-        <Label x={420} y={490} size="body">年収も背も学歴も、普通でいい。</Label>
-        <Label x={420} y={570} size="body">どれも2人に1人なら、1000人が500人、500人が250人。</Label>
-        <Label x={420} y={650} size="body">ほかの条件も足して、6つ重ねると、16人。</Label>
+        <rect x={280} y={170} width={1360} height={600} rx={R.lg} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
+        <circle cx={360} cy={250} r={36} fill={C.paper2} />
+        <Label x={420} y={264} color={C.ink2}>架空の投稿</Label>
+        <Label x={340} y={390} size="value">「普通の人でいい」が、いちばん難しい。</Label>
+        <Label x={340} y={490} size="body">年収も背も学歴も、普通でいい。</Label>
+        <Label x={340} y={570} size="body">どれも2人に1人なら、1000人が500人、500人が250人。</Label>
+        <Label x={340} y={650} size="body">ほかの条件も足して、6つ重ねると、16人。</Label>
       </g>
     </Svg>
   </AbsoluteFill>
@@ -230,7 +289,7 @@ export const Chain: React.FC<{ y?: number; n?: number }> = ({ y = 640, n = CHAIN
         return (
           <g key={v}>
             <rect data-qa="mark" data-qa-label={`${v}人`} x={cx - s / 2} y={y - s} width={s} height={s} rx={6} fill={i === CHAIN.length - 1 ? C.ink : C.rest} />
-            <Label x={cx} y={y + 60} anchor="middle" size={i === CHAIN.length - 1 ? "value" : "label"}>{`${v}人`}</Label>
+            <Label x={cx} y={y - s - 24} anchor="middle" size={i === CHAIN.length - 1 ? "value" : "label"}>{`${v}人`}</Label>
           </g>
         );
       })}
@@ -240,7 +299,7 @@ export const Chain: React.FC<{ y?: number; n?: number }> = ({ y = 640, n = CHAIN
 export const A03b: React.FC = () => (
   <AbsoluteFill>
     <Heading>投稿の計算：2人に1人ずつ、6回</Heading>
-    <Svg><Chain /><Label x={150} y={800} color={C.ink2}>正方形の大きさ＝人数</Label></Svg>
+    <Svg><Chain y={720} /><Label x={150} y={800} color={C.ink2}>正方形の大きさ＝人数</Label></Svg>
     <SourceNote text="架空の投稿の計算。1000×(1/2)の6乗＝15.6人" prefix="" />
   </AbsoluteFill>
 );
@@ -252,11 +311,14 @@ export const A08: React.FC = () => (
   <AbsoluteFill>
     <Svg>
       <SearchScreen x={400} y={500} h={640} count={59} rows={ROWS(3)} />
-      <g data-qa="prop" data-qa-label="あの人の枠" data-qa-allow="figure">
-        <rect x={900} y={230} width={760} height={560} rx={R.lg} fill={C.paper2} stroke={C.ink2} strokeWidth={LINE.thin} strokeDasharray="14 10" />
-        <Label x={1280} y={300} anchor="middle" color={C.ink2}>59人の中にいない</Label>
+      <g data-qa="prop" data-qa-label="59人の札">
+        <rect x={760} y={220} width={500} height={480} rx={R.lg} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
+        <Label x={1010} y={290} anchor="middle" weight={900}>残った59人</Label>
+        {Array.from({ length: 59 }, (_, i) => <circle key={i} cx={810 + (i % 10) * 44} cy={350 + Math.floor(i / 10) * 52} r={16} fill={C.male} />)}
       </g>
-      <Cat kind="male" x={1280} y={740} size={2.6} pose="sit" face="happy" label="160cmのあの人" />
+      <line x1={1320} x2={1320} y1={240} y2={800} stroke={C.ink2} strokeWidth={LINE.thin} strokeDasharray="14 10" />
+      <Cat kind="male" x={1580} y={800} size={5} pose="stand" face="happy" label="160cmのあの人" />
+      <Label x={1580} y={300} anchor="middle" color={C.ink2}>この中にいない</Label>
     </Svg>
   </AbsoluteFill>
 );
@@ -267,8 +329,8 @@ export const A10: React.FC = () => (
     <Heading>男女を1人ずつ組にして、1000組</Heading>
     <Svg>
       <CouplePairs x={170} y={420} items={couples(32, 0, 0)} cols={16} />
-      <Label x={170} y={560} color={C.ink2}>このような組を、1000組つくる</Label>
-      <Label x={170} y={680} size="value">お互いが、お互いの条件を満たす組は？</Label>
+      <Label x={170} y={620} color={C.ink2}>見本の32組。このような組を、1000組つくる</Label>
+      <Label x={170} y={740} size="value">お互いが、お互いの条件を満たす組は？</Label>
     </Svg>
     <SourceNote text={S15NOTE} />
   </AbsoluteFill>
@@ -281,15 +343,21 @@ export const A11a: React.FC = () => (
       <Label x={300} y={380} size="value">1000人 → 16人</Label>
       <Figure kind="female" x={220} y={560} size={2} />
       <Label x={300} y={540} size="value">1000人 → 16人</Label>
-      <Label x={1000} y={470} size="value">→</Label>
-      <Big x={1120} y={530} text="0.2組" fs={130} sub="1組もいない" />
+      <Label x={940} y={470} size="value">→</Label>
+      <g data-qa="mark" data-qa-label="1組のマス">
+        <rect x={1040} y={340} width={200} height={200} rx={8} fill={C.paper2} stroke={C.ink} strokeWidth={LINE.thin} />
+        <rect x={1040} y={490} width={200} height={50} fill={C.ink} />
+      </g>
+      <Label x={1040} y={600} color={C.ink2}>1組の、4分の1</Label>
+      <Big x={1320} y={500} text="0.2組" fs={130} sub="1組もいない" />
     </Svg>
     <SourceNote text="この動画の計算：1000×(1/64)×(1/64)＝0.24組" prefix="" />
   </AbsoluteFill>
 );
-export const QUIZ_Q = "1000組のうち、お互いの条件を満たし合う組は？";
+export const QUIZ_Q = "お互いの条件を満たし合う組は？";
+export const QUIZ_T = "予想タイム　男女の1000組のうち";
 export const QUIZ_C = ["1組もいない", "約10組", "約40組", "約130組"];
-export const A11b: React.FC = () => <AbsoluteFill><Quiz question={QUIZ_Q} choices={QUIZ_C} /></AbsoluteFill>;
+export const A11b: React.FC = () => <AbsoluteFill><Quiz question={QUIZ_Q} choices={QUIZ_C} title={QUIZ_T} /></AbsoluteFill>;
 export const A12: React.FC = () => (
   <AbsoluteFill>
     <Heading>投稿の計算に隠れた、3つの前提</Heading>
@@ -329,8 +397,12 @@ export const B05: React.FC = () => (
     <ChapterDots current={1} />
     <Heading>相手の経済力を「重く見る」男性は</Heading>
     <Svg>
-      <Hundred x={100} y={260} kind="male" lit={first(5)} dx={46} />
-      <Big x={1100} y={500} text="100人に5人" fs={120} sub="増えたのは「考えに入れる」男性" />
+      {Array.from({ length: 100 }, (_, i) => <Figure key={i} kind="male" x={100 + (i % 20) * 46 + 23} y={260 + Math.floor(i / 20) * 92 + 78} size={1.3}
+        color={i < 5 ? C.male : i < 48 ? C.maleTint : undefined} dim={i >= 48} />)}
+      <Big x={1100} y={420} text="100人に5人" fs={120} sub="重く見る（濃い色）" />
+      <Label x={1106} y={600} weight={900} color={C.ink}>考えに入れる 43人（薄い色）</Label>
+      <Label x={1106} y={660} color={C.ink2}>増えたのは、こちら</Label>
+      <Label x={100} y={800} color={C.ink2}>1人＝1人。残りの52人は、経済力を条件にしていない</Label>
     </Svg>
     <SourceNote text="出生動向基本調査2021。男性の「重視する」4.7%（1992年3.4%）、「考慮する」23.3%→43.5%" />
   </AbsoluteFill>
@@ -343,8 +415,9 @@ export const B06: React.FC = () => (
       <BarChart x={300} y={260} width={1000} height={420} max={100} format={(v) => `${Math.round(v)}%`} bars={[
         { label: "女性", value: 44.8, color: C.female, focus: true }, { label: "男性", value: 16.3, color: C.male, focus: true },
       ]} />
-      <Label x={1360} y={420} color={C.ink2}>結婚している</Label>
-      <Label x={1360} y={480} color={C.ink2}>20代・30代</Label>
+      <Label x={1360} y={340} color={C.ink2}>結婚している20代・30代</Label>
+      <Label x={1360} y={460} weight={900}>女性でも、約55%は</Label>
+      <Label x={1360} y={520} weight={900}>そう答えていない</Label>
     </Svg>
     <SourceNote text="内閣府男女共同参画局（2021）ネットモニター調査。女性953人・男性1,044人（当てはまる＋やや当てはまる）" />
   </AbsoluteFill>
@@ -359,7 +432,8 @@ export const B07: React.FC = () => (
       </g>
       <Figure kind="female" x={460} y={620} size={2.4} />
       <Figure kind="male" x={780} y={440} size={2.4} />
-      <path data-qa="mark" d="M520 470 Q600 300 700 290" fill="none" stroke={C.ink} strokeWidth={LINE.base} strokeLinecap="round" />
+      <path data-qa="mark" d="M520 470 Q600 300 690 292" fill="none" stroke={C.ink} strokeWidth={LINE.base} strokeLinecap="round" />
+      <path data-qa="mark" data-qa-allow="mark" d="M676 262 L730 288 L680 322 Z" fill={C.ink} />
       <Big x={1060} y={430} text="上方婚" fs={150} />
       <Label x={1066} y={540}>自分より学歴や年収が</Label>
       <Label x={1066} y={600}>上の相手と結婚すること</Label>
@@ -383,10 +457,13 @@ export const B08: React.FC = () => {
         <Label x={X(1) + 20} y={Y(0.55) + 14} color={C.male}>男性</Label>
         <Label x={X(0.55)} y={Y(0.82)} anchor="middle" weight={900}>このあと、妻のほうが学歴が上の夫婦が増えた</Label>
         <Label x={X(0)} y={Y(0.95)} color={C.ink2}>120か国・約50年分の結婚の記録</Label>
+        <circle data-qa="mark" data-qa-label="追い越す点" data-qa-allow="mark" cx={X(0.286)} cy={Y(0.264)} r={22} fill="none" stroke={C.ink} strokeWidth={LINE.base} />
+        <Label x={X(0.286)} y={Y(0.264) + 76} anchor="middle" color={C.ink2}>追い越す</Label>
         <Label x={X(0)} y={Y(0) + 56} color={C.ink2}>昔</Label>
         <Label x={X(1)} y={Y(0) + 56} anchor="end" color={C.ink2}>いま</Label>
       </Svg>
       <SourceNote text={`模式図。${S20NOTE}`} />
+      <Schematic />
     </AbsoluteFill>
   );
 };
@@ -402,23 +479,39 @@ export const B09: React.FC = () => (
       <Label x={120} y={640} weight={900}>女性に多い</Label>
       <CouplePairs x={640} y={670} items={couples(10, 4, 2, 0).map((c, i) => ({ ...c, mark: i >= 4 && i < 6 }))} cols={10} />
       <Label x={640} y={770} color={C.ink2}>濃い色＝大学を出た人。縁どりの組＝妻のほうが学歴が上</Label>
+      <Label x={120} y={410} color={C.ink2}>妻が上 0組</Label>
+      <Label x={120} y={700} weight={900}>妻が上 2組</Label>
     </Svg>
     <SourceNote text="模式図（10組）。好みを変えない計算：Grow & Van Bavel（2015）、Esteve ほか（2016）" />
+    <Schematic />
   </AbsoluteFill>
 );
-export const B10: React.FC = () => (
-  <AbsoluteFill>
-    <ChapterDots current={1} />
-    <Heading>日本：妻のほうが学歴が上の夫婦（妻が30代）</Heading>
-    <Svg>
-      <BarChart x={360} y={260} width={900} height={420} max={40} format={(v) => `${Math.round(v)}%`} bars={[
-        { label: "1980年", value: 11.8 }, { label: "2010年", value: 20.9, focus: true },
-      ]} />
-      <Label x={1340} y={480} weight={900}>約1割 → 約2割</Label>
-    </Svg>
-    <SourceNote text="福田・余田・茂木（2021）国勢調査の個票。妻30〜39歳の夫婦。2010年のうち12ポイントは妻が短大・専門で夫が高卒" />
-  </AbsoluteFill>
-);
+/** 2010年の約2割の内訳（S18）：専門・短大の妻×高卒の夫 12.2、大卒の妻×大卒でない夫 4.8、そのほか 3.9 */
+export const B10: React.FC = () => {
+  const base = 700, k = 420 / 30, W = 260;
+  const seg = [[12.2, C.gold, "妻が短大・専門、夫が高卒"], [4.8, C.goldTint, "妻が大卒、夫が大卒でない"], [3.9, C.paper2, "そのほか"]] as const;
+  let acc = 0;
+  return (
+    <AbsoluteFill>
+      <ChapterDots current={1} />
+      <Heading>日本：妻のほうが学歴が上の夫婦（妻が30代）</Heading>
+      <Svg>
+        <line x1={240} x2={1000} y1={base} y2={base} stroke={C.ink} strokeWidth={LINE.thin} />
+        <rect data-qa="mark" data-qa-label="1980年" x={300} y={base - 11.8 * k} width={W} height={11.8 * k} rx={R.sm} fill={C.rest} />
+        <Label x={430} y={base - 11.8 * k - 24} anchor="middle" size="value">約1割</Label>
+        <Label x={430} y={base + 56} anchor="middle" color={C.ink2}>1980年</Label>
+        {seg.map(([v, col]) => { const y = base - (acc + v) * k; acc += v; return <rect key={v} data-qa="mark" data-qa-label={`2010年 ${v}`} x={680} y={y} width={W} height={v * k - 3} fill={col} stroke={C.ink} strokeWidth={2} />; })}
+        <Label x={810} y={base - 20.9 * k - 24} anchor="middle" size="value">約2割</Label>
+        <Label x={810} y={base + 56} anchor="middle" color={C.ink2}>2010年</Label>
+        {(() => { let a = 0; return seg.map(([v, col, t]) => { const cy = base - (a + v / 2) * k; a += v; return (
+          <g key={t}><rect x={1000} y={cy - 16} width={32} height={32} rx={6} fill={col} stroke={C.ink} strokeWidth={2} /><Label x={1050} y={cy + 14}>{`${t}　${v}`}</Label></g>
+        ); }); })()}
+        <Label x={1000} y={240} color={C.ink2}>2010年の内訳（ポイント）</Label>
+      </Svg>
+      <SourceNote text="福田・余田・茂木（2021）国勢調査の個票。妻30〜39歳の夫婦（1980年11.8%、2010年20.9%）" />
+    </AbsoluteFill>
+  );
+};
 export const B11: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={1} />
@@ -451,10 +544,13 @@ export const C01: React.FC = () => {
         <path data-qa="mark" data-qa-label="身長の山" data-qa-allow="text" d={curve} fill="none" stroke={BODY} strokeWidth={LINE.base} />
         <line x1={X(150)} x2={X(190)} y1={720} y2={720} stroke={C.ink} strokeWidth={LINE.thin} />
         {[150, 160, 170, 180, 190].map((c) => <Label key={c} x={X(c)} y={780} anchor="middle" color={c === 170 ? C.ink : C.ink2}>{`${c}cm`}</Label>)}
-        <line data-qa="mark" x1={X(170)} x2={X(170)} y1={300} y2={720} stroke={C.ink} strokeWidth={LINE.base} />
-        <Label x={X(170) - 24} y={290} anchor="end" color={C.ink2}>平均 約171cm</Label>
-        <Label x={X(178)} y={540} weight={900}>170cm以上</Label>
-        <Label x={X(178)} y={600} weight={900}>半分を少し超える</Label>
+        <line data-qa="mark" data-qa-label="170cm" x1={X(170)} x2={X(170)} y1={300} y2={720} stroke={C.ink} strokeWidth={LINE.base} />
+        <line data-qa="mark" data-qa-label="平均" data-qa-allow="mark" x1={X(171)} x2={X(171)} y1={330} y2={720} stroke={C.ink2} strokeWidth={LINE.thin} strokeDasharray="10 10" />
+        <Label x={X(170) - 24} y={290} anchor="end" color={C.ink2}>170cm</Label>
+        <Label x={X(171) + 24} y={290} color={C.ink2}>平均 約171cm（点線）</Label>
+        <Label x={1400} y={400} weight={900}>170cm以上は</Label>
+        <Label x={1400} y={480} size="value">約55%</Label>
+        <Label x={1400} y={540} weight={900}>半分を少し超える</Label>
       </Svg>
       <SourceNote text="国民健康・栄養調査2023。男性20〜39歳の平均と標準偏差から描いた山（170cm以上 約55%）" />
     </AbsoluteFill>
@@ -467,7 +563,7 @@ export const C02: React.FC = () => (
     <Heading>年収のちょうどまん中</Heading>
     <HeroNumber value={350} prefix="約" unit="万円" x={200} y={460} />
     <Svg>
-      <YenRuler x={200} y={660} w={1400} marks={[{ v: 350, text: "まん中" }, { v: 500, text: "少しだけ上のつもり", up: 0, dashed: true, color: C.ink2 }]} />
+      <YenRuler x={200} y={660} w={1400} marks={[{ v: 350, text: "まん中" }, { v: 500, text: "彼女の目盛り（500万円）", up: 0, dashed: true, color: C.ink2 }]} />
     </Svg>
     <SourceNote text="就業構造基本調査2022 第40表。25〜34歳の働いている未婚の男性。中央値 約345万円（この動画の計算）" />
   </AbsoluteFill>
@@ -485,8 +581,9 @@ export const Income: React.FC<{ tail?: boolean; head: string }> = ({ tail, head 
         <Label x={x + w} y={800} anchor="end" color={C.ink2}>年収（万円台）。働いている1000人あたり</Label>
         {tail && <>
           <line data-qa="mark" data-qa-label="500万円の目盛り" x1={x + slot * 5} x2={x + slot * 5} y1={250} y2={670} stroke={C.ink} strokeWidth={LINE.base} strokeDasharray="14 10" />
-          <Label x={x + slot * 5 + 24} y={270} weight={900}>500万円の目盛り</Label>
+          <Label x={x + slot * 5 + 24} y={270} weight={900}>彼女の目盛り（500万円）</Label>
           <Label x={x + slot * 6.5} y={430} anchor="middle" size="value">約150人</Label>
+          <Label x={x + slot * 5 + 24} y={330} color={C.ink2}>冒頭の132人は、働いていない人も含めた数</Label>
         </>}
       </Svg>
       <SourceNote text={S2NOTE} />
@@ -494,13 +591,13 @@ export const Income: React.FC<{ tail?: boolean; head: string }> = ({ tail, head 
   );
 };
 export const C03: React.FC = () => <Income head="年収の山：いちばん多いのは300万円台" />;
-export const C04: React.FC = () => <Income tail head="500万円の目盛りは、高いほうのすその上" />;
+export const C04: React.FC = () => <Income tail head="彼女の目盛りは、高いほうのすその上" />;
 export const C05: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={2} />
     <Heading>年収500万円以上（25〜34歳の男性）</Heading>
     <Svg><TwoHundreds kind="male" left={{ lit: 15, title: "未婚の男性", value: "1000人に150人" }} right={{ lit: 39, title: "結婚したことのある男性", value: "1000人に390人" }} /></Svg>
-    <SourceNote text={`${S2NOTE.replace("未婚の", "")}。1人＝10人`} />
+    <SourceNote text={S2NOTE.replace("未婚の", "")} />
   </AbsoluteFill>
 );
 export const C06: React.FC = () => (
@@ -515,20 +612,25 @@ export const C06: React.FC = () => (
     <SourceNote text="就業構造基本調査2022 第40表。30〜34歳の働いている男性で年収500万円以上の割合" />
   </AbsoluteFill>
 );
-export const AROUND = ["友だちの夫", "職場の先輩", "友だちの夫", "先輩"];
+export const AROUND = ["友だちの夫", "職場の先輩", "友だちの夫", "職場の先輩"];
+/** 結婚指輪（人の胸の前に小さく。「もう結婚している」の印） */
+export const Ring: React.FC<{ x: number; y: number; r?: number }> = ({ x, y, r = 16 }) => (
+  <g data-qa="mark" data-qa-label="指輪" data-qa-allow="figure"><circle cx={x} cy={y} r={r} fill="none" stroke={MONEY} strokeWidth={6} /><circle cx={x} cy={y - r} r={5} fill={C.white} stroke={MONEY} strokeWidth={3} /></g>
+);
 export const C07: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={2} />
-    <Heading>彼女のまわりで目に入る、同じ年ごろの男性</Heading>
+    <Heading>彼女のまわりの、同じ年ごろの男性</Heading>
     <Svg>
-      <Cat kind="female" x={330} y={780} size={3} pose="stand" face="normal" facing={1} label="彼女" />
+      <Cat kind="female" x={330} y={FLOOR} size={5} pose="stand" face="normal" facing={1} label="彼女" />
       {AROUND.map((t, i) => (
         <g key={i}>
-          <Figure kind="male" x={760 + i * 280} y={720} size={2.6} />
-          <Label x={760 + i * 280} y={460} anchor="middle">{t}</Label>
+          <Figure kind="male" x={780 + i * 300} y={640} size={2.8} />
+          <Ring x={780 + i * 300 + 48} y={560} />
+          <Label x={780 + i * 300} y={720} anchor="middle">{t}</Label>
         </g>
       ))}
-      <Label x={1180} y={800} anchor="middle" color={C.ink2}>みんな、もう結婚している</Label>
+      <Label x={1230} y={800} anchor="middle" weight={900}>みんな、もう結婚している</Label>
     </Svg>
   </AbsoluteFill>
 );
@@ -536,10 +638,11 @@ export const C08: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={2} />
     <Svg>
-      <circle data-qa="mark" data-qa-label="身のまわり" data-qa-allow="figure" cx={520} cy={520} r={290} fill="none" stroke={C.ink} strokeWidth={LINE.thin} strokeDasharray="16 12" />
-      <Label x={520} y={210} anchor="middle" color={C.ink2}>身のまわり</Label>
-      <Cat kind="female" x={520} y={660} size={1.8} pose="stand" face="think" />
-      {[[360, 470], [680, 470], [330, 650], [710, 650], [520, 380]].map(([x, y], i) => <Figure key={i} kind="male" x={x} y={y} size={1.6} />)}
+      {[[90, 300], [150, 760], [960, 260], [900, 790], [70, 540]].map(([x, y], i) => <Figure key={`o${i}`} kind="male" x={x} y={y} size={1.4} dim />)}
+      <circle data-qa="mark" data-qa-label="身のまわり" data-qa-allow="figure" cx={520} cy={540} r={300} fill="none" stroke={C.ink} strokeWidth={LINE.thin} strokeDasharray="16 12" />
+      <Label x={520} y={220} anchor="middle" color={C.ink2}>身のまわり</Label>
+      <Cat kind="female" x={520} y={700} size={4.5} pose="stand" face="normal" facing={0} label="彼女" />
+      {[[330, 470], [710, 470], [300, 690], [740, 690]].map(([x, y], i) => <Figure key={i} kind="male" x={x} y={y} size={1.8} />)}
       <Label x={940} y={420} size="value" fs={84}>社会的サンプリング</Label>
       <Label x={946} y={520}>身のまわりの人を見本にして、</Label>
       <Label x={946} y={580}>世の中の「普通」を見積もる</Label>
@@ -553,33 +656,43 @@ export const C09: React.FC = () => (
     <ChapterDots current={2} />
     <Heading>まわりで付けた目盛りは、高すぎる所を指す</Heading>
     <Svg>
-      <YenRuler x={200} y={560} w={1400} marks={[{ v: 350, text: "未婚の男性のまん中" }, { v: 500, text: "心の中の普通の目盛り", up: 1, dashed: true }]} />
+      <YenRuler x={200} y={560} w={1400} marks={[{ v: 350, text: "未婚の男性のまん中" }, { v: 500, text: "彼女の目盛り（500万円）", up: 1, dashed: true }]} />
     </Svg>
     <SourceNote text={`${S2NOTE}。心の中の目盛りは、この動画の仮説`} prefix="" />
   </AbsoluteFill>
+);
+/** どちらが先か：左は「稼ぐ（金の丸）→ 指輪」、右は「指輪 → 稼ぐ」。矢印の向きで時間の順を見せる */
+export const Coin: React.FC<{ x: number; y: number }> = ({ x, y }) => (
+  <g data-qa="mark" data-qa-label="お金"><circle cx={x} cy={y} r={44} fill={C.goldTint} stroke={MONEY} strokeWidth={LINE.base} /><text x={x} y={y + 16} textAnchor="middle" style={{ ...font("label", C.ink), fontWeight: 900 }}>円</text></g>
 );
 export const C10: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={2} />
     <Heading>どちらが先かは、分からない</Heading>
     <Svg>
-      {[["稼ぐ人が", "先に選ばれた"], ["結婚してから", "稼ぐようになった"]].map(([a, b], i) => (
-        <g key={a} data-qa="prop" data-qa-label={a}>
-          <rect x={160 + i * 820} y={300} width={760} height={360} rx={R.lg} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
-          <Label x={540 + i * 820} y={440} anchor="middle" size="value" fs={56}>{a}</Label>
-          <Label x={540 + i * 820} y={540} anchor="middle" size="value" fs={56}>{b}</Label>
-          <Label x={540 + i * 820} y={620} anchor="middle" color={C.ink2}>かもしれない</Label>
-        </g>
-      ))}
+      {[["稼ぐ人が", "先に選ばれた", true], ["結婚してから", "稼ぐようになった", false]].map(([a, b, coinFirst], i) => {
+        const cx = 540 + i * 820;
+        return (
+          <g key={String(a)} data-qa="prop" data-qa-label={String(a)}>
+            <rect x={160 + i * 820} y={260} width={760} height={460} rx={R.lg} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
+            {coinFirst ? <><Coin x={cx - 150} y={370} /><Ring x={cx + 150} y={378} r={34} /></> : <><Ring x={cx - 150} y={378} r={34} /><Coin x={cx + 150} y={370} /></>}
+            <path data-qa="mark" d={`M${cx - 70} 370 L${cx + 60} 370`} stroke={C.ink} strokeWidth={LINE.base} strokeLinecap="round" />
+            <path data-qa="mark" d={`M${cx + 50} 350 L${cx + 80} 370 L${cx + 50} 390 Z`} fill={C.ink} />
+            <Label x={cx} y={520} anchor="middle" size="value" fs={56}>{String(a)}</Label>
+            <Label x={cx} y={600} anchor="middle" size="value" fs={56}>{String(b)}</Label>
+            <Label x={cx} y={680} anchor="middle" color={C.ink2}>かもしれない</Label>
+          </g>
+        );
+      })}
     </Svg>
   </AbsoluteFill>
 );
 export const C11: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={2} />
-    <Heading>女性では、ほとんど差がない（年収500万円以上）</Heading>
-    <Svg><TwoHundreds kind="female" left={{ lit: 7, title: "未婚の女性", value: "1000人に70人" }} right={{ lit: 9, title: "結婚したことのある女性", value: "1000人に88人" }} /></Svg>
-    <SourceNote text="就業構造基本調査2022 第40表。25〜34歳の働いている女性。1人＝10人" />
+    <Heading>女性では、ほとんど差がない</Heading>
+    <Svg><TwoHundreds kind="female" left={{ lit: 7, title: "未婚の女性（500万円以上）", value: "1000人に70人" }} right={{ lit: 9, title: "結婚したことのある女性", value: "1000人に88人" }} /></Svg>
+    <SourceNote text="就業構造基本調査2022 第40表。25〜34歳の働いている女性" />
   </AbsoluteFill>
 );
 export const C12: React.FC = () => (
@@ -591,6 +704,8 @@ export const C12: React.FC = () => (
         <rect x={160} y={400} width={1600 * 0.48} height={140} rx={R.sm} fill={C.ink} />
         <rect x={160 + 1600 * 0.48 + 8} y={400} width={1600 * 0.52 - 8} height={140} rx={R.sm} fill={C.rest} />
       </g>
+      <Label x={190} y={492} size="value" color={C.white}>48%</Label>
+      <Label x={1730} y={492} anchor="end" size="value">52%</Label>
       <Label x={160} y={370} weight={900}>みんなに共通 約半分</Label>
       <Label x={1760} y={370} anchor="end" weight={900}>人それぞれ 約半分</Label>
       <Label x={160} y={620} color={C.ink2}>容姿の「普通」の目盛りは、人によって位置が違う</Label>
@@ -641,25 +756,30 @@ export const D03: React.FC = () => (
   </AbsoluteFill>
 );
 export const STAIRS = [1000, 529, 228, 160, 125, 81, 52];
+/** 掛け算の階段：冒頭の検索画面に6つの条件の行を出し、1つずつチェック（棒グラフが続かないように画面と100人で見せる。2026-10-07 アニメーター役） */
 export const Stairs: React.FC<{ n: number; head: string; post?: boolean }> = ({ n, head, post }) => (
   <AbsoluteFill>
     <ChapterDots current={3} />
     <Heading>{head}</Heading>
     <Svg>
-      <BarChart x={120} y={300} width={1560} height={420} max={1000} barWidth={130} format={(v) => `${Math.round(v)}人`}
-        bars={STAIRS.map((v, i) => ({ label: i ? SIX[i - 1][0] : "男性", value: i < n ? v : 0, color: i === n - 1 ? C.female : C.femaleTint, focus: i === n - 1 }))} />
-      {post && <Label x={1680} y={250} anchor="end" color={C.ink2}>投稿の計算なら 16人</Label>}
+      <SearchScreen x={400} y={500} h={640} count={STAIRS[n - 1]} prev={n > 1 ? STAIRS[n - 2] : undefined} title="女性たちの条件"
+        rows={SIX.map(([l, col], i) => ({ label: l, on: i < n - 1, mark: i === n - 2, axis: col === C.other ? undefined : col }))} />
+      <Label x={780} y={250} color={C.ink2}>{STAIRS.slice(0, n).join(" → ")}</Label>
+      {post && <Label x={780} y={316} weight={900}>投稿の計算なら 16人</Label>}
+      <Hundred x={760} y={356} kind="male" lit={first(Math.round(STAIRS[n - 1] / 10))} dx={46} />
+      <Label x={1700} y={420} weight={900}>1人</Label>
+      <Label x={1700} y={470} weight={900}>＝10人</Label>
     </Svg>
     <SourceNote text="鈴木・八代（2025）表2の、条件1つだけの割合を順に掛けた（この動画の計算）" />
   </AbsoluteFill>
 );
-export const D04: React.FC = () => <Stairs n={3} head="女性たちの条件：男性1000人に、通る割合を掛ける" />;
+export const D04: React.FC = () => <Stairs n={3} head="女性たちの条件を、1つずつ掛ける" />;
 export const D05: React.FC = () => <Stairs n={7} head="6回掛けると、52人" post />;
 export const Survivors: React.FC<{ x: number; y: number; n: number; title: string; value: string; kind?: Kind }> = ({ x, y, n, title, value, kind = "male" }) => (
   <g>
     <Label x={x} y={y}>{title}</Label>
-    {Array.from({ length: n }, (_, i) => <Figure key={i} kind={kind} x={x + 20 + (i % 20) * 38} y={y + 90 + Math.floor(i / 20) * 70} size={1.0} />)}
-    <Label x={x} y={y + 90 + Math.ceil(n / 20) * 70 + 20} size="value">{value}</Label>
+    {Array.from({ length: n }, (_, i) => <Figure key={i} kind={kind} x={x + 16 + (i % 24) * 32} y={y + 90 + Math.floor(i / 24) * 62} size={1.0} />)}
+    <Label x={x} y={y + 90 + Math.ceil(n / 24) * 62 + 30} size="value">{value}</Label>
   </g>
 );
 export const D06: React.FC = () => (
@@ -667,10 +787,11 @@ export const D06: React.FC = () => (
     <ChapterDots current={3} />
     <Heading>1人ずつ、実際に条件を重ねて数えると</Heading>
     <Svg>
-      <Survivors x={140} y={230} n={52} title="掛け算" value="52人" />
-      <Survivors x={1000} y={230} n={133} title="実際に重ねる" value="133人" />
+      <Survivors x={140} y={220} n={52} title="掛け算" value="52人" />
+      <Survivors x={1000} y={220} n={133} title="実際に重ねる" value="133人" />
+      <Label x={1820} y={780} anchor="end" color={C.ink2} weight={900}>ここは1人＝1人</Label>
     </Svg>
-    <SourceNote text="鈴木・八代（2025）表2（女性の希望率13.3%）。ここは1人＝1人" />
+    <SourceNote text="鈴木・八代（2025）表2（女性の希望率13.3%）。男性1000人あたり" />
   </AbsoluteFill>
 );
 export const D07: React.FC = () => (
@@ -679,6 +800,7 @@ export const D07: React.FC = () => (
     <Heading>条件を一度にいくつも満たす人が多い</Heading>
     <Svg><TwoRulers x={100} y={220} dx={54} xCuts={[{ at: 10, label: "大学 49%", on: true }, { at: 17, label: "年収500万円 13%", on: true }]} yCut={{ at: 3, label: "170cm 約55%", on: false }} /></Svg>
     <SourceNote text="模式図（横＝お金の物差しの順、縦＝身長の順）" prefix="" />
+    <Schematic />
   </AbsoluteFill>
 );
 export const D08: React.FC = () => (
@@ -697,11 +819,15 @@ export const D09: React.FC = () => (
     <ChapterDots current={3} />
     <Heading>ここまでだと、数パーセントは外れに見える</Heading>
     <Svg>
-      <Label x={200} y={330} color={C.ink2}>女性の条件で数えた男性</Label>
-      <Big x={200} y={500} text="133人" fs={150} sub="1割を超える" />
-      <Label x={1000} y={330} color={C.ink2}>男性の条件で数えた女性</Label>
-      <Big x={1000} y={500} text="325人" fs={150} sub="3割を超える" />
-      <Label x={200} y={730} weight={900}>まだ残っている前提：③ 選ぶのは、自分だけ</Label>
+      <Label x={100} y={210} color={C.ink2}>女性の条件で数えた男性</Label>
+      <Hundred x={100} y={225} kind="male" lit={spread(13)} dx={40} />
+      <Label x={100} y={740} size="value">1000人に133人</Label>
+      <Label x={1000} y={210} color={C.ink2}>男性の条件で数えた女性</Label>
+      <Hundred x={1000} y={225} kind="female" lit={spread(33)} dx={40} />
+      <Label x={1000} y={740} size="value">1000人に325人</Label>
+      <Label x={1820} y={210} anchor="end" color={C.ink2} weight={900}>1人＝10人</Label>
+      <PremiseIcon i={2} x={100} cy={815} />
+      <Label x={300} y={832} weight={900}>まだ残っている前提：③ 選ぶのは、自分だけ</Label>
     </Svg>
   </AbsoluteFill>
 );
@@ -712,10 +838,21 @@ export const D10: React.FC = () => (
     <Svg>
       <SearchScreen x={560} y={500} h={640} count={59} rows={ROWS(3)} title="彼女の画面" />
       <SearchScreen x={1360} y={500} h={640} count="？" unit="" title="あの人の画面" rows={QROWS} />
-      <Label x={960} y={520} anchor="middle" size="value">⇄</Label>
+      <Label x={960} y={540} anchor="middle" size="hero" fs={120}>⇄</Label>
+      <Cat kind="male" x={1720} y={FLOOR} size={3.5} pose="stand" face="normal" facing={-1} label="あの人" />
     </Svg>
     <SourceNote text="お断りは、あの人のほうから出した" prefix="" />
   </AbsoluteFill>
+);
+/** 砂時計（スピードデートの4分） */
+export const Hourglass: React.FC<{ x: number; y: number }> = ({ x, y }) => (
+  <g data-qa="mark" data-qa-label="砂時計">
+    <rect x={x - 50} y={y - 72} width={100} height={12} rx={4} fill={C.ink} />
+    <rect x={x - 50} y={y + 60} width={100} height={12} rx={4} fill={C.ink} />
+    <path d={`M${x - 38} ${y - 60} L${x + 38} ${y - 60} L${x + 6} ${y} L${x + 38} ${y + 60} L${x - 38} ${y + 60} L${x - 6} ${y} Z`} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
+    <path d={`M${x - 20} ${y - 32} L${x + 20} ${y - 32} L${x} ${y - 4} Z`} fill={MONEY} />
+    <path d={`M${x - 30} ${y + 56} L${x + 30} ${y + 56} L${x} ${y + 26} Z`} fill={MONEY} />
+  </g>
 );
 export const D11: React.FC = () => (
   <AbsoluteFill>
@@ -729,6 +866,8 @@ export const D11: React.FC = () => (
           <Figure kind="female" x={510 + i * 540} y={560} size={2} pose="sit" facing={-1} />
         </g>
       ))}
+      <Hourglass x={1720} y={300} />
+      <Label x={1720} y={420} anchor="middle" weight={900}>4分</Label>
       <Label x={160} y={700} weight={900}>男性：自分より野心があると感じた女性を、選びにくい</Label>
       <Label x={160} y={770}>女性：この傾向は出なかった</Label>
     </Svg>
@@ -738,12 +877,12 @@ export const D11: React.FC = () => (
 export const D12: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={3} />
-    <Heading>お互いの条件を満たし合う組は、1000組のうち？</Heading>
+    <Heading>お互いを通る組は、1000組のうち？</Heading>
     <Svg>
-      <Label x={100} y={240} color={C.ink2}>女性の条件を満たす男性</Label>
-      <Hundred x={100} y={270} kind="male" lit={spread(13)} dx={40} />
-      <Label x={1000} y={240} color={C.ink2}>男性の条件を満たす女性</Label>
-      <Hundred x={1000} y={270} kind="female" lit={spread(33)} dx={40} />
+      <Label x={100} y={210} color={C.ink2}>女性の条件を満たす男性</Label>
+      <Hundred x={100} y={230} kind="male" lit={spread(13)} dx={40} />
+      <Label x={1000} y={210} color={C.ink2}>男性の条件を満たす女性</Label>
+      <Hundred x={1000} y={230} kind="female" lit={spread(33)} dx={40} />
       <Label x={960} y={800} anchor="middle" size="value">両方を通る組は？</Label>
     </Svg>
     <SourceNote text={`${S15NOTE}。1人＝10人`} />
@@ -752,7 +891,7 @@ export const D12: React.FC = () => (
 
 // ================= 答え合わせ =================
 export const E01: React.FC = () => <AbsoluteFill><TodayCard claim="普通の相手は、数%しかいない" /><Gosa cues={[[-60, "thinking"]]} size="M" /></AbsoluteFill>;
-export const E02: React.FC = () => <AbsoluteFill><Quiz question={QUIZ_Q} choices={QUIZ_C} answer={2} reveal /></AbsoluteFill>;
+export const E02: React.FC = () => <AbsoluteFill><Quiz question={QUIZ_Q} choices={QUIZ_C} title={QUIZ_T} answer={2} reveal /></AbsoluteFill>;
 export const E03: React.FC = () => (
   <AbsoluteFill>
     <Heading>実際の研究では、1000組に38組</Heading>
@@ -774,6 +913,7 @@ export const E05: React.FC<{ pairs?: boolean }> = ({ pairs = true }) => (
   <AbsoluteFill>
     <Heading>投稿の計算から、もう一度たどる</Heading>
     <Svg>
+      <Label x={120} y={240} color={C.ink2}>ここまでは人の数</Label>
       <BarChart x={120} y={280} width={1000} height={420} max={140} barWidth={170} format={(v) => `${Math.round(v)}人`} bars={[
         { label: "投稿の計算", value: 16, color: C.rest }, { label: "掛け算", value: 52, color: C.femaleTint }, { label: "実際に重ねる", value: 133, color: C.female, focus: true },
       ]} />
@@ -795,7 +935,7 @@ export const E06: React.FC = () => (
 );
 export const E07: React.FC = () => (
   <AbsoluteFill>
-    <Heading>ただし、38組は会う前に書いた条件の上の数字</Heading>
+    <Heading>38組は、会う前に書いた条件の数字</Heading>
     <Svg>
       {SIX.map(([s, col], i) => (
         <g key={s} data-qa="prop" data-qa-label={s}>
@@ -819,36 +959,51 @@ export const E07: React.FC = () => (
 // ================= 教訓 =================
 export const F01: React.FC = () => (
   <AbsoluteFill>
-    <Room face="think"><Card x={150} y={190} w={560} head="架空の投稿" lines={["1000人が、16人"]} /></Room>
+    <Washroom face="think" look={[-0.3, -0.4]} time="0:02"><Notice head="架空の投稿" lines={["1000人が、16人"]} x={1040} w={600} /></Washroom>
     <Tag text="日付が変わるころ" />
   </AbsoluteFill>
 );
-export const F02: React.FC = () => (
-  <AbsoluteFill>
-    <Heading>500万円の目盛りは、まわりで見てきた人たちで</Heading>
-    <Svg>
-      <YenRuler x={200} y={560} w={1400} marks={[{ v: 500, text: "彼女の目盛り", dashed: true }]} />
-      {[0, 1, 2, 3].map((i) => <Figure key={i} kind="male" x={1150 + i * 110} y={430} size={1.6} />)}
-      <Label x={1150} y={270} color={C.ink2}>友だちの夫・先輩</Label>
-    </Svg>
-  </AbsoluteFill>
-);
+export const F02: React.FC = () => {
+  const X = (v: number) => 200 + ((v - 100) / 700) * 1400;
+  return (
+    <AbsoluteFill>
+      <Heading>彼女の目盛りは、まわりで見てきた人たちで</Heading>
+      <Svg>
+        <YenRuler x={200} y={560} w={1400} marks={[{ v: 500, text: "彼女の目盛り（500万円）", up: 1, dashed: true }]} />
+        {[540, 600, 660, 720].map((v, i) => (
+          <g key={v}><Figure kind="male" x={X(v)} y={556} size={1.8} /><Ring x={X(v) + 30} y={500} r={12} /></g>
+        ))}
+        <Label x={X(630)} y={420} anchor="middle" color={C.ink2}>友だちの夫・職場の先輩</Label>
+      </Svg>
+    </AbsoluteFill>
+  );
+};
 export const F03: React.FC = () => (
   <AbsoluteFill>
     <Heading>目盛りを持っているのは、彼女だけではない</Heading>
     <Svg>
-      <Cat kind="female" x={260} y={500} size={2} pose="stand" face="think" facing={1} label="彼女" />
-      <Cat kind="male" x={260} y={790} size={2} pose="stand" face="normal" facing={1} label="あの人" />
+      <Cat kind="female" x={300} y={500} size={4} pose="stand" face="think" facing={1} label="彼女" />
+      <Cat kind="male" x={300} y={800} size={4} pose="stand" face="normal" facing={1} label="あの人" />
     </Svg>
     <Slider label="彼女の目盛り（年収）" stops={STOPS} keys={[[0, 3]]} x={600} y={390} w={1000} />
     <Slider label="あの人の目盛り" stops={["？", "？", "？", "？", "？"]} keys={[[0, 2]]} x={600} y={690} w={1000} />
   </AbsoluteFill>
 );
+/** 締め：2本の金の帯（彼女の目盛りを通る範囲・あの人の目盛りを通る範囲）が重なり、重なりの下で2匹が向き合う。朝の光 */
 export const F04: React.FC = () => (
   <AbsoluteFill>
     <Svg>
-      <Cat kind="female" x={760} y={640} size={3} pose="stand" face="normal" facing={1} label="彼女" />
-      <Cat kind="male" x={1160} y={640} size={3} pose="stand" face="happy" facing={-1} label="あの人" />
+      <rect data-qa="bg" x={0} y={0} width={1920} height={1080} fill={C.goldTint} opacity={0.35} />
+      <g data-qa="mark" data-qa-label="2本の帯" data-qa-allow="mark">
+        <rect x={240} y={150} width={1000} height={110} rx={R.lg} fill={MONEY} opacity={0.35} />
+        <rect x={680} y={190} width={1000} height={110} rx={R.lg} fill={MONEY} opacity={0.35} />
+        <rect x={680} y={190} width={560} height={70} fill={MONEY} opacity={0.5} />
+      </g>
+      <Label x={270} y={215} color={C.ink}>彼女の目盛りを通る</Label>
+      <Label x={1650} y={285} anchor="end" color={C.ink}>あの人の目盛りを通る</Label>
+      <Label x={960} y={240} anchor="middle" weight={900}>どちらも通れる</Label>
+      <Cat kind="female" x={760} y={660} size={5.5} pose="stand" face="normal" facing={1} label="彼女" />
+      <Cat kind="male" x={1160} y={660} size={5.5} pose="stand" face="happy" facing={-1} label="あの人" />
     </Svg>
     <div style={{ position: "absolute", left: 96, top: 720, width: 1728, ...font("value"), fontSize: 52, textAlign: "center" }}>
       普通の相手とは、お互いの目盛りを、どちらも通れる人のことでした。
@@ -861,7 +1016,7 @@ export const F06: React.FC = () => <AbsoluteFill><SignOff end /></AbsoluteFill>;
 
 const panels: Panel[] = [
   // 冒頭（opening 29.0 / opening-sns 24.5 / opening-screen 52.7）
-  { key: "A01", title: "冒頭：日曜の夜の洗面所", C: A01, sec: 12, move: "夜の洗面所。歯ブラシをくわえた彼女のスマホが光る → 右上に「お断りの連絡」の札が降りる" },
+  { key: "A01", title: "冒頭：日曜の夜の洗面所", C: A01, sec: 12, move: "照明の消えた夜の洗面所。歯ブラシをくわえた彼女のスマホが光る → 通知の札がスマホから上へ浮かび上がる → 顔が曇る" },
   { key: "A02", title: "冒頭：2回目のお見合い（回想）", C: A02, sec: 17, move: "回想（色を少し淡く）。向かい合う2匹の頭の高さに青緑の点線（背が同じ）→ 札「160cmくらい」「担当の人『一度だけ』」が1行ずつ" },
   { key: "A03a", title: "冒頭：架空の投稿", C: A03a, sec: 12, move: "スマホに寄ると投稿。見出し → 本文が1行ずつ（読む声に合わせて）" },
   { key: "A03b", title: "冒頭：投稿の計算 1000→16人", C: A03b, sec: 12.5, move: "1000人の正方形が半分に割れては右へ送られ、6回で16人（墨）。面積＝人数" },
@@ -881,7 +1036,7 @@ const panels: Panel[] = [
   { key: "B02", title: "第1章：容姿は男女とも約8割", C: B02, sec: 17, move: "容姿の段が足される。男性の棒が先に伸び、女性の棒が同じ長さまで（「そして女性も」で）" },
   { key: "B03", title: "第1章：経済力で差", C: B03, sec: 15, move: "経済力の段。女性の棒が長く伸びる" },
   { key: "B04", title: "第1章：男性 4人に1人 → 2人に1人", C: B04, sec: 13, move: "1992年の淡い棒 → 2021年の濃い棒が伸びる（男性）→ 女性の2本はほぼ同じ" },
-  { key: "B05", title: "第1章：重く見る男性は100人に5人", C: B05, sec: 11.5, move: "100人のうち5人だけ色が残る → 「100人に5人」" },
+  { key: "B05", title: "第1章：重く見る男性は100人に5人", C: B05, sec: 11.5, move: "100人のうち48人が薄い色に → そのうち5人だけ濃い色が残る → 「100人に5人」" },
   { key: "B06", title: "第1章：もっと高いほうがよかった", C: B06, sec: 19, move: "女性45%・男性16%の棒が伸びる → 「過半数は答えていない」で女性の棒の上半分を点線でなぞる" },
   { key: "B07", title: "第1章：上方婚とは", C: B07, sec: 11.8, move: "段の下に妻、上に夫 → 上に向かう矢印 → 「上方婚」の文字" },
   { key: "B08", title: "第1章：女性の大卒が男性を追い越す（世界）", C: B08, sec: 14, move: "2本の線が左から伸び、女性の線が男性の線を追い越す → 交点のあとに一文（模式図）" },
@@ -898,10 +1053,10 @@ const panels: Panel[] = [
   { key: "C04", title: "第2章：500万円の目盛りはすその上", C: C04, sec: 20.8, move: "500万円の目盛り（点線）が立ち、右のすそが金に → 「約150人」→（先回り）" },
   { key: "C05", title: "第2章：結婚したことのある男性 390人", C: C05, sec: 16, move: "左に未婚の100人、右に結婚したことのある100人。色が15人と39人" },
   { key: "C06", title: "第2章：30〜34歳でも2倍以上", C: C06, sec: 8, move: "2本の棒が伸びる" },
-  { key: "C07", title: "第2章：まわりの男性", C: C07, sec: 9, move: "彼女のまわりに、友だちの夫・職場の先輩が1人ずつ出る" },
+  { key: "C07", title: "第2章：まわりの男性", C: C07, sec: 9, move: "彼女の右に、友だちの夫・職場の先輩が1人ずつ出る → それぞれの胸に指輪が光る" },
   { key: "C08", title: "第2章：社会的サンプリング", C: C08, sec: 17, move: "彼女のまわりに点線の輪 → 名前と説明 → 「年収や結婚の研究ではない」" },
   { key: "C09", title: "第2章：目盛りが高すぎる所を指す", C: C09, sec: 10, move: "目盛りに「未婚の男性のまん中」→ 点線の「心の中の普通の目盛り」が500万へ" },
-  { key: "C10", title: "第2章：どちらが先か", C: C10, sec: 11, move: "左の札 → 右の札" },
+  { key: "C10", title: "第2章：どちらが先か", C: C10, sec: 11, move: "左の札（お金 → 指輪の矢印）→ 右の札（指輪 → お金）" },
   { key: "C11", title: "第2章：女性では差がない", C: C11, sec: 12, move: "女性の100人2つ。色が7人と9人" },
   { key: "C12", title: "第2章：顔の好み（双子）", C: C12, sec: 16, move: "100%の帯が左（共通）と右（人それぞれ）にほぼ半分ずつ分かれる" },
   { key: "C13", title: "第2章：1つ目の前提は年収で外れ", C: C13, sec: 13.7, move: "前提の札。①の下に結果の一行 → ②が縁どられる" },
@@ -909,15 +1064,15 @@ const panels: Panel[] = [
   { key: "D01", title: "第3章：冒頭の画面 106人", C: D01, sec: 9.8, move: "第3章の扉 → 冒頭の画面（大学の欄が縁どられる）" },
   { key: "D02", title: "第3章：枠の中は8割", C: D02, sec: 16.5, move: "100人のうち年収500万円以上の13人を墨の枠で囲む → 大卒に色：枠の中11人、外38人" },
   { key: "D03", title: "第3章：約1万人の6つの条件", C: D03, sec: 27.3, move: "6つの札（物差しの色の帯）が1枚ずつ → 下に男女の人型 → 一文" },
-  { key: "D04", title: "第3章：掛け算の階段 1000→530→230", C: D04, sec: 14, move: "男性1000人の棒の右に、年齢・年収の棒が順に（階段）" },
-  { key: "D05", title: "第3章：6回掛けて52人", C: D05, sec: 22.4, move: "残り4本が続いて52人 → 右上に「投稿の計算なら16人」" },
-  { key: "D06", title: "第3章：実際に重ねると133人", C: D06, sec: 13, move: "左に52人 →〔間〕→ 右に133人が1人ずつ並ぶ（ここは1人＝1人）" },
+  { key: "D04", title: "第3章：掛け算の階段 1000→530→230", C: D04, sec: 14, move: "冒頭の検索画面に6つの条件の行。年齢 → 年収にチェックが入るたびに人数が数え下がり、右の100人の色が消えていく" },
+  { key: "D05", title: "第3章：6回掛けて52人", C: D05, sec: 22.4, move: "残り4つにチェックが続いて52人（100人のうち5人）→ 上に「投稿の計算なら16人」" },
+  { key: "D06", title: "第3章：実際に重ねると133人", C: D06, sec: 13, move: "左に52人 →〔間〕→ 右に133人が1列ずつ並ぶ（ここは1人＝1人）" },
   { key: "D07", title: "第3章：いくつも満たす人", C: D07, sec: 9, move: "二本の物差しの図。年収の線の右に、大学の線を通った人がそろう" },
   { key: "D08", title: "第3章：男性の条件では325人", C: D08, sec: 7.4, move: "女性100人のうち33人に色 → 「325人」" },
-  { key: "D09", title: "第3章：1割超・3割超 → 3つ目の前提", C: D09, sec: 15, move: "133人と325人 → 下に「まだ残っている前提：③」" },
-  { key: "D10", title: "第3章：あの人の画面", C: D10, sec: 13, move: "彼女の画面が左へ寄り、右に同じ形の「あの人の画面」が鏡のように現れる（欄は「？」）" },
-  { key: "D11", title: "第3章：スピードデート", C: D11, sec: 20, move: "テーブルが3つ。4分の砂時計 → 男性の結果 → 女性の結果" },
-  { key: "D12", title: "第3章：お互いを通る組は？", C: D12, sec: 20.5, move: "左に男性100人（13人に色）、右に女性100人（33人に色）→ 「両方を通る組は？」" },
+  { key: "D09", title: "第3章：1割超・3割超 → 3つ目の前提", C: D09, sec: 15, move: "左右の100人に色（13人・33人）→ 下に前提③の絵と一行" },
+  { key: "D10", title: "第3章：あの人の画面", C: D10, sec: 13, move: "彼女の画面が左へ寄り、右に同じ形の「あの人の画面」が鏡のように現れる（欄は「？」）→ 右端にあの人の猫" },
+  { key: "D11", title: "第3章：スピードデート", C: D11, sec: 20, move: "テーブルが3つ。右上の砂時計の砂が落ちる（4分）→ 男性の結果 → 女性の結果" },
+  { key: "D12", title: "第3章：お互いを通る組は？", C: D12, sec: 20.5, move: "左に男性100人（13人に色）、右に女性100人（33人に色）→ 色の付いた人どうしが中央へ寄って組になろうとする →「両方を通る組は？」（掛け算の記号は出さない）" },
   // 答え合わせ（verdict 9.2 / verdict-quiz 30.4 / verdict-judge 61.4）
   { key: "E01", title: "答え合わせ：今日の説", C: E01, sec: 9.2, move: "今日の答え合わせのカードがもう一度" },
   { key: "E02", title: "答え合わせ：予想の答え C", C: E02, sec: 14, move: "予想タイムの問いと選択肢 → 〔間〕→ Cが光る" },
@@ -927,10 +1082,10 @@ const panels: Panel[] = [
   { key: "E06", title: "答え合わせ：3つの前提の結果", C: E06, sec: 12, move: "前提の札の下に、結果の一行が1枚ずつ" },
   { key: "E07", title: "答え合わせ：ただし書き", C: E07, sec: 16.4, move: "6つの札 → 下に点線の「顔」「性格」 → 研究者の断り" },
   // 教訓（lesson 49.1）・終わり（end 20）
-  { key: "F01", title: "教訓：日付が変わるころ", C: F01, sec: 11, move: "冒頭と同じ夜。部屋で座る彼女。スマホの投稿の札「1000人が、16人」" },
-  { key: "F02", title: "教訓：500万円の目盛り", C: F02, sec: 12, move: "年収の目盛りに点線の「彼女の目盛り」→ 上に、まわりの男性の人型が並ぶ" },
+  { key: "F01", title: "教訓：日付が変わるころ", C: F01, sec: 11, move: "冒頭と同じ洗面所（時刻だけ0:02）。歯ブラシは置かれている。スマホから投稿の札「1000人が、16人」が浮かぶ → 彼女が見上げる" },
+  { key: "F02", title: "教訓：500万円の目盛り", C: F02, sec: 12, move: "年収の目盛りに点線の「彼女の目盛り」→ 目盛りの右側（500万より上）に、指輪の付いたまわりの男性が立つ" },
   { key: "F03", title: "教訓：2つの目盛り", C: F03, sec: 16, move: "彼女のつまみの下に、あの人のつまみ（目盛りは「？」）が出る" },
-  { key: "F04", title: "締めの一文", C: F04, sec: 10, move: "2匹が向き合う。締めの一文 →〔間・長〕" },
+  { key: "F04", title: "締めの一文", C: F04, sec: 10, move: "朝の光。2本の金の帯が左右から伸びて重なる →「どちらも通れる」→ 2匹が向き合う → 締めの一文 →〔間・長〕" },
   { key: "F05", title: "締めのひと言（毎回同じ）", C: F05, sec: 7, move: "共通のアニメーション（SignOff）。字幕なし" },
   { key: "F06", title: "終了画面（共通）", C: F06, sec: 20, move: "共通の終了画面（SignOff end）。ナレーションなし、BGMだけ" },
 ];
