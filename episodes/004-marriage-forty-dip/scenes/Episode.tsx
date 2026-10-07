@@ -32,8 +32,8 @@ import { PercentColumns } from "@lib/PercentColumns";
 import { C, font, FPS, LINE, R, sp } from "@lib/theme";
 import timing from "../timing.json";
 import {
-  AGE_TICKS, AGE_XS, ANSWERS, AxisTitle, BAL, BalanceAt, Card, CarScene, CH, Chip, chores, Coin, DropRace, Heading, Label, LegendHW,
-  MEAN, MEAN_FRAME, MiniBalance, RowsLabel, S13, S16, S18, S21, S23, S25, S26, S27, S28, S29, S30, S31, S33, S35, S37, S43, S44,
+  AGE_TICKS, AGE_XS, ANSWERS, AxisTitle, BAL, BalanceAt, Card, CarScene, CH, Chip, chores, Coin, Heading, Label, LegendHW,
+  MEAN, MEAN_FRAME, MiniBalance, RowsLabel, S13, S16, S18, S21, S23, S26, S27, S28, S29, S31, S33, S35, S37, S43, S44,
   S47, S49, S50, S52, S55, S57, SAT_WIFE, satSeries, SRC, Stopwatch, SubHead, SUP_HUSBAND, SUP_WIFE, SUPPORTS, Svg, Table3, TwoTags,
   veiled, work, BenchCats, NSFJ_WIFE,
 } from "./Storyboard";
@@ -52,9 +52,9 @@ const Opening: React.FC = () => {
   const frame = useCurrentFrame();
   const { find, end } = useCue();
   const red = find("信号が赤", 52), hus = find("ハンドルを握った", 282), say = find("来週は", 402), wife = find("助手席の妻", 527);
-  const un = find("「うん」", 600), navi = find("カーナビが", 670), dual = find("十五年", 800), fight = find("けんかを", 928);
-  const think = find("だから彼は", 1016), green = find("信号が、青", 1149), nat = find("全国で聞くと", 1219);
-  const thirty = find("三十歳前後", 1324), mid = find("四十代の半ば", 1411), also = find("もちろん", 1561), q = find("同じ年ごろの夫", 1695);
+  const un = find("「うん」", 600), navi = find("カーナビが", 670), dual = find("共働きで15年", 800), fight = find("けんかを", 928);
+  const think = find("彼は、うちは", 1016), green = find("信号が、青", 1149), nat = find("全国で聞くと", 1219);
+  const thirty = find("30歳前後", 1324), mid = find("それが40代の半ば", 1411), also = find("もちろん", 1561), q = find("同じ年ごろの夫", 1695);
   const signal = frame < red ? "green" : frame < green ? "red" : "green";
   return (
     <>
@@ -129,7 +129,7 @@ const Today: React.FC = () => (
 const QuizScene: React.FC = () => {
   const { find, endOf, end } = useCue();
   const cond = find("家事や育児", 244), sum = find("その一日の合計", 369), A = find("Aは", 563), B = find("Bは", 650), Cc = find("Cは", 702);
-  const D = find("Dは", 790), dEnd = endOf("Dは", 863), order = find("今日は、三つ", 1005);
+  const D = find("Dは", 790), dEnd = endOf("Dは", 863), order = find("今日は、3つ", 1005);
   const first = find("まず、夫と妻", 1093), second = find("次に", 1203), last = find("最後に", 1364);
   return (
     <>
@@ -190,13 +190,13 @@ const Order11: React.FC<{ at: number[] }> = ({ at }) => {
 // ================= 第1章（S12〜S23） =================
 const Ch1: React.FC = () => {
   const { find, end } = useCue();
-  const four = find("選べるのは、次の四つ", 299), sat = find("かなり満足と", 369), dis = find("どちらかといえば不満", 466), two = find("前の二つを", 572);
-  const line = find("満足と答えた人の割合を", 660), but = find("ところが三十代", 1107), forty = find("四十代の半ばでは", 1254);
-  const you = find("三十代の後半から四十代なら", 1521), other = find("妻だけに聞いた", 1873), kuse = find("ただ、上の年代", 2024);
-  const leave = find("不満の大きい夫婦", 2135), high = find("だから上の年代ほど", 2287), still = find("それでも妻の線", 2471);
-  const home = find("一つの家の中では", 2645), w23 = find("満足していない妻は23人", 2885), h13 = find("満足していない夫は13人", 2971), diff = find("10人多い", 3055);
+  const four = find("かなり満足、どちらか", 299), sat = find("かなり満足、", 369), dis = find("どちらかといえば不満", 466), two = find("このうち前の2つ", 572);
+  const line = find("満足と答えた人の割合を", 660), but = find("ところが30代", 1107), forty = find("40代の半ばでは", 1254);
+  const you = find("30代の後半から40代なら", 1521), other = find("妻だけに聞いた", 1873);
+  const still = find("上の年代になっても", 2471);
+  const home = find("1つの家の中では", 2645), w23 = find("満足していない妻は23人", 2885), h13 = find("満足していない夫は13人", 2971), diff = find("10人多い", 3055);
   const pair = find("満足していない夫13人が", 3138), rest = find("それでも、満足していない妻が", 3308), left = find("余った10人", 3423);
-  const house = find("だから少なくとも", 3543), chores_ = find("ここまで聞くと", 3989), wifeT = find("夫が家事をしない", 4132), husT = find("あるいは夫の側なら", 4242);
+  const house = find("つまり少なくとも", 3543), chores_ = find("ここまで聞くと", 3989), wifeT = find("夫が家事をしない", 4132), husT = find("あるいは夫の立場なら", 4242);
   const ch3 = find("その答えは、このあと天秤", 4408), when = find("その前に", 4500);
   return (
     <>
@@ -211,10 +211,8 @@ const Ch1: React.FC = () => {
       {/* S15：35〜45歳の帯。「あなた」の目印が帯の中を1往復 */}
       <Beat from={you} to={other}><You15 /></Beat>
       {/* S16：別の調査の灰の輪 */}
-      <Beat from={other} to={kuse}><Enter dy={0}><S16 /></Enter></Beat>
-      {/* S17：上の年代のくせ（CohortRace。別れた人が列から抜ける。人数は例） */}
-      <Beat from={kuse} to={still}><Drop17 start={leave - kuse} note={high - kuse} /></Beat>
-      {/* S18：それでも妻の線は4人に3人 */}
+      <Beat from={other} to={still}><Enter dy={0}><S16 /></Enter></Beat>
+      {/* S18：上の年代も妻は4人に3人のまま */}
       <Beat from={still} to={home}><Enter><S18 /></Enter></Beat>
       {/* S19：百組の妻と夫。濃くなる → 差10人の括弧 */}
       <Beat from={home} to={pair}><Hundred19 w={w23 - home} h={h13 - home} d={diff - home} /></Beat>
@@ -290,20 +288,6 @@ const You15: React.FC = () => {
     </>
   );
 };
-const Drop17: React.FC<{ start: number; note: number }> = ({ start, note }) => (
-  <>
-    <SimBackground />
-    <ChapterDots current={1} />
-    <Heading>上の年代の数字には、くせがある</Heading>
-    <SubHead>不満の大きい夫婦は、途中で別れて、調査に出てこない</SubHead>
-    <DropRace start={start} perYear={14} />
-    <Svg>
-      <Label x={1276} y={750} color={C.ink2}>はじめは 23人（23%）</Label>
-      <EnterG at={note}><Label x={1276} y={810} color={C.ink2}>誰の気持ちも変わらない</Label></EnterG>
-    </Svg>
-    <SourceNote sim prefix="" text="説明の図（人数は例）。Bühler ほか（2021）の注意" />
-  </>
-);
 const Hundred19: React.FC<{ w: number; h: number; d: number }> = ({ w, h, d }) => {
   const frame = useCurrentFrame();
   const a = Math.round(23 * ramp(frame, w, 40)), b = Math.round(13 * ramp(frame, h, 30));
@@ -374,25 +358,23 @@ const Think22: React.FC<{ wife: number; hus: number }> = ({ wife, hus }) => (
 // ================= 第2章（S24〜S35） =================
 const Ch2: React.FC = () => {
   const { find, end } = useCue();
-  const y2018 = find("四年前", 1079), why = find("なぜ、手がかかりそうな", 1208);
-  const care = find("小学校に上がると、育児", 1658), change = find("変わるのは、長さより", 1975), only = find("その家事を夫が受け持つ", 2349);
-  const alone = find("夫婦で一緒にやっていた", 2464), q = find("妻たちに", 2634), same = find("最初に見た、妻の夫婦", 3034), hypo = find("夫婦で一緒にやることが減り", 3200);
-  const car = find("冒頭の車の二人", 3586), hus = find("夫のほうは、下がって", 3702), wifeDown = find("下がり方は、妻", 4263), abroad = find("海外には", 4539);
-  const normal = find("ふつうの夫婦では", 4695), counsel = find("妻のほうがはっきり低く", 4856), sum = find("ここまでを、まとめます", 5270), what = find("次は、満足が高い妻", 5611);
+  const why = find("なぜ、学校の時期", 1208);
+  const care = find("小学校に上がると、育児", 1658), change = find("ただ、変わるのは長さより", 1975), only = find("その家事を夫が受け持つ", 2349);
+  const alone = find("夫婦で一緒にやっていた", 2464), hypo = find("それが、学校の時期に妻", 3200);
+  const car = find("冒頭の車の2人も", 3586), hus = find("夫のほうは、下がって", 3702), wifeDown = find("下がり方は妻のほう", 4263), abroad = find("海外には", 4539);
+  const normal = find("ふつうの夫婦では", 4695), counsel = find("妻のほうがはっきり低く", 4856), sum = find("まとめると、冷めていく", 5270), what = find("次は、満足度が高い妻", 5611);
   return (
     <>
-      {/* S25：100%の柱が立つ（答えを先に見せる。章の中のクイズはやめた 2026-10-07）。2018年の値の短い線があとから */}
+      {/* S25：100%の柱が立つ（答えを先に見せる。章の中のクイズはやめた 2026-10-07） */}
       <Beat from={0} to={why}>
-        <Cols25 ghostAt={y2018} />
+        <Wipe dir="up" dur={40}><S25NoGhost /></Wipe>
       </Beat>
       {/* S26〜S28：一日の柱 */}
       <Beat from={why} to={care}><Wipe dir="up" dur={36}><S26 /></Wipe></Beat>
       <Beat from={care} to={change}><Enter dy={0}><S27 /></Enter></Beat>
       <Beat from={change} to={only}><Enter dy={0}><S28 /></Enter></Beat>
       {/* S29：左が先、1秒おいて右（一緒に → 一人で） */}
-      <Beat from={only} to={q}><Half29 right={alone - only} /></Beat>
-      {/* S30：夫の育児への満足 */}
-      <Beat from={q} to={hypo}><Wipe dir="up" dur={36}><S30 /></Wipe></Beat>
+      <Beat from={only} to={hypo}><Half29 right={alone - only} /></Beat>
       {/* S31：仮説・冒頭の車が小さく戻る */}
       <Beat from={hypo} to={hus}><Hypo31 car={car - hypo} /></Beat>
       {/* S32：夫の線だけが先に描かれて下がる */}
@@ -409,20 +391,7 @@ const Ch2: React.FC = () => {
 const COLS25 = [{ label: "0歳", value: 86.2, ghost: 89.5 }, { label: "1〜2歳", value: 83.5, ghost: 80.9 }, { label: "3〜5歳", value: 85.3, ghost: 82.0 },
   { label: "6〜11歳", value: 72.8, ghost: 75.4, big: true }, { label: "12〜17歳", value: 73.8, ghost: 76.9, big: true },
   { label: "18歳〜同居", value: 72.0, ghost: 78.1, sub: "家を出るまで続く", text: "72.0%" }];
-const Cols25: React.FC<{ ghostAt: number }> = ({ ghostAt }) => {
-  const frame = useCurrentFrame();
-  const g = frame >= ghostAt;
-  return (
-    <>
-      {g ? <S25 /> : (
-        <Wipe dir="up" dur={40}>
-          <S25NoGhost />
-        </Wipe>
-      )}
-    </>
-  );
-};
-/** S25 の、2018年の線が重なる前の姿（柱の値だけ） */
+/** S25：柱の値だけ（2018年の線は第7稿で声から外したので出さない） */
 const S25NoGhost: React.FC = () => {
   return (
     <AbsoluteFill>
@@ -434,7 +403,7 @@ const S25NoGhost: React.FC = () => {
           groups={[{ from: 0, to: 2, label: "上がる前：8割台" }, { from: 3, to: 4, label: "小学生〜高校生：7割台前半" }]}
           upperName="満足でない" lowerName="満足" />
       </Svg>
-      <SourceNote text="国立社会保障・人口問題研究所『全国家庭動向調査』第7回（2022）・第6回（2018、柱の横の線）。妻が回答、集計表から計算" />
+      <SourceNote text="国立社会保障・人口問題研究所『全国家庭動向調査』第7回（2022）。妻が回答、集計表から計算" />
     </AbsoluteFill>
   );
 };
@@ -545,12 +514,12 @@ const Mid35: React.FC<{ ask: number }> = ({ ask }) => (
 const Ch3: React.FC = () => {
   const { find, end } = useCue();
   const husW = find("夫は、一日におよそ40分", 530), wifeW = find("妻は、4時間", 614), share = find("夫が受け持つ家事の割合は", 772);
-  const ask = find("年齢ごとに比べた三千人の調査では", 1259), h83 = find("妻の家事に満足と答える夫", 1483), w66 = find("夫の家事に満足と答える妻", 1598), yahari = find("ここまでなら", 1723);
+  const ask = find("年齢ごとに比べた3000人の調査では", 1259), h83 = find("妻の家事に満足と答える夫", 1483), w66 = find("夫の家事に満足と答える妻", 1598), yahari = find("ここまでなら", 1723);
   const notYet = find("でも、この天秤には", 1829), husBag = find("夫の皿に、仕事のおもり", 2028), train = find("朝の電車", 2147), wifeBag = find("妻の皿にも", 2263);
   const moves = find("天秤が、ゆっくり", 2385), yours = find("天秤がどこで止まるか", 2473), split = find("満足している人と、していない人", 2695), cond = find("年齢や収入", 3025);
   const res = find("すると、夫が家事を多く", 3150), sup = find("はっきり差が出たのは", 3356), three = find("悩みを聞いてくれる、努力", 3512), why = find("なぜ家事の量より", 3802);
-  const expect = find("期待どおりだったかどうか", 4314), work_ = find("とくに常勤で働く", 4492), abroad = find("海外の研究にも", 4850);
-  const fit = find("話を聞いてほしいとき", 5328), back = find("心の支えを、三千人の調査", 5563), overlay = find("年齢ごとの満足の線", 6217);
+  const expect = find("期待どおりだったかどうか", 4314), work_ = find("とくに常勤で働く", 4492), abroad = find("海外の研究でも", 4850);
+  const fit = find("話を聞いてほしいとき", 5328), back = find("心の支えを、3000人の調査", 5563), overlay = find("最初に見た、夫と妻の満足度", 6217);
   const order = find("ただし、どちらが先", 6305), bal = find("そろそろ、天秤が止まります", 6732);
   return (
     <>
@@ -751,11 +720,11 @@ const Listen46: React.FC<{ overlay: number }> = ({ overlay }) => {
 const VerdictScene: React.FC = () => {
   const { find, end } = useCue();
   const load = find("天秤に、仕事と通勤", 140), h = find("夫が9時間6分", 245), w = find("妻は、9時間", 320), diff = find("差は、2分", 400), b = find("答えは、Bの", 456);
-  const other = find("ほかの時期も", 530), notTime = find("家事と仕事を足した時間の長さ", 1238), claim = find("続いて、今日の説", 1610);
-  const r1 = find("満足の点数の平均は", 1790), r2 = find("でも、満足していないと答える", 1910), hit = find("判定は、三角", 2094), split = find("満足と一緒に動くものも", 2412);
-  const us = find("子どもが家を出たあとについては", 3039), reason = find("上がった理由は", 3430), enjoy = find("一緒にいる時間を", 3591), japan = find("ただ、日本には", 3867);
-  const second = find("二つ目は", 4143), still = find("それでも、どの時期", 783), outside = find("外で長く", 908);
-  const after = find("子どもが家を出たあとの妻", 2708), valley = find("満足がいちばん低いのは", 2860);
+  const other = find("ほかの時期も", 530), notTime = find("ですから、時間の長さでは", 1238), claim = find("続いて、今日の説", 1610);
+  const r1 = find("満足の点数の平均は", 1790), r2 = find("でも、満足していないと答える", 1910), hit = find("判定は、半分だけ正解", 2094), split = find("満足度と一緒に動くものも", 2412);
+  const us = find("子どもが家を出たあとについては", 3039), reason = find("上がった理由は", 3430), enjoy = find("一緒にいる時間を", 3591), japan = find("ただ、年齢ごとに比べた日本", 3867);
+  const second = find("2つ目は", 4143), still = find("それでも、どの時期", 783), outside = find("外で長く", 908);
+  const after = find("子どもが家を出たあとの妻", 2708), valley = find("満足度がいちばん低いのは", 2860);
   return (
     <>
       {/* S48：袋が外れ、針が残りを動いて真ん中で止まる → 9時間6分・9時間8分 → 差2分 → 予想の答え B */}
@@ -861,9 +830,9 @@ const Two55: React.FC<{ second: number }> = ({ second }) => {
 const Lesson: React.FC = () => {
   const frame = useCurrentFrame();
   const { find, end } = useCue();
-  const five = find("家まで、あと五分", 97), day = find("彼の一日も", 342), count = find("私たちは、数えやすい", 610), kinds = find("家事をした時間や", 711);
+  const five = find("家まで、あと5分", 97), day = find("彼の一日も", 342), count = find("私たちは、数えやすい", 610), kinds = find("家事をした時間や", 711);
   const he = find("夫は、こう言えます", 978), him = find("俺のほうが", 1039), she = find("妻は、こう言えます", 1118), her = find("わたしのほうが", 1178);
-  const but = find("でも、数えやすいものだけでは", 1377), minute = find("一分ごとに", 1565), un = find("助手席の「うん」", 1671);
+  const but = find("でも、数えやすいものだけでは", 1377), minute = find("1分ごとに", 1565), un = find("助手席の「うん」", 1671);
   const stop = find("信号で止まったとき", 1827), q = find("「今日、疲れた", 1983), turn = find("妻が、窓から", 2039), ans = find("「そっちこそ」", 2141);
   const balance = find("天秤は、つり合って", 2192), forgot = find("量り忘れていたのは", 2271);
   const sign = end - 8; // 締めのひと言は字幕がないので、最後の字幕の終わりから（001 と同じ）
