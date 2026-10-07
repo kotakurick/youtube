@@ -41,9 +41,9 @@
 - [x] 4. 絵コンテ（クラウド。2026-10-06 第2版、3役の見直し済み、オーナー確認済み）：`scenes/Storyboard.tsx` に場面を描き（秒数と動きも）、`cd render && npm run storyboard -- <回のid>` で一覧と `storyboard.md` を作る（直すもの0、⚠ の場面は割り方を決める）→ 3役（`review-animator`・`review-illustrator`・`review-designer`）に見せて `review/storyboard-summary.md` にまとめて直す → ★ オーナーが確認
 - [x] 5. 場面のコード（クラウド。2026-10-06 第1版：絵コンテの場面を読み上げの語で切り替え、はしごの数え下げ）→ `scenes/Episode.tsx`（`Episode.example.tsx` を名前を変えて使う。部品は `render/src/lib`、動きは `useNarration()` で読み上げに合わせる）
 - [x] 6. 仮通し（クラウド。2026-10-06：無音・半分の解像度で書き出し、オーナーに送った。12分45秒＋終了画面）：`python tts/narrate.py episodes/006-cheating-line --voice silent` で仮の尺と字幕（`timing.json`）を作り、部品のない場面は仮の画面（draft）で13〜18分を通して、テンポ・章の長さ・考える場面の位置を直す
-- [ ] 7. 音声合成（ローカル）：`python tts/narrate.py episodes/006-cheating-line --voice eleven-yui`（文ごとに作り、尺・字幕・`subtitles.srt` も自動で声に合う。同じ文は作り直さない）
-- [ ] 8. 書き出し・BGM・音量（ローカル）：`npm run render`、`npm run master`（BGM は `npm run bgm` で測ってそろえたもの）
-- [ ] 9. 画面のチェック：`cd render && npm run check -- 006-cheating-line` の「直すもの」を0にし、「確かめるもの」は画像を見て判断する（重なり・28px未満の文字・はみ出し。結果は `render/out/qa/006-cheating-line/`）。縦型ショートも同じ
+- [x] 7. 音声合成（ローカル。2026-10-07：14分38秒、聞いて確かめる文1つは区切り3つで読み直しなし。合図の語37個OK）：`python tts/narrate.py episodes/006-cheating-line --voice eleven-yui`（文ごとに作り、尺・字幕・`subtitles.srt` も自動で声に合う。同じ文は作り直さない）
+- [x] 8. 書き出し・BGM・音量（ローカル。2026-10-08：BGM は Stayin' Lazy（2026-10-07 オーナー）、render/out/006-cheating-line.master.mp4 14分58秒）：`npm run render`、`npm run master`（BGM は `npm run bgm` で測ってそろえたもの）
+- [x] 9. 画面のチェック（2026-10-07：直すもの0・確かめるもの0）：`cd render && npm run check -- 006-cheating-line` の「直すもの」を0にし、「確かめるもの」は画像を見て判断する（重なり・28px未満の文字・はみ出し。結果は `render/out/qa/006-cheating-line/`）。縦型ショートも同じ
 - [ ] ★ 1.25倍速で通し確認（オーナー）
 - [ ] ★ サムネイルとタイトルの最終決定（オーナー）→ `meta.md`
 - [ ] ★ 公開（オーナー。URL: ）
