@@ -27,8 +27,9 @@ const MarkShape: React.FC<{ mark: Mark; t: number }> = ({ mark, t }) => {
 
 // 証拠の文は \n で手で改行できる（語の途中で折れないように。2026-10-06 追加。\n のない文は今までと同じ）
 // 読み上げに合わせるとき（4本目で足した。2026-10-06）：chipAt＝証拠ごとに出るフレーム、hitAt＝印を打つフレーム（start からの数え）。省くと今までどおり
-export const Verdict: React.FC<{ claim: string; mark: Mark; reason: string[]; start?: number; chipAt?: number[]; hitAt?: number }> = (
-  { claim, mark, reason, start = 0, chipAt, hitAt }) => {
+// word：印の下の言葉を回ごとに変える（7本目で足した。2026-10-07。△を「半分本当」と読む回など）。省くと MARK_WORD
+export const Verdict: React.FC<{ claim: string; mark: Mark; reason: string[]; start?: number; chipAt?: number[]; hitAt?: number; word?: string }> = (
+  { claim, mark, reason, start = 0, chipAt, hitAt, word }) => {
   if (reason.length > 3) throw new Error("Verdict: 証拠は3つまでにしてください。");
   const frame = useCurrentFrame() - start;
   const { fps, width: VW, height: VH } = useVideoConfig();
@@ -70,7 +71,7 @@ export const Verdict: React.FC<{ claim: string; mark: Mark; reason: string[]; st
       </svg>
       <div style={{ position: "absolute", ...L.word, width: 400, textAlign: "center", ...font("value"),
         opacity: interpolate(frame - hit, [6, 14], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) }}>
-        {MARK_WORD[mark]}
+        {word ?? MARK_WORD[mark]}
       </div>
       {/* ゴサ（右の列、L）。ひげの長さが判定の確かさ */}
       <Gosa size={L.gosa.size} x={L.gosa.x} foot={L.gosa.foot} bubble={[0.32, -1.62]}

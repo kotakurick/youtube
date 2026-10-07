@@ -3,6 +3,9 @@
 // どれも x,y が絵の中心、s が倍率（s=1 で高さ約64px）。印は data-qa="prop"。
 //   Ball（サッカーボール）・Randoseru（ランドセル）・Bottle（哺乳びん）・SchoolBag（学生かばん）
 //   Ear（聞く）・Hanamaru（認める）・Bulb（助言）・House（家）・Briefcase（仕事の鞄）
+//   7本目（情報漏えい）で足した：Grill（焼肉の網）・Clipboard（アンケート）・CarIcon（車）・StockChart（株の値動き）・Envelope（おわびのメール）
+//   ・IdCard（免許証）・Office（会社の建物）・Mug（飲み会のジョッキ）・Gavel（裁判）・ICChip（カードのICチップ）・CloudIcon（クラウド）・Tool（道具）
+//   会社名・ロゴ・実在の画面は描かない（一般名の目印だけ）。
 import React from "react";
 import { C, LINE } from "./theme";
 
@@ -84,5 +87,98 @@ export const Briefcase: React.FC<P> = (p) => (
     <path d="M-10 -14 V-22 H10 V-14" fill="none" {...st} />
     <rect x={-32} y={-14} width={64} height={42} rx={8} fill={C.paper2} {...st} />
     <path d="M-32 4 H32" stroke={C.ink} strokeWidth={3} />
+  </Wrap>
+);
+
+export const Grill: React.FC<P> = (p) => (
+  <Wrap {...p} name="焼肉の網">
+    <path d="M-30 -4 Q0 -14 30 -4 L24 22 H-24 Z" fill={C.paper2} {...st} />
+    <path d="M-32 -6 H32 M-20 -6 V-12 M0 -6 V-14 M20 -6 V-12" fill="none" {...st} />
+    <path d="M-14 -24 Q-10 -32 -14 -38 M2 -24 Q6 -32 2 -38 M18 -24 Q22 -32 18 -38" fill="none" stroke={C.ink2} strokeWidth={3} strokeLinecap="round" />
+  </Wrap>
+);
+
+export const Clipboard: React.FC<P> = (p) => (
+  <Wrap {...p} name="アンケート">
+    <rect x={-24} y={-30} width={48} height={62} rx={6} fill={C.white} {...st} />
+    <rect x={-12} y={-36} width={24} height={12} rx={3} fill={C.paper2} {...st} />
+    {[-10, 4, 18].map((y) => <g key={y}><rect x={-15} y={y - 5} width={10} height={10} rx={2} fill="none" stroke={C.ink} strokeWidth={3} />
+      <path d={`M0 ${y} H15`} stroke={C.ink} strokeWidth={3} strokeLinecap="round" /></g>)}
+  </Wrap>
+);
+
+export const CarIcon: React.FC<P> = (p) => (
+  <Wrap {...p} name="車">
+    <path d="M-34 14 V0 Q-34 -6 -28 -8 L-18 -24 H16 L28 -8 Q34 -6 34 0 V14 Z" fill={C.paper2} {...st} />
+    <path d="M-14 -20 L-20 -8 H18 L12 -20 Z" fill={C.white} stroke={C.ink} strokeWidth={3} />
+    <circle cx={-18} cy={16} r={9} fill={C.ink} /><circle cx={18} cy={16} r={9} fill={C.ink} />
+  </Wrap>
+);
+
+export const StockChart: React.FC<P> = (p) => (
+  <Wrap {...p} name="株の値動き">
+    <rect x={-32} y={-30} width={64} height={60} rx={6} fill={C.white} {...st} />
+    {[[-18, -2, 14], [-6, -12, 10], [6, -8, 16], [18, -20, 12]].map(([x, y, h]) => (
+      <g key={x}><path d={`M${x} ${y - 6} V${y + h + 6}`} stroke={C.ink} strokeWidth={3} /><rect x={x - 5} y={y} width={10} height={h} fill={C.paper2} stroke={C.ink} strokeWidth={3} /></g>
+    ))}
+  </Wrap>
+);
+
+export const Envelope: React.FC<P> = (p) => (
+  <Wrap {...p} name="封筒">
+    <rect x={-32} y={-22} width={64} height={44} rx={5} fill={C.white} {...st} />
+    <path d="M-30 -20 L0 4 L30 -20" fill="none" {...st} />
+  </Wrap>
+);
+
+export const IdCard: React.FC<P> = (p) => (
+  <Wrap {...p} name="免許証">
+    <rect x={-34} y={-22} width={68} height={44} rx={6} fill={C.white} {...st} />
+    <rect x={-26} y={-12} width={20} height={26} rx={3} fill={C.paper2} stroke={C.ink} strokeWidth={3} />
+    <path d="M2 -8 H26 M2 2 H22 M2 12 H16" stroke={C.ink} strokeWidth={3} strokeLinecap="round" />
+  </Wrap>
+);
+
+export const Office: React.FC<P> = (p) => (
+  <Wrap {...p} name="会社">
+    <rect x={-26} y={-34} width={52} height={66} fill={C.paper2} {...st} />
+    {[-22, -8, 6].map((y) => [-14, 4].map((x) => <rect key={`${x}${y}`} x={x} y={y} width={10} height={9} fill={C.white} stroke={C.ink} strokeWidth={2} />))}
+    <rect x={-6} y={18} width={12} height={14} fill={C.ink} />
+  </Wrap>
+);
+
+export const Mug: React.FC<P> = (p) => (
+  <Wrap {...p} name="ジョッキ">
+    <rect x={-20} y={-20} width={40} height={50} rx={5} fill={C.white} {...st} />
+    <path d="M20 -8 H30 Q34 -8 34 -4 V12 Q34 16 30 16 H20" fill="none" {...st} />
+    <path d="M-22 -20 Q-26 -32 -12 -32 Q-6 -40 4 -34 Q16 -38 20 -28 Q26 -24 22 -20 Z" fill={C.white} {...st} />
+  </Wrap>
+);
+
+export const Gavel: React.FC<P> = (p) => (
+  <Wrap {...p} name="木づち">
+    <g transform="rotate(-35)"><rect x={-26} y={-26} width={52} height={22} rx={5} fill={C.paper2} {...st} /><path d="M0 -4 V30" {...st} strokeWidth={LINE.base} /></g>
+    <rect x={-30} y={24} width={60} height={10} rx={3} fill={C.paper2} {...st} />
+  </Wrap>
+);
+
+export const ICChip: React.FC<P> = (p) => (
+  <Wrap {...p} name="ICチップ">
+    <rect x={-24} y={-20} width={48} height={40} rx={6} fill={C.goldTint} {...st} />
+    <path d="M-24 -6 H-8 V6 H-24 M24 -6 H8 V6 H24 M-8 -20 V-6 M8 -20 V-6 M-8 20 V6 M8 20 V6" fill="none" stroke={C.ink} strokeWidth={3} />
+  </Wrap>
+);
+
+export const CloudIcon: React.FC<P> = (p) => (
+  <Wrap {...p} name="クラウド">
+    <path d="M-30 18 Q-42 18 -42 6 Q-42 -8 -28 -8 Q-26 -26 -6 -26 Q12 -26 16 -12 Q34 -14 36 2 Q40 18 24 18 Z" fill={C.white} {...st} />
+  </Wrap>
+);
+
+export const Tool: React.FC<P> = (p) => (
+  <Wrap {...p} name="道具">
+    <rect x={-32} y={-8} width={64} height={36} rx={6} fill={C.paper2} {...st} />
+    <path d="M-12 -8 V-18 H12 V-8" fill="none" {...st} />
+    <path d="M-20 10 H20" stroke={C.ink} strokeWidth={3} />
   </Wrap>
 );

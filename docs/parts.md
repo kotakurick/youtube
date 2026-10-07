@@ -78,7 +78,8 @@
 |---|---|---|
 | Backdrop | Backdrop.tsx | 背景（部屋・駅・夜の街・職場）。`night` で夜 |
 | Props | Props.tsx | 小道具（Phone・Table・Chair・Desk・Clock・Calendar・Cup・Bench） |
-| Icons | Icons.tsx | 小さな目印の絵（64px）：Ball・Randoseru・Bottle・SchoolBag・Ear・Hanamaru・Bulb・House・Briefcase。文字だけの札・軸の区切りに添える（4本目） |
+| Icons | Icons.tsx | 小さな目印の絵（64px）：Ball・Randoseru・Bottle・SchoolBag・Ear・Hanamaru・Bulb・House・Briefcase。文字だけの札・軸の区切りに添える（4本目）。7本目で足した：Grill・Clipboard・CarIcon・StockChart・Envelope・IdCard・Office・Mug・Gavel・ICChip・CloudIcon・Tool（会社名・ロゴは描かない一般名の目印） |
+| Inbox | Inbox.tsx | メールの受信箱（検索窓と行）。送り主は一般名と目印、`mark` で読んでいる行に墨の枠、`dim` で話の外。実在の画面に似せない（7本目） |
 | SwipeDeck | StoryAnim.tsx | スマホのカードが左右へ飛ぶ |
 | NotifStack | StoryAnim.tsx | いいねの通知が積もる |
 | OfficeYears | StoryAnim.tsx | 職場の机が年ごとに空いていく |
@@ -87,6 +88,7 @@
 | Balance / LooseWeight | Balance.tsx | 天秤。皿は三角のひもで吊り、分銅はつまみ付き・横幅一定・高さ＝量（面積＝量）。針と目盛りは支点の下。傾きは量の差から、`tilt`＋`moving`（前の角度の残像・下向きの矢印）で動いている途中。`veiled` で中身を隠す「？」の袋、`dashed` で量り忘れ。皿の外の点線の分銅は `LooseWeight`（4本目） |
 | CouplePairs / PeopleRows | CouplePairs.tsx | 夫婦の組の並び（1組＝夫と妻が肩を接して立ち、床1枚。組と組のあいだは空ける。夫が左）と、組にする前の性別ごとの列。注目は濃い色、`mark` で床を墨のふち（4本目の引き算） |
 | Tv・TvGlow・Sofa | Living.tsx | 居間のテレビ（画面にドラマの1場面）とソファ（6本目） |
+| Pawnshop / Stall / Loot / Coins | Pawnshop.tsx | 質屋の比喩（盗んだ物・情報をお金に換える所）。`state` で開いている／シャッター半分／閉まった、名札は地面から 30*s+50 の下（s は0.6以上）。Stall は闇の売り場の抽象的な屋台（棚に盗品、金の枠の値札）。Loot は盗品の目印（青緑。point だけ金）、Coins は積んだ硬貨（金）（7本目） |
 | BorderMap | BorderMap.tsx | 地図と国境線の比喩（ひとりの線＝1枚の地図）。seed で線の形、2本重ねてずれを見せる（6本目） |
 | Bedroom | Bedroom.tsx | 夜のワンルーム（ベッド・時計1時10分・月の窓）。窓に雪・雲・床の光を出せる。冒頭と締めで同じ部屋に（2本目） |
 
@@ -106,7 +108,8 @@
 |---|---|---|
 | ChapterCard / ChapterDots | Chapter.tsx | 章の扉と位置の点 |
 | Quiz | Quiz.tsx | 予想タイム（問いと選択肢を全面で）。読み上げに合わせる `choiceAt`・`ringAt`・`revealAt`、引っかけの揺れ `nudge`、ゴサの足元 `gosaFoot`（4本目） |
-| Verdict | Verdict.tsx | 答え合わせ（〇△×）。証拠の文は `\n` で手で改行できる。読み上げに合わせる `chipAt`・`hitAt`（4本目） |
+| Verdict | Verdict.tsx | 答え合わせ（〇△×）。証拠の文は `\n` で手で改行できる。読み上げに合わせる `chipAt`・`hitAt`（4本目）。印の下の言葉は `word` で回ごとに変えられる（例：△「半分本当」。7本目） |
+| ClaimCards / CountPick | Claims.tsx | よく聞く話（通説）のカード（`cols` 2＝名前＋一文、4＝名前だけの横1列。`shown` で出ている数、`marks`・`words` で判定の印）と、「本当の話はいくつ？」の0〜nの札（`answer` で墨に）。今日の答え合わせ・予想タイム・予想の答えで同じ並び（7本目） |
 | Cards | Cards.tsx | チャンネル名・今日の答え合わせ・中間の確認・登録の一言 |
 | Camera | Camera.tsx | 寄り・引き・横移動 |
 | Beat / Enter / EnterG / Wipe / ramp / useCue | Motion.tsx | 場面の中の区切りと出し方：区切り（Beat）、ばねで出す（Enter は HTML、EnterG は SVG の中）、左→右・下→上にぬぐって見せる（Wipe）、0→1 の補間（ramp）、読み上げの語の時刻（useCue。見つからなければ予備の値）（4本目） |
