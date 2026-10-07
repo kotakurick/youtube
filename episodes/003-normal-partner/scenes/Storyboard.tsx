@@ -1,6 +1,6 @@
 // 3本目「『普通の相手』の条件を全部満たす人の数」の絵コンテ 第3版（台本は script.md の第13稿。2026-10-07）。
 // 第13稿で構成が変わった（冒頭の投稿の計算の3つの前提を、第2章・第3章・答え合わせで1つずつ確かめる。第1章は男女が求めるものと上方婚）ので作り直した。
-// 第2版（第6稿用）は Storyboard-v2.tsx（本編を書き直すまでの置き場）。
+// 第2版（第6稿用）は git の履歴にある（2026-10-07 に本編を第3版で書き直したので消した）。
 // 比喩は「年収のつまみの目盛り」：冒頭で検索画面のつまみ（Slider）を500万円の目盛りへ動かし、第2章で目盛りの位置を年収の山の上に置き、教訓で2つの目盛りに戻す。
 // 色：男女の色と、物差しの意味の色（お金＝金、身長＝青緑。人型には使わない）。判定の札（〇△×）は出さない（2026-10-07 オーナー）。
 // 各場面は「動き終わりの姿」。秒数（sec）は読み上げの仮の尺（timing.json、無音の声）を場面の中で分けたもの。動き（move）は本編で付ける動き。
@@ -127,9 +127,9 @@ export const PremiseIcon: React.FC<{ i: number; x: number; cy: number }> = ({ i,
     </>}
   </g>
 );
-export const Premises: React.FC<{ focus?: number; results?: (string | undefined)[]; y?: number }> = ({ focus, results = [], y = 240 }) => (
+export const Premises: React.FC<{ focus?: number; results?: (string | undefined)[]; y?: number; show?: number }> = ({ focus, results = [], y = 240, show = 3 }) => (
   <Svg>
-    {PREMISES.map((p, i) => {
+    {PREMISES.slice(0, show).map((p, i) => {
       const on = focus === undefined || focus === i, top = y + i * 190, r = results[i];
       return (
         <g key={p} opacity={on ? 1 : 0.55} data-qa="prop" data-qa-label={`前提${i + 1}`} data-qa-allow="mark figure">
@@ -219,8 +219,8 @@ export const ROWS = (on: number, mark?: number, yen = "500万円以上"): Search
 ];
 export const DISCLAIM = "人数は国の統計の割合を1000人に置き換えた架空のもの（就業構造基本調査2022。働いていない人も含む）。身長は見積もり";
 /** 左に検索画面、右上に年収のつまみ（目盛り）、右下に100人（1人＝10人）。note はつまみと100人の間の一行 */
-export const Screen: React.FC<{ count: number; prev?: number; on: number; mark?: number; stop: number; lit: number; note?: string; yen?: string; title?: string }> = (
-  { count, prev, on, mark, stop, lit, note, yen, title },
+export const Screen: React.FC<{ count: number; prev?: number; on: number; mark?: number; stop: number; lit: number; note?: string; yen?: string; title?: string; keys?: [number, number][] }> = (
+  { count, prev, on, mark, stop, lit, note, yen, title, keys },
 ) => (
   <AbsoluteFill>
     <Svg>
@@ -230,7 +230,7 @@ export const Screen: React.FC<{ count: number; prev?: number; on: number; mark?:
       <Label x={1700} y={420} weight={900}>1人</Label>
       <Label x={1700} y={470} weight={900}>＝10人</Label>
     </Svg>
-    <Slider label="年収のつまみ" stops={STOPS} keys={[[0, stop]]} x={800} y={200} w={880} />
+    <Slider label="年収のつまみ" stops={STOPS} keys={keys ?? [[0, stop]]} x={800} y={200} w={880} />
     <SourceNote text={DISCLAIM} prefix="" />
   </AbsoluteFill>
 );
