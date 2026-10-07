@@ -42,7 +42,7 @@ const Big: React.FC<{ lines: Run[][] }> = ({ lines }) => (
   </div>
 );
 
-const Duo: React.FC<{ lines: Run[][]; voice?: string }> = ({ lines, voice }) => (
+const Duo: React.FC<{ lines: Run[][] }> = ({ lines }) => (
   <AbsoluteFill style={{ background: C.ink }}>
     <svg width={W} height={H} style={{ position: "absolute" }}>
       <defs>
@@ -60,18 +60,14 @@ const Duo: React.FC<{ lines: Run[][]; voice?: string }> = ({ lines, voice }) => 
       <Silhouette j={WOMAN_HUG} x={BEAM.r} y={PAN.y + 4} size={0.34} color={WHITE} />
     </svg>
     <Big lines={lines} />
-    {voice && (
-      <div style={{ position: "absolute", left: 1036, top: 380, fontFamily: FONT_SERIF, fontWeight: 900, fontSize: 110, whiteSpace: "nowrap", color: C.white,
-        WebkitTextStroke: `6px ${C.ink}`, paintOrder: "stroke fill", filter: SHADOW }}>{voice}</div>
-    )}
   </AbsoluteFill>
 );
 
-// A：時期を伏せる。主語は「妻の不満」にして、本編の数字（不満の妻は15人に1人 → 4人に1人近く）の範囲で言う
-const A: React.FC = () => <Duo lines={[[{ t: "妻の不満が", px: 120 }], [{ t: "増える", px: 150, hi: true }, { t: "時期", px: 110 }]]} voice="うん" />;
+// A：採用（2026-10-07 オーナー。心の声「うん」はなし）。時期を伏せる。主語は「妻の不満」にして、本編の数字（不満の妻は15人に1人 → 4人に1人近く）の範囲で言う
+const A: React.FC = () => <Duo lines={[[{ t: "妻の不満が", px: 120 }], [{ t: "増える", px: 150, hi: true }, { t: "時期", px: 110 }]]} />;
 // B：2分を出す。主語を置かず、2人とも冷める本編の判定と合わせる
 const B: React.FC = () => (
-  <Duo lines={[[{ t: "差は", px: 120 }, { t: "2分", px: 160, hi: true }], [{ t: "なのに", px: 96 }, { t: "冷める", px: 140, hi: true }]]} voice="うん" />
+  <Duo lines={[[{ t: "差は", px: 120 }, { t: "2分", px: 160, hi: true }], [{ t: "なのに", px: 96 }, { t: "冷める", px: 140, hi: true }]]} />
 );
 
 export default [
