@@ -121,7 +121,7 @@ const Roadmap: React.FC = () => {
 const Ch1Card: React.FC = () => <ChapterCard no={1} title="男女が相手に求めるもの" />;
 const Ch2Card: React.FC = () => <ChapterCard no={2} title="1つ目の前提「普通とはまん中」" />;
 const Ch3Card: React.FC = () => <ChapterCard no={3} title="2つ目と3つ目の前提" />;
-const Ch1Survey: React.FC = () => <Cuts cuts={[[B01, 0], [B02, "相手の容姿は"], [B03, "差が大きく"]]} />;
+const Ch1Survey: React.FC = () => <Cuts cuts={[[B01, 0], [B02, "相手の見た目は"], [B03, "差が大きく"]]} />;
 const Ch1Quiz: React.FC = () => <Cuts cuts={[[B04, 0], [B05, "男性で増えた"]]} />;
 const Ch1Hypergamy: React.FC = () => <Cuts cuts={[[B06, 0], [B07, "自分より学歴や年収"]]} />;
 const Ch1World: React.FC = () => <Cuts cuts={[[B08, 0], [B09, "計算で試して"]]} />;
@@ -152,7 +152,7 @@ const Ch2Quiz: React.FC = () => <C02 />;
 const Ch2Income: React.FC = () => <Cuts cuts={[[C03, 0], [C04, "500万円の目盛りは"]]} />;
 const Ch2Married: React.FC = () => (
   <Cuts cuts={[[C05, 0], [C06, "年齢をそろえて"], [C07, "友だちの夫"], [C08, "心理学"], [C09, "もし、心の中"], [C10, "結婚と年収の高さ"],
-    [C11, "女性でも、同じように"], [C12, "条件によく挙がる容姿"], [C13, "1つ目の前提は、年収"]]} />
+    [C11, "女性でも、同じように"], [C12, "条件によく挙がる見た目"], [C13, "1つ目の前提は、年収"]]} />
 );
 
 // ================= 第3章 =================
