@@ -1,16 +1,18 @@
 // 物語の主人公（猫のサブキャラ）。2026-10-05 オーナー決定：素案F（トラ柄）、目と口はゴサと同じ形。
-// 群衆（シミュレーション・データの人数）は人型の Figure のまま。寄って描く物語の場面だけ、この猫を使う。
+// 男女の回の群衆（シミュレーション・データの人数）は人型の Figure のまま。男女の回でない回は群衆も猫（plain）にする（2026-10-07）。
 // 決まり（docs/brand.md「物語の主人公」）：
 //   - 形：丸い頭・大きめのとがった耳（内側は淡い色）・洋なし形の胴・丸い足先・くるんと巻いた尾。線は描かず、べた塗り。
 //   - 模様：額に3本・胴の両脇に1本ずつのしま（同じ色の濃い色）、墨の細いひげ2本ずつ（ゴサのひげと違い、端に横棒を付けない）。
 //   - 色：男性＝C.male、女性＝C.female、その他（世話役など）＝C.other。墨（ゴサの色）は使わない。
+//   - 男女の回でない回は、主人公も群衆の人も紫の猫 plain（C.plain）で描く（2026-10-07 オーナー「グレーの人型より猫で。男女の回でないので別の色の猫を」）。
+//     データの意味で色を分けるときは color で胴の色だけ替える（例：漏れた人＝C.teal）。濃い色と耳の内側は color から作る。
 //   - 目と口：ゴサと同じ（白目に小さい墨の黒目、細い ω の口、鼻なし）。3〜5秒ごとにまばたき。
 //   - 大きさは Figure と同じ物差し（size 1 で高さ約50px）。原点＝足元の中心。
 import React from "react";
 import { useCurrentFrame } from "remotion";
 import { C, FONT } from "./theme";
 
-export type CatKind = "male" | "female" | "other";
+export type CatKind = "male" | "female" | "other" | "plain";
 export type CatPose = "stand" | "sit" | "phone" | "walk" | "down";
 export type CatFace = "normal" | "happy" | "sad" | "surprised" | "think" | "sleep" | "smile";
 // sleep：眠っている（閉じた目・ωの口。2026-10-06 4本目の車の後ろの席の子で足した）
@@ -22,6 +24,13 @@ const PAL: Record<CatKind, { main: string; dark: string; inner: string }> = {
   male: { main: C.male, dark: "#1E4C9E", inner: "#D6E2F7" },
   female: { main: C.female, dark: "#9E3A12", inner: "#FAD9C8" },
   other: { main: C.other, dark: "#5E5A53", inner: "#E6E1D8" },
+  plain: { main: C.plain, dark: "#4E3F78", inner: "#E3DCF2" },
+};
+
+/** 色を混ぜる（#rrggbb どうし。t＝b の割合） */
+const mix = (a: string, b: string, t: number) => {
+  const h = (c: string, i: number) => parseInt(c.slice(1 + i * 2, 3 + i * 2), 16);
+  return "#" + [0, 1, 2].map((i) => Math.round(h(a, i) * (1 - t) + h(b, i) * t).toString(16).padStart(2, "0")).join("");
 };
 
 // 形の数字（素案シート CatSheet.tsx の案Aと同じ。足元が 0、頭の上が約 -218）
@@ -44,9 +53,10 @@ export const Cat: React.FC<{
   phase?: number;       // 歩く足の位置（0〜1）
   label?: string;       // QA 用の名前
   seed?: number;        // まばたきをずらす
-}> = ({ kind, x, y, size = 1, pose = "stand", face = "normal", facing = 0, turn = 0, look, phase = 0, label, seed = 0 }) => {
+  color?: string;       // 胴の色を替える（データの意味の色。#rrggbb。2026-10-07）
+}> = ({ kind, x, y, size = 1, pose = "stand", face = "normal", facing = 0, turn = 0, look, phase = 0, label, seed = 0, color }) => {
   const frame = useCurrentFrame();
-  const p = PAL[kind];
+  const p = color ? { main: color, dark: mix(color, "#000000", 0.35), inner: mix(color, "#FFFFFF", 0.75) } : PAL[kind];
   const fill = p.main;
   const f = facing;
   const down = pose === "down";
