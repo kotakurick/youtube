@@ -4,42 +4,45 @@
 // npx remotion still src/index.ts 004-marriage-forty-dip-thumb-a out/004-thumb-a.png
 import React from "react";
 import { AbsoluteFill } from "remotion";
-import { MAN_SLUMP, Silhouette, WOMAN_PHONE } from "@lib/Silhouette";
+import { MAN_STAND, Silhouette, WOMAN_HUG } from "@lib/Silhouette";
 import { C, FONT_SERIF } from "@lib/theme";
 
 const W = 1280, H = 720;
 const SPLIT = { blue: ["#0E2A5C", "#2F6FDE"], red: ["#5C0E14", "#D8261A"] } as const;
-const BEAM = { y: 352, l: 250, r: 1030 }, PAN = { y: 650, w: 300 };
-const WHITE = "rgba(255,255,255,.95)";
+// 2026-10-07 レビュー r1：人を大きく（高さ約300px）、梁を太く、糸は外側の台形にして頭と重ねない
+const BEAM = { y: 360, l: 300, r: 980, t: 22 }, PAN = { y: 680, w: 320 }, HANG = 40;
+const WHITE = "rgba(255,255,255,.95)", YELLOW = "#FFE36A";
+const SHADOW = "drop-shadow(0 8px 8px rgba(0,0,0,.8))";
 
 /** 水平の天秤（白）。皿の上に2人が立つ */
 const Scale: React.FC = () => (
   <g fill={WHITE} stroke={WHITE}>
-    {/* 柱と台 */}
-    <rect x={W / 2 - 9} y={BEAM.y} width={18} height={H - BEAM.y} stroke="none" />
-    <circle cx={W / 2} cy={BEAM.y} r={20} stroke="none" />
-    {/* 梁（水平） */}
-    <rect x={BEAM.l} y={BEAM.y - 7} width={BEAM.r - BEAM.l} height={14} rx={7} stroke="none" />
-    {/* 糸と皿 */}
+    <rect x={W / 2 - 10} y={BEAM.y} width={20} height={H - BEAM.y} stroke="none" />
+    <rect x={BEAM.l - HANG} y={BEAM.y - BEAM.t / 2} width={BEAM.r - BEAM.l + HANG * 2} height={BEAM.t} rx={BEAM.t / 2} stroke="none" />
+    <circle cx={W / 2} cy={BEAM.y} r={26} stroke="none" />
     {[BEAM.l, BEAM.r].map((x) => (
       <g key={x}>
-        <line x1={x} y1={BEAM.y} x2={x - PAN.w / 2} y2={PAN.y} strokeWidth={4} />
-        <line x1={x} y1={BEAM.y} x2={x + PAN.w / 2} y2={PAN.y} strokeWidth={4} />
-        <path d={`M${x - PAN.w / 2 - 10} ${PAN.y} H${x + PAN.w / 2 + 10} Q${x} ${PAN.y + 60} ${x - PAN.w / 2 - 10} ${PAN.y} Z`} stroke="none" />
+        <line x1={x - HANG} y1={BEAM.y} x2={x - PAN.w / 2} y2={PAN.y} strokeWidth={5} />
+        <line x1={x + HANG} y1={BEAM.y} x2={x + PAN.w / 2} y2={PAN.y} strokeWidth={5} />
+        <path d={`M${x - PAN.w / 2 - 10} ${PAN.y} H${x + PAN.w / 2 + 10} Q${x} ${PAN.y + 56} ${x - PAN.w / 2 - 10} ${PAN.y} Z`} stroke="none" />
       </g>
     ))}
   </g>
 );
 
-const Big: React.FC<{ lines: [string, string]; accent: 0 | 1 }> = ({ lines, accent }) => (
-  <div style={{ position: "absolute", left: 0, right: 0, top: 18, textAlign: "center", fontFamily: FONT_SERIF, fontWeight: 900, lineHeight: 1.08 }}>
+type Run = { t: string; px: number; hi?: boolean };
+/** 大きな文字（明朝体）。1行の中で大きさと色に強弱をつける */
+const Big: React.FC<{ lines: Run[][] }> = ({ lines }) => (
+  <div style={{ position: "absolute", left: 0, right: 0, top: 0, textAlign: "center", fontFamily: FONT_SERIF, fontWeight: 900, lineHeight: 1.0 }}>
     {lines.map((l, i) => (
-      <div key={l} style={{ fontSize: 132, letterSpacing: -2, color: i === accent ? "#FFE36A" : C.white, filter: "drop-shadow(0 8px 8px rgba(0,0,0,.8))" }}>{l}</div>
+      <div key={i} style={{ letterSpacing: -2, filter: SHADOW, marginTop: i ? 6 : 0 }}>
+        {l.map((r) => <span key={r.t} style={{ fontSize: r.px, color: r.hi ? YELLOW : C.white }}>{r.t}</span>)}
+      </div>
     ))}
   </div>
 );
 
-const Duo: React.FC<{ lines: [string, string]; accent: 0 | 1 }> = ({ lines, accent }) => (
+const Duo: React.FC<{ lines: Run[][]; voice?: string }> = ({ lines, voice }) => (
   <AbsoluteFill style={{ background: C.ink }}>
     <svg width={W} height={H} style={{ position: "absolute" }}>
       <defs>
@@ -52,18 +55,24 @@ const Duo: React.FC<{ lines: [string, string]; accent: 0 | 1 }> = ({ lines, acce
       <rect x={0} y={0} width={W / 2} height={H} fill={`url(#g${SPLIT.blue[0]})`} />
       <rect x={W / 2} y={0} width={W / 2} height={H} fill={`url(#g${SPLIT.red[0]})`} />
       <Scale />
-      {/* 夫：スマホを見下ろす。妻：額に手を当てる。同じ白・同じ大きさ */}
-      <Silhouette j={MAN_SLUMP} x={BEAM.l} y={PAN.y + 4} size={0.27} color={WHITE} />
-      <Silhouette j={WOMAN_PHONE} x={BEAM.r} y={PAN.y + 4} size={0.255} color={WHITE} />
+      {/* 夫：背すじを伸ばして正面（うまくいっていると思っている）。妻：肘を抱えて顔を外へそらす（助手席の窓）。同じ白・同じ大きさ */}
+      <Silhouette j={MAN_STAND} x={BEAM.l} y={PAN.y + 4} size={0.31} color={WHITE} />
+      <Silhouette j={WOMAN_HUG} x={BEAM.r} y={PAN.y + 4} size={0.31} color={WHITE} />
     </svg>
-    <Big lines={lines} accent={accent} />
+    <Big lines={lines} />
+    {voice && (
+      <div style={{ position: "absolute", left: 1032, top: 400, fontFamily: FONT_SERIF, fontWeight: 900, fontSize: 80, whiteSpace: "nowrap", color: C.white,
+        WebkitTextStroke: `6px ${C.ink}`, paintOrder: "stroke fill", filter: SHADOW }}>{voice}</div>
+    )}
   </AbsoluteFill>
 );
 
-// A：時期を伏せる（タイトルに「2分」を入れる組み合わせ）
-const A: React.FC = () => <Duo lines={["妻が冷める", "時期がある"]} accent={0} />;
-// B：2分を出す（タイトルに数字を入れない組み合わせ）
-const B: React.FC = () => <Duo lines={["差は2分", "なのに冷める"]} accent={1} />;
+// A：時期を伏せる。主語は「妻の不満」にして、本編の数字（不満の妻は15人に1人 → 4人に1人近く）の範囲で言う
+const A: React.FC = () => <Duo lines={[[{ t: "妻の不満が", px: 132, hi: true }], [{ t: "増える時期", px: 132 }]]} voice="うん。" />;
+// B：2分を出す。主語を置かず、2人とも冷める本編の判定と合わせる
+const B: React.FC = () => (
+  <Duo lines={[[{ t: "差は", px: 120 }, { t: "2分", px: 160, hi: true }], [{ t: "なのに", px: 96 }, { t: "冷める", px: 140, hi: true }]]} voice="うん。" />
+);
 
 export default [
   { id: "004-marriage-forty-dip-thumb-a", component: A },
