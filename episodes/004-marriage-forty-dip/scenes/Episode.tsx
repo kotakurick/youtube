@@ -37,7 +37,7 @@ import {
   S47, S49, S50, S52, S55, S57, SAT_WIFE, satSeries, SRC, Stopwatch, SubHead, SUP_HUSBAND, SUP_WIFE, SUPPORTS, Svg, Table3, TwoTags,
   veiled, work, BenchCats, NSFJ_WIFE,
 } from "./Storyboard";
-import { Briefcase, House } from "@lib/Icons";
+import { Briefcase, House, Randoseru } from "@lib/Icons";
 
 /** ゴサの足元：字幕の帯から離す（既定の 880 だと、長い字幕の帯に近すぎる） */
 const GF = 850;
@@ -53,7 +53,7 @@ const Opening: React.FC = () => {
   const { find, end } = useCue();
   const red = find("信号が赤", 52), hus = find("ハンドルを握った", 282), say = find("来週は", 402), wife = find("助手席の妻", 527);
   const un = find("「うん」", 600), navi = find("カーナビが", 670), dual = find("共働きで15年", 800), fight = find("けんかを", 928);
-  const think = find("彼は、うちは", 1016), green = find("信号が、青", 1149), nat = find("全国で聞くと", 1219);
+  const think = find("けんかをしたわけでは", 1016), green = find("信号が、青", 1149), nat = find("全国で聞くと", 1219);
   const thirty = find("30歳前後", 1324), mid = find("それが40代の半ば", 1411), also = find("もちろん", 1561), q = find("同じ年ごろの夫", 1695);
   const signal = frame < red ? "green" : frame < green ? "red" : "green";
   return (
@@ -197,7 +197,7 @@ const Ch1: React.FC = () => {
   const home = find("1つの家の中では", 2645), w23 = find("満足していない妻は23人", 2885), h13 = find("満足していない夫は13人", 2971), diff = find("10人多い", 3055);
   const pair = find("満足していない夫13人が", 3138), rest = find("それでも、満足していない妻が", 3308), left = find("余った10人", 3423);
   const house = find("つまり少なくとも", 3543), chores_ = find("ここまで聞くと", 3989), wifeT = find("夫が家事をしない", 4132), husT = find("あるいは夫の立場なら", 4242);
-  const ch3 = find("その答えは、このあと夫婦", 4408), when = find("その前に", 4500);
+  const ch3 = find("このあと夫婦の一日を", 4408), when = find("その前に", 4500);
   return (
     <>
       {/* S12：答えの札4枚 → 括弧「満足として数える」と色の約束 */}
@@ -359,9 +359,9 @@ const Think22: React.FC<{ wife: number; hus: number }> = ({ wife, hus }) => (
 const Ch2: React.FC = () => {
   const { find, end } = useCue();
   const why = find("なぜ、学校の時期", 1208);
-  const care = find("小学校に上がると、育児", 1658), change = find("ただ、変わるのは長さより", 1975), only = find("その家事を夫が受け持つ", 2349);
-  const alone = find("夫婦で一緒にやっていた", 2464), hypo = find("それが、学校の時期に妻", 3200);
-  const car = find("冒頭の車の2人も", 3586), hus = find("夫のほうは、下がって", 3702), wifeDown = find("下がり方は妻のほう", 4263), abroad = find("海外には", 4539);
+  const care = find("子どもが小学校に上がると、", 1658), change = find("ただ、変わるのは長さより", 1975), only = find("その家事を夫が受け持つ", 2349);
+  const alone = find("夫婦で一緒にやっていた", 2464), hypo = find("学校の時期に妻の満足度が下がる理由", 3200);
+  const car = find("冒頭の車の2人も", 3586), spring = find("この家でも、娘が", 3700), night = find("妻は仕事から帰ると", 4000), hus = find("夫のほうは、下がって", 3702), wifeDown = find("下がり方は妻のほう", 4263), abroad = find("海外には", 4539);
   const normal = find("ふつうの夫婦では", 4695), counsel = find("妻のほうがはっきり低く", 4856), sum = find("まとめると、冷めていく", 5270), what = find("次は、満足度が高い妻", 5611);
   return (
     <>
@@ -376,7 +376,9 @@ const Ch2: React.FC = () => {
       {/* S29：左が先、1秒おいて右（一緒に → 一人で） */}
       <Beat from={only} to={hypo}><Half29 right={alone - only} /></Beat>
       {/* S31：仮説・冒頭の車が小さく戻る */}
-      <Beat from={hypo} to={hus}><Hypo31 car={car - hypo} /></Beat>
+      <Beat from={hypo} to={spring}><Hypo31 car={car - hypo} /></Beat>
+      {/* S31b：この家の一日の再現（朝 → 夜。2026-10-07） */}
+      <Beat from={spring} to={hus}><Home31b night={night - spring} /></Beat>
       {/* S32：夫の線だけが先に描かれて下がる */}
       <Beat from={hus} to={wifeDown}><Mean32 /></Beat>
       {/* S33：妻の線が重なる・差ははっきりしない */}
@@ -434,6 +436,35 @@ const Hypo31: React.FC<{ car: number }> = ({ car }) => {
     </>
   );
 };
+/** S31b：冒頭の家の、娘が小学校に上がってからの朝と夜。夜の三つは一つずつ出る */
+const Home31b: React.FC<{ night: number }> = ({ night }) => (
+  <AbsoluteFill>
+    <ChapterDots current={2} />
+    <Heading>この家の、娘が小学校に上がってから</Heading>
+    <Svg>
+      {[0, 1].map((i) => <rect key={i} x={120 + i * 860} y={220} width={820} height={590} rx={R.lg} fill={C.wall} stroke={C.ink} strokeWidth={LINE.thin} />)}
+      <Label x={530} y={290} anchor="middle" weight={900}>朝</Label>
+      <Label x={1390} y={290} anchor="middle" weight={900}>夜</Label>
+      <EnterG>
+        <Cat kind="male" x={380} y={760} size={3.4} pose="walk" turn={-0.6} label="夫" />
+        <Briefcase x={500} y={720} label="仕事の鞄" />
+        <Cat kind="female" x={700} y={760} size={2.2} pose="walk" turn={0.6} label="娘" seed={7} />
+        <Randoseru x={740} y={712} s={0.42} color={C.femaleTint} />
+        <Label x={530} y={400} anchor="middle" color={C.ink2}>それぞれ家を出る</Label>
+      </EnterG>
+      <EnterG at={night}>
+        <Cat kind="female" x={1240} y={760} size={3.6} look={[0.6, -0.2]} label="妻" seed={2} />
+        <Label x={1390} y={400} anchor="middle" color={C.ink2}>帰ってから、1人で</Label>
+      </EnterG>
+      {["連絡帳", "夕飯", "洗濯"].map((t, i) => (
+        <EnterG key={t} at={night + 30 + i * 24}>
+          <rect x={1460} y={470 + i * 100} width={240} height={76} rx={R.sm} fill={C.bg} stroke={C.female} strokeWidth={LINE.thin} />
+          <Label x={1580} y={522 + i * 100} anchor="middle">{t}</Label>
+        </EnterG>
+      ))}
+    </Svg>
+  </AbsoluteFill>
+);
 const S31Note: React.FC = () => {
   return <Note x={96} y={360} role="label" question text={"子どもが学校に上がると、\n夫婦が一緒にやることが減り、\n妻が一人でやることが増える"} />;
 };
@@ -516,7 +547,7 @@ const Ch3: React.FC = () => {
   const husW = find("夫は、一日におよそ40分", 530), wifeW = find("妻は、4時間", 614), share = find("夫が受け持つ家事の割合は", 772);
   const ask = find("年齢ごとに比べた3000人の調査では", 1259), h83 = find("妻の家事に満足と答える夫", 1483), w66 = find("夫の家事に満足と答える妻", 1598), yahari = find("ここまでなら", 1723);
   const notYet = find("でも、この天秤には", 1829), husBag = find("夫の皿に、仕事のおもり", 2028), train = find("朝の電車", 2147), wifeBag = find("妻の皿にも", 2263);
-  const moves = find("天秤が、ゆっくり", 2385), yours = find("天秤がどこで止まるか", 2473), split = find("満足している人と、していない人", 2695), cond = find("年齢や収入", 3025);
+  const moves = find("天秤が、ゆっくり", 2385), yours = find("天秤がどこで止まるか", 2473), split = find("満足している人と、していない人", 2695), cond = find("結婚している20代の後半から", 3025);
   const res = find("すると、夫が家事を多く", 3150), sup = find("はっきり差が出たのは", 3356), three = find("悩みを聞いてくれる、努力", 3512), why = find("なぜ家事の量より", 3802);
   const expect = find("期待どおりだったかどうか", 4314), work_ = find("とくに常勤で働く", 4492), abroad = find("海外の研究でも", 4850);
   const fit = find("話を聞いてほしいとき", 5328), back = find("心の支えを、3000人の調査", 5563), overlay = find("最初に見た、夫と妻の満足度", 6217);
@@ -947,7 +978,7 @@ const Level62: React.FC<{ forgot: number }> = ({ forgot }) => {
 
 // ================= 章の扉と終了画面（台本にない、声のない場面） =================
 const chapterScene = (no: number, title: string): SceneDef => ({ id: `ch${no}-card`, seconds: CHAPTER_FRAMES / FPS, Scene: () => <ChapterCard no={no} title={title} /> });
-const End: React.FC = () => <EndScreen lesson={"天秤はつり合っていた。\n量り忘れていたのは、\n二人とも。"} />;
+const End: React.FC = () => <EndScreen lesson={"天秤はつり合っていた。\n量り忘れていたのは、\nお互いの気持ち。"} />;
 
 const narrated = fromTiming(timing as Timing, {
   opening: Opening, today: Today, quiz: QuizScene, ch1: Ch1, ch2: Ch2, ch3: Ch3, verdict: VerdictScene, lesson: Lesson,
