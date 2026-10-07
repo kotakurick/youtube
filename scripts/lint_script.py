@@ -41,8 +41,8 @@ from pathlib import Path
 
 CHARS_PER_MIN = 395          # 読み上げの速さ（1分390〜400字）
 NUM_PER_MIN = 5              # 読み上げる数字は1分に4〜5個まで
-SENT_MAX = 40                # 1文の長さの目安
-COMMA_MAX = 2                # 1文の読点の数
+SENT_MAX = 60                # 1文の長さの目安（2026-10-07 40→60。字幕は narrate.py が読点で分けるので、字幕のために文を短く切らない）
+COMMA_MAX = 3                # 読点の数の目安（2026-10-07 2→3。文を長めにしてよくしたため）
 KANJI_RUN = 8                # 漢字がこれ以上続いたら注意（熟語3つ以上の目安）
 
 # 煽り・助言・見下し（使わない）
@@ -224,6 +224,15 @@ def narration_with_headings(text: str) -> list[tuple[int, str]]:
     return sorted([(i, h) for i, h in heads.items()] + narration(text))
 
 
+def ending_kind(s: str, core: str) -> str:
+    """文末の種類。「でした」「ました」「しました」はまとめて「〜た」と数える（どれも過去の言い切りで、続くと単調に聞こえる）。"""
+    if re.search(r"[？?]$", s) or core.endswith("か"):
+        return "問い"
+    if core.endswith("た"):
+        return "〜た"
+    return core[-2:]
+
+
 def numbers(s: str) -> list[str]:
     """読み上げる数字。ラベルの数字（30代・20年・100組・1つ目）は数えない。"""
     return [m.group(0) for m in re.finditer(r"\d+(?:[.,]\d+)*", s) if not re.match(LABEL_UNIT, s[m.end():])]
@@ -296,11 +305,11 @@ def main():
         m = re.search(r"[一-龥]{%d,}" % KANJI_RUN, s)
         if m:
             notes.append((no, f"漢字が続いて聞き取りにくい：{m.group(0)}"))
-        end = core[-2:]
+        end = ending_kind(s, core)
         run = run + 1 if end == prev_end else 1
         prev_end = end
-        if run == 4:
-            notes.append((no, f"同じ文末「{end}」が4回続いている。体言止めか問いかけを混ぜる"))
+        if run == 3:
+            notes.append((no, f"同じ文末「{end}」が3文続いている。体言止め・「〜のです」・2文をつなぐ・言い方を変える（2026-10-07 オーナー「でした。しました。が単調」）"))
     if plain and len(plain) / len(sents) > 0.1:
         errors.append((plain[0][0], f"です・ます調でない文が{len(plain)}文（{len(plain) / len(sents):.0%}）。例：{plain[0][1][:30]}"))
     else:
