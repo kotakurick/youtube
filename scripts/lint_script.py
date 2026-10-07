@@ -14,6 +14,14 @@
     必須の仕掛け（先回り・比喩・回収・ミクロ・締め）の印がないとエラー。比喩は名前を付け、同じ名前で回収する
     （<!-- 仕掛け: 比喩 ケーキ --> … <!-- 仕掛け: 回収 ケーキ -->）。健康・お金の回はミクロの代わりに <!-- 仕掛け: 示唆 --> を置く。
 
+クイズは冒頭の予想タイムだけ（2026-10-07 オーナー「クイズ的なのは最初の答え合わせでよい。それ以降はくどい」）:
+    第N章の中で、答えを当てさせる問い（「〜だと思いますか」「考えてみてください」）と「答えは、」で明かす文はエラー。
+    問いかけてすぐ〔間〕で答える形は注意。
+
+回ごとの呼び名の表（2026-10-07）:
+    episodes/<回>/wording.tsv（scripts/wording.tsv と同じ形）に、その回で使わない言い方と呼び名を書くと、
+    共通の表と同じくエラーにする。同じものを途中で別の名前で呼ばない・比喩の言葉を字義どおりに使わないため。
+
 結果:
     エラー（直してから進む）と注意（読んで判断する）を行番号つきで出す。エラーが1つでもあれば終了コード1。
 """
@@ -50,7 +58,15 @@ SLOP = [
     (r"効いてくる|溶かす|浮き彫り|紐解|ひもと|踏み込", "AIが好む比喩の動詞"),
     (r"した瞬間|示唆して", "英語の直訳調"),
     (r"(データ|数字|統計|グラフ)(が|は)(語|教えて|物語)", "擬人化：「データを見ると、〜です」"),
+    # 翻訳調・抽象名詞で逃げる言い方（2026-10-07 オーナー「日本語の使い方に違和感がある所が多い」。13章）
+    (r"することができ|において|における|を持っています|となります", "翻訳調・説明書調：ふだんの話し言葉にする"),
+    (r"という形|の形です|の形に|という構造|という構図", "抽象名詞で逃げている：何が起きているかを動詞で言う"),
 ]
+
+# クイズの形（13章。章の中では使わない）
+QUIZ_ASK = r"だと思いますか|考えてみてください|予想して(みて)?ください|当てて(みて)?ください|どれでしょう"
+QUIZ_REVEAL = r"^(答えは|正解は)"
+NO_PARTICLE = re.compile(r"[こそあど]の|もの|のです|ので|のに|のは")
 
 SYMBOLS = r"[〜～／【】！!―—…]|[\U0001F300-\U0001FAFF]"
 POLITE = r"(です|ます|でした|ました|ません|でしょう|ください)(か|ね|よ)?$"
@@ -287,8 +303,46 @@ def main():
         for no, s in plain:
             notes.append((no, f"です・ます調でない：{s[:30]}"))
 
-    # 言い換えの辞書（scripts/wording.tsv。オーナーの指摘から足していく）と、読み間違えやすい漢字（tts/yomi.tsv）
-    wording = load_tsv(ROOT / "scripts" / "wording.tsv", "表記")
+    # 1文の中の「の」の重なりと、同じ語のくり返し（13章）
+    for i, (no, s) in enumerate(sents):
+        for clause in re.split(r"[、。？?]", s):
+            if len(re.findall("の", NO_PARTICLE.sub("", clause))) >= 3:
+                notes.append((no, f"「の」が3つ以上重なる：{clause[:30]}"))
+        words = re.findall(r"[一-龥]{2,}|[ァ-ヶー]{3,}", s)
+        for w in dict.fromkeys(words):
+            if words.count(w) >= 2:
+                notes.append((no, f"1文に同じ語「{w}」が2回。わざとの対句でなければ言い換えるか省く"))
+        near = [w for _, x in sents[max(0, i - 2):i + 1] for w in dict.fromkeys(re.findall(r"[一-龥]{2,}|[ァ-ヶー]{3,}", x))]
+        for w in dict.fromkeys(near):
+            if near.count(w) >= 3:
+                notes.append((no, f"同じ語「{w}」が3文続けて出る。わざとでなければ言い換えるか省く"))
+
+    # クイズは冒頭の予想タイムだけ（13章。2026-10-07 オーナー）
+    raw_lines = a.script.read_text(encoding="utf-8").splitlines()
+    in_ch, ch_name, asks = False, None, {}
+    for no, line in narration_with_headings("\n".join(raw_lines)):
+        if line.startswith("## "):
+            in_ch, ch_name = bool(CHAPTER.match(line)), line[3:].strip()
+            continue
+        if not in_ch:
+            continue
+        ss = [x.strip() for x in re.split(r"(?<=[。？?])(?![」』）)])", strip_tags(line)) if x.strip()]
+        for x in ss:
+            if re.search(QUIZ_ASK, x):
+                errors.append((no, f"章の中のクイズ（答えを当てさせる問い）。クイズは冒頭の予想タイムだけ：{x[:30]}"))
+            if re.match(QUIZ_REVEAL, x):
+                errors.append((no, f"章の中で「答えは」と明かしている（クイズの形）。答えを先に言い、意外さを語る：{x[:30]}"))
+            if re.search(QUESTION, re.sub(r"[。」』）)]+$", "", x)):
+                asks.setdefault(ch_name, []).append(no)
+        nxt = raw_lines[no].strip() if no < len(raw_lines) else ""
+        if ss and re.search(QUESTION, re.sub(r"[。」』）)]+$", "", ss[-1])) and nxt.startswith("〔間"):
+            notes.append((no, f"問いかけて〔間〕ですぐ答えている（クイズの形になっていないか）：{ss[-1][:30]}"))
+    for ch, nos in asks.items():
+        if len(nos) > 3:
+            notes.append((nos[0], f"「{ch}」に問いかけが{len(nos)}つ（くどくなる。章の終わりの問いを入れて3つまで）"))
+
+    # 言い換えの辞書（scripts/wording.tsv。オーナーの指摘から足していく。回ごとの呼び名は episodes/<回>/wording.tsv）と、読み間違えやすい漢字（tts/yomi.tsv）
+    wording = load_tsv(ROOT / "scripts" / "wording.tsv", "表記") + load_tsv(a.script.parent / "wording.tsv", "表記")
     yomi = [r["表記"] for r in load_tsv(ROOT / "tts" / "yomi.tsv", "表記")]
     for no, t in lines:
         t2 = strip_tags(t)
