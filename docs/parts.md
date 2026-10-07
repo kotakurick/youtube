@@ -69,7 +69,7 @@
 | FilterSteps | FilterSteps.tsx | 条件を重ねて100人が減る |
 | ConditionGrid | ConditionGrid.tsx | 条件の盤（2×2）。仮定を2つ動かした4つの町で、どちらが勝つかを横棒で比べる（条件で答えが変わる回） |
 | SimSpread | SimSpread.tsx | シミュレーションのばらつき |
-| Slider | Slider.tsx | 「もしも」の条件のつまみ |
+| Slider | Slider.tsx | 「もしも」の条件のつまみ（3本目は年収の目盛り。線とつまみに印あり） |
 | SimBackground | SimBackground.tsx | シミュレーションの場面の方眼 |
 
 ## 物語の場面
