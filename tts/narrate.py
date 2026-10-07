@@ -52,7 +52,12 @@ def parse(script: Path) -> list[dict]:
         line = raw.strip()
         m = MARK.search(line)
         if m:
-            cur = {"id": m.group(1), "seconds": float(m.group(2)) if m.group(2) else None, "lines": []}
+            new = {"id": m.group(1), "seconds": float(m.group(2)) if m.group(2) else None, "lines": []}
+            # 見出しのすぐ後に、見出しと同じ id の印を書いたときは1つの場面にする（2026-10-07）
+            if cur is not None and not cur["lines"] and cur["seconds"] is None and cur["id"] == new["id"]:
+                cur["seconds"] = new["seconds"]
+                continue
+            cur = new
             scenes.append(cur)
             continue
         if line.startswith("```"):
