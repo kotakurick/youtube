@@ -189,6 +189,11 @@ def narration_with_headings(text: str) -> list[tuple[int, str]]:
 
 # ラベルの数字（年齢・時刻・期間・回・章・年代・西暦・「3つ」のような個数、「〇人に1人」の1）は、覚えるデータではないので数えない。
 # 数字は算用数字にそろえて書く（漢字とまぜない。2026-10-07 オーナー指摘）。
+# 数を表す漢数字（「二割」「千人」「三つ」）。決まった言い方（一緒・一番・もう一度・十分・一人ひとり など）は除く。
+KANJI_NUM = re.compile(
+    r"(?<![\d,.唯同統均単第一-九十百千万])(?<!もう)[一二三四五六七八九十百千万]+(?=割|人|組|つ|倍|歳|年|か月|回|章|位|個|件|本|円|分の|パーセント|%)"
+)
+KANJI_NUM_OK = re.compile(r"一人ひとり|一人暮らし|一つひとつ|一人っ子|一人目|一つ目|十分|一年中")
 LABEL = re.compile(r"(?:歳|時|か月|ヶ月|カ月|週間|回目|度目|章|代|つ)|(?<=\d{4})年")
 
 
@@ -296,6 +301,8 @@ def main():
     # 言葉
     for no, t in lines:
         t2 = strip_tags(t)
+        for m in KANJI_NUM.finditer(KANJI_NUM_OK.sub("", t2)):
+            errors.append((no, f"数字は算用数字で書く（漢字とまぜない。2026-10-07 オーナー）：「{m.group(0)}」"))
         for pat, why in BANNED:
             for m in re.finditer(pat, t2):
                 errors.append((no, f"{why}：「{m.group(0)}」"))
