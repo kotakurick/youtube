@@ -17,7 +17,7 @@ import { Verdict } from "@lib/Verdict";
 import { EASE, sp } from "@lib/theme";
 import timing from "../timing.json";
 import {
-  A01, A02, A03a, A03b, A08, A09, A10, A11a, B01, B02, B02b, B02c, B03, B04, B05, B06, B07, B08, B09, B10, B11, B13,
+  A01, A02, A03a, A03b, A08, A09, A10, A11a, B01, B02, B02c, B03, B04, B05, B06, B07, B08, B09, B10, B11, B13,
   C00, C01, C02, C03, C04, C05, C06, C07, C08, C09, C10, C11, C12, C13, D01, D02, D03, D06, D07, D08, D09, D10, D11, D12,
   E01, E03, E05, E07, F01, F02, F03, F04, Heading, Premises, QUIZ_C, QUIZ_Q, QUIZ_T, Screen, Stairs,
 } from "./Storyboard";
@@ -122,7 +122,12 @@ const Roadmap: React.FC = () => {
 const Ch1Card: React.FC = () => <ChapterCard no={1} title="男女が相手に求めるもの" />;
 const Ch2Card: React.FC = () => <ChapterCard no={2} title="1つ目の前提「普通とはまん中」" />;
 const Ch3Card: React.FC = () => <ChapterCard no={3} title="2つ目と3つ目の前提" />;
-const Ch1Survey: React.FC = () => <Cuts cuts={[[B01, 0], [B02, "相手の見た目は"], [B02b, "男性は顔"], [B02c, "重く見る人だけ"], [B03, "差が大きく"]]} />;
+/** 見た目の棒のあと、「男性は顔、女性はお金」の札だけを重ねる（棒は伸び直さない） */
+const B02Card: React.FC = () => {
+  const { at, frame } = useAt();
+  return <B02 card={frame + at("相手の見た目は") >= at("男性は顔")} />;
+};
+const Ch1Survey: React.FC = () => <Cuts cuts={[[B01, 0], [B02Card, "相手の見た目は"], [B02c, "重く見る人だけ"], [B03, "差が大きく"]]} />;
 const Ch1Quiz: React.FC = () => <Cuts cuts={[[B04, 0], [B05, "男性で増えた"]]} />;
 const Ch1Hypergamy: React.FC = () => <Cuts cuts={[[B06, 0], [B07, "自分より学歴や年収"]]} />;
 const Ch1World: React.FC = () => <Cuts cuts={[[B08, 0], [B09, "計算で試して"]]} />;

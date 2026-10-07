@@ -379,12 +379,11 @@ export const Survey: React.FC<{ n: number; head: string }> = ({ n, head }) => (
   </AbsoluteFill>
 );
 export const B01: React.FC = () => <Survey n={1} head="男女とも、いちばん多いのは人柄" />;
-export const B02: React.FC = () => <Survey n={2} head="相手の容姿：男性も女性も約8割" />;
-/** 「男性は顔、女性はお金」の札を重ねる（2026-10-07 仮通しのテンポ） */
-export const B02b: React.FC = () => (
+/** card＝「男性は顔、女性はお金」の札を重ねる（本編で語に合わせて出す。2026-10-07 仮通しのテンポ） */
+export const B02: React.FC<{ card?: boolean }> = ({ card }) => (
   <AbsoluteFill>
     <Survey n={2} head="相手の容姿：男性も女性も約8割" />
-    <Svg><Card x={560} y={600} w={800} dashed head="よく言われること" lines={["男性は顔、女性はお金"]} /></Svg>
+    {card && <Svg><Card x={560} y={600} w={800} dashed head="よく言われること" lines={["男性は顔、女性はお金"]} /></Svg>}
   </AbsoluteFill>
 );
 /** 「重く見る」だけに絞った容姿（S1：男性24.6%・女性18.8%） */
@@ -607,7 +606,7 @@ export const Income: React.FC<{ tail?: boolean; head: string; step?: number }> =
           {step >= 2 && <Label x={x + slot * 6.5} y={430} anchor="middle" size="value">約150人</Label>}
           {step >= 3 && <Label x={x + slot * 5 + 24} y={330} color={C.ink2}>冒頭の132人は、働いていない人も含めた数</Label>}
           {step >= 4 && <>
-            <line data-qa="mark" data-qa-label="まん中の印" x1={x + slot * 3.5} x2={x + slot * 3.5} y1={250} y2={670} stroke={C.ink2} strokeWidth={LINE.thin} strokeDasharray="10 10" />
+            <line data-qa="mark" data-qa-label="まん中の印" x1={x + slot * 3.5} x2={x + slot * 3.5} y1={310} y2={670} stroke={C.ink2} strokeWidth={LINE.thin} strokeDasharray="10 10" />
             <Label x={x + slot * 3.5} y={232} anchor="middle" color={C.ink2}>まん中（約350万円）</Label>
           </>}
         </>}
