@@ -120,7 +120,7 @@ const Crowd06: React.FC<{ top: number; bottom: number }> = ({ top, bottom }) => 
 // ================= 今日の答え合わせ（S08） =================
 const Today: React.FC = () => (
   <>
-    <TodayCard claim="夫婦は、二人いっしょに冷めていく" start={4} />
+    <TodayCard claim="夫婦は、2人いっしょに冷めていく" start={4} />
     <Gosa cues={[[20, "thinking"]]} size="M" foot={GF} />
   </>
 );
@@ -721,7 +721,7 @@ const VerdictScene: React.FC = () => {
   const { find, end } = useCue();
   const load = find("天秤に、仕事と通勤", 140), h = find("夫が9時間6分", 245), w = find("妻は、9時間", 320), diff = find("差は、2分", 400), b = find("答えは、Bの", 456);
   const other = find("ほかの時期も", 530), notTime = find("ですから、時間の長さでは", 1238), claim = find("続いて、今日の説", 1610);
-  const r1 = find("満足の点数の平均は", 1790), r2 = find("でも、満足していないと答える", 1910), hit = find("判定は、半分だけ正解", 2094), split = find("満足度と一緒に動くものも", 2412);
+  const r1 = find("満足の点数の平均は", 1790), r2 = find("でも、満足していないと答える", 1910), hit = find("2人とも冷めていく、という", 2094), split = find("満足度と一緒に動くものも", 2412);
   const us = find("子どもが家を出たあとについては", 3039), reason = find("上がった理由は", 3430), enjoy = find("一緒にいる時間を", 3591), japan = find("ただ、年齢ごとに比べた日本", 3867);
   const second = find("2つ目は", 4143), still = find("それでも、どの時期", 783), outside = find("外で長く", 908);
   const after = find("子どもが家を出たあとの妻", 2708), valley = find("満足度がいちばん低いのは", 2860);
@@ -736,9 +736,9 @@ const VerdictScene: React.FC = () => {
       </Beat>
       {/* S50：長さではなく中身 */}
       <Beat from={notTime} to={claim}><Enter dy={0}><S50 /></Enter></Beat>
-      {/* S51：判定 △（証拠は読み上げに合わせて1つずつ、「判定は、三角」で印） */}
+      {/* S51：判定（証拠は読み上げに合わせて1つずつ、「2人とも冷めていく、という」でゴサが答える。〇△×の札は出さない 2026-10-07） */}
       <Beat from={claim} to={split}>
-        <Verdict claim="夫婦は、二人いっしょに冷めていく" mark="△" chipAt={[r1 - claim, r2 - claim, hit - claim - 50]} hitAt={hit - claim + 20}
+        <Verdict claim="夫婦は、2人いっしょに冷めていく" mark="△" chipAt={[r1 - claim, r2 - claim, hit - claim - 50]} hitAt={hit - claim + 20}
           reason={["満足の点数の平均は、\n夫も妻も下がる", "満足していない人は、\n30代後半から妻に多い", "家事＋仕事の時間は、\nほぼ同じ（差2分）"]} />
       </Beat>
       {/* S52：家族の時期 */}
