@@ -108,7 +108,7 @@
 |---|---|---|
 | ChapterCard / ChapterDots | Chapter.tsx | 章の扉と位置の点 |
 | Quiz | Quiz.tsx | 予想タイム（問いと選択肢を全面で）。読み上げに合わせる `choiceAt`・`ringAt`・`revealAt`、引っかけの揺れ `nudge`、ゴサの足元 `gosaFoot`（4本目） |
-| Verdict | Verdict.tsx | 答え合わせ（〇△×）。証拠の文は `\n` で手で改行できる。読み上げに合わせる `chipAt`・`hitAt`（4本目）。印の下の言葉は `word` で回ごとに変えられる（例：△「半分本当」。7本目）。記号を出さない回は SplitClaim を使う（7本目は Verdict を使わない） |
+| Verdict | Verdict.tsx | 答え合わせ（〇△×）。証拠の文は `\n` で手で改行できる。読み上げに合わせる `chipAt`・`hitAt`（4本目）。記号を出さない回は SplitClaim を使う（7本目は Verdict を使わない） |
 | ClaimCards / CountPick | Claims.tsx | よく聞く話（通説）のカード（`cols` 2＝名前＋一文、4＝名前だけの横1列。`shown` で出ている数、`icons` で目印（ClaimIcon：up・cash・genius・rich）、`tones`（hit／half／miss）で左の縁の帯、`words` で判定の言葉。記号は使わない）と、「本当の話はいくつ？」の0〜nの札（`answer` で墨に）。今日の答え合わせ・予想タイム・予想の答えで同じ並び（7本目。第2版で印をやめ帯と言葉に） |
 | SplitClaim / ClaimStrip | SplitClaim.tsx | 記号を使わない答え合わせ。SplitClaim は話のカードが「当たっていた所」（青緑の縁・実線）と「外れていた所」（灰の縁・点線、右下にずれる）に割れ、最後に言葉（`word`）を出す。`hit` がなければ全部が外れ。ClaimStrip は上に4つの話の札を横1列（`current` に墨の太枠、済んだ札に帯と言葉）。4つを同じ舞台で順に入れ替える。割れた札は印 mark（7本目第2版） |
 | Cards | Cards.tsx | チャンネル名・今日の答え合わせ・中間の確認・登録の一言 |

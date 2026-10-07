@@ -162,7 +162,7 @@ const scenes: SceneDef[] = [...narrated, { id: "end", seconds: END_FRAMES / FPS,
 
 const episode: EpisodeDef = {
   id: "006-cheating-line",
-  title: "どこからが浮気？ 浮気の線がぴったり合う確率", // 仮。タイトルはオーナーが決める（meta.md）
+  title: "どこからが浮気か。男女2人の基準がぴったり合うのは、170組に1組", // 2026-10-07 オーナー決定（meta.md）
   scenes,
   // BGM は曲を決めてから（ローカルの工程）
 };
