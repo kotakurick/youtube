@@ -187,13 +187,13 @@ def narration_with_headings(text: str) -> list[tuple[int, str]]:
     return sorted([(i, h) for i, h in heads.items()] + narration(text))
 
 
-# ラベルの数字（年齢・時刻・期間・回・章・年代・西暦、「〇人に1人」の1）は、覚えるデータではないので数えない。
+# ラベルの数字（年齢・時刻・期間・回・章・年代・西暦・「3つ」のような個数、「〇人に1人」の1）は、覚えるデータではないので数えない。
 # 数字は算用数字にそろえて書く（漢字とまぜない。2026-10-07 オーナー指摘）。
-LABEL = re.compile(r"(?:歳|時|か月|ヶ月|カ月|週間|回目|度目|章|代|つ目)|(?<=\d{4})年")
+LABEL = re.compile(r"(?:歳|時|か月|ヶ月|カ月|週間|回目|度目|章|代|つ)|(?<=\d{4})年")
 
 
-def numbers(s: str, labels: bool = False) -> list[str]:
-    """読み上げる数字。labels=False ならラベルの数字を除く。"""
+def numbers(s: str, labels: bool = False, keys: bool = False) -> list[str]:
+    """読み上げる数字。labels=False ならラベルの数字を除く。keys=True なら「数字＋続く1字」（同じ量かの目印）で返す。"""
     out = []
     for m in re.finditer(r"\d+(?:[.,]\d+)*", s):
         if not labels:
@@ -201,7 +201,18 @@ def numbers(s: str, labels: bool = False) -> list[str]:
                 continue
             if s[max(0, m.start() - 2):m.start()] == "人に" and m.group() == "1":
                 continue
-        out.append(m.group())
+        out.append(m.group() + s[m.end():m.end() + 1] if keys else m.group())
+    return out
+
+
+def new_numbers(sents) -> dict:
+    """文ごとの「新しい数字」の数。前に言った数字を同じ単位でもう一度言うのは数えない
+    （基準の「1000人」や、本命の数字の言い直し。1つの数字に時間をかける、の決まりどおり。2026-10-07）。"""
+    seen, out = set(), {}
+    for no, s in sents:
+        ks = numbers(s, keys=True)
+        out[(no, s)] = sum(1 for k in ks if k not in seen)
+        seen.update(ks)
     return out
 
 
@@ -220,15 +231,17 @@ def main():
     errors, notes = [], []
 
     # 数字
+    fresh = new_numbers(sents)
     all_nums = [(no, n) for no, s in sents for n in numbers(s)]
-    per_min = len(all_nums) / minutes if minutes else 0
+    n_fresh = sum(fresh.values())
+    per_min = n_fresh / minutes if minutes else 0
     if per_min > NUM_PER_MIN:
         (errors if minutes >= 3 else notes).append((0, f"読み上げる数字が1分に{per_min:.1f}個（{NUM_PER_MIN}個まで）。数字を減らし、1つの数字に時間をかける"))
     window, acc, start_no = CHARS_PER_MIN, [], None
     for no, s in sents:   # 約1分ごとに区切って、数字が多すぎる所を探す
         acc.append((no, s))
         if sum(len(x) for _, x in acc) >= window:
-            k = sum(len(numbers(x)) for _, x in acc)
+            k = sum(fresh[(n2, x)] for n2, x in acc)
             if k > NUM_PER_MIN + 1:
                 notes.append((acc[0][0], f"{acc[0][0]}〜{no}行目の約1分に数字が{k}個"))
             acc = []
@@ -318,7 +331,7 @@ def main():
             notes.append((no, f"「{ch}」の最後の文が問いになっていない。次の章への問いで終える：{s_last[:30]}"))
 
     # 出力
-    print(f"{a.script}：{chars:,}字、読み上げ約{minutes:.1f}分、数字{len(all_nums)}個（1分に{per_min:.1f}個）、{len(sents)}文")
+    print(f"{a.script}：{chars:,}字、読み上げ約{minutes:.1f}分、数字{len(all_nums)}個（言い直しを除く{n_fresh}個、1分に{per_min:.1f}個）、{len(sents)}文")
     if minutes >= 10 and not (5500 <= chars <= 7500):
         notes.append((0, f"全体が{chars:,}字（15〜20分なら約5,500〜7,500字）"))
     errors, notes = list(dict.fromkeys(errors)), list(dict.fromkeys(notes))   # 同じ行の同じ指摘は1つに
