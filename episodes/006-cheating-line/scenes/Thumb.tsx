@@ -25,7 +25,7 @@ const ARMS_CROSSED = (hair: "short" | "long", skirt = false): Joints => ({
   hair, skirt,
 });
 
-const Ground: React.FC = () => (
+const Ground: React.FC<{ big?: boolean }> = ({ big = false }) => (
   <svg width={W} height={H} style={{ position: "absolute" }}>
     <defs>
       <linearGradient id="tB" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stopColor={BLUE[1]} /><stop offset="100%" stopColor={BLUE[0]} /></linearGradient>
@@ -40,8 +40,8 @@ const Ground: React.FC = () => (
     <line x1={L1[0]} y1={0} x2={L1[1]} y2={H} stroke="#FFFFFF" strokeWidth={6} />
     <line x1={L2[0]} y1={0} x2={L2[1]} y2={H} stroke="#FFFFFF" strokeWidth={6} />
     {/* 2人：同じ大きさ・同じ白。腰から下は画面の外 */}
-    <g filter="url(#tDrop)"><Silhouette j={ARMS_CROSSED("short")} x={250} y={H + 434} size={0.75} color="url(#tShade)" gap="rgba(10,20,60,.85)" /></g>
-    <g filter="url(#tDrop)"><Silhouette j={ARMS_CROSSED("long", true)} x={1030} y={H + 434} size={0.75} color="url(#tShade)" gap="rgba(60,10,0,.85)" flip /></g>
+    <g filter="url(#tDrop)"><Silhouette j={ARMS_CROSSED("short")} x={big ? 230 : 250} y={big ? 1395 : H + 434} size={big ? 1.1 : 0.75} color="url(#tShade)" gap="rgba(10,20,60,.85)" /></g>
+    <g filter="url(#tDrop)"><Silhouette j={ARMS_CROSSED("long", true)} x={big ? 1050 : 1030} y={big ? 1395 : H + 434} size={big ? 1.1 : 0.75} color="url(#tShade)" gap="rgba(60,10,0,.85)" flip /></g>
   </svg>
 );
 
@@ -80,9 +80,9 @@ const NotSex: React.FC = () => (
  *  nobody：タイトルの数字（170組に1組＝0.59%）を言葉で。zure：逆説（ずれる数は男女の組でも同性どうしでも同じ） */
 const Short: React.FC<{ text: string }> = ({ text }) => (
   <AbsoluteFill style={{ background: RED[0] }}>
-    <Ground />
+    <Ground big />
     <Band text="どこからが浮気？" />
-    <Big text={text} top={168} size={136} />
+    <Big text={text} top={150} size={136} />
   </AbsoluteFill>
 );
 
