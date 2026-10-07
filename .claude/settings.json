@@ -1,3 +1,7 @@
 {
-  "language": "japanese"
+  "language": "japanese",
+  "autoCompactWindow": 300000,
+  "env": {
+    "CLAUDE_CODE_AUTO_COMPACT_WINDOW": "300000"
+  }
 }

@@ -9,9 +9,10 @@
 - [ ] 1. テーマ・データ収集（クラウド）→ `sources.csv`、`data/`
 - [ ] ★ テーマと切り口の承認（オーナー）
 - [ ] 2. 企画カードと構成案（クラウド）→ `outline.md`（一番上の企画カードを先に埋める。埋まったら `review-rival` に見せて、負けている所を構成で直す → `review/rival-outline.md`）
-- [ ] 3. 台本（クラウド）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。5役のレビュー → 直した稿をもう一度見せる → 最後に日本語役 `review-japanese` → `review/`）
+- [ ] 3. 台本（クラウド）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。6役のレビュー（視聴者代表を含む） → 直した稿をもう一度見せる → 最後に日本語役 `review-japanese` → `review/`）
 - [ ] ★ 一次資料との照合（オーナー）→ `sources.csv` の「照合」欄をすべて埋める
 - [ ] ★ 台本レビュー（オーナー）→ `review/owner.md`（Claude が読みやすい形にまとめて渡す。オーナーの指摘は Claude が書き写して台本に反映し、直した／直さなかったを1行ずつ書く）
+- [ ] ★ 仮の音声で聞く（クラウドが作る → オーナーがスマホで）：まず無料の読み上げページ（`python tts/readaloud.py episodes/{{EPISODE}}` → Artifact で db 付きで公開してリンクを渡す。「付けた」と言われたら ArtifactData でページの notes を読んで台本を直す）。Yui の声で聞きたいときだけ `python tts/narrate.py episodes/{{EPISODE}} --voice eleven-yui` → `python tts/preview.py episodes/{{EPISODE}}` の mp3 と早見表をアプリに送る。「いらない」と言われた所を台本で直し、もう一度送る（`docs/process.md` の8b）
 - [ ] 4. 絵コンテ（クラウド）：`scenes/Storyboard.tsx` に場面を描き（秒数と動きも）、`cd render && npm run storyboard -- <回のid>` で一覧と `storyboard.md` を作る（直すもの0、⚠ の場面は割り方を決める）→ 3役（`review-animator`・`review-illustrator`・`review-designer`）に見せて `review/storyboard-summary.md` にまとめて直す → ★ オーナーが確認
 - [ ] 5. 場面のコード（クラウド）→ `scenes/Episode.tsx`（`Episode.example.tsx` を名前を変えて使う。部品は `render/src/lib`、動きは `useNarration()` で読み上げに合わせる）
 - [ ] 6. 仮通し（クラウド）：`python tts/narrate.py episodes/{{EPISODE}} --voice silent` で仮の尺と字幕（`timing.json`）を作り、部品のない場面は仮の画面（draft）で13〜18分を通して、テンポ・章の長さ・考える場面の位置を直す
