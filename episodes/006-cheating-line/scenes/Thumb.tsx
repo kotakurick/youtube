@@ -13,6 +13,8 @@ const W = 1280, H = 720;
 const BLUE = ["#0A2A6B", "#2F6FDE"], RED = ["#5A1A08", C.female], GRAY = ["#3A3A3E", "#77767A"];
 // 2本の境目（上の x・下の x）。間が灰色のくさび
 const L1 = [560, 470], L2 = [700, 820];
+// サムネイル用の明るい金（橙の地から浮かせる。レビュー r1。本編の C.gold は変えない）
+const GOLD = "#FFC83D";
 
 /** 腕を組んで、顔を少し外へ向ける（正面）。flip で左右を返す */
 const ARMS_CROSSED = (hair: "short" | "long", skirt = false): Joints => ({
@@ -38,8 +40,8 @@ const Ground: React.FC = () => (
     <line x1={L1[0]} y1={0} x2={L1[1]} y2={H} stroke="#FFFFFF" strokeWidth={6} />
     <line x1={L2[0]} y1={0} x2={L2[1]} y2={H} stroke="#FFFFFF" strokeWidth={6} />
     {/* 2人：同じ大きさ・同じ白。腰から下は画面の外 */}
-    <g filter="url(#tDrop)"><Silhouette j={ARMS_CROSSED("short")} x={250} y={H + 404} size={0.75} color="url(#tShade)" gap="rgba(10,20,60,.85)" /></g>
-    <g filter="url(#tDrop)"><Silhouette j={ARMS_CROSSED("long", true)} x={1030} y={H + 404} size={0.75} color="url(#tShade)" gap="rgba(60,10,0,.85)" flip /></g>
+    <g filter="url(#tDrop)"><Silhouette j={ARMS_CROSSED("short")} x={250} y={H + 434} size={0.75} color="url(#tShade)" gap="rgba(10,20,60,.85)" /></g>
+    <g filter="url(#tDrop)"><Silhouette j={ARMS_CROSSED("long", true)} x={1030} y={H + 434} size={0.75} color="url(#tShade)" gap="rgba(60,10,0,.85)" flip /></g>
   </svg>
 );
 
@@ -50,8 +52,8 @@ const Band: React.FC<{ text: string }> = ({ text }) => (
 );
 const Big: React.FC<{ text: string; top: number; size: number; color?: string }> = ({ text, top, size, color = C.white }) => (
   <div style={{ position: "absolute", left: 0, right: 0, top, textAlign: "center", fontFamily: FONT_SERIF, fontWeight: 900, fontSize: size,
-    lineHeight: 1.1, whiteSpace: "nowrap", color, WebkitTextStroke: color === C.white ? undefined : `6px ${C.ink}`, paintOrder: "stroke fill",
-    filter: "drop-shadow(0 6px 8px rgba(0,0,0,.6))" }}>{text}</div>
+    lineHeight: 1.1, whiteSpace: "nowrap", color, WebkitTextStroke: color === C.white ? undefined : `10px ${C.ink}`, paintOrder: "stroke fill",
+    filter: "drop-shadow(0 8px 10px rgba(0,0,0,.75))" }}>{text}</div>
 );
 
 /** 案1：本編の主役の数字（無作為の男女の組で、32の行動の線が全部そろうのは約170組に1組）。そろう＝金（本編と同じ意味の色） */
@@ -59,18 +61,18 @@ const Match: React.FC = () => (
   <AbsoluteFill style={{ background: RED[0] }}>
     <Ground />
     <Band text="どこからが浮気？" />
-    <Big text="線がぴったり合う" top={138} size={84} />
-    <Big text="170組に1組" top={238} size={160} color={C.gold} />
+    <Big text="線がぴったり合うのは" top={126} size={88} />
+    <Big text="170組に1組" top={214} size={152} color={GOLD} />
   </AbsoluteFill>
 );
 
-/** 案2：逆説（ずれる数は男女の組でも同性どうしでも同じ）。数字なし */
+/** 案2：逆説（ずれる数は男女の組でも同性どうしでも同じ：9.3・8.9・9.3個）。数字なし。「男女の差じゃない」は男女差がないと読まれるのでやめた（レビュー r1） */
 const NotSex: React.FC = () => (
   <AbsoluteFill style={{ background: RED[0] }}>
     <Ground />
     <Band text="どこからが浮気？" />
-    <Big text="ずれるのは" top={138} size={84} />
-    <Big text="男女の差じゃない" top={246} size={136} />
+    <Big text="線がずれる数は" top={126} size={88} />
+    <Big text="男性どうしでも同じ" top={232} size={124} />
   </AbsoluteFill>
 );
 
