@@ -25,7 +25,7 @@ import { C, EASE, font, LINE, R, sp } from "@lib/theme";
 import timing from "../timing.json";
 import {
   Big, DISCLAIM, Heading, Hundred, Label, LIT, P01, P02, P07, P08, P10, P12, P13, P13b, P14, P15, P17, P18, P19, P20c, P21, P22, P24, P25, P27a, P27b, P28, P29, P30a, P30b, P30c, ROWS, spread, Svg,
-} from "./Storyboard";
+} from "./Storyboard-v2"; // 第2版の絵（本編は第13稿の絵コンテ第3版が決まってから書き直す。2026-10-07）
 
 // ---------- 共通 ----------
 const useCue = () => {
@@ -514,7 +514,7 @@ const episode: EpisodeDef = {
     "ch2-card": Ch2Card, ch2: Ch2, "ch2-women": Ch2Women, "ch2-men": Ch2Men, "ch2-sieve": Ch2Sieve, "ch2-own": Ch2Own,
     "ch3-card": Ch3Card, ch3: Ch3, "ch3-quiz": Ch3Quiz, "ch3-study": Ch3Study, "ch3-outside": Ch3Outside,
     verdict: VerdictScene, "verdict-quiz": VerdictQuiz, micro: Micro, lesson: Lesson, "lesson-rulers": LessonRulers, end: End,
-  }),
+  }, { draft: true }), // 第13稿で場面が変わった。絵コンテ第3版が決まったら書き直す（それまでは無い場面を仮の画面にする。2026-10-07）
   bgm: [
     // 1曲を通しで流す（2026-10-06 オーナー「3分目くらいの曲で共通でいい。複数使わなくてもいい」、1本目 v3 と同じ）
     { file: "Stayin' Lazy - Godmode.mp3", from: "opening", to: "end" },
