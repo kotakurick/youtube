@@ -106,7 +106,7 @@
 |---|---|---|
 | ChapterCard / ChapterDots | Chapter.tsx | 章の扉と位置の点 |
 | Quiz | Quiz.tsx | 予想タイム（問いと選択肢を全面で）。読み上げに合わせる `choiceAt`・`ringAt`・`revealAt`、引っかけの揺れ `nudge`、ゴサの足元 `gosaFoot`（4本目） |
-| Verdict | Verdict.tsx | 答え合わせ（〇△×）。証拠の文は `\n` で手で改行できる。読み上げに合わせる `chipAt`・`hitAt`（4本目） |
+| Verdict | Verdict.tsx | 答え合わせ（説と証拠3つとゴサ。〇△×の札は出さない。`mark` はゴサのひげにだけ使う）。証拠の文は `\n` で手で改行できる。読み上げに合わせる `chipAt`・`hitAt`（4本目） |
 | Cards | Cards.tsx | チャンネル名・今日の答え合わせ・中間の確認・登録の一言 |
 | Camera | Camera.tsx | 寄り・引き・横移動 |
 | Beat / Enter / EnterG / Wipe / ramp / useCue | Motion.tsx | 場面の中の区切りと出し方：区切り（Beat）、ばねで出す（Enter は HTML、EnterG は SVG の中）、左→右・下→上にぬぐって見せる（Wipe）、0→1 の補間（ramp）、読み上げの語の時刻（useCue。見つからなければ予備の値）（4本目） |
