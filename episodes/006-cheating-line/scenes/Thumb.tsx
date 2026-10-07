@@ -25,12 +25,13 @@ const ARMS_CROSSED = (hair: "short" | "long", skirt = false): Joints => ({
   hair, skirt,
 });
 
-const Ground: React.FC<{ big?: boolean }> = ({ big = false }) => (
+type Pose = { size: number; y: number; tilt: number };
+const Ground: React.FC<{ big?: boolean; light?: boolean; pose?: Pose }> = ({ big = false, light = false, pose }) => (
   <svg width={W} height={H} style={{ position: "absolute" }}>
     <defs>
       <linearGradient id="tB" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stopColor={BLUE[1]} /><stop offset="100%" stopColor={BLUE[0]} /></linearGradient>
       <linearGradient id="tR" x1="1" y1="1" x2="0" y2="0"><stop offset="0%" stopColor={RED[1]} /><stop offset="100%" stopColor={RED[0]} /></linearGradient>
-      <linearGradient id="tG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={GRAY[0]} /><stop offset="100%" stopColor={GRAY[1]} /></linearGradient>
+      <linearGradient id="tG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={light ? "#E8E8EC" : GRAY[0]} /><stop offset="100%" stopColor={light ? "#B8B8C0" : GRAY[1]} /></linearGradient>
       <linearGradient id="tShade" gradientUnits="userSpaceOnUse" x1="-160" y1="-1000" x2="200" y2="-300"><stop offset="0%" stopColor="#FFFFFF" /><stop offset="60%" stopColor="#F1F3F7" /><stop offset="100%" stopColor="#C9CFDB" /></linearGradient>
       <filter id="tDrop" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="6" dy="10" stdDeviation="8" floodColor="#000" floodOpacity="0.45" /></filter>
     </defs>
@@ -40,8 +41,8 @@ const Ground: React.FC<{ big?: boolean }> = ({ big = false }) => (
     <line x1={L1[0]} y1={0} x2={L1[1]} y2={H} stroke="#FFFFFF" strokeWidth={6} />
     <line x1={L2[0]} y1={0} x2={L2[1]} y2={H} stroke="#FFFFFF" strokeWidth={6} />
     {/* 2人：同じ大きさ・同じ白。腰から下は画面の外 */}
-    <g filter="url(#tDrop)"><Silhouette j={ARMS_CROSSED("short")} x={big ? 230 : 250} y={big ? 1395 : H + 434} size={big ? 1.1 : 0.75} color="url(#tShade)" gap="rgba(10,20,60,.85)" /></g>
-    <g filter="url(#tDrop)"><Silhouette j={ARMS_CROSSED("long", true)} x={big ? 1050 : 1030} y={big ? 1395 : H + 434} size={big ? 1.1 : 0.75} color="url(#tShade)" gap="rgba(60,10,0,.85)" flip /></g>
+    <g filter="url(#tDrop)" transform={pose ? `rotate(${-pose.tilt} 230 ${H})` : undefined}><Silhouette j={ARMS_CROSSED("short")} x={big ? 230 : 250} y={pose ? pose.y : big ? 1395 : H + 434} size={pose ? pose.size : big ? 1.1 : 0.75} color="url(#tShade)" gap="rgba(10,20,60,.85)" /></g>
+    <g filter="url(#tDrop)" transform={pose ? `rotate(${pose.tilt} 1050 ${H})` : undefined}><Silhouette j={ARMS_CROSSED("long", true)} x={big ? 1050 : 1030} y={pose ? pose.y : big ? 1395 : H + 434} size={pose ? pose.size : big ? 1.1 : 0.75} color="url(#tShade)" gap="rgba(60,10,0,.85)" flip /></g>
   </svg>
 );
 
@@ -103,13 +104,18 @@ const AllMatch: React.FC = () => (
 
 /** 案5（2026-10-07 オーナー「男女で基準は同じ？ は？ どのようにも捉えられるし訴求力ありそう」）：問いの形。
  *  答えは本編どおり二重（男女の多数派の答えは32問すべて同じ／2人だと170組に1組しか合わない）。タイトルの「基準」と同じ語 */
-const SameQ: React.FC = () => (
-  <AbsoluteFill style={{ background: RED[0] }}>
-    <Ground big />
-    <Band text="どこからが浮気？" />
-    <Big text="男女で基準は同じ？" top={150} size={132} />
-  </AbsoluteFill>
-);
+const SameQ: React.FC = () => {
+  // レビュー r3：札はタイトルの頭と同じなのでやめ、大の文字を2行に。「同じ」だけ金。人は大きく（頭のてっぺん y 約410）、くさびは明るく、2人をくさびから外へ8度傾ける
+  const line: React.CSSProperties = { position: "absolute", left: 0, right: 0, textAlign: "center", fontFamily: FONT_SERIF, fontWeight: 900, fontSize: 170,
+    lineHeight: 1.1, whiteSpace: "nowrap", color: C.white, WebkitTextStroke: `12px ${C.ink}`, paintOrder: "stroke fill", filter: "drop-shadow(0 8px 10px rgba(0,0,0,.75))" };
+  return (
+    <AbsoluteFill style={{ background: RED[0] }}>
+      <Ground big light pose={{ size: 1.3, y: 410 + 965 * 1.3, tilt: 8 }} />
+      <div style={{ ...line, top: 24 }}>男女で</div>
+      <div style={{ ...line, top: 210 }}>基準は<span style={{ color: GOLD }}>同じ</span>？</div>
+    </AbsoluteFill>
+  );
+};
 
 export default [
   { id: "006-cheating-line-thumb-sameq", component: SameQ },
