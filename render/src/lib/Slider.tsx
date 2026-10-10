@@ -1,4 +1,5 @@
 // 「もしも」の条件のつまみ。目盛り（stops）の上をつまみが動き、いまの条件を大きく出す。
+// 3本目「普通の相手」では、相談所の検索画面の「年収のつまみ」（比喩：目盛り）にも使う。線とつまみに data-qa="mark"（2026-10-07）。
 // keys：[フレーム, 目盛りの番号]。群衆の組み直しは場面の側で、同じフレームに合わせて Crowd を動かす。
 import React from "react";
 import { useCurrentFrame, useVideoConfig } from "remotion";
@@ -22,7 +23,7 @@ export const Slider: React.FC<{ label: string; stops: string[]; keys: [number, n
       <text x={x} y={y - 70} style={font("label", C.ink2)}>{label}</text>
       <text x={x + w} y={y - 64} textAnchor="end" style={font("value")}>{stops[cur]}</text>
       {/* 線はひげ（誤差棒）と同じ形 */}
-      <g stroke={C.ink} strokeLinecap="round">
+      <g data-qa="mark" data-qa-label="つまみの線" stroke={C.ink} strokeLinecap="round">
         <line x1={x} x2={x + w} y1={y} y2={y} strokeWidth={LINE.base} />
         <line x1={x} x2={x} y1={y - 14} y2={y + 14} strokeWidth={LINE.base} />
         <line x1={x + w} x2={x + w} y1={y - 14} y2={y + 14} strokeWidth={LINE.base} />
@@ -30,7 +31,7 @@ export const Slider: React.FC<{ label: string; stops: string[]; keys: [number, n
       {stops.map((s, i) => (
         <text key={s} x={X(i)} y={y + 60} textAnchor="middle" style={font("label", i === cur ? C.ink : C.ink2)}>{s}</text>
       ))}
-      <circle cx={X(pos)} cy={y} r={24} fill={C.white} stroke={C.ink} strokeWidth={LINE.base} />
+      <circle data-qa="mark" data-qa-label="つまみ" cx={X(pos)} cy={y} r={24} fill={C.white} stroke={C.ink} strokeWidth={LINE.base} />
     </svg>
   );
 };
