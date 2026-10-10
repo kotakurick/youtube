@@ -22,10 +22,11 @@ export type ShopState = "open" | "half" | "closed";
 export const Pawnshop: React.FC<{
   x: number; y: number; s?: number; state?: ShopState; label?: string; note?: string;
   big?: boolean; // 名札を太字で大きく（その場面の主役の店）
-}> = ({ x, y, s = 1, state = "open", label, note, big = false }) => {
+  shut?: number;  // シャッターの下り具合 0〜1（下りる動きを見せるとき。省くと state の量）
+}> = ({ x, y, s = 1, state = "open", label, note, big = false, shut }) => {
   // 形（s=1）：本体 幅360・高さ240、屋根の上に看板
   const W = 360, H = 240, dw = 200, dh = 170;
-  const shutter = state === "closed" ? 1 : state === "half" ? 0.65 : 0;
+  const shutter = shut ?? (state === "closed" ? 1 : state === "half" ? 0.65 : 0);
   const closed = state === "closed";
   return (
     <g>

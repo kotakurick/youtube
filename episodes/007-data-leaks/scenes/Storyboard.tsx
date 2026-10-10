@@ -13,7 +13,7 @@
 // 特定の企業・大学を責めない（会社名・ロゴを描かない。漏えいは大きさの順に並べない）。攻撃の手口は描かない。助言に見える強調はしない。
 // 割合は分母を図の中に1行で書く。速報は薄い塗りと注。期間は「…」で省かない。比の図には1倍の線。
 import React from "react";
-import { AbsoluteFill } from "remotion";
+import { AbsoluteFill, useCurrentFrame } from "remotion";
 import { BarChart } from "@lib/BarChart";
 import { Bracket } from "@lib/Bracket";
 import { Cat, CatLabel } from "@lib/Cat";
@@ -23,6 +23,7 @@ import { ClaimCards, ClaimIcon, CountPick } from "@lib/Claims";
 import { Gosa } from "@lib/Gosa";
 import { CallDesk, CarIcon, Clipboard, CloudIcon, Envelope, Gavel, Grill, ICChip, IdCard, Ingot, Mug, Office, StockChart, Tool } from "@lib/Icons";
 import { Inbox, InboxMini } from "@lib/Inbox";
+import { EnterG, ramp } from "@lib/Motion";
 import { Note } from "@lib/Labels";
 import { LineChart } from "@lib/LineChart";
 import { Coins, Loot, Pawnshop, Stall } from "@lib/Pawnshop";
@@ -35,6 +36,8 @@ import { Thought } from "@lib/StoryAnim";
 import { C, font, LINE, R } from "@lib/theme";
 
 // ---- この回の配置の道具 ----
+// 細かい動き（2026-10-10 仮通し）：どれも4秒（120コマ）以内に終える。絵コンテの静止画（最後のコマ）は変わらない
+const num = (v: number) => Math.round(v).toLocaleString("en-US");
 const Svg: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <svg width={1920} height={1080} style={{ position: "absolute", left: 0, top: 0 }}>{children}</svg>
 );
@@ -256,17 +259,18 @@ export const S05: React.FC = () => {
   let acc = 0;
   const seg = LEAKS.map((l) => { const x = X0 + (acc / total) * BW, w = (l.v / total) * BW; acc += l.v; return { ...l, x, w }; });
   const below = [1, 3, 4, 5];
+  const f = useCurrentFrame(), at = (i: number) => 6 + i * 10; // 帯を受信箱の順に伸ばし、合計を数え上げる
   return (
     <AbsoluteFill>
       <Heading>この半月ほどの主な漏えい</Heading>
       <SubHead>彼の受信箱と同じ順。帯の長さ＝件数</SubHead>
       <Svg>
-        <Label x={X0 + BW} y={300} anchor="end" size="value" color={C.teal} weight={900}>合わせて 約2,000万件</Label>
+        <Label x={X0 + BW} y={300} anchor="end" size="value" color={C.teal} weight={900}>{`合わせて 約${num(2000 * seg.reduce((t, x, i) => t + x.v * ramp(f, at(i), 16), 0) / total)}万件`}</Label>
         {seg.map((s, i) => (
-          <rect key={s.name} data-qa="mark" data-qa-label={`帯：${s.name}`} x={s.x} y={Y} width={Math.max(s.w, 3)} height={BH} fill={i % 2 ? C.tealTint : C.teal} stroke={C.white} strokeWidth={3} />
+          <rect key={s.name} data-qa="mark" data-qa-label={`帯：${s.name}`} x={s.x} y={Y} width={Math.max(s.w, 3) * ramp(f, at(i), 16)} height={BH} fill={i % 2 ? C.tealTint : C.teal} stroke={C.white} strokeWidth={3} />
         ))}
         {[0, 2].map((i) => (
-          <g key={i}>
+          <g key={i} opacity={ramp(f, at(i) + 10, 8)}>
             <text x={seg[i].x + 24} y={Y + 64} style={font("label", C.white)} fontWeight={900} data-qa-allow="mark">{seg[i].name === "焼肉の店のアプリ" ? "焼肉の店のアプリ" : "カーシェア"}</text>
             <text x={seg[i].x + 24} y={Y + 120} style={font("label", C.white)} fontWeight={900} data-qa-allow="mark">{seg[i].text}</text>
           </g>
@@ -274,7 +278,7 @@ export const S05: React.FC = () => {
         {below.map((i, k) => {
           const cx = seg[i].x + seg[i].w / 2, ty = 570 + k * 70;
           return (
-            <g key={i}>
+            <g key={i} opacity={ramp(f, at(i) + 10, 8)}>
               <line x1={cx} y1={Y + BH} x2={cx} y2={ty - 8} stroke={C.ink2} strokeWidth={LINE.hair} />
               <Label x={cx - 20} y={ty} anchor="end">{`${seg[i].name} ${seg[i].text}`}</Label>
             </g>
@@ -304,22 +308,22 @@ export const S06: React.FC = () => (
 );
 
 // ================= 最初の驚き =================
-export const S07: React.FC = () => (
+export const S07: React.FC = () => { const f = useCurrentFrame(); return ( // 平均の棒が先、日本の棒があとから伸びる
   <AbsoluteFill>
     <Heading>盗まれたカード1枚の値段</Heading>
     <SubHead>売り場の平均。値段のある132か国で、日本がいちばん高い</SubHead>
     <Svg>
-      <HBar x={560} y={300} h={120} w={1000} color={C.gold} name="日本" value="22.8ドル" />
-      <Label x={1584} y={480} weight={900}>平均の約2.6倍</Label>
-      <HBar x={560} y={560} h={120} w={(8.82 / 22.8) * 1000} color={C.goldTint} name="132か国の平均" value="8.82ドル" valueColor={C.ink2} />
+      <HBar x={560} y={300} h={120} w={1000 * ramp(f, 34, 36)} color={C.gold} name="日本" value="22.8ドル" />
+      <g opacity={ramp(f, 72, 10)}><Label x={1584} y={480} weight={900}>平均の約2.6倍</Label></g>
+      <HBar x={560} y={560} h={120} w={(8.82 / 22.8) * 1000 * ramp(f, 6, 20)} color={C.goldTint} name="132か国の平均" value="8.82ドル" valueColor={C.ink2} />
     </Svg>
     <SourceNote text={SRC.nord} />
   </AbsoluteFill>
-);
-export const S08: React.FC = () => (
+); };
+export const S08: React.FC = () => { const f = useCurrentFrame(); return ( // 3,400 を数え上げる
   <AbsoluteFill>
     <div style={{ position: "absolute", left: 200, top: 240, ...font("hero", C.gold), whiteSpace: "nowrap", lineHeight: 1 }}>
-      <span style={{ fontSize: 100 }}>約</span>3,400<span style={{ fontSize: 100 }}>円</span>
+      <span style={{ fontSize: 100 }}>約</span>{num(Math.round(34 * ramp(f, 4, 40)) * 100)}<span style={{ fontSize: 100 }}>円</span>
     </div>
     <div style={{ position: "absolute", left: 210, top: 470, ...font("label", C.ink2), whiteSpace: "nowrap" }}>日本のカード1枚（22.8ドル）</div>
     <Svg>
@@ -329,7 +333,7 @@ export const S08: React.FC = () => (
     <Note x={360} y={640} question text="この2,000万件は、どれだけのお金に変わる？" />
     <SourceNote text={SRC.nord} />
   </AbsoluteFill>
-);
+); };
 
 // ================= 今日の答え合わせ・予想タイム・順番 =================
 const CLAIMS = [
@@ -383,15 +387,15 @@ export const S11: React.FC = () => (
 );
 
 // ================= 第1章：増えたのか =================
-export const S12: React.FC = () => (
+export const S12: React.FC = () => { const f = useCurrentFrame(); return ( // 100マスを順に埋める（人のミス → 盗まれる → その他）
   <AbsoluteFill>
     <Heading>国に届く漏えいの報告（昨年度）</Heading>
     <SubHead>13,345件を100マスに</SubHead>
     <Svg>
       {Array.from({ length: 100 }, (_, i) => {
         const col = i % 10, row = Math.floor(i / 10);
-        const c = i < 81 ? C.other : i < 90 ? C.teal : C.otherTint;
-        return <rect key={i} data-qa="mark" data-qa-label={`マス${i + 1}`} x={200 + col * 56} y={240 + row * 56} width={48} height={48} rx={6} fill={c} stroke={i >= 90 ? C.other : "none"} strokeWidth={2} />;
+        const on = f >= 6 + i * 0.6, c = !on ? C.paper2 : i < 81 ? C.other : i < 90 ? C.teal : C.otherTint;
+        return <rect key={i} data-qa="mark" data-qa-label={`マス${i + 1}`} x={200 + col * 56} y={240 + row * 56} width={48} height={48} rx={6} fill={c} stroke={on && i >= 90 ? C.other : "none"} strokeWidth={2} />;
       })}
       {[[C.other, "人のミス（渡し間違いなど）", "81"], [C.teal, "外から盗まれる（不正アクセス）", "9"], [C.otherTint, "盗難・内部の不正・その他", "10"]].map(([c, n, v], i) => (
         <g key={n}>
@@ -400,12 +404,12 @@ export const S12: React.FC = () => (
           <Label x={1800} y={334 + i * 110} anchor="end" size="value">{`${v}マス`}</Label>
         </g>
       ))}
-      <Label x={860} y={700} size="value" weight={900}>8割は、人のミス</Label>
+      <g opacity={ramp(f, 66, 10)}><Label x={860} y={700} size="value" weight={900}>8割は、人のミス</Label></g>
     </Svg>
     <SourceNote text={SRC.ppc7} />
     <ChapterDots current={1} />
   </AbsoluteFill>
-);
+); };
 const Y12 = Array.from({ length: 14 }, (_, i) => 2012 + i);
 const STOLEN = [9, 31, 11, 10, 22, 29, 25, 41, 51, 68, 91, 93, 114, 116];
 const MISS = [62, 76, 59, 77, 67, 61, 60, 45, 52, 69, 74, 82, 75, 64];
@@ -418,7 +422,7 @@ export const S13: React.FC = () => (
         bars={[{ label: "2012〜14年", value: 17, color: C.tealTint }, { label: "2023〜25年", value: 108, color: C.teal, focus: true }]} />
       <Label x={150} y={420} size="value" weight={900}>約6倍</Label>
       <Label x={150} y={470} size="note" color={C.ink2}>（3年の平均どうし）</Label>
-      <LineChart x={1000} y={300} width={560} height={420} xDomain={[2012, 2025]} yDomain={[0, 130]} xTicks={[2012, 2025]} xTickLabel={(v) => `${v}年`}
+      <LineChart start={40} x={1000} y={300} width={560} height={420} xDomain={[2012, 2025]} yDomain={[0, 130]} xTicks={[2012, 2025]} xTickLabel={(v) => `${v}年`}
         format={(v) => `${Math.round(v)}件`}
         series={[{ label: "ミスなど", points: Y12.map((y, i) => [y, MISS[i]]), color: C.other }, { label: "盗まれる", points: Y12.map((y, i) => [y, STOLEN[i]]), color: C.teal, focus: true }]} />
     </Svg>
@@ -430,6 +434,7 @@ const HALF = ["21上", "21下", "22上", "22下", "23上", "23下", "24上", "24
 const RANSOM = [61, 85, 114, 116, 103, 94, 114, 108, 116, 110, 123];
 export const S14: React.FC = () => {
   const base = 740, k = 420 / 130, slot = 145, x0 = 170;
+  const f = useCurrentFrame(); // 棒を古い順に伸ばす
   return (
     <AbsoluteFill>
       <Heading>ランサムウェアの届け出（半年ごと）</Heading>
@@ -437,7 +442,7 @@ export const S14: React.FC = () => {
       <Svg>
         <line x1={x0 - 20} x2={x0 + slot * HALF.length} y1={base} y2={base} stroke={C.ink} strokeWidth={LINE.thin} />
         {HALF.map((l, i) => {
-          const h = RANSOM[i] * k, x = x0 + i * slot + 20, last = i === HALF.length - 1;
+          const h = RANSOM[i] * k * ramp(f, 4 + i * 6, 18), x = x0 + i * slot + 20, last = i === HALF.length - 1;
           return (
             <g key={l}>
               <rect data-qa="mark" data-qa-label={`届け出：${l}`} x={x} y={base - h} width={100} height={h} rx={R.sm} fill={C.rest} stroke={last ? C.ink : "none"} strokeWidth={LINE.thin} />
@@ -509,21 +514,21 @@ export const S17: React.FC = () => (
     <ChapterDots current={1} />
   </AbsoluteFill>
 );
-export const S18: React.FC = () => (
+export const S18: React.FC = () => { const f = useCurrentFrame(), a = 480 * Math.sqrt(ramp(f, 26, 44)); return ( // 人口が先、延べの正方形が面積で育つ
   <AbsoluteFill>
     <Heading>漏れた人数を足すと、延べ2億人超</Heading>
     <SubHead>面積＝人数</SubHead>
     <Svg>
-      <rect data-qa="mark" data-qa-label="延べの人数" x={320} y={310} width={480} height={480} fill={C.teal} />
+      <rect data-qa="mark" data-qa-label="延べの人数" x={560 - a / 2} y={790 - a} width={a} height={a} fill={C.teal} />
       <Label x={560} y={290} anchor="middle" weight={900}>漏れた人数（延べ）2億1,313万</Label>
-      <rect data-qa="mark" data-qa-label="人口" x={1120} y={426} width={364} height={364} fill={C.rest} />
+      <g opacity={ramp(f, 4, 14)}><rect data-qa="mark" data-qa-label="人口" x={1120} y={426} width={364} height={364} fill={C.rest} /></g>
       <Label x={1302} y={406} anchor="middle" weight={900}>日本の人口 1億2,265万</Label>
-      <Label x={960} y={700} anchor="middle" size="value">約1.7倍</Label>
+      <g opacity={ramp(f, 74, 10)}><Label x={960} y={700} anchor="middle" size="value">約1.7倍</Label></g>
     </Svg>
     <SourceNote text={SRC.tsrPop} />
     <ChapterDots current={1} />
   </AbsoluteFill>
-);
+); };
 export const S19: React.FC = () => (
   <AbsoluteFill>
     <Heading>延べなので、同じ人が何度も数えられる</Heading>
@@ -555,26 +560,29 @@ const TOWN = [
 ];
 // 濃さ＝回数（0回＝灰、1〜2回＝淡い青緑、3回以上＝青緑。第2版）
 const MIX_C = [C.rest, C.tealTint, C.teal];
-const Town: React.FC<{ colored?: boolean }> = ({ colored }) => (
+const TOWN_AT = [0, 64, 83]; // 町の通し番号の始まり（猫が順に出る・色が順に変わる）
+const Town: React.FC<{ colored?: boolean }> = ({ colored }) => { const f = useCurrentFrame(); return (
   <Svg>
-    {TOWN.map((g) => (
+    {TOWN.map((g, gi) => (
       <g key={g.name}>
         <Label x={g.x} y={270} weight={900}>{`${g.name} ${g.n}人`}</Label>
         <Label x={g.x} y={316} size="note" color={C.ink2}>{`使うサービス ${g.use}`}</Label>
         {Array.from({ length: g.n }, (_, i) => {
           const k = i < g.mix[0] ? 0 : i < g.mix[0] + g.mix[1] ? 1 : 2;
-          return <Cat key={i} kind="plain" color={colored ? MIX_C[k] : undefined} x={g.x + 20 + (i % g.cols) * 50} y={420 + Math.floor(i / g.cols) * 88} size={1.4} seed={i} />;
+          const n = TOWN_AT[gi] + i;
+          const cat = <Cat key={i} kind="plain" color={colored && f >= 8 + n * 0.6 ? MIX_C[k] : undefined} x={g.x + 20 + (i % g.cols) * 50} y={420 + Math.floor(i / g.cols) * 88} size={1.4} seed={i} />;
+          return colored ? cat : <g key={i} opacity={ramp(f, 6 + n * 0.5, 8)}>{cat}</g>;
         })}
       </g>
     ))}
     {colored && [["0回", "31人"], ["1〜2回", "44人"], ["3回以上", "25人"]].map(([n, v], i) => (
-      <g key={n}>
+      <g key={n} opacity={ramp(f, 72 + i * 6, 10)}>
         <rect data-qa="mark" data-qa-label={`凡例：${n}`} x={120 + i * 520} y={722} width={44} height={44} rx={6} fill={MIX_C[i]} />
         <Label x={184 + i * 520} y={758} weight={900}>{`${n} ${v}`}</Label>
       </g>
     ))}
   </Svg>
-);
+); };
 export const S20: React.FC = () => (
   <AbsoluteFill>
     <Heading>延べの数を、100人の町に配る</Heading>
@@ -757,9 +765,9 @@ export const S29: React.FC = () => (
 );
 
 // ---- 質屋の舞台（第2章の後半）：左に質屋を置いたまま、右の絵だけを差し替える ----
-const Stage: React.FC<{ state: "open" | "half" | "closed"; name: string; children: React.ReactNode }> = ({ state, name, children }) => (
+const Stage: React.FC<{ state: "open" | "half" | "closed"; name: string; shut?: number; children: React.ReactNode }> = ({ state, name, shut, children }) => (
   <Svg>
-    <Pawnshop x={290} y={720} s={0.8} state={state} label={name} big />
+    <Pawnshop x={290} y={720} s={0.8} state={state} label={name} shut={shut} big />
     <line x1={560} y1={240} x2={560} y2={820} stroke={C.paper2} strokeWidth={LINE.thin} />
     {children}
   </Svg>
@@ -770,14 +778,15 @@ export const S30: React.FC = () => {
   const x0 = 620, slot = 59, base = 730, k = 420 / 1700;
   const bx = (i: number) => x0 + i * slot + 10;
   const dl = x0 + 18 * slot; // 2026年6月末と7月のあいだ
+  const f = useCurrentFrame(); // 棒を月の順に伸ばし、期限の線のあとでシャッターが半分下りる
   return (
     <AbsoluteFill>
       <Heading>勝手に売られた株（月ごと）</Heading>
       <SubHead>売却金額（億円）。売られた株の額で、被害額ではない</SubHead>
-      <Stage state="half" name="証券口座">
+      <Stage state="half" name="証券口座" shut={0.65 * ramp(f, 76, 24)}>
         <line x1={x0} x2={x0 + 20 * slot} y1={base} y2={base} stroke={C.ink} strokeWidth={LINE.thin} />
         {SEC_M.map((v, i) => (
-          <rect key={i} data-qa="mark" data-qa-label={`売却金額 ${i}`} x={bx(i)} y={base - Math.max(v * k, 2)} width={40} height={Math.max(v * k, 2)} rx={4}
+          <rect key={i} data-qa="mark" data-qa-label={`売却金額 ${i}`} x={bx(i)} y={base - Math.max(v * k, 2) * ramp(f, 4 + i * 3, 14)} width={40} height={Math.max(v * k, 2) * ramp(f, 4 + i * 3, 14)} rx={4}
             fill={i === 3 || i === 19 ? C.gold : C.goldTint} />
         ))}
         {[0, 3, 6, 9, 12, 15, 18].map((i) => <Label key={i} x={bx(i) + 20} y={base + 40} anchor="middle" size="note" color={C.ink2}>{`${(i % 12) + 1}月`}</Label>)}
@@ -813,11 +822,11 @@ export const S31: React.FC = () => (
     <ChapterDots current={2} />
   </AbsoluteFill>
 );
-export const S32: React.FC = () => (
+export const S32: React.FC = () => { const f = useCurrentFrame(); return ( // 偽造カードの質屋のシャッターが下りる
   <AbsoluteFill>
     <Heading>偽造カードの質屋は、閉まった</Heading>
     <Svg>
-      <Pawnshop x={260} y={720} s={0.7} state="closed" label="偽造カード" />
+      <Pawnshop x={260} y={720} s={0.7} state="closed" shut={ramp(f, 8, 30)} label="偽造カード" />
       <ICChip x={560} y={560} s={2} label="ICチップ" />
       <Label x={560} y={680} anchor="middle" size="note" weight={900}>ICチップへの切り替え</Label>
       <Pawnshop x={980} y={720} s={0.8} state="open" label="カード番号" big />
@@ -826,7 +835,7 @@ export const S32: React.FC = () => (
     <SourceNote text={SRC.jcaShare} />
     <ChapterDots current={2} />
   </AbsoluteFill>
-);
+); };
 const MISUSE: [number, number][] = [[2014, 67.3], [2015, 72.2], [2016, 88.9], [2017, 176.7], [2018, 187.6], [2019, 222.9], [2020, 223.6], [2021, 311.7], [2022, 411.7], [2023, 504.7], [2024, 513.5], [2025, 475.4]];
 export const S33: React.FC = () => (
   <AbsoluteFill>
@@ -843,13 +852,14 @@ export const S33: React.FC = () => (
 // 比の図（2018年＝1倍）。37 と 52 で同じ絵に戻す
 const Times: React.FC = () => {
   const one = 560 + 1260 / 123;
+  const f = useCurrentFrame(); // 入り口（だますメール）の棒が長く伸び、そのあと被害額の棒が少しだけ伸びる
   return (
     <>
       <Heading>7年で何倍になったか（2018→2025年）</Heading>
       <SubHead>比の図：2018年を1倍として、2025年が何倍か</SubHead>
       <Svg>
-        <HBar x={560} y={340} h={130} w={1260} color={C.teal} name="だますメールの届け出" value="123倍（約2万件 → 約245万件）" valueAbove />
-        <HBar x={560} y={620} h={130} w={(2.2 / 123) * 1260} color={C.gold} name="カードの被害額" value="2.2倍（235億円 → 511億円）" />
+        <HBar x={560} y={340} h={130} w={1260 * ramp(f, 6, 44)} color={C.teal} name="だますメールの届け出" value="123倍（約2万件 → 約245万件）" valueAbove />
+        <HBar x={560} y={620} h={130} w={(2.2 / 123) * 1260 * ramp(f, 56, 16)} color={C.gold} name="カードの被害額" value="2.2倍（235億円 → 511億円）" />
         <line x1={one} x2={one} y1={300} y2={790} stroke={C.ink} strokeWidth={LINE.thin} strokeDasharray="10 8" />
         <Label x={one + 12} y={810} size="note" weight={900}>1倍（2018年）</Label>
       </Svg>
@@ -879,16 +889,19 @@ export const S35: React.FC = () => (
 export const S36: React.FC = () => {
   // 20列×5段を、列の順（上から下）に並べる：左の14列＝10代と20代（紫の猫）、右の6列＝それ以外（灰）
   const px = (i: number) => 220 + Math.floor(i / 5) * 62, py = (i: number) => 400 + (i % 5) * 92;
+  const f = useCurrentFrame(); // 100匹が列の順に出て、そのあと右の30匹が灰になる
   return (
     <AbsoluteFill>
       <Heading>不正アクセスで捕まった100人</Heading>
       <SubHead>去年 248人を100人にすると</SubHead>
       <Svg>
         {Array.from({ length: 100 }, (_, i) => (
-          <Cat key={i} kind="plain" color={i < 70 ? undefined : C.rest} x={px(i)} y={py(i)} size={1.4} seed={i} />
+          <g key={i} opacity={ramp(f, 4 + i * 0.4, 8)}><Cat kind="plain" color={i < 70 || f < 62 ? undefined : C.rest} x={px(i)} y={py(i)} size={1.4} seed={i} /></g>
         ))}
-        <Bracket x1={190} x2={px(69) + 30} y={300} label="約7割（10代 33人・20代 37人）" />
-        <Bracket x1={px(70) - 30} x2={px(99) + 30} y={300} label="それ以外 30人" color={C.ink2} />
+        <g opacity={ramp(f, 66, 10)}>
+          <Bracket x1={190} x2={px(69) + 30} y={300} label="約7割（10代 33人・20代 37人）" />
+          <Bracket x1={px(70) - 30} x2={px(99) + 30} y={300} label="それ以外 30人" color={C.ink2} />
+        </g>
         <Label x={1500} y={480} weight={900}>多くは、</Label>
         <Label x={1500} y={540} weight={900}>なりすましの</Label>
         <Label x={1500} y={600} weight={900}>ログイン</Label>
@@ -916,7 +929,7 @@ export const S37: React.FC = () => (
     <ChapterDots current={3} />
   </AbsoluteFill>
 );
-export const S38: React.FC = () => (
+export const S38: React.FC = () => { const f = useCurrentFrame(); return ( // 194匹の色が順に灯る（報酬なし＝灰、あり＝金）
   <AbsoluteFill>
     <Heading>作る側は2割、実行役の多くは無報酬</Heading>
     <Svg>
@@ -931,13 +944,13 @@ export const S38: React.FC = () => (
       <rect data-qa="mark" data-qa-label="凡例：報酬なし" x={1100} y={318} width={40} height={40} rx={6} fill={C.rest} />
       <Label x={1156} y={350}>報酬なし 最大114人</Label>
       {Array.from({ length: 194 }, (_, i) => (
-        <Cat key={i} kind="plain" color={i < 114 ? C.rest : C.gold} x={760 + (i % 20) * 54} y={430 + Math.floor(i / 20) * 43} size={0.8} seed={i} />
+        <Cat key={i} kind="plain" color={f < 10 + i * 0.4 ? undefined : i < 114 ? C.rest : C.gold} x={760 + (i % 20) * 54} y={430 + Math.floor(i / 20) * 43} size={0.8} seed={i} />
       ))}
     </Svg>
     <SourceNote text={SRC.doj} />
     <ChapterDots current={3} />
   </AbsoluteFill>
-);
+); };
 export const S39: React.FC = () => (
   <AbsoluteFill>
     <Heading>仕事の多くは、地味で退屈な保守作業</Heading>
@@ -952,14 +965,14 @@ export const S39: React.FC = () => (
     <ChapterDots current={3} />
   </AbsoluteFill>
 );
-export const S40: React.FC = () => (
+export const S40: React.FC = () => { const f = useCurrentFrame(); return ( // 63マスが順に赤になる
   <AbsoluteFill>
     <Heading>襲われた側の損</Heading>
     <SubHead>国内のランサムウェア被害（令和7年）</SubHead>
     <Svg>
       <Label x={160} y={250} size="note" color={C.ink2}>被害を受けた組織 226件を100に</Label>
       {Array.from({ length: 100 }, (_, i) => (
-        <rect key={i} data-qa="mark" data-qa-label={`組織${i + 1}`} x={160 + (i % 10) * 50} y={280 + Math.floor(i / 10) * 50} width={40} height={40} rx={6} fill={i < 63 ? C.debt : C.rest} />
+        <rect key={i} data-qa="mark" data-qa-label={`組織${i + 1}`} x={160 + (i % 10) * 50} y={280 + Math.floor(i / 10) * 50} width={40} height={40} rx={6} fill={i < 63 && f >= 8 + i ? C.debt : C.rest} />
       ))}
       <rect data-qa="mark" data-qa-label="凡例：中小企業" x={720} y={380} width={44} height={44} rx={6} fill={C.debt} />
       <Label x={780} y={416} weight={900}>中小企業 63%</Label>
@@ -970,7 +983,7 @@ export const S40: React.FC = () => (
     <SourceNote text={SRC.npaDamage} />
     <ChapterDots current={3} />
   </AbsoluteFill>
-);
+); };
 const PAY: [number, number][] = [[2022.875, 37], [2023.875, 29], [2024.875, 25], [2025.375, 26], [2025.625, 23], [2025.875, 20]];
 const Firms: React.FC<{ y: number; n: number; text: string }> = ({ y, n, text }) => (
   <g>
@@ -1002,6 +1015,7 @@ export const S42: React.FC = () => {
   const base = 720, k = 400 / 13, x0 = 260, slot = 230;
   const top = (v: number) => base - v * k;
   const peakY = top(12.5);
+  const f = useCurrentFrame(), g = (i: number) => ramp(f, 4 + i * 8, 18); // 棒を年の順に伸ばし、最後に「約3割少ない」
   return (
     <AbsoluteFill>
       <Heading>世界で払われた身代金（年ごと）</Heading>
@@ -1012,16 +1026,18 @@ export const S42: React.FC = () => {
           const x = x0 + i * slot + 40, pre = y === 2025;
           return (
             <g key={y}>
-              <rect data-qa="mark" data-qa-label={`身代金 ${y}年`} x={x} y={top(v)} width={150} height={v * k} rx={R.sm}
+              <rect data-qa="mark" data-qa-label={`身代金 ${y}年`} x={x} y={base - v * k * g(i)} width={150} height={v * k * g(i)} rx={R.sm}
                 fill={pre ? C.white : C.goldTint} stroke={pre ? C.gold : "none"} strokeWidth={LINE.thin} strokeDasharray={pre ? "12 8" : undefined} />
-              <Label x={x + 75} y={top(v) - 16} anchor="middle" size="note" weight={700}>{`${v.toFixed(1)}億ドル`}</Label>
+              <Label x={x + 75} y={base - v * k * g(i) - 16} anchor="middle" size="note" weight={700}>{`${v.toFixed(1)}億ドル`}</Label>
               <Label x={x + 75} y={base + 48} anchor="middle" weight={pre ? 900 : 500}>{pre ? "2025年" : `${y}年`}</Label>
             </g>
           );
         })}
+        <g opacity={ramp(f, 62, 12)}>
         <line x1={x0 + 3 * slot + 40} x2={x0 + 5 * slot + 190} y1={peakY} y2={peakY} stroke={C.ink} strokeWidth={LINE.thin} strokeDasharray="14 10" />
         <Arrow x1={x0 + 5 * slot + 115} y1={peakY + 8} x2={x0 + 5 * slot + 115} y2={top(8.2) - 52} color={C.ink} w={LINE.thin} />
         <Label x={x0 + 5 * slot + 190} y={peakY - 72} anchor="end" weight={900}>いちばん多い年より、約3割少ない</Label>
+        </g>
       </Svg>
       <SourceNote text={SRC.chain} />
       <ChapterDots current={3} />
@@ -1063,12 +1079,12 @@ export const S48: React.FC = () => (
     <Heading>漏えいのニュースを読み直す3つの点</Heading>
     <Svg>
       {["見出しの件数は、延べか、最大の見込みか", "1つの事故が、何社分のおわびになっているか", "漏れた情報を、そのまま換えられる質屋があるか"].map((t, i) => (
-        <g key={i}>
+        <EnterG key={i} at={6 + i * 30}>
           <rect x={160} y={230 + i * 180} width={1600} height={140} rx={R.md} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
           <circle cx={240} cy={300 + i * 180} r={40} fill={C.ink} />
           <text x={240} y={316 + i * 180} textAnchor="middle" style={font("label", C.white)} fontWeight={900}>{i + 1}</text>
           <text x={320} y={318 + i * 180} style={font("body")} fontWeight={900}>{t}</text>
-        </g>
+        </EnterG>
       ))}
     </Svg>
   </AbsoluteFill>
