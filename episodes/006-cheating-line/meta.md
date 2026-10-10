@@ -1,6 +1,46 @@
 # メタデータ
 
-## タイトル案
+## タイトルとサムネイル（2026-10-10 作り直し。決まりは `docs/brand.md` のパッケージ）
+
+タイトルはキャッチーにせず、何をどう調べた動画かの概要を伝える（答えの数字は入れない）。サムネイルは白い人形＋太いゴシック。感情はサムネイル、中身はタイトルが受け持つ。
+
+### タイトル案（オーナーが決める）
+
+| | タイトル | ねらい |
+|---|---|---|
+| 1（推し） | どこからが浮気か、男女でどれくらい違うのか。32の行動で数えてみた | 検索される「どこからが浮気」を頭に。本編の問い（男女の差）と、やったこと（32の行動で数えた）がそのまま分かる。答えはにおわせない |
+| 2 | 浮気の基準は、男女でどれくらい違うのか。2人の答えがそろう組を数えてみた | 本編の主役の計算（組ませて数える）を言う。「どこからが浮気」の語が入らない |
+| 3 | どこからが浮気か。男女と同性どうしで、基準のずれを数えてみた | 第2章の比べ方まで言う。「同性どうしもずれる」がにおうので、答えに近い |
+
+- 旧タイトル「…ぴったり合うのは、170組に1組」は答えの数字が入っているので、新しい決まりで取り下げ。
+- 本編で数える「2人」は無作為に組んだ他人どうしなので、「恋人と」「夫婦で」は約束しない。
+
+### サムネイル（`scenes/Thumb.tsx`）
+
+絵は冒頭の物語：夜、明かりを落とした部屋でドラマを見ていた2人。彼は手を開いて「セーフでしょ」、彼女は腕を組んで彼を見る。2人は同じ白・同じ光。ゴサは出さない（男女の回）。
+
+- A `006-cheating-line-thumb-a`「男女で／基準は同じ？」（2026-10-07 オーナーの案をそのまま。タイトル1と組むと「男女」が重なる）
+- B `006-cheating-line-thumb-b`「どこから／浮気？」（検索の語と同じ。タイトルが中身を受け持つ）
+
+- B2 `006-cheating-line-thumb-b2`：B の「浮気？」を黄・160px にした版（レビュー r1 の案）。オーナーが3本目で「色や大きさの強調はなくていいかも」と言ったので、B（白・同じ大きさ）と並べて比べる用。
+
+人形の画像（Gemini の API。`_local/episodes/006-cheating-line/thumb/sofa-mustard.png` 818×672）：
+
+- はじめは白いソファで作った（`sofa.png`）が、オーナー「人間と家具は同じ色でわかりにくいから家具は色付けていい」（2026-10-10）で、ソファに色を付けて作り直した。男女の色（青・橙）と緑（抜けてしまう）を避け、こげ茶2枚・からし色2枚を作り、暗い地で人形と分かれて見えて全身が入る、からし色の1枚（`sofa2-raw3.png`）を採用。
+- 抜き方：白い人形に緑の照り返しが強く、`scripts/chroma_key.py` の閾値では脚がまだらに抜けた。緑の割合を5pxの中央値でならし、閾値を 0.155〜0.195 に固定（背景は約0.21）。外周からつながる弱い緑（床）は 0.12 から消した。手順は `data/key_sofa.py`（この画像だけの抜き方。同じことがまた起きたら `chroma_key.py` に足す）。
+- 書き出し：`cd render && npm run sync`、`npx remotion still src/index.ts 006-cheating-line-thumb-b out/006-thumb-b.png`
+
+指示文（`SOFACOLOR` を `muted mustard yellow` にした）：
+
+```
+Two faceless abstract matte-white mannequin figures with smooth egg-shaped heads: no eyes, no nose, no mouth, no ears, completely blank faces. A man and a woman in their early 30s, both with sculpted hair in the same matte white (man: short neat hair; woman: shoulder-length hair). Both wear plain white long-sleeve tops and plain white trousers. They sit side by side on a simple two-seat fabric sofa in SOFACOLOR, seen from the front, slightly from the side. The sofa is clearly colored, not white. The man on the left leans back relaxed, one hand raised with the palm open in a casual "it is fine" gesture. The woman on the right sits upright, turned toward him, arms folded firmly across her chest, head turned toward him. Calm tension, no anger, no crying. Full sofa visible, framed from head to feet. Both figures same white material, same soft studio light, same head size. Background is a single solid flat bright pure green color, evenly lit, no gradient, no vignette, no shadow. No floor, no other objects. No text, no letters, no watermark anywhere in the image.
+```
+
+---
+
+以下は 2026-10-07 の旧版（明朝体・2色の地。使わない。経緯として残す）。
+
+## タイトル案（旧）
 
 （2026-10-07 クラウド。`docs/brand.md` のパッケージ：型A・B・C、数字は1つまで、「？」なしから。検索される語「どこからが浮気」を頭に置く）
 本編で数える「2人」は無作為に組んだ他人どうしなので、「恋人と」「夫婦で」は約束しない。
