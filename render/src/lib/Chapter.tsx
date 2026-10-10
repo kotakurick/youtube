@@ -16,7 +16,8 @@ export const ChapterCard: React.FC<{ no: number; title: string }> = ({ no, title
   const outX = interpolate(frame, [CHAPTER_FRAMES - 12, CHAPTER_FRAMES], [0, 1920], ease);
   const t = sp("enter", frame - 10, fps);
   return (
-    <AbsoluteFill style={{ background: C.ink, transform: `translateX(${inX + outX}px)` }}>
+    // 入り・抜けのワイプの途中は、文字が画面の外に出るのが当たり前なのでチェックで見逃す
+    <AbsoluteFill data-qa-allow={inX + outX !== 0 ? "edge" : undefined} style={{ background: C.ink, transform: `translateX(${inX + outX}px)` }}>
       {/* チャンネル名（左上。2026-10-05 オーナー「章のところにチャンネル名をのせてもいいかも」） */}
       <div style={{ position: "absolute", left: 220, top: 180, opacity: t, display: "flex", alignItems: "center", gap: 20, ...font("label", C.paper2), fontWeight: 900 }}>
         <span>{CHANNEL_NAME}</span>
