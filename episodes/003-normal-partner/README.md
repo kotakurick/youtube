@@ -6,6 +6,8 @@
 
 ### 2026-10-10 サムネイルを新しい様式で作り直した（ここが最新）
 
+- 2026-10-10 オーナーの指摘で直した：左の紫の帯をやめ、言葉は「普通でいいのに／いない」の2行（白・同じ大きさ104px。「のに、」で分けない・黄の強調なし）。人形は文字に重なりすぎないよう右へ寄せた。
+
 - 様式の決定（オーナー「Bがいい」・太いゴシック OK・画像生成だけでなく質を上げる・緑の背景で抜く）：`docs/decisions.md` の 2026-10-10、`docs/brand.md` のサムネイル。
 - 作ったもの：`scenes/Thumb-doll.tsx`（id `003-normal-partner-thumb-doll-back` が推し。`-side` は不採用）、部品 `render/src/lib/ThumbKit.tsx`、緑抜き `scripts/chroma_key.py`。
 - サムネイル役の点：back 6.0 → 6.5 → **7.0**（`review/thumbnail-r3.md`〜`r5.md`）。r5 の残りの小さな直し2つも入れた。

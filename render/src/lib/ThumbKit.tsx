@@ -1,7 +1,7 @@
 // サムネイルの型の部品（2026-10-10。様式は docs/brand.md のサムネイル、決定は docs/decisions.md の 2026-10-10）。
 // 様式：顔のない白い人形（Canva の画像生成を緑の背景で作り、scripts/chroma_key.py で抜いた PNG）を右に、
-// 太いゴシックの特大の言葉2かたまり（白と黄に黒い縁）を左に。地・光・ぼけ・影はコードで描く。
-// 左のふちにチャンネルの印の帯。右下（再生時間の表示）には何も置かない。
+// 太いゴシックの特大の言葉を2行まで（白に黒い縁。黄や大きさの強調は自然な回だけ）を左に。地・光・ぼけ・影はコードで描く。
+// 左のふちの帯は付けない（2026-10-10 オーナー「左の紫はいらない」）。右下（再生時間の表示）には何も置かない。
 // 回ごとに変えるのは：言葉、地の色（情景）、人形の画像と置き方、光の位置。座標の決まりはここが持つ。
 import React from "react";
 import { AbsoluteFill, Img, staticFile } from "remotion";
@@ -76,7 +76,7 @@ export const ThumbWord: React.FC<{ text: string; size: number; color?: string; t
   }}>{text}</div>
 );
 
-/** チャンネルの印：左のふちの紫の帯（毎回同じ位置・同じ色） */
+/** 左のふちの紫の帯。2026-10-10 オーナー「いらない」で使わない（比べるときのために残す） */
 export const ChannelBand: React.FC = () => (
   <div style={{ position: "absolute", left: 0, top: 0, width: 30, height: TH, background: C.plain, zIndex: 11 }} />
 );

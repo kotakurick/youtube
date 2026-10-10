@@ -114,7 +114,7 @@
 | SignOff | SignOff.tsx | 毎回の締めのひと言のアニメーション（丘の上のゴサが100個の点を数え、点が星になる）。教訓のあとに `<SignOff />`、終了画面に `<SignOff end />`（同じ夜のまま右に次の1本・再生リストの枠） |
 | EndScreen | EndScreen.tsx | 古い終了画面（紙の地）。新しい回は `<SignOff end />` を使う |
 | Thumbnail | Thumbnail.tsx | 古いサムネイル（紙色の地＋墨の帯。2026-10-10 から使わない） |
-| ThumbStage / Bokeh / Cutout / ThumbWord / CountRow / ChannelBand / Vignette | ThumbKit.tsx | サムネイルの型（2026-10-10 の様式）：夜のグラデーションの地、街のぼけ、抜いた人形（逆光のふち・落ち影・スマホの光）、太いゴシックの言葉（黒い縁）、数える印（薄い列で1人だけ大きく光る）、紫の帯、周りを暗く。人形は Canva の画像生成を緑の背景で作り `scripts/chroma_key.py` で抜く |
+| ThumbStage / Bokeh / Cutout / ThumbWord / CountRow / ChannelBand / Vignette | ThumbKit.tsx | サムネイルの型（2026-10-10 の様式）：夜のグラデーションの地、街のぼけ、抜いた人形（逆光のふち・落ち影・スマホの光）、太いゴシックの言葉（黒い縁）、数える印（薄い列で1人だけ大きく光る）、紫の帯（使わない）、周りを暗く。人形は Canva の画像生成を緑の背景で作り `scripts/chroma_key.py` で抜く |
 
 ## 画面・小道具（3本目で追加）
 
