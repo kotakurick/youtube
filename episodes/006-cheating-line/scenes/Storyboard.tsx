@@ -162,25 +162,25 @@ export const S07: React.FC = () => (
     <SubHead>濃い色＝「手をつないだら浮気」と答えた人</SubHead>
     <Svg>
       <CouplePairs x={190} y={420} items={LOT20} cols={10} size={1.6} gap={70} row={190} />
-      <Label x={960} y={760} anchor="middle" size="value">墨の枠＝答えが食い違った組（10組）</Label>
+      <Label x={960} y={760} anchor="middle" size="value">黒い枠＝答えが食い違った組（10組）</Label>
     </Svg>
     <SourceNote text={SRC.raisonCalc} />
   </AbsoluteFill>
 );
 export const S08: React.FC = () => (
   <AbsoluteFill>
-    <Heading>ふたりの線が、ぜんぶそろう確率は？</Heading>
+    <Heading>ふたりの基準が、ぜんぶそろう確率は？</Heading>
     <Svg>
-      <BorderMap x={200} y={250} w={700} h={460} lines={[{ ...MALE_LINE, seed: 3 }]} label="彼の線" labelColor={C.male} sides />
-      <BorderMap x={1020} y={250} w={700} h={460} lines={[{ ...FEMALE_LINE, seed: 8, shift: -110 }]} label="彼女の線" labelColor={C.female} sides />
+      <BorderMap x={200} y={250} w={700} h={460} lines={[{ ...MALE_LINE, seed: 3 }]} label="彼の基準" labelColor={C.male} sides />
+      <BorderMap x={1020} y={250} w={700} h={460} lines={[{ ...FEMALE_LINE, seed: 8, shift: -110 }]} label="彼女の基準" labelColor={C.female} sides />
     </Svg>
   </AbsoluteFill>
 );
 
 // ================= 今日の答え合わせ・予想タイム・順番 =================
-const QUIZ_Q = "本当にそろう組は、掛け算の何倍？";
+const QUIZ_Q = "そろう組は、9万組に1組の何倍？";
 const QUIZ_C = ["ほぼ同じ", "10倍ほど", "500倍ほど", "1万倍ほど"];
-export const S09: React.FC = () => <AbsoluteFill><TodayCard claim="浮気の線のずれは、男女の違い" /><Gosa cues={[[-60, "thinking"]]} size="M" foot={850} /></AbsoluteFill>;
+export const S09: React.FC = () => <AbsoluteFill><TodayCard claim="浮気の基準のずれは、男女の違い" /><Gosa cues={[[-60, "thinking"]]} size="M" foot={850} /></AbsoluteFill>;
 export const S10: React.FC = () => (
   <AbsoluteFill>
     <Heading>予想の前に：使うデータ</Heading>
@@ -194,7 +194,6 @@ export const S10: React.FC = () => (
 export const S11: React.FC = () => (
   <AbsoluteFill>
     <Quiz question={QUIZ_Q} choices={QUIZ_C} gosaFoot={850} />
-    <SourceNote prefix="" text="A＝答えはひとつずつばらばらに決まる、D＝大事な線はみんなほぼ同じ（答えは最後の答え合わせで）" />
   </AbsoluteFill>
 );
 export const S11b: React.FC = () => (
@@ -202,7 +201,7 @@ export const S11b: React.FC = () => (
     <Heading>32の行動を、1つずつ掛け算すると</Heading>
     <Svg>
       <LogRuler x={230} y={560} width={1140} pins={[{ n: 87000, label: "掛け算：約9万組に1組", color: C.ink2 }]} />
-      <Label x={700} y={800} anchor="middle" size="label">本当に32の行動すべてでそろう組は、この何倍？</Label>
+      <Label x={700} y={800} anchor="middle" size="label">本当に32の行動すべてでそろう組は、9万組に1組の何倍？</Label>
     </Svg>
     <Gosa cues={[[-60, "thinking"]]} size="M" foot={850} />
   </AbsoluteFill>
@@ -258,7 +257,7 @@ const Stairs: React.FC<{ lineAt?: number; law?: boolean; people?: { i: number; c
       <Label x={300} y={rowY(0) + 34} anchor="end" color={C.ink2}>軽い</Label>
       {lineAt !== undefined && <>
         <line x1={260} y1={rowY(lineAt) - 3} x2={1840} y2={rowY(lineAt) - 3} stroke={C.ink} strokeWidth={LINE.base} strokeDasharray="22 14" />
-        <Label x={1840} y={rowY(lineAt) - 14} anchor="end" size="label" weight={900}>あなたの線は？</Label>
+        <Label x={1840} y={rowY(lineAt) - 14} anchor="end" size="label" weight={900}>あなたの基準は？</Label>
       </>}
       {people.map((p, k) => <line key={k} x1={1590 + k * 30} y1={rowY(p.i) - 3} x2={1590 + k * 30 + 22} y2={rowY(p.i) - 3} stroke={p.color} strokeWidth={LINE.heavy} strokeLinecap="round" />)}
       {law && <>
@@ -351,7 +350,7 @@ export const S17: React.FC = () => (
       <Label x={1300} y={200} anchor="middle" size="value" color={C.female}>厳しい女性？</Label>
       <Label x={960} y={440} anchor="middle" size="hero">？</Label>
     </Svg>
-    <Ask text="それなら、男性どうしの線はそろう？" x={560} />
+    <Ask text="男性どうしなら、基準はそろう？" x={560} />
     <ChapterDots current={1} />
   </AbsoluteFill>
 );
@@ -378,7 +377,7 @@ const PairRow: React.FC<{ x: number; y: number; kind: "male" | "female" | "mix";
 export const S18: React.FC = () => (
   <AbsoluteFill>
     <Heading>手をつなぐのは浮気？ 食い違う組</Heading>
-    <SubHead>濃い色＝浮気だと答えた人。墨の枠＝食い違った組（日本の割合から計算）</SubHead>
+    <SubHead>濃い色＝浮気だと答えた人。黒い枠＝食い違った組（日本の割合から計算）</SubHead>
     <Svg>
       <PairRow x={400} y={380} kind="mix" title="男女" odd={5} pattern={[[1, 1], [0, 1], [0, 0], [1, 0], [0, 1], [0, 0], [1, 1], [0, 1], [0, 0], [0, 1]]} />
       <PairRow x={400} y={560} kind="male" title="男性どうし" odd={4} pattern={[[0, 0], [1, 0], [0, 0], [0, 1], [1, 1], [0, 0], [0, 1], [0, 0], [1, 0], [0, 0]]} />
@@ -404,7 +403,7 @@ export const S19: React.FC = () => (
           fill={odd ? C.ink : C.white} stroke={C.ink} strokeWidth={LINE.hair} />;
       })}
       <Label x={940} y={700} size="value">32のうち、平均9つが食い違う</Label>
-      <Label x={940} y={770} size="note" color={C.ink2}>墨のマス＝答えが食い違った行動。男女の組とほぼ同じ数</Label>
+      <Label x={940} y={770} size="note" color={C.ink2}>黒いマス＝答えが食い違った行動。男女の組とほぼ同じ数</Label>
     </Svg>
     <SourceNote text={SRC.osf} />
     <ChapterDots current={2} />
@@ -437,9 +436,9 @@ export const S23: React.FC = () => (
   <AbsoluteFill>
     <Heading>ひとりひとりが、自分の地図を持つ</Heading>
     <Svg>
-      <BorderMap x={110} y={280} w={520} h={380} lines={[{ ...MALE_LINE, seed: 3, shift: 40 }]} label="男性Aの線" labelColor={C.male} tilt={-2} />
-      <BorderMap x={700} y={280} w={520} h={380} lines={[{ ...FEMALE_LINE, seed: 8, shift: -80 }]} label="女性Bの線" labelColor={C.female} />
-      <BorderMap x={1290} y={280} w={520} h={380} lines={[{ ...MALE_LINE, seed: 21, shift: -140 }]} label="男性Cの線" labelColor={C.male} tilt={2} />
+      <BorderMap x={110} y={280} w={520} h={380} lines={[{ ...MALE_LINE, seed: 3, shift: 40 }]} label="男性Aの基準" labelColor={C.male} tilt={-2} />
+      <BorderMap x={700} y={280} w={520} h={380} lines={[{ ...FEMALE_LINE, seed: 8, shift: -80 }]} label="女性Bの基準" labelColor={C.female} />
+      <BorderMap x={1290} y={280} w={520} h={380} lines={[{ ...MALE_LINE, seed: 21, shift: -140 }]} label="男性Cの基準" labelColor={C.male} tilt={2} />
     </Svg>
     <ChapterDots current={2} />
   </AbsoluteFill>
@@ -515,7 +514,7 @@ export const S28: React.FC = () => {
 };
 export const S29: React.FC = () => (
   <AbsoluteFill>
-    <Heading>食い違いやすいのは、灰色の行動</Heading>
+    <Heading>食い違いやすいのは、意見が割れる行動</Heading>
     <PairedRows x={96} y={320} width={1728} rowH={96} labelW={700} max={100}
       rows={[{ label: "マッチングサイトを一人で眺める", male: 56.2, female: 66.0 }, { label: "好意のメッセージを受け取る", male: 60.3, female: 77.0 },
         { label: "暗い部屋でふたりで映画", male: 22.1, female: 35.1 }, { label: "体の関係（くらべる）", male: 91.5, female: 93.3 }]} />
@@ -531,7 +530,7 @@ export const S30: React.FC = () => (
       <Figure kind="male" x={760} y={660} size={5} pose="walk" />
       <Figure kind="female" x={1160} y={660} size={5} pose="walk" facing={-1} />
     </Svg>
-    <Ask text="実際に線を越える人は、男女で違う？" x={560} />
+    <Ask text="実際に浮気をする人は、男女で違う？" x={560} />
     <ChapterDots current={2} />
   </AbsoluteFill>
 );
@@ -661,10 +660,11 @@ export const S38: React.FC = () => (
           <text x={780 + (v as number) * 22} y={304 + i * 110} style={font("value")}>{`${v}%`}</text>
         </g>
       ))}
-      <rect x={120} y={500} width={1680} height={2} fill={C.rest} />
-      <text x={120} y={590} style={font("label")}>浮気の相手と出会った場所の1位</text>
-      <text x={760} y={600} style={font("value")}>職場　約4割</text>
-      <Desk />
+      <rect x={120} y={480} width={1680} height={2} fill={C.rest} />
+      {/* 出会った場所の1位：職場。机の絵は伝わらなかったので、上の理由と同じ棒にした（2026-10-10 オーナー） */}
+      <text x={120} y={570} style={font("label")}>浮気の相手と出会った場所：職場</text>
+      <rect data-qa="mark" data-qa-label="職場" x={760} y={530} width={40.2 * 22} height={56} rx={R.sm} fill={C.ink} />
+      <text x={780 + 40.2 * 22} y={574} style={font("value")}>40.2%</text>
       <text x={120} y={720} style={font("note", C.ink2)}>男女別の理由：性欲 男性32%・女性18%／相手を好きになった 女性26%・男性20%</text>
     </Svg>
     <SourceNote text={SRC.raison2} />
@@ -695,14 +695,14 @@ export const S39: React.FC = () => (
 // ================= 答え合わせ =================
 export const S40: React.FC = () => (
   <AbsoluteFill>
-    <Verdict claim="平均すると、女性の線が手前" mark="〇"
+    <Verdict claim="平均では、女性のほうが軽い行動から数える" mark="〇"
       reason={["日本の7千人：13の行動\nすべてで女性が上", "別の調査（2千人）でも\n向きは同じ"]} />
   </AbsoluteFill>
 );
 export const S41: React.FC = () => (
   <AbsoluteFill>
-    <Verdict claim="線のずれは、男女の違いから" mark="×"
-      reason={["男性どうし・女性どうしでも\n男女と同じだけずれる", "男女それぞれの多数決の線は\n32の行動すべてで同じ"]} />
+    <Verdict claim="基準のずれは、男女の違いから" mark="×"
+      reason={["男性どうし・女性どうしでも\n男女と同じだけずれる", "男女の差より、同じ性別の\n中の幅のほうがずっと大きい"]} />
   </AbsoluteFill>
 );
 export const S42: React.FC = () => (
@@ -718,6 +718,18 @@ export const S43: React.FC = () => (
       <LogRuler x={260} y={420} width={1400} pins={[{ n: 170, label: "実際：約170組に1組", strong: true, color: C.gold }, { n: 87000, label: "掛け算：約9万組に1組", color: C.ink2 }]}
         span={{ from: 170, to: 87000, text: "約500倍" }} />
       <Label x={960} y={790} anchor="middle" size="label">厳しい人は、だいたいどの行動にも厳しい</Label>
+    </Svg>
+    <SourceNote text={SRC.osf} />
+  </AbsoluteFill>
+);
+
+/** 32の行動すべてで答えがそろう男女：170組に1組（予想タイムをやめた代わりに、判定の最後でタイトルの数字を見せる。2026-10-10） */
+export const S43b: React.FC = () => (
+  <AbsoluteFill>
+    <Heading>全部そろうのは、170組に1組</Heading>
+    <SubHead>知らない男女をくじで組ませて、32の行動すべてで「浮気かどうか」の答えがそろう組</SubHead>
+    <Svg>
+      <CouplePairs x={150} y={330} items={Array.from({ length: 170 }, (_, i) => ({ husband: i === 169, wife: i === 169, gold: i === 169, goldFrame: i === 169 }))} cols={17} size={0.9} gap={42} row={52} />
     </Svg>
     <SourceNote text={SRC.osf} />
   </AbsoluteFill>

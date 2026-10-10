@@ -52,7 +52,7 @@ export const Verdict: React.FC<{ claim: string; mark: Mark; reason: string[]; st
       {/* ゴサ（右の列、L）。ひげの長さが判定の確かさ */}
       <Gosa size={L.gosa.size} x={L.gosa.x} foot={L.gosa.foot} bubble={[0.32, -1.62]}
         cues={[[8, "thinking"], [hit, sure ? "assertive" : "depends"]].map(([f, e]) => [(f as number) + start, e]) as [number, "thinking" | "assertive" | "depends"][]}
-        says={[[start + 14, "答え合わせ。"], [start + hit + 6, sure ? "ひげ、短め。" : "ひげ、のびます。"]]} sfx={false} />
+        sfx={false} /* 吹き出し（「答え合わせ。」「ひげ、短め。」など）は出さない（2026-10-10 オーナー「ゴサのコメントはいらない」） */ />
       {/* 音：ゴサが答えるときの打撃だけ（刻みと印ごとの余韻は札と一緒にやめた） */}
       <Sfx name="hit" at={start + hit} volume={0.6} />
     </>

@@ -10,21 +10,56 @@ Canva の背景の削除は有料プランだけなので、自分で抜く。�
 2. ふちに残る緑を消す（G を max(R, B) まで下げる）
 3. ふちを1px 内側に寄せて、緑のにじみを残さない
 4. 人物の外接の四角で切り抜く（余白は少し残す）
+
+Gemini の緑はくすんでいて、画像ごとに濃さが違う（2026-10-10）。そこで閾値は外周の背景の緑の強さから
+画像ごとに決める。角に出る明るいむらなど、人物とつながらない島は消す。
 """
 import sys
 
 import numpy as np
 from PIL import Image, ImageFilter
 
-LO, HI = 28, 80  # 緑の強さがこれ以下は人物（不透明）、これ以上は背景（透明）
+LO, HI = 28, 80  # 緑の強さがこれ以下は人物（不透明）、これ以上は背景（透明）。背景が弱いときは下げる
 PAD = 12
+
+
+def thresholds(excess: np.ndarray, cap: float = HI) -> tuple[float, float]:
+    """外周8px の背景の緑の強さ（中央値）から閾値を決める。"""
+    ring = np.concatenate([excess[:8].ravel(), excess[-8:].ravel(), excess[:, :8].ravel(), excess[:, -8:].ravel()])
+    bg = float(np.median(ring))
+    return min(LO, bg * 0.3), min(cap, bg * 0.7)
+
+
+def main_island(alpha: np.ndarray) -> np.ndarray:
+    """いちばん大きい人物のかたまりだけ残す（1/2 に縮めて、中央の列から広げる）。"""
+    m = Image.fromarray(((alpha > 0.5) * 255).astype(np.uint8))
+    sw, sh = max(m.width // 2, 1), max(m.height // 2, 1)
+    small = np.asarray(m.resize((sw, sh), Image.NEAREST)) > 0
+    seed = np.zeros_like(small)
+    seed[:, sw // 2] = small[:, sw // 2]
+    while True:
+        grown = seed.copy()
+        grown[1:] |= seed[:-1]
+        grown[:-1] |= seed[1:]
+        grown[:, 1:] |= seed[:, :-1]
+        grown[:, :-1] |= seed[:, 1:]
+        grown &= small
+        if (grown == seed).all():
+            break
+        seed = grown
+    keep = Image.fromarray((seed * 255).astype(np.uint8)).resize((m.width, m.height), Image.NEAREST)
+    keep = keep.filter(ImageFilter.MaxFilter(5))  # 縮めたときに欠けたふちを戻す
+    return alpha * (np.asarray(keep) > 0)
 
 
 def key(src: str, dst: str) -> None:
     im = np.asarray(Image.open(src).convert("RGB")).astype(np.float32)
     r, g, b = im[..., 0], im[..., 1], im[..., 2]
     excess = g - np.maximum(r, b)
-    alpha = 1 - np.clip((excess - LO) / (HI - LO), 0, 1)
+    # 影の中の緑は暗くて差が小さいので、明るさで割った「緑の割合」で測る
+    ratio = excess / np.maximum(g, 1)
+    lo, hi = thresholds(ratio, 1.0)
+    alpha = main_island(1 - np.clip((ratio - lo) / (hi - lo), 0, 1))
     # ふちの緑を消す：緑が赤・青より強い分を削る
     im[..., 1] = np.minimum(g, np.maximum(r, b) + 4)
     a = Image.fromarray((alpha * 255).astype(np.uint8)).filter(ImageFilter.MinFilter(3)).filter(ImageFilter.GaussianBlur(0.8))
