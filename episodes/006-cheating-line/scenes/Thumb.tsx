@@ -2,11 +2,11 @@
 // 絵は冒頭の物語：夜、明かりを落とした部屋でドラマを見ていた2人。彼は手を開いて「セーフでしょ」、彼女は腕を組んで彼を見る。
 // 人形とソファ（からし色）は1枚の画像（Gemini の API、緑の背景 → scripts/chroma_key.py。Git の外。指示文は meta.md）。
 // 2人は同じ白・同じ光にして、どちらも悪く見せない（男女の回。ゴサは出さない）。
-// 言葉は2案（meta.md）：A「男女で／基準は同じ？」・B「どこから／浮気？」。
-// npx remotion still src/index.ts 006-cheating-line-thumb-a out/006-thumb-a.png
+// 言葉は「どこから／浮気？」（白・同じ大きさの2行。2026-10-10 オーナー決定。ほかの案 A・B2 は meta.md）。
+// npx remotion still src/index.ts 006-cheating-line-thumb out/006-thumb.png
 import React from "react";
 import { AbsoluteFill } from "remotion";
-import { Cutout, TYELLOW, ThumbStage, ThumbWord, Vignette } from "@lib/ThumbKit";
+import { Cutout, ThumbStage, ThumbWord, Vignette } from "@lib/ThumbKit";
 
 const T = "episodes/006-cheating-line/thumb/";
 // ソファはからし色（2026-10-10 オーナー「人間と家具は同じ色でわかりにくいから家具は色付けていい」）。男女の色（青・橙）と緑は避けた
@@ -39,14 +39,6 @@ const Scene: React.FC<{ lines: [Line, Line]; top: number }> = ({ lines, top }) =
   </ThumbStage>
 );
 
-const ThumbA: React.FC = () => <Scene lines={[{ text: "男女で", size: 104 }, { text: "基準は同じ？", size: 104 }]} top={210} />;
-// B：白・同じ大きさの2行（2026-10-10 オーナー「色や大きさの強調もなくていいかも」）
-const ThumbB: React.FC = () => <Scene lines={[{ text: "どこから", size: 132 }, { text: "浮気？", size: 132 }]} top={190} />;
-// B2：レビューの案（「浮気？」を黄・大きく）。比べる用
-const ThumbB2: React.FC = () => <Scene lines={[{ text: "どこから", size: 116 }, { text: "浮気？", size: 160, color: TYELLOW }]} top={190} />;
+const Thumb: React.FC = () => <Scene lines={[{ text: "どこから", size: 132 }, { text: "浮気？", size: 132 }]} top={190} />;
 
-export default [
-  { id: "006-cheating-line-thumb-a", component: ThumbA },
-  { id: "006-cheating-line-thumb-b", component: ThumbB },
-  { id: "006-cheating-line-thumb-b2", component: ThumbB2 },
-];
+export default [{ id: "006-cheating-line-thumb", component: Thumb }];

@@ -141,7 +141,7 @@ const scenes: SceneDef[] = [...narrated, { id: "end", seconds: END_FRAMES / FPS,
 
 const episode: EpisodeDef = {
   id: "006-cheating-line",
-  title: "どこからが浮気か。男女2人の基準がぴったり合うのは、170組に1組", // 2026-10-07 オーナー決定（meta.md）
+  title: "どこからが浮気か、男女でどれくらい違うのか。32の行動で数えてみた", // 2026-10-10 オーナー決定（meta.md）
   scenes,
   bgm: [
     // 1曲を通しで流す（2026-10-07 オーナー：1本目・3本目と同じ曲）
