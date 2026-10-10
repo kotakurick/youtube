@@ -46,14 +46,14 @@ const SubHead: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 const ink = { stroke: C.ink, strokeWidth: LINE.thin, strokeLinejoin: "round" as const, strokeLinecap: "round" as const };
 
 /** 横棒1本（左に名前、棒の右に値） */
-const HBar: React.FC<{ x: number; y: number; w: number; h?: number; color: string; name: string; value: string; nameW?: number; dashed?: boolean }> = (
-  { x, y, w, h = 84, color, name, value, dashed },
+const HBar: React.FC<{ x: number; y: number; w: number; h?: number; color: string; name: string; value: string; nameW?: number; dashed?: boolean; valueX?: number }> = (
+  { x, y, w, h = 84, color, name, value, dashed, valueX },
 ) => (
   <g>
     <text x={x - 28} y={y + h / 2 + 14} textAnchor="end" style={font("label")} fontWeight={900}>{name}</text>
     <rect data-qa="mark" data-qa-label={`横棒：${name}`} x={x} y={y} width={Math.max(w, 4)} height={h} rx={R.sm}
       fill={dashed ? C.bg : color} stroke={dashed ? color : "none"} strokeWidth={dashed ? LINE.thin : 0} strokeDasharray={dashed ? "16 10" : undefined} />
-    <text x={x + Math.max(w, 4) + 24} y={y + h / 2 + 22} style={font("value", C.ink)}>{value}</text>
+    <text x={valueX ?? x + Math.max(w, 4) + 24} y={y + h / 2 + 22} style={font("value", C.ink)}>{value}</text>
   </g>
 );
 
@@ -75,6 +75,7 @@ const Ledger: React.FC<{ x: number; y: number; s?: number; circles?: number[]; d
           {/* 細い字の値（波線で描く） */}
           <path d={`M188 ${yy + 2} q12 -14 24 0 t24 0 t24 0`} fill="none" stroke={C.ink2} strokeWidth={3} />
           <path d={`M300 ${yy + 2} q12 -14 24 0 t24 0 t24 0`} fill="none" stroke={C.ink2} strokeWidth={3} />
+          {circles.includes(i) && <path d={`M268 ${yy + 8} l14 -24 l14 24`} fill="none" stroke={C.debt} strokeWidth={4} strokeLinecap="round" strokeLinejoin="round" />}
           {circles.includes(i) && <ellipse cx={336} cy={yy - 2} rx={58} ry={28} fill="none" stroke={C.debt} strokeWidth={LINE.thin} />}
           {down.includes(i) && <path d={`M268 ${yy - 22} l14 22 l14 -22`} fill="none" stroke={C.rest} strokeWidth={3} />}
         </g>
@@ -107,6 +108,13 @@ const Basket: React.FC<{ x: number; y: number; s?: number; fill?: number; dashed
           <rect x={-100} y={-120 - h + 20} width={80} height={h + 10} rx={10} fill={C.debtTint} stroke={C.ink2} strokeWidth={3} />
           <ellipse cx={20} cy={-110 - h * 0.6 + 20} rx={44} ry={36} fill={color} opacity={0.9} />
           <rect x={56} y={-120 - h * 0.8 + 10} width={46} height={h * 0.8 + 20} rx={8} fill={C.white} stroke={C.ink2} strokeWidth={3} />
+        </g>
+      )}
+      {dashed && (
+        <g fill="none" stroke={C.rest} strokeWidth={LINE.hair} strokeDasharray="10 8">
+          <rect x={-100} y={-180} width={80} height={70} rx={10} />
+          <ellipse cx={20} cy={-150} rx={44} ry={36} />
+          <rect x={56} y={-190} width={46} height={90} rx={8} />
         </g>
       )}
       <path d="M-140 -130 L140 -130 L110 0 L-110 0 Z" {...st} />
@@ -144,16 +152,48 @@ const Gauge: React.FC<{ cx: number; cy: number; r?: number; felt: number; real?:
           </g>
         );
       })}
-      {real !== undefined && (() => { const [a, b] = pt(real, r - 6), [c, d] = pt(real, r - 70); return <line x1={a} y1={b} x2={c} y2={d} stroke={C.ink} strokeWidth={LINE.heavy} strokeLinecap="round" />; })()}
+      {real !== undefined && (() => { const [a, b] = pt(real, r - 30); return <line x1={cx} y1={cy} x2={a} y2={b} stroke={C.ink} strokeWidth={LINE.heavy} strokeLinecap="round" />; })()}
       <line x1={cx} y1={cy} x2={fx} y2={fy} stroke={C.debt} strokeWidth={LINE.heavy} strokeLinecap="round" />
       <circle cx={cx} cy={cy} r={18} fill={C.debt} />
     </g>
   );
 };
 
+/** 真ん中の線（1倍・父＝100）から左右に伸びる棒。pct は変化の%（＋は右） */
+const Diverge: React.FC<{ rows: { name: string; pct: number; color: string }[]; cx?: number; k?: number; y0?: number; base: string }> = (
+  { rows, cx = 1100, k = 20, y0 = 300, base },
+) => (
+  <Svg>
+    {rows.map((r, i) => {
+      const y = y0 + i * 150, w = Math.abs(r.pct) * k, x = r.pct >= 0 ? cx : cx - w;
+      const txt = `${r.pct > 0 ? "＋" : "−"}${Math.abs(r.pct)}%`;
+      return (
+        <g key={r.name}>
+          <text x={500} y={y + 56} textAnchor="end" style={font("label")} fontWeight={900}>{r.name}</text>
+          <rect data-qa="mark" data-qa-label={`横棒：${r.name}`} x={x} y={y} width={Math.max(w, 4)} height={84} rx={R.sm} fill={r.color} />
+          <text x={r.pct >= 0 ? cx + w + 24 : cx - w - 24} y={y + 64} textAnchor={r.pct >= 0 ? "start" : "end"} style={font("value")}>{txt}</text>
+        </g>
+      );
+    })}
+    <line x1={cx} x2={cx} y1={y0 - 40} y2={y0 + rows.length * 150 - 30} stroke={C.ink} strokeWidth={LINE.thin} />
+    <text x={cx} y={y0 - 54} textAnchor="middle" style={font("note", C.ink2)}>{base}</text>
+  </Svg>
+);
+/** 財布（二つ折り。留め具と札の端） */
+const Wallet: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} data-qa="mark" data-qa-label="財布">
+    <rect x={-90} y={-112} width={60} height={70} rx={4} fill={C.white} stroke={C.ink2} strokeWidth={3} transform="rotate(-8)" />
+    <rect x={-40} y={-118} width={60} height={70} rx={4} fill={C.white} stroke={C.ink2} strokeWidth={3} />
+    <rect x={-130} y={-80} width={260} height={160} rx={R.md} fill={C.teal} {...ink} />
+    <path d="M-130 -10 H130" stroke={C.ink} strokeWidth={LINE.hair} />
+    <rect x={40} y={-36} width={90} height={60} rx={R.sm} fill={C.tealTint} {...ink} strokeWidth={4} />
+    <circle cx={104} cy={-6} r={10} fill={C.white} {...ink} strokeWidth={3} />
+  </g>
+);
+
 // ================= 実家の押し入れ（冒頭・教訓で同じ部屋） =================
 const F = { floor: 830, catX: 1260, size: 5.4 };
-const Closet: React.FC = () => (
+const Closet: React.FC<{ evening?: boolean }> = ({ evening }) => (
   <Svg>
     <g data-qa="bg" data-qa-label="実家の押し入れ">
       <rect x={0} y={0} width={1920} height={F.floor} fill={C.wall} />
@@ -169,16 +209,16 @@ const Closet: React.FC = () => (
       <rect x={560} y={180} width={340} height={610} fill="none" stroke={C.rest} strokeWidth={LINE.hair} />
       <circle cx={570} cy={490} r={12} fill="none" stroke={C.ink2} strokeWidth={3} />
       {/* 窓の昼の光 */}
-      <rect x={1500} y={170} width={300} height={260} rx={R.sm} fill={C.bg} {...ink} />
+      <rect x={1500} y={170} width={300} height={260} rx={R.sm} fill={evening ? C.goldTint : C.bg} {...ink} />
       <path d="M1650 170 V430 M1500 300 H1800" {...ink} />
     </g>
   </Svg>
 );
-const Room: React.FC<{ face?: CatFace; pose?: CatPose; look?: [number, number]; children?: React.ReactNode; name?: boolean }> = (
-  { face = "think", pose = "sit", look, children, name },
+const Room: React.FC<{ face?: CatFace; pose?: CatPose; look?: [number, number]; children?: React.ReactNode; name?: boolean; evening?: boolean }> = (
+  { face = "think", pose = "sit", look, children, name, evening },
 ) => (
   <>
-    <Closet />
+    <Closet evening={evening} />
     <Svg>
       <Cat kind="plain" x={F.catX} y={F.floor} size={F.size} pose={pose} face={face} facing={-1} look={look} label="彼" />
       {name && <CatLabel x={F.catX} y={F.floor} size={F.size} text="息子（38）" />}
@@ -235,7 +275,7 @@ export const S02: React.FC = () => (
       <Ledger x={300} y={600} s={0.42} />
       <FatherPhoto x={1500} y={480} />
     </Room>
-    <div style={{ position: "absolute", left: 1530, top: 190, ...font("value"), whiteSpace: "nowrap" }}>1995年</div>
+    <div style={{ position: "absolute", left: 660, top: 470, ...font("value", C.debt), whiteSpace: "nowrap" }}>1995年</div>
   </AbsoluteFill>
 );
 const PAY = { y0: 330, h: 360, max: 520 };
@@ -259,6 +299,7 @@ export const S03: React.FC = () => {
         <line x1={420} x2={1300} y1={PAY.y0 + PAY.h} y2={PAY.y0 + PAY.h} stroke={C.ink} strokeWidth={LINE.thin} />
         {bar(520, 474.5, "父", "1995年")}
         {bar(940, 472.8, "彼", "2025年")}
+        <line x1={480} x2={1240} y1={PAY.y0 + PAY.h - (474.5 / PAY.max) * PAY.h} y2={PAY.y0 + PAY.h - (474.5 / PAY.max) * PAY.h} stroke={C.ink} strokeWidth={LINE.hair} strokeDasharray="12 10" />
         <Cat kind="plain" x={1560} y={760} size={3.6} pose="stand" face="think" label="彼" />
       </Svg>
       <SourceNote text={SRC.takehome} />
@@ -269,10 +310,14 @@ export const S04: React.FC = () => (
   <AbsoluteFill>
     <Heading>物価高の前の24年（1995→2019年）</Heading>
     <Svg>
-      <HBar x={520} y={300} w={1000 * 0.05 / 0.2} color={C.ink} name="物価全体" value="ほぼ横ばい（＋5%）" />
-      <Label x={120} y={500} color={C.ink2}>生活が苦しいと答える世帯</Label>
-      <HBar x={520} y={540} w={420 * 0.42} color={C.rest} name="1995年" value="4割" />
-      <HBar x={520} y={660} w={420 * 0.544} color={C.ink} name="2019年" value="5割半ば" />
+      <Label x={120} y={300} color={C.ink2}>物価全体</Label>
+      <Label x={520} y={300} size="value">1.05倍</Label>
+      <Label x={780} y={300} color={C.ink2}>（ほぼ横ばい）</Label>
+      <Label x={120} y={460} color={C.ink2}>生活が苦しいと答える世帯（全体＝100%）</Label>
+      <rect x={520} y={500} width={1000} height={84} rx={R.sm} fill="none" stroke={C.rest} strokeWidth={LINE.hair} />
+      <rect x={520} y={630} width={1000} height={84} rx={R.sm} fill="none" stroke={C.rest} strokeWidth={LINE.hair} />
+      <HBar x={520} y={500} w={1000 * 0.42} color={C.debtTint} name="1995年" value="42%" />
+      <HBar x={520} y={630} w={1000 * 0.544} color={C.debt} name="2019年" value="54%" />
     </Svg>
     <SourceNote text="総務省「消費者物価指数」、厚生労働省「国民生活基礎調査」（1995年は兵庫県を除く）" />
   </AbsoluteFill>
@@ -318,7 +363,7 @@ export const S08: React.FC = () => (
     <Heading>数える順番</Heading>
     <Svg>
       {[
-        { x: 420, name: "財布", draw: (x: number) => <g><rect x={x - 110} y={360} width={220} height={150} rx={R.md} fill={C.tealTint} {...ink} /><path d={`M${x - 110} 420 H${x + 110}`} {...ink} /></g> },
+        { x: 420, name: "財布", draw: (x: number) => <Wallet x={x} y={460} /> },
         { x: 960, name: "毎週の買い物", draw: (x: number) => <Basket x={x} y={540} s={0.85} fill={0.7} /> },
         { x: 1500, name: "この先の見通し", draw: (x: number) => <Basket x={x} y={540} s={0.85} dashed label="明日のかご" /> },
       ].map((c, i) => (
@@ -333,9 +378,9 @@ export const S08: React.FC = () => (
 
 // ================= 第1章 =================
 const LADDER = [
-  { name: "額面", v: 25.6, color: C.teal, text: "＋25万円" },
-  { name: "保険料", v: -30.7, color: C.gold, text: "−30万円" },
-  { name: "税", v: 3.4, color: C.rest, text: "＋3万円" },
+  { name: "額面", v: 25.6, color: C.tealTint, text: "＋25.6万円" },
+  { name: "保険料", v: -30.7, color: C.gold, text: "−30.7万円" },
+  { name: "税", v: 3.4, color: C.rest, text: "＋3.4万円" },
 ];
 const S09Base: React.FC<{ upto: number }> = ({ upto }) => {
   const X = 420, Y0 = 560, k = 7;
@@ -344,7 +389,7 @@ const S09Base: React.FC<{ upto: number }> = ({ upto }) => {
     <AbsoluteFill>
       <ChapterDots current={1} />
       <Heading>父→彼で、手取りの何が変わった？</Heading>
-      <SubHead>1年分。プラスは手取りが増える向き</SubHead>
+      <SubHead>1年分。上は手取りが増える向き、下は減る向き</SubHead>
       <Svg>
         <line x1={300} x2={1700} y1={Y0} y2={Y0} stroke={C.ink2} strokeWidth={LINE.hair} strokeDasharray="12 10" />
         <text x={290} y={Y0 + 12} textAnchor="end" style={font("note", C.ink2)}>父の手取り</text>
@@ -361,8 +406,9 @@ const S09Base: React.FC<{ upto: number }> = ({ upto }) => {
             </g>
           );
         })}
-        {upto > 3 && <><rect data-qa="mark" data-qa-label="はしご：手取りの差" x={X + 3 * 340} y={Y0 - 4} width={200} height={8} rx={4} fill={C.teal} />
-        <text x={X + 3 * 340 + 100} y={Y0 - 30} textAnchor="middle" style={font("value", C.teal)}>ほぼ0</text>
+        {upto > 3 && <><rect data-qa="mark" data-qa-label="はしご：手取りの差" x={X + 3 * 340} y={Y0} width={200} height={1.7 * k} rx={4} fill={C.teal} />
+        <text x={X + 3 * 340 + 100} y={Y0 - 30} textAnchor="middle" style={font("value", C.teal)}>ほぼ同じ</text>
+        <text x={X + 3 * 340 + 100} y={Y0 + 64} textAnchor="middle" style={font("label")}>−1.7万円</text>
         <text x={X + 3 * 340 + 100} y={780} textAnchor="middle" style={font("label")} fontWeight={900}>手取り</text></>}
       </Svg>
       <SourceNote text={SRC.takehome} />
@@ -381,12 +427,12 @@ export const S10: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={1} />
     <Heading>1年前と比べて、暮らし向きは？</Heading>
-    <LineChart x={200} y={230} width={1240} height={520} xDomain={[1998, 2026]} yDomain={[0, 70]} xTicks={[1998, 2008, 2019, 2026]} format={(v) => `${v}%`}
+    <LineChart x={200} y={230} width={1100} height={520} xDomain={[1998, 2026]} yDomain={[0, 70]} xTicks={[1998, 2008, 2019, 2026]} format={(v) => `${v}%`}
       series={[
-        { label: "苦しくなった", points: BOJ.map(([y, a]) => [y, a]), color: C.ink, focus: true },
+        { label: "苦しくなった", points: BOJ.map(([y, a]) => [y, a]), color: C.debt, focus: true },
         { label: "ゆとりが出てきた", points: BOJ.map(([y, , b]) => [y, b]), color: C.other },
       ]} />
-    <Svg><Label x={1520} y={520} color={C.ink2}>どの回も</Label><Label x={1520} y={580} weight={900}>5倍以上</Label></Svg>
+    <Svg><Label x={1560} y={520} color={C.ink2}>どの回も</Label><Label x={1560} y={580} weight={900}>5倍以上</Label></Svg>
     <SourceNote text={SRC.boj} />
   </AbsoluteFill>
 );
@@ -486,10 +532,10 @@ export const S16: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={2} />
     <Heading>1995→2019年、3本の物差しで</Heading>
-    <Ratio rows={[
-      { name: "物価全体", v: 1.05, color: C.ink, text: "1.05倍" },
-      { name: "毎週のかご", v: 1.19, color: C.debt, text: "1.19倍" },
-      { name: "家電", v: 0.82, color: C.other, text: "0.82倍" },
+    <Diverge base="1995年と同じ" rows={[
+      { name: "物価全体", pct: 5, color: C.ink },
+      { name: "毎週のかご", pct: 19, color: C.debt },
+      { name: "家電", pct: -18, color: C.other },
     ]} />
     <Svg><Label x={560} y={740} color={C.ink2}>家電の値下がりは、同じ値段で性能が上がった分を含む</Label></Svg>
     <SourceNote text={SRC.cpiFreq} />
@@ -500,7 +546,8 @@ export const S17: React.FC = () => {
   return (
     <AbsoluteFill>
       <ChapterDots current={2} />
-      <Heading>苦しい世帯が増えた24年は、かごが重くなった24年</Heading>
+      <Heading>苦しい世帯と、かごの重さ</Heading>
+      <SubHead>端の2つの年だけでなく、4つの年で並べる</SubHead>
       <Svg>
         <Label x={500} y={300} anchor="middle" color={C.ink2}>年</Label>
         <Label x={860} y={300} anchor="middle" color={C.ink2}>生活が苦しい世帯</Label>
@@ -541,10 +588,17 @@ export const S19: React.FC = () => (
     <Heading>1割以上と感じているなら</Heading>
     <Svg>
       {Array.from({ length: 10 }, (_, i) => (
-        <Cat key={i} kind="plain" x={300 + i * 135} y={640} size={2.2} pose="stand" face="normal" seed={i} label={`回答者${i}`} color={i < 6 ? C.debt : undefined} />
+        <g key={i}>
+          <Cat kind="plain" x={300 + i * 135} y={640} size={2.2} pose="stand" face="normal" seed={i} label={`回答者${i}`} />
+          {i < 5 && <g data-qa="mark" data-qa-label={`感じた吹き出し${i}`}>
+            <ellipse cx={300 + i * 135} cy={380} rx={46} ry={36} fill={C.debtTint} stroke={C.debt} strokeWidth={LINE.thin} />
+            <path d={`M${300 + i * 135} 396 v-30 m-14 14 l14 -14 l14 14`} fill="none" stroke={C.debt} strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" />
+          </g>}
+        </g>
       ))}
-      <path d="M230 690 V720 H1040 V690" fill="none" stroke={C.debt} strokeWidth={LINE.thin} />
-      <Label x={635} y={780} anchor="middle" weight={900} color={C.debt}>半数以上が「1割以上」</Label>
+      <path d="M230 690 V720 H935" fill="none" stroke={C.debt} strokeWidth={LINE.thin} />
+      <path d="M935 720 H1010 M990 704 L1010 720 L990 736" fill="none" stroke={C.debt} strokeWidth={LINE.thin} strokeLinecap="round" />
+      <Label x={635} y={790} anchor="middle" weight={900} color={C.debt}>半数より多い人が「1割以上」</Label>
     </Svg>
     <SourceNote text="日本銀行「生活意識に関するアンケート調査」（2025年6月）" />
   </AbsoluteFill>
@@ -603,11 +657,18 @@ export const S23: React.FC = () => (
     <ChapterDots current={2} />
     <Heading>ローマの映画館：ユーロ前の入場料は？</Heading>
     <Svg>
-      <rect data-qa="mark" data-qa-label="映画館" x={160} y={260} width={620} height={480} rx={R.md} fill={C.night} {...ink} />
-      <rect x={220} y={320} width={500} height={240} fill={C.wall} />
-      {Array.from({ length: 6 }, (_, i) => <circle key={i} cx={250 + i * 90} cy={660} r={30} fill={C.ink2} />)}
+      <g data-qa="mark" data-qa-label="映画館">
+        <rect x={180} y={360} width={580} height={400} fill={C.paper2} {...ink} />
+        <path d="M150 380 Q470 220 790 380 Z" fill={C.debtTint} {...ink} />
+        {[250, 360, 470, 580, 690].map((x) => <path key={x} d={`M${x} 380 V330`} stroke={C.ink2} strokeWidth={3} />)}
+        <rect x={270} y={420} width={400} height={70} rx={R.sm} fill={C.white} {...ink} strokeWidth={4} />
+        <rect x={250} y={540} width={200} height={140} rx={R.sm} fill={C.night} {...ink} strokeWidth={4} />
+        <rect x={500} y={540} width={200} height={220} fill={C.night} {...ink} strokeWidth={4} />
+        <g transform="rotate(-10 380 630)"><rect x={320} y={600} width={130} height={60} rx={6} fill={C.goldTint} {...ink} strokeWidth={3} /><circle cx={340} cy={630} r={8} fill={C.paper2} /></g>
+      </g>
+      <Label x={470} y={470} anchor="middle" weight={900}>映画館</Label>
       <HBar x={1120} y={330} w={560} color={C.ink} name="実際" value="" />
-      <HBar x={1120} y={480} w={560 * 0.69} color={C.other} name="思い出した値段" value="約3割安い" />
+      <HBar x={1120} y={480} w={560 * 0.69} color={C.debtTint} name="思い出した値段" value="約3割安い" />
       <Label x={1120} y={680} color={C.ink2}>正しく答えた人は</Label>
       <Label x={1480} y={688} size="value">8%</Label>
     </Svg>
@@ -623,6 +684,7 @@ export const S24: React.FC = () => (
       <path d="M760 500 H1080" stroke={C.ink} strokeWidth={LINE.base} />
       <path d="M1080 480 L1116 500 L1080 520 Z" fill={C.ink} />
       <rect data-qa="mark" data-qa-label="国の記録" x={1160} y={300} width={560} height={420} rx={R.md} fill={C.white} {...ink} />
+      <rect data-qa="mark" data-qa-label="国の記録の背" x={1130} y={292} width={44} height={436} rx={R.sm} fill={C.night} {...ink} />
       <Label x={1440} y={380} anchor="middle" weight={900}>国が毎年記録した物価</Label>
       {[440, 510, 580, 650].map((y) => <line key={y} x1={1210} x2={1670} y1={y} y2={y} stroke={C.rest} strokeWidth={LINE.hair} />)}
     </Svg>
@@ -633,11 +695,12 @@ export const S25: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={2} />
     <Heading>東京の店先の値段（1995年→2025年）</Heading>
+    <SubHead>棒の長さは、1995年を同じ長さにそろえた値上がり</SubHead>
     <Svg>
-      <HBar x={560} y={300} w={114 * 3.6} color={C.rest} name="ガソリン 1995年" value="114円" />
-      <HBar x={560} y={410} w={178 * 3.6} color={C.debt} name="2025年" value="178円" />
-      <HBar x={560} y={560} w={408 * 1.25} color={C.rest} name="食パン 1995年" value="1kg 408円" />
-      <HBar x={560} y={670} w={535 * 1.25} color={C.debt} name="2025年" value="535円（約3割高い）" />
+      <HBar x={560} y={300} w={100 * 4.8} color={C.debtTint} name="ガソリン 1995年" value="114円" />
+      <HBar x={560} y={410} w={156 * 4.8} color={C.debt} name="2025年" value="178円（＋56%）" />
+      <HBar x={560} y={560} w={100 * 4.8} color={C.debtTint} name="食パン1kg 1995年" value="408円" />
+      <HBar x={560} y={670} w={131 * 4.8} color={C.debt} name="2025年" value="535円（＋31%）" />
     </Svg>
     <SourceNote text={`${SRC.retail}。ガソリンはレギュラー1L（1995年は現金売り）`} />
   </AbsoluteFill>
@@ -648,14 +711,14 @@ export const S26: React.FC = () => {
     { name: "毎週のかご", v: 679.0, color: C.debt, text: "約680万円" },
     { name: "家電", v: 427.3, color: C.other, text: "約430万円" },
   ];
-  const X = 560, k = 1.5;
+  const X = 560, k = 1.1;
   return (
     <AbsoluteFill>
       <ChapterDots current={2} />
-      <Heading>父の手取り470万円を、いまのお金に直すと</Heading>
+      <Heading>父の470万円を、いまのお金に</Heading>
       <Svg>
-        {rows.map((r, i) => <HBar key={r.name} x={X} y={260 + i * 130} w={r.v * k} color={r.color} name={r.name} value={r.text} />)}
-        <HBar x={X} y={660} w={472.8 * k} color={C.teal} name="彼の手取り" value="470万円" />
+        {rows.map((r, i) => <HBar key={r.name} x={X} y={260 + i * 130} w={r.v * k} color={r.color} name={r.name} value={r.text} valueX={1400} />)}
+        <HBar x={X} y={660} w={472.8 * k} color={C.teal} name="彼の手取り" value="470万円" valueX={1400} />
         <line x1={X + 472.8 * k} x2={X + 472.8 * k} y1={230} y2={760} stroke={C.teal} strokeWidth={LINE.hair} strokeDasharray="12 10" />
       </Svg>
       <SourceNote text={SRC.real} />
@@ -665,27 +728,23 @@ export const S26: React.FC = () => {
 export const S27: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={2} />
-    <Heading>同じ手取りで買える量（父＝1）</Heading>
-    <Svg>
-      <Basket x={560} y={640} s={1.4} fill={0.45} label="毎週のかごで測ると" />
-      <Label x={560} y={740} anchor="middle" weight={900}>毎週のかごで測ると</Label>
-      <Label x={560} y={810} anchor="middle" size="value" color={C.debt}>約3割少ない</Label>
-      <rect data-qa="mark" data-qa-label="家電" x={1220} y={380} width={300} height={220} rx={R.md} fill={C.otherTint} {...ink} />
-      <rect x={1250} y={410} width={240} height={150} fill={C.night} />
-      <Label x={1370} y={740} anchor="middle" weight={900}>家電で測ると</Label>
-      <Label x={1370} y={810} anchor="middle" size="value">約1割多い</Label>
-    </Svg>
-    <SourceNote text={SRC.real} x={96} y={140} />
+    <Heading>同じ手取りで買える量（2025年）</Heading>
+    <Diverge base="父と同じ" cx={1260} k={16} rows={[
+      { name: "物価全体で測ると", pct: -17, color: C.ink },
+      { name: "毎週のかごで", pct: -30, color: C.debt },
+      { name: "家電で", pct: 11, color: C.other },
+    ]} />
+    <SourceNote text={SRC.real} />
   </AbsoluteFill>
 );
 export const S28: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={2} />
     <Svg>
-      <Gauge cx={520} cy={620} r={260} felt={15} real={4} />
-      <Label x={520} y={720} anchor="middle" weight={900}>頭の中の目盛り：大きくずれた</Label>
-      <Basket x={1380} y={620} s={1.3} fill={0.9} label="毎週のかご" />
-      <Label x={1380} y={720} anchor="middle" weight={900}>苦しいという感じ：当たっていた</Label>
+      <Gauge cx={460} cy={620} r={190} felt={15} real={4} />
+      <Label x={460} y={720} anchor="middle" color={C.ink2}>頭の中の目盛り：ずれた</Label>
+      <Basket x={1300} y={640} s={1.7} fill={0.9} label="毎週のかご" />
+      <Label x={1300} y={740} anchor="middle" weight={900}>苦しいという感じ：当たっていた</Label>
     </Svg>
     <Note x={96} y={90} text="感じた数字は外れ、苦しさの向きは当たり" />
   </AbsoluteFill>
@@ -698,10 +757,10 @@ export const S29: React.FC = () => (
     <Heading>同じ面接のやり方で、1995年と2019年</Heading>
     <Svg>
       <Label x={120} y={300} color={C.ink2}>悩みや不安を感じている</Label>
-      <HBar x={560} y={330} w={1000 * 0.539} color={C.rest} name="1995年" value="54%" />
+      <HBar x={560} y={330} w={1000 * 0.539} color={C.debtTint} name="1995年" value="54%" />
       <HBar x={560} y={430} w={1000 * 0.632} color={C.debt} name="2019年" value="63%" />
-      <Label x={120} y={590} color={C.ink2}>そのうち、老後の生活設計</Label>
-      <HBar x={560} y={620} w={1000 * 0.371} color={C.rest} name="1995年" value="4割足らず" />
+      <Label x={120} y={590} color={C.ink2}>不安がある人のうち、老後の生活設計</Label>
+      <HBar x={560} y={620} w={1000 * 0.371} color={C.debtTint} name="1995年" value="4割足らず" />
       <HBar x={560} y={720} w={1000 * 0.567} color={C.debt} name="2019年" value="6割近く" />
     </Svg>
     <SourceNote text={SRC.naikaku} />
@@ -735,15 +794,13 @@ export const S31: React.FC = () => (
 );
 const Supporters: React.FC<{ x: number; n: number; year: string; who: string }> = ({ x, n, year, who }) => (
   <g>
-    <Cat kind="plain" x={x} y={520} size={2.0} pose="stand" face="normal" color={C.gold} label={`65歳以上 ${year}`} />
+    <rect data-qa="mark" data-qa-label={`金の座布団 ${year}`} x={x - 90} y={508} width={180} height={28} rx={14} fill={C.gold} />
+    <Cat kind="plain" x={x} y={512} size={2.0} pose="sit" face="normal" label={`65歳以上 ${year}`} />
     {Array.from({ length: Math.ceil(n) }, (_, i) => {
       const part = Math.min(1, n - i);
       return (
         <g key={i}>
-          <defs><clipPath id={`cp-${year}-${i}`}><rect x={x - 180 + i * 90 - 40} y={540} width={80 * part} height={180} /></clipPath></defs>
-          <g clipPath={`url(#cp-${year}-${i})`}>
-            <Cat kind="plain" x={x - 180 + i * 90} y={700} size={1.6} pose="stand" face="normal" seed={i} label={`支える人 ${year} ${i}`} />
-          </g>
+          <Cat kind="plain" x={x - 180 + i * 90} y={700} size={1.6 * Math.max(part, 0.4)} pose="stand" face="normal" seed={i} label={`支える人 ${year} ${i}`} />
         </g>
       );
     })}
@@ -754,7 +811,8 @@ const Supporters: React.FC<{ x: number; n: number; year: string; who: string }> 
 export const S32: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={3} />
-    <Heading>65歳以上1人を、20〜64歳の何人で支える？</Heading>
+    <Heading>65歳以上1人を、何人で支える？</Heading>
+    <SubHead>支える側は20〜64歳。小さい猫は1人に満たない分</SubHead>
     <Svg>
       <Supporters x={460} n={4.31} year="1995年" who="父が38歳" />
       <Supporters x={960} n={1.88} year="2025年" who="彼が38歳" />
@@ -769,7 +827,7 @@ export const S32: React.FC = () => (
 export const S33: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={3} />
-    <Heading>保険料の割合は上限で止まり、年金の割合が下がる</Heading>
+    <Heading>保険料は止まり、年金の割合は下がる</Heading>
     <Svg>
       <Label x={120} y={300} color={C.ink2}>厚生年金の保険料の割合</Label>
       <line x1={160} x2={860} y1={400} y2={400} stroke={C.gold} strokeWidth={LINE.heavy} />
@@ -779,6 +837,7 @@ export const S33: React.FC = () => (
       <HBar x={1260} y={360} w={61.2 * 6} color={C.gold} name="2024年度" value="61%" />
       <HBar x={1260} y={490} w={57.6 * 6} color={C.goldTint} name="見通し" value="58%" />
       <HBar x={1260} y={620} w={50.4 * 6} color={C.goldTint} name="過去30年なみ" value="50%" />
+      <Label x={120} y={780} color={C.ink2}>年金の額ではなく、その年の現役の手取りと比べた割合</Label>
     </Svg>
     <SourceNote text={SRC.pension} />
   </AbsoluteFill>
@@ -786,9 +845,10 @@ export const S33: React.FC = () => (
 export const S34: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={3} />
-    <Heading>お金を使うとき「これからの物価」を気にする</Heading>
+    <Heading>これからの物価を気にする</Heading>
+    <SubHead>お金を使うときに重視すること（複数回答）</SubHead>
     <Svg>
-      <HBar x={560} y={340} w={1000 * 0.45} color={C.rest} name="2017年" value="4割半ば" />
+      <HBar x={560} y={340} w={1000 * 0.45} color={C.debtTint} name="2017年" value="4割半ば" />
       <HBar x={560} y={480} w={1000 * 0.725} color={C.debt} name="2025年" value="7割超" />
       <Basket x={360} y={760} s={0.7} dashed label="明日のかご（小）" />
     </Svg>
@@ -801,7 +861,7 @@ export const S35: React.FC = () => (
     <Heading>1年後の自分の収入は？</Heading>
     <Svg>
       <Label x={120} y={300} color={C.ink2}>「増える」と答えた人</Label>
-      <HBar x={560} y={330} w={1000 * 0.063} color={C.rest} name="2006〜12年平均" value="6%" />
+      <HBar x={560} y={330} w={1000 * 0.063} color={C.tealTint} name="2006〜12年平均" value="6%" />
       <HBar x={560} y={440} w={1000 * 0.108} color={C.teal} name="ここ5年平均" value="11%" />
       <Label x={120} y={640} weight={900}>「減る」と答える人のほうが多いのは、今も同じ</Label>
     </Svg>
@@ -823,7 +883,7 @@ export const S36: React.FC = () => (
 export const S37: React.FC = () => (
   <AbsoluteFill>
     <SplitClaim x={96} y={200} name="苦しくなった" claim="今の世代は、親の世代より、お金の面で"
-      hit="毎週のかごで測ると、買える量は約3割少ない" miss="手取りの額は、父の同い年とほぼ同じ" word="額なら外れ、かごなら当たり" />
+      hit="かごで測ると、買える量は約3割少ない" miss="手取りの額は、父とほぼ同じ" word="額なら外れ、かごなら当たり" />
   </AbsoluteFill>
 );
 export const S38: React.FC = () => (
@@ -835,12 +895,14 @@ export const S39: React.FC = () => (
   <AbsoluteFill>
     <Heading>1995→2019年（同じ面接のやり方）</Heading>
     <Svg>
-      <HBar x={640} y={300} w={1000 * 0.727} color={C.other} name="満足 1995年" value="73%" />
-      <HBar x={640} y={400} w={1000 * 0.738} color={C.other} name="2019年" value="74%" />
-      <HBar x={640} y={560} w={1000 * 0.371} color={C.rest} name="老後が不安 1995年" value="4割足らず" />
-      <HBar x={640} y={660} w={1000 * 0.567} color={C.debt} name="2019年" value="6割近く" />
+      <Label x={120} y={280} color={C.ink2}>今の生活に満足（答えた人全員のうち）</Label>
+      <HBar x={560} y={300} w={1000 * 0.727} color={C.otherTint} name="1995年" value="73%" />
+      <HBar x={560} y={400} w={1000 * 0.738} color={C.other} name="2019年" value="74%" />
+      <Label x={120} y={550} color={C.ink2}>老後の生活設計が不安（悩みや不安がある人のうち）</Label>
+      <HBar x={560} y={570} w={1000 * 0.371} color={C.debtTint} name="1995年" value="37%" />
+      <HBar x={560} y={670} w={1000 * 0.567} color={C.debt} name="2019年" value="57%" />
     </Svg>
-    <SourceNote text={`${SRC.naikaku}。不安は悩みや不安がある人のうち`} />
+    <SourceNote text={SRC.naikaku} />
   </AbsoluteFill>
 );
 const SUGGEST = [
@@ -862,37 +924,37 @@ const Suggest: React.FC<{ cards: typeof SUGGEST }> = ({ cards }) => {
           <div style={{ ...font("label"), fontWeight: 900, marginTop: 10 }}>{c.body}</div>
         </div>
       ))}
-      <SourceNote prefix="" text="過去の数字は、将来を約束しません" />
+      <div data-qa="mark" data-qa-label="免責の帯" style={{ position: "absolute", left: 96, top: 640, width: 1500, height: 90, boxSizing: "border-box", border: `${LINE.thin}px solid ${C.ink}`, borderRadius: R.md, padding: "18px 32px", ...font("label"), fontWeight: 900 }}>過去の数字は、将来を約束しません</div>
+      <Svg><Cat kind="plain" x={1760} y={760} size={2.4} pose="sit" face="think" label="彼" /></Svg>
     </AbsoluteFill>
   );
 };
 export const S41: React.FC = () => (
   <AbsoluteFill>
-    <Room face="think" pose="sit" look={[-1, 0.5]}>
+    <Room face="surprised" pose="sit" look={[-1, 0.5]} evening>
       <Ledger x={560} y={300} s={0.95} circles={[0, 2, 3]} down={[1, 4]} />
     </Room>
   </AbsoluteFill>
 );
 export const S42: React.FC = () => (
   <AbsoluteFill>
-    <Room face="smile" pose="sit" look={[0.4, -0.6]}>
+    <Room face="smile" pose="sit" look={[0.4, -0.6]} evening>
       <Ledger x={240} y={340} s={0.8} circles={[0, 2, 3]} down={[1, 4]} />
     </Room>
     <Svg>
       <g data-qa="mark" data-qa-label="頭の中の目盛り（吹き出し）">
         <circle cx={1060} cy={420} r={14} fill={C.white} {...ink} strokeWidth={3} />
         <circle cx={1010} cy={380} r={22} fill={C.white} {...ink} strokeWidth={3} />
-        <ellipse cx={900} cy={250} rx={270} ry={150} fill={C.white} {...ink} />
+        <ellipse cx={900} cy={260} rx={330} ry={180} fill={C.white} {...ink} />
       </g>
-      <Gauge cx={900} cy={330} r={150} felt={15} label="頭の中の目盛り（赤い針）" />
+      <Gauge cx={900} cy={350} r={140} felt={15} label="頭の中の目盛り（赤い針）" />
     </Svg>
   </AbsoluteFill>
 );
 export const S43: React.FC = () => (
   <AbsoluteFill>
     <Svg>
-      <rect data-qa="mark" data-qa-label="財布" x={300} y={360} width={360} height={240} rx={R.md} fill={C.tealTint} {...ink} />
-      <path d="M300 440 H660" {...ink} />
+      <Wallet x={480} y={480} s={1.3} />
       <Label x={480} y={680} anchor="middle" weight={900}>同じ手取りでも</Label>
       <Ruler x={1000} y={300} w={700} color={C.ink} name="" />
       <Ruler x={1000} y={440} w={700} color={C.debt} name="" />
@@ -903,14 +965,12 @@ export const S43: React.FC = () => (
 );
 export const S44: React.FC = () => (
   <AbsoluteFill>
-    <Svg>
-      <rect data-qa="bg" x={0} y={0} width={1920} height={1080} fill={C.bg} />
-      <line x1={200} x2={1720} y1={720} y2={720} {...ink} />
-      <Basket x={640} y={720} s={1.8} fill={1} label="毎週のかご（重い）" />
-      <Basket x={1280} y={720} s={1.8} dashed label="明日のかご（重く見える）" />
-      <Label x={640} y={800} anchor="middle" weight={900}>本当に重い</Label>
-      <Label x={1280} y={800} anchor="middle" weight={900} color={C.ink2}>重く見える</Label>
-    </Svg>
+    <Room face="smile" pose="sit" look={[-1, 0.2]} evening>
+      <Basket x={420} y={F.floor} s={1.1} fill={1} label="毎週のかご（重い）" />
+      <Basket x={860} y={F.floor} s={1.1} dashed label="明日のかご（重く見える）" />
+      <Label x={420} y={886} anchor="middle" weight={900}>本当に重い</Label>
+      <Label x={860} y={886} anchor="middle" weight={900} color={C.ink2}>重く見える</Label>
+    </Room>
   </AbsoluteFill>
 );
 export const S45: React.FC = () => <AbsoluteFill><SignOff /></AbsoluteFill>;
@@ -966,5 +1026,5 @@ const P: Omit<Panel, "key">[] = [
   { title: "締めのひと言（毎回同じ）", C: S45, sec: 5, lines: "数えてみると、景色が変わりました。", move: "共通のアニメーション（SignOff）。字幕なし" },
 ];
 export const panels: Panel[] = P.map((p, i) => ({ key: String(i + 1).padStart(2, "0"), ...p }));
-export const storyboard: StoryboardDef = { id: "005-take-home-30-years", title: "手取りは父と同じ（第1版）", panels };
+export const storyboard: StoryboardDef = { id: "005-take-home-30-years", title: "手取りは父と同じ（第2版）", panels };
 export default storyboard;
