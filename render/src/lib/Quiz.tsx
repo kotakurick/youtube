@@ -2,7 +2,7 @@
 // 冒頭の予想は答えを判定のコーナーで明かすので、reveal を付けない。章の中のクイズは reveal を付ける。
 import React from "react";
 import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
-import { Gosa } from "./Gosa";
+import { Expression, Gosa } from "./Gosa";
 import { Sfx } from "./Sfx";
 import { C, font, LINE, R, sp, useZ } from "./theme";
 
@@ -10,10 +10,10 @@ export const QUIZ_TIMING = { choices: 12, ring: 45, ringLen: 90, reveal: 45 + 90
 const KEYS = ["A", "B", "C", "D"];
 
 // 読み上げに合わせるとき（4本目で足した。2026-10-06）：choiceAt＝選択肢ごとに出るフレーム、ringAt＝3秒の輪を始めるフレーム、
-// revealAt＝答えを塗るフレーム、gosaFoot＝ゴサの足元（字幕の帯から離すとき）、nudge＝[選択肢, フレーム] でその選択肢を小さく揺らす（引っかけ）。どれも start からの数え。省くと今までどおり
+// revealAt＝答えを塗るフレーム、revealFace＝答えを塗るときのゴサの表情（省くと idea。言い切れる答えは assertive＝ひげ短め。2026-10-10 8本目）、gosaFoot＝ゴサの足元（字幕の帯から離すとき）、nudge＝[選択肢, フレーム] でその選択肢を小さく揺らす（引っかけ）。どれも start からの数え。省くと今までどおり
 export const Quiz: React.FC<{ question: string; choices: string[]; answer?: number; reveal?: boolean; start?: number; title?: string;
-  choiceAt?: number[]; ringAt?: number; revealAt?: number; nudge?: [number, number]; gosaFoot?: number }> = (
-  { question, choices, answer, reveal = false, start = 0, title = "予想タイム", choiceAt, ringAt, revealAt: revealAtProp, nudge, gosaFoot },
+  choiceAt?: number[]; ringAt?: number; revealAt?: number; revealFace?: Expression; nudge?: [number, number]; gosaFoot?: number }> = (
+  { question, choices, answer, reveal = false, start = 0, title = "予想タイム", choiceAt, ringAt, revealAt: revealAtProp, revealFace = "idea", nudge, gosaFoot },
 ) => {
   if (choices.length < 2 || choices.length > 4) throw new Error("Quiz: 選択肢は2〜4つにしてください。");
   if (reveal && answer === undefined) throw new Error("Quiz: reveal するときは answer（答えの番号）が要ります。");
@@ -65,7 +65,7 @@ export const Quiz: React.FC<{ question: string; choices: string[]; answer?: numb
         </svg>
       )}
       {[0, 1, 2].map((k) => <Sfx key={k} name="tick" at={start + ring + k * 30} volume={0.4} />)}
-      <Gosa cues={reveal ? [[start + 4, "thinking"], [start + revealAt, "idea"]] : [[start + 4, "thinking"]]} size={Z.vertical ? "S" : "M"} foot={gosaFoot} sfx={false} />
+      <Gosa cues={reveal ? [[start + 4, "thinking"], [start + revealAt, revealFace]] : [[start + 4, "thinking"]]} size={Z.vertical ? "S" : "M"} foot={gosaFoot} sfx={false} />
     </>
   );
 };

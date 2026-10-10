@@ -8,7 +8,7 @@
 // 人物：男女の回ではないので、ケプラーも群衆も紫の猫（kind="plain"）。実在の人物（ケプラー・ベッカーなど）は猫で、似顔にしない。
 //   ベッカー・スタンダール・フランクファートは本と引用の札で見せ、猫にしない（物語の主人公はケプラーだけ）。
 import React from "react";
-import { AbsoluteFill } from "remotion";
+import { AbsoluteFill, useCurrentFrame } from "remotion";
 import { Backdrop } from "@lib/Backdrop";
 import { Cat, CatLabel } from "@lib/Cat";
 import { ChapterDots } from "@lib/Chapter";
@@ -19,6 +19,8 @@ import { SignOff } from "@lib/SignOff";
 import { SourceNote } from "@lib/SourceNote";
 import type { Panel, StoryboardDef } from "@lib/Storyboard";
 import { Bubble, Thought } from "@lib/StoryAnim";
+import { CatCrowd, catGrid } from "@lib/CatCrowd";
+import { SpeedDateRoom } from "@lib/SpeedDateRoom";
 import { C, font, LINE, R } from "@lib/theme";
 
 // ---- この回の配置の道具 ----
@@ -149,10 +151,14 @@ export const S03: React.FC = () => (
   </AbsoluteFill>
 );
 /** 候補の11人：壁の11枚の額（中は紫の猫の顔の影）。番号つき */
-const Frames: React.FC<{ y?: number; hi?: number }> = ({ y = 300, hi }) => (
+/** every を付けると、額が左から every フレームおきに1枚ずつかかる（本編） */
+const Frames: React.FC<{ y?: number; hi?: number; every?: number }> = ({ y = 300, hi, every }) => {
+  const frame = useCurrentFrame();
+  return (
   <g>
     {Array.from({ length: 11 }, (_, i) => {
       const x = 150 + i * 150;
+      if (every !== undefined && frame < i * every) return null;
       return (
         <g key={i}>
           <rect x={x} y={y} width={120} height={150} rx={R.sm} fill={C.white} stroke={i + 1 === hi ? C.ink : C.ink2} strokeWidth={i + 1 === hi ? LINE.heavy : LINE.thin} />
@@ -163,12 +169,13 @@ const Frames: React.FC<{ y?: number; hi?: number }> = ({ y = 300, hi }) => (
       );
     })}
   </g>
-);
-export const S04: React.FC = () => (
+  );
+};
+export const S04: React.FC<{ every?: number }> = ({ every }) => (
   <AbsoluteFill>
     <Heading>再婚の候補は、11人</Heading>
     <Svg>
-      <Frames />
+      <Frames every={every} />
       <Label x={960} y={640} anchor="middle" size="value">比べた期間：約2年</Label>
       <Label x={960} y={720} anchor="middle" size="label" color={C.ink2}>持参金・相手の親との話し合い・友人たちの意見</Label>
     </Svg>
@@ -186,7 +193,8 @@ const ROWS: number[][] = [
 ];
 const TB = { x: 300, y: 200, row: 50, col: 220, nameW: 200 };
 type TableMode = "plain" | "heart" | "friends" | "married" | "rewrite";
-const KeplerTable: React.FC<{ mode?: TableMode; x?: number; y?: number }> = ({ mode = "heart", x = TB.x, y = TB.y }) => {
+/** crystals：rewrite のとき、5番目の行で結晶に変わった丸の数（省くと全部） */
+const KeplerTable: React.FC<{ mode?: TableMode; x?: number; y?: number; crystals?: number }> = ({ mode = "heart", x = TB.x, y = TB.y, crystals = 99 }) => {
   const heartX = x + TB.nameW + COLS.length * TB.col;
   return (
     <g>
@@ -203,8 +211,8 @@ const KeplerTable: React.FC<{ mode?: TableMode; x?: number; y?: number }> = ({ m
             <Label x={x + 20} y={ry + 38} size="note" weight={five ? 900 : 500}>{`${i + 1}番目`}</Label>
             {r.map((v, j) => {
               const cx = x + TB.nameW + j * TB.col + TB.col / 2, cy = ry + 26;
-              const on = rewrite && five ? 1 : v;
-              if (rewrite && five) return <path key={j} data-qa="mark" data-qa-label="結晶" transform={`translate(${cx},${cy})`} d="M0,-20 L14,0 L0,20 L-14,0 Z" fill={C.white} stroke={C.ink} strokeWidth={3} />;
+              const on = v;
+              if (rewrite && five && j < crystals) return <path key={j} data-qa="mark" data-qa-label="結晶" transform={`translate(${cx},${cy})`} d="M0,-20 L14,0 L0,20 L-14,0 Z" fill={C.white} stroke={C.ink} strokeWidth={3} />;
               return on
                 ? <circle key={j} data-qa="mark" data-qa-label="条件を満たす" cx={cx} cy={cy} r={14} fill={rewrite && five ? C.ink2 : C.ink} />
                 : <circle key={j} data-qa="mark" data-qa-label="満たさない" cx={cx} cy={cy} r={14} fill="none" stroke={C.rest} strokeWidth={LINE.thin} />;
@@ -301,29 +309,13 @@ export const S09: React.FC = () => (
 );
 
 // ================= 予想タイム =================
-/** スピードデート：向かい合う4組、4分の砂時計 */
-const SpeedDate: React.FC<{ y?: number }> = ({ y = 640 }) => (
-  <g>
-    {[0, 1, 2, 3].map((i) => {
-      const x = 260 + i * 330;
-      return (
-        <g key={i}>
-          <rect data-qa="prop" data-qa-label="テーブル" x={x - 60} y={y - 70} width={120} height={14} rx={4} fill={C.paper2} stroke={C.ink} strokeWidth={LINE.thin} />
-          <Cat kind="plain" x={x - 105} y={y} size={2.4} pose="sit" face="normal" turn={0.6} label={`左${i}`} seed={i} />
-          <Cat kind="plain" x={x + 105} y={y} size={2.4} pose="sit" face="smile" turn={-0.6} label={`右${i}`} seed={i + 5} />
-        </g>
-      );
-    })}
-  </g>
-);
-export const S10: React.FC = () => (
+export const S10: React.FC<{ still?: boolean }> = ({ still = true }) => (
   <AbsoluteFill>
     <Heading>アメリカの大学のスピードデート</Heading>
     <SubHead>相手を替えながら、4分ずつ話す</SubHead>
     <Svg>
-      <SpeedDate />
+      <SpeedDateRoom still={still} />
       <Label x={1640} y={420} anchor="middle" size="value">4分</Label>
-      <path data-qa="prop" data-qa-label="砂時計" d="M1600,460 h80 l-40,60 l40,60 h-80 l40,-60 Z" fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
       <Label x={700} y={760} anchor="middle" size="label">会う前に、100を超える質問に答えている</Label>
     </Svg>
     <SourceNote text={SRC.joel} />
@@ -353,8 +345,8 @@ export const S11: React.FC = () => (
     <SourceNote text={SRC.joel} />
   </AbsoluteFill>
 );
-const QUIZ_Q = "特別な好意は、会う前に何割当たる？";
-const QUIZ_C = ["8割ほど", "半分ほど", "2割ほど", "ほぼゼロ"];
+export const QUIZ_Q = "特別な好意は、会う前に何割当たる？";
+export const QUIZ_C = ["8割ほど", "半分ほど", "2割ほど", "ほぼゼロ"];
 export const S12: React.FC = () => <AbsoluteFill><Quiz question={QUIZ_Q} choices={QUIZ_C} gosaFoot={850} /></AbsoluteFill>;
 /** 3つの問い（章の順番）。どの札にも、その章の主役の絵を小さく */
 const QCARDS = ["誰と出会っている？", "誰を好きになる？", "好きな理由はどこから？"];
@@ -466,7 +458,9 @@ export const S16: React.FC = () => {
 };
 /** くじの席：上から見た教室。6列×5段の席に新入生 */
 const SEAT = { x0: 260, y0: 300, dx: 150, dy: 110, cols: 6, rows: 4 };
-const Seats: React.FC<{ links?: boolean }> = ({ links }) => (
+const SEATS = catGrid(SEAT.cols * SEAT.rows, { x: SEAT.x0, y: SEAT.y0, cols: SEAT.cols, dx: SEAT.dx, dy: SEAT.dy });
+/** enter なら学生が1匹ずつ席に座る（every フレームおき） */
+const Seats: React.FC<{ links?: boolean; enter?: boolean; every?: number }> = ({ links, enter, every = 8 }) => (
   <g>
     {links && <g>
       {[[0, 0], [2, 1], [4, 2], [1, 3], [3, 0]].map(([c, r]) => {
@@ -474,19 +468,16 @@ const Seats: React.FC<{ links?: boolean }> = ({ links }) => (
         return <line key={`${c}${r}`} x1={x} y1={y - 30} x2={x + SEAT.dx} y2={y - 30} stroke={C.ink} strokeWidth={LINE.heavy} />;
       })}
     </g>}
-    {Array.from({ length: SEAT.cols * SEAT.rows }, (_, i) => {
-      const c = i % SEAT.cols, r = Math.floor(i / SEAT.cols);
-      const x = SEAT.x0 + c * SEAT.dx, y = SEAT.y0 + r * SEAT.dy;
-      return <Cat key={i} kind="plain" x={x} y={y} size={1.5} pose="sit" face={links ? "smile" : "normal"} label={`学生${i}`} seed={i} />;
-    })}
+    <CatCrowd size={1.5} enter={enter}
+      cats={SEATS.map((p, i) => ({ from: p, pose: "sit" as const, face: links ? "smile" as const : "normal" as const, label: `学生${i}`, delay: i * every }))} />
   </g>
 );
-export const S17: React.FC = () => (
+export const S17: React.FC<{ enter?: boolean }> = ({ enter }) => (
   <AbsoluteFill>
     <Heading>最初の日、席をくじで決めた</Heading>
     <SubHead>ドイツの大学の新入生</SubHead>
     <Svg>
-      <Seats />
+      <Seats enter={enter} />
       <rect x={1380} y={360} width={260} height={200} rx={R.sm} fill={C.white} stroke={C.ink} strokeWidth={LINE.base} />
       <rect x={1460} y={350} width={100} height={16} rx={6} fill={C.ink} />
       <Label x={1510} y={480} anchor="middle" size="label" weight={900}>くじ</Label>
@@ -533,15 +524,12 @@ export const S19: React.FC = () => {
   );
 };
 /** 大勢の中の、たった1人（群衆は紫の猫。1匹だけ墨の輪） */
-export const S20: React.FC = () => (
+const CROWD20 = catGrid(24, { x: 220, y: 330, cols: 8, dx: 190, dy: 150, stagger: 60 });
+export const S20: React.FC<{ ringAt?: number; enter?: boolean }> = ({ ringAt = 0, enter }) => (
   <AbsoluteFill>
     <Svg>
-      {Array.from({ length: 24 }, (_, i) => {
-        const c = i % 8, r = Math.floor(i / 8);
-        const x = 220 + c * 190 + (r % 2) * 60, y = 330 + r * 150;
-        return <Cat key={i} kind="plain" x={x} y={y} size={2} pose="stand" face="normal" label={`同じ部署${i}`} seed={i} />;
-      })}
-      <circle cx={220 + 5 * 190 + 60} cy={480 - 50} r={80} fill="none" stroke={C.ink} strokeWidth={LINE.heavy} />
+      <CatCrowd size={2} enter={enter} ring={{ index: 13, at: ringAt, r: 80 }}
+        cats={CROWD20.map((p, i) => ({ from: p, label: `同じ部署${i}`, delay: (i % 8) * 4 + Math.floor(i / 8) * 6 }))} />
     </Svg>
     <Ask x={420} y={740} text="好きになるたった1人は、何で決まる？" />
     <ChapterDots current={1} />
@@ -582,10 +570,10 @@ const Three: React.FC<{ y?: number; n?: number }> = ({ y = 300, n = 3 }) => (
     })}
   </g>
 );
-export const S21: React.FC = () => (
+export const S21: React.FC<{ n?: number }> = ({ n = 2 }) => (
   <AbsoluteFill>
     <Heading>「好き」の点数を3つに分ける</Heading>
-    <Svg><Three y={220} n={2} /></Svg>
+    <Svg><Three y={220} n={n} /></Svg>
     <SourceNote text={SRC.joel} />
     <ChapterDots current={2} />
   </AbsoluteFill>
@@ -972,18 +960,23 @@ export const S37: React.FC = () => (
 );
 
 // ================= 結論 =================
-export const S38: React.FC = () => (
+/** grow を付けると、条件の行が3つから8つまで grow フレームおきに増える（本編） */
+export const S38: React.FC<{ grow?: number }> = ({ grow }) => {
+  const frame = useCurrentFrame();
+  const rows = grow ? Math.min(8, 3 + Math.floor(frame / grow)) : 8;
+  return (
   <AbsoluteFill>
     <Heading>会う前には、当てられない</Heading>
     <SubHead>100を超える質問に答えても</SubHead>
     <Svg>
-      <CondPhone x={340} y={520} h={560} rows={8} />
+      <CondPhone x={340} y={520} h={560} rows={rows} />
       <Label x={720} y={420} size="note" color={C.ink2}>相性が会う前の答えで当たった割合</Label>
       <Gauge x={720} y={450} w={760} name="" color={C.debt} lo={0} hi={1} text="ほぼ0%" strong />
     </Svg>
     <SourceNote text={SRC.joel} />
   </AbsoluteFill>
-);
+  );
+};
 /** ミクロ：会う前に分かるのは「誰が好かれやすいか」まで。ケプラーの友人たちが見ていた列も、会う前に書ける条件 */
 export const S39: React.FC = () => (
   <AbsoluteFill>
@@ -1000,7 +993,11 @@ export const S39: React.FC = () => (
 // ================= 教訓 =================
 export const S40: React.FC = () => <AbsoluteFill><Study face="smile" done /></AbsoluteFill>;
 /** 5番目の女性と並ぶケプラー（後ろの壁に、身分・財産の丸が空のままの額） */
-export const S41: React.FC = () => (
+/** growAt を付けると、その時刻から花瓶の枝に粒が付きはじめ、10粒で止まる（本編。「付きはじめ」） */
+export const S41: React.FC<{ growAt?: number }> = ({ growAt }) => {
+  const frame = useCurrentFrame();
+  const n = growAt === undefined ? 16 : Math.max(0, Math.min(10, Math.floor((frame - growAt) / 9)));
+  return (
   <AbsoluteFill>
     <Backdrop kind="room" floor={ROOM.floor} variant={5} />
     <Svg>
@@ -1009,10 +1006,11 @@ export const S41: React.FC = () => (
       <path transform="translate(970,420) scale(1.6)" d="M0 14 C-22 0 -18 -18 -6 -16 C-2 -15 0 -12 0 -10 C0 -12 2 -15 6 -16 C18 -18 22 0 0 14 Z" fill={C.debt} />
       <rect data-qa="prop" data-qa-label="台" x={1420} y={700} width={240} height={160} fill={C.floor} stroke={C.ink} strokeWidth={LINE.thin} />
       <path data-qa="prop" data-qa-label="花瓶" d="M1510,700 C1490,660 1500,620 1520,600 H1560 C1580,620 1590,660 1570,700 Z" fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
-      <Branch x={1540} y={610} k={0.9} crystals={16} />
+      <Branch x={1540} y={610} k={0.9} crystals={n} />
     </Svg>
   </AbsoluteFill>
-);
+  );
+};
 export const S42: React.FC = () => (
   <AbsoluteFill>
     <Svg>
@@ -1022,14 +1020,18 @@ export const S42: React.FC = () => (
   </AbsoluteFill>
 );
 /** 締め：ケプラーの表。5番目の行の条件の丸が埋まり直す（書き換わったのは表のほう） */
-export const S43: React.FC = () => (
+/** grow を付けると、5番目の行の丸が grow フレームおきに1つずつ結晶に変わる（本編） */
+export const S43: React.FC<{ grow?: number }> = ({ grow }) => {
+  const frame = useCurrentFrame();
+  return (
   <AbsoluteFill>
     <Svg>
-      <KeplerTable mode="rewrite" />
+      <KeplerTable mode="rewrite" crystals={grow ? Math.floor(frame / grow) : 99} />
       <Label x={960} y={866} anchor="middle" size="label" weight={900}>書き換わっていたのは、表のほう</Label>
     </Svg>
   </AbsoluteFill>
-);
+  );
+};
 export const S44: React.FC = () => <AbsoluteFill><SignOff /></AbsoluteFill>;
 
 const P: Omit<Panel, "key">[] = [

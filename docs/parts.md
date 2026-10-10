@@ -19,6 +19,7 @@
 | Figure | Figure.tsx | 群衆の1人（人型）。男女は色と胴の形。姿勢5つ。名札は文字40px固定、1人の寄りでは `ring={false}`（2026-10-05）。顔は描かない（2026-10-05 オーナー「目玉はいらない」） |
 | Crowd | Crowd.tsx | 群衆（100人＝1人1%）。出発点→到着点へばねで移る |
 | Cat | Cat.tsx | 物語の場面の登場人物（猫・トラ柄）。ポーズ5つ・表情7つ（2026-10-06 眠る `sleep`・少し笑う `smile` を足した）。顔を横へ向ける `turn`（−1〜1。大きな猫の向きを見せる。0 なら前と同じ絵）。`think` は人に向けるとジト目に見えるので、男女の回では人に向けない。男女の回でない回は主人公も群衆も紫 `kind="plain"`、意味の色は `color`（2026-10-07）。見本 `cat-poses` |
+| CatCrowd / catGrid | CatCrowd.tsx | 猫の群衆（男女の回でない回。紫の猫）。1匹ずつ出発点→到着点へばねで移す（並び直す）、`enter` で delay ごとに1匹ずつ現れる、`ring` で追う1匹に墨の輪。席の座標は `catGrid`（8本目） |
 | Gosa | Gosa.tsx | 案内役ゴサ。右下に固定、表情11種 |
 
 ## 文字の札
@@ -76,6 +77,7 @@
 
 | 部品 | ファイル | 使う所 |
 |---|---|---|
+| SpeedDateRoom | SpeedDateRoom.tsx | スピードデートの部屋。テーブルをはさんで猫が向かい合い、砂時計（灰）が落ちきるたびに右の列が1つ横へずれる（相手を替える）。静止画は `still`（8本目） |
 | Backdrop | Backdrop.tsx | 背景（部屋・駅・夜の街・職場）。`night` で夜 |
 | Props | Props.tsx | 小道具（Phone・Table・Chair・Desk・Clock・Calendar・Cup・Bench） |
 | Icons | Icons.tsx | 小さな目印の絵（64px）：Ball・Randoseru・Bottle・SchoolBag・Ear・Hanamaru・Bulb・House・Briefcase。文字だけの札・軸の区切りに添える（4本目） |
