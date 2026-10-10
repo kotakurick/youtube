@@ -30,7 +30,7 @@
 本編の比喩をそのまま物にした。字はどれも B「好みのほうが／書き換わる」。
 - **X `008-falling-in-love-thumb-xheart`（推し）**：左半分は条件のチェックリスト（✓✗✗）、右半分が塩の結晶に変わっていく紙のハート。表から恋への書き換わりを1枚で見せる（レビュー r3 の案）
 - `-heart`：チェックリストで折ったハート ／ `-cheart`：塩の結晶に覆われた枝のハート（スタンダールの結晶）／ `-crystal`：cheart に「恋は／結晶する」
-- 点数：r3 heart 8・rewrite（人形）7・cheart 6.5・crystal 6 → r4 **xheart 8.5**・heart 7.5・rewrite 7 → r4 の直し（字 110px で1行目の右端をハートから離す・紙を明るく✓✗✗の3つに・結晶の光を弱めて紙のふちに白い光）を入れて r5（`review/thumbnail-r5.md`）
+- 点数：r3 heart 8・rewrite（人形）7・cheart 6.5・crystal 6 → r4 **xheart 8.5**・heart 7.5・rewrite 7 → r4 の直し（字 110px で1行目の右端をハートから離す・紙を明るく✓✗✗の3つに・結晶の光を弱めて紙のふちに白い光）を入れて r5 **8.8点（このまま出してよい）**（`review/thumbnail-r5.md`）→ r5 の直し（ハートを0.94倍にして右の余白を空け、字を下へ）を入れた。結晶の下半分を明るくする直しは任意なので見送った
 - r4 の注意：オーナーの好みは「人の感情の見える情景＋心の声」。人のいない物の絵は反応が割れるかもしれないので、★オーナーに見せて確かめる
 
 **xheart の画像の作り方**：下の指示文で3枚作り、5枚目（`xheart-src5.png`）を使った → `python scripts/chroma_key.py xheart-src5.png xheart-before.png 8 16 fill`（結晶は中に緑が透けるので `fill`）→ `python episodes/008-falling-in-love/tools/fix_xheart.py xheart-before.png xheart.png`（紙のむらをならして明るい白に・赤を #D62828 寄りに・4つ目の✗を消して同じ傾きと間隔の罫線を描き足す・左下のふちを直線で引き直す・結晶の外の黄土色のもやを消す）。

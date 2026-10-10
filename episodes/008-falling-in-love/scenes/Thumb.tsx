@@ -68,22 +68,23 @@ const Spot: React.FC<{ x: number; y: number; color: string; r?: number }> = ({ x
 );
 
 // 字の右端（6字×120px で約750）とハートの左端（約770）が重ならない寸法
-const ObjThumb: React.FC<{ o: keyof typeof OBJ; lines: [string, string]; size?: number; hi?: 0 | 1; ground: [string, string]; spot: string; rot?: number; h?: number; cx?: number; top?: number; rim?: string; edge?: string }> = ({
-  o, lines, size = 120, hi, ground, spot, rot = -6, h = 600, cx = 1060, top = 60, rim, edge,
+const ObjThumb: React.FC<{ o: keyof typeof OBJ; lines: [string, string]; size?: number; hi?: 0 | 1; ground: [string, string]; spot: string; rot?: number; h?: number; cx?: number; top?: number; rim?: string; edge?: string; wordTop?: number }> = ({
+  o, lines, size = 120, hi, ground, spot, rot = -6, h = 600, cx = 1060, top = 60, rim, edge, wordTop = 225,
 }) => (
   <ThumbStage ground={ground}>
     <Spot x={cx} y={top + h * 0.45} color={spot} />
     <Obj o={OBJ[o]} cx={cx} top={top} h={h} rot={rot} rim={rim} edge={edge} />
     <Vignette strength={0.35} />
-    <ThumbWord text={lines[0]} size={size} top={225} color={hi === 0 ? TYELLOW : undefined} />
-    <ThumbWord text={lines[1]} size={size} top={225 + size * 1.22} color={hi === 1 ? TYELLOW : undefined} />
+    <ThumbWord text={lines[0]} size={size} top={wordTop} color={hi === 0 ? TYELLOW : undefined} />
+    <ThumbWord text={lines[1]} size={size} top={wordTop + size * 1.22} color={hi === 1 ? TYELLOW : undefined} />
   </ThumbStage>
 );
 
 export default [
+  // r5：ハートを0.94倍にして右の余白を空け、字を下へ（字とハートの間も広がる）
   // r4 の直し：字を小さくして1行目の右端をハートの左先端から離す・結晶の光を約0.6倍に・紙のふちに白い光
   // （絵は tools/fix_xheart.py で、紙を明るく・赤を鮮やかに・下で切れていた4つ目の✗を消した）
-  { id: "008-falling-in-love-thumb-xheart", component: () => <ObjThumb o="xheart" lines={["好みのほうが", "書き換わる"]} size={110} hi={1} ground={["#141A44", "#4A2266"]} spot="rgba(255,175,120,.5)" rim="rgba(255,200,140,.5)" edge="rgba(255,255,255,.55)" rot={-4} h={540} cx={1020} top={88} /> },
+  { id: "008-falling-in-love-thumb-xheart", component: () => <ObjThumb o="xheart" lines={["好みのほうが", "書き換わる"]} size={110} hi={1} ground={["#141A44", "#4A2266"]} spot="rgba(255,175,120,.5)" rim="rgba(255,200,140,.5)" edge="rgba(255,255,255,.55)" rot={-4} h={508} cx={1005} top={113} wordTop={245} /> },
   { id: "008-falling-in-love-thumb-heart", component: () => <ObjThumb o="heart" lines={["好みのほうが", "書き換わる"]} hi={1} ground={["#141A44", "#4A2266"]} spot="rgba(255,170,120,.55)" /> },
   { id: "008-falling-in-love-thumb-cheart", component: () => <ObjThumb o="cheart" lines={["好みのほうが", "書き換わる"]} hi={1} ground={["#0E1436", "#3A1E52"]} spot="rgba(255,190,110,.5)" rot={0} h={580} top={70} cx={1045} /> },
   { id: "008-falling-in-love-thumb-crystal", component: () => <ObjThumb o="cheart" lines={["恋は", "結晶する"]} size={150} hi={1} ground={["#0E1436", "#3A1E52"]} spot="rgba(255,190,110,.5)" rot={0} h={620} top={50} cx={1000} /> },
