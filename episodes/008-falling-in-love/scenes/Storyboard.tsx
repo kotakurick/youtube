@@ -1,4 +1,5 @@
-// 8本目「人を好きになるって、どういうこと？」（仮の題）の絵コンテ 第1版（2026-10-10。台本は script.md の第9稿・B案）。
+// 8本目「人を好きになるって、どういうこと？」（仮の題）の絵コンテ 第2版（2026-10-10。台本は script.md の第9稿・B案）。
+// 第2版：3役（アニメーター・イラストレーター・デザイナー）の見直しを反映（review/storyboard-summary.md）。
 // 各場面は「動き終わりの姿」。秒数（sec）は timing.json（無音の仮通し）の文の時刻から（data/sb_secs.py で入れる）。
 // lines はその場面の最初の文。動き（move）は本編で付ける動き。key は一覧の番号と同じ（01〜。並べた順に自動で付く）。
 // B案（2026-10-10 オーナー。008 で試す）：「今日の答え合わせ」カードと最後の判定はない。予想の答えは第2章の山場で1回だけ（ゴサのひげ短め）。
@@ -13,7 +14,6 @@ import { Cat, CatLabel } from "@lib/Cat";
 import { ChapterDots } from "@lib/Chapter";
 import { Gosa } from "@lib/Gosa";
 import { Facts, Note } from "@lib/Labels";
-import { Desk, Phone } from "@lib/Props";
 import { Quiz } from "@lib/Quiz";
 import { SignOff } from "@lib/SignOff";
 import { SourceNote } from "@lib/SourceNote";
@@ -43,7 +43,7 @@ const Ask: React.FC<{ text: string; x?: number; y?: number }> = ({ text, x = 480
 
 const SRC = {
   kepler: "Ferguson 1989（ケプラーの伝記）。1613年10月23日付の手紙",
-  ipss: "国立社会保障・人口問題研究所 出生動向基本調査 第17回 2025年（調査前5年に結婚した初婚どうし570組）。分け方はこの動画の計算",
+  ipss: "出生動向基本調査 第17回 2025年（初婚どうし570組）。分け方はこの動画の計算",
   ipss2: "出生動向基本調査 第16回 2021年・第17回 2025年。ネット＋結婚相談所",
   seat: "Back ほか 2008（ドイツの大学の新入生、席をくじで決めた）。友人関係の研究",
   school: "Rohrer ほか 2021（ハンガリーの小学校40校・2,966人、1学期）。友人関係の研究",
@@ -56,33 +56,73 @@ const SRC = {
 };
 
 // ================= ケプラーの部屋（冒頭と教訓で同じ部屋。夜、机とろうそく） =================
-const ROOM = { floor: 860, deskX: 1100, catX: 860, catY: 840, size: 4.4 };
-const Candle: React.FC<{ x: number; y: number; lit?: boolean }> = ({ x, y, lit = true }) => (
+const ROOM = { floor: 860, deskX: 1360, catX: 780, catY: 700, size: 6.4 };
+/** 1613年の書き物机（羊皮紙・羽ペン・インク壺・天球儀）。原点＝床の中央、天板の高さ top */
+const OldDesk: React.FC<{ x: number; y: number; w?: number; top?: number; globe?: boolean }> = ({ x, y, w = 760, top = 260, globe = true }) => (
+  <g data-qa="prop" data-qa-label="書き物机">
+    <rect x={x - w / 2} y={y - top} width={w} height={26} rx={6} fill={C.floor} stroke={C.ink} strokeWidth={LINE.thin} />
+    <rect x={x - w / 2 + 30} y={y - top + 26} width={30} height={top - 26} fill={C.floor} stroke={C.ink} strokeWidth={LINE.thin} />
+    <rect x={x + w / 2 - 60} y={y - top + 26} width={30} height={top - 26} fill={C.floor} stroke={C.ink} strokeWidth={LINE.thin} />
+    <rect x={x - w / 2 + 60} y={y - top + 26} width={w - 120} height={70} fill={C.floor} stroke={C.ink} strokeWidth={LINE.thin} />
+    {globe && <g>
+      <rect x={x + w / 2 - 150} y={y - top - 20} width={60} height={20} fill={C.ink2} />
+      <circle cx={x + w / 2 - 120} cy={y - top - 90} r={66} fill={C.paper2} stroke={C.ink} strokeWidth={LINE.thin} />
+      <ellipse cx={x + w / 2 - 120} cy={y - top - 90} rx={66} ry={22} fill="none" stroke={C.ink2} strokeWidth={LINE.hair} />
+      <path d={`M${x + w / 2 - 120},${y - top - 160} v140`} stroke={C.ink2} strokeWidth={LINE.hair} />
+    </g>}
+    <rect x={x - 230} y={y - top - 8} width={50} height={8} fill={C.ink2} />
+    <path d={`M${x - 215},${y - top - 8} v-40 h20 v40 Z`} fill={C.ink} />
+    <path d={`M${x - 200},${y - top - 46} q30,-70 80,-110 q-30,60 -74,112 Z`} fill={C.white} stroke={C.ink} strokeWidth={LINE.hair} />
+  </g>
+);
+const Shelf: React.FC<{ x: number; floor: number }> = ({ x, floor }) => (
+  <g data-qa="bg">
+    <rect x={x} y={floor - 640} width={360} height={640} fill={C.floor} stroke={C.ink} strokeWidth={LINE.thin} />
+    {[0, 1, 2, 3].map((r) => (
+      <g key={r}>
+        <rect x={x + 16} y={floor - 620 + r * 150} width={328} height={130} fill={C.ink2} opacity={0.35} />
+        {Array.from({ length: 9 }, (_, i) => <rect key={i} x={x + 24 + i * 36} y={floor - 600 + r * 150 + ((i * 7 + r) % 3) * 8} width={28} height={110 - ((i * 7 + r) % 3) * 8}
+          fill={[C.paper2, C.white, C.rest][(i + r) % 3]} stroke={C.ink2} strokeWidth={2} />)}
+      </g>
+    ))}
+  </g>
+);
+const Candle: React.FC<{ x: number; y: number; lit?: boolean; h?: number }> = ({ x, y, lit = true, h = 90 }) => (
   <g data-qa="prop" data-qa-label="ろうそく">
-    {lit && <circle cx={x} cy={y - 76} r={70} fill={C.goldTint} opacity={0.35} />}
-    <rect x={x - 10} y={y - 60} width={20} height={60} rx={4} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
-    {lit && <path d={`M${x},${y - 94} q12,16 0,30 q-12,-14 0,-30 Z`} fill={C.gold} />}
+    <rect x={x - 14} y={y - h} width={28} height={h} rx={4} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
+    {lit && <path d={`M${x},${y - h - 44} q16,22 0,40 q-16,-18 0,-40 Z`} fill={C.gold} />}
+    <rect x={x - 34} y={y - 8} width={68} height={10} rx={4} fill={C.ink2} />
   </g>
 );
 const Letter: React.FC<{ x: number; y: number; done?: boolean }> = ({ x, y, done }) => (
   <g data-qa="prop" data-qa-label="手紙">
-    <rect x={x - 70} y={y - 16} width={140} height={14} rx={3} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
-    {done && <circle cx={x + 40} cy={y - 9} r={10} fill={C.debt} />}
+    <path d={`M${x - 110},${y} L${x - 90},${y - 18} H${x + 120} L${x + 100},${y} Z`} fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
+    {done && <circle cx={x + 60} cy={y - 9} r={13} fill={C.debt} />}
   </g>
 );
-const Study: React.FC<{ face?: "normal" | "think" | "sad" | "smile"; done?: boolean; children?: React.ReactNode }> = ({ face = "think", done, children }) => (
-  <>
-    <Backdrop kind="room" night floor={ROOM.floor} variant={5} />
-    <Svg>
-      <rect data-qa="bg" x={0} y={0} width={1920} height={1080} fill={C.night} opacity={0.32} />
-      <Desk x={ROOM.deskX} y={ROOM.floor} size={ROOM.size} w={80} />
-      <Candle x={ROOM.deskX + 120} y={ROOM.floor - 96} />
-      <Letter x={ROOM.deskX - 40} y={ROOM.floor - 96} done={done} />
-      <Cat kind="plain" x={ROOM.catX} y={ROOM.catY} size={ROOM.size} pose="sit" face={face} turn={0.5} look={[0.6, 0.5]} label="ケプラー" />
-      {children}
-    </Svg>
-  </>
-);
+/** 書斎。night＝冒頭（紺の壁、ろうそくの光）、dawn＝教訓（夜明け。ろうそくは短く消え、手紙に封） */
+const Study: React.FC<{ face?: "normal" | "think" | "sad" | "smile"; done?: boolean; day?: boolean; children?: React.ReactNode }> = ({ face = "think", done, day, children }) => {
+  const top = 280, cx = ROOM.deskX + 60, cy = ROOM.floor - top;
+  return (
+    <>
+      <Backdrop kind="room" night={!day && !done} floor={ROOM.floor} variant={5} />
+      <Svg>
+        {!day && <rect data-qa="bg" x={0} y={0} width={1920} height={1080} fill={C.night} opacity={done ? 0.25 : 0.72} />}
+        {done && <rect data-qa="bg" x={0} y={0} width={1920} height={ROOM.floor} fill={C.goldTint} opacity={0.3} />}
+        {!day && !done && <circle data-qa="bg" cx={cx} cy={cy - 80} r={320} fill={C.goldTint} opacity={0.3} />}
+        <Shelf x={100} floor={ROOM.floor} />
+        <OldDesk x={ROOM.deskX} y={ROOM.floor} top={top} />
+        <g data-qa="prop" data-qa-label="腰掛け"><rect x={ROOM.catX - 110} y={850} width={220} height={24} rx={6} fill={C.floor} stroke={C.ink} strokeWidth={LINE.thin} />
+          <rect x={ROOM.catX - 90} y={ROOM.catY + 24} width={22} height={ROOM.floor - ROOM.catY - 24} fill={C.floor} stroke={C.ink} strokeWidth={LINE.thin} />
+          <rect x={ROOM.catX + 68} y={ROOM.catY + 24} width={22} height={ROOM.floor - ROOM.catY - 24} fill={C.floor} stroke={C.ink} strokeWidth={LINE.thin} /></g>
+        {!day && <Candle x={cx} y={cy} lit={!done} h={done ? 30 : 90} />}
+        {!day && <Letter x={ROOM.deskX - 120} y={cy} done={done} />}
+        <Cat kind="plain" x={ROOM.catX} y={ROOM.catY} size={ROOM.size} pose="sit" face={face} turn={0.5} look={done ? [0.4, -0.5] : [0.6, 0.5]} label="ケプラー" />
+        {children}
+      </Svg>
+    </>
+  );
+};
 
 export const S01: React.FC = () => (
   <AbsoluteFill><Study><CatLabel x={ROOM.catX} y={ROOM.catY} size={ROOM.size} text="天文学者 ケプラー" /></Study></AbsoluteFill>
@@ -104,12 +144,8 @@ export const S02: React.FC = () => (
 /** 妻を亡くしたあと、ひとりの部屋（昼）。最初の結婚は周りがまとめた縁談 */
 export const S03: React.FC = () => (
   <AbsoluteFill>
-    <Backdrop kind="room" floor={ROOM.floor} variant={5} />
-    <Svg>
-      <Cat kind="plain" x={760} y={ROOM.catY} size={ROOM.size} pose="sit" face="sad" turn={-0.4} look={[-0.6, 0.3]} label="ケプラー" />
-      <Desk x={ROOM.deskX} y={ROOM.floor} size={ROOM.size} w={80} />
-      <Label x={1500} y={300} anchor="middle" size="value">1611年</Label>
-    </Svg>
+    <Study face="sad" day />
+    <Heading>1611年</Heading>
   </AbsoluteFill>
 );
 /** 候補の11人：壁の11枚の額（中は紫の猫の顔の影）。番号つき */
@@ -162,19 +198,22 @@ const KeplerTable: React.FC<{ mode?: TableMode; x?: number; y?: number }> = ({ m
         const rewrite = mode === "rewrite";
         return (
           <g key={i}>
-            {five && mode !== "plain" && <rect x={x - 12} y={ry} width={TB.nameW + (COLS.length + 1) * TB.col + 24} height={TB.row - 6} rx={R.sm}
-              fill="none" stroke={C.ink} strokeWidth={LINE.heavy} />}
+            {five && mode !== "plain" && <rect x={x - 12} y={ry - 2} width={TB.nameW + (COLS.length + 1) * TB.col + 24} height={TB.row - 2} rx={R.sm}
+              fill="none" stroke={C.ink} strokeWidth={LINE.thin} />}
             <Label x={x + 20} y={ry + 38} size="note" weight={five ? 900 : 500}>{`${i + 1}番目`}</Label>
             {r.map((v, j) => {
               const cx = x + TB.nameW + j * TB.col + TB.col / 2, cy = ry + 26;
               const on = rewrite && five ? 1 : v;
+              if (rewrite && five) return <path key={j} data-qa="mark" data-qa-label="結晶" transform={`translate(${cx},${cy})`} d="M0,-20 L14,0 L0,20 L-14,0 Z" fill={C.white} stroke={C.ink} strokeWidth={3} />;
               return on
                 ? <circle key={j} data-qa="mark" data-qa-label="条件を満たす" cx={cx} cy={cy} r={14} fill={rewrite && five ? C.ink2 : C.ink} />
                 : <circle key={j} data-qa="mark" data-qa-label="満たさない" cx={cx} cy={cy} r={14} fill="none" stroke={C.rest} strokeWidth={LINE.thin} />;
             })}
             {mode !== "plain" && five && <path data-qa="mark" data-qa-label="心が惹かれた" transform={`translate(${heartX + TB.col / 2},${ry + 30}) scale(1.4)`}
               d="M0 14 C-22 0 -18 -18 -6 -16 C-2 -15 0 -12 0 -10 C0 -12 2 -15 6 -16 C18 -18 22 0 0 14 Z" fill={C.debt} />}
-            {four && (mode === "married" || mode === "rewrite") && <line x1={x} y1={ry + 26} x2={x + TB.nameW + COLS.length * TB.col} y2={ry + 26} stroke={C.ink} strokeWidth={LINE.base} />}
+            {four && (mode === "married" || mode === "rewrite") && <line x1={x + 130} y1={ry + 26} x2={heartX + TB.col} y2={ry + 26} stroke={C.ink} strokeWidth={LINE.thin} />}
+            {mode === "married" && four && <Label x={heartX + TB.col + 20} y={ry + 36} size="note" color={C.ink2}>条件がそろう・断られた</Label>}
+            {mode === "married" && five && <Label x={heartX + TB.col + 20} y={ry + 36} size="note" weight={900}>心が動いた・結婚</Label>}
             {four && mode === "friends" && <rect x={x - 12} y={ry} width={TB.nameW + COLS.length * TB.col + 24} height={TB.row - 6} rx={R.sm}
               fill="none" stroke={C.ink2} strokeWidth={LINE.base} strokeDasharray="12 8" />}
           </g>
@@ -195,10 +234,10 @@ export const S06: React.FC = () => (
   <AbsoluteFill>
     <Backdrop kind="room" floor={ROOM.floor} variant={5} />
     <Svg>
-      <Cat kind="plain" x={1240} y={ROOM.catY} size={3.6} pose="stand" face="think" turn={-0.5} label="ケプラー" />
-      <Cat kind="plain" x={560} y={ROOM.catY} size={3.2} pose="stand" face="normal" turn={0.6} label="友人1" seed={3} />
-      <Cat kind="plain" x={300} y={ROOM.catY} size={3.2} pose="stand" face="normal" turn={0.6} label="友人2" seed={5} />
-      <Bubble x={200} y={260} text="4番目の人に申し込みなさい" tail={[560, 600]} />
+      <Cat kind="plain" x={1240} y={850} size={4.7} pose="stand" face="think" turn={-0.5} label="ケプラー" />
+      <Cat kind="plain" x={560} y={850} size={4.2} pose="stand" face="normal" turn={0.6} label="友人1" seed={3} />
+      <Cat kind="plain" x={300} y={850} size={4.2} pose="stand" face="normal" turn={0.6} label="友人2" seed={5} />
+      <Bubble x={160} y={200} text="4番目の人に申し込みなさい" tail={[560, 540]} />
     </Svg>
   </AbsoluteFill>
 );
@@ -206,10 +245,7 @@ export const S06: React.FC = () => (
 export const S07: React.FC = () => (
   <AbsoluteFill>
     <Heading>最後に結婚したのは、5番目の女性</Heading>
-    <Svg>
-      <KeplerTable mode="married" />
-      <Label x={1530} y={444} size="note" color={C.ink2}>断られた</Label>
-    </Svg>
+    <Svg><KeplerTable mode="married" x={140} /></Svg>
     <SourceNote text={SRC.kepler} />
   </AbsoluteFill>
 );
@@ -238,11 +274,12 @@ export const S08: React.FC = () => (
   <AbsoluteFill>
     <Backdrop kind="room" floor={ROOM.floor} variant={2} />
     <Svg>
-      <Cat kind="plain" x={640} y={ROOM.catY} size={4.4} pose="phone" face="normal" label="いまの人" seed={4} />
+      <Cat kind="plain" x={640} y={850} size={5.7} pose="phone" face="normal" label="いまの人" seed={4} />
       <CondPhone x={1240} y={470} h={560} rows={3} />
-      <Label x={1460} y={340} size="label">性格</Label>
-      <Label x={1460} y={402} size="label">価値観</Label>
-      <Label x={1460} y={464} size="label">好きなタイプ</Label>
+      {["性格", "価値観", "好きなタイプ"].map((t, i) => (
+        <g key={t}><rect x={1440} y={300 + i * 80} width={300} height={62} rx={R.sm} fill={C.white} stroke={C.ink2} strokeWidth={LINE.hair} />
+          <Label x={1460} y={344 + i * 80} size="label">{t}</Label></g>
+      ))}
     </Svg>
   </AbsoluteFill>
 );
@@ -295,13 +332,13 @@ export const S10: React.FC = () => (
 /** 会う前の答え → コンピューター → 点数の予想。知りたいのは「この相手にだけ向ける好意」（相性の赤） */
 export const S11: React.FC = () => (
   <AbsoluteFill>
-    <Heading>会う前の答えから、「好き」の点数を予想させる</Heading>
+    <Heading>会う前の答えで、点数を予想</Heading>
     <Svg>
       {[0, 1, 2].map((k) => <rect key={k} x={150 + k * 16} y={260 + k * 16} width={300} height={380} rx={R.sm} fill={C.white} stroke={C.ink2} strokeWidth={LINE.thin} />)}
       {[0, 1, 2, 3, 4, 5].map((k) => <rect key={k} x={210} y={330 + k * 50} width={200} height={14} rx={7} fill={C.rest} />)}
       <Label x={330} y={720} anchor="middle" size="note" weight={700}>会う前の答え（100以上）</Label>
       <path d="M520,460 h120" stroke={C.ink} strokeWidth={LINE.base} markerEnd="url(#ar)" />
-      <defs><marker id="ar" markerWidth={10} markerHeight={10} refX={6} refY={5} orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill={C.ink} /></marker></defs>
+      <defs><marker id="ar" markerUnits="userSpaceOnUse" markerWidth={30} markerHeight={30} refX={18} refY={15} orient="auto"><path d="M0,0 L30,15 L0,30 Z" fill={C.ink} /></marker></defs>
       <rect data-qa="prop" data-qa-label="コンピューター" x={680} y={340} width={300} height={220} rx={R.sm} fill={C.ink} />
       <rect x={700} y={360} width={260} height={150} rx={6} fill={C.ink2} />
       <Label x={830} y={620} anchor="middle" size="note" weight={700}>学習させる</Label>
@@ -316,7 +353,7 @@ export const S11: React.FC = () => (
     <SourceNote text={SRC.joel} />
   </AbsoluteFill>
 );
-const QUIZ_Q = "特別な好意の差を、会う前の答えでどれだけ言い当てられた？";
+const QUIZ_Q = "特別な好意は、会う前に何割当たる？";
 const QUIZ_C = ["8割ほど", "半分ほど", "2割ほど", "ほぼゼロ"];
 export const S12: React.FC = () => <AbsoluteFill><Quiz question={QUIZ_Q} choices={QUIZ_C} gosaFoot={850} /></AbsoluteFill>;
 /** 3つの問い（章の順番）。どの札にも、その章の主役の絵を小さく */
@@ -349,7 +386,7 @@ export const S14: React.FC = () => (
   <AbsoluteFill>
     <Backdrop kind="room" floor={ROOM.floor} variant={3} />
     <Svg>
-      <Cat kind="plain" x={760} y={ROOM.catY} size={4.4} pose="sit" face="think" look={[0.6, -0.6]} label="あなた" />
+      <Cat kind="plain" x={760} y={850} size={5.7} pose="sit" face="think" look={[0.6, -0.6]} label="あなた" />
       <Thought x={1050} y={260} text="初めて会ったのは、どこ？" toward={[860, 520]} />
     </Svg>
     <ChapterDots current={1} />
@@ -359,7 +396,7 @@ export const S14: React.FC = () => (
 const MEET = [
   { t: "もともとの人間関係", sub: "職場・学校・友人の紹介", v: 55.1, c: C.ink, txt: "約55%" },
   { t: "探しに行った", sub: "ネット・結婚相談所", v: 27.9, c: C.ink2, txt: "約28%" },
-  { t: "それ以外", sub: "", v: 17.0, c: C.rest, txt: "" },
+  { t: "それ以外", sub: "", v: 17.0, c: C.rest, txt: "約17%" },
 ];
 const MeetBand: React.FC<{ y?: number; w?: number; n?: number }> = ({ y = 360, w = 1600, n = 3 }) => {
   let x = 160;
@@ -404,9 +441,9 @@ export const S16: React.FC = () => {
   const base = 700, k = 12;
   return (
     <AbsoluteFill>
-      <Heading>探しに行く出会いは、4年で1割台から約28%に</Heading>
+      <Heading>探しに行く出会いが増えた</Heading>
       <Svg>
-        {[["2021年", 17.7, "1割台"], ["2025年", 27.9, "約28%"]].map(([t, v, s], i) => {
+        {[["2021年", 17.7, "約18%"], ["2025年", 27.9, "約28%"]].map(([t, v, s], i) => {
           const x = 300 + i * 360, h = (v as number) * k;
           return (
             <g key={t as string}>
@@ -436,8 +473,6 @@ const Seats: React.FC<{ links?: boolean }> = ({ links }) => (
         const x = SEAT.x0 + c * SEAT.dx, y = SEAT.y0 + r * SEAT.dy;
         return <line key={`${c}${r}`} x1={x} y1={y - 30} x2={x + SEAT.dx} y2={y - 30} stroke={C.ink} strokeWidth={LINE.heavy} />;
       })}
-      <path d={`M${SEAT.x0 + SEAT.dx},${SEAT.y0 - 30} Q${SEAT.x0 + 3 * SEAT.dx},${SEAT.y0 + 120} ${SEAT.x0 + 5 * SEAT.dx},${SEAT.y0 + 2 * SEAT.dy - 30}`}
-        fill="none" stroke={C.rest} strokeWidth={LINE.thin} strokeDasharray="10 8" />
     </g>}
     {Array.from({ length: SEAT.cols * SEAT.rows }, (_, i) => {
       const c = i % SEAT.cols, r = Math.floor(i / SEAT.cols);
@@ -448,7 +483,7 @@ const Seats: React.FC<{ links?: boolean }> = ({ links }) => (
 );
 export const S17: React.FC = () => (
   <AbsoluteFill>
-    <Heading>入学した最初の日、席をくじで決めた</Heading>
+    <Heading>最初の日、席をくじで決めた</Heading>
     <SubHead>ドイツの大学の新入生</SubHead>
     <Svg>
       <Seats />
@@ -462,15 +497,13 @@ export const S17: React.FC = () => (
 );
 export const S18: React.FC = () => (
   <AbsoluteFill>
-    <Heading>1年後：隣や同じ列だった2人ほど、親しい友人に</Heading>
+    <Heading>1年後、近くの席どうしが友人に</Heading>
     <Svg>
       <Seats links />
       <line x1={1300} y1={400} x2={1420} y2={400} stroke={C.ink} strokeWidth={LINE.heavy} />
       <Label x={1440} y={412} size="note">親しい友人（隣・同じ列）</Label>
-      <line x1={1300} y1={480} x2={1420} y2={480} stroke={C.rest} strokeWidth={LINE.thin} strokeDasharray="10 8" />
-      <Label x={1440} y={492} size="note" color={C.ink2}>離れた席どうし</Label>
     </Svg>
-    <SourceNote text={SRC.seat} />
+    <SourceNote text={`模式図（線の数は効果の大きさではない）。${SRC.seat}`} />
     <ChapterDots current={1} />
   </AbsoluteFill>
 );
@@ -551,7 +584,7 @@ const Three: React.FC<{ y?: number; n?: number }> = ({ y = 300, n = 3 }) => (
 );
 export const S21: React.FC = () => (
   <AbsoluteFill>
-    <Heading>「好き」の点数が高くなる理由を、3つに分ける</Heading>
+    <Heading>「好き」の点数を3つに分ける</Heading>
     <Svg><Three y={220} n={2} /></Svg>
     <SourceNote text={SRC.joel} />
     <ChapterDots current={2} />
@@ -559,7 +592,7 @@ export const S21: React.FC = () => (
 );
 export const S21b: React.FC = () => (
   <AbsoluteFill>
-    <Heading>3つ目：その2人の組み合わせだけ＝「相性」</Heading>
+    <Heading>3つ目が「相性」</Heading>
     <Svg><Three y={220} /></Svg>
     <SourceNote text={SRC.joel} />
     <ChapterDots current={2} />
@@ -570,11 +603,11 @@ export const S22: React.FC = () => (
   <AbsoluteFill>
     <Backdrop kind="office" floor={ROOM.floor} variant={1} />
     <Svg>
-      <Cat kind="plain" x={300} y={ROOM.catY} size={3.2} pose="stand" face="normal" turn={0.5} label="友人1" seed={3} />
-      <Cat kind="plain" x={540} y={ROOM.catY} size={3.2} pose="stand" face="think" turn={0.5} label="友人2" seed={5} />
-      <Bubble x={140} y={240} text="ふつうの人じゃない？" tail={[420, 600]} />
-      <Cat kind="plain" x={1200} y={ROOM.catY} size={3.8} pose="stand" face="happy" turn={0.5} look={[1, 0]} label="あなた" />
-      <Cat kind="plain" x={1560} y={ROOM.catY} size={3.4} pose="stand" face="normal" turn={-0.5} label="その人" seed={8} />
+      <Cat kind="plain" x={300} y={850} size={4.2} pose="stand" face="normal" turn={0.5} label="友人1" seed={3} />
+      <Cat kind="plain" x={540} y={850} size={4.2} pose="stand" face="think" turn={0.5} label="友人2" seed={5} />
+      <Bubble x={120} y={200} text="ふつうの人じゃない？" tail={[420, 540]} />
+      <Cat kind="plain" x={1200} y={850} size={4.9} pose="stand" face="happy" turn={0.5} look={[1, 0]} label="あなた" />
+      <Cat kind="plain" x={1560} y={850} size={4.4} pose="stand" face="normal" turn={-0.5} label="その人" seed={8} />
       <path transform="translate(1380,500) scale(1.6)" d="M0 14 C-22 0 -18 -18 -6 -16 C-2 -15 0 -12 0 -10 C0 -12 2 -15 6 -16 C18 -18 22 0 0 14 Z" fill={C.debt} />
       <Label x={1380} y={420} anchor="middle" size="label" weight={900} color={C.debt}>なぜか</Label>
     </Svg>
@@ -586,7 +619,7 @@ const PARTS = [
   { t: "好きになりやすさ", v: 13, c: C.teal, txt: "約13%" },
   { t: "好かれやすさ", v: 25, c: C.gold, txt: "約25%" },
   { t: "相性", v: 33, c: C.debt, txt: "約3分の1" },
-  { t: "分からない部分", v: 29, c: C.rest, txt: "" },
+  { t: "分からない部分", v: 29, c: C.rest, txt: "約29%" },
 ];
 const PartsBand: React.FC<{ y?: number }> = ({ y = 380 }) => {
   let x = 160;
@@ -613,37 +646,38 @@ export const S23: React.FC = () => (
   <AbsoluteFill>
     <Heading>「好き」の点数の高い低いを生んだもの</Heading>
     <Svg><PartsBand /></Svg>
-    <SourceNote text="Joel ほか 2017。2つの標本の幅：好きになりやすさ12〜14%・好かれやすさ23〜26%・相性31〜36%・残り27〜32%（誤差を含む）" />
+    <SourceNote text="Joel ほか 2017。幅：なりやすさ12〜14%・好かれやすさ23〜26%・相性31〜36%・残り27〜32%" />
     <ChapterDots current={2} />
   </AbsoluteFill>
 );
 /** 会う前の答えで、どれだけ言い当てられたか（針の目盛り。0〜100%）。帯＝2つの標本の幅 */
 const Gauge: React.FC<{ x?: number; y: number; name: string; color: string; lo: number; hi: number; text: string; w?: number; strong?: boolean; ghost?: boolean }> = (
-  { x = 640, y, name, color, lo, hi, text, w = 900, strong, ghost },
+  { x = 520, y, name, color, lo, hi, text, w = 900, strong, ghost },
 ) => (
-  <g opacity={ghost ? 0.35 : 1}>
-    <Label x={x - 40} y={y + 42} anchor="end" size="label" weight={900}>{name}</Label>
-    <rect x={x} y={y} width={w} height={60} rx={R.sm} fill={C.white} stroke={C.ink2} strokeWidth={LINE.thin} />
-    <rect data-qa="mark" data-qa-label={name} x={x + (w * lo) / 100} y={y} width={Math.max(8, (w * (hi - lo)) / 100)} height={60} rx={R.sm} fill={color} />
-    <line x1={x + (w * hi) / 100} y1={y - 16} x2={x + (w * hi) / 100} y2={y + 76} stroke={C.ink2} strokeWidth={LINE.base} />
-    <Label x={x + (w * hi) / 100 + 24} y={y + 44} size={strong ? "value" : "label"} weight={900} color={strong ? color : C.ink}>{text}</Label>
+  <g opacity={ghost ? 0.6 : 1}>
+    {name && <Label x={x - 30} y={y + 62} anchor="end" size="label" weight={900}>{name}</Label>}
+    <rect x={x} y={y} width={w} height={96} rx={R.sm} fill={C.white} stroke={C.ink2} strokeWidth={LINE.thin} />
+    <rect data-qa="mark" data-qa-label={name || "相性"} x={x + (w * lo) / 100} y={y} width={Math.max(14, (w * (hi - lo)) / 100)} height={96} rx={R.sm} fill={color} />
+    <Label x={x + w + 30} y={y + 70} size={strong ? "value" : "label"} weight={900} color={strong ? color : C.ink}>{text}</Label>
   </g>
 );
-const GaugeAxis: React.FC<{ x?: number; y: number; w?: number }> = ({ x = 640, y, w = 900 }) => (
+/** 目盛り（0・50・100%）と軸の名前 */
+const GaugeAxis: React.FC<{ x?: number; y: number; w?: number }> = ({ x = 520, y, w = 900 }) => (
   <g>
     {[0, 50, 100].map((v) => <Label key={v} x={x + (w * v) / 100} y={y} anchor="middle" size="note" color={C.ink2}>{`${v}%`}</Label>)}
+    <Label x={x - 30} y={y} anchor="end" size="note" color={C.ink2}>会う前の答えで当たった割合</Label>
   </g>
 );
 export const S24: React.FC = () => (
   <AbsoluteFill>
-    <Heading>会う前の答えで、言い当てられたか</Heading>
+    <Heading>好かれやすさは、ある程度当たる</Heading>
     <Svg>
-      <GaugeAxis y={280} />
-      <Gauge y={330} name="好きになりやすさ" color={C.teal} lo={4} hi={18} text="4〜18%" />
-      <Gauge y={470} name="好かれやすさ" color={C.gold} lo={7} hi={27} text="7〜27%" />
-      <rect x={640} y={610} width={900} height={60} rx={R.sm} fill={C.white} stroke={C.debt} strokeWidth={LINE.heavy} strokeDasharray="14 10" />
-      <Label x={600} y={652} anchor="end" size="label" weight={900}>相性</Label>
-      <Label x={1090} y={654} anchor="middle" size="value" color={C.debt}>？</Label>
+      <GaugeAxis y={270} />
+      <Gauge y={300} name="好きになりやすさ" color={C.teal} lo={4} hi={18} text="4〜18%" />
+      <Gauge y={440} name="好かれやすさ" color={C.gold} lo={7} hi={27} text="7〜27%" strong />
+      <rect x={520} y={580} width={900} height={96} rx={R.sm} fill={C.white} stroke={C.debt} strokeWidth={LINE.heavy} strokeDasharray="14 10" />
+      <Label x={490} y={642} anchor="end" size="label" weight={900}>相性</Label>
+      <Label x={970} y={652} anchor="middle" size="value" color={C.debt}>？</Label>
     </Svg>
     <SourceNote text={SRC.joel} />
     <ChapterDots current={2} />
@@ -652,7 +686,7 @@ export const S24: React.FC = () => (
 export const S25: React.FC = () => (
   <AbsoluteFill>
     <Quiz question={QUIZ_Q} choices={QUIZ_C} answer={3} reveal gosaFoot={850} />
-    <SourceNote prefix="" text="米国の大学生のスピードデート。別の年の参加者でも同じ（Joel ほか 2017）" />
+    <SourceNote text="Joel ほか 2017（米国の大学生のスピードデート）。別の年の参加者でも同じ" />
   </AbsoluteFill>
 );
 export const S26: React.FC = () => (
@@ -660,25 +694,26 @@ export const S26: React.FC = () => (
     <Heading>相性は、ほぼゼロ</Heading>
     <SubHead>性格が似ているか・価値観が合うか・理想に近いか。質問には入っていた</SubHead>
     <Svg>
-      <GaugeAxis y={300} />
-      <Gauge y={350} name="好きになりやすさ" color={C.teal} lo={4} hi={18} text="4〜18%" ghost />
-      <Gauge y={490} name="好かれやすさ" color={C.gold} lo={7} hi={27} text="7〜27%" ghost />
-      <Gauge y={630} name="相性" color={C.debt} lo={0} hi={1} text="ほぼ0%" strong />
+      <GaugeAxis y={270} />
+      <Gauge y={300} name="好きになりやすさ" color={C.teal} lo={4} hi={18} text="4〜18%" ghost />
+      <Gauge y={440} name="好かれやすさ" color={C.gold} lo={7} hi={27} text="7〜27%" ghost />
+      <Gauge y={580} name="相性" color={C.debt} lo={0} hi={1} text="ほぼ0%" strong />
     </Svg>
     <SourceNote text="Joel ほか 2017。相性は −4.55〜1.34%（別の年の標本に当てはめると0.1%未満）" />
-    <Gosa cues={[[-60, "assertive"]]} says={[[-60, "ひげ、短め。"]]} size="S" foot={850} />
     <ChapterDots current={2} />
   </AbsoluteFill>
 );
 /** 話した直後の印象を使うと、相性も多くて3割 */
 export const S27: React.FC = () => (
   <AbsoluteFill>
-    <Heading>話した直後の印象を使うと、相性も当たりはじめる</Heading>
+    <Heading>話した直後なら、相性も当たる</Heading>
     <Svg>
-      <GaugeAxis y={330} />
-      <Gauge y={380} name="会う前の答え" color={C.debt} lo={0} hi={1} text="ほぼ0%" ghost />
-      <Gauge y={560} name="話した直後" color={C.debt} lo={16} hi={29} text="多くて3割" strong />
-      <path d="M660,460 C700,520 760,540 800,550" fill="none" stroke={C.ink} strokeWidth={LINE.base} strokeDasharray="12 8" />
+      <Label x={520} y={270} size="note" color={C.ink2}>相性が当たった割合（0〜100%）</Label>
+      <Gauge y={300} name="会う前の答え" color={C.debt} lo={0} hi={1} text="ほぼ0%" ghost />
+      <Gauge y={460} name="話した直後" color={C.debt} lo={16} hi={29} text="多くて3割" strong />
+      <Cat kind="plain" x={760} y={820} size={2.4} pose="sit" face="happy" turn={0.6} label="ひとり" seed={2} />
+      <Cat kind="plain" x={960} y={820} size={2.4} pose="sit" face="smile" turn={-0.6} label="もうひとり" seed={7} />
+      <Label x={1080} y={760} size="note" color={C.ink2}>4分話したあとの印象</Label>
     </Svg>
     <SourceNote text="Joel ほか 2017。会った直後の18〜20項目の答えを使うと16〜29%" />
     <ChapterDots current={2} />
@@ -700,6 +735,8 @@ export const S28: React.FC = () => (
       <Label x={680} y={550} size="note" color={C.ink2}>踏み込まなかったこと</Label>
       <Label x={680} y={620} size="label" weight={900}>なぜ、ほかでもないその人を愛するのか</Label>
       <Label x={680} y={690} size="note">「自分が付け加えられることはない」</Label>
+      <path transform="translate(1640,600) scale(2)" d="M0 14 C-22 0 -18 -18 -6 -16 C-2 -15 0 -12 0 -10 C0 -12 2 -15 6 -16 C18 -18 22 0 0 14 Z" fill="none" stroke={C.debt} strokeWidth={2} />
+      <Label x={1640} y={612} anchor="middle" size="label" weight={900} color={C.debt}>？</Label>
     </Svg>
     <SourceNote text={SRC.becker} />
     <ChapterDots current={2} />
@@ -708,7 +745,7 @@ export const S28: React.FC = () => (
 
 export const S28b: React.FC = () => (
   <AbsoluteFill>
-    <Heading>会う前に手がかりがないなら、好きな理由はどこから？</Heading>
+    <Heading>好きな理由は、どこから来る？</Heading>
     <ThreeQ focus={2} />
     <ChapterDots current={2} />
   </AbsoluteFill>
@@ -726,8 +763,8 @@ export const S29a: React.FC = () => (
         return (
           <g key={t}>
             <rect data-qa="prop" data-qa-label={t} x={x} y={260} width={480} height={460} rx={R.sm} fill={C.white} stroke={C.ink} strokeWidth={i ? LINE.thin : LINE.heavy} />
-            <circle cx={x + 240} cy={480} r={110} fill={C.plain} opacity={0.75} />
-            <path d={`M${x + 150},${430} l20,-90 l50,60 Z M${x + 330},${430} l-20,-90 l-50,60 Z`} fill={C.plain} opacity={0.75} />
+            <Cat kind="plain" x={x + 240} y={700} size={4.6} pose="sit" face={i ? "normal" : "smile"} label={t} seed={i * 4 + 1} />
+            {!i && <path transform={`translate(${x + 410},${310}) scale(1.4)`} d="M0 14 C-22 0 -18 -18 -6 -16 C-2 -15 0 -12 0 -10 C0 -12 2 -15 6 -16 C18 -18 22 0 0 14 Z" fill={C.debt} />}
             <Label x={x + 240} y={790} anchor="middle" size="label" weight={900}>{t}</Label>
           </g>
         );
@@ -742,8 +779,11 @@ export const S29: React.FC = () => (
   <AbsoluteFill>
     <Heading>恋人の写真を見ているときの脳</Heading>
     <Svg>
-      <path data-qa="mark" data-qa-label="脳" d="M520,620 C380,620 320,500 360,410 C380,300 500,250 620,260 C700,200 860,210 940,280 C1060,290 1120,380 1100,470 C1110,560 1040,640 940,640 C900,700 800,720 740,680 C680,700 600,680 520,620 Z"
+      <path d="M900,600 C960,600 1020,630 1000,690 C980,740 900,740 870,700 Z" fill={C.paper2} stroke={C.ink} strokeWidth={LINE.thin} />
+      <path d="M800,640 C810,700 820,760 830,800 L880,800 C870,750 865,690 870,640 Z" fill={C.paper2} stroke={C.ink} strokeWidth={LINE.thin} />
+      <path data-qa="mark" data-qa-label="脳" d="M420,560 C330,520 330,380 420,320 C480,250 600,220 700,240 C800,220 920,250 980,320 C1060,390 1060,520 980,590 C920,640 820,650 740,630 C640,660 520,640 420,560 Z"
         fill={C.white} stroke={C.ink} strokeWidth={LINE.base} />
+      <path d="M520,300 C560,360 520,420 580,470 M700,250 C680,320 740,380 700,450 M860,280 C820,340 880,400 840,470 M440,450 C500,480 560,520 620,560" fill="none" stroke={C.rest} strokeWidth={LINE.thin} />
       <circle cx={760} cy={540} r={60} fill={C.ink} />
       <circle cx={760} cy={540} r={100} fill="none" stroke={C.ink} strokeWidth={LINE.thin} strokeDasharray="8 8" />
       <ellipse cx={520} cy={380} rx={90} ry={60} fill={C.rest} opacity={0.5} />
@@ -762,7 +802,7 @@ export const S29: React.FC = () => (
 /** スタンダール『恋愛論』と「結晶作用」 */
 export const S30: React.FC = () => (
   <AbsoluteFill>
-    <Heading>200年前、スタンダールの「結晶作用」</Heading>
+    <Heading>スタンダールの「結晶作用」</Heading>
     <Svg>
       <rect x={300} y={260} width={380} height={500} rx={R.sm} fill={C.ink2} />
       <rect x={330} y={290} width={320} height={440} rx={6} fill={C.paper2} />
@@ -779,12 +819,12 @@ const TWIGS: [number, number, number, number][] = [
   [0, 0, 0, -220], [0, -80, -90, -170], [0, -120, 80, -200], [-90, -170, -140, -230], [-90, -170, -60, -260],
   [80, -200, 140, -260], [80, -200, 50, -280], [0, -220, -30, -300], [0, -220, 40, -310], [0, -40, 70, -90],
 ];
-const Branch: React.FC<{ x: number; y: number; k?: number; crystals?: number }> = ({ x, y, k = 1, crystals = 0 }) => {
+const Branch: React.FC<{ x: number; y: number; k?: number; crystals?: number; color?: string }> = ({ x, y, k = 1, crystals = 0, color = C.ink2 }) => {
   const pts: [number, number][] = [];
   TWIGS.forEach(([a, b, c, d]) => { for (let t = 0.15; t <= 1; t += 0.17) pts.push([a + (c - a) * t, b + (d - b) * t]); });
   return (
     <g data-qa="mark" data-qa-label="枝" transform={`translate(${x},${y}) scale(${k})`}>
-      {TWIGS.map(([a, b, c, d], i) => <line key={i} x1={a} y1={b} x2={c} y2={d} stroke={C.ink2} strokeWidth={i === 0 ? 10 : 5} strokeLinecap="round" />)}
+      {TWIGS.map(([a, b, c, d], i) => <line key={i} x1={a} y1={b} x2={c} y2={d} stroke={color} strokeWidth={i === 0 ? 10 : 5} strokeLinecap="round" />)}
       {pts.slice(0, crystals).map(([px, py], i) => (
         <path key={i} transform={`translate(${px + ((i * 7) % 11) - 5},${py + ((i * 5) % 9) - 4}) rotate(${(i * 37) % 90})`} d="M0,-11 L8,0 L0,11 L-8,0 Z"
           fill={i % 3 ? C.white : C.paper2} stroke={C.ink} strokeWidth={2} />
@@ -799,7 +839,7 @@ export const S31: React.FC = () => (
       <path d="M200,880 L760,520 L1160,520 L1720,880 Z" fill={C.ink2} />
       <path d="M760,520 L760,300 Q960,200 1160,300 L1160,520 Z" fill={C.ink} />
       <path d="M760,300 Q960,200 1160,300" fill="none" stroke={C.rest} strokeWidth={LINE.thin} />
-      <Branch x={960} y={500} k={0.6} />
+      <Branch x={960} y={500} k={0.6} color={C.paper2} />
       <path d="M1300,300 C1180,320 1080,360 1020,420" fill="none" stroke={C.white} strokeWidth={LINE.thin} strokeDasharray="10 8" />
       <Label x={360} y={260} color={C.white} size="label" weight={900}>ザルツブルクの塩の坑道</Label>
       <Label x={360} y={320} color={C.paper2} size="note">冬に葉を落とした枝を1本、奥へ</Label>
@@ -811,12 +851,12 @@ export const S32: React.FC = () => (
   <AbsoluteFill>
     <Heading>2、3か月後に取り出すと</Heading>
     <Svg>
-      <Branch x={520} y={760} k={1.6} />
-      <Label x={520} y={830} anchor="middle" size="note" color={C.ink2}>投げ込んだとき</Label>
-      <Branch x={1340} y={760} k={1.6} crystals={60} />
-      <Label x={1340} y={830} anchor="middle" size="note" weight={700}>先の先まで、塩の粒</Label>
+      <Branch x={520} y={720} k={1.5} />
+      <Label x={520} y={790} anchor="middle" size="note" color={C.ink2}>投げ込んだとき</Label>
+      <Branch x={1340} y={720} k={1.5} crystals={60} />
+      <Label x={1340} y={790} anchor="middle" size="note" weight={700}>先の先まで、塩の粒</Label>
       <path d="M800,500 H1020" stroke={C.ink} strokeWidth={LINE.base} markerEnd="url(#ar2)" />
-      <defs><marker id="ar2" markerWidth={10} markerHeight={10} refX={6} refY={5} orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill={C.ink} /></marker></defs>
+      <defs><marker id="ar2" markerUnits="userSpaceOnUse" markerWidth={30} markerHeight={30} refX={18} refY={15} orient="auto"><path d="M0,0 L30,15 L0,30 Z" fill={C.ink} /></marker></defs>
     </Svg>
     <SourceNote text={SRC.stendhal} />
     <ChapterDots current={3} />
@@ -827,13 +867,13 @@ export const S33: React.FC = () => {
   const good = ["笑い方", "声", "字", "歩き方", "気づかい"];
   return (
     <AbsoluteFill>
-      <Heading>枝は恋の相手、塩の粒は見つけていく良い所</Heading>
+      <Heading>枝は相手、塩の粒は良い所</Heading>
       <Svg>
         <Cat kind="plain" x={560} y={800} size={4} pose="sit" face="happy" turn={0.6} look={[1, -0.2]} label="恋する人" />
         <Cat kind="plain" x={1260} y={800} size={4} pose="sit" face="normal" turn={-0.4} label="相手" seed={6} />
         {good.map((g, i) => {
-          const a = -Math.PI * (0.15 + i * 0.175), r = 330;
-          const x = 1260 + Math.cos(a) * r, y = 560 + Math.sin(a) * r * 0.75;
+          const a = -Math.PI * (0.1 + i * 0.2), r = 250;
+          const x = 1260 + Math.cos(a) * r, y = 660 + Math.sin(a) * r * 0.9;
           return (
             <g key={g}>
               <path transform={`translate(${x},${y - 46})`} d="M0,-18 L13,0 L0,18 L-13,0 Z" fill={C.white} stroke={C.ink} strokeWidth={2} />
@@ -843,6 +883,7 @@ export const S33: React.FC = () => {
         })}
         <Label x={560} y={420} anchor="middle" size="label">「いいな」から</Label>
       </Svg>
+      <SourceNote text={`模式図（スタンダールのたとえ）。${SRC.stendhal}`} />
       <ChapterDots current={3} />
     </AbsoluteFill>
   );
@@ -850,9 +891,10 @@ export const S33: React.FC = () => {
 /** フランクファート：矢印の向きが逆 */
 export const S34: React.FC = () => (
   <AbsoluteFill>
-    <Heading>哲学者フランクファート：愛するから、大切になる</Heading>
+    <Heading>愛するから、大切になる</Heading>
+    <SubHead>哲学者フランクファート</SubHead>
     <Svg>
-      <defs><marker id="ar3" markerWidth={10} markerHeight={10} refX={6} refY={5} orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill={C.ink} /></marker></defs>
+      <defs><marker id="ar3" markerUnits="userSpaceOnUse" markerWidth={30} markerHeight={30} refX={18} refY={15} orient="auto"><path d="M0,0 L30,15 L0,30 Z" fill={C.ink} /></marker></defs>
       <rect x={260} y={280} width={420} height={120} rx={R.lg} fill={C.white} stroke={C.ink2} strokeWidth={LINE.thin} />
       <Label x={470} y={358} anchor="middle" size="label" color={C.ink2}>大切だと思う</Label>
       <path d="M700,340 H1060" stroke={C.rest} strokeWidth={LINE.base} markerEnd="url(#ar3)" />
@@ -875,6 +917,7 @@ const PrefRuler: React.FC<{ pref: number; partner: number; old?: number }> = ({ 
   return (
     <g>
       <rect x={x} y={top} width={60} height={h} rx={R.sm} fill={C.white} stroke={C.ink2} strokeWidth={LINE.thin} />
+      {Array.from({ length: 11 }, (_, i) => <line key={i} x1={x} y1={top + (h * i) / 10} x2={x + (i % 5 ? 20 : 40)} y2={top + (h * i) / 10} stroke={C.ink2} strokeWidth={LINE.hair} />)}
       <Label x={x - 30} y={top + 30} anchor="end" size="note" color={C.ink2}>条件が厳しい</Label>
       <Label x={x - 30} y={top + h} anchor="end" size="note" color={C.ink2}>ゆるい</Label>
       {old !== undefined && <g>
@@ -882,10 +925,10 @@ const PrefRuler: React.FC<{ pref: number; partner: number; old?: number }> = ({ 
         <Label x={x + 540} y={yOf(old) + 12} size="note" color={C.ink2}>最初の好み</Label>
         <path d={`M${x + 380},${yOf(old) + 16} V${yOf(pref) - 24}`} stroke={C.ink} strokeWidth={LINE.heavy} markerEnd="url(#ar4)" />
       </g>}
-      <defs><marker id="ar4" markerWidth={10} markerHeight={10} refX={6} refY={5} orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill={C.ink} /></marker></defs>
+      <defs><marker id="ar4" markerUnits="userSpaceOnUse" markerWidth={30} markerHeight={30} refX={18} refY={15} orient="auto"><path d="M0,0 L30,15 L0,30 Z" fill={C.ink} /></marker></defs>
       <line data-qa="mark" data-qa-label="好みの線" x1={x - 20} y1={yOf(pref)} x2={x + 520} y2={yOf(pref)} stroke={C.ink} strokeWidth={LINE.heavy} strokeDasharray="14 10" />
       <Label x={x + 540} y={yOf(pref) + 12} size="label" weight={900}>{old !== undefined ? "下げた好み" : "最初の好み"}</Label>
-      <Cat kind="plain" x={x + 200} y={yOf(partner) + 60} size={2.2} pose="stand" face="smile" label="恋人" seed={6} />
+      <Cat kind="plain" x={x + 230} y={yOf(partner) + 150} size={3} pose="stand" face="smile" label="恋人" seed={6} />
     </g>
   );
 };
@@ -894,24 +937,25 @@ export const S35: React.FC = () => (
     <Heading>好みは、まったくの的外れではない</Heading>
     <SubHead>ドイツの独身の大人763人を、5か月追いかけた</SubHead>
     <Svg><PrefRuler pref={68} partner={60} /></Svg>
-    <SourceNote text={SRC.gerlach} />
+    <SourceNote text={`模式図。${SRC.gerlach}`} />
     <ChapterDots current={3} />
   </AbsoluteFill>
 );
 export const S36: React.FC = () => (
   <AbsoluteFill>
-    <Heading>恋人が届かないとき、動いたのは条件のほう</Heading>
+    <Heading>動いたのは、条件のほう</Heading>
+    <SubHead>恋人が最初の好みに届かなかったとき</SubHead>
     <Svg><PrefRuler old={78} pref={46} partner={40} /></Svg>
-    <SourceNote text={SRC.gerlach} />
+    <SourceNote text={`模式図。${SRC.gerlach}`} />
     <ChapterDots current={3} />
   </AbsoluteFill>
 );
 /** スピードデートを見直す：会う前（空の表）→ 話す → 理由が生まれる（粒が付きはじめる） */
 export const S37: React.FC = () => (
   <AbsoluteFill>
-    <Heading>好きな理由の多くは、会う前にはまだなかった？</Heading>
+    <Heading>理由は、会ってから生まれる？</Heading>
     <Svg>
-      <defs><marker id="ar5" markerWidth={10} markerHeight={10} refX={6} refY={5} orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill={C.ink} /></marker></defs>
+      <defs><marker id="ar5" markerUnits="userSpaceOnUse" markerWidth={30} markerHeight={30} refX={18} refY={15} orient="auto"><path d="M0,0 L30,15 L0,30 Z" fill={C.ink} /></marker></defs>
       <rect x={140} y={280} width={420} height={420} rx={R.lg} fill={C.white} stroke={C.ink2} strokeWidth={LINE.thin} />
       {[0, 1, 2, 3, 4].map((k) => <rect key={k} x={190} y={340 + k * 60} width={320} height={14} rx={7} fill={C.rest} />)}
       <Label x={350} y={760} anchor="middle" size="label" weight={900}>会う前</Label>
@@ -930,11 +974,12 @@ export const S37: React.FC = () => (
 // ================= 結論 =================
 export const S38: React.FC = () => (
   <AbsoluteFill>
-    <Heading>100を超える質問でも、会う前には当てられなかった</Heading>
+    <Heading>会う前には、当てられない</Heading>
+    <SubHead>100を超える質問に答えても</SubHead>
     <Svg>
       <CondPhone x={340} y={520} h={560} rows={8} />
-      <GaugeAxis x={760} y={420} w={900} />
-      <Gauge x={760} y={470} name="" color={C.debt} lo={0} hi={1} text="相性：ほぼ0%" strong />
+      <Label x={720} y={420} size="note" color={C.ink2}>相性が会う前の答えで当たった割合</Label>
+      <Gauge x={720} y={450} w={760} name="" color={C.debt} lo={0} hi={1} text="ほぼ0%" strong />
     </Svg>
     <SourceNote text={SRC.joel} />
   </AbsoluteFill>
@@ -942,26 +987,29 @@ export const S38: React.FC = () => (
 /** ミクロ：会う前に分かるのは「誰が好かれやすいか」まで。ケプラーの友人たちが見ていた列も、会う前に書ける条件 */
 export const S39: React.FC = () => (
   <AbsoluteFill>
-    <Heading>会う前に分かるのは、好かれやすさまで</Heading>
+    <Heading>会う前に分かるのは、人の傾向まで</Heading>
     <Svg>
       <KeplerTable mode="friends" x={140} y={200} />
-      <rect x={140 + TB.nameW - 10} y={196} width={COLS.length * TB.col + 20} height={620} rx={R.lg} fill="none" stroke={C.gold} strokeWidth={LINE.heavy} />
-      <Label x={1500} y={330} size="label" weight={900} color={C.gold}>会う前に</Label>
-      <Label x={1500} y={390} size="label" weight={900} color={C.gold}>書き出せること</Label>
+      <rect x={140 + TB.nameW - 10} y={196} width={COLS.length * TB.col + 20} height={620} rx={R.lg} fill="none" stroke={C.ink} strokeWidth={LINE.heavy} />
+      <Label x={1500} y={330} size="label" weight={900}>会う前に</Label>
+      <Label x={1500} y={390} size="label" weight={900}>書き出せること</Label>
     </Svg>
   </AbsoluteFill>
 );
 
 // ================= 教訓 =================
-export const S40: React.FC = () => <AbsoluteFill><Study face="normal" done /></AbsoluteFill>;
+export const S40: React.FC = () => <AbsoluteFill><Study face="smile" done /></AbsoluteFill>;
 /** 5番目の女性と並ぶケプラー（後ろの壁に、身分・財産の丸が空のままの額） */
 export const S41: React.FC = () => (
   <AbsoluteFill>
     <Backdrop kind="room" floor={ROOM.floor} variant={5} />
     <Svg>
-      <Cat kind="plain" x={820} y={ROOM.catY} size={4.4} pose="stand" face="smile" turn={0.5} label="ケプラー" />
-      <Cat kind="plain" x={1120} y={ROOM.catY} size={4.0} pose="stand" face="smile" turn={-0.5} label="5番目の女性" seed={6} />
+      <Cat kind="plain" x={820} y={850} size={5.7} pose="stand" face="smile" turn={0.5} label="ケプラー" />
+      <Cat kind="plain" x={1120} y={850} size={5.2} pose="stand" face="smile" turn={-0.5} label="5番目の女性" seed={6} />
       <path transform="translate(970,420) scale(1.6)" d="M0 14 C-22 0 -18 -18 -6 -16 C-2 -15 0 -12 0 -10 C0 -12 2 -15 6 -16 C18 -18 22 0 0 14 Z" fill={C.debt} />
+      <rect data-qa="prop" data-qa-label="台" x={1420} y={700} width={240} height={160} fill={C.floor} stroke={C.ink} strokeWidth={LINE.thin} />
+      <path data-qa="prop" data-qa-label="花瓶" d="M1510,700 C1490,660 1500,620 1520,600 H1560 C1580,620 1590,660 1570,700 Z" fill={C.white} stroke={C.ink} strokeWidth={LINE.thin} />
+      <Branch x={1540} y={610} k={0.9} crystals={16} />
     </Svg>
   </AbsoluteFill>
 );
@@ -1010,9 +1058,9 @@ const P: Omit<Panel, "key">[] = [
   { title: "3つ目：相性", C: S21b, sec: 13.2, lines: "3つ目は、その2人の組み合わせ", move: "赤の枠が太く出て、2匹の間にハート" },
   { title: "相性＝「なぜか」", C: S22, sec: 9.5, lines: "友人の評判はいまひとつ", move: "友人の吹き出し → 「あなた」がその人を見る。赤い「なぜか」" },
   { title: "内訳：相性が約3分の1", C: S23, sec: 13.7, lines: "点数の高い低いを", move: "100%の帯が4つに分かれる。赤の区画が少し大きくなり、括弧「いちばん大きい」" },
-  { title: "先回り：好かれやすさは当たる", C: S24, sec: 16.9, lines: "ただ、相性といっても", move: "針の目盛りが3本。青緑・金の帯が伸びる。赤の行は点線の「？」のまま" },
-  { title: "予想の答え：D（ほぼゼロ）", C: S25, sec: 3.1, lines: "予想の答えは、Dの", move: "予想の4択に戻り、D を塗る。ゴサ「ひげ、短め。」" },
-  { title: "相性はほぼゼロ", C: S26, sec: 20.4, lines: "100を超える質問に答えて", move: "目盛りに戻る。青緑・金が薄くなり、赤の帯は0の所で止まる（伸びかけて戻る）" },
+  { title: "先回り：好かれやすさは、ある程度当たる", C: S24, sec: 16.9, lines: "ただ、相性といっても", move: "針の目盛りが3本。青緑・金の帯が伸びる。赤の行は点線の「？」のまま" },
+  { title: "予想の答え：D（ほぼゼロ）", C: S25, sec: 9.4, lines: "予想の答えは、Dの", move: "予想の4択に戻り、D を塗る。ゴサは言い切りの顔（ひげが短い）。吹き出しはなし。2文目まで残す" },
+  { title: "相性はほぼゼロ", C: S26, sec: 14.1, lines: "性格が似ているか", move: "目盛りに戻る。青緑・金が薄くなり、赤の帯は0の所で止まる（伸びかけて戻る）" },
   { title: "話した直後：多くて3割", C: S27, sec: 18.4, lines: "ところが、話した直後に", move: "会う前の行が薄くなり、下の行で赤い帯が0から3割手前まで伸びる" },
   { title: "ベッカー：踏み込まなかったこと", C: S28, sec: 23.0, lines: "なぜ好きになるのかには", move: "本が開く。上の札 → 下の札（太い枠）" },
   { title: "章の終わり：好きな理由はどこから？", C: S28b, sec: 9.6, lines: "会う前の答えに手がかりがない", move: "冒頭の3つの問いの札に戻り、3枚目だけ太い枠で残る → 第3章の扉へ" },
@@ -1028,12 +1076,11 @@ const P: Omit<Panel, "key">[] = [
   { title: "スピードデートを見直す", C: S37, sec: 13.4, lines: "こう考えると", move: "会う前の紙 → 話す2匹 → 枝に粒が付きはじめる" },
   { title: "結論：会う前には当てられない", C: S38, sec: 15.8, lines: "最初の問いに戻ります", move: "条件の画面の行が8つまで増える。右の目盛りの赤い帯は0のまま" },
   { title: "ミクロ：会う前に分かるのは", C: S39, sec: 13.6, lines: "研究で言えば", move: "ケプラーの表に戻る。条件の列を金の枠で囲む（会う前に書き出せること）" },
-  { title: "教訓：手紙を書き終える", C: S40, sec: 4.6, lines: "1613年の秋、ケプラーは", move: "冒頭の書斎。ペンが止まり、手紙に封の赤い印" },
-  { title: "5番目の女性を選んだ", C: S41, sec: 9.5, lines: "5番目の女性は", move: "2匹が並ぶ。間にハート" },
-  { title: "結晶は、好きになったあとから", C: S42, sec: 3.8, lines: "結晶は、好きになった", move: "裸の枝に粒が付きはじめる（途中で止まる）" },
-  { title: "締め：書き換わっていたのは表のほう", C: S43, sec: 13.0, lines: "条件の表に届かない人を", move: "ケプラーの表。5番目の行の空の丸が、1つずつ灰に埋まり直す。4番目の線はそのまま" },
+  { title: "教訓：手紙を書き終える", C: S40, sec: 4.6, lines: "1613年の秋、ケプラーは", move: "冒頭と同じ構図で夜明け。ろうそくは短く消え、ペンが置かれ、猫が目を上げる。手紙に封の赤い印" },
+  { title: "5番目の女性を選んだ", C: S41, sec: 13.3, lines: "5番目の女性は", move: "2匹が並ぶ。間にハート。「結晶は」の文で、花瓶の枝に粒が付きはじめる（途中で止まる）" },
+  { title: "締め：書き換わっていたのは表のほう", C: S43, sec: 13.0, lines: "条件の表に届かない人を", move: "ケプラーの表。5番目の行の空の丸が、1つずつ結晶（ひし形）に変わる。4番目の線はそのまま" },
   { title: "締めのひと言（毎回同じ）", C: S44, sec: 5, lines: "数えてみると、景色が変わりました。", move: "共通のアニメーション（SignOff）。字幕なし" },
 ];
 export const panels: Panel[] = P.map((p, i) => ({ key: String(i + 1).padStart(2, "0"), ...p }));
-export const storyboard: StoryboardDef = { id: "008-falling-in-love", title: "人を好きになるって、どういうこと？（絵コンテ 第1版）", panels };
+export const storyboard: StoryboardDef = { id: "008-falling-in-love", title: "人を好きになるって、どういうこと？（絵コンテ 第2版）", panels };
 export default storyboard;
