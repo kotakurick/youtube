@@ -4,7 +4,17 @@
 
 ## いまの状態（2026-10-06）
 
-### 2026-10-07 仮通し・タイトル・サムネイル（ここが最新）
+### 2026-10-10 サムネイルを新しい様式で作り直した（ここが最新）
+
+- 様式の決定（オーナー「Bがいい」・太いゴシック OK・画像生成だけでなく質を上げる・緑の背景で抜く）：`docs/decisions.md` の 2026-10-10、`docs/brand.md` のサムネイル。
+- 作ったもの：`scenes/Thumb-doll.tsx`（id `003-normal-partner-thumb-doll-back` が推し。`-side` は不採用）、部品 `render/src/lib/ThumbKit.tsx`、緑抜き `scripts/chroma_key.py`。
+- サムネイル役の点：back 6.0 → 6.5 → **7.0**（`review/thumbnail-r3.md`〜`r5.md`）。r5 の残りの小さな直し2つも入れた。
+- 人形の画像（Git の外）：`render/public/episodes/003-normal-partner/thumb/man.png`・`woman.png`。作り直すときは Canva のデザイン DAHXmpcBZe4 の5・6ページ（緑の背景の人形）を PNG で書き出し、`uv run --no-project --python 3.12 --with pillow --with numpy python scripts/chroma_key.py 入力 出力`。完成のサムネイルは `render/out/thumb003/doll-back.png`（オーナーに送った）。
+- 古い案（`scenes/Thumb.tsx`・`Thumb-zero.tsx`）は比べるために残している。
+- **次にすること**：①★オーナーがサムネイル（doll-back）とタイトル（推し B）を確認する。②★照合（S1 は重視のみ、S2 の一部、S11、S17〜S21）。③本線に合流してからローカルで声と書き出し。
+- 未決：猫の案・数える案を「テストと比較」の相手にするか。
+
+### 2026-10-07 仮通し・タイトル・サムネイル
 
 - 仮通しのテンポのチェック：直すもの 6 → 0（確かめるもの：12〜19秒の場面が残る。どれも絵が動く）。第1章に札「よく言われること」と「重く見る人だけ」のコマ、第2章の年収の山にまん中の点線、第3章の段の出し方を足した。
 - タイトル案3つ（`meta.md`）。推しは B「普通の相手の条件を全部重ねると、残るのは1000組に38組」。

@@ -15,6 +15,8 @@
 
 ## サムネイル案
 
+**2026-10-10 決定の様式で作り直した**：推しは `scenes/Thumb-doll.tsx` の back（白い人形2体が背中合わせで、間に暗い隙間。言葉「普通でいい／のに、いない」。左下に10人のうち1人だけ光る印）。サムネイル役 7.0点（`review/thumbnail-r5.md`）。下の表は 2026-10-07 の古い案。
+
 （2026-10-07 クラウド。コードの仮の絵：`scenes/Thumb.tsx`。書き出しは `cd render && npx remotion still 003-normal-partner-thumb-nobody out/thumb003/nobody.png`。レビューは `review/thumbnail-r1.md`〜）
 
 | 案 | 文字 | 絵 | r1 |

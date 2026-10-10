@@ -84,7 +84,7 @@ export const ChannelBand: React.FC = () => (
 /** 数える印：n人の列で lit 番目だけ大きく光る。左下に置く（右下は再生時間で隠れる）。
  * 2026-10-10 レビュー r3：168px で点にしか見えなかったので、1人を大きく・黒い縁・光、ほかは薄く。 */
 export const CountRow: React.FC<{ n?: number; lit: number; x?: number; y?: number; size?: number; gap?: number }> = ({ n = 10, lit, x = 78, y = 676, size = 1.7, gap = 48 }) => {
-  const big = size * 1.2; // 2026-10-10 r4：大きすぎて列からはみ出し「立つ人」に見えた
+  const big = size * 1.35; // 2026-10-10 r4：1.45 は列からはみ出し「立つ人」に見えた。r5：1.2 は小さな画面で弱い
   const lx = x + lit * gap;
   return (
     <svg width={TW} height={TH} style={{ position: "absolute", inset: 0, zIndex: 10 }}>

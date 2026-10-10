@@ -22,7 +22,7 @@ const Scene: React.FC<{ back?: boolean }> = ({ back = false }) => (
   <ThumbStage ground={["#0B0E2A", "#2B1A4C"]}>
     <Bokeh seed={3} />
     {/* 2026-10-10 レビュー r3：寄り添って見えると「いない」と食い違うので、2人の間に暗い隙間を空ける */}
-    <Cutout {...WOMAN} cx={back ? 1150 : 1125} top={back ? 100 : 44} h={back ? 630 : 760} flip={back} z={back ? 1 : 3} />
+    <Cutout {...WOMAN} cx={back ? 1130 : 1125} top={back ? 100 : 44} h={back ? 630 : 760} flip={back} z={back ? 1 : 3} />
     <Cutout {...MAN} cx={back ? 705 : 775} top={back ? 56 : 18} h={back ? 670 : 790} z={2} />
     <Vignette />
     <Words />
