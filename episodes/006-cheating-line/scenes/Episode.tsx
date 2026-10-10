@@ -16,8 +16,8 @@ import { SignOff } from "@lib/SignOff";
 import { FPS } from "@lib/theme";
 import timing from "../timing.json";
 import {
-  S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S11b, S13, S14, S15, S16, S16b, S17, S18, S19, S21, S22, S23,
-  S29, S30, S31, S32, S33, S35, S36, S37, S38, S39, S40, S41, S42, S43, S44, S45,
+  S01, S02, S03, S04, S05, S06, S07, S08, S09, S13, S14, S15, S16, S16b, S17, S18, S19, S21, S22, S23,
+  S29, S30, S31, S32, S33, S35, S36, S37, S38, S39, S40, S41, S43b, S44, S45,
 } from "./Storyboard";
 
 /** 以前は長く同じ絵が続く所でカメラをゆっくり寄せていた（1.00→1.04倍）が、文字が毎コマ描き直されて小さくゆれて見えるのでやめた（2026-10-10 オーナー「わずかなゆれをなくしたい」） */
@@ -59,13 +59,7 @@ const Opening: React.FC = () => (
   </>
 );
 const Today: React.FC = () => <S09 />;                // 09 今日の答え合わせ
-const QuizScene: React.FC = () => (
-  <Steps items={[
-    ["", <S10 />],                                    // 10 使うデータ
-    ["すべて掛け合わせると", <S11b />],               // 12 掛け算の数（ものさし）
-    ["Aはほぼ同じ", <S11 />, "cut"],                  // 11 予想タイム（何倍か）。13 今日の順番は 2026-10-10 に削った（予想タイムを短く）
-  ]} />
-);
+// 予想タイム（10〜12）は 2026-10-10 オーナーの指示でなくした（「高度な知識を要する」）。タイトルの数字は答え合わせの最後で見せる（S43b）
 
 // ================= 第1章（14〜19） =================
 const Ch1: React.FC = () => (
@@ -111,9 +105,8 @@ const Ch3: React.FC = () => (
 const VerdictScene: React.FC = () => (
   <Steps items={[
     ["", <S40 />, "cut"],                             // 42 前半 〇
-    ["2つ目の証拠", <S41 />, "cut"],                 // 43 後半 ×
-    ["予想タイムの答え", <S42 />, "cut"],             // 44 予想の答え C
-    ["ずっと多くなるのは", <S43 />],// 45 掛け算の500倍
+    ["ところが、男性どうしでも", <S41 />, "cut"],     // 43 後半 ×
+    ["最後に、ふたりの基準", <S43b />, "up"],         // 45 170組に1組（44 予想の答えは予想タイムごとやめた。2026-10-10）
   ]} />
 );
 
@@ -137,7 +130,7 @@ const card = (no: number, title: string): React.FC => () => <ChapterCard no={no}
 const End: React.FC = () => <SignOff end />;
 
 const narrated = fromTiming(timing as Timing, {
-  opening: Opening, today: Today, quiz: QuizScene,
+  opening: Opening, today: Today,
   "ch1-card": card(1, "日本の人の、浮気の基準は？"), ch1: Ch1,
   "ch2-card": card(2, "誰と誰の基準がずれる？"), ch2: Ch2,
   "ch3-card": card(3, "浮気をする人は、男女で違う？"), ch3: Ch3,

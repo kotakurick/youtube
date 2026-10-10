@@ -514,7 +514,7 @@ export const S28: React.FC = () => {
 };
 export const S29: React.FC = () => (
   <AbsoluteFill>
-    <Heading>食い違いやすいのは、灰色の行動</Heading>
+    <Heading>食い違いやすいのは、意見が割れる行動</Heading>
     <PairedRows x={96} y={320} width={1728} rowH={96} labelW={700} max={100}
       rows={[{ label: "マッチングサイトを一人で眺める", male: 56.2, female: 66.0 }, { label: "好意のメッセージを受け取る", male: 60.3, female: 77.0 },
         { label: "暗い部屋でふたりで映画", male: 22.1, female: 35.1 }, { label: "体の関係（くらべる）", male: 91.5, female: 93.3 }]} />
@@ -660,10 +660,11 @@ export const S38: React.FC = () => (
           <text x={780 + (v as number) * 22} y={304 + i * 110} style={font("value")}>{`${v}%`}</text>
         </g>
       ))}
-      <rect x={120} y={500} width={1680} height={2} fill={C.rest} />
-      <text x={120} y={590} style={font("label")}>浮気の相手と出会った場所の1位</text>
-      <text x={760} y={600} style={font("value")}>職場　約4割</text>
-      <Desk />
+      <rect x={120} y={480} width={1680} height={2} fill={C.rest} />
+      {/* 出会った場所の1位：職場。机の絵は伝わらなかったので、上の理由と同じ棒にした（2026-10-10 オーナー） */}
+      <text x={120} y={570} style={font("label")}>浮気の相手と出会った場所：職場</text>
+      <rect data-qa="mark" data-qa-label="職場" x={760} y={530} width={40.2 * 22} height={56} rx={R.sm} fill={C.ink} />
+      <text x={780 + 40.2 * 22} y={574} style={font("value")}>40.2%</text>
       <text x={120} y={720} style={font("note", C.ink2)}>男女別の理由：性欲 男性32%・女性18%／相手を好きになった 女性26%・男性20%</text>
     </Svg>
     <SourceNote text={SRC.raison2} />
@@ -717,6 +718,18 @@ export const S43: React.FC = () => (
       <LogRuler x={260} y={420} width={1400} pins={[{ n: 170, label: "実際：約170組に1組", strong: true, color: C.gold }, { n: 87000, label: "掛け算：約9万組に1組", color: C.ink2 }]}
         span={{ from: 170, to: 87000, text: "約500倍" }} />
       <Label x={960} y={790} anchor="middle" size="label">厳しい人は、だいたいどの行動にも厳しい</Label>
+    </Svg>
+    <SourceNote text={SRC.osf} />
+  </AbsoluteFill>
+);
+
+/** 32の行動すべてで答えがそろう男女：170組に1組（予想タイムをやめた代わりに、判定の最後でタイトルの数字を見せる。2026-10-10） */
+export const S43b: React.FC = () => (
+  <AbsoluteFill>
+    <Heading>全部そろうのは、170組に1組</Heading>
+    <SubHead>知らない男女をくじで組ませて、32の行動すべてで「浮気かどうか」の答えがそろう組</SubHead>
+    <Svg>
+      <CouplePairs x={150} y={330} items={Array.from({ length: 170 }, (_, i) => ({ husband: i === 169, wife: i === 169, gold: i === 169, goldFrame: i === 169 }))} cols={17} size={0.9} gap={42} row={52} />
     </Svg>
     <SourceNote text={SRC.osf} />
   </AbsoluteFill>
