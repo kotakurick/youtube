@@ -28,6 +28,10 @@ export const PairedRows: React.FC<{
       {rows.map((r, i) => {
         const p = interpolate(frame - i * 3, [0, 36], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: EASE });
         const ry = y + i * rowH;
+        // 値の文字の左端。男女の棒の先が近く、上下の値の文字が横で重なるときは、女性の値を男性の値の右へずらす（2026-10-07 6本目「11%」と「19%」）
+        const endX = (v: number) => barX + (v / max) * barW * p + 10;
+        const textW = (v: number) => format(v).length * 28 * 0.62 + 12;
+        const valX = { 男性: endX(r.male), 女性: Math.max(endX(r.female), endX(r.male) + textW(r.male)) };
         return (
           <g key={r.label}>
             <text x={barX - 20} y={ry + rowH / 2 + 4} textAnchor="end" style={font("note", r.focus ? C.ink : C.ink2)} fontWeight={r.focus ? 900 : 500}
@@ -39,7 +43,7 @@ export const PairedRows: React.FC<{
                 {/* 男女が同じ値のときは、値を1つだけ（2本の棒の間に墨で）書く。上下に同じ数字が並ぶと詰まって見えるため（2026-10-06） */}
                 {r.male === r.female
                   ? b.k === "女性" && <text x={barX + (b.v / max) * barW * p + 10} y={ry + rowH / 2 + 8} style={font("note", C.ink)} fontWeight={700}>{`両方 ${format(b.v)}`}</text>
-                  : <text x={barX + (b.v / max) * barW * p + 10} y={ry + b.dy + bh - 3} style={font("note", b.c)} fontWeight={700}>{format(b.v)}</text>}
+                  : <text x={valX[b.k as "男性" | "女性"]} y={ry + b.dy + bh - 3} style={font("note", b.c)} fontWeight={700}>{format(b.v)}</text>}
               </g>
             ))}
             {r.mark && <text x={x + width - 10} y={ry + rowH / 2 + 8} textAnchor="end" style={font("label", C.ink)}>{r.mark}</text>}
