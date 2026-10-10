@@ -331,7 +331,9 @@ def main():
         if length > SENT_MAX:
             notes.append((no, f"文が{length}字（{SENT_MAX}字まで）：{s[:30]}…"))
         if s.startswith("では、"):  # eleven-yui が「では、では」と2回読むことがある（2026-10-06。docs/script-style.md の7章）
-            errors.append((no, f"文の頭の「では、」は声が2回読むことがある。前置きなしで始めるか「それなら、」などにする：{s[:30]}"))
+            errors.append((no, f"文の頭の「では、」は声が2回読むことがある。前置きなしで始めるか「ここで、」「けれど、」などにする：{s[:30]}"))
+        if re.match(r"それ(から|なら|でも)", s):  # 「そ、それから」とどもって聞こえた（2026-10-10 006。docs/owner-feedback.md の声）
+            errors.append((no, f"文の頭の「それから・それなら・それでも」は、声が「そ、それから」とどもることがある。「続いて」「ここで」「けれど」「ただ」などにする：{s[:30]}"))
         if s.count("、") > COMMA_MAX:
             notes.append((no, f"読点が{s.count('、')}個（{COMMA_MAX}個まで）"))
         m = re.search(r"[一-龥]{%d,}" % KANJI_RUN, s)

@@ -75,7 +75,8 @@ export const checkBoxes = (
       if (a.fontPx !== undefined && a.fontPx < MIN_FONT_PX * canvas.fontScale - 0.5) {
         out.push({ level: "error", rule: "font", message: `文字が小さすぎます（${a.fontPx.toFixed(0)}px、${MIN_FONT_PX}px 以上）：「${a.label}」`, boxes: [a] });
       }
-      if (a.x < -1 || a.y < -1 || a.x + a.w > canvas.w + 1 || a.y + a.h > canvas.h + 1) {
+      // 画面に出入りする途中（章の扉のワイプなど）は data-qa-allow="edge" で見逃す（2026-10-10）
+      if (!a.allow.includes("edge") && (a.x < -1 || a.y < -1 || a.x + a.w > canvas.w + 1 || a.y + a.h > canvas.h + 1)) {
         out.push({ level: "error", rule: "edge", message: `文字が画面の外にはみ出しています：「${a.label}」`, boxes: [a] });
       } else if (canvas.unsafeBottom > 0 && a.y + a.h > canvas.h - canvas.unsafeBottom + 2) {
         out.push({ level: "error", rule: "bottom", message: `文字が再生バーの重なる下${canvas.unsafeBottom}pxに入っています：「${a.label}」`, boxes: [a] });

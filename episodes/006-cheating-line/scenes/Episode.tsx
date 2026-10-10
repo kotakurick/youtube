@@ -4,25 +4,24 @@
 // 絵コンテの番号（一覧の 01〜48）をコメントに書いた。動きは絵コンテの move のうち、主なものだけ（はしごの数え下げ・ものさし・柱の伸び）。
 // 細かい動き（猫の首振り・地図の線が引かれる など）は、仮通しで見てから足す。
 import React from "react";
-import { AbsoluteFill, useCurrentFrame } from "remotion";
+import { AbsoluteFill } from "remotion";
 import { ChannelTag } from "@lib/Cards";
-import { Camera } from "@lib/Camera";
 import { ChapterCard } from "@lib/Chapter";
 import type { EpisodeDef, SceneDef } from "@lib/Episode";
-import { EndScreen, END_FRAMES } from "@lib/EndScreen";
+import { END_FRAMES } from "@lib/EndScreen";
 import { Gosa } from "@lib/Gosa";
-import { Beat, Enter, ramp, useCue, Wipe } from "@lib/Motion";
+import { Beat, Enter, useCue, Wipe } from "@lib/Motion";
 import { fromTiming, Timing } from "@lib/Narration";
 import { SignOff } from "@lib/SignOff";
 import { FPS } from "@lib/theme";
 import timing from "../timing.json";
 import {
-  Ladder, S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S11b, S12, S13, S14, S15, S16, S16b, S17, S18, S19, S21, S22, S23,
-  S24, S25, S27, S28, S29, S30, S31, S32, S33, S35, S36, S37, S38, S39, S40, S41, S42, S43, S44, S45,
+  S01, S02, S03, S04, S05, S06, S07, S08, S09, S10, S11, S11b, S13, S14, S15, S16, S16b, S17, S18, S19, S21, S22, S23,
+  S29, S30, S31, S32, S33, S35, S36, S37, S38, S39, S40, S41, S42, S43, S44, S45,
 } from "./Storyboard";
 
-/** 長く同じ絵が続く所は、カメラをゆっくり寄せて止まって見せない（1.00→1.04倍） */
-const Drift: React.FC<{ len: number; children: React.ReactNode }> = ({ len, children }) => <Camera drift={len}>{children}</Camera>;
+/** 以前は長く同じ絵が続く所でカメラをゆっくり寄せていた（1.00→1.04倍）が、文字が毎コマ描き直されて小さくゆれて見えるのでやめた（2026-10-10 オーナー「わずかなゆれをなくしたい」） */
+const Drift: React.FC<{ len: number; children: React.ReactNode }> = ({ children }) => <>{children}</>;
 
 type Mode = "enter" | "wipe" | "up" | "cut";
 type Step = [word: string, el: React.ReactNode, mode?: Mode];
@@ -50,7 +49,7 @@ const Opening: React.FC = () => (
       ["", <S01 />, "cut"],                          // 01 夜の居間
       ["画面の中では", <S02 />],                      // 02 ドラマの画面
       ["彼は「これはセーフ", <S03 />],                // 03 セーフ／アウト
-      ["それから、少しだけ黙って", <S04 />],          // 04 先週のランチは？
+      ["少し黙ってから", <S04 />],                    // 04 先週のランチは？
       ["やましいことは", <S05 />],                    // 05 静かになった部屋
       ["既婚の男女、およそ7000人", <S06 />, "up"],    // 06 手をつないだら浮気
       ["男女の差は、2割ほど", <S07 />],               // 07 くじで組む
@@ -63,9 +62,8 @@ const Today: React.FC = () => <S09 />;                // 09 今日の答え合�
 const QuizScene: React.FC = () => (
   <Steps items={[
     ["", <S10 />],                                    // 10 使うデータ
-    ["それを32個、掛け算すると", <S11b />],           // 12 掛け算の数（ものさし）
-    ["予想してみてください", <S11 />, "cut"],         // 11 予想タイム（何倍か）
-    ["今日は、3つのことを", <S12 />],                  // 13 今日の順番
+    ["すべて掛け合わせると", <S11b />],               // 12 掛け算の数（ものさし）
+    ["Aはほぼ同じ", <S11 />, "cut"],                  // 11 予想タイム（何倍か）。13 今日の順番は 2026-10-10 に削った（予想タイムを短く）
   ]} />
 );
 
@@ -74,35 +72,24 @@ const Ch1: React.FC = () => (
   <Steps items={[
     ["", <S13 />, "up"],                              // 14 階段・あなたの線
     ["さきほどの7000人", <S14 />, "wipe"],            // 15 13の行動の横棒
-    ["別の会社の", <S15 />, "wipe"],                  // 16 2千人の調査
-    ["それなら、ひとりひとりの線", <S16 />, "up"],    // 17 散らばり：平均
-    ["ところが、同じ男性の中でも", <S16b />, "cut"],  // 18 散らばり：幅
-    ["それでも、平均の差を聞くと", <S17 />],          // 19 先回り
+    ["別の、2000人の調査", <S15 />, "wipe"],         // 16 2千人の調査
+    ["ひとりひとりの基準は", <S16 />, "up"],          // 17 散らばり：平均
+    ["ところが、男性だけを見ても", <S16b />, "cut"],  // 18 散らばり：幅
+    ["ただ、平均の差を聞くと", <S17 />],              // 19 先回り
   ]} />
 );
 
 // ================= 第2章（20〜32） =================
-/** 26〜28 はしごの3段目：組が抜けていき（100→1）、最後に1組が金の枠で残る */
-const Sieve: React.FC = () => {
-  const frame = useCurrentFrame();
-  const k = ramp(frame, 40, 150);
-  const remain = Math.round(99 * (1 - k));
-  return <Ladder step={3} remain={remain} />;
-};
 const Ch2: React.FC = () => (
   <Steps items={[
     ["", <S18 />],                                    // 20 同性どうしでも食い違う
     ["仲のいい男友達", <S19 />],                      // 21 あなたと男友達
     ["ただし、答えが割れる行動", <S21 />, "cut"],    // 23 割れる行動は性別で違う
     ["「男性は体の浮気", <S22 />, "up"],              // 24 1990年代の学生
-    ["自分だけの地図", <S23 />],          // 25 地図
-    ["ここから、100組", <S24 />, "cut"],               // 26 はしご1
-    ["次は、男性はみんな", <S25 />, "cut"],     // 27 はしご2
-    ["最後に、ひとりひとりの", <Sieve />, "cut"],      // 28 はしご3（数え下げ）
-    ["ちなみに、法律で", <S27 />],                    // 29 社会の線
-    ["もう一度、100組の計算", <S28 />, "up"],          // 30 ミクロ
-    ["食い違いやすいのは、", <S29 />, "wipe"], // 31 灰色の行動
-    ["ここまでは、線を引くとき", <S30 />],            // 32 次の問い
+    ["自分だけの地図", <S23 />],                      // 25 地図
+    // 26〜30（100組のはしご・社会の線・3つそろえる計算）は 2026-10-10 オーナーの指示で削った
+    ["特にずれやすいのは", <S29 />, "wipe"],          // 31 灰色の行動
+    ["浮気の基準の話は", <S30 />],                    // 32 次の問い
   ]} />
 );
 
@@ -126,7 +113,7 @@ const VerdictScene: React.FC = () => (
     ["", <S40 />, "cut"],                             // 42 前半 〇
     ["2つ目の証拠", <S41 />, "cut"],                 // 43 後半 ×
     ["予想タイムの答え", <S42 />, "cut"],             // 44 予想の答え C
-    ["掛け算の数よりずっと多い", <S43 />],                       // 45 掛け算の500倍
+    ["ずっと多くなるのは", <S43 />],// 45 掛け算の500倍
   ]} />
 );
 
@@ -146,13 +133,14 @@ const Lesson: React.FC = () => {
 
 // ================= 章の扉と終了画面（声のない場面） =================
 const card = (no: number, title: string): React.FC => () => <ChapterCard no={no} title={title} />;
-const End: React.FC = () => <EndScreen lesson={"ひとりの地図には、\n筋が通っている。\nそれでも、重ならない。"} />;
+// 終了画面は締めの夜の続き（共通の部品 SignOff の end。003 と同じ。2026-10-10 オーナー「普段通りのエンディングでOK」）
+const End: React.FC = () => <SignOff end />;
 
 const narrated = fromTiming(timing as Timing, {
   opening: Opening, today: Today, quiz: QuizScene,
-  "ch1-card": card(1, "日本の人は、どこに線を引く？"), ch1: Ch1,
-  "ch2-card": card(2, "誰と誰の線がずれる？"), ch2: Ch2,
-  "ch3-card": card(3, "線を越える人は、男女で違う？"), ch3: Ch3,
+  "ch1-card": card(1, "日本の人の、浮気の基準は？"), ch1: Ch1,
+  "ch2-card": card(2, "誰と誰の基準がずれる？"), ch2: Ch2,
+  "ch3-card": card(3, "浮気をする人は、男女で違う？"), ch3: Ch3,
   "verdict-card": () => <AbsoluteFill><Gosa cues={[[0, "thinking"]]} size="M" /></AbsoluteFill>, verdict: VerdictScene,
   lesson: Lesson,
 });
