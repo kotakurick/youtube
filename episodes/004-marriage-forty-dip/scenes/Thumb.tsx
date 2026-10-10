@@ -12,18 +12,18 @@ const T = "episodes/004-marriage-forty-dip/thumb/";
 const HUSBAND = { src: `${T}husband.png`, aspect: 492 / 1205 };
 const WIFE = { src: `${T}wife.png`, aspect: 387 / 1189 };
 
-const WORD = 112;
+const WORD = 118;
 const Thumb: React.FC = () => (
   <ThumbStage ground={["#18204A", "#7A3358"]}>
     {/* 妻の視線の先（右上）に暖かい灯、夫の後ろは少しだけ */}
     <Bokeh seed={4} n={12} x0={600} x1={930} colors={["#7FB2FF", "#FFB347"]} />
-    <Bokeh seed={7} n={18} x0={930} x1={1280} y0={40} y1={420} colors={["#FFB347", "#FF8A5C", "#FFE08A"]} />
+    <Bokeh seed={7} n={10} x0={930} x1={1280} y0={40} y1={420} blur={8} colors={["#FFE08A", "#FFB347"]} />
     {/* 妻が主役（大きく）、夫は一歩引いて、2人の間を空ける。ふちの光は同じ強さ（r3 2026-10-10） */}
     <Cutout {...WIFE} cx={1140} top={55} h={780} rim="rgba(255,175,125,.8)" z={1} />
     <Cutout {...HUSBAND} cx={815} top={95} h={700} rim="rgba(150,185,255,.95)" z={2} />
     <Vignette strength={0.65} />
-    <ThumbWord text="妻の不満が" size={WORD} top={220} />
-    <ThumbWord text="増える時期" size={WORD} top={220 + WORD * 1.22} />
+    <ThumbWord text="妻の不満が" size={WORD} top={205} />
+    <ThumbWord text="増える時期" size={WORD} top={205 + WORD * 1.22} />
   </ThumbStage>
 );
 
