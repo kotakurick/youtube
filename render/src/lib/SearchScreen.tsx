@@ -7,6 +7,7 @@
 //   - count に文字（"？" など）を渡すと、人数の代わりに出す（相手の画面など、中身が分からないとき）。
 //   - 原点は画面の中心。h は高さ px（幅は h×0.62）。文字は h に合わせて縮むが、28px より小さくしない（qa.ts）。
 //     h=600 で行の文字が画面からはみ出した（2026-10-06 イラストレーター・デザイナー役）ので、文字の大きさを h で決める。
+//   - 行が多いとき（6行など）は行の高さと文字を詰めて画面の中に収める（文字は28pxより小さくしない）。
 //   - axis：その条件がどの物差しの上にあるかの色（行の左に細い帯）。3本目は お金＝C.gold、身長＝C.teal（意味の色）。
 import React from "react";
 import { C, font, LINE, R } from "./theme";
@@ -19,8 +20,9 @@ export const SearchScreen: React.FC<{
 }> = ({ x, y, h = 820, count, unit = "人", title = "条件に合う会員", rows, prev }) => {
   const w = h * 0.62, k = h / 820;
   const left = x - w / 2, top = y - h / 2;
-  const rowH = 72 * k, rowsTop = top + 400 * k;
-  const fs = Math.max(28, 40 * k);
+  // 行が多いと画面の下からはみ出すので、行の高さを画面に収まるまで詰める（6行で h=640 が入る。2026-10-07）
+  const rowsTop = top + 400 * k, rowH = Math.min(72 * k, (h - 440 * k) / Math.max(1, rows.length));
+  const fs = Math.max(28, Math.min(40 * k, rowH * 0.6));
   return (
     <g data-qa="prop" data-qa-label="検索画面">
       <rect x={left} y={top} width={w} height={h} rx={56 * k} fill={C.ink} />
@@ -35,7 +37,7 @@ export const SearchScreen: React.FC<{
       <line x1={left + 44 * k} x2={left + w - 44 * k} y1={rowsTop - 24 * k} y2={rowsTop - 24 * k} stroke={C.paper2} strokeWidth={LINE.thin} />
       {rows.map((r, i) => {
         const cy = rowsTop + i * rowH + rowH / 2;
-        const bx = left + 60 * k, s = 44 * k;
+        const bx = left + 60 * k, s = Math.min(44 * k, rowH * 0.64);
         const ink = r.dim ? C.rest : C.ink;
         return (
           <g key={i} data-qa="mark" data-qa-label={`条件：${r.label}`}>

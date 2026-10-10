@@ -25,6 +25,7 @@
 数字の表記（2026-10-07 オーナー「漢数字と普通の数字がバラバラ」）:
     数量（年齢・人数・年数・割合・回数など）は算用数字で書く（30代・100組・3000人・4年前）。単位の前の漢数字はエラー。
     熟語（一緒・一度・一部・一番・一方・一人ひとり・十分）と「一日」（1日は「ついたち」と読まれる）は漢字のまま。
+    概数（数千円・数十年・数百人）も漢字のまま。
     読み上げる数字の数え方：ラベルの数字（30代・40歳・20年・100組・1つ目 のように単位が付くもの）は数えない。
 
 オーナーの日本語の指摘（docs/script-style.md の14章）:
@@ -84,12 +85,13 @@ STAT = r"%|割|倍|万|億|人に\d人"   # 統計らしい数字の目印
 
 # 声が読み間違えやすい漢字（2026-10-06 オーナー「側をそばと読む」）。tts/yomi.tsv に読みがなければ知らせる。
 # 読みは文脈で変わるので、一括では直さず、語ごとに yomi.tsv に足す（例：「女性の側」→「女性のがわ」）
-AMBIGUOUS = ["側", "他", "何人", "一日", "上手", "下手", "市場", "大分", "心中", "最中", "目下", "生物", "方々"]
+# 「入れ」「入っ」は いれ／はいれ、いっ／はいっ の読み分け（2026-10-07 003 オーナー「考えに入れる」）
+AMBIGUOUS = ["側", "他", "何人", "入れ", "入っ", "一日", "上手", "下手", "市場", "大分", "心中", "最中", "目下", "生物", "方々", "何話"]  # 何話：「なんはなし」と読んだ（2026-10-10 006)
 # 数字の表記（2026-10-07）
 KANJI_NUM = r"[〇一二三四五六七八九十百千万]+"
-UNIT = r"(代|歳|才|年|組|人|割|分|秒|時間|か月|ヶ月|カ月|月|週|つ|回|倍|章|件|本|個|位|番目|点|円|冊|枚|世帯|か国|カ国|%)"
+UNIT = r"(代|歳|才|年|組|人|割|分|秒|時間|か月|ヶ月|カ月|月|週|つ|回|倍|章|件|本|個|位|番目|点|円|冊|枚|世帯|か国|カ国|%|パーセント)"
 KANJI_OK = ["一日", "一人ひとり", "一つひとつ", "十分", "一番", "一度", "一時", "一年中"]
-LABEL_UNIT = r"(代|歳|年|組|章|つ|回|か月|月|週|人の調査)"   # 付くと「ラベル」とみなして数えない（「3000人の調査」は調査の呼び名）
+LABEL_UNIT = r"(代|歳|年|組|章|つ|回|通|か月|月|週|人の調査)"   # 付くと「ラベル」とみなして数えない（「3000人の調査」は調査の呼び名）
 
 # オーナーの日本語の指摘から、機械で見つけられる型（docs/script-style.md の14章。注意として出す）
 JA_PATTERNS = [
@@ -187,6 +189,9 @@ def tricks(text: str, long: bool) -> tuple[list, list]:
                 chapter_metaphors.setdefault(chapter, []).append(i)
     if "示唆" in found:   # 健康・お金の回は、ミクロの代わりに示唆を置く（11章）
         found.setdefault("ミクロ", found["示唆"])
+    for no, name in found.get("ミクロ", []):   # オーナーが冗長として外した回は「ミクロ なし（理由）」と書く（2026-10-07 003）
+        if name.startswith("なし"):
+            notes.append((no, f"ミクロを置いていない：{name}"))
     for kind, why in TRICK_REQUIRED.items():
         if kind not in found:
             (errors if long else notes).append((0, f"仕掛け「{kind}」の印がない（{why}。<!-- 仕掛け: {kind} --> を置く）"))
@@ -233,15 +238,40 @@ def ending_kind(s: str, core: str) -> str:
     return core[-2:]
 
 
-def numbers(s: str) -> list[str]:
-    """読み上げる数字。ラベルの数字（30代・20年・100組・1つ目）は数えない。"""
-    return [m.group(0) for m in re.finditer(r"\d+(?:[.,]\d+)*", s) if not re.match(LABEL_UNIT, s[m.end():])]
+# ラベルの数字（年齢・時刻・期間・回・章・年代・西暦・「3つ」のような個数、「〇人に1人」の1）は、覚えるデータではないので数えない。
+# 本線の LABEL_UNIT（30代・20年・100組・1つ目など）と合わせて除く。
+LABEL = re.compile(r"(?:歳|時|か月|ヶ月|カ月|週間|回目|度目|章|代|つ)|(?<=\d{4})年")
+
+
+def numbers(s: str, labels: bool = False, keys: bool = False) -> list[str]:
+    """読み上げる数字。labels=False ならラベルの数字を除く。keys=True なら「数字＋続く1字」（同じ量かの目印）で返す。"""
+    out = []
+    for m in re.finditer(r"\d+(?:[.,]\d+)*", s):
+        if not labels:
+            if LABEL.match(s, m.end()) or re.match(LABEL_UNIT, s[m.end():]) or (len(m.group()) == 4 and s[m.end():m.end() + 1] == "年"):
+                continue
+            if s[max(0, m.start() - 2):m.start()] == "人に" and m.group() == "1":
+                continue
+        out.append(m.group() + s[m.end():m.end() + 1] if keys else m.group())
+    return out
+
+
+def new_numbers(sents) -> dict:
+    """文ごとの「新しい数字」の数。前に言った数字を同じ単位でもう一度言うのは数えない
+    （基準の「1000人」や、本命の数字の言い直し。1つの数字に時間をかける、の決まりどおり。2026-10-07）。"""
+    seen, out = set(), {}
+    for no, s in sents:
+        ks = numbers(s, keys=True)
+        out[(no, s)] = sum(1 for k in ks if k not in seen)
+        seen.update(ks)
+    return out
 
 
 def kanji_numbers(s: str) -> list[str]:
     """単位の前の漢数字（算用数字で書くもの）。熟語は除く。"""
     for w in KANJI_OK:
         s = s.replace(w, "＿" * len(w))
+    s = re.sub(r"数[十百千万億]+", lambda m: "＿" * len(m.group(0)), s)   # 概数（数千円・数十年）は漢字のまま
     return [m.group(0) for m in re.finditer(r"(?<![0-9０-９])" + KANJI_NUM + UNIT, s)]
 
 
@@ -260,20 +290,22 @@ def main():
     errors, notes = [], []
 
     # 数字
+    fresh = new_numbers(sents)
     all_nums = [(no, n) for no, s in sents for n in numbers(s)]
-    per_min = len(all_nums) / minutes if minutes else 0
+    n_fresh = sum(fresh.values())
+    per_min = n_fresh / minutes if minutes else 0
     if per_min > NUM_PER_MIN:
         (errors if minutes >= 3 else notes).append((0, f"読み上げる数字が1分に{per_min:.1f}個（{NUM_PER_MIN}個まで）。数字を減らし、1つの数字に時間をかける"))
     window, acc, start_no = CHARS_PER_MIN, [], None
     for no, s in sents:   # 約1分ごとに区切って、数字が多すぎる所を探す
         acc.append((no, s))
         if sum(len(x) for _, x in acc) >= window:
-            k = sum(len(numbers(x)) for _, x in acc)
+            k = sum(fresh[(n2, x)] for n2, x in acc)
             if k > NUM_PER_MIN + 1:
                 notes.append((acc[0][0], f"{acc[0][0]}〜{no}行目の約1分に数字が{k}個"))
             acc = []
     for no, s in sents:
-        for n in numbers(s):
+        for n in numbers(s, labels=True):
             if "." in n:
                 errors.append((no, f"小数を読み上げている（{n}）。丸めて言い、細かい値は画面に出す"))
         if re.search(r"\d", s) and re.search(STAT, s):
@@ -299,7 +331,13 @@ def main():
         if length > SENT_MAX:
             notes.append((no, f"文が{length}字（{SENT_MAX}字まで）：{s[:30]}…"))
         if s.startswith("では、"):  # eleven-yui が「では、では」と2回読むことがある（2026-10-06。docs/script-style.md の7章）
-            errors.append((no, f"文の頭の「では、」は声が2回読むことがある。前置きなしで始めるか「それなら、」などにする：{s[:30]}"))
+            errors.append((no, f"文の頭の「では、」は声が2回読むことがある。前置きなしで始めるか「ここで、」「けれど、」などにする：{s[:30]}"))
+        if re.match(r"それ(から|なら|でも)", s):  # 「そ、それから」とどもって聞こえた（2026-10-10 006。docs/owner-feedback.md の声）
+            errors.append((no, f"文の頭の「それから・それなら・それでも」は、声が「そ、それから」とどもることがある。「続いて」「ここで」「けれど」「ただ」などにする：{s[:30]}"))
+        if re.fullmatch(r"[0-9,.]+(人|組|円|万円|%|個|歳|センチ)?。?", s):  # 「1000人。」「106人。」を英語で読んだ（2026-10-11 003。docs/owner-feedback.md の声）
+            errors.append((no, f"数字だけの文は、声が英語で読むことがある（「わんはんどれっど」）。「数字は、106人になりました」のように日本語の中に置く：{s[:30]}"))
+        if s.startswith("差が"):  # 「ささ」と聞こえた（2026-10-11 003）
+            errors.append((no, f"文の頭の「差が」は「ささ」と聞こえることがある。「男女で大きく違ったのは」などにする：{s[:30]}"))
         if s.count("、") > COMMA_MAX:
             notes.append((no, f"読点が{s.count('、')}個（{COMMA_MAX}個まで）"))
         m = re.search(r"[一-龥]{%d,}" % KANJI_RUN, s)
@@ -403,7 +441,7 @@ def main():
             notes.append((no, f"「{ch}」の最後の文が問いになっていない。次の章への問いで終える：{s_last[:30]}"))
 
     # 出力
-    print(f"{a.script}：{chars:,}字、読み上げ約{minutes:.1f}分、数字{len(all_nums)}個（1分に{per_min:.1f}個）、{len(sents)}文")
+    print(f"{a.script}：{chars:,}字、読み上げ約{minutes:.1f}分、数字{len(all_nums)}個（言い直しを除く{n_fresh}個、1分に{per_min:.1f}個）、{len(sents)}文")
     if minutes >= 10 and not (5500 <= chars <= 7500):
         notes.append((0, f"全体が{chars:,}字（15〜20分なら約5,500〜7,500字）"))
     errors, notes = list(dict.fromkeys(errors)), list(dict.fromkeys(notes))   # 同じ行の同じ指摘は1つに

@@ -7,7 +7,7 @@
 - 場面を作っていて、ここにない表現が要るときは、**回の中ではなく `render/src/lib/` に部品として作る**。回の中に書いた便利な部品も、次の回で使えそうなら lib に移す。
 - 部品を作ったら：
   1. ファイルの頭に「何の部品か・決まり」をコメントで書く（ほかの部品と同じ形）
-  2. 描いたものに `data-qa` の印を付ける（`render/src/lib/qa.ts`）
+  2. 描いたものに `data-qa` の印を付ける（`render/src/lib/qa.ts`）。大きな数字の単位として認める字は qa.ts の UNIT（7本目第2版で「つ」を足した：「0つ」の数の札）
   3. この一覧に1行足す
   4. 見た目を確かめる見本が要るものは `render/src/demo/` に静止画を作り、`Root.tsx` に登録する
 - オーナーの指摘で部品を直したときは、部品のコメントに日付と指摘を書く（同じ失敗を次の回で繰り返さないため）。
@@ -18,7 +18,7 @@
 |---|---|---|
 | Figure | Figure.tsx | 群衆の1人（人型）。男女は色と胴の形。姿勢5つ。名札は文字40px固定、1人の寄りでは `ring={false}`（2026-10-05）。顔は描かない（2026-10-05 オーナー「目玉はいらない」） |
 | Crowd | Crowd.tsx | 群衆（100人＝1人1%）。出発点→到着点へばねで移る |
-| Cat | Cat.tsx | 物語の場面の登場人物（猫・トラ柄）。ポーズ5つ・表情7つ（2026-10-06 眠る `sleep`・少し笑う `smile` を足した）。顔を横へ向ける `turn`（−1〜1。大きな猫の向きを見せる。0 なら前と同じ絵）。`think` は人に向けるとジト目に見えるので、男女の回では人に向けない。見本 `cat-poses` |
+| Cat | Cat.tsx | 物語の場面の登場人物（猫・トラ柄）。ポーズ5つ・表情7つ（2026-10-06 眠る `sleep`・少し笑う `smile` を足した）。顔を横へ向ける `turn`（−1〜1。大きな猫の向きを見せる。0 なら前と同じ絵）。`think` は人に向けるとジト目に見えるので、男女の回では人に向けない。男女の回でない回は主人公も群衆も紫 `kind="plain"`、意味の色は `color`（2026-10-07）。見本 `cat-poses` |
 | Gosa | Gosa.tsx | 案内役ゴサ。右下に固定、表情11種 |
 
 ## 文字の札
@@ -69,7 +69,7 @@
 | FilterSteps | FilterSteps.tsx | 条件を重ねて100人が減る |
 | ConditionGrid | ConditionGrid.tsx | 条件の盤（2×2）。仮定を2つ動かした4つの町で、どちらが勝つかを横棒で比べる（条件で答えが変わる回） |
 | SimSpread | SimSpread.tsx | シミュレーションのばらつき |
-| Slider | Slider.tsx | 「もしも」の条件のつまみ |
+| Slider | Slider.tsx | 「もしも」の条件のつまみ（3本目は年収の目盛り。線とつまみに印あり） |
 | SimBackground | SimBackground.tsx | シミュレーションの場面の方眼 |
 
 ## 物語の場面
@@ -78,7 +78,8 @@
 |---|---|---|
 | Backdrop | Backdrop.tsx | 背景（部屋・駅・夜の街・職場）。`night` で夜 |
 | Props | Props.tsx | 小道具（Phone・Table・Chair・Desk・Clock・Calendar・Cup・Bench） |
-| Icons | Icons.tsx | 小さな目印の絵（64px）：Ball・Randoseru・Bottle・SchoolBag・Ear・Hanamaru・Bulb・House・Briefcase。文字だけの札・軸の区切りに添える（4本目） |
+| Icons | Icons.tsx | 小さな目印の絵（64px）：Ball・Randoseru・Bottle・SchoolBag・Ear・Hanamaru・Bulb・House・Briefcase。文字だけの札・軸の区切りに添える（4本目）。7本目で足した：Grill・Clipboard・CarIcon・StockChart・Envelope・IdCard・Office・Mug・Gavel・ICChip・CloudIcon・Tool（会社名・ロゴは描かない一般名の目印）。第2版で Grill を描き直し（網・火・肉）、CallDesk（ヘッドセットの人と机。問い合わせの窓口）・Ingot（金と銀の延べ棒、`kind`）を足した |
+| Inbox | Inbox.tsx | メールの受信箱（検索窓と行）。送り主は一般名と目印、`mark` で読んでいる行に墨の枠、`dim` で話の外。実在の画面に似せない（7本目）。`phone` でスマホの黒い枠と未読の点（青緑）。InboxMini は右上に置く小さな受信箱（`focus` で今の話の行に墨の枠、ほかは薄く。印は prop）。章をまたいで「いまどの1通の話か」を示す（7本目第2版） |
 | SwipeDeck | StoryAnim.tsx | スマホのカードが左右へ飛ぶ |
 | NotifStack | StoryAnim.tsx | いいねの通知が積もる |
 | OfficeYears | StoryAnim.tsx | 職場の机が年ごとに空いていく |
@@ -87,6 +88,7 @@
 | Balance / LooseWeight | Balance.tsx | 天秤。皿は三角のひもで吊り、分銅はつまみ付き・横幅一定・高さ＝量（面積＝量）。針と目盛りは支点の下。傾きは量の差から、`tilt`＋`moving`（前の角度の残像・下向きの矢印）で動いている途中。`veiled` で中身を隠す「？」の袋、`dashed` で量り忘れ。皿の外の点線の分銅は `LooseWeight`（4本目） |
 | CouplePairs / PeopleRows | CouplePairs.tsx | 夫婦の組の並び（1組＝夫と妻が肩を接して立ち、床1枚。組と組のあいだは空ける。夫が左）と、組にする前の性別ごとの列。注目は濃い色、`mark` で床を墨のふち（4本目の引き算） |
 | Tv・TvGlow・Sofa | Living.tsx | 居間のテレビ（画面にドラマの1場面）とソファ（6本目） |
+| Pawnshop / Stall / Loot / Coins | Pawnshop.tsx | 質屋の比喩（盗んだ物・情報をお金に換える所）。`state` で開いている／シャッター半分／閉まった、名札は地面から 30*s+50 の下（s は0.6以上）。Stall は闇の売り場の抽象的な屋台（棚に盗品、金の枠の値札）。Loot は盗品の目印（青緑。point だけ金）、Coins は積んだ硬貨（金）（7本目）。第2版で状態の差を大きくした：open は金の床の明かり・のれん・金の窓、half はシャッター65%で明かり小、closed は灰の建物に「閉」の札。`shut`（0〜1）でシャッターの量を外から決め、下りる動きを見せる（2026-10-10） |
 | BorderMap | BorderMap.tsx | 地図と国境線の比喩（ひとりの線＝1枚の地図）。seed で線の形、2本重ねてずれを見せる（6本目） |
 | Bedroom | Bedroom.tsx | 夜のワンルーム（ベッド・時計1時10分・月の窓）。窓に雪・雲・床の光を出せる。冒頭と締めで同じ部屋に（2本目） |
 
@@ -106,20 +108,23 @@
 |---|---|---|
 | ChapterCard / ChapterDots | Chapter.tsx | 章の扉と位置の点 |
 | Quiz | Quiz.tsx | 予想タイム（問いと選択肢を全面で）。読み上げに合わせる `choiceAt`・`ringAt`・`revealAt`、引っかけの揺れ `nudge`、ゴサの足元 `gosaFoot`（4本目） |
-| Verdict | Verdict.tsx | 答え合わせ（〇△×）。証拠の文は `\n` で手で改行できる。読み上げに合わせる `chipAt`・`hitAt`（4本目） |
+| Verdict | Verdict.tsx | 答え合わせ（説と証拠3つとゴサ。〇△×の札は出さない。`mark` はゴサのひげにだけ使う）。証拠の文は `\n` で手で改行できる。読み上げに合わせる `chipAt`・`hitAt`（4本目） |
+| ClaimCards / CountPick | Claims.tsx | よく聞く話（通説）のカード（`cols` 2＝名前＋一文、4＝名前だけの横1列。`shown` で出ている数、`icons` で目印（ClaimIcon：up・cash・genius・rich）、`tones`（hit／half／miss）で左の縁の帯、`words` で判定の言葉。記号は使わない）と、「本当の話はいくつ？」の0〜nの札（`answer` で墨に）。今日の答え合わせ・予想タイム・予想の答えで同じ並び（7本目。第2版で印をやめ帯と言葉に） |
+| SplitClaim / ClaimStrip | SplitClaim.tsx | 記号を使わない答え合わせ。SplitClaim は話のカードが「当たっていた所」（青緑の縁・実線）と「外れていた所」（灰の縁・点線、右下にずれる）に割れ、最後に言葉（`word`）を出す。`hit` がなければ全部が外れ。ClaimStrip は上に4つの話の札を横1列（`current` に墨の太枠、済んだ札に帯と言葉）。4つを同じ舞台で順に入れ替える。割れた札は印 mark（7本目第2版） |
 | Cards | Cards.tsx | チャンネル名・今日の答え合わせ・中間の確認・登録の一言 |
 | Camera | Camera.tsx | 寄り・引き・横移動 |
 | Beat / Enter / EnterG / Wipe / ramp / useCue | Motion.tsx | 場面の中の区切りと出し方：区切り（Beat）、ばねで出す（Enter は HTML、EnterG は SVG の中）、左→右・下→上にぬぐって見せる（Wipe）、0→1 の補間（ramp）、読み上げの語の時刻（useCue。見つからなければ予備の値）（4本目） |
 | Counter / Bracket | Counter.tsx・Bracket.tsx | 人数の数え上げ・まとまりの括弧 |
 | SignOff | SignOff.tsx | 毎回の締めのひと言のアニメーション（丘の上のゴサが100個の点を数え、点が星になる）。教訓のあとに `<SignOff />`、終了画面に `<SignOff end />`（同じ夜のまま右に次の1本・再生リストの枠） |
 | EndScreen | EndScreen.tsx | 古い終了画面（紙の地）。新しい回は `<SignOff end />` を使う |
-| Thumbnail | Thumbnail.tsx | サムネイル |
+| Thumbnail | Thumbnail.tsx | 古いサムネイル（紙色の地＋墨の帯。2026-10-10 から使わない） |
+| ThumbStage / Bokeh / Cutout / ThumbWord / CountRow / ChannelBand / Vignette | ThumbKit.tsx | サムネイルの型（2026-10-10 の様式）：夜のグラデーションの地、街のぼけ、抜いた人形（逆光のふち・落ち影・スマホの光）、太いゴシックの言葉（黒い縁）、数える印（薄い列で1人だけ大きく光る）、紫の帯（使わない）、周りを暗く。人形は Canva の画像生成を緑の背景で作り `scripts/chroma_key.py` で抜く |
 
 ## 画面・小道具（3本目で追加）
 
 | 部品 | ファイル | 使う所 |
 |---|---|---|
-| SearchScreen | SearchScreen.tsx | 相談所・婚活サービスの「会員を探す画面」。上に条件に合う人数、下にチェックの行（`mark` で枠、`dim` で話の外）。実在のサービスに似せない。人数の代わりに「？」も出せる（相手の画面）。3本目で作った（2026-10-06） |
+| SearchScreen | SearchScreen.tsx | 相談所・婚活サービスの「会員を探す画面」。上に条件に合う人数、下にチェックの行（`mark` で枠、`dim` で話の外）。実在のサービスに似せない。人数の代わりに「？」も出せる（相手の画面）。行が多い（6行など）と行の高さを詰めて画面に収める（2026-10-07）。3本目で作った（2026-10-06） |
 | TwoRulers | TwoRulers.tsx | 二本の物差し：横（お金・金）と縦（身長・青緑）の間に100人を並べた模式図。同じ物差しの条件の切り線は平行（重ねても減らない）、別の物差しは直角（掛け算で減る）（3本目、2026-10-06） |
 | Sieve | Sieve.tsx | ふるい（楕円の縁・網・取っ手）。dashed は相手の側の「数え忘れている」ふるい（3本目、2026-10-06） |
 | TwoSieves | TwoSieves.tsx | （3本目の絵コンテ第2版では使わなかった。人型が小さい）両側のふるい：女性が男性を選ぶ100人・男性が女性を選ぶ100人・両方を通った100組を横に並べる。片側なら多く通るのに、両側は少ない（3本目、2026-10-06） |

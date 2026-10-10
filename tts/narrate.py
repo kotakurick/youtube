@@ -35,7 +35,7 @@ spec.loader.exec_module(lint)
 
 GAP = 0.5         # 文と文の間（秒）。0.25 では詰まって聞こえた（2026-10-05 オーナー「文と文の間はもっと長く」）
 TAIL = 0.6        # 場面の最後の余韻（秒）
-SUB_MAX = 24      # 字幕1枚の字数（1行。縦長のショートは --vertical で16字）
+SUB_MAX = 26      # 字幕1枚の字数（1行。縦長のショートは --vertical で16字。2026-10-07 24→26、文字は48px）
 SECTION_IDS = {
     "冒頭の物語": "opening", "今日の答え合わせ": "today", "予想タイム": "quiz",
     "第1章": "ch1", "第2章": "ch2", "第3章": "ch3", "第4章": "ch4", "第5章": "ch5", "答え合わせ": "verdict", "教訓": "lesson",
@@ -52,7 +52,12 @@ def parse(script: Path) -> list[dict]:
         line = raw.strip()
         m = MARK.search(line)
         if m:
-            cur = {"id": m.group(1), "seconds": float(m.group(2)) if m.group(2) else None, "lines": []}
+            new = {"id": m.group(1), "seconds": float(m.group(2)) if m.group(2) else None, "lines": []}
+            # 見出しのすぐ後に、見出しと同じ id の印を書いたときは1つの場面にする（2026-10-07）
+            if cur is not None and not cur["lines"] and cur["seconds"] is None and cur["id"] == new["id"]:
+                cur["seconds"] = new["seconds"]
+                continue
+            cur = new
             scenes.append(cur)
             continue
         if line.startswith("```"):
@@ -123,7 +128,7 @@ KANA = re.compile(r"[ぁ-ゖ]")
 
 
 def subtitle_parts(s: str, limit: int = SUB_MAX) -> list[str]:
-    """字幕は1行（横長24字・縦長16字）。長い文は、台本の｜ → 読点 → 助詞のあと の順に、真ん中に近い所で分ける。
+    """字幕は1行（横長26字・縦長16字）。長い文は、台本の｜ → 読点 → 助詞のあと の順に、真ん中に近い所で分ける。
     助詞で切るのは、助詞の前が漢字・カタカナ・数字・閉じかっこのときだけ（「ひと｜つ」「ふたり｜とも」のような語の途中で切らない）。"""
     if BREAK in s:
         marks = [p for p in s.split(BREAK) if p]

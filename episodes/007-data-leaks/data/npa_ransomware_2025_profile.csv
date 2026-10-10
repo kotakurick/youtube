@@ -1,0 +1,20 @@
+﻿item,category,count,denominator,source,page,url
+規模別,大企業,64,226,警察庁「令和7年におけるサイバー空間をめぐる脅威の情勢等について」(2026年3月),本文14頁 図表7・統計編122頁,https://www.npa.go.jp/publications/statistics/cybersecurity/data/R7/R07_jousei_data.xlsx
+規模別,中小企業,143,226,警察庁「令和7年におけるサイバー空間をめぐる脅威の情勢等について」(2026年3月),同,https://www.npa.go.jp/publications/statistics/cybersecurity/data/R7/R07_jousei_data.xlsx
+規模別,団体等,19,226,警察庁「令和7年におけるサイバー空間をめぐる脅威の情勢等について」(2026年3月),同,https://www.npa.go.jp/publications/statistics/cybersecurity/data/R7/R07_jousei_data.xlsx
+復旧期間,即時～1週間未満,29,107,警察庁「令和7年におけるサイバー空間をめぐる脅威の情勢等について」(2026年3月),統計編125頁,https://www.npa.go.jp/publications/statistics/cybersecurity/data/R7/R07_jousei_data.xlsx
+復旧期間,1週間～1か月未満,31,107,警察庁「令和7年におけるサイバー空間をめぐる脅威の情勢等について」(2026年3月),統計編125頁,https://www.npa.go.jp/publications/statistics/cybersecurity/data/R7/R07_jousei_data.xlsx
+復旧期間,1か月～2か月未満,15,107,警察庁「令和7年におけるサイバー空間をめぐる脅威の情勢等について」(2026年3月),統計編125頁,https://www.npa.go.jp/publications/statistics/cybersecurity/data/R7/R07_jousei_data.xlsx
+復旧期間,2か月以上,7,107,警察庁「令和7年におけるサイバー空間をめぐる脅威の情勢等について」(2026年3月),統計編125頁,https://www.npa.go.jp/publications/statistics/cybersecurity/data/R7/R07_jousei_data.xlsx
+復旧期間,復旧中,25,107,警察庁「令和7年におけるサイバー空間をめぐる脅威の情勢等について」(2026年3月),統計編125頁,https://www.npa.go.jp/publications/statistics/cybersecurity/data/R7/R07_jousei_data.xlsx
+調査・復旧費用総額,100万円未満,16,89,警察庁「令和7年におけるサイバー空間をめぐる脅威の情勢等について」(2026年3月),統計編126頁,https://www.npa.go.jp/publications/statistics/cybersecurity/data/R7/R07_jousei_data.xlsx
+調査・復旧費用総額,100万～500万円未満,18,89,警察庁「令和7年におけるサイバー空間をめぐる脅威の情勢等について」(2026年3月),統計編126頁,https://www.npa.go.jp/publications/statistics/cybersecurity/data/R7/R07_jousei_data.xlsx
+調査・復旧費用総額,500万～1000万円未満,9,89,警察庁「令和7年におけるサイバー空間をめぐる脅威の情勢等について」(2026年3月),統計編126頁,https://www.npa.go.jp/publications/statistics/cybersecurity/data/R7/R07_jousei_data.xlsx
+調査・復旧費用総額,1000万～5000万円未満,32,89,警察庁「令和7年におけるサイバー空間をめぐる脅威の情勢等について」(2026年3月),統計編126頁,https://www.npa.go.jp/publications/statistics/cybersecurity/data/R7/R07_jousei_data.xlsx
+調査・復旧費用総額,5000万～1億円未満,9,89,警察庁「令和7年におけるサイバー空間をめぐる脅威の情勢等について」(2026年3月),統計編126頁,https://www.npa.go.jp/publications/statistics/cybersecurity/data/R7/R07_jousei_data.xlsx
+調査・復旧費用総額,1億円以上,5,89,警察庁「令和7年におけるサイバー空間をめぐる脅威の情勢等について」(2026年3月),統計編126頁,https://www.npa.go.jp/publications/statistics/cybersecurity/data/R7/R07_jousei_data.xlsx
+業務への影響,全業務停止,9,117,警察庁「令和7年におけるサイバー空間をめぐる脅威の情勢等について」(2026年3月),統計編131頁,https://www.npa.go.jp/publications/statistics/cybersecurity/data/R7/R07_jousei_data.xlsx
+業務への影響,一部の業務に影響有,97,117,警察庁「令和7年におけるサイバー空間をめぐる脅威の情勢等について」(2026年3月),統計編131頁,https://www.npa.go.jp/publications/statistics/cybersecurity/data/R7/R07_jousei_data.xlsx
+業務への影響,影響無,11,117,警察庁「令和7年におけるサイバー空間をめぐる脅威の情勢等について」(2026年3月),統計編131頁,https://www.npa.go.jp/publications/statistics/cybersecurity/data/R7/R07_jousei_data.xlsx
+バックアップからの復元,復元可,20,99,警察庁「令和7年におけるサイバー空間をめぐる脅威の情勢等について」(2026年3月),統計編129頁,https://www.npa.go.jp/publications/statistics/cybersecurity/data/R7/R07_jousei_data.xlsx
+バックアップからの復元,復元不可,79,99,警察庁「令和7年におけるサイバー空間をめぐる脅威の情勢等について」(2026年3月),統計編129頁,https://www.npa.go.jp/publications/statistics/cybersecurity/data/R7/R07_jousei_data.xlsx
