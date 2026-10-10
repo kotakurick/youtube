@@ -50,7 +50,7 @@
 - [x] 5. 場面のコード（クラウド。2026-10-06 第1版：絵コンテの場面を読み上げの語で切り替え、はしごの数え下げ）→ `scenes/Episode.tsx`（`Episode.example.tsx` を名前を変えて使う。部品は `render/src/lib`、動きは `useNarration()` で読み上げに合わせる）
 - [x] 6. 仮通し（クラウド。2026-10-06：無音・半分の解像度で書き出し、オーナーに送った。12分45秒＋終了画面）：`python tts/narrate.py episodes/006-cheating-line --voice silent` で仮の尺と字幕（`timing.json`）を作り、部品のない場面は仮の画面（draft）で13〜18分を通して、テンポ・章の長さ・考える場面の位置を直す
 - [x] 7. 音声合成（ローカル。2026-10-07：14分38秒、聞いて確かめる文1つは区切り3つで読み直しなし。合図の語37個OK）：`python tts/narrate.py episodes/006-cheating-line --voice eleven-yui`（文ごとに作り、尺・字幕・`subtitles.srt` も自動で声に合う。同じ文は作り直さない）
-- [x] 8. 書き出し・BGM・音量（ローカル。2026-10-08：BGM は Stayin' Lazy（2026-10-07 オーナー）、render/out/006-cheating-line.master.mp4 14分58秒。2026-10-10 第4稿（オーナーの通しの指摘を反映）で書き出し直し 12分36秒）：`npm run render`、`npm run master`（BGM は `npm run bgm` で測ってそろえたもの）
+- [x] 8. 書き出し・BGM・音量（ローカル。2026-10-08：BGM は Stayin' Lazy（2026-10-07 オーナー）、render/out/006-cheating-line.master.mp4 14分58秒。2026-10-10 第4稿（オーナーの通しの指摘を反映）で書き出し直し 12分36秒。同日 第5稿（予想タイムなし）11分41秒）：`npm run render`、`npm run master`（BGM は `npm run bgm` で測ってそろえたもの）
 - [x] 9. 画面のチェック（2026-10-07：直すもの0・確かめるもの0）：`cd render && npm run check -- 006-cheating-line` の「直すもの」を0にし、「確かめるもの」は画像を見て判断する（重なり・28px未満の文字・はみ出し。結果は `render/out/qa/006-cheating-line/`）。縦型ショートも同じ
 - [ ] ★ 1.25倍速で通し確認（オーナー）
 - [x] ★ サムネイルとタイトルの最終決定（オーナー。2026-10-10）→ `meta.md`
