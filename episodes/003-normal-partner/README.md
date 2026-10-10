@@ -15,7 +15,8 @@
 - サムネイル役の点：back 6.0 → 6.5 → **7.0**（`review/thumbnail-r3.md`〜`r5.md`）。r5 の残りの小さな直し2つも入れた。
 - 人形の画像（Git の外）：`render/public/episodes/003-normal-partner/thumb/man.png`・`woman.png`。作り直すときは Canva のデザイン DAHXmpcBZe4 の5・6ページ（緑の背景の人形）を PNG で書き出し、`uv run --no-project --python 3.12 --with pillow --with numpy python scripts/chroma_key.py 入力 出力`。完成のサムネイルは `render/out/thumb003/doll-back.png`（オーナーに送った）。
 - 古い案（`scenes/Thumb.tsx`・`Thumb-zero.tsx`）は比べるために残している。
-- **次にすること**：①★照合（S1 は重視のみ、S2 の一部、S11、S17〜S21）。②本線に合流してからローカルで声と書き出し。
+- 2026-10-10 ★照合 済（オーナー「照合は済」）：S1・S2・S11・S17〜S21。`sources.csv` の照合欄を「済」にした。S8（台本で2か所）は照合欄が「未」のまま（オーナーに確認中）。
+- **次にすること**：①本線に合流（済ませたらここに書く）。②ローカルで声（Yui）と書き出し。
 - 未決：猫の案・数える案を「テストと比較」の相手にするか。
 
 ### 2026-10-07 仮通し・タイトル・サムネイル
