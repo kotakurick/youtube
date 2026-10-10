@@ -16,7 +16,9 @@
 - 人形の画像（Git の外）：`render/public/episodes/003-normal-partner/thumb/man.png`・`woman.png`。作り直すときは Canva のデザイン DAHXmpcBZe4 の5・6ページ（緑の背景の人形）を PNG で書き出し、`uv run --no-project --python 3.12 --with pillow --with numpy python scripts/chroma_key.py 入力 出力`。完成のサムネイルは `render/out/thumb003/doll-back.png`（オーナーに送った）。
 - 古い案（`scenes/Thumb.tsx`・`Thumb-zero.tsx`）は比べるために残している。
 - 2026-10-10 ★照合 済（オーナー「照合は済」）：S1・S2・S11・S17〜S21。`sources.csv` の照合欄を「済」にした。S8（台本で2か所）は照合欄が「未」のまま（オーナーに確認中）。
-- **次にすること**：①本線に合流（済ませたらここに書く）。②ローカルで声（Yui）と書き出し。
+- 2026-10-10 本線に合流した（クラウドの作業はここまで）。画面のチェック 直すもの 0件。
+- **次にすること（ローカル）**：①`git pull` で本線を取る。②声：`python tts/narrate.py episodes/003-normal-partner --voice eleven-yui`。③書き出し：`cd render && npm run render -- 003-normal-partner out/003-normal-partner.mp4`、`npm run master`。④サムネイルは送った `doll-back.png` を使う（人形の画像は Git の外なので、PCでは書き出し直さない）。
+- S8（台本で2か所。双子の研究の48%・52%）は照合欄が「未」のまま。オーナーに確認中。
 - 未決：猫の案・数える案を「テストと比較」の相手にするか。
 
 ### 2026-10-07 仮通し・タイトル・サムネイル
