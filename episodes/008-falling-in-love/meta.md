@@ -25,6 +25,20 @@
 - **推し（2026-10-10 クラウド）：B**。レビュー r1 B 6点（A・C 5点：本編が仮説で言うことを断定する）→ r2 **B 7点（合格）**・B' 6点（「好み」はかなが混じって小さくても読め、視聴者の言葉。「条件」は重い）→ r2 の仕上げ（人形を上げて右下を空ける・字を中心へ・周りの暗さを軽く）を入れた。★オーナーの確認待ち。競合の間に並べた見本での確かめはまだ（`review/thumbnail-r2.md`）
 - やめた案：「条件の表は／当たらない」（S20 で恋人は最初の好みにある程度近かった。言い過ぎ）
 
+### 人でない案（2026-10-10 オーナー「人間じゃなくてもいいから最高のサムネイルにして」）
+
+本編の比喩をそのまま物にした。字はどれも B「好みのほうが／書き換わる」。
+- **X `008-falling-in-love-thumb-xheart`（推し）**：左半分は条件のチェックリスト（✓✗✗）、右半分が塩の結晶に変わっていく紙のハート。表から恋への書き換わりを1枚で見せる（レビュー r3 の案）
+- `-heart`：チェックリストで折ったハート ／ `-cheart`：塩の結晶に覆われた枝のハート（スタンダールの結晶）／ `-crystal`：cheart に「恋は／結晶する」
+- 点数：r3 heart 8・rewrite（人形）7・cheart 6.5・crystal 6 → r4 **xheart 8.5**・heart 7.5・rewrite 7 → r4 の直し（字 110px で1行目の右端をハートから離す・紙を明るく✓✗✗の3つに・結晶の光を弱めて紙のふちに白い光）を入れて r5（`review/thumbnail-r5.md`）
+- r4 の注意：オーナーの好みは「人の感情の見える情景＋心の声」。人のいない物の絵は反応が割れるかもしれないので、★オーナーに見せて確かめる
+
+**xheart の画像の作り方**：下の指示文で3枚作り、5枚目（`xheart-src5.png`）を使った → `python scripts/chroma_key.py xheart-src5.png xheart-before.png 8 16 fill`（結晶は中に緑が透けるので `fill`）→ `python episodes/008-falling-in-love/tools/fix_xheart.py xheart-before.png xheart.png`（紙のむらをならして明るい白に・赤を #D62828 寄りに・4つ目の✗を消して同じ傾きと間隔の罫線を描き足す・左下のふちを直線で引き直す・結晶の外の黄土色のもやを消す）。
+
+```
+Dramatic photorealistic macro product photo, dark moody lighting. A single upright origami heart folded from thick white checklist paper, standing, seen slightly from the front-left, entire heart visible, filling 80% of the frame. LEFT half: crisp white paper with 5 rows of large bold square checkboxes and ruled lines; three boxes ticked with thick bold red marker checkmarks, two with thick bold red X marks (red #D62828). RIGHT half: the paper is being transformed into a cluster of large, sharp, faceted, clear salt crystals (cubic halite crystals, like quartz or diamonds), sparkling with bright specular highlights and tiny rainbow glints, catching strong warm golden backlight from the upper right; the crystals grow across the fold and swallow two of the checkboxes. Strong contrast, glowing rim light. No readable words. Background: flat, uniform, highly saturated chroma-key green screen, exact color #00B140, no gradient, no floor, no shadow on background, no other objects. Square.
+```
+
 ### 人形の画像（Gemini の API。2026-10-10 クラウド）
 
 `python scripts/gemini_image.py "<下の指示文>" _local/episodes/008-falling-in-love/thumb/doll-src3.png --aspect 2:3` → `python scripts/chroma_key.py doll-src3.png doll.png 14 28`（Gemini の緑は淡いので境目を下げる）。日本語の指示文では画像が返らなかった（NO_IMAGE）。顔の目鼻を消すには「featureless」をはっきり書く（1回目は鼻と口が出た）。4枚作って3枚目を使った。

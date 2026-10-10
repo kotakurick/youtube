@@ -47,15 +47,18 @@ const Thumb: React.FC<{ lines: [string, string]; size?: number; hi?: 0 | 1 }> = 
 // cheart＝塩の結晶に覆われた枝のハート（スタンダールの結晶。締め「結晶は、好きになったあとから付きはじめます」）
 const OBJ = {
   heart: { src: "episodes/008-falling-in-love/thumb/heart.png", aspect: 724 / 787 },
+  // xheart＝左半分は条件のチェックリスト、右半分が塩の結晶に変わっていく紙のハート（レビュー r3 の案X。表から恋への書き換わりを1枚で）
+  xheart: { src: "episodes/008-falling-in-love/thumb/xheart.png", aspect: 731 / 711 },
   cheart: { src: "episodes/008-falling-in-love/thumb/cheart.png", aspect: 860 / 902, tone: "saturate(.5) brightness(1.12) contrast(1.08)" }, // 黄色いと砂糖に見えるので色を抑える
 };
 
 /** 物の絵：cx・top・h、rot＝傾き（度） */
-const Obj: React.FC<{ o: { src: string; aspect: number; tone?: string }; cx: number; top: number; h: number; rot?: number; rim?: string }> = ({ o, cx, top, h, rot = 0, rim = "rgba(255,200,140,.8)" }) => (
+// edge＝ふちの細い光（r4：紙のふちに白い光。地の紺から紙を浮かせる）
+const Obj: React.FC<{ o: { src: string; aspect: number; tone?: string }; cx: number; top: number; h: number; rot?: number; rim?: string; edge?: string }> = ({ o, cx, top, h, rot = 0, rim = "rgba(255,200,140,.8)", edge }) => (
   <Img data-qa="figure" src={staticFile(o.src)} style={{
     position: "absolute", left: cx - (h * o.aspect) / 2, top, height: h, width: h * o.aspect, zIndex: 2,
     transform: `rotate(${rot}deg)`,
-    filter: `${o.tone ?? ""} drop-shadow(0 0 22px ${rim}) drop-shadow(0 26px 34px rgba(0,0,0,.6))`,
+    filter: `${o.tone ?? ""} ${edge ? `drop-shadow(0 0 3px ${edge})` : ""} drop-shadow(0 0 22px ${rim}) drop-shadow(0 26px 34px rgba(0,0,0,.6))`,
   }} />
 );
 
@@ -65,12 +68,12 @@ const Spot: React.FC<{ x: number; y: number; color: string; r?: number }> = ({ x
 );
 
 // 字の右端（6字×120px で約750）とハートの左端（約770）が重ならない寸法
-const ObjThumb: React.FC<{ o: keyof typeof OBJ; lines: [string, string]; size?: number; hi?: 0 | 1; ground: [string, string]; spot: string; rot?: number; h?: number; cx?: number; top?: number }> = ({
-  o, lines, size = 120, hi, ground, spot, rot = -6, h = 600, cx = 1060, top = 60,
+const ObjThumb: React.FC<{ o: keyof typeof OBJ; lines: [string, string]; size?: number; hi?: 0 | 1; ground: [string, string]; spot: string; rot?: number; h?: number; cx?: number; top?: number; rim?: string; edge?: string }> = ({
+  o, lines, size = 120, hi, ground, spot, rot = -6, h = 600, cx = 1060, top = 60, rim, edge,
 }) => (
   <ThumbStage ground={ground}>
     <Spot x={cx} y={top + h * 0.45} color={spot} />
-    <Obj o={OBJ[o]} cx={cx} top={top} h={h} rot={rot} />
+    <Obj o={OBJ[o]} cx={cx} top={top} h={h} rot={rot} rim={rim} edge={edge} />
     <Vignette strength={0.35} />
     <ThumbWord text={lines[0]} size={size} top={225} color={hi === 0 ? TYELLOW : undefined} />
     <ThumbWord text={lines[1]} size={size} top={225 + size * 1.22} color={hi === 1 ? TYELLOW : undefined} />
@@ -78,6 +81,9 @@ const ObjThumb: React.FC<{ o: keyof typeof OBJ; lines: [string, string]; size?: 
 );
 
 export default [
+  // r4 の直し：字を小さくして1行目の右端をハートの左先端から離す・結晶の光を約0.6倍に・紙のふちに白い光
+  // （絵は tools/fix_xheart.py で、紙を明るく・赤を鮮やかに・下で切れていた4つ目の✗を消した）
+  { id: "008-falling-in-love-thumb-xheart", component: () => <ObjThumb o="xheart" lines={["好みのほうが", "書き換わる"]} size={110} hi={1} ground={["#141A44", "#4A2266"]} spot="rgba(255,175,120,.5)" rim="rgba(255,200,140,.5)" edge="rgba(255,255,255,.55)" rot={-4} h={540} cx={1020} top={88} /> },
   { id: "008-falling-in-love-thumb-heart", component: () => <ObjThumb o="heart" lines={["好みのほうが", "書き換わる"]} hi={1} ground={["#141A44", "#4A2266"]} spot="rgba(255,170,120,.55)" /> },
   { id: "008-falling-in-love-thumb-cheart", component: () => <ObjThumb o="cheart" lines={["好みのほうが", "書き換わる"]} hi={1} ground={["#0E1436", "#3A1E52"]} spot="rgba(255,190,110,.5)" rot={0} h={580} top={70} cx={1045} /> },
   { id: "008-falling-in-love-thumb-crystal", component: () => <ObjThumb o="cheart" lines={["恋は", "結晶する"]} size={150} hi={1} ground={["#0E1436", "#3A1E52"]} spot="rgba(255,190,110,.5)" rot={0} h={620} top={50} cx={1000} /> },

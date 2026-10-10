@@ -137,7 +137,7 @@ export const S02: React.FC = () => (
       <ellipse data-qa="mark" data-qa-label="楕円" cx={960} cy={480} rx={380} ry={260} fill="none" stroke={C.white} strokeWidth={LINE.heavy} />
       <circle cx={860} cy={480} r={40} fill={C.gold} />
       <circle cx={1340} cy={480} r={18} fill={C.debtTint} />
-      <Label x={1340} y={440} anchor="middle" color={C.white}>火星</Label>
+      <Label x={1372} y={492} anchor="start" color={C.white}>火星</Label>{/* 軌道の線にかからないよう、点の右へ（画面のチェック） */}
       <Label x={860} y={560} anchor="middle" color={C.goldTint}>太陽</Label>
       <Label x={960} y={810} anchor="middle" color={C.white} size="value">円ではなく、楕円</Label>
     </Svg>

@@ -6,6 +6,7 @@ Canva の背景の削除は有料プランだけなので、自分で抜く。�
     uv run --no-project --python 3.12 --with pillow --with numpy python scripts/chroma_key.py 入力.png 出力.png [LO HI]
 
 Gemini の緑はくすんで淡い（G − max(R, B) が30〜55）ので、`12 26` のように境目を下げて使う（2026-10-10、008）。
+透ける物（結晶・ガラス）は最後に `fill` を付ける（外とつながっていない所を不透明にする）。
 
 やること：
 1. 緑の強さ（G − max(R, B)）で透明度を決める（弱い所は人物、強い所は背景、その間はなめらかに）
@@ -23,7 +24,7 @@ LO, HI = 28, 80  # 緑の強さがこれ以下は人物（不透明）、これ�
 PAD = 12
 
 
-def key(src: str, dst: str, lo: float = LO, hi: float = HI) -> None:
+def key(src: str, dst: str, lo: float = LO, hi: float = HI, fill: bool = False) -> None:
     im = np.asarray(Image.open(src).convert("RGB")).astype(np.float32)
     r, g, b = im[..., 0], im[..., 1], im[..., 2]
     excess = g - np.maximum(r, b)
@@ -36,7 +37,8 @@ def key(src: str, dst: str, lo: float = LO, hi: float = HI) -> None:
     ImageDraw.floodfill(bg, (0, 0), 128)
     bg = Image.fromarray(np.asarray(bg)[1:-1, 1:-1])
     reach = np.asarray(Image.fromarray(np.where(np.asarray(bg) == 128, 255, 0).astype(np.uint8)).filter(ImageFilter.MaxFilter(7))) > 0
-    alpha = np.where(~reach & (excess < hi * 1.6), 1.0, alpha)
+    # fill：透ける物（結晶など）は中に緑が映るので、外とつながっていない所はすべて不透明に（008 の結晶のハート）
+    alpha = np.where(~reach & ((excess < hi * 1.6) | fill), 1.0, alpha)
     # ふちの緑を消す：緑が赤・青より強い分を削る
     im[..., 1] = np.minimum(g, np.maximum(r, b) + 4)
     a = Image.fromarray((alpha * 255).astype(np.uint8)).filter(ImageFilter.MinFilter(3)).filter(ImageFilter.GaussianBlur(0.8))
@@ -51,4 +53,4 @@ def key(src: str, dst: str, lo: float = LO, hi: float = HI) -> None:
 
 
 if __name__ == "__main__":
-    key(sys.argv[1], sys.argv[2], *(float(v) for v in sys.argv[3:5]))
+    key(sys.argv[1], sys.argv[2], *(float(v) for v in sys.argv[3:5]), *([True] if "fill" in sys.argv[5:] else []))
