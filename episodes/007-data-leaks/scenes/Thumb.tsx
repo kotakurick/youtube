@@ -18,8 +18,8 @@ const GOLD = "#FFC83D";
 const Split: React.FC = () => (
   <svg width={W} height={H} style={{ position: "absolute" }}>
     <rect x={0} y={0} width={W} height={H} fill={NAVY} />
-    <polygon points={`0,${H * 0.62} ${W},${H * 0.42} ${W},${H} 0,${H}`} fill="#1FA390" />
-    <line x1={0} y1={H * 0.62} x2={W} y2={H * 0.42} stroke={C.white} strokeWidth={6} />
+    <polygon points={`0,${H * 0.55} ${W},${H * 0.42} ${W},${H} 0,${H}`} fill="#1FA390" />
+    <line x1={0} y1={H * 0.55} x2={W} y2={H * 0.42} stroke={C.white} strokeWidth={6} />
   </svg>
 );
 const Ground: React.FC = () => (
@@ -51,12 +51,12 @@ const PricedCard: React.FC<{ cx: number; cy: number; s?: number; price?: string;
       <circle cx={215} cy={-130} r={10} fill={NAVY} />
     </g>
     {price && bigTag && (
-      // 値札を主役に（レビュー r1：幅450・高さ150、「？」は金で130px）
+      // 値札を主役に（レビュー r1：幅450・高さ150、130px。r2：札を金に、「？円」は墨一色）
       <g transform={`translate(${cx + 210 * s} ${cy + 30 * s}) rotate(10)`} filter="url(#cd)">
-        <path d="M0 0 L80 -75 H450 V75 H80 Z" fill={C.white} stroke={C.ink} strokeWidth={7} />
+        <path d="M0 0 L80 -75 H450 V75 H80 Z" fill={GOLD} stroke={C.ink} strokeWidth={7} />
         <circle cx={70} cy={0} r={14} fill={NAVY} />
         <text x={280} y={46} textAnchor="middle" style={{ fontFamily: FONT_SERIF, fontWeight: 900, fontSize: 130 }}>
-          <tspan fill={GOLD} stroke={C.ink} strokeWidth={8} paintOrder="stroke fill">？</tspan><tspan fill={C.ink}>円</tspan>
+          <tspan fill={C.ink}>？円</tspan>
         </text>
       </g>
     )}
@@ -91,7 +91,7 @@ const Price: React.FC = () => (
 const PriceQ: React.FC = () => (
   <AbsoluteFill style={{ background: NAVY }}>
     <Split />
-    <PricedCard cx={330} cy={530} s={0.82} price="？円" band={NAVY} bigTag />
+    <PricedCard cx={400} cy={500} s={0.82} price="？円" band={NAVY} bigTag />
     <div style={{ ...line(108), top: 20 }}>盗まれたカード情報</div>
     <div style={{ ...line(112), top: 150 }}><span style={{ color: GOLD }}>いくら</span>で売られる？</div>
   </AbsoluteFill>
