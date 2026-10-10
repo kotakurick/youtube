@@ -38,10 +38,18 @@
 - 決めたこと（2026-10-07、オーナー「まかせるよ。面白ければよい」で Claude が決めた）：
   - 夫の描き方はこのまま（家事の40分のすぐあとに仕事のおもりで天秤がつり合い、締めでは夫が「今日、疲れた？」と聞く側。責める形になっていない）。
   - 締めの一文を「量り忘れていたのは、お互いの気持ちでした」に替えた（「何を」が抜けていた。終了画面の文も同じに）。
-  - タイトル3案とサムネイル2案（`meta.md`・`scenes/Thumb.tsx`）。サムネイルは A「妻の不満が／増える時期」に決定（2026-10-07 オーナー。「うん」はなし）。タイトルは「夫婦の満足度と一緒に動いていたのは、家事の量ではなかった」に決定（同日オーナー）。人形の画像（husband.png・wife.png）はオーナーが作る。
+  - タイトル3案とサムネイル2案（`meta.md`・`scenes/Thumb.tsx`）。サムネイルは A「妻の不満が／増える時期」に決定（2026-10-07 オーナー。「うん」はなし）。タイトルは「夫婦の満足度と一緒に動いていたのは、家事の量ではなかった」に決定（同日オーナー）。人形の画像は下の「サムネイルの続き」。
   - 心の動き役の提案：第2章に、この家の娘が小学校に上がってからの朝と夜の再現（5文、約20秒）を足した（場面 Home31b、Episode.tsx）。第3章の「ため」は、研究を5つ外したあとで十分に短くなったので縮めない。
   - 仮の尺は15分37秒。合図は字幕の切れ目で見つからないものを5つ直した（場面ごとに1回だけ見つかることを確かめた）。画面チェック「直すもの」0。
-- 次：本線に入れて、ローカルで音声（7）。
+- サムネイルの続き（2026-10-10。いまここ）：
+  - `scenes/Thumb.tsx` は新しい様式（白い人形＋太いゴシック、`@lib/ThumbKit`）で組んである。id は `004-marriage-forty-dip-thumb`。情景は土曜の夕方の帰り道（紺→赤紫の地、街の灯のぼけ）。夫は左で正面、妻は右で少し離れて外を見る。
+  - いまの人形（Canva 製・髪なし）は `render/public/episodes/004-marriage-forty-dip/thumb/` にあったが Git の外なので、新しいセッションにはない。
+  - オーナーの指示で**2人とも髪をつける**。Canva は回数の上限で止まったので **Gemini の API**（`python scripts/gemini_image.py "指示文" out.png`。鍵は環境の `GEMINI_API_KEY`）で作り直す。
+  - 手順：夫と妻を1枚ずつ作る → `scripts/chroma_key.py` で抜いて `render/public/episodes/004-marriage-forty-dip/thumb/husband.png`・`wife.png` に置く（`_local/episodes/004-marriage-forty-dip/thumb/` にも）→ 出た大きさで Thumb.tsx の aspect を直す → `npx remotion still src/index.ts 004-marriage-forty-dip-thumb out/004-thumb.png` → `npm run check -- 004-marriage-forty-dip` → `review-thumbnail` で7点以上 → `meta.md` に指示文を書く。
+  - 指示文（英語のほうが通りやすい。服は白の長袖シャツとズボン。裸の指定は安全フィルターに止められた）：
+    - 夫：Faceless matte-white mannequin figure, smooth featureless face, adult man in his 40s with short neatly styled sculpted hair in the same matte white, plain white long-sleeve shirt and plain white trousers, standing upright facing the camera, calm, arms relaxed, framed from the knees up, soft studio light, solid flat chroma-key green background (#00B140), no shadow on the background.
+    - 妻：Faceless matte-white mannequin figure, smooth featureless face, adult woman in her 40s with shoulder-length sculpted hair in the same matte white, plain white long-sleeve blouse and plain white trousers, body turned three-quarters, head turned away looking into the distance, one hand holding the other elbow, framed from the knees up, soft studio light, solid flat chroma-key green background (#00B140), no shadow on the background.
+- 次：サムネイルを仕上げたら、本線に入れて、ローカルで音声（7）。
 
 ## 質の最低ライン（公開前）
 
