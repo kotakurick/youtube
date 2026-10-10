@@ -410,11 +410,12 @@ const MeetBand: React.FC<{ y?: number; w?: number; n?: number }> = ({ y = 360, w
     </g>
   );
 };
-export const S15a: React.FC = () => (
+/** n：色の付いた区画の数（本編では 0＝点線の枠だけ → 1） */
+export const S15a: React.FC<{ n?: number }> = ({ n = 1 }) => (
   <AbsoluteFill>
     <Heading>夫婦が知り合ったきっかけ</Heading>
     <SubHead>ここ5年ほどに結婚した、初婚どうしの夫婦</SubHead>
-    <Svg><MeetBand n={1} /></Svg>
+    <Svg><MeetBand n={n} /></Svg>
     <SourceNote text={SRC.ipss} />
     <ChapterDots current={1} />
   </AbsoluteFill>
@@ -429,7 +430,8 @@ export const S15: React.FC = () => (
   </AbsoluteFill>
 );
 /** 探しに行く出会い：4年前 約18% → いま 約28%（柱。0から） */
-export const S16: React.FC = () => {
+/** note：右の札「それでも半分以上は」（本編では読み上げに合わせて後から） */
+export const S16: React.FC<{ note?: boolean }> = ({ note = true }) => {
   const base = 700, k = 12;
   return (
     <AbsoluteFill>
@@ -446,10 +448,12 @@ export const S16: React.FC = () => {
           );
         })}
         <line x1={260} y1={base} x2={1000} y2={base} stroke={C.ink} strokeWidth={LINE.thin} />
+        {note && <g>
         <rect x={1160} y={300} width={640} height={300} rx={R.lg} fill={C.white} stroke={C.ink} strokeWidth={LINE.base} />
         <Label x={1480} y={380} anchor="middle" size="label">それでも半分以上は</Label>
         <Label x={1480} y={450} anchor="middle" size="label" weight={900}>もともとの人間関係</Label>
         <Label x={1480} y={530} anchor="middle" size="value">約55%</Label>
+        </g>}
       </Svg>
       <SourceNote text={SRC.ipss2} />
       <ChapterDots current={1} />
@@ -708,7 +712,8 @@ export const S27: React.FC = () => (
   </AbsoluteFill>
 );
 /** 経済学者ベッカー：本と引用の札（似顔は描かない） */
-export const S28: React.FC = () => (
+/** lower：下の札「踏み込まなかったこと」（本編では「そのベッカーも」から） */
+export const S28: React.FC<{ lower?: boolean }> = ({ lower = true }) => (
   <AbsoluteFill>
     <Heading>経済学者ベッカーの結婚の理論</Heading>
     <Svg>
@@ -719,12 +724,14 @@ export const S28: React.FC = () => (
       <rect x={640} y={260} width={1120} height={180} rx={R.lg} fill={C.white} stroke={C.ink2} strokeWidth={LINE.thin} />
       <Label x={680} y={330} size="note" color={C.ink2}>説明したこと</Label>
       <Label x={680} y={400} size="label" weight={900}>結婚＝2人とも得をする組み合わせ</Label>
+      {lower && <g>
       <rect x={640} y={480} width={1120} height={240} rx={R.lg} fill={C.white} stroke={C.ink} strokeWidth={LINE.heavy} />
       <Label x={680} y={550} size="note" color={C.ink2}>踏み込まなかったこと</Label>
       <Label x={680} y={620} size="label" weight={900}>なぜ、ほかでもないその人を愛するのか</Label>
       <Label x={680} y={690} size="note">「自分が付け加えられることはない」</Label>
       <path transform="translate(1640,600) scale(2)" d="M0 14 C-22 0 -18 -18 -6 -16 C-2 -15 0 -12 0 -10 C0 -12 2 -15 6 -16 C18 -18 22 0 0 14 Z" fill="none" stroke={C.debt} strokeWidth={2} />
       <Label x={1640} y={612} anchor="middle" size="label" weight={900} color={C.debt}>？</Label>
+      </g>}
     </Svg>
     <SourceNote text={SRC.becker} />
     <ChapterDots current={2} />
@@ -763,7 +770,8 @@ export const S29a: React.FC = () => (
   </AbsoluteFill>
 );
 /** 脳（横から見た形）。ごほうびの回路は明るく、相手を採点する部分のいくつかは静か。部位の名前は出典の注にだけ */
-export const S29: React.FC = () => (
+/** quiet：相手を採点する部分（灰）とその札（本編では「反対に」から） */
+export const S29: React.FC<{ quiet?: boolean }> = ({ quiet = true }) => (
   <AbsoluteFill>
     <Heading>恋人の写真を見ているときの脳</Heading>
     <Svg>
@@ -774,14 +782,16 @@ export const S29: React.FC = () => (
       <path d="M520,300 C560,360 520,420 580,470 M700,250 C680,320 740,380 700,450 M860,280 C820,340 880,400 840,470 M440,450 C500,480 560,520 620,560" fill="none" stroke={C.rest} strokeWidth={LINE.thin} />
       <circle cx={760} cy={540} r={60} fill={C.ink} />
       <circle cx={760} cy={540} r={100} fill="none" stroke={C.ink} strokeWidth={LINE.thin} strokeDasharray="8 8" />
-      <ellipse cx={520} cy={380} rx={90} ry={60} fill={C.rest} opacity={0.5} />
+      {quiet && <ellipse cx={520} cy={380} rx={90} ry={60} fill={C.rest} opacity={0.5} />}
       <line x1={860} y1={540} x2={1220} y2={540} stroke={C.ink} strokeWidth={LINE.thin} />
       <Label x={1240} y={530} size="label" weight={900}>ごほうびの回路</Label>
       <Label x={1240} y={590} size="note" color={C.ink2}>活発になる</Label>
+      {quiet && <g>
       <line x1={520} y1={320} x2={520} y2={240} stroke={C.ink2} strokeWidth={LINE.thin} />
       <Label x={1240} y={300} size="label" weight={900}>相手を採点する部分</Label>
       <Label x={1240} y={360} size="note" color={C.ink2}>いくつかが静かになる</Label>
       <path d="M520,240 H1220" stroke={C.ink2} strokeWidth={LINE.thin} />
+      </g>}
     </Svg>
     <SourceNote text={SRC.brain} />
     <ChapterDots current={3} />
@@ -900,7 +910,7 @@ export const S34: React.FC = () => (
   </AbsoluteFill>
 );
 /** 好みのものさし：上ほど条件が厳しい。好みの線（点線）と、できた恋人の位置（猫） */
-const PrefRuler: React.FC<{ pref: number; partner: number; old?: number }> = ({ pref, partner, old }) => {
+const PrefRuler: React.FC<{ pref: number; partner?: number; old?: number }> = ({ pref, partner, old }) => {
   const x = 700, top = 240, h = 520, yOf = (v: number) => top + h - (h * v) / 100;
   return (
     <g>
@@ -916,15 +926,16 @@ const PrefRuler: React.FC<{ pref: number; partner: number; old?: number }> = ({ 
       <defs><marker id="ar4" markerUnits="userSpaceOnUse" markerWidth={30} markerHeight={30} refX={18} refY={15} orient="auto"><path d="M0,0 L30,15 L0,30 Z" fill={C.ink} /></marker></defs>
       <line data-qa="mark" data-qa-label="好みの線" x1={x - 20} y1={yOf(pref)} x2={x + 520} y2={yOf(pref)} stroke={C.ink} strokeWidth={LINE.heavy} strokeDasharray="14 10" />
       <Label x={x + 540} y={yOf(pref) + 12} size="label" weight={900}>{old !== undefined ? "下げた好み" : "最初の好み"}</Label>
-      <Cat kind="plain" x={x + 230} y={yOf(partner) + 150} size={3} pose="stand" face="smile" label="恋人" seed={6} />
+      {partner !== undefined && <Cat kind="plain" x={x + 230} y={yOf(partner) + 150} size={3} pose="stand" face="smile" label="恋人" seed={6} />}
     </g>
   );
 };
-export const S35: React.FC = () => (
+/** partner：恋人の猫（本編では「その間に恋人ができた」から） */
+export const S35: React.FC<{ partner?: boolean }> = ({ partner = true }) => (
   <AbsoluteFill>
     <Heading>好みは、まったくの的外れではない</Heading>
     <SubHead>ドイツの独身の大人763人を、5か月追いかけた</SubHead>
-    <Svg><PrefRuler pref={68} partner={60} /></Svg>
+    <Svg><PrefRuler pref={68} partner={partner ? 60 : undefined} /></Svg>
     <SourceNote text={`模式図。${SRC.gerlach}`} />
     <ChapterDots current={3} />
   </AbsoluteFill>
