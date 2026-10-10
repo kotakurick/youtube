@@ -25,7 +25,30 @@
 - 2026-10-07 r1 の直し：人を大きく、夫は背すじを伸ばした正面・妻は肘を抱えて顔を外へ（`render/src/lib/Silhouette.tsx` の MAN_STAND・WOMAN_HUG）、梁を太く、文字に強弱
 - 2026-10-07 r2：**B 7点（合格）・A 6点**。直し：人の高さ約340px（梁 y=330）、Aの黄色は「増える」だけ、心の声は110pxに大きくして「。」を外し、糸と重ならない位置へ。8点に近づけるのは人形への差し替え（下）
 
-### 人物の画像（画像生成AI。オーナーが作って `_local/episodes/004-marriage-forty-dip/thumb/` に `husband.png`・`wife.png` で置く）
+### 人形の画像（2026-10-10 決定版：Gemini の API。2人とも白い髪あり）
+
+オーナーの指示で2人とも髪をつけた（上の「髪は描かない」は Canva 版のときの決まりで、これで置き換える）。服は白の長袖シャツとズボン（裸の指定は安全フィルターに止められる）。2人とも同じ白・同じ光で、どちらも悪く見せない。
+
+作り方（クラウドでもローカルでも同じ）：
+
+1. `python scripts/gemini_image.py "指示文" husband-raw.png`（妻も同じ。鍵は環境変数 `GEMINI_API_KEY`、モデルは gemini-2.5-flash-image、縦 2:3）
+2. `uv run -q --no-project --python 3.12 --with pillow --with numpy python -I scripts/chroma_key.py husband-raw.png husband.png`（Gemini の緑はくすむので、閾値は画像ごとに外周の背景から決まる）
+3. `_local/episodes/004-marriage-forty-dip/thumb/` に `husband.png`・`wife.png` を置く（`npm run sync` が `render/public/` に写す）。抜いた大きさは夫 492×1205・妻 387×1189（Thumb.tsx の aspect）
+4. `cd render && npx remotion still src/index.ts 004-marriage-forty-dip-thumb out/004-thumb.png`
+
+**夫**（3回目を採用。1回目は鼻と口が出て、背景の色の「#00B140」を文字として描いた。色番号は書かず、文字を入れないと書く）
+```
+Faceless abstract matte-white mannequin figure with a smooth egg-shaped head: no eyes, no nose, no mouth, no ears, completely blank face. Adult man in his 40s with short neatly styled sculpted hair in the same matte white. Plain white long-sleeve shirt and plain white trousers. Standing upright facing the camera, calm, arms relaxed at his sides, framed from the knees up. Soft studio light. Background is a single solid flat bright pure green color, evenly lit, no gradient, no vignette, no shadow. No text, no letters, no watermark anywhere in the image.
+```
+
+**妻**（1回目を採用）
+```
+Faceless matte-white mannequin figure, smooth featureless face, adult woman in her 40s with shoulder-length sculpted hair in the same matte white, plain white long-sleeve blouse and plain white trousers, body turned three-quarters, head turned away looking into the distance, one hand holding the other elbow, framed from the knees up, soft studio light, solid flat chroma-key green background (#00B140), no shadow on the background.
+```
+
+サムネイルのレビュー（`review/thumbnail-gemini.md`）：r1 6.5点 → 妻を主役に（大きく・夫と約70px離す）、右上に妻の視線の先の灯、ふちの光をそろえる → **r2 7.0点（合格）**。そのあと任意の直し（灯を少なく明るく、字 118px）。
+
+### 人物の画像（旧：Canva 版の指示文。使わない）
 
 顔の目鼻のない白い人形・全身・透明の背景は 001 と同じ。r2 の指摘で、**髪・服・スカートは描かず、性別は肩幅と腰の線だけで分ける**（髪型やスカートで性別を示すと、性別全体の決めつけに寄るため）。2枚は同じ素材・同じ光・同じ高さ・同じ頭の大きさで別々に作り、片方だけをみじめにも悪者にも見せない。差し替えたら夫 x=300・妻 x=980・足元 y=690 に置き、`npm run check` で糸と重ならないか確かめる。
 
