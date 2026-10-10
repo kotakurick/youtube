@@ -28,14 +28,15 @@ const Sky: React.FC = () => {
 
 const WORD = 132;
 // レビュー r1（review/thumbnail-r1.md）：地を明るく・光を文字の側へ広げる・人形を右下から少し離す・字を大きく。
+// r2：人形を上げて右下（再生時間）を空ける・字を中心へ・周りの暗さを軽く。
 // hi＝黄にする行（全部白だと何が言いたいか立たない。r1）
 const Thumb: React.FC<{ lines: [string, string]; size?: number; hi?: 0 | 1 }> = ({ lines, size = WORD, hi }) => (
   <ThumbStage ground={["#1B2258", "#5A2E78"]}>
     <Sky />
-    <Cutout {...DOLL} cx={990} top={24} h={720} rim="rgba(255,200,140,.75)" glow={{ x: 0.62, y: 0.1, r: 120 }} />
-    <Vignette strength={0.4} />
-    <ThumbWord text={lines[0]} size={size} top={210} color={hi === 0 ? TYELLOW : undefined} />
-    <ThumbWord text={lines[1]} size={size} top={210 + size * 1.22} color={hi === 1 ? TYELLOW : undefined} />
+    <Cutout {...DOLL} cx={990} top={8} h={700} rim="rgba(255,200,140,.75)" glow={{ x: 0.62, y: 0.1, r: 120 }} />
+    <Vignette strength={0.3} />
+    <ThumbWord text={lines[0]} size={size} top={225} color={hi === 0 ? TYELLOW : undefined} />
+    <ThumbWord text={lines[1]} size={size} top={225 + size * 1.22} color={hi === 1 ? TYELLOW : undefined} />
   </ThumbStage>
 );
 
