@@ -60,14 +60,14 @@
 | 本番の声（場面ごとの wav）と文ごとのキャッシュ | `_local/episodes/<回>/audio/`、`tts_cache/` | ずっと（作り直すと料金がかかる） |
 | サムネイルの人物の画像・仕上げた画像 | `_local/episodes/<回>/thumb/`（公開に使った1枚は `thumbnail.png`） | ずっと |
 | スマホで聞く mp3（8b） | `_local/episodes/<回>/preview/` | 公開まで |
-| 書き出した動画 | `render/out/<回>.master.mp4` の1本だけ。音量をそろえる前の `<回>.mp4` は `npm run master` が消す | 公開して「公開記録」を書いたら消す |
+| 書き出した動画 | `render/out/<回>.master.mp4` の1本だけ。音量をそろえる前の `<回>.mp4` は `npm run master` が消す | 公開したものも念のため残す（2026-10-11 オーナー）。公開しなかった版は消す |
 | 絵コンテ・サムネイルの静止画（オーナーに見せるもの） | `render/out/<回>-storyboard*.png`、`render/out/thumb<回>/` | 公開まで |
 | 画面のチェックの結果 | `render/out/qa/<回>/`（毎回作り直される） | 公開まで |
 | `render/public/` | `npm run sync` が `_local` から写す写し。手で置かない | 写しなので、消してもよい |
 | ログ・試しの静止画・確かめるための切り出し音声 | Claude のセッションの scratchpad（一時フォルダ） | セッションが終わるまで。リポジトリの中に置かない |
 | ベンチマークの取得物 | `_local/bench/` | 分析が終わるまで（取得物は分析専用） |
 
-- 公開したら、PC の Claude が「公開記録」（上の章）を書いたあと、その回の `render/out/<回>*`・`render/out/qa/<回>/`・`_local/episodes/<回>/preview/` を消す。声とサムネイルは残す。
+- 公開したら、PC の Claude が「公開記録」（上の章）を書いたあと、その回の `render/out/qa/<回>/`・`_local/episodes/<回>/preview/`・公開しなかった版の動画を消す。公開した `<回>.master.mp4`・声・サムネイルは残す。消すときはごみ箱に移す（戻せるように）。
 - テスト用の回（`999-…` など）は、試し終わったらすぐ消す。
 
 ## 学ぶ流れ
