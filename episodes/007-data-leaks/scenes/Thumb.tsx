@@ -5,9 +5,9 @@
 // 人（where 案）は仮にコードのシルエット。オーナーが画像生成AIで作った人形（meta.md の指示文）を _local/episodes/007-data-leaks/thumb/ に置いたら差し替える。
 // npx remotion still 007-data-leaks-thumb-price out/thumb-price.png
 import React from "react";
-import { AbsoluteFill } from "remotion";
+import { AbsoluteFill, Img, staticFile } from "remotion";
 import { Joints, Silhouette } from "@lib/Silhouette";
-import { C, FONT_SERIF } from "@lib/theme";
+import { C, FONT, FONT_SERIF } from "@lib/theme";
 
 const W = 1280, H = 720;
 const NAVY = "#0B1E3A", TEAL = "#1E9483";
@@ -88,12 +88,48 @@ const Price: React.FC = () => (
 
 /** 案2：問いの形（数字なし）。値札は「？」 */
 // レビュー r1：絵は実物のカードなので中身とのずれを「情報」で直す。「売れる」（売る側の目線）→「売られる」。金は「いくら」へ
+// 2026-10-10 オーナー「カードだけ立体に（Canva）、色をもうちょい不気味に」：
+//  カードは Canva の画像生成（緑の背景。デザイン DAHXmpcBZe4 の7ページ）を scripts/chroma_key.py で抜いた card.png（Git の外）。
+//  レビュー r3：カードが地に沈む → 画像を明るくし、ふちの光を強める。「？」を太く大きく。
+//  地は黒に近い紺に、上から毒っぽい青緑の光。周りを暗く落とし、伏せ字の番号を薄く並べる。文字は本線の様式（太いゴシック）。
+const CARD_W = 880, CARD_X = 30, CARD_Y = 250; // card.png は 1460×887
+const k = CARD_W / 1460;
+const Eerie: React.FC = () => (
+  <svg width={W} height={H} style={{ position: "absolute" }}>
+    <defs>
+      <radialGradient id="glow" cx="0.34" cy="0.66" r="0.5"><stop offset="0%" stopColor="#2FD1B0" stopOpacity="0.75" /><stop offset="45%" stopColor="#0E4A44" stopOpacity="0.35" /><stop offset="100%" stopColor="#000" stopOpacity="0" /></radialGradient>
+      <radialGradient id="vig" cx="0.5" cy="0.5" r="0.75"><stop offset="55%" stopColor="#000" stopOpacity="0" /><stop offset="100%" stopColor="#000" stopOpacity="0.85" /></radialGradient>
+      <linearGradient id="blood" x1="1" y1="1" x2="0.6" y2="0.4"><stop offset="0%" stopColor="#5A0E14" stopOpacity="0.55" /><stop offset="100%" stopColor="#5A0E14" stopOpacity="0" /></linearGradient>
+    </defs>
+    <rect x={0} y={0} width={W} height={H} fill="#04070D" />
+    {/* 伏せ字の番号の列（売り場の一覧のような手ざわり。読ませない） */}
+    {Array.from({ length: 11 }, (_, r) => (
+      <text key={r} x={-40 + (r % 2) * 90} y={40 + r * 68} style={{ fontFamily: FONT, fontWeight: 700, fontSize: 40, letterSpacing: 6 }} fill="#1FA390" opacity={0.09}>
+        {"**** **** **** ****   ¥????   **** **** **** ****   ¥????"}
+      </text>
+    ))}
+    <rect x={0} y={0} width={W} height={H} fill="url(#glow)" />
+    <rect x={0} y={0} width={W} height={H} fill="url(#blood)" />
+    <rect x={0} y={0} width={W} height={H} fill="url(#vig)" />
+  </svg>
+);
+const gothic = (size: number, color: string = C.white): React.CSSProperties => ({
+  position: "absolute", left: 0, right: 0, textAlign: "center", fontFamily: FONT, fontWeight: 900, fontSize: size, lineHeight: 1.1,
+  whiteSpace: "nowrap", color, WebkitTextStroke: `14px ${C.ink}`, paintOrder: "stroke fill", filter: "drop-shadow(0 8px 12px rgba(0,0,0,.9))",
+});
 const PriceQ: React.FC = () => (
-  <AbsoluteFill style={{ background: NAVY }}>
-    <Split />
-    <PricedCard cx={400} cy={500} s={0.82} price="？円" band={NAVY} bigTag />
-    <div style={{ ...line(108), top: 20 }}>盗まれたカード情報</div>
-    <div style={{ ...line(112), top: 150 }}><span style={{ color: GOLD }}>いくら</span>で売られる？</div>
+  <AbsoluteFill style={{ background: "#04070D" }}>
+    <Eerie />
+    <Img src={staticFile("episodes/007-data-leaks/thumb/card.png")}
+      style={{ position: "absolute", left: CARD_X, top: CARD_Y, width: CARD_W, filter: "brightness(1.45) contrast(1.05) drop-shadow(0 30px 40px rgba(0,0,0,.9)) drop-shadow(0 0 34px rgba(47,209,176,.8))" }} />
+    {/* 白い値札（画像の中）の上に「？円」をコードで載せる。札の中心と傾きに合わせる */}
+    <div style={{ position: "absolute", left: CARD_X + 1283 * k - 120, top: CARD_Y + 530 * k - 120, width: 240, height: 240,
+      display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", transform: "rotate(-8deg)",
+      fontFamily: FONT, fontWeight: 900, fontSize: 112, lineHeight: 0.95, color: "#7A0F16" }}>
+      <span style={{ fontSize: 138, WebkitTextStroke: "6px #7A0F16" }}>？</span><span>円</span>
+    </div>
+    <div style={{ ...gothic(118), top: 18 }}>盗まれたカード情報</div>
+    <div style={{ ...gothic(124), top: 150 }}><span style={{ color: GOLD }}>いくら</span>で売られる？</div>
   </AbsoluteFill>
 );
 
