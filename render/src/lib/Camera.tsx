@@ -21,7 +21,9 @@ export const Camera: React.FC<{ keys?: [number, Shot][]; dur?: number; drift?: n
     const t = interpolate(frame - f, [0, dur], [0, 1], { extrapolateRight: "clamp", easing: EASE });
     cur = { x: cur.x + (to.x - cur.x) * t, y: cur.y + (to.y - cur.y) * t, scale: cur.scale + (to.scale - cur.scale) * t };
   }
-  const d = drift ? interpolate(frame, [0, drift], [1, 1.04], { extrapolateRight: "clamp" }) : 1;
+  // drift は止めた（2026-10-10 オーナー「わずかなゆれをなくしたい」）。ゆっくりした拡大は文字を毎コマ違う大きさで描き直し、
+  // 止まった絵が細かくゆれて見える（006 の 4:48 で測ると毎コマ数千画素が変わっていた → 止めると0）。引数は残すが効かない。
+  const d = drift ? 1 : 1;
   const s = cur.scale * d;
   return (
     // 寄りの画面（1.05倍より大きい）では、絵が字幕の帯の下に入るのは当たり前なので、チェックで見逃す
