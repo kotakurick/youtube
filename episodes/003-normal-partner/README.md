@@ -19,6 +19,8 @@
 - 2026-10-10 本線に合流した（クラウドの作業はここまで）。画面のチェック 直すもの 0件。
 - **次にすること（ローカル）**：①`git pull` で本線を取る。②声：`python tts/narrate.py episodes/003-normal-partner --voice eleven-yui`。③書き出し：`cd render && npm run render -- 003-normal-partner out/003-normal-partner.mp4`、`npm run master`。④サムネイルは送った `doll-back.png` を使う（人形の画像は Git の外なので、PCでは書き出し直さない）。
 - S8 も照合 済（2026-10-10 オーナー）。台本で使う出典はすべて照合済み。
+- 2026-10-11 ローカル：Yui の声（17分52秒、約185円）→ 画面のチェック 直すもの0 → 書き出し・音量（`render/out/003-normal-partner.master.mp4`、17分52秒、81MB）。声の直し：4:14 で「男性は顔」を2回読んだ（オーナーが聞いて確認）→「よく言われるのは、男性は顔、女性はお金、という話です。」に。文頭の「それでも」2か所を「けれど」に（どもり防止のチェッカー）。
+- **次にすること**：①★オーナーが通しで確認。②サムネイル `doll-back.png`・タイトル（`meta.md`）で公開。③公開したら URL と日付を「★ 公開」と meta.md の公開記録に書く。
 - 未決：猫の案・数える案を「テストと比較」の相手にするか。
 
 ### 2026-10-07 仮通し・タイトル・サムネイル
@@ -119,9 +121,9 @@
 - [x] 4. 絵コンテ（クラウド、2026-10-06 第2版。3役の見直しを反映。★オーナー確認済み）：`scenes/Storyboard.tsx` に場面を描き（秒数と動きも）、`cd render && npm run storyboard -- <回のid>` で一覧と `storyboard.md` を作る（直すもの0、⚠ の場面は割り方を決める）→ 3役（`review-animator`・`review-illustrator`・`review-designer`）に見せて `review/storyboard-summary.md` にまとめて直す → ★ オーナーが確認
 - [x] 5. 場面のコード（クラウド、2026-10-06）→ `scenes/Episode.tsx`（`Episode.example.tsx` を名前を変えて使う。部品は `render/src/lib`、動きは `useNarration()` で読み上げに合わせる）
 - [ ] 6. 仮通し（クラウド）：`python tts/narrate.py episodes/003-normal-partner --voice silent` で仮の尺と字幕（`timing.json`）を作り、部品のない場面は仮の画面（draft）で13〜18分を通して、テンポ・章の長さ・考える場面の位置を直す
-- [ ] 7. 音声合成（ローカル）：`python tts/narrate.py episodes/003-normal-partner --voice eleven-yui`（文ごとに作り、尺・字幕・`subtitles.srt` も自動で声に合う。同じ文は作り直さない）
-- [ ] 8. 書き出し・BGM・音量（ローカル）：`npm run render`、`npm run master`（BGM は `npm run bgm` で測ってそろえたもの）
-- [ ] 9. 画面のチェック：`cd render && npm run check -- 003-normal-partner` の「直すもの」を0にし、「確かめるもの」は画像を見て判断する（重なり・28px未満の文字・はみ出し。結果は `render/out/qa/003-normal-partner/`）。縦型ショートも同じ
+- [x] 7. 音声合成（ローカル）：`python tts/narrate.py episodes/003-normal-partner --voice eleven-yui`（文ごとに作り、尺・字幕・`subtitles.srt` も自動で声に合う。同じ文は作り直さない）
+- [x] 8. 書き出し・BGM・音量（ローカル）：`npm run render`、`npm run master`（BGM は `npm run bgm` で測ってそろえたもの）
+- [x] 9. 画面のチェック：`cd render && npm run check -- 003-normal-partner` の「直すもの」を0にし、「確かめるもの」は画像を見て判断する（重なり・28px未満の文字・はみ出し。結果は `render/out/qa/003-normal-partner/`）。縦型ショートも同じ
 - [ ] ★ 1.25倍速で通し確認（オーナー）
 - [ ] ★ サムネイルとタイトルの最終決定（オーナー）→ `meta.md`
 - [ ] ★ 公開（オーナー。URL: ）
