@@ -7,7 +7,7 @@
 - **いまどこまで**：台本 第5稿（`script.md`、読み上げ約11.4分、チェッカーのエラー0、数字は1分に約3個）。6役 → 小説家役 → 事実・ポリシー・心の動きの2回目 → 事実の3回目・日本語役まで反映し、〔重〕は0（直した／直さなかったは `review/README.md`）。S17（Eastwick と Finkel 2008）は 003 と重なるので声にも画面にも出さない。出典の id は S1〜S84 の通し番号（元の P・B・H の番号は `sources.csv` のメモ）。
 - **オーナーの判断（2026-10-10）**：第5稿の報告に「OKすすめて」。尺（約11.4分）と、003 と並べて出すことは、このままでよい。
 - **読み上げページ（第5稿）**：https://claude.ai/artifact/FD2CokiudVeM3NR6pfLAYV （db 付き。指示は ArtifactData で `notes` を読む。公開直後は0件）
-- **次に何をする**：オーナーがスマホで聞いて印を付ける → 「付けた」と言われたら `notes` を読んで台本を直す → ★ 照合と台本レビュー → 絵コンテ（`scenes/Storyboard.tsx`）。
+- **次に何をする**：オーナーがスマホで聞いて印を付ける → 「付けた」と言われたら `notes` を読んで台本を直す → ★ 台本レビュー → 絵コンテ（`scenes/Storyboard.tsx`）。
 - **未決のこと**：タイトルとサムネイル、終了画面の「次の1本」（003 の続編にはしないので、003 には触れない）。
 - **オーナーの指示（2026-10-07）**：「人を好きになることを、様々な学問から分析する会にしよう」「そこまで統計やデータに強く縛られすぎなくてよい」。出典と★照合は省かない。脳は学問の1つにとどめる。助言（好きになってもらう方法）にしない。
 
@@ -19,7 +19,7 @@
 - [x] ★ テーマと切り口の承認（オーナー。2026-10-07 案A）
 - [x] 2. 企画カードと構成案（クラウド）→ `outline.md`（一番上の企画カードを先に埋める。埋まったら `review-rival` に見せて、負けている所を構成で直す → `review/rival-outline.md`）
 - [x] 3. 台本（クラウド。2026-10-07 第5稿）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。6役のレビュー（視聴者代表を含む） → 直した稿をもう一度見せる → 最後に日本語役 `review-japanese` → `review/`）
-- [ ] ★ 一次資料との照合（オーナー）→ `sources.csv` の「照合」欄をすべて埋める
+- [x] ★ 一次資料との照合（オーナー。2026-10-10、台本で使う12件。使わない72件は照合なし）→ `sources.csv` の「照合」欄をすべて埋める
 - [ ] ★ 台本レビュー（オーナー）→ `review/owner.md`（Claude が読みやすい形にまとめて渡す。オーナーの指摘は Claude が書き写して台本に反映し、直した／直さなかったを1行ずつ書く）
 - [ ] ★ 仮の音声で聞く（クラウドが作る → オーナーがスマホで）：まず無料の読み上げページ（`python tts/readaloud.py episodes/008-falling-in-love` → Artifact で db 付きで公開してリンクを渡す。「付けた」と言われたら ArtifactData でページの notes を読んで台本を直す）。Yui の声で聞きたいときだけ `python tts/narrate.py episodes/008-falling-in-love --voice eleven-yui` → `python tts/preview.py episodes/008-falling-in-love` の mp3 と早見表をアプリに送る。「いらない」と言われた所を台本で直し、もう一度送る（`docs/process.md` の8b）
 - [ ] 4. 絵コンテ（クラウド）：`scenes/Storyboard.tsx` に場面を描き（秒数と動きも）、`cd render && npm run storyboard -- <回のid>` で一覧と `storyboard.md` を作る（直すもの0、⚠ の場面は割り方を決める）→ 3役（`review-animator`・`review-illustrator`・`review-designer`）に見せて `review/storyboard-summary.md` にまとめて直す → ★ オーナーが確認
