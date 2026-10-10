@@ -5,7 +5,7 @@
 // 光は暖かい色、空は紺から紫。星は少しだけ（冒頭の天文学者）。男女の対立の回ではないので、人形は1人・性別を強く出さない。
 // npx remotion still src/index.ts 008-falling-in-love-thumb-after out/008-thumb.png
 import React from "react";
-import { AbsoluteFill } from "remotion";
+import { AbsoluteFill, Img, staticFile } from "remotion";
 import { Cutout, ThumbStage, ThumbWord, TW, TYELLOW, Vignette } from "@lib/ThumbKit";
 
 const DOLL = { src: "episodes/008-falling-in-love/thumb/doll.png", aspect: 378 / 1088 };
@@ -40,7 +40,47 @@ const Thumb: React.FC<{ lines: [string, string]; size?: number; hi?: 0 | 1 }> = 
   </ThumbStage>
 );
 
+
+// ── 人でない案（2026-10-10 オーナー「人間じゃなくてもいいから最高のサムネイルにして」）──
+// 絵は Gemini の API（指示文は meta.md）→ chroma_key.py。どれも本編の比喩そのもの：
+// heart＝条件のチェックリストで折ったハート（表が恋の形に書き換わる。第3章の山と締め）
+// cheart＝塩の結晶に覆われた枝のハート（スタンダールの結晶。締め「結晶は、好きになったあとから付きはじめます」）
+const OBJ = {
+  heart: { src: "episodes/008-falling-in-love/thumb/heart.png", aspect: 724 / 787 },
+  cheart: { src: "episodes/008-falling-in-love/thumb/cheart.png", aspect: 860 / 902, tone: "saturate(.5) brightness(1.12) contrast(1.08)" }, // 黄色いと砂糖に見えるので色を抑える
+};
+
+/** 物の絵：cx・top・h、rot＝傾き（度） */
+const Obj: React.FC<{ o: { src: string; aspect: number; tone?: string }; cx: number; top: number; h: number; rot?: number; rim?: string }> = ({ o, cx, top, h, rot = 0, rim = "rgba(255,200,140,.8)" }) => (
+  <Img data-qa="figure" src={staticFile(o.src)} style={{
+    position: "absolute", left: cx - (h * o.aspect) / 2, top, height: h, width: h * o.aspect, zIndex: 2,
+    transform: `rotate(${rot}deg)`,
+    filter: `${o.tone ?? ""} drop-shadow(0 0 22px ${rim}) drop-shadow(0 26px 34px rgba(0,0,0,.6))`,
+  }} />
+);
+
+/** 物の後ろの光（スポットライト） */
+const Spot: React.FC<{ x: number; y: number; color: string; r?: number }> = ({ x, y, color, r = 420 }) => (
+  <AbsoluteFill style={{ background: `radial-gradient(circle ${r}px at ${x}px ${y}px, ${color} 0%, rgba(0,0,0,0) 100%)` }} />
+);
+
+// 字の右端（6字×120px で約750）とハートの左端（約770）が重ならない寸法
+const ObjThumb: React.FC<{ o: keyof typeof OBJ; lines: [string, string]; size?: number; hi?: 0 | 1; ground: [string, string]; spot: string; rot?: number; h?: number; cx?: number; top?: number }> = ({
+  o, lines, size = 120, hi, ground, spot, rot = -6, h = 600, cx = 1060, top = 60,
+}) => (
+  <ThumbStage ground={ground}>
+    <Spot x={cx} y={top + h * 0.45} color={spot} />
+    <Obj o={OBJ[o]} cx={cx} top={top} h={h} rot={rot} />
+    <Vignette strength={0.35} />
+    <ThumbWord text={lines[0]} size={size} top={225} color={hi === 0 ? TYELLOW : undefined} />
+    <ThumbWord text={lines[1]} size={size} top={225 + size * 1.22} color={hi === 1 ? TYELLOW : undefined} />
+  </ThumbStage>
+);
+
 export default [
+  { id: "008-falling-in-love-thumb-heart", component: () => <ObjThumb o="heart" lines={["好みのほうが", "書き換わる"]} hi={1} ground={["#141A44", "#4A2266"]} spot="rgba(255,170,120,.55)" /> },
+  { id: "008-falling-in-love-thumb-cheart", component: () => <ObjThumb o="cheart" lines={["好みのほうが", "書き換わる"]} hi={1} ground={["#0E1436", "#3A1E52"]} spot="rgba(255,190,110,.5)" rot={0} h={580} top={70} cx={1045} /> },
+  { id: "008-falling-in-love-thumb-crystal", component: () => <ObjThumb o="cheart" lines={["恋は", "結晶する"]} size={150} hi={1} ground={["#0E1436", "#3A1E52"]} spot="rgba(255,190,110,.5)" rot={0} h={620} top={50} cx={1000} /> },
   // A：締め（結晶は好きになったあとから付きはじめる。S68 スタンダール・S65 フランクファート・S16 の読み直し）。
   // 「条件の表は当たらない」は、好みが網としてある程度当たる（S20）ので言い過ぎとしてやめた
   { id: "008-falling-in-love-thumb-after", component: () => <Thumb lines={["好きな理由は", "あとから付く"]} size={114} /> },
