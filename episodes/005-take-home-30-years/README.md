@@ -4,7 +4,7 @@
 
 引き継ぎ：データは `data/research-wage.md`（額面）・`data/research-rules.md`（保険料率と税制）・`data/research-macro.md`（物価・家計・給付）。手取りは `python episodes/005-take-home-30-years/data/takehome.py` が `data/takehome_result.md` を書く。構成案は第5版（`outline.md`。第2稿の「おもろくない」を受けて切り口を「なぜ苦しいのか・今のほうが大変だと思うバイアス」に変えた。追加の資料は `data/research-feeling.md`・`research-perception.md`・`research-future.md`・`research-bias.md`・`research-retail.md`）。台本は第3稿・改（`script.md`、2026-10-10、lint のエラー0。前の稿は `script-v2.md`。6役→3役→小説家役→日本語役のレビューと対応は `review/README.md`）。
 
-**いまどこまで**：台本 第3稿・改ができた（約10.6分）。**次**：オーナーの照合（★、S1〜S48）と台本レビュー（`review/owner.md`）→ 絵コンテ。**未決**：尺が13分より短いままでよいか、冒頭の押し入れの場面を残すか（`review/owner.md` の「見てほしいこと」）。
+**いまどこまで**：台本 第3稿・改（約10.6分）のあと、絵コンテ第1版（48コマ、画面チェックの直すもの0、30秒超えなし）を作り、3役のレビュー中（2026-10-10）。台本レビュー（★）はオーナーの「次のステップに進もう」（2026-10-10）で了承とみなした。**次**：3役の指摘を `review/storyboard-summary.md` にまとめて直す → オーナーの絵コンテ確認（★）。照合（★、S1〜S48）はまだで、並行して進める。**未決**：尺が13分より短いままでよいか、冒頭の押し入れの場面を残すか（`review/owner.md` の「見てほしいこと」）。
 
 ## 進行状況
 
@@ -16,7 +16,7 @@
 - [x] 2. 企画カードと構成案（クラウド、2026-10-06 第3版 → 第5版）→ `outline.md`（一番上の企画カードを先に埋める。埋まったら `review-rival` に見せて、負けている所を構成で直す → `review/rival-outline.md`）
 - [x] 3. 台本（クラウド、2026-10-06 第2稿 → 2026-10-10 第3稿・改）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。5役のレビュー → `review/`）
 - [ ] ★ 一次資料との照合（オーナー）→ `sources.csv` の「照合」欄をすべて埋める
-- [ ] ★ 台本レビュー（オーナー）→ `review/owner.md`（Claude が読みやすい形にまとめて渡す。オーナーの指摘は Claude が書き写して台本に反映し、直した／直さなかったを1行ずつ書く）
+- [x] ★ 台本レビュー（オーナー、2026-10-10「次のステップに進もう」で了承とみなした）→ `review/owner.md`（Claude が読みやすい形にまとめて渡す。オーナーの指摘は Claude が書き写して台本に反映し、直した／直さなかったを1行ずつ書く）
 - [ ] 4. 絵コンテ（クラウド）：`scenes/Storyboard.tsx` に場面を描き（秒数と動きも）、`cd render && npm run storyboard -- <回のid>` で一覧と `storyboard.md` を作る（直すもの0、⚠ の場面は割り方を決める）→ 3役（`review-animator`・`review-illustrator`・`review-designer`）に見せて `review/storyboard-summary.md` にまとめて直す → ★ オーナーが確認
 - [ ] 5. 場面のコード（クラウド）→ `scenes/Episode.tsx`（`Episode.example.tsx` を名前を変えて使う。部品は `render/src/lib`、動きは `useNarration()` で読み上げに合わせる）
 - [ ] 6. 仮通し（クラウド）：`python tts/narrate.py episodes/005-take-home-30-years --voice silent` で仮の尺と字幕（`timing.json`）を作り、部品のない場面は仮の画面（draft）で13〜18分を通して、テンポ・章の長さ・考える場面の位置を直す
