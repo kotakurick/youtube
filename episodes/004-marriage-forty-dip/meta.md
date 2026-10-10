@@ -25,7 +25,31 @@
 - 2026-10-07 r1 の直し：人を大きく、夫は背すじを伸ばした正面・妻は肘を抱えて顔を外へ（`render/src/lib/Silhouette.tsx` の MAN_STAND・WOMAN_HUG）、梁を太く、文字に強弱
 - 2026-10-07 r2：**B 7点（合格）・A 6点**。直し：人の高さ約340px（梁 y=330）、Aの黄色は「増える」だけ、心の声は110pxに大きくして「。」を外し、糸と重ならない位置へ。8点に近づけるのは人形への差し替え（下）
 
-### 人形の画像（2026-10-10 決定版：Gemini の API。2人とも白い髪あり）
+### 人形の画像（2026-10-10 決定版：案C「食卓」。Gemini の API）
+
+オーナーの指摘（「男性がぼやけている」「単調。毎回同じようなフォーマットだとフックにならない。イラストの問題」）で、立ち姿の2人をやめて、場面のある絵にした。案は A 車の中・B ソファの両端・C 食卓で、オーナーが **C** を選んだ。様式（白い人形＋太いゴシック）はそのままで、**場面とポーズを回ごとに変える**。
+
+夜の食卓で、夫はあごに手を当てて考え込み、妻はカップを持って別の方を見る。手前に子どもの空いた椅子。人形・食卓・椅子は同じ白の1枚の画像。2人とも同じ白・同じ光で、どちらも悪く見せない。
+
+作り方：
+
+1. `python scripts/gemini_image.py "指示文" table-raw.png --aspect 4:3`（鍵は環境変数 `GEMINI_API_KEY`）。3枚作って、2人の目が合っていないものを選ぶ
+2. `uv run -q --no-project --python 3.12 --with pillow --with numpy python -I scripts/chroma_key.py table-raw.png table.png`（抜いた大きさ 682×581。Thumb.tsx の aspect）
+3. `_local/episodes/004-marriage-forty-dip/thumb/table.png` に置く（`npm run sync` が `render/public/` に写す）
+4. `cd render && npx remotion still src/index.ts 004-marriage-forty-dip-thumb out/004-thumb.png`
+
+指示文（3枚のうち1枚目を採用）：
+```
+Minimalist sculpture scene, everything made of the same bright pure white matte material, brightly lit. Three-quarter view from slightly above, of a small dining table in the center. A man sits on a chair at the left end of the table and a woman sits on a chair at the right end. Their chairs are turned outward, away from the table: the man's body and head face toward the left edge of the image, the woman's body and head face toward the right edge of the image, so they sit almost back to back with the table between them and never look at each other. The man rests his chin on his hand, thinking. The woman holds a cup with both hands, looking into the distance. Both calm and quiet, same posture weight, no anger, no sadness. Both are faceless abstract mannequin figures with smooth egg-shaped heads: no eyes, no nose, no mouth. The man (40s) has short neatly styled sculpted white hair, white long-sleeve shirt and white trousers. The woman (40s) has shoulder-length sculpted white bob hair, white long-sleeve blouse and white trousers. At the far side of the table stands one small empty child's chair. Sharp focus, crisp clean edges. Background is a single solid flat bright pure green color, evenly lit, no gradient, no floor shadow. No text, no letters, no watermark.
+```
+
+うまくいかなかった指示：「顔をそらす」だけだと2人が見つめ合う（面接に見える）。体ごと外へ向ける、と書く。横長の長い食卓で椅子を離すと、2人とも正面を向いて並ぶ絵になった。
+
+抜き方の直し（`scripts/chroma_key.py`）：Gemini の緑はくすみ、白い服の影に緑が映り込む。最初は脚の影が透けた（オーナー「男性の足が消えているように見える」「女性も」）。いまは明るさで割った緑の割合で測り、背景の75%までは人物とみなし、いちばん大きいかたまりだけを残す。
+
+レビュー（`review/thumbnail-table.md`）：r1 6.0 → r2 6.8（脚・ぼやけは解消）→ **r3 7.0（合格）**。残り（任意）：手前の椅子が妻の脚と重なり、縮めると家具に見えるかもしれない。直すなら画像の作り直し（妻を窓へ向け、椅子を食卓から離す）。
+
+### 人形の画像（旧：立ち姿の2人。使わない）
 
 オーナーの指示で2人とも髪をつけた（上の「髪は描かない」は Canva 版のときの決まりで、これで置き換える）。服は白の長袖シャツとズボン（裸の指定は安全フィルターに止められる）。2人とも同じ白・同じ光で、どちらも悪く見せない。
 
