@@ -18,7 +18,7 @@ import { EASE, sp } from "@lib/theme";
 import timing from "../timing.json";
 import {
   A01, A02, A03a, A03b, A08, A09, A10, A11a, B01, B02, B02c, B03, B04, B05, B06, B07, B08, B09, B10, B11, B13,
-  C00, C01, C02, C03, C04, C05, C06, C07, C08, C09, C10, C11, C12, C13, D01, D02, D03, D06, D07, D08, D09, D10, D11, D12,
+  C00, C01, C02, C03, C04, C05, C06, C07, C08, C09, C10, C11, C13, D01, D02, D03, D06, D07, D08, D09, D10, D11, D12,
   E01, E03, E05, E07, F01, F02, F03, F04, Heading, Premises, QUIZ_C, QUIZ_Q, QUIZ_T, Screen, Stairs,
 } from "./Storyboard";
 
@@ -88,7 +88,7 @@ const OpeningScreen: React.FC = () => {
         <ScreenAnim from={132} to={106} litFrom={13} litTo={11} on={2} stop={3} checkAt={10} dropAt={at("106人") - s2} note="大学卒業以上：ほとんど減らない" />
       </Sequence>
       <Sequence from={s3} durationInFrames={s4 - s3}>
-        <ScreenAnim from={106} to={59} litFrom={11} litTo={6} on={3} stop={3} checkAt={10} dropAt={at("59人。") - s3} note="身長170cm以上：ちょうど半分ほど" />
+        <ScreenAnim from={106} to={59} litFrom={11} litTo={6} on={3} stop={3} checkAt={10} dropAt={at("59人でした") - s3} note="身長170cm以上：ちょうど半分ほど" />
       </Sequence>
       <Sequence from={s4} durationInFrames={end + 20 - s4}><Enter><A08 /></Enter></Sequence>
     </>
@@ -127,7 +127,7 @@ const B02Card: React.FC = () => {
   const { at, frame } = useAt();
   return <B02 card={frame + at("相手の見た目は") >= at("男性は顔")} />;
 };
-const Ch1Survey: React.FC = () => <Cuts cuts={[[B01, 0], [B02Card, "相手の見た目は"], [B02c, "重く見る人だけ"], [B03, "差が大きく"]]} />;
+const Ch1Survey: React.FC = () => <Cuts cuts={[[B01, 0], [B02Card, "相手の見た目は"], [B02c, "重く見る人だけ"], [B03, "男女で大きく違った"]]} />;
 const Ch1Quiz: React.FC = () => <Cuts cuts={[[B04, 0], [B05, "男性で増えた"]]} />;
 const Ch1Hypergamy: React.FC = () => <Cuts cuts={[[B06, 0], [B07, "自分より学歴や年収"]]} />;
 const Ch1World: React.FC = () => <Cuts cuts={[[B08, 0], [B09, "計算で試して"]]} />;
@@ -174,7 +174,7 @@ const Ch2Income: React.FC = () => {
 };
 const Ch2Married: React.FC = () => (
   <Cuts cuts={[[C05, 0], [C06, "年齢をそろえて"], [C07, "友だちの夫"], [C08, "心理学"], [C09, "もし、心の中"], [C10, "結婚と年収の高さ"],
-    [C11, "女性でも、同じように"], [C12, "条件によく挙がる見た目"], [C13, "1つ目の前提は、年収"]]} />
+    [C11, "女性でも、同じように"], [C13, "1つ目の前提は、年収"]]} />
 );
 
 // ================= 第3章 =================

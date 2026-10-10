@@ -272,7 +272,7 @@ export const A03a: React.FC = () => (
         <Label x={340} y={390} size="value">「普通の人でいい」が、いちばん難しい。</Label>
         <Label x={340} y={490} size="body">年収も背も学歴も、普通でいい。</Label>
         <Label x={340} y={570} size="body">どれも2人に1人なら、1000人が500人、500人が250人。</Label>
-        <Label x={340} y={650} size="body">ほかの条件も足して、6つ重ねると、16人。</Label>
+        <Label x={340} y={650} size="body">ほかの条件も足して、6つとも満たす人は、16人。</Label>
       </g>
     </Svg>
   </AbsoluteFill>
@@ -811,10 +811,10 @@ export const Survivors: React.FC<{ x: number; y: number; n: number; title: strin
 export const D06: React.FC = () => (
   <AbsoluteFill>
     <ChapterDots current={3} />
-    <Heading>1人ずつ、実際に条件を重ねて数えると</Heading>
+    <Heading>1人ずつ、6つを全部満たすか数えると</Heading>
     <Svg>
       <Survivors x={140} y={220} n={52} title="掛け算" value="52人" />
-      <Survivors x={1000} y={220} n={133} title="実際に重ねる" value="133人" />
+      <Survivors x={1000} y={220} n={133} title="1人ずつ数える" value="133人" />
       <Label x={1820} y={780} anchor="end" color={C.ink2} weight={900}>ここは1人＝1人</Label>
     </Svg>
     <SourceNote text="鈴木・八代（2025）表2（女性の希望率13.3%）。男性1000人あたり" />
@@ -942,7 +942,7 @@ export const E05: React.FC<{ pairs?: boolean }> = ({ pairs = true }) => (
     <Svg>
       <Label x={120} y={240} color={C.ink2}>ここまでは人の数</Label>
       <BarChart x={120} y={280} width={1000} height={420} max={140} barWidth={170} format={(v) => `${Math.round(v)}人`} bars={[
-        { label: "投稿の計算", value: 16, color: C.rest }, { label: "掛け算", value: 52, color: C.femaleTint }, { label: "実際に重ねる", value: 133, color: C.female, focus: true },
+        { label: "投稿の計算", value: 16, color: C.rest }, { label: "掛け算", value: 52, color: C.femaleTint }, { label: "1人ずつ数える", value: 133, color: C.female, focus: true },
       ]} />
       {pairs && <>
         <line x1={1200} x2={1200} y1={260} y2={760} stroke={C.ink2} strokeWidth={LINE.thin} strokeDasharray="12 10" />
@@ -1093,7 +1093,7 @@ const panels: Panel[] = [
   { key: "D03", title: "第3章：約1万人の6つの条件", C: D03, sec: 27.3, move: "6つの札（物差しの色の帯）が1枚ずつ → 下に男女の人型 → 一文" },
   { key: "D04", title: "第3章：掛け算の階段 1000→530→230", C: D04, sec: 14, move: "冒頭の検索画面に6つの条件の行。年齢 → 年収にチェックが入るたびに人数が数え下がり、右の100人の色が消えていく" },
   { key: "D05", title: "第3章：6回掛けて52人", C: D05, sec: 22.4, move: "残り4つにチェックが続いて52人（100人のうち5人）→ 上に「投稿の計算なら16人」" },
-  { key: "D06", title: "第3章：実際に重ねると133人", C: D06, sec: 13, move: "左に52人 →〔間〕→ 右に133人が1列ずつ並ぶ（ここは1人＝1人）" },
+  { key: "D06", title: "第3章：1人ずつ数えると133人", C: D06, sec: 13, move: "左に52人 →〔間〕→ 右に133人が1列ずつ並ぶ（ここは1人＝1人）" },
   { key: "D07", title: "第3章：いくつも満たす人", C: D07, sec: 9, move: "二本の物差しの図。年収の線の右に、大学の線を通った人がそろう" },
   { key: "D08", title: "第3章：男性の条件では325人", C: D08, sec: 7.4, move: "女性100人のうち33人に色 → 「325人」" },
   { key: "D09", title: "第3章：1割超・3割超 → 3つ目の前提", C: D09, sec: 15, move: "左右の100人に色（13人・33人）→ 下に前提③の絵と一行" },
