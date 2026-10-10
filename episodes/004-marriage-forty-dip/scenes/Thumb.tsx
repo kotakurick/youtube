@@ -10,23 +10,28 @@ import { AbsoluteFill } from "remotion";
 import { Cutout, ThumbStage, ThumbWord, Vignette } from "@lib/ThumbKit";
 
 const T = "episodes/004-marriage-forty-dip/thumb/";
-const TABLE = { src: `${T}table.png`, aspect: 669 / 580 };
+const TABLE = { src: `${T}table.png`, aspect: 682 / 581 };
 
 const WORD = 112;
 const Thumb: React.FC = () => (
-  <ThumbStage ground={["#141A36", "#3A2438"]}>
+  <ThumbStage ground={["#0E1430", "#2A1A30"]}>
     {/* 食卓の上の灯（暖かい光が食卓だけを照らす） */}
     <div style={{
-      position: "absolute", left: 935 - 420, top: 120 - 300, width: 840, height: 840, borderRadius: "50%",
-      background: "radial-gradient(circle, rgba(255,196,120,.42) 0%, rgba(255,170,90,.16) 38%, rgba(255,170,90,0) 68%)",
+      position: "absolute", left: 915 - 490, top: 40 - 380, width: 980, height: 980, borderRadius: "50%",
+      background: "radial-gradient(circle, rgba(255,196,120,.7) 0%, rgba(255,170,90,.3) 38%, rgba(255,170,90,0) 68%)",
     }} />
     {/* 床の影 */}
     <div style={{
-      position: "absolute", left: 935 - 330, top: 610, width: 660, height: 90, borderRadius: "50%",
+      position: "absolute", left: 925 - 340, top: 630, width: 660, height: 90, borderRadius: "50%",
       background: "radial-gradient(ellipse, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 70%)",
     }} />
-    <AbsoluteFill style={{ filter: "brightness(1.14) contrast(1.06)" }}>
-      <Cutout {...TABLE} cx={935} top={95} h={570} rim="rgba(255,190,130,.22)" />
+    <AbsoluteFill style={{ filter: "brightness(1.08) contrast(1.1)" }}>
+      <Cutout {...TABLE} cx={925} top={80} h={590} rim="rgba(255,190,130,.1)" />
+      {/* 空いた子どもの椅子だけを少し照らす（家具でなく「空いた席」に見せる） */}
+      <div style={{
+        position: "absolute", left: 975, top: 470, width: 220, height: 160, borderRadius: "50%", mixBlendMode: "screen",
+        background: "radial-gradient(ellipse, rgba(255,200,130,.35) 0%, rgba(255,200,130,0) 70%)",
+      }} />
     </AbsoluteFill>
     <Vignette strength={0.6} />
     <ThumbWord text="妻の不満が" size={WORD} top={205} />

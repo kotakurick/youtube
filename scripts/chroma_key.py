@@ -23,30 +23,37 @@ LO, HI = 28, 80  # 緑の強さがこれ以下は人物（不透明）、これ�
 PAD = 12
 
 
-def thresholds(excess: np.ndarray, cap: float = HI) -> tuple[float, float]:
+def thresholds(excess: np.ndarray, cap: float = HI, lo_f: float = 0.3, hi_f: float = 0.7) -> tuple[float, float]:
     """外周8px の背景の緑の強さ（中央値）から閾値を決める。"""
     ring = np.concatenate([excess[:8].ravel(), excess[-8:].ravel(), excess[:, :8].ravel(), excess[:, -8:].ravel()])
     bg = float(np.median(ring))
-    return min(LO, bg * 0.3), min(cap, bg * 0.7)
+    return min(LO, bg * lo_f), min(cap, bg * hi_f)
 
 
 def main_island(alpha: np.ndarray) -> np.ndarray:
-    """いちばん大きい人物のかたまりだけ残す（1/2 に縮めて、中央の列から広げる）。"""
+    """いちばん大きい人物のかたまりだけ残す（1/2 に縮めて数える）。"""
+    from collections import deque
     m = Image.fromarray(((alpha > 0.5) * 255).astype(np.uint8))
     sw, sh = max(m.width // 2, 1), max(m.height // 2, 1)
     small = np.asarray(m.resize((sw, sh), Image.NEAREST)) > 0
-    seed = np.zeros_like(small)
-    seed[:, sw // 2] = small[:, sw // 2]
-    while True:
-        grown = seed.copy()
-        grown[1:] |= seed[:-1]
-        grown[:-1] |= seed[1:]
-        grown[:, 1:] |= seed[:, :-1]
-        grown[:, :-1] |= seed[:, 1:]
-        grown &= small
-        if (grown == seed).all():
-            break
-        seed = grown
+    label = np.zeros(small.shape, np.int32)
+    best, best_n, cur = 0, 0, 0
+    for y0, x0 in zip(*np.nonzero(small)):
+        if label[y0, x0]:
+            continue
+        cur += 1
+        label[y0, x0] = cur
+        q, n = deque([(y0, x0)]), 0
+        while q:
+            y, x = q.popleft()
+            n += 1
+            for yy, xx in ((y - 1, x), (y + 1, x), (y, x - 1), (y, x + 1)):
+                if 0 <= yy < sh and 0 <= xx < sw and small[yy, xx] and not label[yy, xx]:
+                    label[yy, xx] = cur
+                    q.append((yy, xx))
+        if n > best_n:
+            best, best_n = cur, n
+    seed = label == best
     keep = Image.fromarray((seed * 255).astype(np.uint8)).resize((m.width, m.height), Image.NEAREST)
     keep = keep.filter(ImageFilter.MaxFilter(5))  # 縮めたときに欠けたふちを戻す
     return alpha * (np.asarray(keep) > 0)
@@ -56,9 +63,10 @@ def key(src: str, dst: str) -> None:
     im = np.asarray(Image.open(src).convert("RGB")).astype(np.float32)
     r, g, b = im[..., 0], im[..., 1], im[..., 2]
     excess = g - np.maximum(r, b)
-    # 影の中の緑は暗くて差が小さいので、明るさで割った「緑の割合」で測る
+    # 影の中の緑は暗くて差が小さいので、明るさで割った「緑の割合」で測る。
+    # 白い服の影には背景の緑が映り込む（割合が背景の6〜7割）ので、背景の75%までは人物とみなす（2026-10-10 脚が透けた）
     ratio = excess / np.maximum(g, 1)
-    lo, hi = thresholds(ratio, 1.0)
+    lo, hi = thresholds(ratio, 1.0, 0.75, 1.1)
     alpha = main_island(1 - np.clip((ratio - lo) / (hi - lo), 0, 1))
     # ふちの緑を消す：緑が赤・青より強い分を削る
     im[..., 1] = np.minimum(g, np.maximum(r, b) + 4)
