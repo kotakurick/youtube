@@ -3,7 +3,7 @@
 // 2匹は同じ大きさ・同じ明るさにして、片方だけをみじめに見せない（性別全体の話に読まれないように）。
 // 地は2版：壁の色（paper）と夜（night）。npx remotion still 001-where-couples-meet-v3-thumb-cats out/thumb-cats.png
 import React from "react";
-import { AbsoluteFill } from "remotion";
+import { AbsoluteFill, Img, staticFile } from "remotion";
 import { Cat } from "@lib/Cat";
 import { Figure } from "@lib/Figure";
 import { MAN_SLUMP, Silhouette, WOMAN_PHONE } from "@lib/Silhouette";
@@ -253,7 +253,48 @@ const Duo: React.FC = () => (
   </AbsoluteFill>
 );
 
+// S8（2026-10-06）：Duo の人を、画像生成AIで作った白い人形に差し替えた版（オーナー「人だけAI、背景・文字・ハートはコード」）。
+// 画像は _local/episodes/001-where-couples-meet-v3/thumb/man.png・woman.png（緑を抜いたもの。Git の外。sync が public へ運ぶ）
+const PHOTO = (n: string) => staticFile(`episodes/001-where-couples-meet-v3/thumb/${n}.png`);
+// 彼女へ流れ込むハート：左下（青の側）から境目をまたいで、だんだん大きくなる1本の弧で彼女のスマホへ。手の上は影付きの山（レビュー a1）
+const AI_FLOW: [number, number, number][] = Array.from({ length: 11 }, (_, i) => {
+  const t = i / 10;
+  const x = 470 + (960 - 470) * t, y = 650 - 120 * Math.sin(Math.PI * t * 0.9) - 40 * t;
+  return [x, y, 14 + 14 * t] as [number, number, number];
+});
+const AI_PILE: [number, number, number][] = [[930, 560, 24], [985, 548, 26], [955, 520, 22], [1010, 515, 20], [905, 525, 18], [975, 490, 20]];
+const DuoAI: React.FC = () => (
+  <AbsoluteFill style={{ background: DUO.red[0] }}>
+    <svg width={W} height={H} style={{ position: "absolute" }}>
+      <defs>
+        <linearGradient id="aiB" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stopColor={DUO.blue[1]} /><stop offset="100%" stopColor={DUO.blue[0]} /></linearGradient>
+        <linearGradient id="aiR" x1="1" y1="1" x2="0" y2="0"><stop offset="0%" stopColor={DUO.red[1]} /><stop offset="100%" stopColor={DUO.red[0]} /></linearGradient>
+      </defs>
+      <rect x={0} y={0} width={W} height={H} fill="url(#aiR)" />
+      <polygon points={`0,0 ${W * 0.56},0 ${W * 0.44},${H} 0,${H}`} fill="url(#aiB)" />
+      <line x1={W * 0.56} y1={0} x2={W * 0.44} y2={H} stroke="#FFFFFF" strokeWidth={6} />
+    </svg>
+    {/* 人：彼は右（彼女のほう）を向いてうつむき、彼女は額に手を当てる。腰から下は画面の外 */}
+    <Img src={PHOTO("man")} style={{ position: "absolute", left: 120, top: 300, height: 1000, filter: "drop-shadow(8px 12px 14px rgba(0,0,0,.45))" }} />
+    <Img src={PHOTO("woman")} style={{ position: "absolute", left: 850, top: 318, height: 1000, filter: "drop-shadow(8px 12px 14px rgba(0,0,0,.45))" }} />
+    <svg width={W} height={H} style={{ position: "absolute" }}>
+      <Heart x={430} y={560} r={40} fill={C.white} stroke="none" />
+      {/* 彼女へ流れ込むハート：青の側から境目をまたぎ、彼女の体には重ねない（白に白で消えるため） */}
+      {AI_FLOW.map(([hx, hy, r], i) => <Heart key={i} x={hx} y={hy} r={r} fill={C.white} stroke="none" opacity={0.55 + 0.45 * (i / 10)} />)}
+      <g style={{ filter: "drop-shadow(0 4px 4px rgba(0,0,0,.45))" }}>{AI_PILE.map(([hx, hy, r], i) => <Heart key={i} x={hx} y={hy} r={r} fill={C.white} stroke={C.female} />)}</g>
+    </svg>
+    <div style={{ position: "absolute", left: 0, right: 0, top: 14, textAlign: "center" }}>
+      <span style={{ fontFamily: FONT_SERIF, fontWeight: 900, fontSize: 80, color: C.ink, background: C.white, padding: "0 28px", borderRadius: 8 }}>マッチングアプリ</span>
+    </div>
+    {([["選ばれない", 30, "flex-start"], ["選べない", 680, "flex-end"]] as const).map(([t, left, align]) => (
+      <div key={t} style={{ position: "absolute", left, width: 570, top: 128, display: "flex", justifyContent: align, fontFamily: FONT_SERIF, fontWeight: 900,
+        fontSize: 108, whiteSpace: "nowrap", color: C.white, filter: "drop-shadow(0 6px 8px rgba(0,0,0,.55))" }}>{t}</div>
+    ))}
+  </AbsoluteFill>
+);
+
 export default [
+  { id: "001-where-couples-meet-v3-thumb-duo-ai", component: DuoAI },
   { id: "001-where-couples-meet-v3-thumb-duo", component: Duo },
   { id: "001-where-couples-meet-v3-thumb-voice2", component: VoiceHim },
   { id: "001-where-couples-meet-v3-thumb-voice-him", component: () => <Voice quote={["何がいけない", "んだろう"]} /> },

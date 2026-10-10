@@ -1,0 +1,8 @@
+﻿year,chainalysis_total_usd_million,chainalysis_report_version,chainalysis_url,victim_payment_rate,payment_rate_source,payment_rate_url,note
+2019,,,,0.76,Coveware(Q4 2022報告に年間値),https://coveware.com/2023/01/improved-security-and-backups-result-in-record-low-number-of-ransomware-payments/,2019年Q1は85%
+2020,692,2022年版(2022年1月時点の改訂値。初出は約3.5億ドル=未確認),https://www.chainalysis.com/blog/2022-crypto-crime-report-preview-ransomware/,0.7,Chainalysis 2023年版が引くCovewareの値(二次),https://www.chainalysis.com/blog/crypto-ransomware-revenue-down-as-victims-refuse-to-pay/,
+2021,765.6,2023年版(改訂値。2022年版では602),https://www.chainalysis.com/blog/crypto-ransomware-revenue-down-as-victims-refuse-to-pay/,0.5,同上(二次),https://www.chainalysis.com/blog/crypto-ransomware-revenue-down-as-victims-refuse-to-pay/,
+2022,567,2024年版(改訂値。2023年版では456.8),https://www.chainalysis.com/blog/ransomware-2024/,0.41,Coveware(Q4 2022報告に年間値),https://coveware.com/2023/01/improved-security-and-backups-result-in-record-low-number-of-ransomware-payments/,
+2023,1250,2025年版(改訂値。2024年版では「10億ドル超」),https://www.chainalysis.com/blog/crypto-crime-ransomware-victim-extortion-2025/,0.29,Coveware Q4 2023の四半期値(年間値ではない),https://coveware.com/2024/01/new-ransomware-reporting-requirements-kick-in-as-victims-increasingly-avoid-paying/,
+2024,892,2026年版(改訂値。2025年版では813.55),https://www.chainalysis.com/blog/crypto-ransomware-2026/,0.25,Coveware Q4 2024の四半期値,https://coveware.com/2025/02/q4-report/,
+2025,820,2026年版(速報。900前後まで増える見込みと本文),https://www.chainalysis.com/blog/crypto-ransomware-2026/,0.2,Coveware Q4 2025の四半期値。Chainalysisは2025年の支払い割合を28%と推定,https://coveware.com/2026/02/why-zero-day-downstream-mass-data-extortion-campaigns-are-losing-their-bite/,"Chainalysis中央値59,556ドル"

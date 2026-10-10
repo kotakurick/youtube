@@ -36,7 +36,7 @@ const MIN_OVERLAP = 4;           // 4px 未満の接触は見逃す（線の太�
 export const TEXT_GAP = 16;
 /** 大きな数字（この大きさ以上）には単位を付ける（2026-10-06 オーナー「約73 では何か分からない。73% と書く」） */
 const BIG_NUMBER_PX = 56;
-const UNIT = /[%％倍人組件歳年月日円万億割位回個分秒点枚通位]/;
+const UNIT = /[%％倍人組件歳年月日円万億割位回個分秒点枚通位つ]/; // つ：「0つ」の数の札（2026-10-07 7本目）
 
 const inter = (a: QABox, b: QABox) => {
   const w = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
@@ -75,7 +75,8 @@ export const checkBoxes = (
       if (a.fontPx !== undefined && a.fontPx < MIN_FONT_PX * canvas.fontScale - 0.5) {
         out.push({ level: "error", rule: "font", message: `文字が小さすぎます（${a.fontPx.toFixed(0)}px、${MIN_FONT_PX}px 以上）：「${a.label}」`, boxes: [a] });
       }
-      if (a.x < -1 || a.y < -1 || a.x + a.w > canvas.w + 1 || a.y + a.h > canvas.h + 1) {
+      // 画面に出入りする途中（章の扉のワイプなど）は data-qa-allow="edge" で見逃す（2026-10-10）
+      if (!a.allow.includes("edge") && (a.x < -1 || a.y < -1 || a.x + a.w > canvas.w + 1 || a.y + a.h > canvas.h + 1)) {
         out.push({ level: "error", rule: "edge", message: `文字が画面の外にはみ出しています：「${a.label}」`, boxes: [a] });
       } else if (canvas.unsafeBottom > 0 && a.y + a.h > canvas.h - canvas.unsafeBottom + 2) {
         out.push({ level: "error", rule: "bottom", message: `文字が再生バーの重なる下${canvas.unsafeBottom}pxに入っています：「${a.label}」`, boxes: [a] });

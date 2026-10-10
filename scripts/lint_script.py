@@ -14,6 +14,23 @@
     必須の仕掛け（先回り・比喩・回収・ミクロ・締め）の印がないとエラー。比喩は名前を付け、同じ名前で回収する
     （<!-- 仕掛け: 比喩 ケーキ --> … <!-- 仕掛け: 回収 ケーキ -->）。健康・お金の回はミクロの代わりに <!-- 仕掛け: 示唆 --> を置く。
 
+クイズは冒頭の予想タイムだけ（2026-10-07 オーナー「クイズ的なのは最初の答え合わせでよい。それ以降はくどい」）:
+    第N章の中で、答えを当てさせる問い（「〜だと思いますか」「考えてみてください」）と「答えは、」で明かす文はエラー。
+    問いかけてすぐ〔間〕で答える形は注意。
+
+回ごとの呼び名の表（2026-10-07）:
+    episodes/<回>/wording.tsv（scripts/wording.tsv と同じ形）に、その回で使わない言い方と呼び名を書くと、
+    共通の表と同じくエラーにする。同じものを途中で別の名前で呼ばない・比喩の言葉を字義どおりに使わないため。
+
+数字の表記（2026-10-07 オーナー「漢数字と普通の数字がバラバラ」）:
+    数量（年齢・人数・年数・割合・回数など）は算用数字で書く（30代・100組・3000人・4年前）。単位の前の漢数字はエラー。
+    熟語（一緒・一度・一部・一番・一方・一人ひとり・十分）と「一日」（1日は「ついたち」と読まれる）は漢字のまま。
+    概数（数千円・数十年・数百人）も漢字のまま。
+    読み上げる数字の数え方：ラベルの数字（30代・40歳・20年・100組・1つ目 のように単位が付くもの）は数えない。
+
+オーナーの日本語の指摘（docs/script-style.md の14章）:
+    機械で見つけられる型は、scripts/wording.tsv（言い換えの辞書）と、下の JA_PATTERNS（注意）に足していく。
+
 結果:
     エラー（直してから進む）と注意（読んで判断する）を行番号つきで出す。エラーが1つでもあれば終了コード1。
 """
@@ -25,8 +42,8 @@ from pathlib import Path
 
 CHARS_PER_MIN = 395          # 読み上げの速さ（1分390〜400字）
 NUM_PER_MIN = 5              # 読み上げる数字は1分に4〜5個まで
-SENT_MAX = 40                # 1文の長さの目安
-COMMA_MAX = 2                # 1文の読点の数
+SENT_MAX = 60                # 1文の長さの目安（2026-10-07 40→60。字幕は narrate.py が読点で分けるので、字幕のために文を短く切らない）
+COMMA_MAX = 3                # 読点の数の目安（2026-10-07 2→3。文を長めにしてよくしたため）
 KANJI_RUN = 8                # 漢字がこれ以上続いたら注意（熟語3つ以上の目安）
 
 # 煽り・助言・見下し（使わない）
@@ -50,7 +67,15 @@ SLOP = [
     (r"効いてくる|溶かす|浮き彫り|紐解|ひもと|踏み込", "AIが好む比喩の動詞"),
     (r"した瞬間|示唆して", "英語の直訳調"),
     (r"(データ|数字|統計|グラフ)(が|は)(語|教えて|物語)", "擬人化：「データを見ると、〜です」"),
+    # 翻訳調・抽象名詞で逃げる言い方（2026-10-07 オーナー「日本語の使い方に違和感がある所が多い」。13章）
+    (r"することができ|において|における|を持っています|となります", "翻訳調・説明書調：ふだんの話し言葉にする"),
+    (r"という形|の形です|の形に|という構造|という構図", "抽象名詞で逃げている：何が起きているかを動詞で言う"),
 ]
+
+# クイズの形（13章。章の中では使わない）
+QUIZ_ASK = r"だと思いますか|考えてみてください|予想して(みて)?ください|当てて(みて)?ください|どれでしょう"
+QUIZ_REVEAL = r"^(答えは|正解は)"
+NO_PARTICLE = re.compile(r"[こそあど]の|もの|のです|ので|のに|のは")
 
 SYMBOLS = r"[〜～／【】！!―—…]|[\U0001F300-\U0001FAFF]"
 POLITE = r"(です|ます|でした|ました|ません|でしょう|ください)(か|ね|よ)?$"
@@ -60,7 +85,21 @@ STAT = r"%|割|倍|万|億|人に\d人"   # 統計らしい数字の目印
 
 # 声が読み間違えやすい漢字（2026-10-06 オーナー「側をそばと読む」）。tts/yomi.tsv に読みがなければ知らせる。
 # 読みは文脈で変わるので、一括では直さず、語ごとに yomi.tsv に足す（例：「女性の側」→「女性のがわ」）
-AMBIGUOUS = ["側", "他", "何人", "一日", "上手", "下手", "市場", "大分", "心中", "最中", "目下", "生物", "方々"]
+# 「入れ」「入っ」は いれ／はいれ、いっ／はいっ の読み分け（2026-10-07 003 オーナー「考えに入れる」）
+AMBIGUOUS = ["側", "他", "何人", "入れ", "入っ", "一日", "上手", "下手", "市場", "大分", "心中", "最中", "目下", "生物", "方々", "何話"]  # 何話：「なんはなし」と読んだ（2026-10-10 006)
+# 数字の表記（2026-10-07）
+KANJI_NUM = r"[〇一二三四五六七八九十百千万]+"
+UNIT = r"(代|歳|才|年|組|人|割|分|秒|時間|か月|ヶ月|カ月|月|週|つ|回|倍|章|件|本|個|位|番目|点|円|冊|枚|世帯|か国|カ国|%|パーセント)"
+KANJI_OK = ["一日", "一人ひとり", "一つひとつ", "十分", "一番", "一度", "一時", "一年中"]
+LABEL_UNIT = r"(代|歳|年|組|章|つ|回|通|か月|月|週|人の調査)"   # 付くと「ラベル」とみなして数えない（「3000人の調査」は調査の呼び名）
+
+# オーナーの日本語の指摘から、機械で見つけられる型（docs/script-style.md の14章。注意として出す）
+JA_PATTERNS = [
+    (r"(こういう|そういう|ああいう|こんな|そんな)(家|人|夫婦|こと|場合)", "指示語でまとめている。指す中身を言う（2026-10-07 オーナー「こういう家って言葉変」）"),
+    (r"(夫|妻|男性|女性|二本|2本|[0-9]+本)の(線|棒|柱)", "声で図の部品（線・棒・柱）を呼んでいる。中身（満足度など）で呼ぶ（2026-10-07 オーナー「線ではなく満足度」）"),
+    (r"同じ(向き|形|傾向)(でした|です|だった)", "何が同じかを言う（2026-10-07 オーナー「同じ向き、って伝わらない」）"),
+    (r"(夫|妻|男性|女性|人)の満足(が|は|も)(下が|上が|低|高|離れ)", "測った量は「満足度」と呼ぶ（2026-10-07 オーナー「満足 → 満足度」）"),
+]
 ROOT = Path(__file__).resolve().parent.parent
 
 
@@ -150,6 +189,9 @@ def tricks(text: str, long: bool) -> tuple[list, list]:
                 chapter_metaphors.setdefault(chapter, []).append(i)
     if "示唆" in found:   # 健康・お金の回は、ミクロの代わりに示唆を置く（11章）
         found.setdefault("ミクロ", found["示唆"])
+    for no, name in found.get("ミクロ", []):   # オーナーが冗長として外した回は「ミクロ なし（理由）」と書く（2026-10-07 003）
+        if name.startswith("なし"):
+            notes.append((no, f"ミクロを置いていない：{name}"))
     for kind, why in TRICK_REQUIRED.items():
         if kind not in found:
             (errors if long else notes).append((0, f"仕掛け「{kind}」の印がない（{why}。<!-- 仕掛け: {kind} --> を置く）"))
@@ -187,8 +229,50 @@ def narration_with_headings(text: str) -> list[tuple[int, str]]:
     return sorted([(i, h) for i, h in heads.items()] + narration(text))
 
 
-def numbers(s: str) -> list[str]:
-    return re.findall(r"\d+(?:[.,]\d+)*", s)
+def ending_kind(s: str, core: str) -> str:
+    """文末の種類。「でした」「ました」「しました」はまとめて「〜た」と数える（どれも過去の言い切りで、続くと単調に聞こえる）。"""
+    if re.search(r"[？?]$", s) or core.endswith("か"):
+        return "問い"
+    if core.endswith("た"):
+        return "〜た"
+    return core[-2:]
+
+
+# ラベルの数字（年齢・時刻・期間・回・章・年代・西暦・「3つ」のような個数、「〇人に1人」の1）は、覚えるデータではないので数えない。
+# 本線の LABEL_UNIT（30代・20年・100組・1つ目など）と合わせて除く。
+LABEL = re.compile(r"(?:歳|時|か月|ヶ月|カ月|週間|回目|度目|章|代|つ)|(?<=\d{4})年")
+
+
+def numbers(s: str, labels: bool = False, keys: bool = False) -> list[str]:
+    """読み上げる数字。labels=False ならラベルの数字を除く。keys=True なら「数字＋続く1字」（同じ量かの目印）で返す。"""
+    out = []
+    for m in re.finditer(r"\d+(?:[.,]\d+)*", s):
+        if not labels:
+            if LABEL.match(s, m.end()) or re.match(LABEL_UNIT, s[m.end():]) or (len(m.group()) == 4 and s[m.end():m.end() + 1] == "年"):
+                continue
+            if s[max(0, m.start() - 2):m.start()] == "人に" and m.group() == "1":
+                continue
+        out.append(m.group() + s[m.end():m.end() + 1] if keys else m.group())
+    return out
+
+
+def new_numbers(sents) -> dict:
+    """文ごとの「新しい数字」の数。前に言った数字を同じ単位でもう一度言うのは数えない
+    （基準の「1000人」や、本命の数字の言い直し。1つの数字に時間をかける、の決まりどおり。2026-10-07）。"""
+    seen, out = set(), {}
+    for no, s in sents:
+        ks = numbers(s, keys=True)
+        out[(no, s)] = sum(1 for k in ks if k not in seen)
+        seen.update(ks)
+    return out
+
+
+def kanji_numbers(s: str) -> list[str]:
+    """単位の前の漢数字（算用数字で書くもの）。熟語は除く。"""
+    for w in KANJI_OK:
+        s = s.replace(w, "＿" * len(w))
+    s = re.sub(r"数[十百千万億]+", lambda m: "＿" * len(m.group(0)), s)   # 概数（数千円・数十年）は漢字のまま
+    return [m.group(0) for m in re.finditer(r"(?<![0-9０-９])" + KANJI_NUM + UNIT, s)]
 
 
 def main():
@@ -206,26 +290,35 @@ def main():
     errors, notes = [], []
 
     # 数字
+    fresh = new_numbers(sents)
     all_nums = [(no, n) for no, s in sents for n in numbers(s)]
-    per_min = len(all_nums) / minutes if minutes else 0
+    n_fresh = sum(fresh.values())
+    per_min = n_fresh / minutes if minutes else 0
     if per_min > NUM_PER_MIN:
         (errors if minutes >= 3 else notes).append((0, f"読み上げる数字が1分に{per_min:.1f}個（{NUM_PER_MIN}個まで）。数字を減らし、1つの数字に時間をかける"))
     window, acc, start_no = CHARS_PER_MIN, [], None
     for no, s in sents:   # 約1分ごとに区切って、数字が多すぎる所を探す
         acc.append((no, s))
         if sum(len(x) for _, x in acc) >= window:
-            k = sum(len(numbers(x)) for _, x in acc)
+            k = sum(fresh[(n2, x)] for n2, x in acc)
             if k > NUM_PER_MIN + 1:
                 notes.append((acc[0][0], f"{acc[0][0]}〜{no}行目の約1分に数字が{k}個"))
             acc = []
     for no, s in sents:
-        for n in numbers(s):
+        for n in numbers(s, labels=True):
             if "." in n:
                 errors.append((no, f"小数を読み上げている（{n}）。丸めて言い、細かい値は画面に出す"))
         if re.search(r"\d", s) and re.search(STAT, s):
             src_line = next(t for n2, t in lines if n2 == no)
             if not re.search(r"\[S\d+", src_line):
                 notes.append((no, "統計らしい数字に出典の id（[S1] など）がない（物語の中の数字なら問題なし）"))
+
+    for no, s in sents:
+        for k in dict.fromkeys(kanji_numbers(s)):
+            errors.append((no, f"数量は算用数字で書く：「{k}」（熟語は漢字のまま。docs/script-style.md の14章）"))
+        for pat, why in JA_PATTERNS:
+            for m in re.finditer(pat, s):
+                notes.append((no, f"{why}：「{m.group(0)}」"))
 
     # 文体・文の形
     plain = []
@@ -238,25 +331,65 @@ def main():
         if length > SENT_MAX:
             notes.append((no, f"文が{length}字（{SENT_MAX}字まで）：{s[:30]}…"))
         if s.startswith("では、"):  # eleven-yui が「では、では」と2回読むことがある（2026-10-06。docs/script-style.md の7章）
-            errors.append((no, f"文の頭の「では、」は声が2回読むことがある。前置きなしで始めるか「それなら、」などにする：{s[:30]}"))
+            errors.append((no, f"文の頭の「では、」は声が2回読むことがある。前置きなしで始めるか「ここで、」「けれど、」などにする：{s[:30]}"))
+        if re.match(r"それ(から|なら|でも)", s):  # 「そ、それから」とどもって聞こえた（2026-10-10 006。docs/owner-feedback.md の声）
+            errors.append((no, f"文の頭の「それから・それなら・それでも」は、声が「そ、それから」とどもることがある。「続いて」「ここで」「けれど」「ただ」などにする：{s[:30]}"))
         if s.count("、") > COMMA_MAX:
             notes.append((no, f"読点が{s.count('、')}個（{COMMA_MAX}個まで）"))
         m = re.search(r"[一-龥]{%d,}" % KANJI_RUN, s)
         if m:
             notes.append((no, f"漢字が続いて聞き取りにくい：{m.group(0)}"))
-        end = core[-2:]
+        end = ending_kind(s, core)
         run = run + 1 if end == prev_end else 1
         prev_end = end
-        if run == 4:
-            notes.append((no, f"同じ文末「{end}」が4回続いている。体言止めか問いかけを混ぜる"))
+        if run == 3:
+            notes.append((no, f"同じ文末「{end}」が3文続いている。体言止め・「〜のです」・2文をつなぐ・言い方を変える（2026-10-07 オーナー「でした。しました。が単調」）"))
     if plain and len(plain) / len(sents) > 0.1:
         errors.append((plain[0][0], f"です・ます調でない文が{len(plain)}文（{len(plain) / len(sents):.0%}）。例：{plain[0][1][:30]}"))
     else:
         for no, s in plain:
             notes.append((no, f"です・ます調でない：{s[:30]}"))
 
-    # 言い換えの辞書（scripts/wording.tsv。オーナーの指摘から足していく）と、読み間違えやすい漢字（tts/yomi.tsv）
-    wording = load_tsv(ROOT / "scripts" / "wording.tsv", "表記")
+    # 1文の中の「の」の重なりと、同じ語のくり返し（13章）
+    for i, (no, s) in enumerate(sents):
+        for clause in re.split(r"[、。？?]", s):
+            if len(re.findall("の", NO_PARTICLE.sub("", clause))) >= 3:
+                notes.append((no, f"「の」が3つ以上重なる：{clause[:30]}"))
+        words = re.findall(r"[一-龥]{2,}|[ァ-ヶー]{3,}", s)
+        for w in dict.fromkeys(words):
+            if words.count(w) >= 2:
+                notes.append((no, f"1文に同じ語「{w}」が2回。わざとの対句でなければ言い換えるか省く"))
+        near = [w for _, x in sents[max(0, i - 2):i + 1] for w in dict.fromkeys(re.findall(r"[一-龥]{2,}|[ァ-ヶー]{3,}", x))]
+        for w in dict.fromkeys(near):
+            if near.count(w) >= 3:
+                notes.append((no, f"同じ語「{w}」が3文続けて出る。わざとでなければ言い換えるか省く"))
+
+    # クイズは冒頭の予想タイムだけ（13章。2026-10-07 オーナー）
+    raw_lines = a.script.read_text(encoding="utf-8").splitlines()
+    in_ch, ch_name, asks = False, None, {}
+    for no, line in narration_with_headings("\n".join(raw_lines)):
+        if line.startswith("## "):
+            in_ch, ch_name = bool(CHAPTER.match(line)), line[3:].strip()
+            continue
+        if not in_ch:
+            continue
+        ss = [x.strip() for x in re.split(r"(?<=[。？?])(?![」』）)])", strip_tags(line)) if x.strip()]
+        for x in ss:
+            if re.search(QUIZ_ASK, x):
+                errors.append((no, f"章の中のクイズ（答えを当てさせる問い）。クイズは冒頭の予想タイムだけ：{x[:30]}"))
+            if re.match(QUIZ_REVEAL, x):
+                errors.append((no, f"章の中で「答えは」と明かしている（クイズの形）。答えを先に言い、意外さを語る：{x[:30]}"))
+            if re.search(QUESTION, re.sub(r"[。」』）)]+$", "", x)):
+                asks.setdefault(ch_name, []).append(no)
+        nxt = raw_lines[no].strip() if no < len(raw_lines) else ""
+        if ss and re.search(QUESTION, re.sub(r"[。」』）)]+$", "", ss[-1])) and nxt.startswith("〔間"):
+            notes.append((no, f"問いかけて〔間〕ですぐ答えている（クイズの形になっていないか）：{ss[-1][:30]}"))
+    for ch, nos in asks.items():
+        if len(nos) > 3:
+            notes.append((nos[0], f"「{ch}」に問いかけが{len(nos)}つ（くどくなる。章の終わりの問いを入れて3つまで）"))
+
+    # 言い換えの辞書（scripts/wording.tsv。オーナーの指摘から足していく。回ごとの呼び名は episodes/<回>/wording.tsv）と、読み間違えやすい漢字（tts/yomi.tsv）
+    wording = load_tsv(ROOT / "scripts" / "wording.tsv", "表記") + load_tsv(a.script.parent / "wording.tsv", "表記")
     yomi = [r["表記"] for r in load_tsv(ROOT / "tts" / "yomi.tsv", "表記")]
     for no, t in lines:
         t2 = strip_tags(t)
@@ -304,7 +437,7 @@ def main():
             notes.append((no, f"「{ch}」の最後の文が問いになっていない。次の章への問いで終える：{s_last[:30]}"))
 
     # 出力
-    print(f"{a.script}：{chars:,}字、読み上げ約{minutes:.1f}分、数字{len(all_nums)}個（1分に{per_min:.1f}個）、{len(sents)}文")
+    print(f"{a.script}：{chars:,}字、読み上げ約{minutes:.1f}分、数字{len(all_nums)}個（言い直しを除く{n_fresh}個、1分に{per_min:.1f}個）、{len(sents)}文")
     if minutes >= 10 and not (5500 <= chars <= 7500):
         notes.append((0, f"全体が{chars:,}字（15〜20分なら約5,500〜7,500字）"))
     errors, notes = list(dict.fromkeys(errors)), list(dict.fromkeys(notes))   # 同じ行の同じ指摘は1つに

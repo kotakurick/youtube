@@ -16,7 +16,8 @@ export const Dumbbell: React.FC<{
     <svg width={VW} height={VH} style={{ position: "absolute", left: 0, top: 0 }}>
       <g transform={`translate(${ax},${y - 30})`}>
         <circle cx={12} cy={-12} r={12} fill={C.bg} stroke={color} strokeWidth={LINE.thin} /><text x={34} y={0} style={font("label", C.ink2)}>{aLabel}</text>
-        <circle cx={232} cy={-12} r={12} fill={color} /><text x={254} y={0} style={font("label", C.ink2)}>{bLabel}</text>
+        {/* 2つ目の凡例は1つ目の文字の幅だけ右へ（文字40px×字数。2026-10-06 長い凡例に点が重なった） */}
+        <circle cx={34 + aLabel.length * 40 + 48 + 12} cy={-12} r={12} fill={color} /><text x={34 + aLabel.length * 40 + 48 + 34} y={0} style={font("label", C.ink2)}>{bLabel}</text>
       </g>
       {rows.map((r, i) => {
         const cy = y + 40 + i * rowH;

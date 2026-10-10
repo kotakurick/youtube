@@ -84,3 +84,19 @@ export const WOMAN_PHONE: Joints = {
   kneeL: [-40, -240], footL: [-46, 0], kneeR: [40, -240], footR: [46, 0],
   hair: "long", skirt: true,
 };
+/** 背すじを伸ばして立つ男性（正面。腕は下ろす）。落ち込ませない立ち姿（2026-10-07 004 のサムネイル） */
+export const MAN_STAND: Joints = {
+  head: [0, -880], headR: [56, 60], neck: [0, -810],
+  shoulderL: [-100, -775], shoulderR: [100, -775], hipL: [-66, -470], hipR: [66, -470], waist: 0.05,
+  elbowL: [-122, -615], handL: [-128, -455], elbowR: [122, -615], handR: [128, -455],
+  kneeL: [-50, -240], footL: [-60, 0], kneeR: [50, -240], footR: [60, 0],
+  hair: "short",
+};
+/** 片手で反対の肘を抱え、顔を横へそらす女性（正面。髪は長い）。窓の外を見る助手席の姿（2026-10-07 004 のサムネイル） */
+export const WOMAN_HUG: Joints = {
+  head: [26, -900], headR: [52, 64], headTilt: 14, neck: [6, -828],
+  shoulderL: [-80, -782], shoulderR: [80, -782], hipL: [-72, -480], hipR: [72, -480], waist: 0.22,
+  elbowL: [-108, -610], handL: [-30, -566], elbowR: [96, -650], handR: [-100, -616],
+  kneeL: [-40, -240], footL: [-46, 0], kneeR: [40, -240], footR: [46, 0],
+  hair: "long", skirt: true,
+};

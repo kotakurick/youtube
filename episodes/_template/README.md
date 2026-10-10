@@ -9,9 +9,10 @@
 - [ ] 1. テーマ・データ収集（クラウド）→ `sources.csv`、`data/`
 - [ ] ★ テーマと切り口の承認（オーナー）
 - [ ] 2. 企画カードと構成案（クラウド）→ `outline.md`（一番上の企画カードを先に埋める。埋まったら `review-rival` に見せて、負けている所を構成で直す → `review/rival-outline.md`）
-- [ ] 3. 台本（クラウド）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。5役のレビュー → 直した稿をもう一度見せる → 最後に日本語役 `review-japanese` → `review/`）
+- [ ] 3. 台本（クラウド）→ `script.md`（`docs/script-style.md` の決まりで書き、`python scripts/lint_script.py` のエラーを0にして、script-review スキルで推敲。6役のレビュー（視聴者代表を含む） → 直した稿をもう一度見せる → 最後に日本語役 `review-japanese` → `review/`）
 - [ ] ★ 一次資料との照合（オーナー）→ `sources.csv` の「照合」欄をすべて埋める
 - [ ] ★ 台本レビュー（オーナー）→ `review/owner.md`（Claude が読みやすい形にまとめて渡す。オーナーの指摘は Claude が書き写して台本に反映し、直した／直さなかったを1行ずつ書く）
+- [ ] ★ 仮の音声で聞く（クラウドが作る → オーナーがスマホで）：まず無料の読み上げページ（`python tts/readaloud.py episodes/{{EPISODE}}` → Artifact で db 付きで公開してリンクを渡す。「付けた」と言われたら ArtifactData でページの notes を読んで台本を直す）。Yui の声で聞きたいときだけ `python tts/narrate.py episodes/{{EPISODE}} --voice eleven-yui` → `python tts/preview.py episodes/{{EPISODE}}` の mp3 と早見表をアプリに送る。「いらない」と言われた所を台本で直し、もう一度送る（`docs/process.md` の8b）
 - [ ] 4. 絵コンテ（クラウド）：`scenes/Storyboard.tsx` に場面を描き（秒数と動きも）、`cd render && npm run storyboard -- <回のid>` で一覧と `storyboard.md` を作る（直すもの0、⚠ の場面は割り方を決める）→ 3役（`review-animator`・`review-illustrator`・`review-designer`）に見せて `review/storyboard-summary.md` にまとめて直す → ★ オーナーが確認
 - [ ] 5. 場面のコード（クラウド）→ `scenes/Episode.tsx`（`Episode.example.tsx` を名前を変えて使う。部品は `render/src/lib`、動きは `useNarration()` で読み上げに合わせる）
 - [ ] 6. 仮通し（クラウド）：`python tts/narrate.py episodes/{{EPISODE}} --voice silent` で仮の尺と字幕（`timing.json`）を作り、部品のない場面は仮の画面（draft）で13〜18分を通して、テンポ・章の長さ・考える場面の位置を直す
@@ -19,7 +20,8 @@
 - [ ] 8. 書き出し・BGM・音量（ローカル）：`npm run render`、`npm run master`（BGM は `npm run bgm` で測ってそろえたもの）
 - [ ] 9. 画面のチェック：`cd render && npm run check -- {{EPISODE}}` の「直すもの」を0にし、「確かめるもの」は画像を見て判断する（重なり・28px未満の文字・はみ出し。結果は `render/out/qa/{{EPISODE}}/`）。縦型ショートも同じ
 - [ ] ★ 1.25倍速で通し確認（オーナー）
-- [ ] ★ サムネイルとタイトルの最終決定（オーナー）→ `meta.md`
+- [ ] 6b. タイトル・サムネイル（クラウド。仮通しのあと、ローカルに渡す前）：タイトル案3つと推し1つ、サムネイルは `scenes/Thumb.tsx`（`review-thumbnail` で7点以上）、人物の画像の指示文 → `meta.md`
+- [ ] ★ タイトル・サムネイルの確認と人物の画像（オーナー）→ `_local/episodes/{{EPISODE}}/thumb/`
 - [ ] ★ 公開（オーナー。URL: ）
 - [ ] 公開後の確認：広告の制限（黄色アイコン）がないか、透かしが出ているか
 - [ ] 10. 振り返り（公開7日後と28日後）→ `retro.md`（数字と、離れた所・見返された所を記録し、学んだことを決まりかレビュー役に1行足す）
@@ -33,7 +35,7 @@
 - [ ] タイトル・サムネイルは自分たちの型で作り、他チャンネルの言い回しをまねていない
 - [ ] サムネイルがチャンネルの様式どおり。大きな文字は2〜3かたまり、主題は1つ、数字は入れても1つ
 - [ ] 最初の60秒で問いが出る。動画の最初の1割のうちに最初の具体的な数字が出る
-- [ ] 章ごとに1つ、視聴者が自分で答えを考えられる場面（クイズ・実験・自分に当てはまる数字・日ごとの再現）がある
+- [ ] クイズは冒頭の予想タイムだけ。章ごとに1つ、自分に当てはめられる場面（実験・自分に当てはまる数字・日ごとの再現）が問いの形でなくある
 - [ ] 独自のグラフかシミュレーションが1つ以上ある
 - [ ] 出典を要所で画面に出している
 - [ ] 画面が10〜20秒ごとに変わる。グラフや文字だけの画面が30秒以上続かない
