@@ -1,6 +1,50 @@
 # メタデータ
 
-## タイトル案
+## タイトルとサムネイル（2026-10-10 作り直し。決まりは `docs/brand.md` のパッケージ）
+
+タイトルはキャッチーにせず、何をどう調べた動画かの概要を伝える（答えの数字は入れない）。サムネイルは白い人形＋太いゴシック。感情はサムネイル、中身はタイトルが受け持つ。
+
+**決定（2026-10-10 オーナー「タイトルは1、サムネイルはBでいこう」）**：タイトル「どこからが浮気か、男女でどれくらい違うのか。32の行動で数えてみた」、サムネイル B「どこから／浮気？」（`006-cheating-line-thumb`。A・B2 はコードから外した）。
+
+### タイトル案
+
+| | タイトル | ねらい |
+|---|---|---|
+| 1（推し） | どこからが浮気か、男女でどれくらい違うのか。32の行動で数えてみた | 検索される「どこからが浮気」を頭に。本編の問い（男女の差）と、やったこと（32の行動で数えた）がそのまま分かる。答えはにおわせない |
+| 2 | 浮気の基準は、男女でどれくらい違うのか。2人の答えがそろう組を数えてみた | 本編の主役の計算（組ませて数える）を言う。「どこからが浮気」の語が入らない |
+| 3 | どこからが浮気か。男女と同性どうしで、基準のずれを数えてみた | 第2章の比べ方まで言う。「同性どうしもずれる」がにおうので、答えに近い |
+
+- 旧タイトル「…ぴったり合うのは、170組に1組」は答えの数字が入っているので、新しい決まりで取り下げ。
+- 本編で数える「2人」は無作為に組んだ他人どうしなので、「恋人と」「夫婦で」は約束しない。
+
+### サムネイル（`scenes/Thumb.tsx`）
+
+絵は冒頭の物語：夜、明かりを落とした部屋でドラマを見ていた2人。彼は手を開いて「セーフでしょ」、彼女は腕を組んで彼を見る。2人は同じ白・同じ光。ゴサは出さない（男女の回）。
+
+- A `006-cheating-line-thumb-a`「男女で／基準は同じ？」（2026-10-07 オーナーの案をそのまま。タイトル1と組むと「男女」が重なる）
+- B `006-cheating-line-thumb-b`「どこから／浮気？」（検索の語と同じ。タイトルが中身を受け持つ）
+
+- B2 `006-cheating-line-thumb-b2`：B の「浮気？」を黄・160px にした版（レビュー r1 の案）。オーナーが3本目で「色や大きさの強調はなくていいかも」と言ったので、B（白・同じ大きさ）と並べて比べる用。
+
+レビュー（`review/thumbnail-gemini.md`）：r1 A 6.0・B 6.5 → 地を明るく・左下に橙の光・人形を大きく・ソファをからし色に → **r2 A 6.5・B 7.0（合格）・B2 7.5**。そのあと r2 の残り（左下の光を強く、ソファを鮮やかに）を入れた。A はタイトル1と「男女」が重なるので出さない方針（レビュー役）。推しは B（オーナーの「強調はなくていい」に合う）。B2 は競合の間で比べて決める。
+
+人形の画像（Gemini の API。`_local/episodes/006-cheating-line/thumb/sofa-mustard.png` 818×672）：
+
+- はじめは白いソファで作った（`sofa.png`）が、オーナー「人間と家具は同じ色でわかりにくいから家具は色付けていい」（2026-10-10）で、ソファに色を付けて作り直した。男女の色（青・橙）と緑（抜けてしまう）を避け、こげ茶2枚・からし色2枚を作り、暗い地で人形と分かれて見えて全身が入る、からし色の1枚（`sofa2-raw3.png`）を採用。
+- 抜き方：白い人形に緑の照り返しが強く、`scripts/chroma_key.py` の閾値では脚がまだらに抜けた。緑の割合を5pxの中央値でならし、閾値を 0.155〜0.195 に固定（背景は約0.21）。外周からつながる弱い緑（床）は 0.12 から消した。手順は `data/key_sofa.py`（この画像だけの抜き方。同じことがまた起きたら `chroma_key.py` に足す）。
+- 書き出し：`cd render && npm run sync`、`npx remotion still src/index.ts 006-cheating-line-thumb-b out/006-thumb-b.png`
+
+指示文（`SOFACOLOR` を `muted mustard yellow` にした）：
+
+```
+Two faceless abstract matte-white mannequin figures with smooth egg-shaped heads: no eyes, no nose, no mouth, no ears, completely blank faces. A man and a woman in their early 30s, both with sculpted hair in the same matte white (man: short neat hair; woman: shoulder-length hair). Both wear plain white long-sleeve tops and plain white trousers. They sit side by side on a simple two-seat fabric sofa in SOFACOLOR, seen from the front, slightly from the side. The sofa is clearly colored, not white. The man on the left leans back relaxed, one hand raised with the palm open in a casual "it is fine" gesture. The woman on the right sits upright, turned toward him, arms folded firmly across her chest, head turned toward him. Calm tension, no anger, no crying. Full sofa visible, framed from head to feet. Both figures same white material, same soft studio light, same head size. Background is a single solid flat bright pure green color, evenly lit, no gradient, no vignette, no shadow. No floor, no other objects. No text, no letters, no watermark anywhere in the image.
+```
+
+---
+
+以下は 2026-10-07 の旧版（明朝体・2色の地。使わない。経緯として残す）。
+
+## タイトル案（旧）
 
 （2026-10-07 クラウド。`docs/brand.md` のパッケージ：型A・B・C、数字は1つまで、「？」なしから。検索される語「どこからが浮気」を頭に置く）
 本編で数える「2人」は無作為に組んだ他人どうしなので、「恋人と」「夫婦で」は約束しない。
@@ -64,7 +108,32 @@ ChatGPT などで作り、`_local/episodes/006-cheating-line/thumb/` に `man.pn
 
 ## 概要欄
 
-（出典一覧を含める）
+（第5稿の公開用。2026-10-10。章の時刻は `render/out/006-cheating-line.master.mp4`（11分41秒）に合わせた。書き出し直したら時刻を直す。YouTube のチャプターは1つ10秒以上が条件なので、8秒の「今日の答え合わせ」は冒頭に含めた）
+
+```
+手をつないだら浮気？ ふたりきりでランチは？
+「どこからが浮気か」は、男女でどれくらい違うのか。日本の調査と、アメリカの公開データの32の行動で数えてみました。
+
+0:00 金曜の夜、ドラマを見ていたふたり
+1:45 第1章 日本の人の、浮気の基準は？
+4:01 第2章 誰と誰の基準がずれる？
+6:30 第3章 浮気をする人は、男女で違う？
+9:33 答え合わせ
+10:38 数えてみると
+
+■ この動画の数え方
+・「ふたりの基準がそろう確率」は、アメリカの公開データ（554人が32の行動を「浮気か」7段階で答えたもの。5以上を浮気とした）から、知らない人どうしをくじで組ませて数えた計算です。本物のカップルではありません。
+・日本の調査のうち、結婚と浮気に関する実態調査は、既婚者向けサービスの会社によるネット調査（複数回答）です。
+・浮気の経験と結婚の満足度の関係は相関で、どちらが原因かは分かりません。
+
+■ 出典
+・レゾンデートル株式会社「結婚と浮気に関する実態調査」第1報・第2報（2025年）
+・株式会社ALBONA「セカンドパートナーと浮気に関する実態調査」（2024年）
+・相模ゴム工業「ニッポンのセックス 2026年版」
+・Buss, Shackelford, Kirkpatrick ほか (1999) Jealousy and the nature of beliefs about infidelity. Personal Relationships 6
+・Kulibert & Thompson (2019) Stepping into their shoes. Journal of Social Psychology 159(6)（公開データ https://osf.io/t7dkp/ から自前で計算）
+・NORC（シカゴ大学）General Social Survey 1991〜2022年（自前で集計）
+```
 
 ## Shorts 案
 

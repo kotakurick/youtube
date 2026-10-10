@@ -1,0 +1,11 @@
+﻿quarter,payment_rate,avg_payment_usd,median_payment_usd,median_victim_employees,url
+2020Q4,,154108,49450,,https://coveware.com/2021/02/ransomware-marketplace-report-q4-2020/
+2021Q4,,322168,117116,,https://coveware.com/2022/02/law-enforcement-pressure-forces-ransomware-groups-to-refine-tactics-in-q4-2021/
+2022Q4,0.37,408644,185972,,https://coveware.com/2023/01/improved-security-and-backups-result-in-record-low-number-of-ransomware-payments/
+2023Q4,0.29,568705,200000,,https://coveware.com/2024/01/new-ransomware-reporting-requirements-kick-in-as-victims-increasingly-avoid-paying/
+2024Q4,0.25,553959,110890,,https://coveware.com/2025/02/q4-report/
+2025Q1,未確認(「わずかに上昇」とだけ記載),552777,200000,,https://coveware.com/2025/05/the-organizational-structure-of-ransomware-threat-actor-groups-is-evolving-before-our-eyes/
+2025Q2,0.26,1130070,400000,,https://coveware.com/2025/07/targeted-social-engineering-is-en-vogue-as-ransom-payment-sizes-increase/
+2025Q3,0.23,376941,140000,362,https://coveware.com/2025/10/insider-threats-loom-while-ransom-payment-rates-plummet/
+2025Q4,0.2,591988,325000,200,https://coveware.com/2026/02/why-zero-day-downstream-mass-data-extortion-campaigns-are-losing-their-bite/
+2026Q2,未確認(「過去最低」とだけ記載),1880612,150000,750,https://coveware.com/2026/07/adverse-cyber-extortions-are-more-common-than-commonly-advised/

@@ -1,0 +1,18 @@
+﻿調査,版・公表,調べ方,件数,品目,値段,下限,上限,通貨,URL,一次か二次か,メモ
+NordVPN（NordStellar）,2025年10月29日公開,2025年5月収集,50705,カード1枚（世界・全件の単純平均）,11.48,,,USD,"自分で計算（公開データ表 Prices シート 50,705件の加重平均）",一次（公開データから計算）,公開ページは「映画のチケットくらい」とだけ書く。報道の「世界平均約8ドル」は国別平均の平均(132か国で8.82ドル)に近いが計算方法は未確認
+NordVPN（NordStellar）,2025年10月29日公開,2025年5月収集,121,カード1枚（日本）,22.8,,,USD,https://nordvpn.com/research-lab/stolen-payment-cards/,一次,調べた国の中で最高。ただし日本のカードは121件だけ（全体の0.24%）
+NordVPN（NordStellar）,2025年10月29日公開,2025年5月収集,30540,カード1枚（米国）,11.51,,,USD,https://nordvpn.com/research-lab/stolen-payment-cards/,一次,
+NordVPN（NordStellar）,2025年10月29日公開,2025年5月収集,,カード1枚（最安：コンゴ民主共和国）,0.94,,,USD,https://nordvpn.com/research-lab/stolen-payment-cards/,一次,
+NordVPN（NordStellar）,公開データ表の「Year 2023」列,2023年調査,,カード1枚（日本・2023年）,11.07,,,USD,https://docs.google.com/spreadsheets/d/1mnFQu3r8g-wfsGxR32GY1OmkmDVxVZAT/,一次（データ表）,2025年は22.80ドル＝約2.1倍
+NordVPN（NordStellar）,公開データ表の「Year 2023」列,2023年調査,,カード1枚（米国・2023年）,6.85,,,USD,https://docs.google.com/spreadsheets/d/1mnFQu3r8g-wfsGxR32GY1OmkmDVxVZAT/,一次（データ表）,
+NordVPN,2023年5月（報道）。ページの日付は2024年11月29日,8つの闇市場,約600万件,カード1枚（世界平均）,7.01,,,USD,https://nordvpn.com/research-lab/6-million-stolen-credit-cards-analyzed/,一次,日本は約11ドル（ポルトガル・ウクライナと並ぶ。報道による。ページ本文に日本の記述なし→日本の値は二次）
+NordVPN,2021年（報道）。ページの日付は2024年10月25日,第三者研究者のデータベース,4478908,カード1枚（平均）,10,,,USD,https://nordvpn.com/research-lab/payment-card-details-theft/,一次,原文 about $10 USD per card
+Privacy Affairs Dark Web Price Index,2021年版（2021年6月報道）,,,"カード情報＋付随情報（残高1,000ドル未満）",150,,,USD,https://securityaffairs.com/?p=118574,二次（原文サイトに接続できず）,"残高5,000ドル未満は240ドル"
+Privacy Affairs Dark Web Price Index,2022年版（2021年2月〜2022年6月のデータ）,,,"カード情報（残高1,000ドル）",80,,,USD,https://itweb.co.za/article/dark-web-prices-plummet-as-supply-soars/WnxpEv4Yaww7V8XL,二次,前年の120ドルから下落と報道（2021年版の報道150ドルと食い違う）
+Privacy Affairs Dark Web Price Index,2022年版,,,"カード情報（残高5,000ドル）",120,,,USD,https://itweb.co.za/article/dark-web-prices-plummet-as-supply-soars/WnxpEv4Yaww7V8XL,二次,前年240ドルから半減
+Privacy Affairs Dark Web Price Index,2022年版,,約450万枚（2021年12月に売りに出た）,カード1枚（米・加・豪）,1,,,USD,https://itweb.co.za/article/dark-web-prices-plummet-as-supply-soars/WnxpEv4Yaww7V8XL,二次,
+Privacy Affairs Dark Web Price Index,2023年版（2023年5月1日発表）,,,カード情報＋付随情報,,10,100,USD,https://prnewswire.co.uk/news-releases/peoples-personal-data-is-worth-1-000-on-the-dark-web-new-study-by-privacy-affairs-finds-301811813.html,二次（発行元のプレスリリース転載）,最新版。2024・2025年版は出ていない（二次資料の記述・未確認）
+Privacy Affairs Dark Web Price Index,2023年版,,,複製カード（暗証番号付き）,20,,,USD,https://cert.bournemouth.ac.uk/dark-web-price-index-2023/,二次,
+Comparitech,2023年8月12日更新,13の闇市場,カード約400件,カード情報1件（平均）,17.36,0.11,986,USD,https://www.comparitech.com/blog/vpn-privacy/dark-web-prices/,一次,日本・UAE・欧州のフルセット個人情報は平均25ドル（米国は8ドル）。カードは前年比27%下落（比較年は未確認）
+Comparitech,2023年8月12日更新,,,複製した物理カード（平均）,171,,,USD,https://www.comparitech.com/blog/vpn-privacy/dark-web-prices/,一次,
+Kaspersky,2020年12月1日,10の闇フォーラム・市場,,カード情報（最低）,6,,,USD,https://usa.kaspersky.com/about/press-releases/kaspersky-research-finds-out-how-much-your-personal-data-costs-online,一次,カード・銀行の値段はここ数年変わらない、と原文
