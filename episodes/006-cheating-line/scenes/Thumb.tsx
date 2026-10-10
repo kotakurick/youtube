@@ -13,12 +13,12 @@ const T = "episodes/006-cheating-line/thumb/";
 const SOFA = { src: `${T}sofa-mustard.png`, aspect: 818 / 672 };
 
 type Line = { text: string; size: number; color?: string };
-// 2026-10-10 レビュー（review/thumbnail-gemini.md）：地を明るく、左下に橙の光（人形には当てない）、人形を大きく
+// 2026-10-10 レビュー（review/thumbnail-gemini.md）：地を明るく、左下に橙の光（人形には当てない）、人形を大きく。r2：光を強く、ソファを鮮やかに
 const Scene: React.FC<{ lines: [Line, Line]; top: number }> = ({ lines, top }) => (
   <ThumbStage ground={["#1A2658", "#5B2A5A"]}>
     <div style={{
-      position: "absolute", left: 280 - 350, top: 560 - 350, width: 700, height: 700, borderRadius: "50%",
-      background: "radial-gradient(circle, rgba(255,179,71,.18) 0%, rgba(255,179,71,0) 70%)",
+      position: "absolute", left: 280 - 410, top: 560 - 410, width: 820, height: 820, borderRadius: "50%",
+      background: "radial-gradient(circle, rgba(255,179,71,.28) 0%, rgba(255,179,71,0) 70%)",
     }} />
     {/* 手前のテレビの光（青白い光が2人を照らす） */}
     <div style={{
@@ -30,7 +30,7 @@ const Scene: React.FC<{ lines: [Line, Line]; top: number }> = ({ lines, top }) =
       position: "absolute", left: 950 - 330, top: 615, width: 660, height: 80, borderRadius: "50%",
       background: "radial-gradient(ellipse, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 70%)",
     }} />
-    <AbsoluteFill style={{ filter: "brightness(1.1) contrast(1.05)" }}>
+    <AbsoluteFill style={{ filter: "brightness(1.15) contrast(1.05) saturate(1.2)" }}>
       <Cutout {...SOFA} cx={950} top={150} h={500} rim="rgba(150,185,255,.35)" />
     </AbsoluteFill>
     <Vignette strength={0.75} />
